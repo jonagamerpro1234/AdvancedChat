@@ -1,0 +1,77 @@
+package jss.advancedchat;
+
+import java.io.File;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import jss.advancedchat.commands.AdvancedChatCmd;
+import jss.advancedchat.events.ChatListener;
+import jss.advancedchat.utils.UpdateChecker;
+import jss.advancedchat.utils.Utils;
+
+public class AdvancedChat extends JavaPlugin{
+	
+	PluginDescriptionFile jss = getDescription();
+	public String name = this.jss.getName();
+	public String version = this.jss.getVersion();
+	public FileConfiguration config;
+	public File configfile;
+	public Metrics metrics;
+	public String latestversion;
+	public boolean placeholders = false;
+	private CommandSender c= Bukkit.getConsoleSender();
+	
+	public void onEnable() {
+		Utils.getEnable(Utils.getPrefixConsole(), version);
+		saveDefaultConfig();
+		metrics = new Metrics(this);
+		setupConfig();
+		setupCommands();
+		setupEvents();
+		SetupSoftDepends();
+		UpdateChecker update = new UpdateChecker(this);
+		update.Update(c);
+	}
+	
+	public void onDisable() {
+		Utils.getEnable(Utils.getPrefixConsole(), version);
+		this.placeholders = false;
+		metrics = null;
+	}
+	public void setupConfig() {
+		File config = new File(getDataFolder(), "config.yml");
+		if (!config.exists()) {
+			getConfig().options().copyDefaults(true);
+			saveDefaultConfig();
+		}
+	}
+	public void setupCommands() {
+		new AdvancedChatCmd(this);
+	}
+	public void setupEvents() {
+		new ChatListener(this);	
+	}
+	public boolean setupPlaceHolderAPI(){
+		if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+			this.placeholders = true;
+		}
+		return this.placeholders;
+	}
+	public void SetupSoftDepends() {
+		if(setupPlaceHolderAPI()) {
+			Utils.sendColorMessage(c, "&e[&d"+ name +"&e]&5 <|============================================|>");
+			Utils.sendColorMessage(c, Utils.getPrefixConsole() + "&5<| &ePlaceHolderAPI:&b" + " " + placeholders);
+			Utils.sendColorMessage(c, Utils.getPrefixConsole() + "&5<| &eVars PlaceHolderAPI:&a true");
+			Utils.sendColorMessage(c, "&e[&d"+ name +"&e]&5 <|============================================|>");
+		}else {
+			Utils.sendColorMessage(c, "&e[&d"+ name +"&e]&5 <|============================================|>");
+			Utils.sendColorMessage(c, Utils.getPrefixConsole() + "&5<| &ePlaceHolderAPI:&b" + " " + placeholders);
+			Utils.sendColorMessage(c, Utils.getPrefixConsole() + "&5<| &eVars PlaceHolderAPI:&c false");
+			Utils.sendColorMessage(c, "&e[&d"+ name +"&e]&5 <|============================================|>");
+		}		
+	}
+}
