@@ -56,9 +56,15 @@ public class AdvancedChat extends JavaPlugin{
 	public void setupCommands() {
 		new AdvancedChatCmd(this);
 	}
+	
 	public void setupEvents() {
 		new ChatListener(this);	
 	}
+	
+	public boolean getPlaceHolderState() {
+		return this.placeholders;
+	}
+	
 	public boolean setupPlaceHolderAPI(){
 		if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
 			this.placeholders = true;
