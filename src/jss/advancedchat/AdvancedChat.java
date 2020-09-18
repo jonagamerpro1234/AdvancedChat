@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.events.ChatListener;
+import jss.advancedchat.events.JoinListener;
 import jss.advancedchat.utils.PlayerManager;
 import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
@@ -58,6 +59,7 @@ public class AdvancedChat extends JavaPlugin{
 	}
 	
 	public void setupEvents() {
+		new JoinListener(this);
 		new ChatListener(this);	
 	}
 	
