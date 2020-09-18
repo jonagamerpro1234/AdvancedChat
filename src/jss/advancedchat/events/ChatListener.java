@@ -56,7 +56,6 @@ public class ChatListener implements Listener {
 		}	
 	}
 	
-	
 	public String replacePlaceholderAPI(Player p, String message){
 	    String holders = message;
 	    if ((plugin.placeholders) && (PlaceholderAPI.containsPlaceholders(holders))) {

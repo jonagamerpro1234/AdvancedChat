@@ -1,6 +1,8 @@
 package jss.advancedchat;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -10,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.events.ChatListener;
+import jss.advancedchat.utils.PlayerManager;
 import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
 
@@ -24,6 +27,7 @@ public class AdvancedChat extends JavaPlugin{
 	public String latestversion;
 	public boolean placeholders = false;
 	private CommandSender c= Bukkit.getConsoleSender();
+	public List<PlayerManager> pm = new ArrayList<PlayerManager>(); 
 	
 	public void onEnable() {
 		Utils.getEnable(Utils.getPrefixConsole(), version);
