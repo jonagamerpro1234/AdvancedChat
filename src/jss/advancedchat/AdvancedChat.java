@@ -78,4 +78,14 @@ public class AdvancedChat extends JavaPlugin{
 			Utils.sendColorMessage(c, "&e[&d"+ name +"&e]&5 <|============================================|>");
 		}		
 	}
+
+	public List<PlayerManager> getPlayerManager() {
+		return pm;
+	}
+
+	public void setPlayerManager(List<PlayerManager> pm) {
+		this.pm = pm;
+	}
+	
+	
 }
