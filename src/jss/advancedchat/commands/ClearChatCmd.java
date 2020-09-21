@@ -1,5 +1,6 @@
 package jss.advancedchat.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,6 +18,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 public class ClearChatCmd implements CommandExecutor{
 
 	private AdvancedChat plugin;
+	private CommandSender c = Bukkit.getConsoleSender();
 	
 	public ClearChatCmd(AdvancedChat plugin) {
 		this.plugin = plugin;
@@ -26,6 +28,7 @@ public class ClearChatCmd implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		FileConfiguration config = plugin.getConfig();
 		if(!(sender instanceof Player)) {
+			Utils.sendColorMessage(c,  Utils.getPrefixConsole() +" "+ config.getString("AdvancedChat.Error-Console"));
 			return false;
 		}
 		Player j = (Player) sender;

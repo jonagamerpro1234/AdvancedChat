@@ -1,7 +1,10 @@
 # |    AdvancedChat     |
 # | By jonagamerpro1234 |
-# |     Version 1.2     |
+# |     Version 1.3     |
 # |_____________________|
+#
+# |Type| the types are the modes that exist according to the function they can be different or the same these are all the types that exist 
+# [Default | Custom | Group ]  , this options only works on certain options not all [Normal |Experimental]
 #
 Config:
   Update:
@@ -30,21 +33,45 @@ Default-Format: '<&f<name>&f> &f<msg>'
 #
 # | Custom |
 # | here you can customize the chat in a general way that affects both ranks, groups, and has all players |
+# | in custom we have a new function which is hover text this option only works if the type is in experimental its format is
 #
-Custom-Format: '&6[&c<name>&6]&8 &7<msg>'
+# |this option only works in experimental to return to normal the chat change the type to [Normal]    
+#    HoverEvent:  
+#      Text: 'hello <name>'
+#      Color: AQUA
+#      Mode: Text there are three different modes which are [ Text | Entity | Item] the second and third are for testing, they can be removed at any time
+Custom-Format:
+  Text: '&6[&c<name>&6]&8 &7<msg>'
+  Type: Normal
+  HoverEvent:
+    Text: 'hello <name>'
+    Color: AQUA # You cannot use the same color format as in the chat, here you have to put the specific name of the color
+    Mode: Text
 #
 # | Groups |
 # | here you can customize the chat of different groups or ranks in a more specific way |
 # | with this format you can add more groups
+# | in group we have a new function which is hover text this option only works if the type is in experimental its format is
 # Groups:
 #   Default:
 #    Format: '&9|&e<name>&9|&8> &7<msg>'
 #    Permission: 'advancedchat.group.default'
+#    Type: Experimental [Default | Type: Normal ]
+#
+# |this option only works in experimental to return to normal the chat change the type to [Normal]    
+#    HoverEvent:  
+#      Text: 'hello <name>'
+#      Color: AQUA
 #
 Groups:
   Default:
     Format: '&9|&e<name>&9|&8> &7<msg>'
     Permission: 'advancedchat.group.default'
+    Type: Normal
+    HoverEvent:
+      Text: 'hello <name>'
+      Color: AQUA # You cannot use the same color format as in the chat, here you have to put the specific name of the color
+      Mode: Text
   Admin:
     Format: '&9|&e<name>&9|&8> &e<msg>'
     Permission: 'advancedchat.group.admin'
@@ -53,7 +80,7 @@ Groups:
     Permission: 'advancedchat.group.owner'
 #
 # |Translation of messages from AdvancedChat|
-# |Version: 1.2|
+# |Version: 1.3|
 #
 AdvancedChat:
   ClearChat:

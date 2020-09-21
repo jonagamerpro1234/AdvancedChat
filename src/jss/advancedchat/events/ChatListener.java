@@ -1,4 +1,4 @@
-package jss.advancedchat.events;
+	package jss.advancedchat.events;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
@@ -40,13 +40,26 @@ public class ChatListener implements Listener {
 			}else if(config.getString(path).equals("Group")) {
 				for(String key : config.getConfigurationSection("Groups").getKeys(false)) {
 					
+					String pathtype = config.getString("Groups."+key+".Type");
 					String format = config.getString("Groups."+key+".Format");
 					String perm = config.getString("Groups."+key+".Permission");
+					String hovertext = config.getString("Groups."+key+"HoverEvent.Text");
+					String hovercolor = config.getString("Groups."+key+"HoverEvent.Color");
+					String hovermode = config.getString("Groups."+key+"HoverEvent.Mode");
 					format = replacePlaceholderAPI(j, format);
 					format = getAllVars(j, format);
-					if(j.hasPermission(perm)) {
-						e.setFormat(Utils.color(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage())));					
+					if(config.getString(pathtype).equals("Normal")) {
+						if(j.hasPermission(perm)) {
+							e.setFormat(Utils.color(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage())));					
+						}
+					}else if(config.getString(pathtype).equals("Experimental")) {
+						if(j.hasPermission(perm)) {
+							//e.setFormat(Utils.color(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage())));
+							String msg = Utils.sendTextComponent(j, getActionHoverType(hovermode), Utils.color(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage())), hovertext, hovercolor);
+							e.setFormat(msg);
+						}
 					}
+
 				}
 			}else {
 				e.setFormat(Utils.color(config.getString("Default-Format").replace("<name>", j.getName()).replace("<msg>", e.getMessage())));
