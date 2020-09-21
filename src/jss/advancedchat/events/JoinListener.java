@@ -2,7 +2,7 @@ package jss.advancedchat.events;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.UpdateChecker;
-import jss.advancedchat.utils.UtilsEvents;
+import jss.advancedchat.utils.EventsUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,7 +16,7 @@ public class JoinListener
   public JoinListener(AdvancedChat plugin)
   {
     this.plugin = plugin;
-    UtilsEvents.getManager().registerEvents(this, plugin);
+    EventsUtils.getManager().registerEvents(this, plugin);
   }
   
   @EventHandler

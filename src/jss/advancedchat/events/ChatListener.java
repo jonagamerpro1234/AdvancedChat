@@ -12,7 +12,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Utils;
-import jss.advancedchat.utils.UtilsEvents;
+import jss.advancedchat.utils.EventsUtils;
 import me.clip.placeholderapi.PlaceholderAPI;
 
 public class ChatListener implements Listener {
@@ -21,7 +21,7 @@ public class ChatListener implements Listener {
 	
 	public ChatListener(AdvancedChat plugin) {
 		this.plugin = plugin;
-		UtilsEvents.getManager().registerEvents(this, plugin);
+		EventsUtils.getManager().registerEvents(this, plugin);
 	}
 	
 	@EventHandler

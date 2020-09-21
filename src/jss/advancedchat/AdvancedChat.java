@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.events.ChatListener;
 import jss.advancedchat.events.JoinListener;
+import jss.advancedchat.utils.EventsUtils;
 import jss.advancedchat.utils.PlayerManager;
 import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
@@ -28,7 +29,8 @@ public class AdvancedChat extends JavaPlugin{
 	public String latestversion;
 	public boolean placeholders = false;
 	private CommandSender c= Bukkit.getConsoleSender();
-	public List<PlayerManager> pm = new ArrayList<PlayerManager>(); 
+	public List<PlayerManager> pm = new ArrayList<PlayerManager>();
+	private boolean debug = false;
 	
 	public void onEnable() {
 		Utils.getEnable(Utils.getPrefixConsole(), version);
@@ -61,6 +63,7 @@ public class AdvancedChat extends JavaPlugin{
 	public void setupEvents() {
 		new JoinListener(this);
 		new ChatListener(this);	
+		EventsUtils.runAutoClearAction(this);
 	}
 	
 	public boolean getPlaceHolderState() {
@@ -94,6 +97,8 @@ public class AdvancedChat extends JavaPlugin{
 	public void setPlayerManager(List<PlayerManager> pm) {
 		this.pm = pm;
 	}
-	
-	
+
+	public boolean isDebug() {
+		return debug;
+	}	
 }
