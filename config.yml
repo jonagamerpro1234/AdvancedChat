@@ -19,6 +19,9 @@ Settings:
   Use-Default-Prefix: true 
   Prefix: '&6[&bMy Server&6]&7'
   ChatFormat-Type: Default
+  ClearChat:
+    AutoClear: true
+    Tick: 24000
 #
 # | Default |
 # | This section serves as an emergency backup in case any of the other functions do not work properly. |
@@ -53,6 +56,9 @@ Groups:
 # |Version: 1|
 #
 AdvancedChat:
+  ClearChat:
+    Server: '&7The chat has been cleaned'
+    Player: '&7The chat has been cleaned by &b[&e<name>&b]'
   No-Permission: '&cYou dont have permission to do that!'
   No-Permission-Label: 'Ask the server owner or an administrator for help for more information.'
   Error-Args: '&cUnknown Arguments'
