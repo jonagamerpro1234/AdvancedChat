@@ -62,7 +62,6 @@ public class AdvancedChatCmd implements CommandExecutor{
 				Utils.sendColorMessage(j, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 				return true;
 			}
-			
 			if(args[0].equalsIgnoreCase("reload")) {
 				if(!(j.hasPermission("AdvancedChat.Commands.Reload")) || !(j.isOp())) {
 					TextComponent msg = new TextComponent();
@@ -70,8 +69,7 @@ public class AdvancedChatCmd implements CommandExecutor{
 					msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT , new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
 					j.spigot().sendMessage(msg);
 					return true;
-				}
-				
+				}	
 				plugin.reloadConfig();
 				if(config.getString("Settings.Use-Default-Prefix").equals("true")) {
 					Utils.sendColorMessage(j, Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Reload"));

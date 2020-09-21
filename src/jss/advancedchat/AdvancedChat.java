@@ -11,6 +11,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import jss.advancedchat.commands.AdvancedChatCmd;
+import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.events.ChatListener;
 import jss.advancedchat.events.JoinListener;
 import jss.advancedchat.utils.EventsUtils;
@@ -58,6 +59,7 @@ public class AdvancedChat extends JavaPlugin{
 	}
 	public void setupCommands() {
 		new AdvancedChatCmd(this);
+		new ClearChatCmd(this);
 	}
 	
 	public void setupEvents() {

@@ -1,6 +1,6 @@
 # |    AdvancedChat     |
 # | By jonagamerpro1234 |
-# |     Version 1.1     |
+# |     Version 1.2     |
 # |_____________________|
 #
 Config:
@@ -53,7 +53,7 @@ Groups:
     Permission: 'advancedchat.group.owner'
 #
 # |Translation of messages from AdvancedChat|
-# |Version: 1|
+# |Version: 1.2|
 #
 AdvancedChat:
   ClearChat:
