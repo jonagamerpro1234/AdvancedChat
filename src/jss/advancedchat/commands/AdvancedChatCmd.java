@@ -86,7 +86,7 @@ public class AdvancedChatCmd implements CommandExecutor{
 			return true;
 		}
 		if(config.getString("Settings.Use-Default-Prefix").equals("true")) {
-			Utils.sendColorMessage(j, Utils.getPrefixPlayer() + " " + config.getString("AdvencedChat.Usage-Cmd"));
+			Utils.sendColorMessage(j, Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Help-Cmd"));
 		}else if(config.getString("Settings.Use-Default-Prefix").equals("false")) {
 			Utils.sendColorMessage(j, config.getString("Settings.Prefix") + " " + config.getString("AdvancedChat.Help-Cmd"));
 		}

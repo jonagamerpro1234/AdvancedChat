@@ -64,7 +64,8 @@ public class AdvancedChat extends JavaPlugin{
 	
 	public void setupEvents() {
 		new JoinListener(this);
-		new ChatListener(this);	
+		//new ChatListener(this);
+		new TestEvents(this);
 		EventsUtils.runAutoClearAction(this);
 	}
 	

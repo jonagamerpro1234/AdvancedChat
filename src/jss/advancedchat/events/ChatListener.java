@@ -13,7 +13,10 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.EventsUtils;
+import jss.advancedchat.utils.Reflection;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.TextComponent;
 
 public class ChatListener implements Listener {
 	
@@ -28,15 +31,29 @@ public class ChatListener implements Listener {
 	public void ChatFormat(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfig();
 		Player j = e.getPlayer();
-		try {
+		//try {
 			String path = "Settings.ChatFormat-Type";
 			if(config.getString(path).equals("Default")) {
 				e.setFormat("<"+j.getName()+">" + " " + e.getMessage());
 			}else if(config.getString(path).equals("Custom")) {
-				String format = config.getString("Custom-Format");
+				String format = config.getString("Custom-Format.Text");
+				String pathtype = "Custom-Format.Type";
+				String hovertext = config.getString("Custom-Format.HoverEvent.Text");
+				String hovercolor = config.getString("Custom-Format.HoverEvent.Color");
+				String hovermode = config.getString("Custom-Format.HoverEvent.Mode");
 				format = replacePlaceholderAPI(j, format);
 				format = getAllVars(j, format);
-				e.setFormat(Utils.color(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage())));
+				format = format.replace("<msg>", e.getMessage());
+				//format = format.replace("<name>", FormatChatHover(j, hovertext, hovermode, hovercolor));
+				format = Utils.color(format);
+				if(config.getString(pathtype).equals("Normal")) {
+						e.setFormat(Utils.color(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage())));					
+				}else if(config.getString(pathtype).equals("Experimental")) {
+						//e.setFormat(Utils.color(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage())));
+						e.setFormat(format.replace("<msg>", e.getMessage()));
+						Reflection.sendIChatBaseComponent(plugin, j, format, hovertext, hovermode);
+
+				}
 			}else if(config.getString(path).equals("Group")) {
 				for(String key : config.getConfigurationSection("Groups").getKeys(false)) {
 					
@@ -48,15 +65,16 @@ public class ChatListener implements Listener {
 					String hovermode = config.getString("Groups."+key+"HoverEvent.Mode");
 					format = replacePlaceholderAPI(j, format);
 					format = getAllVars(j, format);
+					format = format.replace("<msg>", e.getMessage());
 					if(config.getString(pathtype).equals("Normal")) {
 						if(j.hasPermission(perm)) {
 							e.setFormat(Utils.color(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage())));					
 						}
 					}else if(config.getString(pathtype).equals("Experimental")) {
-						if(j.hasPermission(perm)) {
-							//e.setFormat(Utils.color(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage())));
-							String msg = Utils.sendTextComponent(j, getActionHoverType(hovermode), Utils.color(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage())), hovertext, hovercolor);
-							e.setFormat(msg);
+						if(j.hasPermission(perm)) {		
+							e.setFormat(null);
+							
+							Reflection.sendIChatBaseComponent(plugin, j, format, hovertext, hovermode);
 						}
 					}
 
@@ -65,9 +83,18 @@ public class ChatListener implements Listener {
 				e.setFormat(Utils.color(config.getString("Default-Format").replace("<name>", j.getName()).replace("<msg>", e.getMessage())));
 			}
 			
-		}catch(NullPointerException ex) {	
-		}	
+		/*}catch(NullPointerException ex) {	
+		}	*/
 	}
+	
+	public String FormatChatHover(Player player, String hovertext, String hovermode, String hovercolor) {
+		TextComponent msg = new TextComponent();
+		msg.setText(player.getName());
+		msg.setColor(ChatColor.valueOf(hovercolor));
+		//msg.setHoverEvent(new HoverEvent(HoverEvent.Action.valueOf(getActionHoverType(hovermode)) , new ComponentBuilder(hovertext).create()));
+		return null;
+	}
+	
 	
 	public String replacePlaceholderAPI(Player p, String message){
 	    String holders = message;
@@ -77,35 +104,7 @@ public class ChatListener implements Listener {
 	    return holders;
 	}
 	
-	public String getActionHoverType(String arg) {
-		
-		String temp = arg;
-		
-		if(temp.equalsIgnoreCase("text")) {
-			return "SHOW_TEXT";
- 		}
-		if(temp.equalsIgnoreCase("item")) {
-			return "SHOW_ITEM";
-		}
-		if(temp.equalsIgnoreCase("entity")) {
-			return "SHOW_ENTITY";
-		}
-		
-		return null;
-	}
-	
-	public String getActionClickType(String arg) {
-		
-		String temp = arg;
-		
-		if(temp.equalsIgnoreCase("url")) {
-			return "OPER_URL";
- 		}
-		if(temp.equalsIgnoreCase("cmd")) {
-			return "RUN_COMMAND";
-		}
-		return null;
-	}
+
 	
 	public String getAllVars(Player j, String msg) {	
 		int playersOnline = 0;

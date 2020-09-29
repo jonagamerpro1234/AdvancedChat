@@ -41,6 +41,7 @@ public class ClearChatCmd implements CommandExecutor{
 			return true;
 		}
 		EventsUtils.getAutoClearAction(plugin,j);
+		
 		return true;
 	}	
 	
