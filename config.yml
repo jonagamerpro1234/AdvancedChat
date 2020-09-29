@@ -44,8 +44,7 @@ Custom-Format:
   Text: '&6[&c<name>&6]&8 &7<msg>'
   Type: Normal
   HoverEvent:
-    Text: 'hello <name>'
-    Color: AQUA # You cannot use the same color format as in the chat, here you have to put the specific name of the color
+    Text: '&ahello &d<name>'
     Mode: Text
 #
 # | Groups |
@@ -69,8 +68,7 @@ Groups:
     Permission: 'advancedchat.group.default'
     Type: Normal
     HoverEvent:
-      Text: 'hello <name>'
-      Color: AQUA # You cannot use the same color format as in the chat, here you have to put the specific name of the color
+      Text: '&6hello &b<name>'
       Mode: Text
   Admin:
     Format: '&9|&e<name>&9|&8> &e<msg>'

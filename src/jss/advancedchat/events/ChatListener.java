@@ -13,9 +13,11 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.EventsUtils;
-import jss.advancedchat.utils.Reflection;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
 public class ChatListener implements Listener {
@@ -31,7 +33,7 @@ public class ChatListener implements Listener {
 	public void ChatFormat(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfig();
 		Player j = e.getPlayer();
-		//try {
+		try {
 			String path = "Settings.ChatFormat-Type";
 			if(config.getString(path).equals("Default")) {
 				e.setFormat("<"+j.getName()+">" + " " + e.getMessage());
@@ -39,30 +41,34 @@ public class ChatListener implements Listener {
 				String format = config.getString("Custom-Format.Text");
 				String pathtype = "Custom-Format.Type";
 				String hovertext = config.getString("Custom-Format.HoverEvent.Text");
-				String hovercolor = config.getString("Custom-Format.HoverEvent.Color");
 				String hovermode = config.getString("Custom-Format.HoverEvent.Mode");
 				format = replacePlaceholderAPI(j, format);
 				format = getAllVars(j, format);
-				format = format.replace("<msg>", e.getMessage());
+				format = format.replace("<msg>", e.getMessage());	
+				hovertext = replacePlaceholderAPI(j, hovertext);
+				hovertext = getAllVars(j, hovertext);
 				//format = format.replace("<name>", FormatChatHover(j, hovertext, hovermode, hovercolor));
 				format = Utils.color(format);
 				if(config.getString(pathtype).equals("Normal")) {
 						e.setFormat(Utils.color(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage())));					
 				}else if(config.getString(pathtype).equals("Experimental")) {
-						//e.setFormat(Utils.color(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage())));
-						e.setFormat(format.replace("<msg>", e.getMessage()));
-						Reflection.sendIChatBaseComponent(plugin, j, format, hovertext, hovermode);
-
+				TextComponent tc = new TextComponent(e.getFormat());
+				
+				HoverEvent hover = new HoverEvent(HoverEvent.Action.valueOf(getActionHoverType(hovermode)), new ComponentBuilder(Utils.color(hovertext)).create());
+				tc.setHoverEvent(hover);
+				tc.setText(format);
+				e.setCancelled(true);
+				sendAllPlayer(tc);
 				}
 			}else if(config.getString(path).equals("Group")) {
 				for(String key : config.getConfigurationSection("Groups").getKeys(false)) {
-					
 					String pathtype = config.getString("Groups."+key+".Type");
 					String format = config.getString("Groups."+key+".Format");
 					String perm = config.getString("Groups."+key+".Permission");
 					String hovertext = config.getString("Groups."+key+"HoverEvent.Text");
-					String hovercolor = config.getString("Groups."+key+"HoverEvent.Color");
 					String hovermode = config.getString("Groups."+key+"HoverEvent.Mode");
+					hovertext = replacePlaceholderAPI(j, hovertext);
+					hovertext = getAllVars(j, hovertext);
 					format = replacePlaceholderAPI(j, format);
 					format = getAllVars(j, format);
 					format = format.replace("<msg>", e.getMessage());
@@ -71,20 +77,56 @@ public class ChatListener implements Listener {
 							e.setFormat(Utils.color(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage())));					
 						}
 					}else if(config.getString(pathtype).equals("Experimental")) {
-						if(j.hasPermission(perm)) {		
-							e.setFormat(null);
-							
-							Reflection.sendIChatBaseComponent(plugin, j, format, hovertext, hovermode);
-						}
+						if(j.hasPermission(perm)) {}
+						TextComponent tc = new TextComponent(e.getFormat());
+						HoverEvent hover = new HoverEvent(HoverEvent.Action.valueOf(getActionHoverType(hovermode)), new ComponentBuilder(Utils.color(hovertext)).create());
+						tc.setHoverEvent(hover);
+						tc.setText(format);
+						e.setCancelled(true);
+						sendAllPlayer(tc);
 					}
-
 				}
 			}else {
 				e.setFormat(Utils.color(config.getString("Default-Format").replace("<name>", j.getName()).replace("<msg>", e.getMessage())));
 			}
 			
-		/*}catch(NullPointerException ex) {	
-		}	*/
+		}catch(NullPointerException ex) {	}	
+	}
+	
+	public void sendAllPlayer(BaseComponent component) {
+		for(Player player : Bukkit.getOnlinePlayers()) {
+			player.spigot().sendMessage(component);
+		}
+	}
+	
+	public String getActionHoverType(String arg) {
+		
+		String temp = arg;
+		
+		if(temp.equalsIgnoreCase("text")) {
+			return "SHOW_TEXT";
+ 		}
+		if(temp.equalsIgnoreCase("item")) {
+			return "SHOW_ITEM";
+		}
+		if(temp.equalsIgnoreCase("entity")) {
+			return "SHOW_ENTITY";
+		}
+		
+		return null;
+	}
+	
+	public String getActionClickType(String arg) {
+		
+		String temp = arg;
+		
+		if(temp.equalsIgnoreCase("url")) {
+			return "OPER_URL";
+ 		}
+		if(temp.equalsIgnoreCase("cmd")) {
+			return "RUN_COMMAND";
+		}
+		return null;
 	}
 	
 	public String FormatChatHover(Player player, String hovertext, String hovermode, String hovercolor) {
