@@ -46,7 +46,7 @@ public class AdvancedChat extends JavaPlugin{
 	}
 	
 	public void onDisable() {
-		Utils.getEnable(Utils.getPrefixConsole(), version);
+		Utils.getDisable(Utils.getPrefixConsole(), version);
 		this.placeholders = false;
 		metrics = null;
 	}
