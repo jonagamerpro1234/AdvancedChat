@@ -28,7 +28,14 @@ public class JoinListener extends EventsUtils implements Listener {
 		Player j = e.getPlayer();
 		
 		FileConfiguration config = playerdata.getConfig();
-		config.set("Hola", 1);
+		
+		config.createSection("Players-Data");
+		config.set(j.getName()+".UUID", j.getUniqueId().toString());
+		config.set(j.getName()+".Color-Chat", "NONE");
+		config.set(j.getName()+".Mute", false);
+		config.set(j.getName()+".Mute-Reason", "none");
+		config.set(j.getName()+".Mute-Time", "none");
+		
 	}
 	
 	@EventHandler
