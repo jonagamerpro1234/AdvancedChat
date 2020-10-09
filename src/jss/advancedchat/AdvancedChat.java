@@ -15,6 +15,7 @@ import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.events.ChatListener;
 import jss.advancedchat.events.JoinListener;
 import jss.advancedchat.utils.EventsUtils;
+import jss.advancedchat.utils.FileManager;
 import jss.advancedchat.utils.PlayerManager;
 import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
@@ -32,6 +33,8 @@ public class AdvancedChat extends JavaPlugin{
 	private CommandSender c= Bukkit.getConsoleSender();
 	public List<PlayerManager> pm = new ArrayList<PlayerManager>();
 	private boolean debug = false;
+	private FileManager filemanager;
+	private PlayerData playerdata = new  PlayerData(this, "PlayerData.yml");
 	
 	public void onEnable() {
 		Utils.getEnable(Utils.getPrefixConsole(), version);
@@ -40,6 +43,9 @@ public class AdvancedChat extends JavaPlugin{
 		setupConfig();
 		setupCommands();
 		setupEvents();
+		filemanager = new FileManager(this);
+		filemanager.createVoidFolder("Data");
+		playerdata.create();
 		SetupSoftDepends();
 		UpdateChecker update = new UpdateChecker(this);
 		update.Update(c);
@@ -57,6 +63,7 @@ public class AdvancedChat extends JavaPlugin{
 			saveDefaultConfig();
 		}
 	}
+	
 	public void setupCommands() {
 		new AdvancedChatCmd(this);
 		new ClearChatCmd(this);
@@ -68,6 +75,11 @@ public class AdvancedChat extends JavaPlugin{
 		
 		EventsUtils.runAutoClearAction(this);
 	}
+	
+	public PlayerData getPlayerData() {
+		return this.playerdata;
+	}
+	
 	
 	public boolean getPlaceHolderState() {
 		return this.placeholders;
@@ -92,6 +104,7 @@ public class AdvancedChat extends JavaPlugin{
 			Utils.sendColorMessage(c, "&e[&d"+ name +"&e]&5 <|============================================|>");
 		}		
 	}
+	
 
 	public List<PlayerManager> getPlayerManager() {
 		return pm;

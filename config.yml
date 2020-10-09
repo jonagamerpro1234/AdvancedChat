@@ -18,6 +18,9 @@ Config:
 # [Default] use default chat by minecraft 
 # [Custom] use the chat defined in [Custom-Format] 
 # [Group] use the chat defined in [Group.<name>] but you need to add the permission that you defined for the group
+# |ClearChat|
+#   [AutoClear] you can activate the automatic cleaning of the chat according to the number of ticks [Default | true]
+#   [Ticks] here you can define the time that the actions are automatically executed [Default | 24000], 24000 tick = 20 min
 Settings:
   Use-Default-Prefix: true 
   Prefix: '&6[&bMy Server&6]&7'
@@ -28,7 +31,6 @@ Settings:
 #
 # | Default |
 # | This section serves as an emergency backup in case any of the other functions do not work properly. |
-#
 Default-Format: '<&f<name>&f> &f<msg>'
 #
 # | Custom |
@@ -77,6 +79,31 @@ Groups:
     Format: '&9|&e<name>&9|&8> &c<msg>'
     Permission: 'advancedchat.group.owner'
 #
+# |Filter Chat|
+# |here you can filter the unwanted words on your server and have a little more control over the chat
+#
+# [Use-Custom-Msg] will use a custom message found in the [Message] section instead of using [Form Of Censorship] [Default | false]
+# [Message] here you can define a personalized message that will be sent to the player
+# [Form-Of-Censorship] this is the format that the word will be censored, for example [noob = ****] this will depend on the number of characters that the word has
+# [Delay] It is the waiting time that the message will have before it is sent so that spam does not form in the player's chat [Defalt | 100 ]
+#
+# |The format is very simple, you just have to add the word you want to censor to the list
+#  Words:
+#    - 'noob'
+#    - 'stupid'
+#    - '<word>'
+#
+Filter-Chat:
+  Enabled: true
+  Use-Custom-Msg: false
+  Message: 'you cannot use this word, it is blocked!'
+  Form-Of-Censorship: '*'
+  Delay: 100
+  Words:
+    - 'noob'
+    - 'stupid'
+    - 'fuck'
+#
 # |Translation of messages from AdvancedChat|
 # |Version: 1.3|
 #
@@ -95,3 +122,9 @@ AdvancedChat:
     - '&5> &b/AdvancedChat &6help &7show this same message'
     - '&5> &b/AdvancedChat &6reload &7reload the plugin files'
     - '&5> &b/AdvancedChat &6info &7shows information about the plugin' 
+#
+# This is the end of the configuration ... [-_-] more things coming soon
+# 
+# | Config File
+# | Version 1.3.1
+#

@@ -93,6 +93,20 @@ public class ChatListener implements Listener {
 		}catch(NullPointerException ex) {	}	
 	}
 	
+	
+	@SuppressWarnings("unused")
+	@EventHandler
+	public void DenyWordChat(AsyncPlayerChatEvent e) {
+		FileConfiguration config = plugin.getConfig();
+		try {
+			
+			
+		}catch(NullPointerException ex) {
+				
+			}
+		
+	}
+	
 	public void sendAllPlayer(BaseComponent component) {
 		for(Player player : Bukkit.getOnlinePlayers()) {
 			player.spigot().sendMessage(component);

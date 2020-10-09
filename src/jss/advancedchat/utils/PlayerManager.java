@@ -11,8 +11,6 @@ public class PlayerManager {
 	UUID uuid;
 	boolean mute;
 	
-	
-	
 	public PlayerManager(String name, Player player, UUID uuid, boolean mute) {
 		this.name = name;
 		this.player = player;
