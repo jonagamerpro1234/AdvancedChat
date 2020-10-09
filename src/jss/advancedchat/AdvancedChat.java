@@ -35,10 +35,20 @@ public class AdvancedChat extends JavaPlugin{
 	private boolean debug = false;
 	private FileManager filemanager;
 	private PlayerData playerdata = new  PlayerData(this, "PlayerData.yml");
+	public String nmsversion;
+	public boolean uselegacyversion = false;
 	
 	public void onEnable() {
 		Utils.getEnable(Utils.getPrefixConsole(), version);
 		saveDefaultConfig();
+        nmsversion = Bukkit.getServer().getClass().getPackage().getName();
+        nmsversion = nmsversion.substring(nmsversion.lastIndexOf(".") + 1);
+        if (nmsversion.equalsIgnoreCase("v1_8_R3")) { 
+        	uselegacyversion = true;
+        	if(uselegacyversion == true) {
+        		Utils.sendColorMessage(c, Utils.getPrefixConsole() + " " + "&7Use 1.8_R3 disable method 1.16");
+        	}
+        }
 		metrics = new Metrics(this);
 		setupConfig();
 		setupCommands();
@@ -55,6 +65,7 @@ public class AdvancedChat extends JavaPlugin{
 		Utils.getDisable(Utils.getPrefixConsole(), version);
 		this.placeholders = false;
 		metrics = null;
+		uselegacyversion = false;
 	}
 	public void setupConfig() {
 		File config = new File(getDataFolder(), "config.yml");
