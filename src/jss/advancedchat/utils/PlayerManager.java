@@ -6,24 +6,24 @@ import org.bukkit.entity.Player;
 
 public class PlayerManager {
 	
-	String name;
 	Player player;
 	UUID uuid;
 	boolean mute;
+	String color;
 	
-	public PlayerManager(String name, Player player, UUID uuid, boolean mute) {
-		this.name = name;
+	public PlayerManager(Player player, UUID uuid, boolean mute, String color) {
 		this.player = player;
 		this.uuid = uuid;
 		this.mute = mute;
+		this.color = color;
 	}
 	
-	public String getName() {
-		return name;
+	public String getColor() {
+		return color;
 	}
-	
-	public void setName(String name) {
-		this.name = name;
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 	
 	public Player getPlayer() {

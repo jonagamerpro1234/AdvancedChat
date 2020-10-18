@@ -3,15 +3,19 @@ package jss.advancedchat;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
+import jss.advancedchat.commands.MuteCmd;
+import jss.advancedchat.commands.UnMuteCmd;
 import jss.advancedchat.events.ChatListener;
 import jss.advancedchat.events.JoinListener;
 import jss.advancedchat.utils.EventsUtils;
@@ -31,12 +35,13 @@ public class AdvancedChat extends JavaPlugin{
 	public String latestversion;
 	public boolean placeholders = false;
 	private CommandSender c= Bukkit.getConsoleSender();
-	public List<PlayerManager> pm = new ArrayList<PlayerManager>();
+	public ArrayList<PlayerManager> playermanager = new ArrayList<>();
 	private boolean debug = false;
 	private FileManager filemanager;
 	private PlayerData playerdata = new  PlayerData(this, "PlayerData.yml");
 	public String nmsversion;
 	public boolean uselegacyversion = false;
+	public List<String> mute = new ArrayList<String>();
 	
 	public void onEnable() {
 		Utils.getEnable(Utils.getPrefixConsole(), version);
@@ -78,6 +83,8 @@ public class AdvancedChat extends JavaPlugin{
 	public void setupCommands() {
 		new AdvancedChatCmd(this);
 		new ClearChatCmd(this);
+		new MuteCmd(this);
+		new UnMuteCmd(this);
 	}
 	
 	public void setupEvents() {
@@ -96,6 +103,29 @@ public class AdvancedChat extends JavaPlugin{
 		return this.placeholders;
 	}
 	
+
+
+	public PlayerManager getPlayerList(String arg) {
+		for(int i = 0; i < playermanager.size(); i++) {
+			if(playermanager.get(i).getPlayer().getName().equals(arg)) {
+				return playermanager.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public void removePlayerList(String arg) {
+		for(int i = 0; i < playermanager.size(); i++) {
+			if(playermanager.get(i).getPlayer().getName().equals(arg)) {
+				playermanager.remove(i);
+			}
+		}
+	}
+	
+	public void addPlayerList(Player player, UUID uuid, boolean mute, String color) {
+		playermanager.add(new PlayerManager(player, uuid, mute, color));
+	}
+
 	public boolean setupPlaceHolderAPI(){
 		if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
 			this.placeholders = true;
@@ -116,15 +146,6 @@ public class AdvancedChat extends JavaPlugin{
 		}		
 	}
 	
-
-	public List<PlayerManager> getPlayerManager() {
-		return pm;
-	}
-
-	public void setPlayerManager(List<PlayerManager> pm) {
-		this.pm = pm;
-	}
-
 	public boolean isDebug() {
 		return debug;
 	}	

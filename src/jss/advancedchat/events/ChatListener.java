@@ -2,6 +2,7 @@
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -9,8 +10,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.PlayerData;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.EventsUtils;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -93,19 +96,66 @@ public class ChatListener implements Listener {
 		}catch(NullPointerException ex) {	}	
 	}
 	
-	
-	@SuppressWarnings("unused")
 	@EventHandler
 	public void DenyWordChat(AsyncPlayerChatEvent e) {
+		Player j = e.getPlayer();
 		FileConfiguration config = plugin.getConfig();
 		try {
+			String path = "Filter-Chat.";
+			List<String> list = config.getStringList(path+"BadWords");
+			String censorship = config.getString(path+"Form-Of-Censorship");
+			String msg = config.getString(path+"Message");
+			String usemsg = config.getString(path+"Use-Custom-Msg");
+			int time = config.getInt(path+"Delay");
 			
+			
+			
+			if(config.getString(path+"Enabled").equals("true")) {
+				
+				if(usemsg.equals("true")) {
+					for(int i = 0; i < list.size(); i++) {
+						
+						BukkitScheduler scheduler = plugin.getServer().getScheduler();
+						scheduler.scheduleSyncDelayedTask(plugin, new Runnable() {
+							@Override
+							public void run() {
+									
+							}
+						}, 20L * time);
+					}
+				}else if(usemsg.equals("false")){
+					for(int i = 0; i < list.size(); i++) {
+						
+					}
+				}
+
+			}
+
 			
 		}catch(NullPointerException ex) {
 				
-			}
+		}
 		
 	}
+	
+	@EventHandler
+	public void MutePlayer(AsyncPlayerChatEvent e) {
+		PlayerData playerdata = plugin.getPlayerData();
+		FileConfiguration config = playerdata.getConfig();
+		Player j = e.getPlayer();
+		
+		for(String key : config.getConfigurationSection("Players-Data").getKeys(false)) {
+			String path = "Players-Data."+key+".Mute";
+			for(String s : plugin.mute) {
+				if(s.contains(j.getName())) {
+					if(config.getString(path).equals("true")) {
+						e.setCancelled(true);
+					}
+				}
+			}
+		}
+	}
+	
 	
 	public void sendAllPlayer(BaseComponent component) {
 		for(Player player : Bukkit.getOnlinePlayers()) {

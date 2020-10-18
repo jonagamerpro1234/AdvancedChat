@@ -2,7 +2,6 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>AdvancedChat</groupId>
   <artifactId>AdvancedChat</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   
   <repositories>
 	<repository>
@@ -21,12 +20,6 @@
 		<version>2.10.0</version>
         <scope>provided</scope>
 	</dependency>
-    <dependency>
-    	<groupId>org.spigotmc</groupId>
-    	<artifactId>spigot-api</artifactId>
-    	<version>1.16.3-R0.1-SNAPSHOT</version>
-    	<scope>provided</scope>
-    </dependency>
     <dependency>
     	<groupId>org.spigotmc</groupId>
     	<artifactId>spigot-api</artifactId>
@@ -55,4 +48,5 @@
       </plugin>
     </plugins>
   </build>
+  <version>1.4.0</version>
 </project>

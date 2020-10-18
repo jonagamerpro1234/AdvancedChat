@@ -49,6 +49,16 @@ Custom-Format:
     Text: '&ahello &d<name>'
     Mode: Text
 #
+# |World Chat|
+# |A chat system that can separate the chat by regions or worlds as needed or you can also let the chat be global
+# |
+#
+World-Chat:
+  Enabled: true
+  World-List:
+    World:
+      Type: Global
+#
 # | Groups |
 # | here you can customize the chat of different groups or ranks in a more specific way |
 # | with this format you can add more groups
@@ -98,8 +108,8 @@ Filter-Chat:
   Use-Custom-Msg: false
   Message: 'you cannot use this word, it is blocked!'
   Form-Of-Censorship: '*'
-  Delay: 100
-  Words:
+  Delay: 5
+  BadWords:
     - 'noob'
     - 'stupid'
     - 'fuck'
@@ -122,6 +132,9 @@ AdvancedChat:
     - '&5> &b/AdvancedChat &6help &7show this same message'
     - '&5> &b/AdvancedChat &6reload &7reload the plugin files'
     - '&5> &b/AdvancedChat &6info &7shows information about the plugin' 
+  Mute-Player: ''
+  UnMute-Player: ''
+  Alert-Mute: ''
 #
 # This is the end of the configuration ... [-_-] more things coming soon
 # 

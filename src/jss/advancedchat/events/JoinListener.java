@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class JoinListener extends EventsUtils implements Listener {
 	
 	private AdvancedChat plugin;
-	private PlayerData playerdata = plugin.getPlayerData();
+
 	private CommandSender c = getConsoleSender();
 	
 	public JoinListener(AdvancedChat plugin) {
@@ -26,15 +26,19 @@ public class JoinListener extends EventsUtils implements Listener {
 	@EventHandler
 	public void tes(PlayerJoinEvent e) {
 		Player j = e.getPlayer();
-		
+		PlayerData playerdata = plugin.getPlayerData();
 		FileConfiguration config = playerdata.getConfig();
 		
+		String path = "Players-Data.";
+		
 		config.createSection("Players-Data");
-		config.set(j.getName()+".UUID", j.getUniqueId().toString());
-		config.set(j.getName()+".Color-Chat", "NONE");
-		config.set(j.getName()+".Mute", false);
-		config.set(j.getName()+".Mute-Reason", "none");
-		config.set(j.getName()+".Mute-Time", "none");
+		config.set(path+j.getName()+".UUID", j.getUniqueId().toString());
+		config.set(path+j.getName()+".Color-Chat", "NONE");
+		config.set(path+j.getName()+".Mute", false);
+		config.set(path+j.getName()+".Mute-Reason", "none");
+		config.set(path+j.getName()+".Mute-Time", "none");
+		plugin.addPlayerList(j, j.getUniqueId(), false, "none");
+		playerdata.saveConfig();
 		
 	}
 	
