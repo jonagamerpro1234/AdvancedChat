@@ -1,4 +1,4 @@
-package jss.advancedchat.utils;
+package jss.advancedchat;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import net.md_5.bungee.api.ChatColor;
 
 public class ChatUtils {
-
+	
 	private final static Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
 	
 	private static String format(String msg) {
@@ -18,12 +18,16 @@ public class ChatUtils {
 			Matcher match = pattern.matcher(msg);
 			while(match.find()){
 				String color = msg.substring(match.start(), match.end());
-				msg = msg.replace(color, ChatColor.valueOf(color) + "");
+				msg = msg.replace(color, ChatColor.of(color) + "");
 				match = pattern.matcher(msg);
 			}
 		}
 		
-		return Utils.color(msg);
+		return color(msg);
+	}
+	
+	public static String color(String msg) {
+		return ChatColor.translateAlternateColorCodes('&', msg);
 	}
 	
 	public static String hexcolor(String msg) {
