@@ -2,7 +2,8 @@
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -10,14 +11,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.PlayerData;
 import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.ChatUtils;
 import jss.advancedchat.utils.EventsUtils;
+import jss.advancedchat.utils.PlayerManager;
 import me.clip.placeholderapi.PlaceholderAPI;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -26,14 +27,16 @@ import net.md_5.bungee.api.chat.TextComponent;
 public class ChatListener implements Listener {
 	
 	private AdvancedChat plugin;
+	public Map<String,Long> delaywords = new HashMap<String,Long>();
 	
 	public ChatListener(AdvancedChat plugin) {
 		this.plugin = plugin;
 		EventsUtils.getManager().registerEvents(this, plugin);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
-	public void ChatFormat(AsyncPlayerChatEvent e) {
+	public void onChatFormat(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfig();
 		Player j = e.getPlayer();
 		try {
@@ -51,9 +54,11 @@ public class ChatListener implements Listener {
 				hovertext = replacePlaceholderAPI(j, hovertext);
 				hovertext = getAllVars(j, hovertext);
 				//format = format.replace("<name>", FormatChatHover(j, hovertext, hovermode, hovercolor));
-				format = Utils.color(format);
+				if(!(j.hasPermission("AdvancedChat.Chat.Color")) || !(j.isOp())) {
+					format = ChatUtils.hexcolor(format);
+				}
 				if(config.getString(pathtype).equals("Normal")) {
-						e.setFormat(Utils.color(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage())));					
+					e.setFormat(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage()));	
 				}else if(config.getString(pathtype).equals("Experimental")) {
 				TextComponent tc = new TextComponent(e.getFormat());
 				
@@ -75,9 +80,12 @@ public class ChatListener implements Listener {
 					format = replacePlaceholderAPI(j, format);
 					format = getAllVars(j, format);
 					format = format.replace("<msg>", e.getMessage());
+					if(!(j.hasPermission("AdvancedChat.Chat.Color")) || !(j.isOp())) {
+							format = ChatUtils.hexcolor(format);
+					}
 					if(config.getString(pathtype).equals("Normal")) {
 						if(j.hasPermission(perm)) {
-							e.setFormat(Utils.color(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage())));					
+							e.setFormat(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage()));					
 						}
 					}else if(config.getString(pathtype).equals("Experimental")) {
 						if(j.hasPermission(perm)) {}
@@ -96,8 +104,9 @@ public class ChatListener implements Listener {
 		}catch(NullPointerException ex) {	}	
 	}
 	
+	/*@SuppressWarnings("unused")
 	@EventHandler
-	public void DenyWordChat(AsyncPlayerChatEvent e) {
+	public void onChatFilter(AsyncPlayerChatEvent e) {
 		Player j = e.getPlayer();
 		FileConfiguration config = plugin.getConfig();
 		try {
@@ -107,8 +116,6 @@ public class ChatListener implements Listener {
 			String msg = config.getString(path+"Message");
 			String usemsg = config.getString(path+"Use-Custom-Msg");
 			int time = config.getInt(path+"Delay");
-			
-			
 			
 			if(config.getString(path+"Enabled").equals("true")) {
 				
@@ -130,30 +137,34 @@ public class ChatListener implements Listener {
 				}
 
 			}
-
-			
 		}catch(NullPointerException ex) {
-				
+				ex.printStackTrace();
 		}
 		
-	}
+	}*/
 	
-	@EventHandler
-	public void MutePlayer(AsyncPlayerChatEvent e) {
+	//@EventHandler
+	public void MuteChat(AsyncPlayerChatEvent e) {
 		PlayerData playerdata = plugin.getPlayerData();
 		FileConfiguration config = playerdata.getConfig();
+		PlayerManager playermanager = new PlayerManager();
 		Player j = e.getPlayer();
-		
-		for(String key : config.getConfigurationSection("Players-Data").getKeys(false)) {
-			String path = "Players-Data."+key+".Mute";
-			for(String s : plugin.mute) {
-				if(s.contains(j.getName())) {
-					if(config.getString(path).equals("true")) {
-						e.setCancelled(true);
+		try {
+			if(playermanager.playerlist.contains(j.getName())) {
+				if(playermanager.isMute()) {
+					if(!(j.hasPermission("AdavancedChat.Chat.Bypass")) || !(j.isOp())) {
+						if(config.getString("Players."+j.getName()+".IsMute").equals("true")) {
+							Utils.sendColorMessage(j, "");
+							playerdata.saveConfig();
+							e.setCancelled(true);
+						}
 					}
-				}
+				}	
 			}
+		}catch(NullPointerException ex) {
+			ex.printStackTrace();
 		}
+
 	}
 	
 	
@@ -193,10 +204,11 @@ public class ChatListener implements Listener {
 		return null;
 	}
 	
+	@Deprecated
 	public String FormatChatHover(Player player, String hovertext, String hovermode, String hovercolor) {
 		TextComponent msg = new TextComponent();
 		msg.setText(player.getName());
-		msg.setColor(ChatColor.valueOf(hovercolor));
+		msg.setColor(ChatUtils.color(hovercolor));
 		//msg.setHoverEvent(new HoverEvent(HoverEvent.Action.valueOf(getActionHoverType(hovermode)) , new ComponentBuilder(hovertext).create()));
 		return null;
 	}
@@ -228,7 +240,6 @@ public class ChatListener implements Listener {
 			msg = msg.replace("<Displayname>", j.getDisplayName());
 			msg = msg.replace("<MaxPlayer>", "" + plugin.getServer().getMaxPlayers());
 			msg = msg.replace("<Online>", "" + playersOnline);
-			msg = msg.replace("<Server>", plugin.getServer().getServerName());
 			msg = msg.replace("<Version>",  plugin.getServer().getBukkitVersion());
 			msg = msg.replace("<World>", j.getWorld().getName());
 			msg = msg.replace("<Player_Ip>", j.getAddress().getHostName());
@@ -237,7 +248,6 @@ public class ChatListener implements Listener {
 			msg = msg.replace("<displayname>", j.getDisplayName());
 			msg = msg.replace("<maxPlayer>", "" + plugin.getServer().getMaxPlayers());
 			msg = msg.replace("<online>", "" + playersOnline);
-			msg = msg.replace("<server>", plugin.getServer().getServerName());
 			msg = msg.replace("<version>",  plugin.getServer().getBukkitVersion());
 			msg = msg.replace("<world>", j.getWorld().getName());
 		}catch(Exception  e) {}

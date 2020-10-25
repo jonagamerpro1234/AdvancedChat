@@ -1,53 +1,68 @@
 package jss.advancedchat.utils;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-public class PlayerManager {
-	
-	Player player;
-	UUID uuid;
-	boolean mute;
-	String color;
-	
-	public PlayerManager(Player player, UUID uuid, boolean mute, String color) {
-		this.player = player;
-		this.uuid = uuid;
-		this.mute = mute;
-		this.color = color;
-	}
-	
-	public String getColor() {
-		return color;
-	}
+import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.PlayerData;
 
-	public void setColor(String color) {
-		this.color = color;
-	}
+public class PlayerManager extends EventsUtils{
+	
+	private CommandSender c = getConsoleSender();
+	
+	private boolean mute = false;
+	private Player player;
+	public List<String> playerlist = new ArrayList<String>(); 
 	
 	public Player getPlayer() {
 		return player;
 	}
-	
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-	
-	public UUID getUuid() {
-		return uuid;
-	}
-	
-	public void setUuid(UUID uuid) {
-		this.uuid = uuid;
-	}
-	
+
 	public boolean isMute() {
 		return mute;
 	}
-	
+
 	public void setMute(boolean mute) {
 		this.mute = mute;
+	}
+	
+	public void setConfigMute(AdvancedChat plugin ,Player player) {
+		PlayerData playerData = plugin.getPlayerData();
+		FileConfiguration config = playerData.getConfig();
+		if(config.contains("Players")) {
+			config.set("Players."+player.getName()+".IsMute", isMute());
+			playerData.saveConfig();
+		}else {
+			config.createSection("Players");
+			Utils.sendColorMessage(c, "No existe el path Players, preparando para crear...");
+		}
+
+	}
+	
+	public boolean IsPlayerList(String name) {
+		for(int i = 0; i < playerlist.size(); i++) {
+			if(playerlist.contains(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void setPlayerList(String name) {
+		this.playerlist.add(name);
+	}
+	public boolean removePlayerList(String name) {
+		for(int i = 0; i < playerlist.size(); i++) {
+			if(playerlist.contains(name)) {
+				this.playerlist.remove(name);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

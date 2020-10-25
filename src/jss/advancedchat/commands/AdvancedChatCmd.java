@@ -26,6 +26,7 @@ public class AdvancedChatCmd implements CommandExecutor{
 		plugin.getCommand("AdvancedChat").setExecutor(this);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		FileConfiguration config = plugin.getConfig();
 		if(!(sender instanceof Player)) {
