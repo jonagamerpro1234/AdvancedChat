@@ -2,15 +2,18 @@ package jss.advancedchat;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 
-import org.bukkit.configuration.InvalidConfigurationException;
+//import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import jss.advancedchat.utils.FileHelper;
 import jss.advancedchat.utils.FileManager;
 
-public class PlayerData extends FileManager {
-	
+public class PlayerData extends FileManager implements FileHelper {
 	
 	private AdvancedChat plugin;
 	private File file;
@@ -28,20 +31,22 @@ public class PlayerData extends FileManager {
 	public void create(){
 		this.file = new File(getDataFolder() + File.separator + "Data", this.path);
 		if (!this.file.exists()) {
-			try {
+			getConfig().options().copyDefaults(true);
+			saveConfig();
+			/*try {
 				this.file.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
+			}*/
 		}
-		this.config = new YamlConfiguration();
+		/*this.config = new YamlConfiguration();
 		try {
 			this.config.load(this.file);
 		}catch(IOException e) {
 			e.printStackTrace();
 		}catch(InvalidConfigurationException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	public FileConfiguration getConfig() {
@@ -68,10 +73,20 @@ public class PlayerData extends FileManager {
 			this.file = new File(getDataFolder() + File.separator + "Data", this.path);
 		}
 		this.config = YamlConfiguration.loadConfiguration(this.file);
-		if (this.file != null) {
-			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(this.file);
-			this.config.setDefaults(defConfig);
+		
+		Reader defaultConfigStream;
+		try {
+			defaultConfigStream = new InputStreamReader(getResources("players.data"), "UTF8");
+			if (this.file != null) {
+				YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
+				this.config.setDefaults(defConfig);
+			}
+		}catch(UnsupportedEncodingException ex) {
+			ex.printStackTrace();
 		}
+		
+		
+
 	}
 
 	public AdvancedChat getPlugin() {

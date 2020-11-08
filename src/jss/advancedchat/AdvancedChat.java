@@ -29,7 +29,7 @@ public class AdvancedChat extends JavaPlugin{
 	private CommandSender c= Bukkit.getConsoleSender();
 	private boolean debug = false;
 	private FileManager filemanager;
-	private PlayerData playerdata = new  PlayerData(this, "Player-Data.yml");
+	private PlayerData playerdata = new  PlayerData(this, "players.data");
 	public String nmsversion;
 	public boolean uselegacyversion = false;
 	

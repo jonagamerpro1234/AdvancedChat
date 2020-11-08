@@ -1,6 +1,7 @@
 package jss.advancedchat.utils;
 
 import java.io.File;
+import java.io.InputStream;
 
 import jss.advancedchat.AdvancedChat;
 
@@ -48,4 +49,7 @@ public class FileManager {
 		return plugin.getDataFolder();
 	}
 	
+	public InputStream getResources(String filename) {
+		return plugin.getResource(filename);
+	}
 }

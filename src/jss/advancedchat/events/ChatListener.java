@@ -1,8 +1,9 @@
-	package jss.advancedchat.events;
+package jss.advancedchat.events;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
@@ -11,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.PlayerData;
@@ -104,7 +106,7 @@ public class ChatListener implements Listener {
 		}catch(NullPointerException ex) {	}	
 	}
 	
-	/*@SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	@EventHandler
 	public void onChatFilter(AsyncPlayerChatEvent e) {
 		Player j = e.getPlayer();
@@ -141,7 +143,7 @@ public class ChatListener implements Listener {
 				ex.printStackTrace();
 		}
 		
-	}*/
+	}
 	
 	//@EventHandler
 	public void MuteChat(AsyncPlayerChatEvent e) {
