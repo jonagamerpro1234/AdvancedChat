@@ -147,9 +147,9 @@ AdvancedChat:
     - '&5> &b/AdvancedChat &6help &7show this same message'
     - '&5> &b/AdvancedChat &6reload &7reload the plugin files'
     - '&5> &b/AdvancedChat &6info &7shows information about the plugin' 
-  Mute-Player: ''
-  Un-Mute-Player: ''
-  Alert-Mute: ''
+  Mute-Player: '&e[&b<name>&e] &cis now muted!'
+  Un-Mute-Player: '&e[&b<name>&e] &ais now unmuted!'
+  Alert-Mute: '&e[!] &cright now you are muted'
 #
 # This is the end of the configuration ... [-_-] more things coming soon
 # 
