@@ -8,7 +8,7 @@
 
 [![advancedchat]][spigot]
 
-[![releasesImg]][releases] [![licenseImg]][license] [![spigoyreleases][spigot]]
+[![releasesImg]][releases] [![licenseImg]][license] [![spigotreleases][spigot]]
 
 ## Description
 a simple plugin that helps you customize your server chat to make it look better also brings a customizable chat system by group or rank
