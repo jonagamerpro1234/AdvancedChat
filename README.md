@@ -4,10 +4,11 @@
 [releasesImg]: https://img.shields.io/github/v/release/jonagamerpro1234/AdvancedChat.svg?color=blue&include_prereleases&style=flat-square
 [license]: https://github.com/jonagamerpro1234/AdvancedChat/blob/master/LICENSE
 [licenseImg]: https://img.shields.io/github/license/jonagamerpro1234/AdvancedChat.svg?style=flat-square
+[spigotreleases]: https://img.shields.io/spiget/version/83889?label=releases-spigot&style=flat-square
 
 [![advancedchat]][spigot]
 
-[![releasesImg]][releases] [![licenseImg]][license] 
+[![releasesImg]][releases] [![licenseImg]][license] [![spigoyreleases][spigot]]
 
 ## Description
 a simple plugin that helps you customize your server chat to make it look better also brings a customizable chat system by group or rank
