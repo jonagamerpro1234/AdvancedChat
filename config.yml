@@ -1,6 +1,6 @@
 # |    AdvancedChat     |
 # | By jonagamerpro1234 |
-# |     Version 1.3.3   |
+# |     Version 1.4.0   |
 # |_____________________|
 #
 # |Type| the types are the modes that exist according to the function they can be different or the same these are all the types that exist 
@@ -49,6 +49,16 @@ Custom-Format:
     Text: '&ahello &d<name>'
     Mode: Text
 #
+# |World Chat|
+# |A chat system that can separate the chat by regions or worlds as needed or you can also let the chat be global
+# |
+#
+World-Chat:
+  Enabled: true
+  World-List:
+    World:
+      Type: Global
+#
 # | Groups |
 # | here you can customize the chat of different groups or ranks in a more specific way |
 # | with this format you can add more groups
@@ -79,6 +89,32 @@ Groups:
     Format: '&9|&e<name>&9|&8> &c<msg>'
     Permission: 'advancedchat.group.owner'
 #
+# |Filter Chat|
+# |here you can filter the unwanted words on your server and have a little more control over the chat
+#
+# [Use-Custom-Msg] will use a custom message found in the [Message] section instead of using [Form Of Censorship] [Default | false]
+# [Message] here you can define a personalized message that will be sent to the player
+# [Form-Of-Censorship] this is the format that the word will be censored, for example [noob = ****] this will depend on the number of characters that the word has
+# [Delay] It is the waiting time that the message will have before it is sent so that spam does not form in the player's chat [Defalt | 100 ]
+#
+# |The format is very simple, you just have to add the word you want to censor to the list
+#  Words:
+#    - 'noob'
+#    - 'stupid'
+#    - '<word>'
+#
+Filter-Chat:
+  Enabled: true
+  Use-Custom-Msg: false
+  Message: 'you cannot use this word, it is blocked!'
+  Form-Of-Censorship: '*'
+  Delay: 5
+  BadWords:
+    - 'noob'
+    - 'stupid'
+    - 'fuck'
+#
+#
 # |Translation of messages from AdvancedChat|
 # |Version: 1.4|
 #
@@ -104,5 +140,4 @@ AdvancedChat:
 # This is the end of the configuration ... [-_-] more things coming soon
 # 
 # | Config File
-# | Version 1.3.1
-#
+# | Version 1.4.0-Pre-Alpha[3]
