@@ -80,7 +80,7 @@ Groups:
     Permission: 'advancedchat.group.owner'
 #
 # |Translation of messages from AdvancedChat|
-# |Version: 1.3|
+# |Version: 1.4|
 #
 AdvancedChat:
   ClearChat:
@@ -98,7 +98,7 @@ AdvancedChat:
     - '&5> &b/AdvancedChat &6reload &7reload the plugin files'
     - '&5> &b/AdvancedChat &6info &7shows information about the plugin' 
   Mute-Player: ''
-  UnMute-Player: ''
+  Un-Mute-Player: ''
   Alert-Mute: ''
 #
 # This is the end of the configuration ... [-_-] more things coming soon

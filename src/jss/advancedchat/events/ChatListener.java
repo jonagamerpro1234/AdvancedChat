@@ -209,7 +209,6 @@ public class ChatListener implements Listener {
 		TextComponent msg = new TextComponent();
 		msg.setText(player.getName());
 		msg.setColor(ChatUtils.fixcolor_1(hovercolor));
-		//msg.setHoverEvent(new HoverEvent(HoverEvent.Action.valueOf(getActionHoverType(hovermode)) , new ComponentBuilder(hovertext).create()));
 		return null;
 	}
 	

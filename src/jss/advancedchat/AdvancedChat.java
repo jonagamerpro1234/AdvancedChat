@@ -34,7 +34,7 @@ public class AdvancedChat extends JavaPlugin{
 	public boolean uselegacyversion = false;
 	
 	public void onEnable() {
-		Utils.getEnable(Utils.getPrefixConsole(), version);
+		Utils.getEnable(version);
 		saveDefaultConfig();
         nmsversion = Bukkit.getServer().getClass().getPackage().getName();
         nmsversion = nmsversion.substring(nmsversion.lastIndexOf(".") + 1);
@@ -59,7 +59,7 @@ public class AdvancedChat extends JavaPlugin{
 	}
 	
 	public void onDisable() {
-		Utils.getDisable(Utils.getPrefixConsole(), version);
+		Utils.getDisable(version);
 		this.placeholders = false;
 		metrics = null;
 		uselegacyversion = false;
