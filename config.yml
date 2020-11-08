@@ -52,12 +52,26 @@ Custom-Format:
 # |World Chat|
 # |A chat system that can separate the chat by regions or worlds as needed or you can also let the chat be global
 # |
+# World-Chat:
+#  Enabled: true
+#  World-List:
+#    <world name>:
+#      Type: Global
+#      Range: 15
+#
+# [World-List] here you will find the worlds that will use the chat function [Local]  serves to limit the chat to a range of players according to the distance that is defined. This option depends on the [Range] | [Global] will allow all players to talk to each other
+# [World Name] Here will be the name of the world in which the function can be activated but it is important that the world exists or that the name is not incorrect
+# [Type] There are only two existing types which are [Local] | [Global]
+# [Local]  serves to limit the chat to a range of players according to the distance that is defined. This option depends on the [Range]
+# [Global] will allow all players to talk to each other
+# [Range] here you can define the distance between each player that could receive the message from another [this option only works with the type | local]
 #
 World-Chat:
   Enabled: true
   World-List:
     World:
       Type: Global
+      Range: 15
 #
 # | Groups |
 # | here you can customize the chat of different groups or ranks in a more specific way |
