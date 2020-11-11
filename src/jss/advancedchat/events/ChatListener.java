@@ -15,7 +15,8 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.PlayerData;
+import jss.advancedchat.ConfigFile;
+import jss.advancedchat.PlayerDataFile;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.ChatUtils;
 import jss.advancedchat.utils.EventsUtils;
@@ -39,7 +40,8 @@ public class ChatListener implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onChatFormat(AsyncPlayerChatEvent e) {
-		FileConfiguration config = plugin.getConfig();
+		ConfigFile configFile = plugin.getConfigfile();
+		FileConfiguration config = configFile.getConfig();
 		Player j = e.getPlayer();
 		try {
 			String path = "Settings.ChatFormat-Type";
@@ -147,7 +149,7 @@ public class ChatListener implements Listener {
 	
 	//@EventHandler
 	public void MuteChat(AsyncPlayerChatEvent e) {
-		PlayerData playerdata = plugin.getPlayerData();
+		PlayerDataFile playerdata = plugin.getPlayerDataFile();
 		FileConfiguration config = playerdata.getConfig();
 		PlayerManager playermanager = new PlayerManager();
 		Player j = e.getPlayer();

@@ -8,11 +8,15 @@ public interface FileHelper {
 	
 	public FileConfiguration getConfig();
 	
-	public void reloadConfig();
-	
 	public void saveConfig();
 	
+	public void reloadConfig();
+	
 	public String getPath();
+	
+	public void saveDefaultConfig();
+	
+	public void resetConfig();
 	
 	
 }

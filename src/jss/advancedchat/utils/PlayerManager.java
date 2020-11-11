@@ -8,7 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.PlayerData;
+import jss.advancedchat.PlayerDataFile;
 
 public class PlayerManager extends EventsUtils{
 	
@@ -31,7 +31,7 @@ public class PlayerManager extends EventsUtils{
 	}
 	
 	public void setConfigMute(AdvancedChat plugin ,Player player) {
-		PlayerData playerData = plugin.getPlayerData();
+		PlayerDataFile playerData = plugin.getPlayerDataFile();
 		FileConfiguration config = playerData.getConfig();
 		if(config.contains("Players")) {
 			config.set("Players."+player.getName()+".IsMute", isMute());

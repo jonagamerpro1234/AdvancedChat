@@ -45,11 +45,15 @@ public class FileManager {
 		
 	}
 	
-	public File getDataFolder() {
-		return plugin.getDataFolder();
+	public void saveResources(String filename, boolean replace) {
+		 plugin.saveResource(filename, replace);
 	}
 	
 	public InputStream getResources(String filename) {
 		return plugin.getResource(filename);
+	}
+	
+	public File getDataFolder() {
+		return plugin.getDataFolder();
 	}
 }

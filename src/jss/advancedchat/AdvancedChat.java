@@ -1,9 +1,7 @@
 package jss.advancedchat;
 
-import java.io.File;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,15 +19,14 @@ public class AdvancedChat extends JavaPlugin{
 	PluginDescriptionFile jss = getDescription();
 	public String name = this.jss.getName();
 	public String version = this.jss.getVersion();
-	public FileConfiguration config;
-	public File configfile;
 	public Metrics metrics;
 	public String latestversion;
 	public boolean placeholders = false;
 	private CommandSender c= Bukkit.getConsoleSender();
 	private boolean debug = false;
-	private FileManager filemanager;
-	private PlayerData playerdata = new  PlayerData(this, "players.data");
+	private FileManager filemanager = new FileManager(this);
+	private PlayerDataFile playerdata = new  PlayerDataFile(this, "Data", "players.data");
+	private ConfigFile configfile = new ConfigFile(this, "config.yml");
 	public String nmsversion;
 	public boolean uselegacyversion = false;
 	
@@ -47,12 +44,11 @@ public class AdvancedChat extends JavaPlugin{
         	Utils.sendColorMessage(c, Utils.getPrefixConsole() + " " + "&7Use " + nmsversion + " &aenabled &7method &b1.16");
         }
 		metrics = new Metrics(this);
-		setupConfig();
-		setupCommands();
-		setupEvents();
-		filemanager = new FileManager(this);
+		configfile.create();
 		filemanager.createVoidFolder("Data");
 		playerdata.create();
+		setupCommands();
+		setupEvents();
 		SetupSoftDepends();
 		UpdateChecker update = new UpdateChecker(this);
 		update.Update(c);
@@ -63,13 +59,6 @@ public class AdvancedChat extends JavaPlugin{
 		this.placeholders = false;
 		metrics = null;
 		uselegacyversion = false;
-	}
-	public void setupConfig() {
-		File config = new File(getDataFolder(), "config.yml");
-		if (!config.exists()) {
-			getConfig().options().copyDefaults(true);
-			saveDefaultConfig();
-		}
 	}
 	
 	public void setupCommands() {
@@ -85,11 +74,14 @@ public class AdvancedChat extends JavaPlugin{
 		EventsUtils.runAutoClearAction(this);
 	}
 	
-	public PlayerData getPlayerData() {
+	public PlayerDataFile getPlayerDataFile() {
 		return this.playerdata;
 	}
 	
-	
+	public ConfigFile getConfigfile() {
+		return configfile;
+	}
+
 	public boolean getPlaceHolderState() {
 		return this.placeholders;
 	}
