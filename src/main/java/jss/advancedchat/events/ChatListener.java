@@ -1,5 +1,6 @@
 package jss.advancedchat.events;
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -16,11 +17,8 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.ConfigFile;
-import jss.advancedchat.PlayerDataFile;
 import jss.advancedchat.utils.Utils;
-import jss.advancedchat.utils.ChatUtils;
 import jss.advancedchat.utils.EventsUtils;
-import jss.advancedchat.utils.PlayerManager;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -31,10 +29,11 @@ public class ChatListener implements Listener {
 	
 	private AdvancedChat plugin;
 	public Map<String,Long> delaywords = new HashMap<String,Long>();
+	private EventsUtils eventsUtils = new EventsUtils(plugin);
 	
 	public ChatListener(AdvancedChat plugin) {
 		this.plugin = plugin;
-		EventsUtils.getManager().registerEvents(this, plugin);
+		eventsUtils.addEventList(this);
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -59,7 +58,7 @@ public class ChatListener implements Listener {
 				hovertext = getAllVars(j, hovertext);
 				//format = format.replace("<name>", FormatChatHover(j, hovertext, hovermode, hovercolor));
 				if(!(j.hasPermission("AdvancedChat.Chat.Color")) || !(j.isOp())) {
-					format = ChatUtils.hexcolor(format);
+					format = Utils.hexcolor(format);
 				}
 				if(config.getString(pathtype).equals("Normal")) {
 					e.setFormat(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage()));	
@@ -85,7 +84,7 @@ public class ChatListener implements Listener {
 					format = getAllVars(j, format);
 					format = format.replace("<msg>", e.getMessage());
 					if(!(j.hasPermission("AdvancedChat.Chat.Color")) || !(j.isOp())) {
-							format = ChatUtils.hexcolor(format);
+							format = Utils.hexcolor(format);
 					}
 					if(config.getString(pathtype).equals("Normal")) {
 						if(j.hasPermission(perm)) {
@@ -149,25 +148,8 @@ public class ChatListener implements Listener {
 	
 	//@EventHandler
 	public void MuteChat(AsyncPlayerChatEvent e) {
-		PlayerDataFile playerdata = plugin.getPlayerDataFile();
-		FileConfiguration config = playerdata.getConfig();
-		PlayerManager playermanager = new PlayerManager();
-		Player j = e.getPlayer();
-		try {
-			if(playermanager.playerlist.contains(j.getName())) {
-				if(playermanager.isMute()) {
-					if(!(j.hasPermission("AdavancedChat.Chat.Bypass")) || !(j.isOp())) {
-						if(config.getString("Players."+j.getName()+".IsMute").equals("true")) {
-							Utils.sendColorMessage(j, "");
-							playerdata.saveConfig();
-							e.setCancelled(true);
-						}
-					}
-				}	
-			}
-		}catch(NullPointerException ex) {
-			ex.printStackTrace();
-		}
+
+
 
 	}
 	
@@ -212,7 +194,7 @@ public class ChatListener implements Listener {
 	public String FormatChatHover(Player player, String hovertext, String hovermode, String hovercolor) {
 		TextComponent msg = new TextComponent();
 		msg.setText(player.getName());
-		msg.setColor(ChatUtils.fixcolor_1(hovercolor));
+		msg.setColor(Utils.fixcolor(hovercolor));
 		return null;
 	}
 	

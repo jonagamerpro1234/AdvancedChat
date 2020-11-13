@@ -6,11 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.EventsUtils;
-import jss.advancedchat.utils.PlayerManager;
-import jss.advancedchat.utils.Utils;
-
-public class MuteCmd extends EventsUtils implements CommandExecutor{
+public class MuteCmd implements CommandExecutor{
 
 	private AdvancedChat plugin;
 	
@@ -21,18 +17,9 @@ public class MuteCmd extends EventsUtils implements CommandExecutor{
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
-		PlayerManager playerManager = new PlayerManager();
+		
 		Player j = (Player) sender;
 
-		if(playerManager.isMute()){
-			playerManager.setMute(false);
-			playerManager.setConfigMute(plugin,j);
-			Utils.sendColorMessage(j, "&cdesmuteado");
-		}else {
-			playerManager.setMute(true);
-			playerManager.setConfigMute(plugin,j);
-			Utils.sendColorMessage(j, "&emuteado");
-		}
 		
 		return true;
 	}

@@ -1,4 +1,4 @@
-package jss.advancedchat.utils;
+package jss.advancedchat.utils.interfaces;
 
 public interface FolderHelper {
 

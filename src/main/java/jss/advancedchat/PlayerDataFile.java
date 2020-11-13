@@ -10,9 +10,9 @@ import java.io.UnsupportedEncodingException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import jss.advancedchat.utils.FileHelper;
 import jss.advancedchat.utils.FileManager;
-import jss.advancedchat.utils.FolderHelper;
+import jss.advancedchat.utils.interfaces.FileHelper;
+import jss.advancedchat.utils.interfaces.FolderHelper;
 
 public class PlayerDataFile extends FileManager implements FileHelper, FolderHelper {
 	

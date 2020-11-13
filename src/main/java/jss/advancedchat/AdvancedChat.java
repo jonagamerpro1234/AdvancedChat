@@ -8,10 +8,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.events.ChatListener;
+import jss.advancedchat.events.EventLoader;
 import jss.advancedchat.events.JoinListener;
-import jss.advancedchat.utils.EventsUtils;
 import jss.advancedchat.utils.FileManager;
-import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
 
 public class AdvancedChat extends JavaPlugin{
@@ -50,15 +49,15 @@ public class AdvancedChat extends JavaPlugin{
 		setupCommands();
 		setupEvents();
 		SetupSoftDepends();
-		UpdateChecker update = new UpdateChecker(this);
-		update.Update(c);
+
+
 	}
 	
 	public void onDisable() {
 		Utils.getDisable(version);
 		this.placeholders = false;
-		metrics = null;
-		uselegacyversion = false;
+		this.metrics = null;
+		this.uselegacyversion = false;
 	}
 	
 	public void setupCommands() {
@@ -70,8 +69,9 @@ public class AdvancedChat extends JavaPlugin{
 	public void setupEvents() {
 		new JoinListener(this);
 		new ChatListener(this);
-		
-		EventsUtils.runAutoClearAction(this);
+		EventLoader loader = new EventLoader(this);
+		loader.runClearChat();
+
 	}
 	
 	public PlayerDataFile getPlayerDataFile() {
