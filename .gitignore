@@ -1,1 +1,7 @@
+/bin/
 /target/
+/.gitignore
+/.classpath
+/.project
+/plugin.yml
+/.checkstyle
