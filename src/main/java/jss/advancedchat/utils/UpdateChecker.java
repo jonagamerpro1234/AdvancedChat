@@ -19,8 +19,9 @@ public class UpdateChecker implements UpdateHelper{
 	private Logger logger = new Logger(plugin);
 	private int ID;
 	
-	public UpdateChecker(AdvancedChat plugin) {
+	public UpdateChecker(AdvancedChat plugin, int ID) {
 		this.plugin = plugin;
+		this.ID = ID;
 	}
 	
 	
