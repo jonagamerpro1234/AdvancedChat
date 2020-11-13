@@ -21,8 +21,6 @@ public class ConfigFile extends FileManager implements FileHelper {
 	private FileConfiguration config;
 	private String path;
 	
-	
-	
 	public ConfigFile(AdvancedChat plugin, String path) {
 		super(plugin);
 		this.plugin = plugin;
