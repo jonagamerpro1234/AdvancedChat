@@ -2,22 +2,50 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>jss.advancedchat</groupId>
   <artifactId>AdvancedChat</artifactId>
-  <version>1.3.3-SNAPSHOT</version>
-  <packaging>pom</packaging>
+  <version>1.4.0</version>
+  <name>AdvancedChat</name>
   
-  <repositories>
-	<repository>
-		<id>placeholderapi</id>
-        <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-	</repository>
-  </repositories>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   <dependencies>
 	<dependency>
 		<groupId>me.clip</groupId>
 		<artifactId>placeholderapi</artifactId>
 		<version>2.10.9</version>
-        <scope>provided</scope>
-	</dependency>   
+		<scope>provided</scope>
+		<exclusions>
+			<exclusion>
+				<groupId>org.jetbrains</groupId>
+				<artifactId>annotations</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>org.spigotmc</groupId>
+		<artifactId>spigot-api</artifactId>
+		<version>1.16.3-R0.1-SNAPSHOT</version>
+		<scope>provided</scope>
+	</dependency>
   </dependencies>
-
+  <repositories>
+  	<repository>
+  		<id>placeholderapi</id>
+  		<url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+  	</repository>
+  	<repository>
+  		<id>spigot-repo</id>
+  		<url>//hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+  	</repository>
+  </repositories>
+  
+  <build>
+  	<resources>
+		<resource>
+			<directory>src/main/resources</directory>
+			<filtering>true</filtering>
+		</resource>
+  	</resources>
+  </build>
 </project>
