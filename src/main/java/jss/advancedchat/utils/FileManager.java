@@ -3,6 +3,8 @@ package jss.advancedchat.utils;
 import java.io.File;
 import java.io.InputStream;
 
+import org.bukkit.plugin.java.JavaPlugin;
+
 import jss.advancedchat.AdvancedChat;
 
 public class FileManager {
@@ -43,6 +45,11 @@ public class FileManager {
 			}
 		}
 		
+	}
+	
+	@Deprecated
+	public JavaPlugin getJavaPlugin() {
+		return plugin;
 	}
 	
 	public void saveResources(String filename, boolean replace) {

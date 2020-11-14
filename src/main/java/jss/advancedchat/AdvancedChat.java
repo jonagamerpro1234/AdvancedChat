@@ -57,7 +57,7 @@ public class AdvancedChat extends JavaPlugin{
 		SetupSoftDepends();
 		new UpdateChecker(this, 83889).getUpdateVersion(version ->{
 			if(this.getDescription().getVersion().equalsIgnoreCase(version)) {
-				logger.Log(Level.SUCCESS, this.name + " is up to date!");
+				logger.Log(Level.SUCCESS, "&a" + this.name + " is up to date!");
 			}else {
 				logger.Log(Level.OUTLINE, "&5<|" + Utils.getLine("&5"));
 				logger.Log(Level.WARNING, "&5<|" + "&b"+ this.name + " is outdated!");
