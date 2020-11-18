@@ -146,11 +146,12 @@ public class ChatListener implements Listener {
 		
 	}
 	
-	//@EventHandler
-	public void MuteChat(AsyncPlayerChatEvent e) {
-
-
-
+	@EventHandler
+	public void onChat(AsyncPlayerChatEvent e) {
+		Player j = e.getPlayer();
+		if(plugin.mute.contains(j.getName())) {
+			e.setCancelled(true);
+		}
 	}
 	
 	

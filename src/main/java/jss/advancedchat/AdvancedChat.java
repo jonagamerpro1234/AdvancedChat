@@ -1,5 +1,7 @@
 package jss.advancedchat;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -34,6 +36,7 @@ public class AdvancedChat extends JavaPlugin{
 	public String nmsversion;
 	public boolean uselegacyversion = false;
 	private Logger logger = new Logger(this);
+	public ArrayList<String> mute = new ArrayList<String>();
 	
 	public void onEnable() {
 		Utils.getEnable(version);;

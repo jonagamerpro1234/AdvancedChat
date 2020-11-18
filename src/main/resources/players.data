@@ -3,4 +3,8 @@
 # |     Version 1.4.0   |
 # |_____________________|
 #
-Players-List: {}
+Players-List:
+  jonagamerpro1234:
+    UUID: 0000 0000 000 000
+    Muted: false
+    Color: white
