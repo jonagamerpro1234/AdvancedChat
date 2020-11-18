@@ -50,17 +50,7 @@
 			  <include>plugin.yml</include>
 			</includes>
 		</resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <!-- Keep filtering at false for other resources to prevent bad magic -->
-                <filtering>false</filtering>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                    <exclude>plugin.yml</exclude>
-                </excludes>
-            </resource>
   	</resources>
-  	
   	<plugins>
   	  <plugin>
   		<groupId>org.apache.maven.plugins</groupId>
