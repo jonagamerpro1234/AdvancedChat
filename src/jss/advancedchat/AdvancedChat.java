@@ -29,6 +29,7 @@ public class AdvancedChat extends JavaPlugin{
 	private ConfigFile configfile = new ConfigFile(this, "config.yml");
 	public String nmsversion;
 	public boolean uselegacyversion = false;
+	@SuppressWarnings("unused")
 	private Logger logger = new Logger(this);
 	public ArrayList<String> mute = new ArrayList<String>();
 	
