@@ -195,7 +195,7 @@ public class ChatListener implements Listener {
 	public String FormatChatHover(Player player, String hovertext, String hovermode, String hovercolor) {
 		TextComponent msg = new TextComponent();
 		msg.setText(player.getName());
-		msg.setColor(Utils.fixcolor(hovercolor));
+		msg.setColor(Utils.fixColor(hovercolor));
 		return null;
 	}
 	

@@ -9,14 +9,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
-import jss.advancedchat.events.ChatListener;
-import jss.advancedchat.events.EventLoader;
-import jss.advancedchat.events.JoinListener;
 import jss.advancedchat.utils.FileManager;
 import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Logger.Level;
-import jss.advancedchat.utils.Settings;
-import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
 
 
@@ -39,16 +33,16 @@ public class AdvancedChat extends JavaPlugin{
 	public ArrayList<String> mute = new ArrayList<String>();
 	
 	public void onEnable() {
-		Utils.getEnable(version);;
+		Utils.setEnabled(version);;
         nmsversion = Bukkit.getServer().getClass().getPackage().getName();
         nmsversion = nmsversion.substring(nmsversion.lastIndexOf(".") + 1);
         if (nmsversion.equalsIgnoreCase("v1_8_R3")) { 
         	uselegacyversion = true;
         	if(uselegacyversion == true) {
-        		Utils.sendColorMessage(c, Utils.getPrefixConsole() + " " + "&7Use " + nmsversion + " &cdisabled &7method &b1.16");
+        		Utils.sendColorMessage(c, Utils.getPrefix() + " " + "&7Use " + nmsversion + " &cdisabled &7method &b1.16");
         	}
         }else if(nmsversion.equalsIgnoreCase("v1_16_R2")){
-        	Utils.sendColorMessage(c, Utils.getPrefixConsole() + " " + "&7Use " + nmsversion + " &aenabled &7method &b1.16");
+        	Utils.sendColorMessage(c, Utils.getPrefix() + " " + "&7Use " + nmsversion + " &aenabled &7method &b1.16");
         }
 		configfile.saveDefaultConfig();
         configfile.create();
@@ -73,7 +67,7 @@ public class AdvancedChat extends JavaPlugin{
 	}
 	
 	public void onDisable() {
-		Utils.getDisable(version);
+		Utils.setDisabled(version);
 		this.placeholders = false;
 		this.metrics = null;
 		this.uselegacyversion = false;
@@ -115,13 +109,13 @@ public class AdvancedChat extends JavaPlugin{
 	public void SetupSoftDepends() {
 		if(setupPlaceHolderAPI()) {
 			Utils.sendColorMessage(c, "&e[&d"+ name +"&e] &5 <|============================================|>");
-			Utils.sendColorMessage(c, Utils.getPrefixConsole() + " &5<| &ePlaceHolderAPI:&b" + " " + placeholders);
-			Utils.sendColorMessage(c, Utils.getPrefixConsole() + " &5<| &eVars PlaceHolderAPI:&a true");
+			Utils.sendColorMessage(c, Utils.getPrefix() + " &5<| &ePlaceHolderAPI:&b" + " " + placeholders);
+			Utils.sendColorMessage(c, Utils.getPrefix() + " &5<| &eVars PlaceHolderAPI:&a true");
 			Utils.sendColorMessage(c, "&e[&d"+ name +"&e] &5 <|============================================|>");
 		}else {
 			Utils.sendColorMessage(c, "&e[&d"+ name +"&e] &5 <|============================================|>");
-			Utils.sendColorMessage(c, Utils.getPrefixConsole() + " &5<| &ePlaceHolderAPI:&b" + " " + placeholders);
-			Utils.sendColorMessage(c, Utils.getPrefixConsole() + " &5<| &eVars PlaceHolderAPI:&c false");
+			Utils.sendColorMessage(c, Utils.getPrefix() + " &5<| &ePlaceHolderAPI:&b" + " " + placeholders);
+			Utils.sendColorMessage(c, Utils.getPrefix() + " &5<| &eVars PlaceHolderAPI:&c false");
 			Utils.sendColorMessage(c, "&e[&d"+ name +"&e] &5 <|============================================|>");
 		}		
 	}

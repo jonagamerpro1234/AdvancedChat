@@ -30,7 +30,7 @@ public class AdvancedChatCmd implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		FileConfiguration config = plugin.getConfig();
 		if(!(sender instanceof Player)) {
-			Utils.sendColorMessage(c,  Utils.getPrefixConsole() +" "+ config.getString("AdvancedChat.Error-Console"));
+			Utils.sendColorMessage(c,  Utils.getPrefix() +" "+ config.getString("AdvancedChat.Error-Console"));
 			return false;
 		}
 		Player j = (Player) sender;
