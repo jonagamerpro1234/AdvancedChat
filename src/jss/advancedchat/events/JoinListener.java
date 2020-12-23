@@ -3,6 +3,7 @@ package jss.advancedchat.events;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.PlayerDataFile;
 import jss.advancedchat.utils.EventUtils;
+import jss.advancedchat.utils.Utils;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -17,7 +18,7 @@ public class JoinListener implements Listener {
 	
 	public JoinListener(AdvancedChat plugin) {
 		this.plugin = plugin;
-		eventsUtils.addEventList(this);
+		eventsUtils.getEventManager().registerEvents(this, plugin);
 	}
 	
 	@EventHandler
@@ -26,9 +27,15 @@ public class JoinListener implements Listener {
 		FileConfiguration config = dataFile.getConfig();
 		Player j = e.getPlayer();
 		
-		if(!config.contains(j.getName())) {
-			config.set("Players-List."+j.getName()+".UUID", j.getUniqueId().toString());
-		}		
+		if(!config.contains("Players."+j.getName())) {
+			config.set("Players."+j.getName()+".UUID", j.getUniqueId().toString());
+			config.set("Players."+j.getName()+".Color", "WHITE");
+			config.set("Players."+j.getName()+".Mute", false);
+			dataFile.saveConfig();
+			Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&aadd " + j.getName());
+		}else {
+			Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&cya existe " + j.getName());
+		}
 	}
 	
 	@EventHandler

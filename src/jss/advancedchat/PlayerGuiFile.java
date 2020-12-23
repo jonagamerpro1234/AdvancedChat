@@ -11,26 +11,31 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.utils.FileManager;
 import jss.advancedchat.utils.interfaces.FileHelper;
+import jss.advancedchat.utils.interfaces.FolderHelper;
 
-
-
-public class ConfigFile extends FileManager implements FileHelper {
+public class PlayerGuiFile extends FileManager implements FileHelper, FolderHelper{
 
 	private AdvancedChat plugin;
 	private File file;
 	private FileConfiguration config;
 	private String path;
+	private String folderpath;
 	
-	public ConfigFile(AdvancedChat plugin, String path) {
+	public PlayerGuiFile(AdvancedChat plugin, String path, String folderpath) {
 		super(plugin);
 		this.plugin = plugin;
 		this.file = null;
 		this.config = null;
 		this.path = path;
+		this.folderpath = folderpath;
 	}
-
+	
+	public String getFolderPath() {
+		return this.folderpath;
+	}
+	
 	public void create() {
-		this.file = new File(getDataFolder(), this.path);
+		this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
 		if(!this.file.exists()) {
 			getConfig().options().copyDefaults(true);
 			saveConfig();
@@ -54,7 +59,7 @@ public class ConfigFile extends FileManager implements FileHelper {
 
 	public void reloadConfig() {
 		if(this.config == null) {
-			this.file = new File(getDataFolder(), this.path);
+			this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
 		}
 		this.config = YamlConfiguration.loadConfiguration(this.file);
 		Reader defaultConfigStream;
@@ -82,7 +87,7 @@ public class ConfigFile extends FileManager implements FileHelper {
 
 	public void saveDefaultConfig() {
 		if(this.file == null) {
-			this.file = new File(getDataFolder(), this.path);
+			this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
 		}
 		if(!this.file.exists()) {
 			saveResources(this.path, false);
@@ -91,7 +96,7 @@ public class ConfigFile extends FileManager implements FileHelper {
 
 	public void resetConfig() {
 		if(this.file == null) {
-			this.file = new File(getDataFolder(), this.path);
+			this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
 		}
 		if(!this.file.exists()) {
 			saveResources(this.path, true);

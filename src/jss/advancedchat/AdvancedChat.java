@@ -1,7 +1,6 @@
 package jss.advancedchat;
 
 import java.util.ArrayList;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -9,6 +8,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
+//import jss.advancedchat.events.ChatListener;
+//import jss.advancedchat.events.EventLoader;
+import jss.advancedchat.events.JoinListener;
 import jss.advancedchat.utils.FileManager;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Utils;
@@ -25,8 +27,10 @@ public class AdvancedChat extends JavaPlugin{
 	private CommandSender c= Bukkit.getConsoleSender();
 	private boolean debug = false;
 	private FileManager filemanager = new FileManager(this);
-	private PlayerDataFile playerdata = new  PlayerDataFile(this, "Data", "players.data");
+	private PlayerDataFile playerdata = new  PlayerDataFile(this, "players.data", "Data");
 	private ConfigFile configfile = new ConfigFile(this, "config.yml");
+	private ColorFile colorFile = new ColorFile(this, "color-gui.yml", "Gui");
+	private PlayerGuiFile playerGuiFile = new PlayerGuiFile(this, "player-gui.yml", "Gui");
 	public String nmsversion;
 	public boolean uselegacyversion = false;
 	@SuppressWarnings("unused")
@@ -48,7 +52,13 @@ public class AdvancedChat extends JavaPlugin{
 		configfile.saveDefaultConfig();
         configfile.create();
 		filemanager.createVoidFolder("Data");
+		playerdata.saveDefaultConfig();
 		playerdata.create();
+		filemanager.createVoidFolder("Gui");
+		colorFile.saveDefaultConfig();
+		colorFile.create();
+		playerGuiFile.saveDefaultConfig();
+		playerGuiFile.create();
         metrics = new Metrics(this);
 		setupCommands();
 		setupEvents();
@@ -77,15 +87,10 @@ public class AdvancedChat extends JavaPlugin{
 	public void setupCommands() {
 		new AdvancedChatCmd(this);
 		new ClearChatCmd(this);
-		//new MuteCmd(this);
 	}
 	
 	public void setupEvents() {
-		//new JoinListener(this);
-		//new ChatListener(this);
-		//EventLoader loader = new EventLoader(this);
-		//loader.runClearChat();
-
+		new JoinListener(this);
 	}
 	
 	public PlayerDataFile getPlayerDataFile() {
@@ -96,10 +101,17 @@ public class AdvancedChat extends JavaPlugin{
 		return configfile;
 	}
 
+	public ColorFile getColorFile() {
+		return colorFile;
+	}
+
+	public PlayerGuiFile getPlayerGuiFile() {
+		return playerGuiFile;
+	}
+
 	public boolean getPlaceHolderState() {
 		return this.placeholders;
 	}
-
 
 	public boolean setupPlaceHolderAPI(){
 		if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
@@ -107,6 +119,7 @@ public class AdvancedChat extends JavaPlugin{
 		}
 		return this.placeholders;
 	}
+	
 	public void SetupSoftDepends() {
 		if(setupPlaceHolderAPI()) {
 			Utils.sendColorMessage(c, "&e[&d"+ name +"&e] &5 <|============================================|>");
@@ -123,5 +136,9 @@ public class AdvancedChat extends JavaPlugin{
 	
 	public boolean isDebug() {
 		return debug;
-	}	
+	}
+	
+	//Test Section
+	
+
 }

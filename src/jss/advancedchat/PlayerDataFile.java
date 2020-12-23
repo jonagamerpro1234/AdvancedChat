@@ -79,7 +79,7 @@ public class PlayerDataFile extends FileManager implements FileHelper, FolderHel
 
 	public void saveDefaultConfig() {
 		if(this.file == null) {
-			this.file = new File(getDataFolder(), this.path);
+			this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
 		}
 		if(!this.file.exists()) {
 			saveResources(this.path, false);
@@ -88,7 +88,7 @@ public class PlayerDataFile extends FileManager implements FileHelper, FolderHel
 	
 	public void resetConfig() {
 		if(this.file == null) {
-			this.file = new File(getDataFolder(), this.path);
+			this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
 		}
 		if(!this.file.exists()) {
 			saveResources(this.path, true);
