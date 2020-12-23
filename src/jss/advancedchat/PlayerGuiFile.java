@@ -90,7 +90,7 @@ public class PlayerGuiFile extends FileManager implements FileHelper, FolderHelp
 			this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
 		}
 		if(!this.file.exists()) {
-			saveResources(this.path, false);
+			saveResources(this.folderpath + File.separator + this.path, false);
 		}
 	}
 
@@ -99,7 +99,7 @@ public class PlayerGuiFile extends FileManager implements FileHelper, FolderHelp
 			this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
 		}
 		if(!this.file.exists()) {
-			saveResources(this.path, true);
+			saveResources(this.folderpath + File.separator + this.path, true);
 		}
 	}
 	

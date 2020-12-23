@@ -202,7 +202,7 @@ public class ChatListener implements Listener {
 	
 	public String replacePlaceholderAPI(Player p, String message){
 	    String holders = message;
-	    if ((plugin.placeholders) && (PlaceholderAPI.containsPlaceholders(holders))) {
+	    if ((plugin.placeholder) && (PlaceholderAPI.containsPlaceholders(holders))) {
 	      holders = PlaceholderAPI.setPlaceholders(p, holders);
 	    }
 	    return holders;
