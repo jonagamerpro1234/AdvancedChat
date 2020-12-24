@@ -82,8 +82,7 @@ public class AdvancedChatCmd implements CommandExecutor{
 			}
 			return false;
 		}
-		Player j = (Player) sender;
-		
+		Player j = (Player) sender;		
 		if(args.length >= 1) {
 			if(args[0].equalsIgnoreCase("info")) {
 				Utils.sendColorMessage(j, "&5-=-=-=-=-=[&b"+plugin.name+"&5]=-=-=-=-=-=-");
@@ -96,38 +95,37 @@ public class AdvancedChatCmd implements CommandExecutor{
 			}
 			if(args[0].equalsIgnoreCase("help")) {
 				if((j.isOp()) || (j.hasPermission("AdvancedChat.Help"))) {
+					List<String> help = config.getStringList("AdvancedChat.Help-Msg");
+					Utils.sendColorMessage(j, "&5-=-=-=-=-=-=-=-=-=-=-=&6[&d"+plugin.name+"&6]&5=-=-=-=-=-=-=-=-=-=-=-");
+					for(int i = 0; i < help.size(); i++) {
+						String text = (String) help.get(i);
+						Utils.sendColorMessage(j, text);
+					}					
+					Utils.sendColorMessage(j, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+				}else {
 					TextComponent msg = new TextComponent();
 					msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
 					msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT , new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
 					j.spigot().sendMessage(msg);
-					return true;
 				}
-				
-				List<String> help = config.getStringList("AdvancedChat.Help-Msg");
-				Utils.sendColorMessage(j, "&5-=-=-=-=-=-=-=-=-=-=-=&6[&d"+plugin.name+"&6]&5=-=-=-=-=-=-=-=-=-=-=-");
-				for(int i = 0; i < help.size(); i++) {
-					String text = (String) help.get(i);
-					Utils.sendColorMessage(j, text);
-				}					
-				Utils.sendColorMessage(j, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 				return true;
 			}
 			if(args[0].equalsIgnoreCase("reload")) {
 				if((j.isOp()) || (j.hasPermission("AdvancedChat.Reload"))) {
+					configFile.reloadConfig();
+					playerDataFile.reloadConfig();
+					colorFile.reloadConfig();
+					playerGuiFile.reloadConfig();
+					if(config.getString("Settings.Use-Default-Prefix").equals("true")) {
+						Utils.sendColorMessage(j, Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Reload"));
+					}else if(config.getString("Settings.Use-Default-Prefix").equals("false")) {
+						Utils.sendColorMessage(j, config.getString("Settings.Prefix") + " " + config.getString("AdvancedChat.Reload"));
+					}
+				}else {
 					TextComponent msg = new TextComponent();
 					msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
 					msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT , new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-					j.spigot().sendMessage(msg);
-					return true;
-				}	
-				configFile.reloadConfig();
-				playerDataFile.reloadConfig();
-				colorFile.reloadConfig();
-				playerGuiFile.reloadConfig();
-				if(config.getString("Settings.Use-Default-Prefix").equals("true")) {
-					Utils.sendColorMessage(j, Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Reload"));
-				}else if(config.getString("Settings.Use-Default-Prefix").equals("false")) {
-					Utils.sendColorMessage(j, config.getString("Settings.Prefix") + " " + config.getString("AdvancedChat.Reload"));
+					j.spigot().sendMessage(msg);	
 				}
 				return true;
 			}

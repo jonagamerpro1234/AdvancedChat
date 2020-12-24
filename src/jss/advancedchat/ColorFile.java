@@ -90,7 +90,7 @@ public class ColorFile extends FileManager implements FileHelper, FolderHelper{
 			this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
 		}
 		if(!this.file.exists()) {
-			saveResources(this.folderpath + File.separator + this.path, false);
+			saveResources(this.path, false);
 		}
 	}
 
@@ -99,7 +99,7 @@ public class ColorFile extends FileManager implements FileHelper, FolderHelper{
 			this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
 		}
 		if(!this.file.exists()) {
-			saveResources(this.folderpath + File.separator + this.path, true);
+			saveResources(this.path, true);
 		}
 	}
 	

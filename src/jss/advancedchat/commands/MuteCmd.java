@@ -8,36 +8,43 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.test.PlayerManager;
 import jss.advancedchat.utils.Utils;
 
 public class MuteCmd implements CommandExecutor {
 
 	private AdvancedChat plugin;
+	
 
 	public MuteCmd(AdvancedChat plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("Mute").setExecutor(this);
 	}
-
-	@SuppressWarnings("null")
+	//mensages faltantes
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		Player j = (Player) sender;
-		if (sender instanceof Player) {
-			FileConfiguration config = plugin.getConfigfile().getConfig();
-			Player p = Bukkit.getPlayer(args[0]);
-			if (p == null) {
-				Utils.sendColorMessage(j, config.getString("AdvancedChat.No-Online-Player").replace("<name>", p.getName()));
+		FileConfiguration config = plugin.getConfigfile().getConfig();
+		PlayerManager manager = new PlayerManager(plugin);
+		
+		String text = config.getString("AdvancedChat.Help-Mute");
+		if (!(sender instanceof Player)) {
+			
+			if(args.length >= 1) {
+				Player p = Bukkit.getPlayer(args[0]);
+				manager.setMute(p, true);
+				return true;
 			}
-			if (!plugin.mute.contains(p.getName())) {
-				Utils.sendColorMessage(!plugin.mute.contains(p.getName())+"");
-			} else {
-				plugin.mute.add(p.getName());
-			}
-
-		} else {
-			Utils.sendColorMessage(j, "Test Use /mute <player>");
+			Utils.sendColorMessage(sender, Utils.getPrefix() + " " + text);
+			return false;
 		}
-		return false;
+		Player j = (Player) sender;
+		if(args.length >= 1) {
+			text = Utils.getVar(text, j);
+			Player p = Bukkit.getPlayer(args[0]);
+			manager.setMute(p, true);
+			return true;
+		}
+		Utils.sendColorMessage(j, Utils.getPrefix() + " " + text);
+		return true;
 	}
 
 }

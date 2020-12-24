@@ -18,7 +18,6 @@ public class PlayerManager {
 	public String name;
 	public float range;
 	
-	
 	public PlayerManager(AdvancedChat plugin) {
 		super();
 		this.plugin = plugin;
@@ -57,10 +56,13 @@ public class PlayerManager {
 	public void setMute(Player player, boolean mute) {
 		PlayerDataFile playerDataFile = plugin.getPlayerDataFile();
 		FileConfiguration config = playerDataFile.getConfig();
+		if(player == null) {
+			Utils.sendColorMessage(eventUtils.getConsoleSender(), "No se pudo encontrar el jugador");
+			return;
+		}
 		if(config.contains("Players."+player.getName()+".Mute")) {
 			config.set("Players."+player.getName()+".Mute", mute);
-		}else {
-			Utils.sendColorMessage(eventUtils.getConsoleSender(), "No se pudo encontrar el jugador");
+			playerDataFile.saveConfig();
 		}
 	}
 
@@ -82,6 +84,7 @@ public class PlayerManager {
 		FileConfiguration config = playerDataFile.getConfig();
 		if(config.contains("Players."+player.getName()+".Color")) {
 			config.set("Players."+player.getName()+".Color", color);
+			playerDataFile.saveConfig();
 		}else {
 			Utils.sendColorMessage(eventUtils.getConsoleSender(), "No se pudo encontrar el jugador");
 		}

@@ -34,7 +34,7 @@ public class PlayerDataFile extends FileManager implements FileHelper, FolderHel
 	public String getFolderPath() {
 		return this.folderpath;
 	}
-
+	
 	public void create() {
 		this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
 		if(!this.file.exists()) {
@@ -48,6 +48,14 @@ public class PlayerDataFile extends FileManager implements FileHelper, FolderHel
 			reloadConfig();
 		}
 		return this.config;
+	}
+
+	public void saveConfig() {
+		try {
+			this.config.save(this.file);
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	public void reloadConfig() {
@@ -67,14 +75,15 @@ public class PlayerDataFile extends FileManager implements FileHelper, FolderHel
 		}catch(NullPointerException e) {
 			e.printStackTrace();
 		}
+		
 	}
 
-	public void saveConfig() {
-		try {
-			this.config.save(this.file);
-		}catch(IOException ex) {
-			ex.printStackTrace();
-		}	
+	public String getPath() {
+		return this.path;
+	}
+
+	public AdvancedChat getPlugin() {
+		return plugin;
 	}
 
 	public void saveDefaultConfig() {
@@ -82,25 +91,16 @@ public class PlayerDataFile extends FileManager implements FileHelper, FolderHel
 			this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
 		}
 		if(!this.file.exists()) {
-			saveResources(this.folderpath + File.separator + this.path, false);
+			saveResources(this.path, false);
 		}
 	}
-	
+
 	public void resetConfig() {
 		if(this.file == null) {
 			this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
 		}
 		if(!this.file.exists()) {
-			saveResources(this.folderpath + File.separator + this.path, true);
+			saveResources(this.path, true);
 		}
-	}
-	
-	public String getPath() {
-		return this.path;
-	}
-	
-
-	public AdvancedChat getPlugin() {
-		return plugin;
 	}
 }

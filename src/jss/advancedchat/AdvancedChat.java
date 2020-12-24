@@ -8,6 +8,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
+import jss.advancedchat.commands.MuteCmd;
+import jss.advancedchat.commands.UnMuteCmd;
 //import jss.advancedchat.events.ChatListener;
 //import jss.advancedchat.events.EventLoader;
 import jss.advancedchat.events.JoinListener;
@@ -54,12 +56,9 @@ public class AdvancedChat extends JavaPlugin{
 		configfile.saveDefaultConfig();
         configfile.create();
 		filemanager.createVoidFolder("Data");
-		playerdata.saveDefaultConfig();
 		playerdata.create();
 		filemanager.createVoidFolder("Gui");
-		colorFile.saveDefaultConfig();
 		colorFile.create();
-		playerGuiFile.saveDefaultConfig();
 		playerGuiFile.create();
         metrics = new Metrics(this);
 		setupCommands();
@@ -89,6 +88,8 @@ public class AdvancedChat extends JavaPlugin{
 	public void setupCommands() {
 		new AdvancedChatCmd(this);
 		new ClearChatCmd(this);
+		new MuteCmd(this);
+		new UnMuteCmd(this);
 	}
 	
 	public void setupEvents() {

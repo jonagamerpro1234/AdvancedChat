@@ -139,7 +139,9 @@ AdvancedChat:
   Error-Args: '&cUnknown Arguments'
   Error-Console: '&cYou cannot use this command in the console'
   Reload: '&aReload Completed'
-  Help-Cmd: '&b/AdvanceChat &8| &9/Ac &6Help &7 show more information of plugin'
+  Help-Mute: '&7Use &b/Mute &e<player> &7'
+  Help-UnMute: '&7Use &b/UnMute &e<player> &7'
+  Help-Cmd: '&7Use &b/AdvanceChat &8| &9/Ac &6Help &7 show more information of plugin'
   Help-Msg:
     - '&5> &b/AdvancedChat &8| &9/Ac &7these are the variants of the main plugin command'
     - '&5> &b/AdvancedChat &6help &7show this same message'
