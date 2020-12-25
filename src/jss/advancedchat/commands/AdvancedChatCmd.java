@@ -13,7 +13,7 @@ import jss.advancedchat.ColorFile;
 import jss.advancedchat.ConfigFile;
 import jss.advancedchat.PlayerDataFile;
 import jss.advancedchat.PlayerGuiFile;
-import jss.advancedchat.gui.InventoryColor;
+import jss.advancedchat.gui.GuiColor;
 import jss.advancedchat.test.PlayerManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Utils;
@@ -142,7 +142,7 @@ public class AdvancedChatCmd implements CommandExecutor{
 			}
 			
 			if(args[0].equalsIgnoreCase("open")) {
-				InventoryColor inventoryColor = new InventoryColor(plugin);
+				GuiColor inventoryColor = new GuiColor(plugin);
 				inventoryColor.openGuiColor(j);
 				return true;
 			}

@@ -3,6 +3,7 @@ package jss.advancedchat;
 import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -10,10 +11,12 @@ import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
+import jss.advancedchat.events.InventoryListener;
 //import jss.advancedchat.events.ChatListener;
 //import jss.advancedchat.events.EventLoader;
 import jss.advancedchat.events.JoinListener;
 import jss.advancedchat.utils.FileManager;
+import jss.advancedchat.utils.InventoryPlayer;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Utils;
 
@@ -39,6 +42,7 @@ public class AdvancedChat extends JavaPlugin{
 	private Logger logger = new Logger(this);
 	public ArrayList<String> mute = new ArrayList<String>();
 	private static AdvancedChat plugin;
+	private ArrayList<InventoryPlayer> inventoryPlayers;
 	
 	public void onEnable() {
 		Utils.setEnabled(version);;
@@ -61,6 +65,7 @@ public class AdvancedChat extends JavaPlugin{
 		colorFile.create();
 		playerGuiFile.create();
         metrics = new Metrics(this);
+		this.inventoryPlayers = new ArrayList<>();
 		setupCommands();
 		setupEvents();
 		SetupSoftDepends();
@@ -76,6 +81,7 @@ public class AdvancedChat extends JavaPlugin{
                 logger.Log(Level.OUTLINE, "&5<|" + Utils.getLine("&5"));
 			}
 		});*/
+
 	}
 	
 	public void onDisable() {
@@ -94,6 +100,7 @@ public class AdvancedChat extends JavaPlugin{
 	
 	public void setupEvents() {
 		new JoinListener(this);
+		new InventoryListener(this);
 	}
 	
 	public PlayerDataFile getPlayerDataFile() {
@@ -147,5 +154,27 @@ public class AdvancedChat extends JavaPlugin{
 	
 	//Test Section
 	
+	public void  addInventoryPlayer(Player player, String inventoryname) {
+		 if(this.getInventoryPlayer(player) == null) {
+			 this.inventoryPlayers.add(new InventoryPlayer(player, inventoryname));
+		 }
+	}
+	
+	public void removeInvetoryPlayer(Player player) {
+		for(int i = 0; i < inventoryPlayers.size(); i++) {
+			if(((InventoryPlayer)this.inventoryPlayers.get(i)).getPlayer().getName().equals(player.getName())) {
+				this.inventoryPlayers.remove(i);
+			}
+		}
+	}
+	
+	public InventoryPlayer getInventoryPlayer(Player player) {
+		for(int i = 0; i < inventoryPlayers.size(); i++) {
+			if(((InventoryPlayer)this.inventoryPlayers.get(i)).getPlayer().getName().equals(player.getName())) {
+				return (InventoryPlayer)this.inventoryPlayers.get(i);
+			}
+		}
+		return null;
+	}
 
 }

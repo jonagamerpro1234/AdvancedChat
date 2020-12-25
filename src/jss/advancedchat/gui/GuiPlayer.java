@@ -1,5 +1,5 @@
 package jss.advancedchat.gui;
 
-public class InventoryPlayer {
+public class GuiPlayer {
 
 }
