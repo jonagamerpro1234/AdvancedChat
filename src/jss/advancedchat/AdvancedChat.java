@@ -11,6 +11,7 @@ import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
+import jss.advancedchat.events.ChatListener;
 import jss.advancedchat.events.InventoryListener;
 //import jss.advancedchat.events.ChatListener;
 //import jss.advancedchat.events.EventLoader;
@@ -101,6 +102,7 @@ public class AdvancedChat extends JavaPlugin{
 	public void setupEvents() {
 		new JoinListener(this);
 		new InventoryListener(this);
+		new ChatListener(this);
 	}
 	
 	public PlayerDataFile getPlayerDataFile() {

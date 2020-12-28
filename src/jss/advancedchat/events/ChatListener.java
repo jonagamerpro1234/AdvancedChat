@@ -17,6 +17,8 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.ConfigFile;
+import jss.advancedchat.PlayerDataFile;
+import jss.advancedchat.test.PlayerManager;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.EventUtils;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -33,11 +35,11 @@ public class ChatListener implements Listener {
 	
 	public ChatListener(AdvancedChat plugin) {
 		this.plugin = plugin;
-		eventsUtils.addEventList(this);
+		eventsUtils.getEventManager().registerEvents(this, plugin);
 	}
 	
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	//@EventHandler
 	public void onChatFormat(AsyncPlayerChatEvent e) {
 		ConfigFile configFile = plugin.getConfigfile();
 		FileConfiguration config = configFile.getConfig();
@@ -108,7 +110,7 @@ public class ChatListener implements Listener {
 	}
 	
 	@SuppressWarnings("unused")
-	@EventHandler
+	//@EventHandler
 	public void onChatFilter(AsyncPlayerChatEvent e) {
 		Player j = e.getPlayer();
 		FileConfiguration config = plugin.getConfig();
@@ -148,9 +150,20 @@ public class ChatListener implements Listener {
 	
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent e) {
+		FileConfiguration config = plugin.getPlayerDataFile().getConfig();
 		Player j = e.getPlayer();
-		if(plugin.mute.contains(j.getName())) {
-			e.setCancelled(true);
+		for(String key :config.getConfigurationSection("Players").getKeys(false)) {
+			if(key.contains(j.getName())) {
+				String mute = config.getString("Players."+key+".Mute");
+				if(mute.equals("true")) {
+					if((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Bypass"))) {
+						Utils.sendColorMessage(j, "&cEstas muteado!");
+						e.setCancelled(true);
+					}
+
+				}
+			}
+			
 		}
 	}
 	

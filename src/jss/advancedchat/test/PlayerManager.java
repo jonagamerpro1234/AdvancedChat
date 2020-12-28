@@ -69,11 +69,10 @@ public class PlayerManager {
 	public String getColor(Player player) {
 		PlayerDataFile playerDataFile = plugin.getPlayerDataFile();
 		FileConfiguration config = playerDataFile.getConfig();
-		
 		for(String key : config.getConfigurationSection("Players").getKeys(false)) {
 			if(key.contains(player.getName())) {
 				String color = config.getString("Players."+key+"Color");
-				return color;
+				return convertColor(color);
 			}
 		}
 		return null;
@@ -119,4 +118,43 @@ public class PlayerManager {
 		return false;
 	}
 	
+	
+	private String convertColor(String color) {
+		String temp = color;
+		if(temp.equalsIgnoreCase("Dark_Red")) {
+			return "&4";
+		}else if(temp.equalsIgnoreCase("Red")) {
+			return "&c";
+		}else if(temp.equalsIgnoreCase("Dark_Blue")) {
+			return "&1";
+		}else if(temp.equalsIgnoreCase("Blue")) {
+			return "&9";
+		}else if(temp.equalsIgnoreCase("Dark_Green")) {
+			return "&2";
+		}else if(temp.equalsIgnoreCase("Green")) {
+			return "&a";
+		}else if(temp.equalsIgnoreCase("Yellow")) {
+			return "&e";
+		}else if(temp.equalsIgnoreCase("Gold")) {
+			return "&6";
+		}else if(temp.equalsIgnoreCase("Dark_Aqua")) {
+			return "&3";
+		}else if(temp.equalsIgnoreCase("Aqua")) {
+			return "&b";
+		}else if(temp.equalsIgnoreCase("Light_Purple")) {
+			return "&d";
+		}else if(temp.equalsIgnoreCase("Dark_Purple")) {
+			return "&5";
+		}else if(temp.equalsIgnoreCase("Gray")) {
+			return "&7";
+		}else if(temp.equalsIgnoreCase("Dark_Gray")) {
+			return "&8";
+		}else if(temp.equalsIgnoreCase("White")) {
+			return "&f";
+		}else if(temp.equalsIgnoreCase("Black")) {
+			return "&0";
+		}
+		
+		return null;
+	}
 }
