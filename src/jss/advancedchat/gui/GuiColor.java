@@ -11,6 +11,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import com.cryptomorin.xseries.SkullUtils;
+import com.cryptomorin.xseries.XItemStack;
+import com.cryptomorin.xseries.XMaterial;
+
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.ColorFile;
 import jss.advancedchat.utils.Utils;
@@ -34,22 +38,29 @@ public class GuiColor {
 		ItemStack item = null;
 		SkullMeta skullMeta = null;
 		ItemMeta meta = null;
-		
+    	String version = Bukkit.getServer().getClass().getPackage().getName();
 		for(int i = 0; i < 9; i++) {
+			
 			String materialglass = config.getString("Decoration.Glass-Color.Item");
 			String materialglasslegacy = config.getString("Decoration.Glass-Color.Legacy.Item");
 			int datavalue = config.getInt("Decoration.Glass-Color.Legacy.Data-Value");
-			if((Bukkit.getVersion().contains("1.13")) || (Bukkit.getVersion().contains("1.14")) || (Bukkit.getVersion().contains("1.15")) || (Bukkit.getVersion().contains("1.16"))) {
-				item = new ItemStack(Material.valueOf(materialglass));
+			if((version.contains("1.13")) || (version.contains("1.14")) || (version.contains("1.15")) || (version.contains("1.16"))) {
+				item = XMaterial.valueOf(materialglass).parseItem();
+				meta = item.getItemMeta();
+				meta.setDisplayName(Utils.color(" "));
+				item.setItemMeta(meta);
+				item.setAmount(1);
+				inv.setItem(i, item);
 			}else {
 				item = new ItemStack(Material.valueOf(materialglasslegacy));
 				item.setDurability((short)datavalue);
+				meta = item.getItemMeta();
+				meta.setDisplayName(Utils.color(" "));
+				item.setItemMeta(meta);
+				item.setAmount(1);
+				inv.setItem(i, item);
 			}
-			meta = item.getItemMeta();
-			meta.setDisplayName(Utils.color(" "));
-			item.setItemMeta(meta);
-			item.setAmount(1);
-			inv.setItem(i, item);
+			
 		}
 		
 		for(String key : config.getConfigurationSection("Items").getKeys(false)) {	
@@ -63,14 +74,17 @@ public class GuiColor {
 			String id = config.getString("Items."+key+".ID");
 			int amont = config.getInt("Items."+key+".Amount");
 			List<String> lore = config.getStringList("Items."+key+".Lore");
-			if((Bukkit.getVersion().contains("1.13")) || (Bukkit.getVersion().contains("1.14")) || (Bukkit.getVersion().contains("1.15")) || (Bukkit.getVersion().contains("1.16"))) {
+			
+
+			
+			if((version.contains("1.13")) || (version.contains("1.14")) || (version.contains("1.15")) || (version.contains("1.16"))) {
 				item = new ItemStack(Material.valueOf(material));
 			}else {
 				item = new ItemStack(Material.valueOf(materiallegacy));
 				item.setDurability((short) datavalue);
 			}
 
-			if(useSkull.equals("true")) {
+			if(useSkull.contains("true")) {
 				item = Utils.setSkull(item, id, texture);
 				skullMeta = (SkullMeta) item.getItemMeta();
 				skullMeta.setDisplayName(Utils.color(name));
@@ -82,7 +96,7 @@ public class GuiColor {
 				}
 				skullMeta.setLore(lore);
 				item.setItemMeta(skullMeta);
-			}else if(useSkull.equals("false")) {
+			}else if(useSkull.contains("false")) {
 				meta = item.getItemMeta();
 				meta.setDisplayName(Utils.color(name));
 				for(int i = 0; i < lore.size(); i++) {
@@ -102,7 +116,7 @@ public class GuiColor {
 			String materialglass = config.getString("Decoration.Glass-Color.Item");
 			String materialglasslegacy = config.getString("Decoration.Glass-Color.Legacy.Item");
 			int datavalue = config.getInt("Decoration.Glass-Color.Legacy.Data-Value");
-			if((Bukkit.getVersion().contains("1.13")) || (Bukkit.getVersion().contains("1.14")) || (Bukkit.getVersion().contains("1.15")) || (Bukkit.getVersion().contains("1.16"))) {
+			if((version.contains("1.13")) || (version.contains("1.14")) || (version.contains("1.15")) || (version.contains("1.16"))) {
 				item = new ItemStack(Material.valueOf(materialglass));
 			}else {
 				item = new ItemStack(Material.valueOf(materialglasslegacy));
@@ -118,7 +132,7 @@ public class GuiColor {
 		String materialglass0 = config.getString("Decoration.Glass-Color.Item");
 		String materialglasslegacy0 = config.getString("Decoration.Glass-Color.Legacy.Item");
 		int datavalue0 = config.getInt("Decoration.Glass-Color.Legacy.Data-Value");
-		if((Bukkit.getVersion().contains("1.13")) || (Bukkit.getVersion().contains("1.14")) || (Bukkit.getVersion().contains("1.15")) || (Bukkit.getVersion().contains("1.16"))) {
+		if((version.contains("1.13")) || (version.contains("1.14")) || (version.contains("1.15")) || (version.contains("1.16"))) {
 			item = new ItemStack(Material.valueOf(materialglass0));
 		}else {
 			item = new ItemStack(Material.valueOf(materialglasslegacy0));
@@ -133,7 +147,7 @@ public class GuiColor {
 		String materialglass1 = config.getString("Decoration.Glass-Color.Item");
 		String materialglasslegacy1 = config.getString("Decoration.Glass-Color.Legacy.Item");
 		int datavalue1 = config.getInt("Decoration.Glass-Color.Legacy.Data-Value");
-		if((Bukkit.getVersion().contains("1.13")) || (Bukkit.getVersion().contains("1.14")) || (Bukkit.getVersion().contains("1.15")) || (Bukkit.getVersion().contains("1.16"))) {
+		if((version.contains("1.13")) || (version.contains("1.14")) || (version.contains("1.15")) || (version.contains("1.16"))) {
 			item = new ItemStack(Material.valueOf(materialglass1));
 		}else {
 			item = new ItemStack(Material.valueOf(materialglasslegacy1));
@@ -148,7 +162,7 @@ public class GuiColor {
 		String materialglass11 = config.getString("Decoration.Glass-Color.Item");
 		String materialglasslegacy11 = config.getString("Decoration.Glass-Color.Legacy.Item");
 		int datavalue11 = config.getInt("Decoration.Glass-Color.Legacy.Data-Value");
-		if((Bukkit.getVersion().contains("1.13")) || (Bukkit.getVersion().contains("1.14")) || (Bukkit.getVersion().contains("1.15")) || (Bukkit.getVersion().contains("1.16"))) {
+		if((version.contains("1.13")) || (version.contains("1.14")) || (version.contains("1.15")) || (version.contains("1.16"))) {
 			item = new ItemStack(Material.valueOf(materialglass11));
 		}else {
 			item = new ItemStack(Material.valueOf(materialglasslegacy11));
@@ -163,7 +177,7 @@ public class GuiColor {
 		String materialglass111 = config.getString("Decoration.Glass-Color.Item");
 		String materialglasslegacy111 = config.getString("Decoration.Glass-Color.Legacy.Item");
 		int datavalue111 = config.getInt("Decoration.Glass-Color.Legacy.Data-Value");
-		if((Bukkit.getVersion().contains("1.13")) || (Bukkit.getVersion().contains("1.14")) || (Bukkit.getVersion().contains("1.15")) || (Bukkit.getVersion().contains("1.16"))) {
+		if((version.contains("1.13")) || (version.contains("1.14")) || (version.contains("1.15")) || (version.contains("1.16"))) {
 			item = new ItemStack(Material.valueOf(materialglass111));
 		}else {
 			item = new ItemStack(Material.valueOf(materialglasslegacy111));
@@ -178,7 +192,7 @@ public class GuiColor {
 		String materialglass1111 = config.getString("Decoration.Glass-Color.Item");
 		String materialglasslegacy1111 = config.getString("Decoration.Glass-Color.Legacy.Item");
 		int datavalue1111 = config.getInt("Decoration.Glass-Color.Legacy.Data-Value");
-		if((Bukkit.getVersion().equals("1.13")) || (Bukkit.getVersion().equals("1.14")) || (Bukkit.getVersion().equals("1.15")) || (Bukkit.getVersion().equals("1.16"))) {
+		if((version.contains("1.13")) || (version.contains("1.14")) || (version.contains("1.15")) || (version.contains("1.16"))) {
 			item = new ItemStack(Material.valueOf(materialglass1111));
 		}else {
 			item = new ItemStack(Material.valueOf(materialglasslegacy1111));
@@ -193,7 +207,7 @@ public class GuiColor {
 		String materialglass11111 = config.getString("Decoration.Glass-Color.Item");
 		String materialglasslegacy11111 = config.getString("Decoration.Glass-Color.Legacy.Item");
 		int datavalue11111 = config.getInt("Decoration.Glass-Color.Legacy.Data-Value");
-		if((Bukkit.getVersion().contains("1.13")) || (Bukkit.getVersion().contains("1.14")) || (Bukkit.getVersion().contains("1.15")) || (Bukkit.getVersion().contains("1.16"))) {
+		if((version.contains("1.13")) || (version.contains("1.14")) || (version.contains("1.15")) || (version.contains("1.16"))) {
 			item = new ItemStack(Material.valueOf(materialglass11111));
 		}else {
 			item = new ItemStack(Material.valueOf(materialglasslegacy11111));
@@ -214,7 +228,7 @@ public class GuiColor {
 		String materialglass111111 = config.getString("Decoration.Glass-Color.Item");
 		String materialglasslegacy111111 = config.getString("Decoration.Glass-Color.Legacy.Item");
 		int datavalue111111 = config.getInt("Decoration.Glass-Color.Legacy.Data-Value");
-		if((Bukkit.getVersion().contains("1.13")) || (Bukkit.getVersion().contains("1.14")) || (Bukkit.getVersion().contains("1.15")) || (Bukkit.getVersion().contains("1.16"))) {
+		if((version.contains("1.13")) || (version.contains("1.14")) || (version.contains("1.15")) || (version.contains("1.16"))) {
 			item = new ItemStack(Material.valueOf(materialglass111111));
 		}else {
 			item = new ItemStack(Material.valueOf(materialglasslegacy111111));
@@ -236,7 +250,7 @@ public class GuiColor {
 			String materialglass = config.getString("Decoration.Glass-Color.Item");
 			String materialglasslegacy = config.getString("Decoration.Glass-Color.Legacy.Item");
 			int datavalue = config.getInt("Decoration.Glass-Color.Legacy.Data-Value");
-			if((Bukkit.getVersion().contains("1.13")) || (Bukkit.getVersion().contains("1.14")) || (Bukkit.getVersion().contains("1.15")) || (Bukkit.getVersion().contains("1.16"))) {
+			if((version.contains("1.13")) || (version.contains("1.14")) || (version.contains("1.15")) || (version.contains("1.16"))) {
 				item = new ItemStack(Material.valueOf(materialglass));
 			}else {
 				item = new ItemStack(Material.valueOf(materialglasslegacy));
@@ -253,7 +267,7 @@ public class GuiColor {
 			String materialglass = config.getString("Decoration.Glass-Color.Item");
 			String materialglasslegacy = config.getString("Decoration.Glass-Color.Legacy.Item");
 			int datavalue = config.getInt("Decoration.Glass-Color.Legacy.Data-Value");
-			if((Bukkit.getVersion().contains("1.13")) || (Bukkit.getVersion().contains("1.14")) || (Bukkit.getVersion().contains("1.15")) || (Bukkit.getVersion().contains("1.16"))) {
+			if((version.contains("1.13")) || (version.contains("1.14")) || (version.contains("1.15")) || (version.contains("1.16"))) {
 				item = new ItemStack(Material.valueOf(materialglass));
 			}else {
 				item = new ItemStack(Material.valueOf(materialglasslegacy));
@@ -270,7 +284,7 @@ public class GuiColor {
 		String materialback = config.getString("Decoration.Back.Item");
 		String materialbacklegacy = config.getString("Decoration.Back.Legacy.Item");
 		int backdatavalue = config.getInt("Decoration.Back.Legacy.Data-Value");
-		if((Bukkit.getVersion().equals("1.13")) || (Bukkit.getVersion().equals("1.14")) || (Bukkit.getVersion().equals("1.15")) || (Bukkit.getVersion().equals("1.16"))) {
+		if((version.contains("1.13")) || (version.contains("1.14")) || (version.contains("1.15")) || (version.contains("1.16"))) {
 			item = new ItemStack(Material.valueOf(materialback));
 		}else {
 			item = new ItemStack(Material.valueOf(materialbacklegacy));
@@ -287,7 +301,7 @@ public class GuiColor {
 			String materialglass = config.getString("Decoration.Glass-Color.Item");
 			String materialglasslegacy = config.getString("Decoration.Glass-Color.Legacy.Item");
 			int datavalue = config.getInt("Decoration.Glass-Color.Legacy.Data-Value");
-			if((Bukkit.getVersion().contains("1.13")) || (Bukkit.getVersion().contains("1.14")) || (Bukkit.getVersion().contains("1.15")) || (Bukkit.getVersion().contains("1.16"))) {
+			if((version.contains("1.13")) || (version.contains("1.14")) || (version.contains("1.15")) || (version.contains("1.16"))) {
 				item = new ItemStack(Material.valueOf(materialglass));
 			}else {
 				item = new ItemStack(Material.valueOf(materialglasslegacy));
