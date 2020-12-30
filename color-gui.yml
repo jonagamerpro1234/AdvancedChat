@@ -9,15 +9,9 @@ Title: '&6&lColors'
 Decoration:
   Glass-Color:
     Item: BLACK_STAINED_GLASS_PANE
-    Legacy:
-      Item: STAINED_GLASS_PANE
-      Data-Value: 15
   Back:
     Name: '&c&lBack'
     Item: RED_STAINED_GLASS_PANE
-    Legacy:
-      Item: STAINED_GLASS_PANE
-      Data-Value: 14
 Items:
   Dark_Red:
     Name: '&4&lDark Red'
@@ -205,6 +199,18 @@ Items:
     Slot: 32
     Texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTY3YTJmMjE4YTZlNmUzOGYyYjU0NWY2YzE3NzMzZjRlZjliYmIyODhlNzU0MDI5NDljMDUyMTg5ZWUifX19
     ID: 063df521-537b-48d4-8fab-d303500e29ca
+    Item: PLAYER_HEAD
+    Legacy:
+      Item: SKULL_ITEM
+      Data-Value: 3
+    Amount: 1
+    Lore: {}
+  RainBow:
+    Name: '&b&l&nRainBow'
+    Use-Custom-Skull: true
+    Slot: 31
+    Texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5ZTNlNmU1YjJiOTJmMGJlYjM2OGI3MzhiOTkzZDdiYTIyNWJmOWJiMjc1OGJmYzlmYzJkYWJhNGE1YTdkIn19fQ==
+    ID: 36848749-6c83-4207-96b7-2df3a0876715
     Item: PLAYER_HEAD
     Legacy:
       Item: SKULL_ITEM

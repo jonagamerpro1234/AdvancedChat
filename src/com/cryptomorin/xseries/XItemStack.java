@@ -71,6 +71,7 @@ import java.util.*;
  * @see XEnchantment
  * @see ItemStack
  */
+@SuppressWarnings("deprecation")
 public final class XItemStack {
     private XItemStack() {
     }
@@ -83,7 +84,6 @@ public final class XItemStack {
      * @param config the config section to write this item to.
      * @since 1.0.0
      */
-    @SuppressWarnings("deprecation")
     public static void serialize(@Nonnull ItemStack item, @Nonnull ConfigurationSection config) {
         Objects.requireNonNull(item, "Cannot serialize a null item");
         Objects.requireNonNull(config, "Cannot serialize item from a null configuration section.");
@@ -259,7 +259,6 @@ public final class XItemStack {
      * @return a deserialized ItemStack.
      * @since 1.0.0
      */
-    @SuppressWarnings("deprecation")
     @Nullable
     public static ItemStack deserialize(@Nonnull ConfigurationSection config) {
         Objects.requireNonNull(config, "Cannot deserialize item to a null configuration section.");

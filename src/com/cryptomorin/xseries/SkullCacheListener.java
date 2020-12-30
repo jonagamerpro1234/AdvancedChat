@@ -45,7 +45,6 @@ import java.util.UUID;
 /**
  * This class is currently unused until I find a solution.
  */
-@SuppressWarnings("unused")
 final class SkullCacheListener {
     protected static final Map<UUID, String> CACHE = new HashMap<>();
     private static final String SESSION = "https://sessionserver.mojang.com/session/minecraft/profile/";

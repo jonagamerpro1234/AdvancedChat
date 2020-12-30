@@ -24,7 +24,7 @@ Config:
 Settings:
   Use-Default-Prefix: true 
   Prefix: '&6[&bMy Server&6]&7'
-  ChatFormat-Type: Default
+  ChatFormat-Type: custom
   ClearChat:
     AutoClear: true
     Tick: 24000
@@ -37,14 +37,17 @@ Default-Format: '<&f<name>&f> &f<msg>'
 # | here you can customize the chat in a general way that affects both ranks, groups, and has all players |
 # | in custom we have a new function which is hover text this option only works if the type is in experimental its format is
 #
-# |this option only works in experimental to return to normal the chat change the type to [Normal]    
+# |Type: [normal] [hover] [experimental]
+#
+# |this option only works in hover to return to normal the chat change the type to [Normal]    
 #    HoverEvent:  
 #      Text: 'hello <name>'
 #      Color: AQUA
 #      Mode: Text there are three different modes which are [ Text | Entity | Item] the second and third are for testing, they can be removed at any time
 Custom-Format:
-  Text: '&6[&c<name>&6]&8 &7<msg>'
-  Type: Normal
+  Text: '&6[&c<name>&6] &7<msg>'
+  Experimental-Text: '&6[&c<name>&6] '
+  Type: experimental
   HoverEvent:
     Text: '&ahello &d<name>'
     Mode: Text
@@ -81,7 +84,7 @@ World-Chat:
 #   Default:
 #    Format: '&9|&e<name>&9|&8> &7<msg>'
 #    Permission: 'advancedchat.group.default'
-#    Type: Experimental [Default | Type: Normal ]
+#    Type:  hover | experimental [Default | Type: normal ]
 #
 # |this option only works in experimental to return to normal the chat change the type to [Normal]    
 #    HoverEvent:  
@@ -91,6 +94,7 @@ World-Chat:
 Groups:
   Default:
     Format: '&9|&e<name>&9|&8> &7<msg>'
+    Experimental-Format: '&6[&c<name>&6] '
     Permission: 'advancedchat.group.default'
     Type: Normal
     HoverEvent:
@@ -98,10 +102,20 @@ Groups:
       Mode: Text
   Admin:
     Format: '&9|&e<name>&9|&8> &e<msg>'
+    Experimental-Format: '&6[&c<name>&6] '
     Permission: 'advancedchat.group.admin'
+    Type: Normal
+    HoverEvent:
+      Text: '&6hello &b<name>'
+      Mode: Text
   Owner:
     Format: '&9|&e<name>&9|&8> &c<msg>'
+    Experimental-Format: '&6[&c<name>&6] '
     Permission: 'advancedchat.group.owner'
+    Type: Normal
+    HoverEvent:
+      Text: '&6hello &b<name>'
+      Mode: Text
 #
 # |Filter Chat|
 # |here you can filter the unwanted words on your server and have a little more control over the chat
@@ -155,4 +169,4 @@ AdvancedChat:
 # This is the end of the configuration ... [-_-] more things coming soon
 # 
 # | Config File
-# | Version 1.4.0-Pre-Alpha[3]
+# | Version 1.4.0

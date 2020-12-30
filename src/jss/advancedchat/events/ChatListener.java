@@ -17,7 +17,6 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.ConfigFile;
-import jss.advancedchat.PlayerDataFile;
 import jss.advancedchat.test.PlayerManager;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.EventUtils;
@@ -39,41 +38,43 @@ public class ChatListener implements Listener {
 	}
 	
 	@SuppressWarnings("deprecation")
-	//@EventHandler
+	@EventHandler
 	public void onChatFormat(AsyncPlayerChatEvent e) {
+		PlayerManager manager = new PlayerManager(plugin);
 		ConfigFile configFile = plugin.getConfigfile();
 		FileConfiguration config = configFile.getConfig();
 		Player j = e.getPlayer();
 		try {
 			String path = "Settings.ChatFormat-Type";
-			if(config.getString(path).equals("Default")) {
+			if(config.getString(path).equals("default")) {
 				e.setFormat("<"+j.getName()+">" + " " + e.getMessage());
-			}else if(config.getString(path).equals("Custom")) {
+			}else if(config.getString(path).equals("custom")) {
 				String format = config.getString("Custom-Format.Text");
+				String exformat = config.getString("Custom-Format.Experimental-Text");
 				String pathtype = "Custom-Format.Type";
 				String hovertext = config.getString("Custom-Format.HoverEvent.Text");
 				String hovermode = config.getString("Custom-Format.HoverEvent.Mode");
-				format = replacePlaceholderAPI(j, format);
-				format = getAllVars(j, format);
+				format = Utils.getVar(format, j);
 				format = format.replace("<msg>", e.getMessage());	
-				hovertext = replacePlaceholderAPI(j, hovertext);
-				hovertext = getAllVars(j, hovertext);
-				//format = format.replace("<name>", FormatChatHover(j, hovertext, hovermode, hovercolor));
-				if(!(j.hasPermission("AdvancedChat.Chat.Color")) || !(j.isOp())) {
+				hovertext = Utils.getVar(hovertext, j);
+				if((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Color"))) {
 					format = Utils.hexcolor(format);
 				}
-				if(config.getString(pathtype).equals("Normal")) {
-					e.setFormat(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage()));	
-				}else if(config.getString(pathtype).equals("Experimental")) {
-				TextComponent tc = new TextComponent(e.getFormat());
-				
-				HoverEvent hover = new HoverEvent(HoverEvent.Action.valueOf(getActionHoverType(hovermode)), new ComponentBuilder(Utils.color(hovertext)).create());
-				tc.setHoverEvent(hover);
-				tc.setText(format);
-				e.setCancelled(true);
-				sendAllPlayer(tc);
+				if(config.getString(pathtype).equals("normal")) {
+					e.setFormat(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage()));
+				}else if(config.getString(pathtype).equals("experimental")) {
+					String msg = e.getMessage();
+					e.setFormat(Utils.color(exformat + "&r" + manager.getColor(j,msg)));
+				}else if(config.getString(pathtype).equals("hover")) {
+					TextComponent tc = new TextComponent(e.getFormat());
+					HoverEvent hover = new HoverEvent(HoverEvent.Action.valueOf(getActionHoverType(hovermode)), new ComponentBuilder(Utils.color(hovertext)).create());
+					tc.setHoverEvent(hover);
+					tc.setText(format);
+					e.setCancelled(true);
+					sendAllPlayer(tc);
+
 				}
-			}else if(config.getString(path).equals("Group")) {
+			}else if(config.getString(path).equals("group")) {
 				for(String key : config.getConfigurationSection("Groups").getKeys(false)) {
 					String pathtype = config.getString("Groups."+key+".Type");
 					String format = config.getString("Groups."+key+".Format");
@@ -88,11 +89,19 @@ public class ChatListener implements Listener {
 					if(!(j.hasPermission("AdvancedChat.Chat.Color")) || !(j.isOp())) {
 							format = Utils.hexcolor(format);
 					}
-					if(config.getString(pathtype).equals("Normal")) {
+					if(config.getString(pathtype).equals("normal")) {
 						if(j.hasPermission(perm)) {
-							e.setFormat(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage()));					
+							e.setFormat(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage()));
+							
 						}
-					}else if(config.getString(pathtype).equals("Experimental")) {
+					}else if(config.getString(pathtype).equals("experimental")) {
+						if(j.hasPermission(perm)) {
+							e.setFormat(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage()));
+							String msg = e.getMessage();
+							
+							e.setMessage(Utils.color(manager.getColor(j,msg)));	
+						}
+					}else if(config.getString(pathtype).equals("hover")) {
 						if(j.hasPermission(perm)) {}
 						TextComponent tc = new TextComponent(e.getFormat());
 						HoverEvent hover = new HoverEvent(HoverEvent.Action.valueOf(getActionHoverType(hovermode)), new ComponentBuilder(Utils.color(hovertext)).create());
@@ -149,7 +158,7 @@ public class ChatListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onChat(AsyncPlayerChatEvent e) {
+	public void onChatMute(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getPlayerDataFile().getConfig();
 		Player j = e.getPlayer();
 		for(String key :config.getConfigurationSection("Players").getKeys(false)) {

@@ -430,7 +430,6 @@ public class ParticleDisplay implements Cloneable {
      * @see #cloneWithLocation(double, double, double)
      * @see #cloneLocation(double, double, double)
      */
-    @SuppressWarnings("MethodDoesntCallSuperMethod")
     @Override
     @Nonnull
     public ParticleDisplay clone() {

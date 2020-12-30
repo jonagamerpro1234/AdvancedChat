@@ -112,7 +112,7 @@ public final class XEntity {
         return edit(location.getWorld().spawnEntity(location, type), config);
     }
 
-    @SuppressWarnings({"deprecation", "Guava"})
+    @SuppressWarnings({"deprecation"})
     @Nonnull
     public static Entity edit(@Nonnull Entity entity, @Nonnull ConfigurationSection config) {
         Objects.requireNonNull(entity, "Cannot edit properties of a null entity");
@@ -430,7 +430,6 @@ public final class XEntity {
      * @param section the config section to edit the bossbar from.
      * @since 3.0.0
      */
-    @SuppressWarnings("Guava")
     private static void editBossBar(BossBar bossBar, ConfigurationSection section) {
         String title = section.getString("title");
         if (title != null) bossBar.setTitle(ChatColor.translateAlternateColorCodes('&', title));

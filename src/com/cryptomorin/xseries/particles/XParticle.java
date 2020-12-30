@@ -2368,7 +2368,6 @@ public final class XParticle {
      * @return a rendered map of an image.
      * @since 1.0.0
      */
-    @SuppressWarnings("unused")
     public static CompletableFuture<Map<double[], Color>> renderImage(BufferedImage image, int resizedWidth, int resizedHeight, double compact) {
         return CompletableFuture.supplyAsync(() -> {
             if (image == null) return null;

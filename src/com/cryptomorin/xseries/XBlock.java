@@ -473,7 +473,8 @@ public final class XBlock {
      * @return true if the raw block type matches with the material.
      * @see #isSimilar(Block, XMaterial)
      */
-    public static boolean isType(Block block, XMaterial material) {
+    @SuppressWarnings("incomplete-switch")
+	public static boolean isType(Block block, XMaterial material) {
         Material mat = block.getType();
         switch (material) {
             case CAKE:

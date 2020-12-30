@@ -404,7 +404,6 @@ public class BossBar implements Cloneable {
         return id;
     }
 
-    @SuppressWarnings("MethodDoesntCallSuperMethod")
     @Override
     public BossBar clone() {
         return new BossBar(title, color, style, progress, properties.toArray(new Property[0]));
