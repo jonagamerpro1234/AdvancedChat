@@ -3,5 +3,23 @@
 # |     Version 1.4.0   |
 # |_____________________|
 #
+# | !!Not edit slot!!
 #
-#
+Title: '&8Player Settings: &b<player>'
+Decoration:
+  Glass-Color:
+    Item: BLACK_STAINED_GLASS_PANE
+Items:
+  PlayerHead:
+    Item: PLAYER_HEAD
+    Use-Custom-Skull: false
+    Id: 
+    Texture: 
+  Mute:
+    Enable-Item: GREEN_DYE
+    Disable-Item: RED_DYE
+    
+    
+    
+    
+  

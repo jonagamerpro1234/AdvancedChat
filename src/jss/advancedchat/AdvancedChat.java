@@ -13,8 +13,6 @@ import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
 import jss.advancedchat.events.ChatListener;
 import jss.advancedchat.events.InventoryListener;
-//import jss.advancedchat.events.ChatListener;
-//import jss.advancedchat.events.EventLoader;
 import jss.advancedchat.events.JoinListener;
 import jss.advancedchat.utils.FileManager;
 import jss.advancedchat.utils.InventoryPlayer;
@@ -137,11 +135,13 @@ public class AdvancedChat extends JavaPlugin{
 			Utils.sendColorMessage(c, "&e[&d"+ name +"&e] &5 <|============================================|>");
 			Utils.sendColorMessage(c, Utils.getPrefix() + " &5<| &ePlaceHolderAPI:&b" + " " + placeholder);
 			Utils.sendColorMessage(c, Utils.getPrefix() + " &5<| &eVars PlaceHolderAPI:&a true");
+			Utils.sendColorMessage(c, Utils.getPrefix() + " &5<| &dAdvancedChat:&a true");
 			Utils.sendColorMessage(c, "&e[&d"+ name +"&e] &5 <|============================================|>");
 		}else {
 			Utils.sendColorMessage(c, "&e[&d"+ name +"&e] &5 <|============================================|>");
 			Utils.sendColorMessage(c, Utils.getPrefix() + " &5<| &ePlaceHolderAPI:&b" + " " + placeholder);
 			Utils.sendColorMessage(c, Utils.getPrefix() + " &5<| &eVars PlaceHolderAPI:&c false");
+			Utils.sendColorMessage(c, Utils.getPrefix() + " &5<| &dAdvancedChat:&c false");
 			Utils.sendColorMessage(c, "&e[&d"+ name +"&e] &5 <|============================================|>");
 		}		
 	}

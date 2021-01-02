@@ -22,7 +22,46 @@ public class InventoryListener implements Listener {
 		this.plugin = plugin;
 		eventUtils.getEventManager().registerEvents(this, plugin);
 	}
-
+	
+	//@EventHandler
+	public void onInventoryPlayerList(InventoryClickEvent e) {
+		Player p = (Player) e.getWhoClicked();
+		InventoryPlayer inventoryPlayer = plugin.getInventoryPlayer(p);
+		if(inventoryPlayer != null) {
+			if(inventoryPlayer.getInventory().equals("playerlist")) {
+				if(e.getCurrentItem() == null) { 
+					return;
+				}
+				if(e.getClickedInventory() != null && e.getClickedInventory().equals(p.getOpenInventory().getTopInventory())) {
+					if ((e.getCurrentItem().getType() == Material.AIR) || (e.getSlotType() == null)) {
+						return;
+					}
+					e.setCancelled(true);
+					
+				}
+			}
+		}
+	}
+	
+	public void onInventoryPlayer(InventoryClickEvent e) {
+		Player p = (Player) e.getWhoClicked();
+		InventoryPlayer inventoryPlayer = plugin.getInventoryPlayer(p);
+		if(inventoryPlayer != null) {
+			if(inventoryPlayer.getInventory().equals("player")) {
+				if(e.getCurrentItem() == null) { 
+					return;
+				}
+				if(e.getClickedInventory() != null && e.getClickedInventory().equals(p.getOpenInventory().getTopInventory())) {
+					if ((e.getCurrentItem().getType() == Material.AIR) || (e.getSlotType() == null)) {
+						return;
+					}
+					e.setCancelled(true);
+					
+				}
+			}
+		}
+	}
+	
 	@EventHandler
 	public void onInventoryColor(InventoryClickEvent e) {
 		PlayerManager playerManager = new PlayerManager(plugin);
@@ -112,6 +151,7 @@ public class InventoryListener implements Listener {
 		}
 	}
 
+
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
@@ -123,6 +163,5 @@ public class InventoryListener implements Listener {
 		Player p = (Player) e.getPlayer();
 		plugin.removeInvetoryPlayer(p);
 	}
-
 
 }

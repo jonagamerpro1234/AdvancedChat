@@ -14,6 +14,7 @@ import jss.advancedchat.ConfigFile;
 import jss.advancedchat.PlayerDataFile;
 import jss.advancedchat.PlayerGuiFile;
 import jss.advancedchat.gui.GuiColor;
+import jss.advancedchat.gui.GuiPlayer;
 import jss.advancedchat.test.PlayerManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Utils;
@@ -121,6 +122,43 @@ public class AdvancedChatCmd implements CommandExecutor{
 					}else if(config.getString("Settings.Use-Default-Prefix").equals("false")) {
 						Utils.sendColorMessage(j, config.getString("Settings.Prefix") + " " + config.getString("AdvancedChat.Reload"));
 					}
+				}else {
+					TextComponent msg = new TextComponent();
+					msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
+					msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT , new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
+					j.spigot().sendMessage(msg);	
+				}
+				return true;
+			}
+			
+			if(args[0].equalsIgnoreCase("color")) {
+				if((j.isOp()) || (j.hasPermission("AdvancedChat.Gui.Color"))) {
+					GuiColor guiColor = new GuiColor(plugin);
+					guiColor.openGuiColor(j);
+				}else {
+					TextComponent msg = new TextComponent();
+					msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
+					msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT , new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
+					j.spigot().sendMessage(msg);	
+				}
+				return true;
+			}
+			if(args[0].equalsIgnoreCase("player")) {
+				if((j.isOp()) || (j.hasPermission("AdvancedChat.Gui.Player"))) {
+					GuiPlayer guiPlayer = new GuiPlayer(plugin);
+					guiPlayer.openPlayerGui(j);
+					Utils.sendColorMessage(j, "&6open player gui");
+				}else {
+					TextComponent msg = new TextComponent();
+					msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
+					msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT , new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
+					j.spigot().sendMessage(msg);	
+				}
+				return true;
+			}
+			if(args[0].equalsIgnoreCase("players")) {
+				if((j.isOp()) || (j.hasPermission("AdvancedChat.Gui.Player.List"))) {
+					Utils.sendColorMessage(j, "&6Test 00048");
 				}else {
 					TextComponent msg = new TextComponent();
 					msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));

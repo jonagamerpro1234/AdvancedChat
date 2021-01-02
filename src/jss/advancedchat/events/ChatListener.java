@@ -55,7 +55,8 @@ public class ChatListener implements Listener {
 				String hovertext = config.getString("Custom-Format.HoverEvent.Text");
 				String hovermode = config.getString("Custom-Format.HoverEvent.Mode");
 				format = Utils.getVar(format, j);
-				format = format.replace("<msg>", e.getMessage());	
+				format = format.replace("<msg>", e.getMessage());
+				exformat = Utils.getVar(exformat, j);
 				hovertext = Utils.getVar(hovertext, j);
 				if((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Color"))) {
 					format = Utils.hexcolor(format);
