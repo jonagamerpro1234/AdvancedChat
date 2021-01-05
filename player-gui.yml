@@ -4,20 +4,45 @@
 # |_____________________|
 #
 # | !!Not edit slot!!
+# | <player> = player name
 #
-Title: '&8Player Settings: &b<player>'
-Decoration:
-  Glass-Color:
-    Item: BLACK_STAINED_GLASS_PANE
-Items:
-  PlayerHead:
-    Item: PLAYER_HEAD
-    Use-Custom-Skull: false
-    Id: 
-    Texture: 
-  Mute:
-    Enable-Item: GREEN_DYE
-    Disable-Item: RED_DYE
+#
+#
+#
+#
+Player-Gui:  
+  Title: '&8Player Settings: &b<player>'
+  Decoration:
+    Glass-Color:
+      Item: BLACK_STAINED_GLASS_PANE
+  Back:
+    Name: '&c&lBack'
+    Item: RED_STAINED_GLASS_PANE
+  Items:
+    PlayerHead:
+      Item: PLAYER_HEAD
+      Use-Custom-Skull: false
+      Id: 
+      Texture: 
+    Mute:
+      Enable-Item: GREEN_DYE
+      Disable-Item: RED_DYE
+    Color:
+      Item: PLAYER_HEAD
+      Use-Custom-Skull: true
+      Texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5ZTNlNmU1YjJiOTJmMGJlYjM2OGI3MzhiOTkzZDdiYTIyNWJmOWJiMjc1OGJmYzlmYzJkYWJhNGE1YTdkIn19fQ==
+      ID: 36848749-6c83-4207-96b7-2df3a0876715
+PlayerList-Gui:
+  Title: '&6Players List'
+  Decoration:
+    Glass-Color:
+      Item: BLACK_STAINED_GLASS_PANE
+  Items:
+     PlayerHead:
+      Item: PLAYER_HEAD
+      Use-Custom-Skull: false
+      Id: 
+      Texture:    
     
     
     

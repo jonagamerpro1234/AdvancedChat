@@ -23,8 +23,8 @@ public class GuiPlayer {
 	public void openPlayerGui(Player player) {
 		FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
 		
-		String title = config.getString("Title");
-		String pathcolor = config.getString("Decoration.Glass-Color.Item");
+		String title = config.getString("Player-Gui.Title");
+		String pathcolor = config.getString("Player-Gui.Decoration.Glass-Color.Item");
 		
 		title = title.replace("<player>", player.getName());
 		Inventory inv = Bukkit.createInventory(null, 27, Utils.color(title));
@@ -38,7 +38,18 @@ public class GuiPlayer {
 	}
 	
 	public void openPlayerListGui(Player player) {
-		Inventory inv = Bukkit.createInventory(null, 56, "Player List");
+		FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
+		
+		String title = config.getString("PlayerList-Gui.Title");
+		
+		Inventory inv = Bukkit.createInventory(null, 56, Utils.color(title));
+		
+		ItemStack item = null;
+		ItemMeta meta = null;
+		
+		setDecorationPlayerList(inv, item, meta);
+		
+		player.openInventory(inv);	
 	}
 	
 	
@@ -84,17 +95,6 @@ public class GuiPlayer {
 			}
 		}
 		
-		/*for(int i = 46; i < 53; i++) {
-			item = XMaterial.BLACK_STAINED_GLASS_PANE.parseItem();
-			item.setAmount(1);
-			meta = item.getItemMeta();
-			meta.setDisplayName(" ");
-			item.setItemMeta(meta);
-			inv.setItem(i, item);
-			if(i == 9) {
-				break;
-			}
-		}*/
 	}
 	
 }

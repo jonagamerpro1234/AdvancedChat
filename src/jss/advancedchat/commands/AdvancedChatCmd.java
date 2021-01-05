@@ -140,7 +140,7 @@ public class AdvancedChatCmd implements CommandExecutor{
 					msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
 					msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT , new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
 					j.spigot().sendMessage(msg);	
-				}
+				} 
 				return true;
 			}
 			if(args[0].equalsIgnoreCase("player")) {
@@ -158,7 +158,9 @@ public class AdvancedChatCmd implements CommandExecutor{
 			}
 			if(args[0].equalsIgnoreCase("players")) {
 				if((j.isOp()) || (j.hasPermission("AdvancedChat.Gui.Player.List"))) {
-					Utils.sendColorMessage(j, "&6Test 00048");
+					GuiPlayer guiPlayer = new GuiPlayer(plugin);
+					guiPlayer.openPlayerListGui(j);
+					Utils.sendColorMessage(j, "&bopen player list gui");
 				}else {
 					TextComponent msg = new TextComponent();
 					msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
