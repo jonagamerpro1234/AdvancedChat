@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.ConfigFile;
@@ -118,59 +117,56 @@ public class ChatListener implements Listener {
 			
 		}catch(NullPointerException ex) {	}	
 	}
-	
-	@SuppressWarnings("unused")
-	//@EventHandler
+
+	//@EventHandler //1.5
 	public void onChatFilter(AsyncPlayerChatEvent e) {
 		Player j = e.getPlayer();
-		FileConfiguration config = plugin.getConfig();
-		try {
-			String path = "Filter-Chat.";
-			List<String> list = config.getStringList(path+"BadWords");
-			String censorship = config.getString(path+"Form-Of-Censorship");
-			String msg = config.getString(path+"Message");
-			String usemsg = config.getString(path+"Use-Custom-Msg");
-			int time = config.getInt(path+"Delay");
-			
-			if(config.getString(path+"Enabled").equals("true")) {
-				
-				if(usemsg.equals("true")) {
-					for(int i = 0; i < list.size(); i++) {
-						
-						BukkitScheduler scheduler = plugin.getServer().getScheduler();
-						scheduler.scheduleSyncDelayedTask(plugin, new Runnable() {
-							@Override
-							public void run() {
-									
-							}
-						}, 20L * time);
-					}
-				}else if(usemsg.equals("false")){
-					for(int i = 0; i < list.size(); i++) {
-						
-					}
-				}
-
-			}
-		}catch(NullPointerException ex) {
-				ex.printStackTrace();
-		}
+		FileConfiguration config = plugin.getConfigfile().getConfig();
 		
+		@SuppressWarnings("unused")
+		String path = "Filter-Chat.Enabled";
+		List<String> list = config.getStringList("Filter-Chat.BadWords");
+		String censorship = config.getString("Filter-Chat.Form-Of-Censorship");
+		String msg = config.getString("Filter-Chat.Message");
+		String usemsg = config.getString("Filter-Chat.Use-Custom-Msg");
+		String message = e.getMessage();
+		for(int i = 0; i < list.size(); i++) {
+			if(usemsg.equals("true")) {
+				e.setCancelled(true);
+				Utils.sendColorMessage(j, msg);
+			}else if(usemsg.equals("false")){
+				if(message.toLowerCase().contains(list.get(i))) {
+					String a = "";
+					for(int c = 0; c < list.size(); c++) {
+						a = a +censorship;
+					}
+					
+					message = message.replace(list.get(i), a);
+					
+				}
+			}
+			
+		}
+		e.setMessage(message);
+
 	}
 	
 	@EventHandler
 	public void onChatMute(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+		FileConfiguration cconfig = plugin.getConfigfile().getConfig();
 		Player j = e.getPlayer();
 		for(String key :config.getConfigurationSection("Players").getKeys(false)) {
 			if(key.contains(j.getName())) {
 				String mute = config.getString("Players."+key+".Mute");
-				if(mute.equals("true")) {
-					if((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Bypass"))) {
-						Utils.sendColorMessage(j, "&cEstas muteado!");
+				if((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Bypass"))) {
+					/////////////////////////////////////////////////////////
+				}else {
+					if(mute.equals("true")) {
+						Utils.sendColorMessage(j, cconfig.getString("AdvancedChat.Alert-Mute").replace("<name>", j.getName()));
 						e.setCancelled(true);
-					}
 
+					}
 				}
 			}
 			

@@ -8,23 +8,41 @@ import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.EventUtils;
-import jss.advancedchat.utils.Utils;
 
 public class PlayerManager {
 
 	private AdvancedChat plugin;
+	@SuppressWarnings("unused")
 	private EventUtils eventUtils = new EventUtils(plugin);
 	public UUID uuid;
 	public String name;
-	public float range;
+	private float range;
+	private int spam;
 	private String[] ColorCodes = { "§0", "§1", "§2", "§3", "§4", "§5", "§6", "§7", "§8", "§9", "§b", "§c", "§a" };
-
+	
 	public PlayerManager(AdvancedChat plugin) {
 		super();
 		this.plugin = plugin;
 		this.uuid = null;
 		this.name = null;
 		this.range = 0;
+		this.spam = 0;
+	}
+
+	public int getSpam() {
+		return spam;
+	}
+
+	public void setSpam(int spam) {
+		this.spam = spam;
+	}
+
+	public float getRange() {
+		return range;
+	}
+
+	public void setRange(float range) {
+		this.range = range;
 	}
 
 	public UUID getUuid() {
@@ -67,7 +85,7 @@ public class PlayerManager {
 	public void setMute(Player player, boolean mute) {
 		FileConfiguration config = plugin.getPlayerDataFile().getConfig();
 		if (player == null) {
-			Utils.sendColorMessage(eventUtils.getConsoleSender(), "No se pudo encontrar el jugador");
+			//Utils.sendColorMessage(eventUtils.getConsoleSender(), "No se pudo encontrar el jugador");
 			return;
 		}
 		if (config.contains("Players." + player.getName() + ".Mute")) {
@@ -104,7 +122,7 @@ public class PlayerManager {
 			config.set("Players." + player.getName() + ".Color", color);
 			plugin.getPlayerDataFile().saveConfig();
 		} else {
-			Utils.sendColorMessage(eventUtils.getConsoleSender(), "No se pudo encontrar el jugador");
+			//Utils.sendColorMessage(eventUtils.getConsoleSender(), "No se pudo encontrar el jugador");
 		}
 	}
 
@@ -112,11 +130,11 @@ public class PlayerManager {
 		FileConfiguration config = plugin.getPlayerDataFile().getConfig();
 		for (String key : config.getConfigurationSection("Players").getKeys(false)) {
 			if (key.contains(player.getName())) {
-				Utils.sendColorMessage(player, "&aExiste " + player.getName());
+				//Utils.sendColorMessage(player, "&aExiste " + player.getName());
 				return true;
 			}
 		}
-		Utils.sendColorMessage(player, "&cNo Existe " + player.getName());
+		//Utils.sendColorMessage(player, "&cNo Existe " + player.getName());
 		return false;
 	}
 
@@ -126,11 +144,11 @@ public class PlayerManager {
 			if (key.contains(player.getName())) {
 				config.set("Players." + key, null);
 				plugin.getPlayerDataFile().saveConfig();
-				Utils.sendColorMessage(player, "&a" + player.getName() + " Ha sido removido de la lista!");
+				//Utils.sendColorMessage(player, "&a" + player.getName() + " Ha sido removido de la lista!");
 				return true;
 			}
 		}
-		Utils.sendColorMessage(player, "&cNo se pudo encontrar a " + player.getName());
+		//Utils.sendColorMessage(player, "&cNo se pudo encontrar a " + player.getName());
 		return false;
 	}
 

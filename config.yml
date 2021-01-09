@@ -6,15 +6,6 @@
 # |Type| the types are the modes that exist according to the function they can be different or the same these are all the types that exist 
 # [Default | Custom | Group ]  , this options only works on certain options not all [Normal |Experimental]
 #
-# ||> Remove
-#config:
-#  Update:
-#    Enabled: true #allows to send an update message available on the console [ Default| true ]
-#    Lang: en #[ en | es ] there are 2 languages available at the moment [English|Spanish]
-#    Notify: true #allows to send an update message available on the player [ Default| true ]
-#
-# ||==================>
-#
 # |Use default prefix|
 # if it is true it will use the prefix of the plugin itself, but if it is false it will use the prefix that you define in [Prefix: 'my server']
 # |ChatForma Type|
@@ -25,6 +16,7 @@
 #   [AutoClear] you can activate the automatic cleaning of the chat according to the number of ticks [Default | true]
 #   [Ticks] here you can define the time that the actions are automatically executed [Default | 24000], 24000 tick = 20 min
 Settings:
+  Update: true
   Use-Default-Prefix: true 
   Prefix: '&6[&bMy Server&6]&7'
   ChatFormat-Type: custom
@@ -97,32 +89,6 @@ Groups:
       Text: '&6hello &b<name>'
       Mode: Text
 #
-# |Filter Chat|
-# |here you can filter the unwanted words on your server and have a little more control over the chat
-#
-# [Use-Custom-Msg] will use a custom message found in the [Message] section instead of using [Form Of Censorship] [Default | false]
-# [Message] here you can define a personalized message that will be sent to the player
-# [Form-Of-Censorship] this is the format that the word will be censored, for example [noob = ****] this will depend on the number of characters that the word has
-# |Not implement| [Delay] It is the waiting time that the message will have before it is sent so that spam does not form in the player's chat [Defalt | 100 ]
-#
-# |The format is very simple, you just have to add the word you want to censor to the list
-#  Words:
-#    - 'noob'
-#    - 'stupid'
-#    - '<word>'
-#
-Filter-Chat:
-  Enabled: true
-  Use-Custom-Msg: false
-  Message: 'you cannot use this word, it is blocked!'
-  Form-Of-Censorship: '*'
-#  Delay: 5
-  BadWords:
-    - 'noob'
-    - 'stupid'
-    - 'fuck'
-    - 'pt'
-#
 # |Translation of messages from AdvancedChat|
 # |Version: 1.4|
 #
@@ -142,12 +108,11 @@ AdvancedChat:
     - '&5> &b/AdvancedChat &6reload &7reload the plugin files'
     - '&5> &b/AdvancedChat &6info &7shows information about the plugin'
     - '&5> &b/AdvancedChat &6color &7 open color gui'
-    - '&5> &b/AdvancedChat &6player &e<player name>'
-    - '&5> &b/AdvancedChat &6players'
+    - '&5> &b/AdvancedChat &6player &e<player name> open the player settings'
   Mute-Player: '&e[&b<name>&e] &cis now muted!'
   UnMute-Player: '&e[&b<name>&e] &ais now unmuted!'
   Alert-Mute: '&e[!] &cright now you are muted'
-  No-Online-Player: ''
+  No-Online-Player: '&cThis player does not exist or is not connected!'
 #
 # This is the end of the configuration ... [-_-] more things coming soon
 # 

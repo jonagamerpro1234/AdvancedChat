@@ -8,10 +8,9 @@ public class InventoryPlayer {
 	private String inventory;
 	
 	public InventoryPlayer(Player player, String inventory) {
-		super();
 		this.player = player;
 		this.inventory = inventory;
-	}
+	}	
 
 	public Player getPlayer() {
 		return player;

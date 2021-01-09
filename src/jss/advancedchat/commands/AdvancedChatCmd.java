@@ -2,6 +2,7 @@ package jss.advancedchat.commands;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,7 +16,6 @@ import jss.advancedchat.PlayerDataFile;
 import jss.advancedchat.PlayerGuiFile;
 import jss.advancedchat.gui.GuiColor;
 import jss.advancedchat.gui.GuiPlayer;
-import jss.advancedchat.test.PlayerManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Utils;
 import net.md_5.bungee.api.ChatColor;
@@ -134,7 +134,23 @@ public class AdvancedChatCmd implements CommandExecutor{
 			if(args[0].equalsIgnoreCase("color")) {
 				if((j.isOp()) || (j.hasPermission("AdvancedChat.Gui.Color"))) {
 					GuiColor guiColor = new GuiColor(plugin);
-					guiColor.openGuiColor(j);
+					if(args.length >= 2) {
+						
+						String name = args[1];
+						
+						Player p = Bukkit.getPlayer(name);
+						if(p == null) {
+							Utils.sendColorMessage(j, config.getString("AdvancedChat.No-Online-Player"));
+							return true;
+						}
+						guiColor.openGuiColor(j,p.getName());
+						//Utils.sendColorMessage(j, "&6open player gui " + p.getName());
+	
+					}else {
+						guiColor.openGuiColor(j,j.getName());
+						//Utils.sendColorMessage(j, "&6open player gui");
+						return true;
+					}
 				}else {
 					TextComponent msg = new TextComponent();
 					msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
@@ -146,8 +162,23 @@ public class AdvancedChatCmd implements CommandExecutor{
 			if(args[0].equalsIgnoreCase("player")) {
 				if((j.isOp()) || (j.hasPermission("AdvancedChat.Gui.Player"))) {
 					GuiPlayer guiPlayer = new GuiPlayer(plugin);
-					guiPlayer.openPlayerGui(j);
-					Utils.sendColorMessage(j, "&6open player gui");
+					if(args.length >= 2) {
+						
+						String name = args[1];
+						
+						Player p = Bukkit.getPlayer(name);
+						if(p == null) {
+							Utils.sendColorMessage(j, config.getString("AdvancedChat.No-Online-Player"));
+							return true;
+						}
+						guiPlayer.openPlayerGui(j,p.getName());
+						//Utils.sendColorMessage(j, "&6open player gui " + p.getName());
+	
+					}else {
+						guiPlayer.openPlayerGui(j,j.getName());
+						//Utils.sendColorMessage(j, "&6open player gui");
+						return true;
+					}
 				}else {
 					TextComponent msg = new TextComponent();
 					msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
@@ -156,10 +187,13 @@ public class AdvancedChatCmd implements CommandExecutor{
 				}
 				return true;
 			}
-			if(args[0].equalsIgnoreCase("players")) {
+			
+			// test section //
+			
+			/*if(args[0].equalsIgnoreCase("players")) {
 				if((j.isOp()) || (j.hasPermission("AdvancedChat.Gui.Player.List"))) {
 					GuiPlayer guiPlayer = new GuiPlayer(plugin);
-					guiPlayer.openPlayerListGui(j);
+					guiPlayer.openPlayerListGui(j, 1);
 					Utils.sendColorMessage(j, "&bopen player list gui");
 				}else {
 					TextComponent msg = new TextComponent();
@@ -168,24 +202,8 @@ public class AdvancedChatCmd implements CommandExecutor{
 					j.spigot().sendMessage(msg);	
 				}
 				return true;
-			}
-			// test section
-			PlayerManager manager = new PlayerManager(plugin);
-			if(args[0].equalsIgnoreCase("test")) {
-				manager.checkPlayerList(j);
-				return true;
-			}
-
-			if(args[0].equalsIgnoreCase("remove")) {
-				manager.removePlayerlist(j);
-				return true;
-			}
-			
-			if(args[0].equalsIgnoreCase("open")) {
-				GuiColor inventoryColor = new GuiColor(plugin);
-				inventoryColor.openGuiColor(j);
-				return true;
-			}
+			}*/
+	
 			//------------------
 			if(config.getString("Settings.Use-Default-Prefix").equals("true")) {
 				Utils.sendColorMessage(j, Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Error-Args"));

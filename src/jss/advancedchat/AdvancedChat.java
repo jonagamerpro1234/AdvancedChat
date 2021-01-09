@@ -12,11 +12,15 @@ import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
 import jss.advancedchat.events.ChatListener;
+import jss.advancedchat.events.EventLoader;
 import jss.advancedchat.events.InventoryListener;
 import jss.advancedchat.events.JoinListener;
 import jss.advancedchat.utils.FileManager;
 import jss.advancedchat.utils.InventoryPlayer;
 import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.Logger.Level;
+import jss.advancedchat.utils.Settings;
+import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
 
 
@@ -37,11 +41,11 @@ public class AdvancedChat extends JavaPlugin{
 	private PlayerGuiFile playerGuiFile = new PlayerGuiFile(this, "player-gui.yml", "Gui");
 	public String nmsversion;
 	public boolean uselegacyversion = false;
-	@SuppressWarnings("unused")
 	private Logger logger = new Logger(this);
 	public ArrayList<String> mute = new ArrayList<String>();
 	private static AdvancedChat plugin;
 	private ArrayList<InventoryPlayer> inventoryPlayers;
+
 	
 	public void onEnable() {
 		Utils.setEnabled(version);;
@@ -68,7 +72,7 @@ public class AdvancedChat extends JavaPlugin{
 		setupCommands();
 		setupEvents();
 		SetupSoftDepends();
-		/*new UpdateChecker(this, 83889).getUpdateVersion(version ->{
+		new UpdateChecker(this, 83889).getUpdateVersion(version ->{
 			if(this.getDescription().getVersion().equalsIgnoreCase(version)) {
 				logger.Log(Level.SUCCESS, "&a" + this.name + " is up to date!");
 			}else {
@@ -79,7 +83,7 @@ public class AdvancedChat extends JavaPlugin{
                 logger.Log(Level.WARNING, "&5<|" + "&bPlease Update Here: &e" + Settings.URL_PLUGIN);
                 logger.Log(Level.OUTLINE, "&5<|" + Utils.getLine("&5"));
 			}
-		});*/
+		});
 
 	}
 	
@@ -101,6 +105,8 @@ public class AdvancedChat extends JavaPlugin{
 		new JoinListener(this);
 		new InventoryListener(this);
 		new ChatListener(this);
+		EventLoader eventLoader = new EventLoader(this);
+		eventLoader.runClearChat();
 	}
 	
 	public PlayerDataFile getPlayerDataFile() {
@@ -178,5 +184,7 @@ public class AdvancedChat extends JavaPlugin{
 		}
 		return null;
 	}
+	
+	
 
 }

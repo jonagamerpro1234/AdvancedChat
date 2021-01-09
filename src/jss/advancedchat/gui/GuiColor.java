@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import com.cryptomorin.xseries.SkullUtils;
 import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
@@ -24,12 +25,12 @@ public class GuiColor {
 		this.plugin = plugin;
 	}
 
-	public void openGuiColor(Player player) {
+	public void openGuiColor(Player player, String player2) {
 		ColorFile colorFile = plugin.getColorFile();
 		FileConfiguration config = colorFile.getConfig();
 
 		String title = config.getString("Title");
-
+		title = title.replace("<player>", player2);
 		Inventory inv = Bukkit.createInventory(null, 45, Utils.color(title));
 		ItemStack item = null;
 		SkullMeta skullMeta = null;
@@ -38,16 +39,12 @@ public class GuiColor {
 		setDecoration(inv, item, meta, materialglass);
 		// skulls
 
-		/*item = XMaterial.PLAYER_HEAD.parseItem();
-		SkullMeta skullmeta = (SkullMeta) item.getItemMeta();
-		skullmeta.setDisplayName(Utils.color("&6&l"+player.getName()));
-		skullmeta.setOwner(player.getName());
-		List<String> lores = new ArrayList<String>();
-		lores.add(Utils.color("&bColor: "+manager.getColor(player)+"=========="));
-		skullmeta.setLore(lores);
-		item.setItemMeta(skullmeta);
-		item.setAmount(1);
-		inv.setItem(9, item);*/
+		item = XMaterial.PLAYER_HEAD.parseItem();
+		skullMeta = (SkullMeta) item.getItemMeta();
+		skullMeta.setDisplayName(Utils.color("&6&l&n"+player2));
+		skullMeta = SkullUtils.applySkin(skullMeta, player2);
+		item.setItemMeta(skullMeta);
+		inv.setItem(36, item);
 		
 		for (String key : config.getConfigurationSection("Items").getKeys(false)) {
 			String material = config.getString("Items." + key + ".Item");
@@ -111,6 +108,10 @@ public class GuiColor {
 			item.setItemMeta(meta);
 			item.setAmount(1);
 			inv.setItem(i, item);
+			
+			if(i == 9) {
+				break;
+			}
 		}
 		
 		for (int i = 36; i < 40; i++) {
@@ -120,6 +121,11 @@ public class GuiColor {
 			item.setItemMeta(meta);
 			item.setAmount(1);
 			inv.setItem(i, item);
+			
+			if(i == 40) {
+				break;
+			}
+			
 		}
 		item = XMaterial.valueOf(path).parseItem();
 		meta = item.getItemMeta();
@@ -166,6 +172,9 @@ public class GuiColor {
 			item.setItemMeta(meta);
 			item.setAmount(1);
 			inv.setItem(i, item);
+			if(i == 30) {
+				break;
+			}
 		}
 		for (int i = 33; i < 35; i++) {
 			item = XMaterial.valueOf(path).parseItem();
@@ -174,6 +183,10 @@ public class GuiColor {
 			item.setItemMeta(meta);
 			item.setAmount(1);
 			inv.setItem(i, item);
+		
+			if(i == 35) {
+				break;
+			}
 		}
 
 		for (int i = 41; i < 45; i++) {
@@ -183,6 +196,10 @@ public class GuiColor {
 			item.setItemMeta(meta);
 			item.setAmount(1);
 			inv.setItem(i, item);
+			
+			if(i == 45) {
+				break;
+			}
 		}
 	}
 
