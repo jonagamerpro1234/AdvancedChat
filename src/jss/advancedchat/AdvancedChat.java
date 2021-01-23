@@ -240,5 +240,4 @@ public class AdvancedChat extends JavaPlugin{
 	public void setChatManagers(ChatManager chat) {
 		this.chatManagers.add(chat);
 	}
-
 }
