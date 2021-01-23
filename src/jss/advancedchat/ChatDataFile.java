@@ -103,4 +103,13 @@ public class ChatDataFile extends FileManager implements FileHelper, FolderHelpe
 			saveResources(this.path, true);
 		}
 	}
+	
+	public boolean isFileExists() {
+		this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
+		
+		if(!file.exists()) {
+			return true;
+		}
+		return false;
+	}
 }
