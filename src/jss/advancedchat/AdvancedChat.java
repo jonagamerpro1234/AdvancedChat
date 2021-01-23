@@ -22,7 +22,7 @@ import jss.advancedchat.utils.InventoryPlayer;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.OnlinePlayers;
 import jss.advancedchat.utils.Logger.Level;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.utils.UpdateSettings;
 import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.UpdateChecker2;
 import jss.advancedchat.utils.Utils;
@@ -48,11 +48,12 @@ public class AdvancedChat extends JavaPlugin{
 	private CommandLogFile commandLogFile = new CommandLogFile(this, "command.yml", "Log");
 	public String nmsversion;
 	public boolean uselegacyversion = false;
-	private Logger logger = new Logger(this);
+	public Logger logger = new Logger(this);
 	private static AdvancedChat plugin;
 	private ArrayList<InventoryPlayer> inventoryPlayers;
 	private ArrayList<ChatManager> chatManagers;
 	private ArrayList<OnlinePlayers> onlinePlayers;
+	private PreConfigLoad preConfigLoad = new PreConfigLoad(this);
 
 	public void onEnable() {
 		Utils.setEnabled(version);;
@@ -78,6 +79,7 @@ public class AdvancedChat extends JavaPlugin{
 		filemanager.createVoidFolder("Log");
 		chatLogFile.create();
 		commandLogFile.create();
+        preConfigLoad.load();
         metrics = new Metrics(this);
 		this.inventoryPlayers = new ArrayList<>();
 		this.chatManagers = new ArrayList<>();
@@ -92,9 +94,9 @@ public class AdvancedChat extends JavaPlugin{
 				logger.Log(Level.OUTLINE, "&5<||" + Utils.getLine("&5"));
 				logger.Log(Level.WARNING, "&5<||" + "&b"+ this.name + " is outdated!");
 				logger.Log(Level.WARNING, "&5<||" + "&bNewest version: &a" + version);
-				logger.Log(Level.WARNING, "&5<||" + "&bYour version: &d" + Settings.VERSION);
-                logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on Spigot: &e" + Settings.URL_PLUGIN_SPIGOT);
-                logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on Songoda: &e" + Settings.URL_PLUGIN_SONGODA);
+				logger.Log(Level.WARNING, "&5<||" + "&bYour version: &d" + UpdateSettings.VERSION);
+                logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on Spigot: &e" + UpdateSettings.URL_PLUGIN_SPIGOT);
+                logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on Songoda: &e" + UpdateSettings.URL_PLUGIN_SONGODA);
                 logger.Log(Level.OUTLINE, "&5<||" + Utils.getLine("&5"));
 			}
 		});

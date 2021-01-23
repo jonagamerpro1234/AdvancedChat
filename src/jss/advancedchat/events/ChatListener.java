@@ -32,28 +32,6 @@ public class ChatListener implements Listener {
 		eventsUtils.getEventManager().registerEvents(this, plugin);
 	}
 	
-	//@EventHandler
-	public void test(AsyncPlayerChatEvent e) {
-		PlayerManager manager = new PlayerManager(plugin);
-		Player j = e.getPlayer();
-		e.setCancelled(true);
-		
-		String message = e.getMessage();
-		String name = j.getName();
-		String text = Utils.combineText(name + " " +manager.getColor(j, message));
-		
-		text = text.replace("<name>", name).replace("<message>", message);
-		
-		if((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Color"))) {
-			text = Utils.color(text);
-		}
-		
-		
-		TextComponent component = new TextComponent(text);
-		
-		Utils.sendAllPlayerBaseComponent(component);
-	}
-	
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onChatFormat(AsyncPlayerChatEvent e) {

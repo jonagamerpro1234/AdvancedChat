@@ -1,12 +1,24 @@
 package jss.advancedchat.utils;
 
-import jss.advancedchat.AdvancedChat;
+import java.util.List;
 
 public class Settings {
 	
-	private static AdvancedChat plugin = AdvancedChat.getPlugin();
+	public static String message_NoPermission;
+	public static String message_NoPermission_Label;
+	public static String message_ClearChat_Server;
+	public static String message_ClearChat_Player;
+	public static String message_Error_Args;
+	public static String message_Reload;
+	public static String message_Help_Mute;
+	public static String message_Help_UnMute;
+	public static String message_Help_Cmd;
+	public static List<String> message_Help_List;
+	public static String message_Mute_Player;
+	public static String message_UnMute_Player;
+	public static String message_Alert_Mute;
+	public static String message_No_Online_Player;
+	public static String message_No_Use_Command;
+	public static String message_No_Use_Command_Mute;
 	
-	public static String URL_PLUGIN_SPIGOT = "https://www.spigotmc.org/resources/advancedchat-1-7-x-1-16-x.83889/";
-	public static String URL_PLUGIN_SONGODA = "https://songoda.com/marketplace/product/advancedchat-chat-related.542";
-	public static String VERSION = plugin.version;
 }

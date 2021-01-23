@@ -7,7 +7,7 @@ import jss.advancedchat.CommandLogFile;
 import jss.advancedchat.PlayerDataFile;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.OnlinePlayers;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.utils.UpdateSettings;
 import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -102,7 +102,7 @@ public class JoinListener implements Listener {
 				new UpdateChecker(AdvancedChat.getPlugin(), 83889).getUpdateVersion(version ->{
 					if(!AdvancedChat.getPlugin().getDescription().getVersion().equalsIgnoreCase(version)) {				
 						TextComponent component = new TextComponent(Utils.color(Utils.getPrefixPlayer() + " &aThere is a new version available for download"));
-						component.setClickEvent(new ClickEvent(Action.OPEN_URL, Settings.URL_PLUGIN_SPIGOT));
+						component.setClickEvent(new ClickEvent(Action.OPEN_URL, UpdateSettings.URL_PLUGIN_SPIGOT));
 						component.setHoverEvent(new HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Utils.color("&6Click on this message to copy the link")).create()));
 						j.spigot().sendMessage(component);
 					}

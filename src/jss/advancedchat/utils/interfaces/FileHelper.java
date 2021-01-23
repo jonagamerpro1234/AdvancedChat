@@ -18,5 +18,5 @@ public interface FileHelper {
 	
 	public void resetConfig();
 	
-	
+	public boolean isFileExists();
 }
