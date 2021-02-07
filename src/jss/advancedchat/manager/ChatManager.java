@@ -1,4 +1,4 @@
-package jss.advancedchat.test;
+package jss.advancedchat.manager;
 
 import org.bukkit.entity.Player;
 

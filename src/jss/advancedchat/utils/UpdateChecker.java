@@ -24,7 +24,6 @@ public class UpdateChecker implements UpdateHelper{
 		this.ID = ID;
 	}
 	
-	
 	public void getUpdateVersion(Consumer<String> consumer) {
 		Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
 			try(InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + this.ID).openStream(); Scanner scanner = new Scanner(inputStream)){

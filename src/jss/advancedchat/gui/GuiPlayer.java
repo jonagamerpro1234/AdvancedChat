@@ -14,7 +14,7 @@ import com.cryptomorin.xseries.XEnchantment;
 import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.test.PlayerManager;
+import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Utils;
 
 public class GuiPlayer {

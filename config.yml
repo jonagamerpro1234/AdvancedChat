@@ -16,6 +16,7 @@
 #   [AutoClear] you can activate the automatic cleaning of the chat according to the number of ticks [Default | true]
 #   [Ticks] here you can define the time that the actions are automatically executed [Default | 24000], 24000 tick = 20 min
 Settings:
+  Use-DataBase: false
   Update: true
   Use-Default-Prefix: true 
   Prefix: '&6[&bMy Server&6]&7'
@@ -23,6 +24,19 @@ Settings:
   ClearChat:
     AutoClear: true
     Tick: 24000
+#
+# |DataBase|
+#
+#
+#
+#
+#
+DataBase:
+  Host: 'localhost'
+  port: '3306'
+  database: 'advancedchatDB'
+  username: 'root'
+  password: '1234'
 #
 # |Command Blocker|
 # |here you can block the commands that you do not want to be used on the server at the moment it does not have the function of [antitabcomplete]
