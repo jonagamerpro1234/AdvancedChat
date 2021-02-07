@@ -31,7 +31,7 @@ public class PreConfigLoad {
 			Settings.message_No_Online_Player = config.getString("AdvancedChat.No-Online-Player");
 			Settings.message_No_Use_Command = config.getString("AdvancedChat.No-Use-Command");
 			Settings.message_No_Use_Command_Mute = config.getString("AdvancedChat.No-Use-Command-Mute");
-			plugin.logger.Log(Level.INFO, "Settings Load completed");
+			plugin.logger.Log(Level.INFO, "Pre Config Load completed");
 		}catch(NullPointerException e) {
 			e.printStackTrace();
 		}

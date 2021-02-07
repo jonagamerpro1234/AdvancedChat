@@ -1,11 +1,13 @@
 package jss.advancedchat.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -23,7 +25,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
-public class AdvancedChatCmd implements CommandExecutor{
+public class AdvancedChatCmd implements CommandExecutor , TabCompleter{
 	
 	private AdvancedChat plugin;
 	private EventUtils eventUtils = new EventUtils(plugin);
@@ -31,6 +33,7 @@ public class AdvancedChatCmd implements CommandExecutor{
 	public AdvancedChatCmd(AdvancedChat plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("AdvancedChat").setExecutor(this);
+		plugin.getCommand("AdvancedChat").setTabCompleter(this);
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -218,6 +221,44 @@ public class AdvancedChatCmd implements CommandExecutor{
 			Utils.sendColorMessage(j, config.getString("Settings.Prefix") + " " + config.getString("AdvancedChat.Help-Cmd"));
 		}
 		return true;
+	}
+	
+	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+		if(!(sender instanceof Player)) {
+			List<String> listOptions = new ArrayList<>();
+			String lastArgs = args.length !=0 ? args[args.length - 1] : "";
+			
+			switch(args.length) {
+			
+			case 0:
+			case 1:
+				listOptions.add("help");
+				listOptions.add("reload");
+				listOptions.add("info");
+				listOptions.add("color");
+				listOptions.add("player");
+				break;
+			}
+			return Utils.setLimitTab(listOptions, lastArgs);
+			
+		}
+		List<String> listOptions = new ArrayList<>();
+		String lastArgs = args.length !=0 ? args[args.length - 1] : "";
+		Player j = (Player) sender;
+		
+		switch(args.length) {
+		
+		case 0:
+		case 1:
+			if((j.isOp()) || (j.hasPermission("AdvancedChat.Tab"))) return null;
+			listOptions.add("help");
+			listOptions.add("reload");
+			listOptions.add("info");
+			listOptions.add("color");
+			listOptions.add("player");
+			break;
+		}
+		return Utils.setLimitTab(listOptions, lastArgs);
 	}
 	
 }

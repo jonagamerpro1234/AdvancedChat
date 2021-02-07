@@ -1,4 +1,4 @@
-package jss.advancedchat.test;
+package jss.advancedchat.manager;
 
 import java.util.Random;
 import java.util.UUID;
@@ -19,6 +19,7 @@ public class PlayerManager {
 	private float range;
 	private int spam;
 	private String[] ColorCodes = { "§0", "§1", "§2", "§3", "§4", "§5", "§6", "§7", "§8", "§9", "§b", "§c", "§a" };
+	private String[] HexColorCodes = {""};
 	private boolean badword;
 	
 	public PlayerManager(AdvancedChat plugin) {
@@ -161,7 +162,7 @@ public class PlayerManager {
 		//Utils.sendColorMessage(player, "&cNo se pudo encontrar a " + player.getName());
 		return false;
 	}
-
+	
 	private String convertColor(String color, String text) {
 		String temp = color;
 		if (temp.equalsIgnoreCase("Dark_Red")) {

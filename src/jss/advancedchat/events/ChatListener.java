@@ -13,7 +13,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.ChatDataFile;
 import jss.advancedchat.ChatLogFile;
-import jss.advancedchat.test.PlayerManager;
+import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.EventUtils;
 import net.md_5.bungee.api.chat.ClickEvent;

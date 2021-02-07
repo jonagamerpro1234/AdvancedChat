@@ -12,8 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.test.ChatManager;
-
+import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.utils.Utils;
 
 public class GuiLog {

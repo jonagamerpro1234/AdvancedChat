@@ -8,7 +8,7 @@
 [issues]: https://img.shields.io/github/issues/jonagamerpro1234/AdvancedChat.svg?color=yellow&style=flat-square
 [javaversion]: https://img.shields.io/badge/Java-8%2B-red?style=flat-square
 [issueslink]: https://github.com/jonagamerpro1234/AdvancedChat/issues
-[sgdr]: https://img.shields.io/badge/songoda--release-v1.4.0-9cf?style=flat-square
+[sgdr]: https://img.shields.io/badge/songoda--release-v1.5.1-9cf?style=flat-square
 [songoda]: https://songoda.com/marketplace/product/advancedchat-chat-related.542
 
 [![advancedchat]][spigot]

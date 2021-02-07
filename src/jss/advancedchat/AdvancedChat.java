@@ -16,7 +16,7 @@ import jss.advancedchat.events.CommandListener;
 import jss.advancedchat.events.EventLoader;
 import jss.advancedchat.events.InventoryListener;
 import jss.advancedchat.events.JoinListener;
-import jss.advancedchat.test.ChatManager;
+import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.utils.FileManager;
 import jss.advancedchat.utils.InventoryPlayer;
 import jss.advancedchat.utils.Logger;

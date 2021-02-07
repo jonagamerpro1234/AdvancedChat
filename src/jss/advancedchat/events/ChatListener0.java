@@ -10,7 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.test.PlayerManager;
+import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Utils;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -44,8 +44,13 @@ public class ChatListener0 implements Listener {
 			String hovermode = config.getString("Custom-Format.HoverEvent.Mode");
 			String clickaction = config.getString("Custom-Format.");
 			
+			if((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Color"))) {
+				
+			}
 			
 			if(pathType.equals("normal")) {
+				
+				
 				
 			}else if(pathType.equals("hover")) {
 				

@@ -20,7 +20,7 @@ import com.cryptomorin.xseries.XMaterial;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.gui.GuiColor;
 import jss.advancedchat.gui.GuiPlayer;
-import jss.advancedchat.test.PlayerManager;
+import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.InventoryPlayer;
 import jss.advancedchat.utils.Utils;
