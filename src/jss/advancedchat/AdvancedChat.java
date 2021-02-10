@@ -3,6 +3,7 @@ package jss.advancedchat;
 import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,6 +12,7 @@ import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
+import jss.advancedchat.database.ConnectionMySQL;
 import jss.advancedchat.events.ChatListener;
 import jss.advancedchat.events.CommandListener;
 import jss.advancedchat.events.EventLoader;
@@ -24,7 +26,7 @@ import jss.advancedchat.utils.OnlinePlayers;
 import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.UpdateSettings;
 import jss.advancedchat.utils.UpdateChecker;
-import jss.advancedchat.utils.UpdateChecker2;
+//import jss.advancedchat.utils.UpdateChecker2;
 import jss.advancedchat.utils.Utils;
 
 
@@ -54,6 +56,7 @@ public class AdvancedChat extends JavaPlugin{
 	private ArrayList<ChatManager> chatManagers;
 	private ArrayList<OnlinePlayers> onlinePlayers;
 	private PreConfigLoad preConfigLoad = new PreConfigLoad(this);
+	private ConnectionMySQL connectionMySQL;
 
 	public void onEnable() {
 		Utils.setEnabled(version);;
@@ -80,6 +83,14 @@ public class AdvancedChat extends JavaPlugin{
 		chatLogFile.create();
 		commandLogFile.create();
         preConfigLoad.load();
+        loadMySQL();
+        /*try {
+            if(getConfigFile().getConfig().getString("Settings.Use-DataBase").equals("true")) {
+            	loadMySQL();	
+            }
+        }catch(NullPointerException e) {
+        	e.printStackTrace();
+        }*/
         metrics = new Metrics(this);
 		this.inventoryPlayers = new ArrayList<>();
 		this.chatManagers = new ArrayList<>();
@@ -100,8 +111,6 @@ public class AdvancedChat extends JavaPlugin{
                 logger.Log(Level.OUTLINE, "&5<||" + Utils.getLine("&5"));
 			}
 		});
-		@SuppressWarnings("unused")
-		UpdateChecker2 checker2 = new UpdateChecker2(this);
 	}
 	
 	public void onDisable() {
@@ -125,6 +134,20 @@ public class AdvancedChat extends JavaPlugin{
 		new CommandListener(this);
 		EventLoader eventLoader = new EventLoader(this);
 		eventLoader.runClearChat();
+	}
+	
+	public void loadMySQL() {
+		FileConfiguration config = getConfigFile().getConfig();
+		
+		String host = config.getString("DataBase.Host");
+		int port = config.getInt("DataBase.Port");
+		String database = config.getString("DataBase.DataBase");
+		String user = config.getString("DataBase.User");
+		String password = config.getString("DataBase.Password");
+		
+		//connectionMySQL = new ConnectionMySQL(this, host, port, user, password, database);
+		connectionMySQL = new ConnectionMySQL(this, "localhost", 3306, "root", "", "test");
+
 	}
 	
 	public PlayerDataFile getPlayerDataFile() {
@@ -180,7 +203,6 @@ public class AdvancedChat extends JavaPlugin{
 			//Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &dAdvancedChat:&c false");
 			Utils.sendColorMessage(c, Utils.getPrefix() + " &5<||============================================-----");
 		}	
-	
 	}
 	
 	public boolean isDebug() {
@@ -213,7 +235,10 @@ public class AdvancedChat extends JavaPlugin{
 		}
 		return null;
 	}
-	//Test Section
+	
+	public ConnectionMySQL getConnectionMySQL() {
+		return connectionMySQL;
+	}
 
 	public int getTotalPage() {
 		if(this.onlinePlayers.size() % 45 == 0) {
