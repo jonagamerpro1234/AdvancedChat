@@ -19,6 +19,8 @@ import jss.advancedchat.PlayerGuiFile;
 import jss.advancedchat.gui.GuiColor;
 import jss.advancedchat.gui.GuiPlayer;
 import jss.advancedchat.utils.EventUtils;
+import jss.advancedchat.utils.Settings;
+import jss.advancedchat.utils.UpdateSettings;
 import jss.advancedchat.utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -51,6 +53,8 @@ public class AdvancedChatCmd implements CommandExecutor , TabCompleter{
 					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &3Author: &6jonagamerpro1234");
 					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &3Version: &6"+plugin.version);
 					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &3Update: &a" + plugin.latestversion);
+					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &6Spigot: &a"+UpdateSettings.URL_PLUGIN_SPIGOT);
+					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &dSongoda: &a"+UpdateSettings.URL_PLUGIN_SONGODA);
 					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 				}else if(args[0].equalsIgnoreCase("help")) {
 					List<String> help = config.getStringList("AdvancedChat.Help-Msg");

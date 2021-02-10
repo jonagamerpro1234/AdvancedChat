@@ -5,6 +5,7 @@ import jss.advancedchat.ChatDataFile;
 import jss.advancedchat.ChatLogFile;
 import jss.advancedchat.CommandLogFile;
 import jss.advancedchat.PlayerDataFile;
+import jss.advancedchat.database.DataBaseManage;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.OnlinePlayers;
 import jss.advancedchat.utils.UpdateSettings;
@@ -46,47 +47,57 @@ public class JoinListener implements Listener {
 		
 		Player j = e.getPlayer();
 		
+		String path = "Settings.Use-DataBase.Enabled";
+		
+		if(config.getString(path).equals("true")) {
+			if(!DataBaseManage.existPlayer(plugin.getConnectionMySQL().getConnection(), j.getUniqueId().toString())) {
+				DataBaseManage.createPlayer(plugin.getConnectionMySQL().getConnection(), Utils.colorless(j.getDisplayName()), j.getUniqueId().toString());
+			}
+		}
+		
 		if(!config.contains("Players."+j.getName())) {
 			config.set("Players."+j.getName()+".UUID", j.getUniqueId().toString());
 			config.set("Players."+j.getName()+".Color", "WHITE");
 			config.set("Players."+j.getName()+".Mute", false);
 			config.set("Players."+j.getName()+".Chat-Channel", "ALL");
 			dataFile.saveConfig();
-			Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[PlayerdataFile] &aadd " + j.getName());
+		//	Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[PlayerdataFile] &aadd " + j.getName());
 		}else {
-			Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[PlayerdataFile] &cya existe " + j.getName());
+			//Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[PlayerdataFile] &cya existe " + j.getName());
 		}
 		
 		if(!chat.contains("Players."+j.getName())) {
 			chat.set("Players."+j.getName()+".UUID", j.getUniqueId().toString());
 			chat.set("Players."+j.getName()+".Log", null);
 			chatDataFile.saveConfig();
-			Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[chatDataFile] &aadd " + j.getName());
+			//Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[chatDataFile] &aadd " + j.getName());
 		}else {
-			Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[chatDataFile] &cya existe " + j.getName());
+			//Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[chatDataFile] &cya existe " + j.getName());
 		}
 		
 		if(!chatlog.contains("Players."+j.getName())) {
 			chatlog.set("Players."+j.getName()+".UUID", j.getUniqueId().toString());
 			chatlog.set("Players."+j.getName()+".Chat", "[]");
 			chatLogFile.saveConfig();
-			Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[chatLogFile] &aadd " + j.getName());
+		//	Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[chatLogFile] &aadd " + j.getName());
 		}else {
-			Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[chatLogFile] &cya existe " + j.getName());
+		//	Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[chatLogFile] &cya existe " + j.getName());
 		}
 		
 		if(!command.contains("Players."+j.getName())) {
 			command.set("Players."+j.getName()+".UUID", j.getUniqueId().toString());
 			command.set("Players."+j.getName()+".Command", "[]");
 			commandLogFile.saveConfig();
-			Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[commandLogFile] &aadd " + j.getName());
+		//	Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[commandLogFile] &aadd " + j.getName());
 		}else {
-			Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[commandLogFile] &cya existe " + j.getName());
+		//	Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[commandLogFile] &cya existe " + j.getName());
 		}
 		
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			plugin.setOnlinePlayers(new OnlinePlayers(p.getName()));
 		}
+		
+
 	}
 	
 	
