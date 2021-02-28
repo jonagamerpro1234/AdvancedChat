@@ -11,6 +11,9 @@ Decoration:
     Item: BLACK_STAINED_GLASS_PANE
   Back:
     Name: '&c&lBack'
+    Options:
+      Use-Custom-Command: false
+      Command: '/profile'
     Item: RED_STAINED_GLASS_PANE
 Items:
   Dark_Red:

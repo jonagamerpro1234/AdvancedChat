@@ -1,5 +1,8 @@
 package jss.advancedchat.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -50,7 +53,7 @@ public class GuiPlayer {
         item.setItemMeta(skullmeta);
         inv.setItem(10, item);
         //mute
-        setMuteItem(p, inv, item, meta);
+        setMuteItem(config,p, inv, item, meta);
 
         //color
 
@@ -78,8 +81,7 @@ public class GuiPlayer {
     }
 
 
-    private void setMuteItem(Player player, Inventory inv, ItemStack item, ItemMeta meta) {
-
+    private void setMuteItem(FileConfiguration config, Player player, Inventory inv, ItemStack item, ItemMeta meta) {
 
         PlayerManager manager = new PlayerManager(plugin);
         if (manager.checkPlayerList(player)) {
@@ -89,7 +91,7 @@ public class GuiPlayer {
                 meta = item.getItemMeta();
                 item.setAmount(1);
                 meta.addEnchant(XEnchantment.DURABILITY.parseEnchantment(), 1, false);
-                meta.setDisplayName(Utils.color("&6&lMute Player"));
+                meta.setDisplayName(Utils.color(config.getString("Player-Gui.Items.Mute.Name.Enable")));
                 meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                 item.setItemMeta(meta);
                 inv.setItem(13, item);
@@ -98,13 +100,17 @@ public class GuiPlayer {
                 meta = item.getItemMeta();
                 item.setAmount(1);
                 meta.setDisplayName(Utils.color("&a&lTrue"));
+                String a = config.getString("Player-Gui.Items.Mute.Lore.Enable");
+                List<String> lore = new ArrayList<>();
+                lore.add(a);
+                meta.setLore(lore);
                 item.setItemMeta(meta);
                 inv.setItem(22, item);
             } else if (manager.isMute(player) == false) {
                 item = XMaterial.PAPER.parseItem();
                 meta = item.getItemMeta();
                 item.setAmount(1);
-                meta.setDisplayName(Utils.color("&6&lMute Player"));
+                meta.setDisplayName(Utils.color(config.getString("Player-Gui.Items.Mute.Name.Disable")));
                 item.setItemMeta(meta);
                 inv.setItem(13, item);
 
@@ -112,10 +118,12 @@ public class GuiPlayer {
                 meta = item.getItemMeta();
                 item.setAmount(1);
                 meta.setDisplayName(Utils.color("&c&lFalse"));
+                String a = config.getString("Player-Gui.Items.Mute.Lore.Enable");
+                List<String> lore = new ArrayList<>();
+                lore.add(a);
+                meta.setLore(lore);
                 item.setItemMeta(meta);
                 inv.setItem(22, item);
-
-
             }
         } else {
             return;
