@@ -48,6 +48,7 @@ public class AdvancedChat extends JavaPlugin {
     private ChatDataFile chatDataFile = new ChatDataFile(this, "chat-log.data", "Data");
     private ChatLogFile chatLogFile = new ChatLogFile(this, "chat.yml", "Log");
     private CommandLogFile commandLogFile = new CommandLogFile(this, "command.yml", "Log");
+    private CommandFile commandFile = new CommandFile(this, "custom-commands.yml");
     public String nmsversion;
     public boolean uselegacyversion = false;
     public Logger logger = new Logger(this);
@@ -74,6 +75,7 @@ public class AdvancedChat extends JavaPlugin {
         plugin = this;
         configfile.saveDefaultConfig();
         configfile.create();
+        commandFile.create();
         filemanager.createVoidFolder("Data");
         playerdata.create();
         filemanager.createVoidFolder("Gui");

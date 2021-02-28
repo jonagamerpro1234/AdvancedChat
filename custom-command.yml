@@ -3,7 +3,13 @@
 # |     Version 1.6.0   |
 # |_____________________|
 #
-Command-List:
+Commands:
   Example-Help:
     Command: '/Help'
+    Permission: 'my.permisson.help'
+    Permission-Message:
+      - '&cYou dont have permission to do that!'
+    Target: [PLAYER]
+    Action:
+      Message: 'Use /help for more information.'
     
