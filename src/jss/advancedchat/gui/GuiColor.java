@@ -19,188 +19,188 @@ import jss.advancedchat.utils.Utils;
 
 public class GuiColor {
 
-	private AdvancedChat plugin;
+    private AdvancedChat plugin;
 
-	public GuiColor(AdvancedChat plugin) {
-		this.plugin = plugin;
-	}
+    public GuiColor(AdvancedChat plugin) {
+        this.plugin = plugin;
+    }
 
-	public void openGuiColor(Player player, String player2) {
-		ColorFile colorFile = plugin.getColorFile();
-		FileConfiguration config = colorFile.getConfig();
+    public void openGuiColor(Player player, String player2) {
+        ColorFile colorFile = plugin.getColorFile();
+        FileConfiguration config = colorFile.getConfig();
 
-		String title = config.getString("Title");
-		title = title.replace("<player>", player2);
-		Inventory inv = Bukkit.createInventory(null, 45, Utils.color(title));
-		ItemStack item = null;
-		SkullMeta skullMeta = null;
-		ItemMeta meta = null;
-		String materialglass = config.getString("Decoration.Glass-Color.Item");
-		setDecoration(inv, item, meta, materialglass);
-		// skulls
+        String title = config.getString("Title");
+        title = title.replace("<player>", player2);
+        Inventory inv = Bukkit.createInventory(null, 45, Utils.color(title));
+        ItemStack item = null;
+        SkullMeta skullMeta = null;
+        ItemMeta meta = null;
+        String materialglass = config.getString("Decoration.Glass-Color.Item");
+        setDecoration(inv, item, meta, materialglass);
 
-		item = XMaterial.PLAYER_HEAD.parseItem();
-		skullMeta = (SkullMeta) item.getItemMeta();
-		skullMeta.setDisplayName(Utils.color("&6&l&n"+player2));
-		skullMeta = SkullUtils.applySkin(skullMeta, player2);
-		item.setItemMeta(skullMeta);
-		inv.setItem(36, item);
-		
-		for (String key : config.getConfigurationSection("Items").getKeys(false)) {
-			String material = config.getString("Items." + key + ".Item");
-			int slots = config.getInt("Items." + key + ".Slot");
-			String name = config.getString("Items." + key + ".Name");
-			String useSkull = config.getString("Items." + key + ".Use-Custom-Skull");
-			String texture = config.getString("Items." + key + ".Texture");
-			String id = config.getString("Items." + key + ".ID");
-			int amont = config.getInt("Items." + key + ".Amount");
-			List<String> lore = config.getStringList("Items." + key + ".Lore");
+        item = XMaterial.PLAYER_HEAD.parseItem();
+        skullMeta = (SkullMeta) item.getItemMeta();
+        skullMeta.setDisplayName(Utils.color("&6&l&n" + player2));
+        skullMeta = SkullUtils.applySkin(skullMeta, player2);
+        item.setItemMeta(skullMeta);
+        inv.setItem(36, item);
 
-			item = XMaterial.valueOf(material).parseItem();
+        for (String key : config.getConfigurationSection("Items").getKeys(false)) {
+            String material = config.getString("Items." + key + ".Item");
+            int slots = config.getInt("Items." + key + ".Slot");
+            String name = config.getString("Items." + key + ".Name");
+            String useSkull = config.getString("Items." + key + ".Use-Custom-Skull");
+            String texture = config.getString("Items." + key + ".Texture");
+            String id = config.getString("Items." + key + ".ID");
+            int amont = config.getInt("Items." + key + ".Amount");
+            List<String> lore = config.getStringList("Items." + key + ".Lore");
 
-			if (useSkull.contains("true")) {
-				item = Utils.setSkull(item, id, texture);
-				skullMeta = (SkullMeta) item.getItemMeta();
-				skullMeta.setDisplayName(Utils.color(name));
-				for (int i = 0; i < lore.size(); i++) {
-					String text = (String) lore.get(i);
-					text = Utils.color(text);
-					text = Utils.getVar(player, text);
-					lore.add(text);
-				}
-				skullMeta.setLore(lore);
-				item.setItemMeta(skullMeta);
-			} else if (useSkull.contains("false")) {
-				meta = item.getItemMeta();
-				meta.setDisplayName(Utils.color(name));
-				for (int i = 0; i < lore.size(); i++) {
-					String text = (String) lore.get(i);
-					text = Utils.color(text);
-					text = Utils.getVar(player, text);
-					lore.add(text);
-				}
-				meta.setLore(lore);
-				item.setItemMeta(meta);
-			}
-			item.setAmount(amont);
-			inv.setItem(slots, item);
-		}
+            item = XMaterial.valueOf(material).parseItem();
 
-		String nameBack = config.getString("Decoration.Back.Name");
-		String materialback = config.getString("Decoration.Back.Item");
-		item = XMaterial.valueOf(materialback).parseItem();
-		meta = item.getItemMeta();
-		meta.setDisplayName(Utils.color(Utils.getVar(player, nameBack)));
-		item.setItemMeta(meta);
-		item.setAmount(1);
-		inv.setItem(40, item);
+            if (useSkull.contains("true")) {
+                item = Utils.setSkull(item, id, texture);
+                skullMeta = (SkullMeta) item.getItemMeta();
+                skullMeta.setDisplayName(Utils.color(name));
+                for (int i = 0; i < lore.size(); i++) {
+                    String text = (String) lore.get(i);
+                    text = Utils.color(text);
+                    text = Utils.getVar(player, text);
+                    lore.add(text);
+                }
+                skullMeta.setLore(lore);
+                item.setItemMeta(skullMeta);
+            } else if (useSkull.contains("false")) {
+                meta = item.getItemMeta();
+                meta.setDisplayName(Utils.color(name));
+                for (int i = 0; i < lore.size(); i++) {
+                    String text = (String) lore.get(i);
+                    text = Utils.color(text);
+                    text = Utils.getVar(player, text);
+                    lore.add(text);
+                }
+                meta.setLore(lore);
+                item.setItemMeta(meta);
+            }
+            item.setAmount(amont);
+            inv.setItem(slots, item);
+        }
 
-		player.openInventory(inv);
-		plugin.addInventoryPlayer(player, "color");
-	}
+        String nameBack = config.getString("Decoration.Back.Name");
+        String materialback = config.getString("Decoration.Back.Item");
+        item = XMaterial.valueOf(materialback).parseItem();
+        meta = item.getItemMeta();
+        meta.setDisplayName(Utils.color(Utils.getVar(player, nameBack)));
+        item.setItemMeta(meta);
+        item.setAmount(1);
+        inv.setItem(40, item);
 
-	private void setDecoration(Inventory inv, ItemStack item, ItemMeta meta, String path) {
-		
-		for (int i = 0; i < 9; i++) {
-			item = XMaterial.valueOf(path).parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(Utils.color(" "));
-			item.setItemMeta(meta);
-			item.setAmount(1);
-			inv.setItem(i, item);
-			
-			if(i == 9) {
-				break;
-			}
-		}
-		
-		for (int i = 36; i < 40; i++) {
-			item = XMaterial.valueOf(path).parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(Utils.color(" "));
-			item.setItemMeta(meta);
-			item.setAmount(1);
-			inv.setItem(i, item);
-			
-			if(i == 40) {
-				break;
-			}
-			
-		}
-		item = XMaterial.valueOf(path).parseItem();
-		meta = item.getItemMeta();
-		meta.setDisplayName(Utils.color(" "));
-		item.setItemMeta(meta);
-		item.setAmount(1);
-		inv.setItem(9, item);
+        player.openInventory(inv);
+        plugin.addInventoryPlayer(player, "color");
+    }
 
-		item = XMaterial.valueOf(path).parseItem();
-		meta = item.getItemMeta();
-		meta.setDisplayName(Utils.color(" "));
-		item.setItemMeta(meta);
-		item.setAmount(1);
-		inv.setItem(18, item);
+    private void setDecoration(Inventory inv, ItemStack item, ItemMeta meta, String path) {
 
-		item = XMaterial.valueOf(path).parseItem();
-		inv.setItem(17, item);
+        for (int i = 0; i < 9; i++) {
+            item = XMaterial.valueOf(path).parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(Utils.color(" "));
+            item.setItemMeta(meta);
+            item.setAmount(1);
+            inv.setItem(i, item);
 
-		item = XMaterial.valueOf(path).parseItem();
-		meta = item.getItemMeta();
-		meta.setDisplayName(Utils.color(" "));
-		item.setItemMeta(meta);
-		item.setAmount(1);
-		inv.setItem(26, item);
+            if (i == 9) {
+                break;
+            }
+        }
 
-		item = XMaterial.valueOf(path).parseItem();
-		meta = item.getItemMeta();
-		meta.setDisplayName(Utils.color(" "));
-		item.setItemMeta(meta);
-		item.setAmount(1);
-		inv.setItem(27, item);
+        for (int i = 36; i < 40; i++) {
+            item = XMaterial.valueOf(path).parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(Utils.color(" "));
+            item.setItemMeta(meta);
+            item.setAmount(1);
+            inv.setItem(i, item);
 
-		item = XMaterial.valueOf(path).parseItem();
-		meta = item.getItemMeta();
-		meta.setDisplayName(Utils.color(" "));
-		item.setItemMeta(meta);
-		item.setAmount(1);
-		inv.setItem(35, item);
+            if (i == 40) {
+                break;
+            }
 
-		for (int i = 28; i < 30; i++) {
-			item = XMaterial.valueOf(path).parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(Utils.color(" "));
-			item.setItemMeta(meta);
-			item.setAmount(1);
-			inv.setItem(i, item);
-			if(i == 30) {
-				break;
-			}
-		}
-		for (int i = 33; i < 35; i++) {
-			item = XMaterial.valueOf(path).parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(Utils.color(" "));
-			item.setItemMeta(meta);
-			item.setAmount(1);
-			inv.setItem(i, item);
-		
-			if(i == 35) {
-				break;
-			}
-		}
+        }
+        item = XMaterial.valueOf(path).parseItem();
+        meta = item.getItemMeta();
+        meta.setDisplayName(Utils.color(" "));
+        item.setItemMeta(meta);
+        item.setAmount(1);
+        inv.setItem(9, item);
 
-		for (int i = 41; i < 45; i++) {
-			item = XMaterial.valueOf(path).parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(Utils.color(" "));
-			item.setItemMeta(meta);
-			item.setAmount(1);
-			inv.setItem(i, item);
-			
-			if(i == 45) {
-				break;
-			}
-		}
-	}
+        item = XMaterial.valueOf(path).parseItem();
+        meta = item.getItemMeta();
+        meta.setDisplayName(Utils.color(" "));
+        item.setItemMeta(meta);
+        item.setAmount(1);
+        inv.setItem(18, item);
+
+        item = XMaterial.valueOf(path).parseItem();
+        inv.setItem(17, item);
+
+        item = XMaterial.valueOf(path).parseItem();
+        meta = item.getItemMeta();
+        meta.setDisplayName(Utils.color(" "));
+        item.setItemMeta(meta);
+        item.setAmount(1);
+        inv.setItem(26, item);
+
+        item = XMaterial.valueOf(path).parseItem();
+        meta = item.getItemMeta();
+        meta.setDisplayName(Utils.color(" "));
+        item.setItemMeta(meta);
+        item.setAmount(1);
+        inv.setItem(27, item);
+
+        item = XMaterial.valueOf(path).parseItem();
+        meta = item.getItemMeta();
+        meta.setDisplayName(Utils.color(" "));
+        item.setItemMeta(meta);
+        item.setAmount(1);
+        inv.setItem(35, item);
+
+        for (int i = 28; i < 30; i++) {
+            item = XMaterial.valueOf(path).parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(Utils.color(" "));
+            item.setItemMeta(meta);
+            item.setAmount(1);
+            inv.setItem(i, item);
+            
+            if (i == 30) {
+                break;
+            }
+        }
+        for (int i = 33; i < 35; i++) {
+            item = XMaterial.valueOf(path).parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(Utils.color(" "));
+            item.setItemMeta(meta);
+            item.setAmount(1);
+            inv.setItem(i, item);
+
+            if (i == 35) {
+                break;
+            }
+        }
+
+        for (int i = 41; i < 45; i++) {
+            item = XMaterial.valueOf(path).parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(Utils.color(" "));
+            item.setItemMeta(meta);
+            item.setAmount(1);
+            inv.setItem(i, item);
+
+            if (i == 45) {
+                break;
+            }
+        }
+    }
 
 }

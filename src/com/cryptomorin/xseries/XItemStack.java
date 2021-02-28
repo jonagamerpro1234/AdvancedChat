@@ -217,10 +217,12 @@ public final class XItemStack {
                 List<String> baseColors = new ArrayList<>(fwBaseColors.size());
                 List<String> fadeColors = new ArrayList<>(fwFadeColors.size());
 
-                for (Color color : fwBaseColors) baseColors.add(color.getRed() + ", " + color.getGreen() + ", " + color.getBlue());
+                for (Color color : fwBaseColors)
+                    baseColors.add(color.getRed() + ", " + color.getGreen() + ", " + color.getBlue());
                 fwc.set("base-colors", baseColors);
 
-                for (Color color : fwFadeColors) fadeColors.add(color.getRed() + ", " + color.getGreen() + ", " + color.getBlue());
+                for (Color color : fwFadeColors)
+                    fadeColors.add(color.getRed() + ", " + color.getGreen() + ", " + color.getBlue());
                 fwc.set("fade-colors", fadeColors);
                 i++;
             }
@@ -300,7 +302,8 @@ public final class XItemStack {
             if (patterns != null) {
                 for (String pattern : patterns.getKeys(false)) {
                     PatternType type = PatternType.getByIdentifier(pattern);
-                    if (type == null) type = Enums.getIfPresent(PatternType.class, pattern.toUpperCase(Locale.ENGLISH)).or(PatternType.BASE);
+                    if (type == null)
+                        type = Enums.getIfPresent(PatternType.class, pattern.toUpperCase(Locale.ENGLISH)).or(PatternType.BASE);
                     DyeColor color = Enums.getIfPresent(DyeColor.class, patterns.getString(pattern).toUpperCase(Locale.ENGLISH)).or(DyeColor.WHITE);
 
                     banner.addPattern(new Pattern(color, type));
@@ -377,7 +380,8 @@ public final class XItemStack {
                 if (patterns != null) {
                     for (String pattern : patterns.getKeys(false)) {
                         PatternType type = PatternType.getByIdentifier(pattern);
-                        if (type == null) type = Enums.getIfPresent(PatternType.class, pattern.toUpperCase(Locale.ENGLISH)).or(PatternType.BASE);
+                        if (type == null)
+                            type = Enums.getIfPresent(PatternType.class, pattern.toUpperCase(Locale.ENGLISH)).or(PatternType.BASE);
                         DyeColor color = Enums.getIfPresent(DyeColor.class, patterns.getString(pattern).toUpperCase(Locale.ENGLISH)).or(DyeColor.WHITE);
 
                         banner.addPattern(new Pattern(color, type));
@@ -450,7 +454,8 @@ public final class XItemStack {
         if (!Strings.isNullOrEmpty(name)) {
             String translated = ChatColor.translateAlternateColorCodes('&', name);
             meta.setDisplayName(translated);
-        } else if (name != null && name.isEmpty()) meta.setDisplayName(" "); // For GUI easy access configuration purposes
+        } else if (name != null && name.isEmpty())
+            meta.setDisplayName(" "); // For GUI easy access configuration purposes
 
         // Unbreakable
         if (XMaterial.supports(11)) meta.setUnbreakable(config.getBoolean("unbreakable"));
@@ -702,11 +707,13 @@ public final class XItemStack {
         if (item != null) {
             ItemStack[] items = inventory.getStorageContents();
             int len = items.length;
-            if (beginIndex < 0 || beginIndex >= len) throw new IndexOutOfBoundsException("Begin Index: " + beginIndex + ", Size: " + len);
+            if (beginIndex < 0 || beginIndex >= len)
+                throw new IndexOutOfBoundsException("Begin Index: " + beginIndex + ", Size: " + len);
 
             for (; beginIndex < len; beginIndex++) {
                 ItemStack cItem = items[beginIndex];
-                if (cItem != null && cItem.getAmount() < cItem.getMaxStackSize() && cItem.isSimilar(item)) return beginIndex;
+                if (cItem != null && cItem.getAmount() < cItem.getMaxStackSize() && cItem.isSimilar(item))
+                    return beginIndex;
             }
         }
         return -1;
@@ -755,7 +762,8 @@ public final class XItemStack {
     public static int firstEmpty(@Nonnull Inventory inventory, int beginIndex) {
         ItemStack[] items = inventory.getStorageContents();
         int len = items.length;
-        if (beginIndex < 0 || beginIndex >= len) throw new IndexOutOfBoundsException("Begin Index: " + beginIndex + ", Size: " + len);
+        if (beginIndex < 0 || beginIndex >= len)
+            throw new IndexOutOfBoundsException("Begin Index: " + beginIndex + ", Size: " + len);
 
         for (; beginIndex < len; beginIndex++) {
             if (items[beginIndex] == null) return beginIndex;
@@ -778,11 +786,13 @@ public final class XItemStack {
         if (item != null) {
             ItemStack[] items = inventory.getStorageContents();
             int len = items.length;
-            if (beginIndex < 0 || beginIndex >= len) throw new IndexOutOfBoundsException("Begin Index: " + beginIndex + ", Size: " + len);
+            if (beginIndex < 0 || beginIndex >= len)
+                throw new IndexOutOfBoundsException("Begin Index: " + beginIndex + ", Size: " + len);
 
             for (; beginIndex < len; beginIndex++) {
                 ItemStack cItem = items[beginIndex];
-                if (cItem == null || (cItem.getAmount() < cItem.getMaxStackSize() && cItem.isSimilar(item))) return beginIndex;
+                if (cItem == null || (cItem.getAmount() < cItem.getMaxStackSize() && cItem.isSimilar(item)))
+                    return beginIndex;
             }
         }
         return -1;

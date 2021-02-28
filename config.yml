@@ -18,7 +18,7 @@
 Settings:
   Use-DataBase: false
   Update: true
-  Use-Default-Prefix: true 
+  Use-Default-Prefix: true
   Prefix: '&6[&bMy Server&6]&7'
   ChatFormat-Type: custom
   ClearChat:
@@ -69,7 +69,7 @@ Command-Blocker:
     - '/bukkit:pl'
     - '/bukkit:plugins'
     - '/bukkit:ver'
-    - '/bukkit:?' 
+    - '/bukkit:?'
 #
 # | Default |
 # | This section serves as an emergency backup in case any of the other functions do not work properly. |
@@ -173,9 +173,9 @@ Groups:
 Filter-Chat:
   Enabled: true
   Use-Custom-Msg: false #Not touch  
-#  Message: 'you cannot use this word, it is blocked!' [Not Implement]
+  #  Message: 'you cannot use this word, it is blocked!' [Not Implement]
   Form-Of-Censorship: '*'
-#  Delay: 5 [Not Implement]
+  #  Delay: 5 [Not Implement]
   BadWords:
     - 'noob'
     - 'stupid'

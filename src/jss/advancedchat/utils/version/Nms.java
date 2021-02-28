@@ -2,8 +2,8 @@ package jss.advancedchat.utils.version;
 
 public class Nms {
 
-	public static void getTAb() {
+    public static void getTAb() {
 
-	}
-	
+    }
+
 }

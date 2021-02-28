@@ -116,7 +116,8 @@ public class ActionBar {
 
                 // Packet Constructor
                 MethodType type;
-                if (SIXTEEN) type = MethodType.methodType(void.class, iChatBaseComponentClass, chatMessageTypeClass, UUID.class);
+                if (SIXTEEN)
+                    type = MethodType.methodType(void.class, iChatBaseComponentClass, chatMessageTypeClass, UUID.class);
                 else type = MethodType.methodType(void.class, iChatBaseComponentClass, chatMessageTypeClass);
 
                 for (Object obj : chatMessageTypeClass.getEnumConstants()) {

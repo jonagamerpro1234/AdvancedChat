@@ -1589,7 +1589,8 @@ public enum XMaterial {
             return data > 0 && name.endsWith("MAP") ? Optional.of(FILLED_MAP) : Optional.empty();
         }
 
-        if (!Data.ISFLAT && oldXMaterial.isPlural() && (duplicated == null ? isDuplicated(name) : duplicated)) return getIfPresent(name);
+        if (!Data.ISFLAT && oldXMaterial.isPlural() && (duplicated == null ? isDuplicated(name) : duplicated))
+            return getIfPresent(name);
         return Optional.of(oldXMaterial);
     }
 
