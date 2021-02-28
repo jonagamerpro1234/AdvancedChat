@@ -188,7 +188,8 @@ public final class XBlock {
 
         BlockState state = block.getState();
         MaterialData data = state.getData();
-        if (data instanceof org.bukkit.material.Directional) return ((org.bukkit.material.Directional) data).getFacing();
+        if (data instanceof org.bukkit.material.Directional)
+            return ((org.bukkit.material.Directional) data).getFacing();
         return BlockFace.SELF;
     }
 
@@ -474,7 +475,7 @@ public final class XBlock {
      * @see #isSimilar(Block, XMaterial)
      */
     @SuppressWarnings("incomplete-switch")
-	public static boolean isType(Block block, XMaterial material) {
+    public static boolean isType(Block block, XMaterial material) {
         Material mat = block.getType();
         switch (material) {
             case CAKE:
@@ -534,7 +535,8 @@ public final class XBlock {
         }
 
         String name = block.getType().name();
-        if (name.startsWith("REDSTONE_COMPARATOR")) return block.getType() == BlockMaterial.REDSTONE_COMPARATOR_ON.material;
+        if (name.startsWith("REDSTONE_COMPARATOR"))
+            return block.getType() == BlockMaterial.REDSTONE_COMPARATOR_ON.material;
         return false;
     }
 

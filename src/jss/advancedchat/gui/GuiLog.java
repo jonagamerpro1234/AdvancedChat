@@ -16,43 +16,43 @@ import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.utils.Utils;
 
 public class GuiLog {
-	
-	private AdvancedChat plugin;
-	
-	public GuiLog(AdvancedChat plugin) {
-		this.plugin = plugin;
-	}
 
-	@SuppressWarnings("unused")
-	public void openGuiLog(Player player, String name, int page) {
-		FileConfiguration config = plugin.getChatDataFile().getConfig();
-		
-		Inventory inv =  Bukkit.createInventory(null, 54, Utils.color("&6Log: &9" + name));
-		
-		ArrayList<ChatManager> list = plugin.getChatManagers();
-		int totalpage = plugin.getTotalPage();
-		int slot = 0;
-		ItemStack item = null;
-		ItemMeta meta = null;
-		
-		
-		for(int i = 45 * (page - 1); i < list.size(); i++){
-			ChatManager manager = list.get(i);
-			
-				
-			item = XMaterial.BOOK.parseItem();
-			meta = item.getItemMeta();
-			
-			
-			slot++;
-			if(slot == 44) {
-				break;
-			}
-		}
-		
-		
-		player.openInventory(inv);
-	}
-	
-	
+    private AdvancedChat plugin;
+
+    public GuiLog(AdvancedChat plugin) {
+        this.plugin = plugin;
+    }
+
+    @SuppressWarnings("unused")
+    public void openGuiLog(Player player, String name, int page) {
+        FileConfiguration config = plugin.getChatDataFile().getConfig();
+
+        Inventory inv = Bukkit.createInventory(null, 54, Utils.color("&6Log: &9" + name));
+
+        ArrayList<ChatManager> list = plugin.getChatManagers();
+        int totalpage = plugin.getTotalPage();
+        int slot = 0;
+        ItemStack item = null;
+        ItemMeta meta = null;
+
+
+        for (int i = 45 * (page - 1); i < list.size(); i++) {
+            ChatManager manager = list.get(i);
+
+
+            item = XMaterial.BOOK.parseItem();
+            meta = item.getItemMeta();
+
+
+            slot++;
+            if (slot == 44) {
+                break;
+            }
+        }
+
+
+        player.openInventory(inv);
+    }
+
+
 }

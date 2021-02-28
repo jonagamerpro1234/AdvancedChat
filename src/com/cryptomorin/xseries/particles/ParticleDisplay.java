@@ -570,16 +570,21 @@ public class ParticleDisplay implements Cloneable {
                 if (ISFLAT) {
                     Particle.DustOptions dust = new Particle.DustOptions(org.bukkit.Color
                             .fromRGB((int) datas[0], (int) datas[1], (int) datas[2]), datas[3]);
-                    if (players == null) loc.getWorld().spawnParticle(particle, loc, count, offsetx, offsety, offsetz, extra, dust);
-                    else for (Player player : players) player.spawnParticle(particle, loc, count, offsetx, offsety, offsetz, extra, dust);
+                    if (players == null)
+                        loc.getWorld().spawnParticle(particle, loc, count, offsetx, offsety, offsetz, extra, dust);
+                    else for (Player player : players)
+                        player.spawnParticle(particle, loc, count, offsetx, offsety, offsetz, extra, dust);
                 } else {
-                    if (players == null) loc.getWorld().spawnParticle(particle, loc, count, (int) datas[0], (int) datas[1], (int) datas[2], datas[3]);
-                    else for (Player player : players) player.spawnParticle(particle, loc, count, (int) datas[0], (int) datas[1], (int) datas[2], datas[3]);
+                    if (players == null)
+                        loc.getWorld().spawnParticle(particle, loc, count, (int) datas[0], (int) datas[1], (int) datas[2], datas[3]);
+                    else for (Player player : players)
+                        player.spawnParticle(particle, loc, count, (int) datas[0], (int) datas[1], (int) datas[2], datas[3]);
                 }
             }
         } else {
             if (players == null) loc.getWorld().spawnParticle(particle, loc, count, offsetx, offsety, offsetz, extra);
-            else for (Player player : players) player.spawnParticle(particle, loc, count, offsetx, offsety, offsetz, extra);
+            else for (Player player : players)
+                player.spawnParticle(particle, loc, count, offsetx, offsety, offsetz, extra);
         }
         return loc;
     }

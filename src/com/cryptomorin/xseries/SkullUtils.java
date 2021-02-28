@@ -47,7 +47,7 @@ import java.util.UUID;
  * <p>
  * Some websites to get custom heads:
  * <ul>
- *     <li>https://minecraft-heads.com/</li>
+ * <li>https://minecraft-heads.com/</li>
  * </ul>
  *
  * @author Crypto Morin
@@ -203,7 +203,8 @@ public class SkullUtils {
 
         // For some reasons Apache's Lists.charactersOf is faster than character indexing for small strings.
         for (char ch : Lists.charactersOf(name)) {
-            if (ch != '_' && !(ch >= 'A' && ch <= 'Z') && !(ch >= 'a' && ch <= 'z') && !(ch >= '0' && ch <= '9')) return false;
+            if (ch != '_' && !(ch >= 'A' && ch <= 'Z') && !(ch >= 'a' && ch <= 'z') && !(ch >= '0' && ch <= '9'))
+                return false;
         }
         return true;
     }

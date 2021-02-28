@@ -18,76 +18,73 @@ import jss.advancedchat.utils.Utils;
 
 public class CommandListener implements Listener {
 
-	private AdvancedChat plugin;
-	private EventUtils eventsUtils = new EventUtils(plugin);
+    private AdvancedChat plugin;
+    private EventUtils eventsUtils = new EventUtils(plugin);
 
-	public CommandListener(AdvancedChat plugin) {
-		this.plugin = plugin;
-		eventsUtils.getEventManager().registerEvents(this, plugin);
-	}
+    public CommandListener(AdvancedChat plugin) {
+        this.plugin = plugin;
+        eventsUtils.getEventManager().registerEvents(this, plugin);
+    }
 
-	@EventHandler
-	public void onCommandChat(PlayerCommandPreprocessEvent e) {
-		FileConfiguration config = plugin.getConfigFile().getConfig();
-		PlayerManager manager = new PlayerManager(plugin);
-		Player j = e.getPlayer();
-		List<String> list = config.getStringList("Command-Blocker.BlackList");
-		String message = e.getMessage();
-		String nousecommand = config.getString("AdvancedChat.No-Use-Command");
-		String nousecommandmute = config.getString("AdvancedChat.No-Use-Command-Mute");
-		String path = "Command-Blocker.Enabled";
-		List<String> mutelist = config.getStringList("Command-Blocker.Mute-BlackList");
-		
-		if(config.getString(path).equals("true")) {
-			for (String a : list) {
-				if (message.toLowerCase().contains("/"+a)) {
-					e.setCancelled(true);
-					Utils.sendColorMessage(j, nousecommand.replace("<cmd>", a));
-					break;
-				}
-			}
-		}
-		
-		if(manager.isMute(j) == true) {
-			for(String a :  mutelist) {
-				if(message.toLowerCase().contains(a)) {
-					e.setCancelled(true);
-					Utils.sendColorMessage(j, nousecommandmute.replace("<cmd>", a));
-					break;
-				}
-			}
-		}
-	}
-	
-	@EventHandler
-	public void onCommandDataLog(PlayerCommandPreprocessEvent e) {
-		ChatDataFile chatDataFile = plugin.getChatDataFile();
-		FileConfiguration config = chatDataFile.getConfig();
-		Player j = e.getPlayer();
-		
-		String date = Utils.getDate(System.currentTimeMillis());
-		String time = Utils.getTime(System.currentTimeMillis());
-		
-		config.set("Players."+j.getName()+".Log."+date+".Command."+time, Utils.colorless(e.getMessage()));
-		chatDataFile.saveConfig();
-		plugin.setChatManagers(new ChatManager(date,time,e.getMessage(), j));
-	}
+    @EventHandler
+    public void onCommandChat(PlayerCommandPreprocessEvent e) {
+        FileConfiguration config = plugin.getConfigFile().getConfig();
+        PlayerManager manager = new PlayerManager(plugin);
+        Player j = e.getPlayer();
+        List<String> list = config.getStringList("Command-Blocker.BlackList");
+        String message = e.getMessage();
+        String nousecommand = config.getString("AdvancedChat.No-Use-Command");
+        String nousecommandmute = config.getString("AdvancedChat.No-Use-Command-Mute");
+        String path = "Command-Blocker.Enabled";
+        List<String> mutelist = config.getStringList("Command-Blocker.Mute-BlackList");
 
-	@EventHandler
-	public void onCommandLog(PlayerCommandPreprocessEvent e) {
-		CommandLogFile commandLogFile = plugin.getCommandLogFile();
-		FileConfiguration config = commandLogFile.getConfig();
-		Player j = e.getPlayer();
-		
-		String date = Utils.getDate(System.currentTimeMillis());
-		String time = Utils.getTime(System.currentTimeMillis());
-		
-		config.set("Players."+j.getName()+".Command."+date+"."+time, Utils.colorless(e.getMessage()));
-		commandLogFile.saveConfig();
-	}
-	
-	
-	
-	
-	
+        if (config.getString(path).equals("true")) {
+            for (String a : list) {
+                if (message.toLowerCase().contains("/" + a)) {
+                    e.setCancelled(true);
+                    Utils.sendColorMessage(j, nousecommand.replace("<cmd>", a));
+                    break;
+                }
+            }
+        }
+
+        if (manager.isMute(j) == true) {
+            for (String a : mutelist) {
+                if (message.toLowerCase().contains(a)) {
+                    e.setCancelled(true);
+                    Utils.sendColorMessage(j, nousecommandmute.replace("<cmd>", a));
+                    break;
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onCommandDataLog(PlayerCommandPreprocessEvent e) {
+        ChatDataFile chatDataFile = plugin.getChatDataFile();
+        FileConfiguration config = chatDataFile.getConfig();
+        Player j = e.getPlayer();
+
+        String date = Utils.getDate(System.currentTimeMillis());
+        String time = Utils.getTime(System.currentTimeMillis());
+
+        config.set("Players." + j.getName() + ".Log." + date + ".Command." + time, Utils.colorless(e.getMessage()));
+        chatDataFile.saveConfig();
+        plugin.setChatManagers(new ChatManager(date, time, e.getMessage(), j));
+    }
+
+    @EventHandler
+    public void onCommandLog(PlayerCommandPreprocessEvent e) {
+        CommandLogFile commandLogFile = plugin.getCommandLogFile();
+        FileConfiguration config = commandLogFile.getConfig();
+        Player j = e.getPlayer();
+
+        String date = Utils.getDate(System.currentTimeMillis());
+        String time = Utils.getTime(System.currentTimeMillis());
+
+        config.set("Players." + j.getName() + ".Command." + date + "." + time, Utils.colorless(e.getMessage()));
+        commandLogFile.saveConfig();
+    }
+
+
 }

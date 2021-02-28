@@ -1,19 +1,19 @@
 package jss.advancedchat.utils;
 
 public class OnlinePlayers {
-	
-	private String player;
 
-	public OnlinePlayers(String player) {
-		this.player = player;
-	}
+    private String player;
 
-	public String getPlayer() {
-		return player;
-	}
+    public OnlinePlayers(String player) {
+        this.player = player;
+    }
 
-	public void setPlayer(String player) {
-		this.player = player;
-	}
-	
+    public String getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(String player) {
+        this.player = player;
+    }
+
 }

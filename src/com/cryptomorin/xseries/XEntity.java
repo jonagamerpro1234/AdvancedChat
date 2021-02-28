@@ -184,7 +184,8 @@ public final class XEntity {
             if (config.isSet("can-pickup-items")) living.setCanPickupItems(config.getBoolean("can-pickup-items"));
             if (config.isSet("collidable")) living.setCollidable(config.getBoolean("collidable"));
             if (config.isSet("gliding")) living.setGliding(config.getBoolean("gliding"));
-            if (config.isSet("remove-when-far-away")) living.setRemoveWhenFarAway(config.getBoolean("remove-when-far-away"));
+            if (config.isSet("remove-when-far-away"))
+                living.setRemoveWhenFarAway(config.getBoolean("remove-when-far-away"));
             if (config.isSet("swimming")) living.setSwimming(config.getBoolean("swimming"));
 
             if (config.isSet("max-air")) living.setMaximumAir(config.getInt("max-air"));
@@ -266,7 +267,8 @@ public final class XEntity {
             if (living instanceof Spellcaster) {
                 Spellcaster caster = (Spellcaster) living;
                 String spell = config.getString("spell");
-                if (spell != null) caster.setSpell(Enums.getIfPresent(Spellcaster.Spell.class, spell).or(Spellcaster.Spell.NONE));
+                if (spell != null)
+                    caster.setSpell(Enums.getIfPresent(Spellcaster.Spell.class, spell).or(Spellcaster.Spell.NONE));
             }
             if (living instanceof AbstractHorse) {
                 AbstractHorse horse = (AbstractHorse) living;
