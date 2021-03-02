@@ -21,15 +21,12 @@ Settings:
   Use-Default-Prefix: true
   Prefix: '&6[&bMy Server&6]&7'
   ChatFormat-Type: custom
+  Custom-Commands: false
   ClearChat:
     AutoClear: true
     Tick: 24000
 #
 # |DataBase|
-#
-#
-#
-#
 #
 DataBase:
   Host: 'localhost'

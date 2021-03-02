@@ -17,8 +17,10 @@ import jss.advancedchat.config.Files.FileName;
 import jss.advancedchat.utils.FileManager;
 import jss.advancedchat.utils.interfaces.FileHelper;
 
+@SuppressWarnings("unused")
 public class ConfigManager extends FileManager{
 	
+
 	private AdvancedChat plugin;
 	private File file;
 	private String[] folderNames = new String[]{"Data","Gui","Log"};
