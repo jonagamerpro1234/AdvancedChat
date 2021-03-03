@@ -13,6 +13,7 @@ import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
+import jss.advancedchat.config.PreConfigLoad;
 import jss.advancedchat.database.ConnectionMySQL;
 import jss.advancedchat.events.ChatListener;
 import jss.advancedchat.events.CommandListener;

@@ -1,8 +1,9 @@
-package jss.advancedchat;
+package jss.advancedchat.config;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
 import jss.advancedchat.utils.Logger.Level;
+import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Settings;
 
 public class PreConfigLoad {
