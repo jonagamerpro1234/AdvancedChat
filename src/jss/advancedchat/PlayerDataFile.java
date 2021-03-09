@@ -11,6 +11,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.utils.FileManager;
+import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.interfaces.FileHelper;
 import jss.advancedchat.utils.interfaces.FolderHelper;
 
@@ -21,6 +23,7 @@ public class PlayerDataFile extends FileManager implements FileHelper, FolderHel
     private FileConfiguration config;
     private String path;
     private String folderpath;
+    private Logger logger = new Logger(plugin);
 
     public PlayerDataFile(AdvancedChat plugin, String path, String folderpath) {
         super(plugin);
@@ -53,8 +56,9 @@ public class PlayerDataFile extends FileManager implements FileHelper, FolderHel
     public void saveConfig() {
         try {
             this.config.save(this.file);
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
+        	e.printStackTrace();
         }
     }
 
@@ -70,13 +74,19 @@ public class PlayerDataFile extends FileManager implements FileHelper, FolderHel
                 YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
                 config.setDefaults(defaultConfig);
             }
-        } catch (UnsupportedEncodingException ex) {
-            ex.printStackTrace();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+        }catch(UnsupportedEncodingException e) {
+        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
+        	e.printStackTrace();
+        }catch(NullPointerException e) {
+        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
+        	e.printStackTrace();
+        }catch(IllegalArgumentException e) {
+        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
+        	e.printStackTrace();
         }
 
     }
+    
 
     public String getPath() {
         return this.path;
