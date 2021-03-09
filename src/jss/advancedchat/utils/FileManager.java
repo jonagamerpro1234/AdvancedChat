@@ -6,10 +6,12 @@ import java.io.InputStream;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.utils.Logger.Level;
 
 public class FileManager {
 
     private AdvancedChat plugin;
+    private Logger logger = new Logger(plugin);
 
     public FileManager(AdvancedChat plugin) {
         this.plugin = plugin;
@@ -21,7 +23,8 @@ public class FileManager {
             try {
                 folder.mkdir();
             } catch (Exception e) {
-                e.printStackTrace();
+            	logger.Log(Level.ERROR, "!!Error Load Folder!!");
+                logger.Log(Level.ERROR, e.getStackTrace());
             }
         }
     }
@@ -32,7 +35,8 @@ public class FileManager {
             try {
                 folder.mkdir();
             } catch (Exception e) {
-                e.printStackTrace();
+            	logger.Log(Level.ERROR, "!!Error Load Folder!!");
+                logger.Log(Level.ERROR, e.getStackTrace());
             }
         }
 

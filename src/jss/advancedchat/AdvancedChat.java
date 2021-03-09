@@ -21,6 +21,7 @@ import jss.advancedchat.events.EventLoader;
 import jss.advancedchat.events.InventoryListener;
 import jss.advancedchat.events.JoinListener;
 import jss.advancedchat.manager.ChatManager;
+import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.FileManager;
 import jss.advancedchat.utils.InventoryPlayer;
 import jss.advancedchat.utils.Logger;
@@ -59,6 +60,7 @@ public class AdvancedChat extends JavaPlugin {
     private ArrayList<OnlinePlayers> onlinePlayers;
     private PreConfigLoad preConfigLoad = new PreConfigLoad(this);
     private ConnectionMySQL connectionMySQL;
+    private EventUtils eventUtils;
    
     public void onEnable() {
         Utils.setEnabled(version);
@@ -74,8 +76,10 @@ public class AdvancedChat extends JavaPlugin {
             Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
         }
         plugin = this;
+
         configfile.saveDefaultConfig();
         configfile.create();
+        filemanager.createVoidFolder("Modules");
         commandFile.create();
         filemanager.createVoidFolder("Data");
         playerdata.create();
@@ -86,20 +90,22 @@ public class AdvancedChat extends JavaPlugin {
         filemanager.createVoidFolder("Log");
         chatLogFile.create();
         commandLogFile.create();
-        preConfigLoad.load();
-        loadMySQL();
-        /*try {
+        preConfigLoad.load();        	
+
+        //loadMySQL();
+        try {
             if(getConfigFile().getConfig().getString("Settings.Use-DataBase").equals("true")) {
             	loadMySQL();	
             }
         }catch(NullPointerException e) {
         	e.printStackTrace();
-        }*/
+        }
         metrics = new Metrics(this);
         this.inventoryPlayers = new ArrayList<>();
         this.chatManagers = new ArrayList<>();
         this.onlinePlayers = new ArrayList<>();
         setupCommands();
+        setEventUtils(new EventUtils(this));
         setupEvents();
         SetupSoftDepends();
         new UpdateChecker(this, 83889).getUpdateVersion(version -> {
@@ -132,6 +138,7 @@ public class AdvancedChat extends JavaPlugin {
     }
 
     public void setupEvents() {
+    	
         new JoinListener(this);
         new InventoryListener(this);
         new ChatListener(this);
@@ -140,7 +147,7 @@ public class AdvancedChat extends JavaPlugin {
         eventLoader.runClearChat();
     }
 
-    @SuppressWarnings("unused")
+    //@SuppressWarnings("unused")
 	public void loadMySQL() {
         FileConfiguration config = getConfigFile().getConfig();
 
@@ -150,8 +157,8 @@ public class AdvancedChat extends JavaPlugin {
         String user = config.getString("DataBase.User");
         String password = config.getString("DataBase.Password");
 
-        //connectionMySQL = new ConnectionMySQL(this, host, port, user, password, database);
-        connectionMySQL = new ConnectionMySQL(this, "localhost", 3306, "root", "", "test");
+        connectionMySQL = new ConnectionMySQL(this, host, port, user, password, database);
+        //connectionMySQL = new ConnectionMySQL(this, "localhost", 3306, "root", "", "test");
 
     }
 
@@ -270,4 +277,12 @@ public class AdvancedChat extends JavaPlugin {
     public void setChatManagers(ChatManager chat) {
         this.chatManagers.add(chat);
     }
+
+	public EventUtils getEventUtils() {
+		return eventUtils;
+	}
+
+	public void setEventUtils(EventUtils eventUtils) {
+		this.eventUtils = eventUtils;
+	}
 }
