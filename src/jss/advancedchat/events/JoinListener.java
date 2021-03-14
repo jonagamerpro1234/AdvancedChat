@@ -36,6 +36,7 @@ public class JoinListener implements Listener {
 
     @EventHandler
     public void onJoinPlayer(PlayerJoinEvent e) {
+    	FileConfiguration c = plugin.getConfigFile().getConfig();
         PlayerDataFile dataFile = plugin.getPlayerDataFile();
         FileConfiguration config = dataFile.getConfig();
         ChatDataFile chatDataFile = plugin.getChatDataFile();
@@ -47,9 +48,9 @@ public class JoinListener implements Listener {
 
         Player j = e.getPlayer();
 
-        String path = "Settings.Use-DataBase.Enabled";
+        String path = "Settings.Use-Database";
 
-        if (config.getString(path).equals("true")) {
+        if (c.getString(path).equals("true")) {
             if (!DataBaseManage.existPlayer(plugin.getConnectionMySQL().getConnection(), j.getUniqueId().toString())) {
                 DataBaseManage.createPlayer(plugin.getConnectionMySQL().getConnection(), Utils.colorless(j.getDisplayName()), j.getUniqueId().toString());
             }
@@ -113,7 +114,7 @@ public class JoinListener implements Listener {
                 new UpdateChecker(AdvancedChat.getPlugin(), 83889).getUpdateVersion(version -> {
                     if (!AdvancedChat.getPlugin().getDescription().getVersion().equalsIgnoreCase(version)) {
                         TextComponent component = new TextComponent(Utils.color(Utils.getPrefixPlayer() + " &aThere is a new version available for download"));
-                        component.setClickEvent(new ClickEvent(Action.OPEN_URL, UpdateSettings.URL_PLUGIN_SPIGOT));
+                        component.setClickEvent(new ClickEvent(Action.OPEN_URL, UpdateSettings.URL_PLUGIN[0]));
                         component.setHoverEvent(new HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Utils.color("&6Click on this message to copy the link")).create()));
                         j.spigot().sendMessage(component);
                     }

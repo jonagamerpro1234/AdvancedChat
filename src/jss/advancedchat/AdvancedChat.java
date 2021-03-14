@@ -34,7 +34,7 @@ import jss.advancedchat.utils.Utils;
 
 public class AdvancedChat extends JavaPlugin {
 
-    PluginDescriptionFile jss = getDescription();
+    private PluginDescriptionFile jss = getDescription();
     public String name = this.jss.getName();
     public String version = this.jss.getVersion();
     public Metrics metrics;
@@ -50,7 +50,7 @@ public class AdvancedChat extends JavaPlugin {
     private ChatDataFile chatDataFile = new ChatDataFile(this, "chat-log.data", "Data");
     private ChatLogFile chatLogFile = new ChatLogFile(this, "chat.yml", "Log");
     private CommandLogFile commandLogFile = new CommandLogFile(this, "command.yml", "Log");
-    private CommandFile commandFile = new CommandFile(this, "custom-commands.yml");
+    private CommandFile commandFile = new CommandFile(this, "custom-command.yml");
     public String nmsversion;
     public boolean uselegacyversion = false;
     public Logger logger = new Logger(this);
@@ -98,6 +98,7 @@ public class AdvancedChat extends JavaPlugin {
             	loadMySQL();	
             }
         }catch(NullPointerException e) {
+        	logger.Log(Level.ERROR, "the config [database] is null?");
         	e.printStackTrace();
         }
         metrics = new Metrics(this);
@@ -116,8 +117,8 @@ public class AdvancedChat extends JavaPlugin {
                 logger.Log(Level.WARNING, "&5<||" + "&b" + this.name + " is outdated!");
                 logger.Log(Level.WARNING, "&5<||" + "&bNewest version: &a" + version);
                 logger.Log(Level.WARNING, "&5<||" + "&bYour version: &d" + UpdateSettings.VERSION);
-                logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on Spigot: &e" + UpdateSettings.URL_PLUGIN_SPIGOT);
-                logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on Songoda: &e" + UpdateSettings.URL_PLUGIN_SONGODA);
+                logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on Spigot: &e" + UpdateSettings.URL_PLUGIN[0]);
+                logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on Songoda: &e" + UpdateSettings.URL_PLUGIN[1]);
                 logger.Log(Level.OUTLINE, "&5<||" + Utils.getLine("&5"));
             }
         });
@@ -133,12 +134,12 @@ public class AdvancedChat extends JavaPlugin {
     public void setupCommands() {
         new AdvancedChatCmd(this);
         new ClearChatCmd(this);
+        
         new MuteCmd(this);
         new UnMuteCmd(this);
     }
 
     public void setupEvents() {
-    	
         new JoinListener(this);
         new InventoryListener(this);
         new ChatListener(this);
@@ -153,7 +154,7 @@ public class AdvancedChat extends JavaPlugin {
 
         String host = config.getString("DataBase.Host");
         int port = config.getInt("DataBase.Port");
-        String database = config.getString("DataBase.DataBase");
+        String database = config.getString("DataBase.Database");
         String user = config.getString("DataBase.User");
         String password = config.getString("DataBase.Password");
 
