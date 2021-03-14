@@ -3,7 +3,8 @@ package jss.advancedchat.manager;
 import org.bukkit.entity.Player;
 
 public class ChatManager {
-
+	
+	private String prefix;
     private String message;
     private Player player;
     private String date;
@@ -13,8 +14,16 @@ public class ChatManager {
         this.message = message;
         this.player = player;
     }
+        
+    public String getPrefix() {
+		return prefix;
+	}
 
-    public String getMessage() {
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	public String getMessage() {
         return message;
     }
 

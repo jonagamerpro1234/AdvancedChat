@@ -18,9 +18,8 @@ public class PlayerManager {
     public String name;
     private float range;
     private int spam;
-    private String[] ColorCodes = {"&0", "&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&b", "&c", "&a"};
-    @SuppressWarnings("unused")
-	private String[] HexColorCodes = {""};
+    private String[] ColorCodes = new String[] {"&0", "&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&b", "&c", "&a"};
+	private String[] HexColorCodes = new String[] {"#000000","#0000AA","#00AA00","#00AAAA","#AA0000","#AA00AA","#FFAA00","#AAAAAA","#555555","#5555FF","#55FF55","#55FFFF","#FF5555","#FF55FF","#FFFF55","#FFFFFF"};
     private boolean badword;
 
     public PlayerManager(AdvancedChat plugin) {
@@ -218,15 +217,23 @@ public class PlayerManager {
             StringBuffer stringBuffer = new StringBuffer();
 
             for (char c : text.toCharArray()) {
-                stringBuffer.append(setRandomColor() + c);
+                stringBuffer.append(setColorRandom() + c);
+                /*if(plugin.uselegacyversion = true) {
+                	stringBuffer.append(setHexColorRandom() + c);
+                }*/
             }
             return stringBuffer.toString();
         }
         return null;
     }
 
-    public String setRandomColor() {
+    public String setColorRandom() {
         Random r = new Random();
         return ColorCodes[r.nextInt((this.ColorCodes.length))];
+    }
+    
+    public String setHexColorRandom() {
+        Random r = new Random();
+        return this.HexColorCodes[r.nextInt((this.HexColorCodes.length))];
     }
 }

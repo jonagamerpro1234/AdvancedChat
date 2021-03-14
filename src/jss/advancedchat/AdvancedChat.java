@@ -61,6 +61,7 @@ public class AdvancedChat extends JavaPlugin {
     private PreConfigLoad preConfigLoad = new PreConfigLoad(this);
     private ConnectionMySQL connectionMySQL;
     private EventUtils eventUtils;
+    public boolean uselatestversion = false;
    
     public void onEnable() {
         Utils.setEnabled(version);
@@ -72,8 +73,9 @@ public class AdvancedChat extends JavaPlugin {
             if (uselegacyversion == true) {
                 Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &7Use " + nmsversion + " &cdisabled &7method &b1.16");
             }
-        } else if (nmsversion.equalsIgnoreCase("v1_16_R2")) {
-            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
+        } else if (nmsversion.equalsIgnoreCase("v1_16_R1") || nmsversion.equalsIgnoreCase("v1_16_R2") || nmsversion.equalsIgnoreCase("v1_16_R3")) {
+            uselatestversion = true;
+        	Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
         }
         plugin = this;
 
