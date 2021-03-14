@@ -53,8 +53,8 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
                     Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &3Author: &6jonagamerpro1234");
                     Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &3Version: &6" + plugin.version);
                     Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &3Update: &a" + plugin.latestversion);
-                    Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &6Spigot: &a" + UpdateSettings.URL_PLUGIN_SPIGOT);
-                    Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &dSongoda: &a" + UpdateSettings.URL_PLUGIN_SONGODA);
+                    Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &6Spigot: &a" + UpdateSettings.URL_PLUGIN[0]);
+                    Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &dSongoda: &a" + UpdateSettings.URL_PLUGIN[1]);
                     Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
                 } else if (args[0].equalsIgnoreCase("help")) {
                     List<String> help = config.getStringList("AdvancedChat.Help-Msg");

@@ -61,9 +61,11 @@ public class ChatListener implements Listener {
 
                 if ((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Color"))) {
                     format = Utils.hexcolor(format);
-                    colorbeta = Utils.hexcolor(colorbeta);
-                    exformat = Utils.hexcolor(exformat);
                 }
+                
+                colorbeta = Utils.hexcolor(colorbeta);
+                exformat = Utils.hexcolor(exformat); 
+               
                 if (config.getString(pathtype).equals("normal")) {
                     e.setFormat(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage()));
                 } else if (config.getString(pathtype).equals("experimental")) {
