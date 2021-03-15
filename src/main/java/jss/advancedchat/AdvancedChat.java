@@ -1,49 +1,291 @@
 package jss.advancedchat;
 
-import jss.advancedchat.api.AdvancedChatApi;
-import jss.advancedchat.file.MessagesFile;
-import jss.advancedchat.file.SettingsFile;
-import org.bstats.bukkit.Metrics;
+import java.util.ArrayList;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class AdvancedChat extends JavaPlugin {
+import jss.advancedchat.commands.AdvancedChatCmd;
+import jss.advancedchat.commands.ClearChatCmd;
+import jss.advancedchat.commands.MuteCmd;
+import jss.advancedchat.commands.UnMuteCmd;
+import jss.advancedchat.config.PreConfigLoad;
+import jss.advancedchat.database.ConnectionMySQL;
+import jss.advancedchat.events.ChatListener;
+import jss.advancedchat.events.CommandListener;
+import jss.advancedchat.events.EventLoader;
+import jss.advancedchat.events.InventoryListener;
+import jss.advancedchat.events.JoinListener;
+import jss.advancedchat.manager.ChatManager;
+import jss.advancedchat.utils.EventUtils;
+import jss.advancedchat.utils.FileManager;
+import jss.advancedchat.utils.InventoryPlayer;
+import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.OnlinePlayers;
+import jss.advancedchat.utils.Logger.Level;
+import jss.advancedchat.utils.UpdateSettings;
+import jss.advancedchat.utils.UpdateChecker;
+//import jss.advancedchat.utils.UpdateChecker2;
+import jss.advancedchat.utils.Utils;
 
-    private static AdvancedChat instance;
-    private SettingsFile settingsConfig;
-    private MessagesFile messageConfig;
+public class AdvancedChat extends JavaPlugin {
 
-    private AdvancedChatApi advancedChatApi;
-
+    private PluginDescriptionFile jss = getDescription();
+    public String name = this.jss.getName();
+    public String version = this.jss.getVersion();
+    public Metrics metrics;
+    public String latestversion;
+    public boolean placeholder = false;
+    private CommandSender c = Bukkit.getConsoleSender();
+    private boolean debug = false;
+    private FileManager filemanager = new FileManager(this);
+    private PlayerDataFile playerdata = new PlayerDataFile(this, "players.data", "Data");
+    private ConfigFile configfile = new ConfigFile(this, "config.yml");
+    private ColorFile colorFile = new ColorFile(this, "color-gui.yml", "Gui");
+    private PlayerGuiFile playerGuiFile = new PlayerGuiFile(this, "player-gui.yml", "Gui");
+    private ChatDataFile chatDataFile = new ChatDataFile(this, "chat-log.data", "Data");
+    private ChatLogFile chatLogFile = new ChatLogFile(this, "chat.yml", "Log");
+    private CommandLogFile commandLogFile = new CommandLogFile(this, "command.yml", "Log");
+    private CommandFile commandFile = new CommandFile(this, "custom-command.yml");
+    public String nmsversion;
+    public boolean uselegacyversion = false;
+    public Logger logger = new Logger(this);
+    private static AdvancedChat plugin;
+    private ArrayList<InventoryPlayer> inventoryPlayers;
+    private ArrayList<ChatManager> chatManagers;
+    private ArrayList<OnlinePlayers> onlinePlayers;
+    private PreConfigLoad preConfigLoad = new PreConfigLoad(this);
+    private ConnectionMySQL connectionMySQL;
+    private EventUtils eventUtils;
+    public boolean uselatestversion = false;
+   
     public void onEnable() {
-        instance = this;
-        advancedChatApi = new AdvancedChatApi();
-        new Metrics(this, 8826);
+        Utils.setEnabled(version);
+        ;
+        nmsversion = Bukkit.getServer().getClass().getPackage().getName();
+        nmsversion = nmsversion.substring(nmsversion.lastIndexOf(".") + 1);
+        if (nmsversion.equalsIgnoreCase("v1_8_R3")) {
+            uselegacyversion = true;
+            if (uselegacyversion == true) {
+                Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &7Use " + nmsversion + " &cdisabled &7method &b1.16");
+            }
+        } else if (nmsversion.equalsIgnoreCase("v1_16_R1") || nmsversion.equalsIgnoreCase("v1_16_R2") || nmsversion.equalsIgnoreCase("v1_16_R3")) {
+            uselatestversion = true;
+        	Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
+        }
+        plugin = this;
 
-        settingsConfig = new SettingsFile(this);
-        settingsConfig.preloadSettigns();
-        messageConfig = new MessagesFile(this);
-        messageConfig.preloadMessages();
+        configfile.saveDefaultConfig();
+        configfile.create();
+        filemanager.createVoidFolder("Modules");
+        commandFile.create();
+        filemanager.createVoidFolder("Data");
+        playerdata.create();
+        filemanager.createVoidFolder("Gui");
+        colorFile.create();
+        playerGuiFile.create();
+        chatDataFile.create();
+        filemanager.createVoidFolder("Log");
+        chatLogFile.create();
+        commandLogFile.create();
+        preConfigLoad.load();        	
 
+        //loadMySQL();
+        try {
+            if(getConfigFile().getConfig().getString("Settings.Use-DataBase").equals("true")) {
+            	loadMySQL();	
+            }
+        }catch(NullPointerException e) {
+        	logger.Log(Level.ERROR, "the config [database] is null?");
+        	e.printStackTrace();
+        }
+        metrics = new Metrics(this);
+        this.inventoryPlayers = new ArrayList<>();
+        this.chatManagers = new ArrayList<>();
+        this.onlinePlayers = new ArrayList<>();
+        setupCommands();
+        setEventUtils(new EventUtils(this));
+        setupEvents();
+        SetupSoftDepends();
+        new UpdateChecker(this, 83889).getUpdateVersion(version -> {
+            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+                logger.Log(Level.SUCCESS, "&a" + this.name + " is up to date!");
+            } else {
+                logger.Log(Level.OUTLINE, "&5<||" + Utils.getLine("&5"));
+                logger.Log(Level.WARNING, "&5<||" + "&b" + this.name + " is outdated!");
+                logger.Log(Level.WARNING, "&5<||" + "&bNewest version: &a" + version);
+                logger.Log(Level.WARNING, "&5<||" + "&bYour version: &d" + UpdateSettings.VERSION);
+                logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on Spigot: &e" + UpdateSettings.URL_PLUGIN[0]);
+                logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on Songoda: &e" + UpdateSettings.URL_PLUGIN[1]);
+                logger.Log(Level.OUTLINE, "&5<||" + Utils.getLine("&5"));
+            }
+        });
     }
 
     public void onDisable() {
-        instance = null;
-        getServer().getScheduler().cancelTasks(this);
+        Utils.setDisabled(version);
+        placeholder = false;
+        metrics = null;
+        uselegacyversion = false;
     }
 
-    public SettingsFile getSettingsFile() {
-        return settingsConfig;
+    public void setupCommands() {
+        new AdvancedChatCmd(this);
+        new ClearChatCmd(this);
+        
+        new MuteCmd(this);
+        new UnMuteCmd(this);
     }
 
-    public MessagesFile getMessageFile() {
-        return messageConfig;
+    public void setupEvents() {
+        new JoinListener(this);
+        new InventoryListener(this);
+        new ChatListener(this);
+        new CommandListener(this);
+        EventLoader eventLoader = new EventLoader(this);
+        eventLoader.runClearChat();
     }
 
-    public AdvancedChatApi getApi() {
-        return advancedChatApi;
+    //@SuppressWarnings("unused")
+	public void loadMySQL() {
+        FileConfiguration config = getConfigFile().getConfig();
+
+        String host = config.getString("DataBase.Host");
+        int port = config.getInt("DataBase.Port");
+        String database = config.getString("DataBase.Database");
+        String user = config.getString("DataBase.User");
+        String password = config.getString("DataBase.Password");
+
+        connectionMySQL = new ConnectionMySQL(this, host, port, user, password, database);
+        //connectionMySQL = new ConnectionMySQL(this, "localhost", 3306, "root", "", "test");
+
     }
 
-    public static AdvancedChat get() {
-        return instance;
+    public PlayerDataFile getPlayerDataFile() {
+        return this.playerdata;
     }
+
+    public ConfigFile getConfigFile() {
+        return configfile;
+    }
+
+    public ColorFile getColorFile() {
+        return colorFile;
+    }
+
+    public PlayerGuiFile getPlayerGuiFile() {
+        return playerGuiFile;
+    }
+
+    public ChatDataFile getChatDataFile() {
+        return chatDataFile;
+    }
+
+    public ChatLogFile getChatLogFile() {
+        return chatLogFile;
+    }
+
+    public CommandLogFile getCommandLogFile() {
+        return commandLogFile;
+    }
+
+    public boolean getPlaceHolderState() {
+        return this.placeholder;
+    }
+
+    public boolean setupPlaceHolderAPI() {
+        if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            placeholder = true;
+        }
+        return placeholder;
+    }
+
+    public void SetupSoftDepends() {
+        if (setupPlaceHolderAPI()) {
+            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<||============================================-----");
+            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &ePlaceHolderAPI:&b" + " " + placeholder);
+            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &eVars PlaceHolderAPI:&a true");
+            //Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &dAdvancedChat:&a true");
+            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<||============================================-----");
+        } else {
+            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<||============================================-----");
+            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &ePlaceHolderAPI:&b" + " " + placeholder);
+            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &eVars PlaceHolderAPI:&c false");
+            //Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &dAdvancedChat:&c false");
+            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<||============================================-----");
+        }
+    }
+
+    public boolean isDebug() {
+        return debug;
+    }
+
+    public static AdvancedChat getPlugin() {
+        return plugin;
+    }
+
+    public void addInventoryPlayer(Player player, String inventoryname) {
+        if (this.getInventoryPlayer(player) == null) {
+            this.inventoryPlayers.add(new InventoryPlayer(player, inventoryname));
+        }
+    }
+
+    public void removeInvetoryPlayer(Player player) {
+        for (int i = 0; i < inventoryPlayers.size(); i++) {
+            if (((InventoryPlayer) this.inventoryPlayers.get(i)).getPlayer().getName().equals(player.getName())) {
+                this.inventoryPlayers.remove(i);
+            }
+        }
+    }
+
+    public InventoryPlayer getInventoryPlayer(Player player) {
+        for (int i = 0; i < inventoryPlayers.size(); i++) {
+            if (((InventoryPlayer) this.inventoryPlayers.get(i)).getPlayer().getName().equals(player.getName())) {
+                return (InventoryPlayer) this.inventoryPlayers.get(i);
+            }
+        }
+        return null;
+    }
+
+    public ConnectionMySQL getConnectionMySQL() {
+        return connectionMySQL;
+    }
+
+    public int getTotalPage() {
+        if (this.onlinePlayers.size() % 45 == 0) {
+            int pag = (this.onlinePlayers.size() / 45);
+            return pag;
+        } else {
+            int pag = (this.onlinePlayers.size() / 45) + 1;
+            return pag;
+        }
+    }
+
+    public ArrayList<OnlinePlayers> getOnlinePlayers() {
+        return onlinePlayers;
+    }
+
+    public void setOnlinePlayers(OnlinePlayers player) {
+        this.onlinePlayers.add(player);
+    }
+
+    public ArrayList<ChatManager> getChatManagers() {
+        return chatManagers;
+    }
+
+    public void setChatManagers(ChatManager chat) {
+        this.chatManagers.add(chat);
+    }
+
+	public EventUtils getEventUtils() {
+		return eventUtils;
+	}
+
+	public void setEventUtils(EventUtils eventUtils) {
+		this.eventUtils = eventUtils;
+	}
 }
