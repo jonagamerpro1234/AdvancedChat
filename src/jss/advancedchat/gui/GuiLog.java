@@ -13,6 +13,7 @@ import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.ChatManager;
+import jss.advancedchat.utils.InventoryUtils;
 import jss.advancedchat.utils.Utils;
 
 public class GuiLog {
@@ -22,9 +23,13 @@ public class GuiLog {
     public GuiLog(AdvancedChat plugin) {
         this.plugin = plugin;
     }
-
+    
     @SuppressWarnings("unused")
     public void openGuiLog(Player player, String name, int page) {
+    	
+    	
+    	new InventoryUtils(player, 1, "s").create();
+    	
         FileConfiguration config = plugin.getChatDataFile().getConfig();
 
         Inventory inv = Bukkit.createInventory(null, 54, Utils.color("&6Log: &9" + name));
@@ -54,5 +59,5 @@ public class GuiLog {
         player.openInventory(inv);
     }
 
-
+    
 }
