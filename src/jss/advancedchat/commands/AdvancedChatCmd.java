@@ -18,6 +18,7 @@ import jss.advancedchat.PlayerDataFile;
 import jss.advancedchat.PlayerGuiFile;
 import jss.advancedchat.gui.GuiColor;
 import jss.advancedchat.gui.GuiPlayer;
+import jss.advancedchat.gui.GuiTest;
 import jss.advancedchat.utils.EventUtils;
 //import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.UpdateSettings;
@@ -210,6 +211,12 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				}
 				return true;
 			}*/
+            
+            if(args[0].equalsIgnoreCase("opent")) {
+            	GuiTest test = new GuiTest();
+            	test.test(j);
+            	return true;
+            }
 
             //------------------
             if (config.getString("Settings.Use-Default-Prefix").equals("true")) {

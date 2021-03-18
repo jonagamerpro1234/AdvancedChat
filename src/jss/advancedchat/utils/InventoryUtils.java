@@ -16,6 +16,7 @@ public class InventoryUtils implements InventoryHelper {
     private String title;
     private String id;
     private String texture;
+    private Player player;
 
     public InventoryUtils(Player player, int size, String title) {
         this.size = 0;
@@ -24,10 +25,15 @@ public class InventoryUtils implements InventoryHelper {
         this.title = title;
         this.id = null;
         this.texture = null;
+        this.player = player;
+
+    }
+    
+    public InventoryUtils create() {
         Inventory inv = Bukkit.createInventory(null, getSize());
         open(player, inv);
+    	return this;
     }
-
 
     //comming soon
     public Build build() {
@@ -35,9 +41,10 @@ public class InventoryUtils implements InventoryHelper {
     }
 
     private final class Build {
-        public Build() {
-        }
-
+        
+    	public Build() {}
+    	
+    	
 
     }
 
