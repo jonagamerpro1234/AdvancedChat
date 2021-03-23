@@ -40,7 +40,7 @@ public class InventoryListener implements Listener {
     }
 
     @SuppressWarnings("deprecation")
-    @EventHandler
+	@EventHandler
     public void onInventoryPlayer(InventoryClickEvent e) {
         PlayerManager manager = new PlayerManager(plugin);
         FileConfiguration config = plugin.getConfigFile().getConfig();
