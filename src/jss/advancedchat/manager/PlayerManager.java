@@ -26,7 +26,7 @@ public class PlayerManager {
         super();
         this.plugin = plugin;
         this.uuid = null;
-        this.name = null;
+        this.name = "";
         this.range = 0;
         this.spam = 0;
         this.badword = false;
@@ -82,17 +82,6 @@ public class PlayerManager {
         return false;
     }
 
-    public String getStateMute(Player player) {
-        FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-        for (String key : config.getConfigurationSection("Players").getKeys(false)) {
-            if (key.contains(player.getName())) {
-                String w = config.getString("Players." + key + ".Mute");
-                return w;
-            }
-        }
-        return null;
-    }
-
     public void setMute(Player player, boolean mute) {
         FileConfiguration config = plugin.getPlayerDataFile().getConfig();
         if (player == null) {
@@ -117,16 +106,6 @@ public class PlayerManager {
         return null;
     }
 
-    public String getColorPlayer(Player player, FileConfiguration config) {
-        for (String key : config.getConfigurationSection("Players").getKeys(false)) {
-            if (key.contains(player.getName())) {
-                String color = config.getString("Players." + key + ".Color");
-                return color;
-            }
-        }
-        return null;
-    }
-
     public void setColor(Player player, String color) {
         FileConfiguration config = plugin.getPlayerDataFile().getConfig();
         if (config.contains("Players." + player.getName() + ".Color")) {
@@ -136,8 +115,27 @@ public class PlayerManager {
             //Utils.sendColorMessage(eventUtils.getConsoleSender(), "No se pudo encontrar el jugador");
         }
     }
-
-    public boolean checkPlayerList(Player player) {
+    
+    public String getChannel(Player player) {
+    	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+    	for(String key : config.getConfigurationSection("Players").getKeys(false)) {
+    		if(key.contains(player.getName())) {
+    			String channel = config.getString("Players."+key+".Channel");
+    			return channel.toLowerCase();
+    		}
+    	}
+    	return null;
+    }
+    
+    public void setChannel(Player player, String channel) {
+    	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+        if (config.contains("Players." + player.getName() + ".Channel")) {
+            config.set("Players." + player.getName() + ".Channel", channel);
+            plugin.getPlayerDataFile().saveConfig();
+        }
+    }
+    
+    public boolean check(Player player) {
         FileConfiguration config = plugin.getPlayerDataFile().getConfig();
         for (String key : config.getConfigurationSection("Players").getKeys(false)) {
             if (key.contains(player.getName())) {

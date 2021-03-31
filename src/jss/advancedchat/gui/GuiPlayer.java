@@ -84,7 +84,7 @@ public class GuiPlayer {
     private void setMuteItem(FileConfiguration config, Player player, Inventory inv, ItemStack item, ItemMeta meta) {
 
         PlayerManager manager = new PlayerManager(plugin);
-        if (manager.checkPlayerList(player)) {
+        if (manager.check(player)) {
             if (manager.isMute(player) == true) {
 
                 item = XMaterial.PAPER.parseItem();
@@ -139,9 +139,7 @@ public class GuiPlayer {
             meta.setDisplayName(" ");
             item.setItemMeta(meta);
             inv.setItem(i, item);
-            if (i == 9) {
-                break;
-            }
+            if (i == 9) break;
         }
 
         item = XMaterial.valueOf(path).parseItem();
@@ -165,9 +163,7 @@ public class GuiPlayer {
             meta.setDisplayName(" ");
             item.setItemMeta(meta);
             inv.setItem(i, item);
-            if (i == 27) {
-                break;
-            }
+            if (i == 27) break;            
         }
 
         for (int i = 27; i < 36; i++) {

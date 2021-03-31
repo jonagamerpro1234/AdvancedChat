@@ -9,6 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.commands.MuteCmd;
@@ -27,9 +30,13 @@ import jss.advancedchat.utils.InventoryPlayer;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.OnlinePlayers;
 import jss.advancedchat.utils.Logger.Level;
+import jss.advancedchat.utils.json.handlers.JsonClickEvent;
+import jss.advancedchat.utils.json.handlers.JsonHoverEvent;
+import jss.advancedchat.utils.json.serializers.SerializerClickEvent;
+import jss.advancedchat.utils.json.serializers.SerializerHoverEvent;
+import jss.advancedchat.utils.version.nms.IPacketSender;
 import jss.advancedchat.utils.UpdateSettings;
 import jss.advancedchat.utils.UpdateChecker;
-//import jss.advancedchat.utils.UpdateChecker2;
 import jss.advancedchat.utils.Utils;
 
 public class AdvancedChat extends JavaPlugin {
@@ -47,6 +54,7 @@ public class AdvancedChat extends JavaPlugin {
     private ConfigFile configfile = new ConfigFile(this, "config.yml");
     private ColorFile colorFile = new ColorFile(this, "color-gui.yml", "Gui");
     private PlayerGuiFile playerGuiFile = new PlayerGuiFile(this, "player-gui.yml", "Gui");
+    private ChannelGuiFile channelGuiFile = new ChannelGuiFile(this, "channel-gui.yml", "Gui");
     private ChatDataFile chatDataFile = new ChatDataFile(this, "chat-log.data", "Data");
     private ChatLogFile chatLogFile = new ChatLogFile(this, "chat.yml", "Log");
     private CommandLogFile commandLogFile = new CommandLogFile(this, "command.yml", "Log");
@@ -62,6 +70,9 @@ public class AdvancedChat extends JavaPlugin {
     private ConnectionMySQL connectionMySQL;
     private EventUtils eventUtils;
     public boolean uselatestversion = false;
+    private boolean BungeeMode = false;
+    private static IPacketSender iPacketSender;
+    private static GsonBuilder gsonBuilder;
    
     public void onEnable() {
         Utils.setEnabled(version);
@@ -78,25 +89,36 @@ public class AdvancedChat extends JavaPlugin {
         	Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
         }
         plugin = this;
-
         configfile.saveDefaultConfig();
         configfile.create();
+        preConfigLoad.load();
         filemanager.createVoidFolder("Modules");
         commandFile.create();
-        filemanager.createVoidFolder("Data");
-        playerdata.create();
+        try {
+        	if(this.getConfigFile().getConfig().getString("Settings.BungeeMode").equals("false")) {
+                filemanager.createVoidFolder("Data");
+                playerdata.create();
+                BungeeMode = false;
+        	} else if(this.getConfigFile().getConfig().getString("Settings.BungeeMode").equals("true")) {
+        		BungeeMode = true;
+        		logger.Log(Level.INFO, "Bungee Mode can only be used if the database is active and configured");
+        		logger.Log(Level.INFO, "Folder [data] and its [files] are not created");
+        	} else {
+        		
+        	}
+        }catch(NullPointerException e) {
+        	e.printStackTrace();
+        }
+        filemanager.createVoidFolder("Log");
+        chatLogFile.create();
+        commandLogFile.create();
         filemanager.createVoidFolder("Gui");
         colorFile.create();
         playerGuiFile.create();
         chatDataFile.create();
-        filemanager.createVoidFolder("Log");
-        chatLogFile.create();
-        commandLogFile.create();
-        preConfigLoad.load();        	
-
-        //loadMySQL();
+        channelGuiFile.create();
         try {
-            if(getConfigFile().getConfig().getString("Settings.Use-DataBase").equals("true")) {
+            if(getConfigFile().getConfig().getString("Settings.Use-Database").equals("true")) {
             	loadMySQL();	
             }
         }catch(NullPointerException e) {
@@ -116,7 +138,7 @@ public class AdvancedChat extends JavaPlugin {
                 logger.Log(Level.SUCCESS, "&a" + this.name + " is up to date!");
             } else {
                 logger.Log(Level.OUTLINE, "&5<||" + Utils.getLine("&5"));
-                logger.Log(Level.WARNING, "&5<||" + "&b" + this.name + " is outdated!");
+                logger.Log(Level.WARNING, "&5<||" + "&b" + this.name + "is outdated!");
                 logger.Log(Level.WARNING, "&5<||" + "&bNewest version: &a" + version);
                 logger.Log(Level.WARNING, "&5<||" + "&bYour version: &d" + UpdateSettings.VERSION);
                 logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on Spigot: &e" + UpdateSettings.URL_PLUGIN[0]);
@@ -124,6 +146,7 @@ public class AdvancedChat extends JavaPlugin {
                 logger.Log(Level.OUTLINE, "&5<||" + Utils.getLine("&5"));
             }
         });
+        checkNMSVersion();
     }
 
     public void onDisable() {
@@ -131,6 +154,12 @@ public class AdvancedChat extends JavaPlugin {
         placeholder = false;
         metrics = null;
         uselegacyversion = false;
+    }
+    
+    static {
+    	gsonBuilder = new GsonBuilder();
+    	gsonBuilder.registerTypeAdapter(JsonHoverEvent.class, new SerializerHoverEvent());
+    	gsonBuilder.registerTypeAdapter(JsonClickEvent.class, new SerializerClickEvent());
     }
 
     public void setupCommands() {
@@ -153,18 +182,25 @@ public class AdvancedChat extends JavaPlugin {
     //@SuppressWarnings("unused")
 	public void loadMySQL() {
         FileConfiguration config = getConfigFile().getConfig();
-
         String host = config.getString("DataBase.Host");
         int port = config.getInt("DataBase.Port");
         String database = config.getString("DataBase.Database");
         String user = config.getString("DataBase.User");
         String password = config.getString("DataBase.Password");
-
         connectionMySQL = new ConnectionMySQL(this, host, port, user, password, database);
         //connectionMySQL = new ConnectionMySQL(this, "localhost", 3306, "root", "", "test");
-
     }
+	
+	private void checkNMSVersion() {
+		try {
+			Class<?> clazz = Class.forName("jss.advancedchat.utils.version.nms." + nmsversion + ".PacketSender");
+			iPacketSender = (IPacketSender) clazz.newInstance();
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 
+	}
+	
     public PlayerDataFile getPlayerDataFile() {
         return this.playerdata;
     }
@@ -192,8 +228,12 @@ public class AdvancedChat extends JavaPlugin {
     public CommandLogFile getCommandLogFile() {
         return commandLogFile;
     }
+    
+    public ChannelGuiFile getChannelGuiFile() {
+		return channelGuiFile;
+	}
 
-    public boolean getPlaceHolderState() {
+	public boolean getPlaceHolderState() {
         return this.placeholder;
     }
 
@@ -288,4 +328,21 @@ public class AdvancedChat extends JavaPlugin {
 	public void setEventUtils(EventUtils eventUtils) {
 		this.eventUtils = eventUtils;
 	}
+
+	public boolean isBungeeMode() {
+		return BungeeMode;
+	}
+
+	public void setBungeeMode(boolean isBungeeMode) {
+		this.BungeeMode = isBungeeMode;
+	}
+
+	public static IPacketSender getiPacketSender() {
+		return iPacketSender;
+	}
+
+	public static Gson getGson() {
+		return gsonBuilder.create();
+	}
+	
 }
