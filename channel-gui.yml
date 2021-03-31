@@ -1,0 +1,31 @@
+# |    AdvancedChat     |
+# | By jonagamerpro1234 |
+# |     Version 1.6.0   |
+# |_____________________|
+#
+Title: '&6Select you channel'
+Items:
+  Channel_All:
+    Name: '&bAll'
+    Item: STONE
+    Lore:
+      - '&eBy selecting this channel you can talk to all the players who are on the same channel as you'
+      - '&a&nclick to select'
+    Amount: 1
+  Channel_Staff:
+    Name: '&bStaff'
+    Item: STONE
+    Lore:
+      No_Perm:
+        - '&7This channel is dedicated to the server staff and only those who have the corresponding permission will be able to select it.'
+        - '&c&ndoes not have permissions'
+      Perm:
+        - '&7This channel is dedicated to the server staff and only those who have the corresponding permission will be able to select it.'
+        - '&a&nclick to select'
+    Amount: 1
+  Decoration:
+    Item: BLACK_STAINED_GLASS_PANE
+  Back:
+    Name: '&c&lBack'
+    Item: RED_STAINED_GLASS_PANE
+  

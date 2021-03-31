@@ -17,6 +17,7 @@
 #   [Ticks] here you can define the time that the actions are automatically executed [Default | 24000], 24000 tick = 20 min
 Settings:
   Use-Database: false
+  BungeeMode: false
   Update: true
   Use-Default-Prefix: true
   Prefix: '&6[&bMy Server&6]&7'

@@ -43,7 +43,7 @@ public class UpdateChecker implements UpdateHelper {
         });
     }
     
-    public void getUpdateVersion() {
+    public void getUpdateVersion(String msg) {
         String version = getJson("https://songoda.com/api/v2/products/advancedchat-chat-related/");
         if (version.trim() != null && !version.trim().equalsIgnoreCase(plugin.version)) {
            
