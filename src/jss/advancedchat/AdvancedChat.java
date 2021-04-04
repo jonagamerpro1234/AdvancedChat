@@ -76,7 +76,6 @@ public class AdvancedChat extends JavaPlugin {
    
     public void onEnable() {
         Utils.setEnabled(version);
-        ;
         nmsversion = Bukkit.getServer().getClass().getPackage().getName();
         nmsversion = nmsversion.substring(nmsversion.lastIndexOf(".") + 1);
         if (nmsversion.equalsIgnoreCase("v1_8_R3")) {
@@ -88,6 +87,7 @@ public class AdvancedChat extends JavaPlugin {
             uselatestversion = true;
         	Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
         }
+        checkNMSVersion(nmsversion);
         plugin = this;
         configfile.saveDefaultConfig();
         configfile.create();
@@ -146,7 +146,6 @@ public class AdvancedChat extends JavaPlugin {
                 logger.Log(Level.OUTLINE, "&5<||" + Utils.getLine("&5"));
             }
         });
-        checkNMSVersion();
     }
 
     public void onDisable() {
@@ -191,10 +190,11 @@ public class AdvancedChat extends JavaPlugin {
         //connectionMySQL = new ConnectionMySQL(this, "localhost", 3306, "root", "", "test");
     }
 	
-	private void checkNMSVersion() {
+	private void checkNMSVersion(String nmsversion) {
 		try {
-			Class<?> clazz = Class.forName("jss.advancedchat.utils.version.nms." + nmsversion + ".PacketSender");
+			Class<?> clazz = Class.forName("jss.advancedchat.utils.version.nms"+ "." + nmsversion + "." + "PacketSender");
 			iPacketSender = (IPacketSender) clazz.newInstance();
+			logger.Log(Level.DEBUG, "&bLoad Nms:" + " &e" + clazz);
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
