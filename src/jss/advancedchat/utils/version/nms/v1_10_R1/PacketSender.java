@@ -1,12 +1,12 @@
-package jss.advancedchat.utils.version.nms.V_1_14_R1;
+package jss.advancedchat.utils.version.nms.v1_10_R1;
 
-import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_10_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.utils.version.nms.IPacketSender;
-import net.minecraft.server.v1_14_R1.IChatBaseComponent.ChatSerializer;
-import net.minecraft.server.v1_14_R1.IChatBaseComponent;
-import net.minecraft.server.v1_14_R1.PacketPlayOutChat;
+import net.minecraft.server.v1_10_R1.IChatBaseComponent.ChatSerializer;
+import net.minecraft.server.v1_10_R1.IChatBaseComponent;
+import net.minecraft.server.v1_10_R1.PacketPlayOutChat;
 
 public class PacketSender extends IPacketSender{
 
@@ -16,4 +16,5 @@ public class PacketSender extends IPacketSender{
 		PacketPlayOutChat packetPlayOutChat = new PacketPlayOutChat(baseComponent);
 		((CraftPlayer) player).getHandle().playerConnection.sendPacket(packetPlayOutChat);
 	}
+	
 }

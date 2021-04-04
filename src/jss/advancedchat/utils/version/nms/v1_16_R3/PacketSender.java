@@ -1,4 +1,4 @@
-package jss.advancedchat.utils.version.nms.V_1_16_R3;
+package jss.advancedchat.utils.version.nms.v1_16_R3;
 
 import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
