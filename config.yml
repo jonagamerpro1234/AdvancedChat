@@ -68,6 +68,8 @@ Command-Blocker:
     - '/bukkit:plugins'
     - '/bukkit:ver'
     - '/bukkit:?'
+ProtocolLib-Packet:
+  Enabled: true
 #
 # | Default |
 # | This section serves as an emergency backup in case any of the other functions do not work properly. |
@@ -183,6 +185,7 @@ Filter-Chat:
 # |Version: 1.5|
 #
 AdvancedChat:
+  Depend-Plugin: '&cCannot enable packet features!, Required plugin missing:'
   ClearChat-Server: '&7The chat has been cleaned'
   ClearChat-Player: '&7The chat has been cleaned by &b[&e<name>&b]'
   No-Permission: '&cYou dont have permission to do that!'

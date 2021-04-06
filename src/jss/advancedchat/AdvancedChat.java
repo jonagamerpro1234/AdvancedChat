@@ -23,6 +23,7 @@ import jss.advancedchat.events.CommandListener;
 import jss.advancedchat.events.EventLoader;
 import jss.advancedchat.events.InventoryListener;
 import jss.advancedchat.events.JoinListener;
+import jss.advancedchat.hooks.HooksManager;
 import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.FileManager;
@@ -48,7 +49,7 @@ public class AdvancedChat extends JavaPlugin {
     public String latestversion;
     public boolean placeholder = false;
     private CommandSender c = Bukkit.getConsoleSender();
-    private boolean debug = false;
+    private static boolean debug = false;
     private FileManager filemanager = new FileManager(this);
     private PlayerDataFile playerdata = new PlayerDataFile(this, "players.data", "Data");
     private ConfigFile configfile = new ConfigFile(this, "config.yml");
@@ -67,7 +68,7 @@ public class AdvancedChat extends JavaPlugin {
     private ArrayList<ChatManager> chatManagers;
     private ArrayList<OnlinePlayers> onlinePlayers;
     private PreConfigLoad preConfigLoad = new PreConfigLoad(this);
-    private ConnectionMySQL connectionMySQL;
+	private ConnectionMySQL connectionMySQL;
     private EventUtils eventUtils;
     public boolean uselatestversion = false;
     private boolean BungeeMode = false;
@@ -81,17 +82,23 @@ public class AdvancedChat extends JavaPlugin {
         if (nmsversion.equalsIgnoreCase("v1_8_R3")) {
             uselegacyversion = true;
             if (uselegacyversion == true) {
-                Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &7Use " + nmsversion + " &cdisabled &7method &b1.16");
+                Utils.sendColorMessage(c, Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &cdisabled &7method &b1.16");
             }
         } else if (nmsversion.equalsIgnoreCase("v1_16_R1") || nmsversion.equalsIgnoreCase("v1_16_R2") || nmsversion.equalsIgnoreCase("v1_16_R3")) {
             uselatestversion = true;
-        	Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
+        	Utils.sendColorMessage(c, Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
         }
         checkNMSVersion(nmsversion);
         plugin = this;
         configfile.saveDefaultConfig();
         configfile.create();
         preConfigLoad.load();
+        if(AdvancedChat.isDebug()) {
+        	plugin.logger.Log(Level.INFO, "Pre Config Load completed");
+        }else {
+        	Logger.Default("&5<|| &c* &ePre Config Load completed");
+        	Utils.sendLile();
+        }
         filemanager.createVoidFolder("Modules");
         commandFile.create();
         try {
@@ -117,6 +124,14 @@ public class AdvancedChat extends JavaPlugin {
         playerGuiFile.create();
         chatDataFile.create();
         channelGuiFile.create();
+        HooksManager.loadDependencies();
+        if(getConfigFile().getConfig().getString("ProtocolLib-Packet.Enabled").equals("true")) {
+        	if(HooksManager.isLoadProtocolLib()) {
+        		HooksManager.InitPacketListening();
+        	}else {    			
+        		Logger.Warning(getConfigFile().getConfig().getString("AdvancedChat.Depend-Plugin") + " " + "&e[&bProtocolLib&e]");
+        	}
+        }
         try {
             if(getConfigFile().getConfig().getString("Settings.Use-Database").equals("true")) {
             	loadMySQL();	
@@ -246,21 +261,19 @@ public class AdvancedChat extends JavaPlugin {
 
     public void SetupSoftDepends() {
         if (setupPlaceHolderAPI()) {
-            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<||============================================-----");
-            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &ePlaceHolderAPI:&b" + " " + placeholder);
-            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &eVars PlaceHolderAPI:&a true");
-            //Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &dAdvancedChat:&a true");
-            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<||============================================-----");
+            Utils.sendColorMessage(c, Utils.getPrefix() + "&5<||============================================-----");
+            Utils.sendColorMessage(c, Utils.getPrefix() + "&5<|| &c* &ePlaceHolderAPI:&b" + " " + placeholder);
+            Utils.sendColorMessage(c, Utils.getPrefix() + "&5<|| &c* &eVars PlaceHolderAPI:&a true");
+            Utils.sendColorMessage(c, Utils.getPrefix() + "&5<||============================================-----");
         } else {
-            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<||============================================-----");
-            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &ePlaceHolderAPI:&b" + " " + placeholder);
-            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &eVars PlaceHolderAPI:&c false");
-            //Utils.sendColorMessage(c, Utils.getPrefix() + " &5<|| &c* &dAdvancedChat:&c false");
-            Utils.sendColorMessage(c, Utils.getPrefix() + " &5<||============================================-----");
+            Utils.sendColorMessage(c, Utils.getPrefix() + "&5<||============================================-----");
+            Utils.sendColorMessage(c, Utils.getPrefix() + "&5<|| &c* &ePlaceHolderAPI:&b" + " " + placeholder);
+            Utils.sendColorMessage(c, Utils.getPrefix() + "&5<|| &c* &eVars PlaceHolderAPI:&c false");
+            Utils.sendColorMessage(c, Utils.getPrefix() + "&5<||============================================-----");
         }
     }
 
-    public boolean isDebug() {
+    public static boolean isDebug() {
         return debug;
     }
 
@@ -345,4 +358,7 @@ public class AdvancedChat extends JavaPlugin {
 		return gsonBuilder.create();
 	}
 	
+    public PreConfigLoad getPreConfigLoad() {
+		return preConfigLoad;
+	}
 }
