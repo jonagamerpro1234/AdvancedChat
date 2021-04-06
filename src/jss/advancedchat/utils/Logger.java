@@ -11,7 +11,36 @@ public class Logger {
         super();
         this.plugin = plugin;
     }
+    
+    public static void Error(String msg) {
+    	Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), ERRORPrefix() + " " + msg);
+    }
 
+    public static void Warning(String msg) {
+    	Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), WARNINGPrefix() + " " + msg);
+    }
+    
+    public static void Info(String msg) {
+    	Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), INFOPrefix() + " " + msg);
+    }
+    
+    public static void OutLine(String msg) {
+    	Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), OUTLINEPrefix() + " " + msg);
+    }
+    
+    public static void Succerss(String msg) {
+    	Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), SUCCESSPrefix() + " " + msg);
+    }
+    
+    public static void Debug(String msg) {
+    	Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), DEBUGPrefix() + " " + msg);
+    }
+    
+    public static void Default(String msg) {
+    	Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix() + msg);
+    }
+    
+    
     public void Log(Level level, Object object) {
         if (object == null) {
             return;
@@ -63,6 +92,25 @@ public class Logger {
                 break;
         }
 
+    }
+    
+    private static String ERRORPrefix() {
+    	return Utils.hexcolor("&e[&cERROR&e]&7");
+    }
+    private static String WARNINGPrefix() {
+    	return Utils.hexcolor("&e[&dWARNING&e]&7");
+    }
+    private static String INFOPrefix() {
+    	return Utils.hexcolor("&e[&9INFO&e]&7");
+    }
+    private static String OUTLINEPrefix() {
+    	return Utils.hexcolor("&e[&bOUTLINE&e]&7");
+    }
+    private static String SUCCESSPrefix() {
+    	return Utils.hexcolor("&e[&aSUCCESS&e]&7");
+    }
+    private static String DEBUGPrefix() {
+    	return Utils.hexcolor("&e[&dDEBUG&e]&7");
     }
     
     public enum Level {

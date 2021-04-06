@@ -2,7 +2,7 @@ main: jss.advancedchat.AdvancedChat
 name: AdvancedChat
 version: 1.6.0
 author: [jonagamerpro1234]
-softdepend: [PlaceholderAPI,Vault,LiteBans]
+softdepend: [PlaceholderAPI,Vault,LiteBans,ProtocolLib]
 api-version: 1.13
 description: Its main function is to modify the chat so that it can be personalized and add different options
 prefix: AdvancedChat

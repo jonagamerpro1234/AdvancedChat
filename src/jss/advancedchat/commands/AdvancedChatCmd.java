@@ -70,6 +70,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					playerDataFile.reloadConfig();
 					colorFile.reloadConfig();
 					playerGuiFile.reloadConfig();
+					plugin.getPreConfigLoad().load();
 					if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
 						Utils.sendColorMessage(eventUtils.getConsoleSender(),
 								Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Reload"));

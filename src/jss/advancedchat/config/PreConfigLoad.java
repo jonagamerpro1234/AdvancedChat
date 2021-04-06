@@ -2,7 +2,6 @@ package jss.advancedchat.config;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Settings;
 
@@ -32,7 +31,6 @@ public class PreConfigLoad {
             Settings.message_No_Online_Player = config.getString("AdvancedChat.No-Online-Player");
             Settings.message_No_Use_Command = config.getString("AdvancedChat.No-Use-Command");
             Settings.message_No_Use_Command_Mute = config.getString("AdvancedChat.No-Use-Command-Mute");
-            plugin.logger.Log(Level.INFO, "Pre Config Load completed");
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
