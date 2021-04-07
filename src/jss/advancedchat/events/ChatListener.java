@@ -204,12 +204,11 @@ public class ChatListener implements Listener {
 
         config.set("Players." + j.getName() + ".Chat." + date + "." + time, Utils.colorless(e.getMessage()));
         chatLogFile.saveConfig();
-
     }
 
 
     @SuppressWarnings("unused")
-    @EventHandler //1.6 change
+    @EventHandler
     public void onChatFilter(AsyncPlayerChatEvent e) {
         PlayerManager manager = new PlayerManager(plugin);
         Player j = e.getPlayer();
@@ -234,7 +233,6 @@ public class ChatListener implements Listener {
 
                         //return;
                     }
-
                 }/*else if(usemsg.equals("true")) {
 					if(message.contains(list.get(i))) {
 						manager.setBadword(true);
@@ -243,7 +241,6 @@ public class ChatListener implements Listener {
 					}
 					return;
 				}*/
-
             }
             //return;
         }
@@ -262,7 +259,6 @@ public class ChatListener implements Listener {
                     if (mute.equals("true")) {
                         Utils.sendColorMessage(j, cconfig.getString("AdvancedChat.Alert-Mute").replace("<name>", j.getName()));
                         e.setCancelled(true);
-
                     }
                 } else {
                     return;

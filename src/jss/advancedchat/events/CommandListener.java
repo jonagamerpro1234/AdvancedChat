@@ -49,7 +49,6 @@ public class CommandListener implements Listener {
                 }
             }
         }
-
         if (manager.isMute(j) == true) {
             for (String a : mutelist) {
                 if (message.toLowerCase().contains(a)) {

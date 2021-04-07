@@ -126,7 +126,7 @@ public class AdvancedChat extends JavaPlugin {
         chatDataFile.create();
         channelGuiFile.create();
         HooksManager.loadDependencies();
-        if(getConfigFile().getConfig().getString("ProtocolLib-Packet.Enabled").equals("true")) {
+        if(Settings.boolean_protocollib) {
         	if(HooksManager.isLoadProtocolLib()) {
         		HooksManager.InitPacketListening();
         	}else {    			
@@ -210,7 +210,6 @@ public class AdvancedChat extends JavaPlugin {
         }else {
         	Logger.Warning(Settings.message_error_mysql);
         }
-        
         //connectionMySQL = new ConnectionMySQL(this, "localhost", 3306, "root", "", "test");
     }
 	
