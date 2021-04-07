@@ -20,6 +20,7 @@ import jss.advancedchat.gui.GuiColor;
 import jss.advancedchat.gui.GuiPlayer;
 import jss.advancedchat.gui.GuiTest;
 import jss.advancedchat.utils.EventUtils;
+import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.UpdateSettings;
 import jss.advancedchat.utils.Utils;
 
@@ -89,10 +90,10 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				}
 				return true;
 			}
-			if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
+			if (Settings.boolean_use_default_prefix) {
 				Utils.sendColorMessage(eventUtils.getConsoleSender(),
 						Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Help-Cmd"));
-			} else if (config.getString("Settings.Use-Default-Prefix").equals("false")) {
+			} else {
 				Utils.sendColorMessage(eventUtils.getConsoleSender(),
 						config.getString("Settings.Prefix") + " " + config.getString("AdvancedChat.Help-Cmd"));
 			}

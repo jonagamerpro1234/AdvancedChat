@@ -26,7 +26,10 @@ public class ProtocolLibHook {
 					if((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Bypass"))) return;
 					
 					String msg = e.getPacket().getStrings().read(0).trim();
-					if(!msg.startsWith("/") || msg.contains(" ")) {
+					if(!msg.startsWith("/")) {
+						return;
+					}
+					if(msg.contains(" ")) {
 						return;
 					}
 					if(msg.length() > 0) {

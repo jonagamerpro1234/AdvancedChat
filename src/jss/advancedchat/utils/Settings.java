@@ -29,7 +29,8 @@ public class Settings {
     public static boolean boolean_antitabcompleted;
     public static boolean boolean_protocollib;
     public static String message_protocol_state;
-    public static String boolean_;
+    public static boolean boolean_use_default_prefix;
+    public static boolean boolean_;
     public static String message_;
 
 }

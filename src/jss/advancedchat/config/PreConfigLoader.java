@@ -16,6 +16,7 @@ public class PreConfigLoader {
     public void load() {
         FileConfiguration config = plugin.getConfigFile().getConfig();
         try {
+        	Settings.boolean_use_default_prefix = config.getString("Settings.Use-Default-Prefix").equals("true");
         	Settings.message_protocol_state = config.getString("ProtocolLib-Packet.Enabled");
         	Settings.mysql_host = config.getString("Database.host");
         	Settings.mysql_port = config.getInt("Database.port");
