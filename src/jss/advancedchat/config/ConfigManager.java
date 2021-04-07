@@ -14,7 +14,6 @@ import org.yaml.snakeyaml.Yaml;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.config.Files.FileName;
-import jss.advancedchat.utils.FileManager;
 import jss.advancedchat.utils.interfaces.FileHelper;
 
 @SuppressWarnings("unused")

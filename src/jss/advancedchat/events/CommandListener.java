@@ -37,10 +37,12 @@ public class CommandListener implements Listener {
         String nousecommandmute = config.getString("AdvancedChat.No-Use-Command-Mute");
         String path = "Command-Blocker.Enabled";
         List<String> mutelist = config.getStringList("Command-Blocker.Mute-BlackList");
-
+        
+        if((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Bypass.Commmand"))) return;
+        
         if (config.getString(path).equals("true")) {
             for (String a : list) {
-                if (message.toLowerCase().contains("/" + a)) {
+                if (message.toLowerCase().contains(a)) {
                     e.setCancelled(true);
                     Utils.sendColorMessage(j, nousecommand.replace("<cmd>", a));
                     break;
