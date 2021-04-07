@@ -1,4 +1,4 @@
-package jss.advancedchat.utils;
+package jss.advancedchat.config;
 
 import java.io.File;
 import java.io.InputStream;
@@ -6,6 +6,7 @@ import java.io.InputStream;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
 
 public class FileManager {

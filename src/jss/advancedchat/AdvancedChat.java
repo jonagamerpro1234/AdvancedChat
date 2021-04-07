@@ -16,7 +16,8 @@ import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
-import jss.advancedchat.config.PreConfigLoad;
+import jss.advancedchat.config.FileManager;
+import jss.advancedchat.config.PreConfigLoader;
 import jss.advancedchat.database.ConnectionMySQL;
 import jss.advancedchat.events.ChatListener;
 import jss.advancedchat.events.CommandListener;
@@ -26,10 +27,10 @@ import jss.advancedchat.events.JoinListener;
 import jss.advancedchat.hooks.HooksManager;
 import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.utils.EventUtils;
-import jss.advancedchat.utils.FileManager;
 import jss.advancedchat.utils.InventoryPlayer;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.OnlinePlayers;
+import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.json.handlers.JsonClickEvent;
 import jss.advancedchat.utils.json.handlers.JsonHoverEvent;
@@ -67,7 +68,7 @@ public class AdvancedChat extends JavaPlugin {
     private ArrayList<InventoryPlayer> inventoryPlayers;
     private ArrayList<ChatManager> chatManagers;
     private ArrayList<OnlinePlayers> onlinePlayers;
-    private PreConfigLoad preConfigLoad = new PreConfigLoad(this);
+    private PreConfigLoader preConfigLoad = new PreConfigLoader(this);
 	private ConnectionMySQL connectionMySQL;
     private EventUtils eventUtils;
     public boolean uselatestversion = false;
@@ -131,7 +132,10 @@ public class AdvancedChat extends JavaPlugin {
         	}else {    			
         		Logger.Warning(getConfigFile().getConfig().getString("AdvancedChat.Depend-Plugin") + " " + "&e[&bProtocolLib&e]");
         	}
-        }
+        }/*else {
+        	Logger.Default("&5<|| &c* &7[ProtocolLib> &e[Path= ProtocolLib-Packet.Enabled: "+ Settings.message_protocol_state +"]");
+        }*/
+        
         try {
             if(getConfigFile().getConfig().getString("Settings.Use-Database").equals("true")) {
             	loadMySQL();	
@@ -193,7 +197,6 @@ public class AdvancedChat extends JavaPlugin {
         eventLoader.runClearChat();
     }
 
-    //@SuppressWarnings("unused")
 	public void loadMySQL() {
         FileConfiguration config = getConfigFile().getConfig();
         String host = config.getString("DataBase.Host");
@@ -201,7 +204,13 @@ public class AdvancedChat extends JavaPlugin {
         String database = config.getString("DataBase.Database");
         String user = config.getString("DataBase.User");
         String password = config.getString("DataBase.Password");
-        connectionMySQL = new ConnectionMySQL(this, host, port, user, password, database);
+
+        if((host != null) ||( port != 0) || (user != null) || (database != null)) {
+        	connectionMySQL = new ConnectionMySQL(this, host, port, user, password, database);
+        }else {
+        	Logger.Warning(Settings.message_error_mysql);
+        }
+        
         //connectionMySQL = new ConnectionMySQL(this, "localhost", 3306, "root", "", "test");
     }
 	
@@ -358,7 +367,7 @@ public class AdvancedChat extends JavaPlugin {
 		return gsonBuilder.create();
 	}
 	
-    public PreConfigLoad getPreConfigLoad() {
+    public PreConfigLoader getPreConfigLoader() {
 		return preConfigLoad;
 	}
 }

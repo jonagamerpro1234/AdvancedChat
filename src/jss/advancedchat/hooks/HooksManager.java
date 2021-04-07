@@ -1,5 +1,6 @@
 package jss.advancedchat.hooks;
 
+import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 
 public class HooksManager {
@@ -9,7 +10,7 @@ public class HooksManager {
 	public HooksManager() {}
 	
 	public static void loadDependencies() {
-		if(Utils.doesPluginExist("ProtocolLib", "[ProtocolLib> Load Packet Features")) {
+		if(Utils.doesPluginExist("ProtocolLib", "Load Packet Features", Settings.boolean_protocollib)) {
 			protocolLib = new ProtocolLibHook();
 		}
 	}

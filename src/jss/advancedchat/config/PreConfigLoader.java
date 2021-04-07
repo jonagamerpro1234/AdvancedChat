@@ -5,17 +5,25 @@ import org.bukkit.configuration.file.FileConfiguration;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Settings;
 
-public class PreConfigLoad {
+public class PreConfigLoader {
 
     private AdvancedChat plugin;
 
-    public PreConfigLoad(AdvancedChat plugin) {
+    public PreConfigLoader(AdvancedChat plugin) {
         this.plugin = plugin;
     }
 
     public void load() {
         FileConfiguration config = plugin.getConfigFile().getConfig();
         try {
+        	Settings.message_protocol_state = config.getString("ProtocolLib-Packet.Enabled");
+        	Settings.mysql_host = config.getString("Database.host");
+        	Settings.mysql_port = config.getInt("Database.port");
+        	Settings.mysql_user = config.getString("Database.user");
+        	Settings.mysql_password = config.getString("Database.password");
+        	Settings.mysql_database = config.getString("Database.database");
+        	Settings.boolean_protocollib = config.getString("ProtocolLib-Packet.Enabled").equals("true");
+        	Settings.boolean_antitabcompleted = config.getString("ProtocolLib-Packet.Disable-TabCompleted").equals("true");
             Settings.message_NoPermission = config.getString("AdvancedChat.No-Permission");
             Settings.message_NoPermission_Label = config.getString("AdvancedChat.No-Permission-Label");
             Settings.message_ClearChat_Server = config.getString("AdvancedChat.ClearChat-Server");

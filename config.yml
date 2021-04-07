@@ -30,7 +30,7 @@ Settings:
 # |DataBase|
 #
 DataBase:
-  Host: 'localhost'
+  host: 'localhost'
   port: '3306'
   database: 'advancedchatDB'
   username: 'root'
@@ -70,6 +70,7 @@ Command-Blocker:
     - '/bukkit:?'
 ProtocolLib-Packet:
   Enabled: true
+  Disable-TabCompleted: true 
 #
 # | Default |
 # | This section serves as an emergency backup in case any of the other functions do not work properly. |
@@ -186,6 +187,7 @@ Filter-Chat:
 #
 AdvancedChat:
   Depend-Plugin: '&cCannot enable packet features!, Required plugin missing:'
+  Error-MySql: '&cCould not find the data, check the config &e[&bPath = Database&e]'
   ClearChat-Server: '&7The chat has been cleaned'
   ClearChat-Player: '&7The chat has been cleaned by &b[&e<name>&b]'
   No-Permission: '&cYou dont have permission to do that!'
