@@ -223,7 +223,8 @@ public class ChatListener implements Listener {
         if (config.getString(path).equals("true")) {
             for (int i = 0; i < list.size(); i++) {
                 if (usemsg.equals("false")) {
-                    if (message.toLowerCase().contains(list.get(i))) {
+                	message = message.toLowerCase();
+                    if (message.contains(list.get(i))) {
                         String a = "";
                         for (int c = 0; c < list.size(); c++) {
                             a = a + censorship;
@@ -255,7 +256,7 @@ public class ChatListener implements Listener {
         for (String key : config.getConfigurationSection("Players").getKeys(false)) {
             if (key.contains(j.getName())) {
                 String mute = config.getString("Players." + key + ".Mute");
-                if (!(j.isOp()) || !(j.hasPermission("AdvancedChat.Chat.Bypass"))) {
+                if (!(j.isOp()) && !(j.hasPermission("AdvancedChat.Chat.Bypass"))) {
                     if (mute.equals("true")) {
                         Utils.sendColorMessage(j, cconfig.getString("AdvancedChat.Alert-Mute").replace("<name>", j.getName()));
                         e.setCancelled(true);

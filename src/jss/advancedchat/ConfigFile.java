@@ -107,14 +107,8 @@ public class ConfigFile extends FileManager implements FileHelper {
     }
 
     public boolean isFileExists() {
-		/*boolean name = this.file.getName().equals("config.yml");
-		if(!name) {
-			plugin.logger.Log(Level.SUCCESS, "Exist Config.yml");
-			return true;
-		}
-		plugin.logger.Log(Level.ERROR, "No exist Config.yml! Restart the server to load the config file correctly");
-		*/
-        return false;
+    	this.file = new File(getDataFolder(), this.path);
+    	return this.file.exists();
     }
 
 }

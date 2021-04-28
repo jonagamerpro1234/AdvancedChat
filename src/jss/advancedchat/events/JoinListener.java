@@ -109,7 +109,7 @@ public class JoinListener implements Listener {
         Player j = e.getPlayer();
 
         if (config.getString("Settings.Update").equals("true")) {
-            if (j.isOp() || j.hasPermission("AdvancedChat.Update.Notify")) {
+            if (j.isOp() && j.hasPermission("AdvancedChat.Update.Notify")) {
 
                 new UpdateChecker(AdvancedChat.getPlugin(), 83889).getUpdateVersion(version -> {
                     if (!AdvancedChat.getPlugin().getDescription().getVersion().equalsIgnoreCase(version)) {
