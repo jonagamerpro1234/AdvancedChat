@@ -14,7 +14,7 @@ import jss.advancedchat.utils.Settings;
 public class ProtocolLibHook {
 	
 	private final ProtocolManager manager = ProtocolLibrary.getProtocolManager();
-	void initPacketListening() {
+	public void initPacketListening() {
 		
 		if(Settings.boolean_antitabcompleted) {
 			manager.addPacketListener(new PacketAdapter(AdvancedChat.getPlugin(), PacketType.Play.Client.TAB_COMPLETE) {

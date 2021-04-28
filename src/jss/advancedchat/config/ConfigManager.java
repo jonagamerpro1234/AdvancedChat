@@ -1,21 +1,10 @@
 package jss.advancedchat.config;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.Map;
-
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.yaml.snakeyaml.Yaml;
-
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.config.Files.FileName;
-import jss.advancedchat.utils.interfaces.FileHelper;
-
 @SuppressWarnings("unused")
 public class ConfigManager extends FileManager{
 	

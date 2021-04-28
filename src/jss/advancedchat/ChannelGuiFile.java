@@ -113,11 +113,7 @@ public class ChannelGuiFile extends FileManager implements FileHelper, FolderHel
 
     public boolean isFileExists() {
         this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
-
-        if (!file.exists()) {
-            return true;
-        }
-        return false;
+        return this.file.exists();
     }
 
 }

@@ -114,11 +114,7 @@ public class PlayerGuiFile extends FileManager implements FileHelper, FolderHelp
 
     public boolean isFileExists() {
         this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
-
-        if (!file.exists()) {
-            return true;
-        }
-        return false;
+        return this.file.exists();
     }
 
 }
