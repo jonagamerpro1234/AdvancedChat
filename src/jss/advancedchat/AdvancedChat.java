@@ -82,7 +82,7 @@ public class AdvancedChat extends JavaPlugin {
         nmsversion = nmsversion.substring(nmsversion.lastIndexOf(".") + 1);
         if (nmsversion.equalsIgnoreCase("v1_8_R3")) {
             uselegacyversion = true;
-            if (uselegacyversion == true) {
+            if (uselegacyversion) {
                 Utils.sendColorMessage(c, Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &cdisabled &7method &b1.16");
             }
         } else if (nmsversion.equalsIgnoreCase("v1_16_R1") || nmsversion.equalsIgnoreCase("v1_16_R2") || nmsversion.equalsIgnoreCase("v1_16_R3")) {
@@ -111,8 +111,6 @@ public class AdvancedChat extends JavaPlugin {
         		BungeeMode = true;
         		logger.Log(Level.INFO, "Bungee Mode can only be used if the database is active and configured");
         		logger.Log(Level.INFO, "Folder [data] and its [files] are not created");
-        	} else {
-        		
         	}
         }catch(NullPointerException e) {
         	e.printStackTrace();
@@ -151,7 +149,7 @@ public class AdvancedChat extends JavaPlugin {
         setupCommands();
         setEventUtils(new EventUtils(this));
         setupEvents();
-        SetupSoftDepends();
+        setupSoftDepends();
         new UpdateChecker(this, 83889).getUpdateVersion(version -> {
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
                 logger.Log(Level.SUCCESS, "&a" + this.name + " is up to date!");
@@ -267,7 +265,7 @@ public class AdvancedChat extends JavaPlugin {
         return placeholder;
     }
 
-    public void SetupSoftDepends() {
+    public void setupSoftDepends() {
         if (setupPlaceHolderAPI()) {
             Utils.sendColorMessage(c, Utils.getPrefix() + "&5<||============================================-----");
             Utils.sendColorMessage(c, Utils.getPrefix() + "&5<|| &c* &ePlaceHolderAPI:&b" + " " + placeholder);
