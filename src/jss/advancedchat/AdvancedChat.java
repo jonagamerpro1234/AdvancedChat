@@ -19,7 +19,7 @@ import jss.advancedchat.commands.UnMuteCmd;
 import jss.advancedchat.config.FileManager;
 import jss.advancedchat.config.PreConfigLoader;
 import jss.advancedchat.database.ConnectionMySQL;
-import jss.advancedchat.events.ChatListener;
+import jss.advancedchat.events.ChatListener1;
 import jss.advancedchat.events.CommandListener;
 import jss.advancedchat.events.EventLoader;
 import jss.advancedchat.events.InventoryListener;
@@ -43,7 +43,7 @@ import jss.advancedchat.utils.Utils;
 
 public class AdvancedChat extends JavaPlugin {
 
-    private PluginDescriptionFile jss = getDescription();
+    private PluginDescriptionFile jss = getDescription();    
     public String name = this.jss.getName();
     public String version = this.jss.getVersion();
     public Metrics metrics;
@@ -183,7 +183,6 @@ public class AdvancedChat extends JavaPlugin {
     public void setupCommands() {
         new AdvancedChatCmd(this);
         new ClearChatCmd(this);
-        
         new MuteCmd(this);
         new UnMuteCmd(this);
     }
@@ -191,7 +190,8 @@ public class AdvancedChat extends JavaPlugin {
     public void setupEvents() {
         new JoinListener(this);
         new InventoryListener(this);
-        new ChatListener(this);
+        //new ChatListener(this);
+        new ChatListener1(this);
         new CommandListener(this);
         EventLoader eventLoader = new EventLoader(this);
         eventLoader.runClearChat();
