@@ -1,4 +1,4 @@
-package jss.advancedchat.gui;
+package jss.advancedchat.inv;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;

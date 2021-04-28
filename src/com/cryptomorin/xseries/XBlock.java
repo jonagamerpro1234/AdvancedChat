@@ -188,7 +188,7 @@ public final class XBlock {
 
         BlockState state = block.getState();
         MaterialData data = state.getData();
-        if (data instanceof org.bukkit.material.Directional)
+        if (data instanceof Directional)
             return ((org.bukkit.material.Directional) data).getFacing();
         return BlockFace.SELF;
     }

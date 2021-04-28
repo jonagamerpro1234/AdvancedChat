@@ -18,8 +18,8 @@ import com.cryptomorin.xseries.XEnchantment;
 import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.gui.GuiColor;
-import jss.advancedchat.gui.GuiPlayer;
+import jss.advancedchat.inv.GuiColor;
+import jss.advancedchat.inv.GuiPlayer;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.InventoryPlayer;

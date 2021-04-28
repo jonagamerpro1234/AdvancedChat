@@ -14,8 +14,7 @@ import jss.advancedchat.utils.Settings;
 public class ProtocolLibHook {
 	
 	private final ProtocolManager manager = ProtocolLibrary.getProtocolManager();
-	
-	void InitPacketListening() {
+	void initPacketListening() {
 		
 		if(Settings.boolean_antitabcompleted) {
 			manager.addPacketListener(new PacketAdapter(AdvancedChat.getPlugin(), PacketType.Play.Client.TAB_COMPLETE) {
@@ -23,7 +22,7 @@ public class ProtocolLibHook {
 				public void onPacketReceiving(PacketEvent e) {
 					Player j = e.getPlayer();
 					
-					if((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Bypass"))) return;
+					if((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Bypass.TabCompleted"))) return;
 					
 					String msg = e.getPacket().getStrings().read(0).trim();
 					if(!msg.startsWith("/")) {

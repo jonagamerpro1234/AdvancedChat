@@ -1,4 +1,4 @@
-package jss.advancedchat.gui;
+package jss.advancedchat.inv;
 
 import java.util.ArrayList;
 

@@ -21,7 +21,7 @@ public class HooksManager {
 	
 	public static void InitPacketListening() {
 		if(isLoadProtocolLib()) {
-			protocolLib.InitPacketListening();
+			protocolLib.initPacketListening();
 		}
 	}
 	
