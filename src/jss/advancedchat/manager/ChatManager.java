@@ -9,7 +9,6 @@ public class ChatManager {
     private Player player;
     private String date;
     private String time;
-    
 
     public ChatManager(String date, String time, String message, Player player) {
         this.message = message;
