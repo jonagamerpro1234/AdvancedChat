@@ -1,8 +1,7 @@
 package jss.advancedchat.config;
 
-public class Files {
+public class FileList {
 	
-	//file names list
 	
 	public static String getName(FileName name) {
 		switch (name) {
