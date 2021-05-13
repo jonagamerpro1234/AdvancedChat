@@ -15,6 +15,7 @@
 # |ClearChat|
 #   [AutoClear] you can activate the automatic cleaning of the chat according to the number of ticks [Default | true]
 #   [Ticks] here you can define the time that the actions are automatically executed [Default | 24000], 24000 tick = 20 min
+Config-Version: 1
 Settings:
   Use-Database: false
   BungeeMode: false
@@ -183,7 +184,7 @@ Filter-Chat:
     - 'fuck'
 #
 # |Translation of messages from AdvancedChat|
-# |Version: 1.5|
+# |Version: 1.6|
 #
 AdvancedChat:
   Depend-Plugin: '&cCannot enable packet features!, Required plugin missing:'

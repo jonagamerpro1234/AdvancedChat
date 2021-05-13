@@ -77,6 +77,13 @@ public class AdvancedChat extends JavaPlugin {
     private static GsonBuilder gsonBuilder;
    
     public void onEnable() {
+    	/*if(configfile.getConfig().getString("Config-Version").equals("1")) {
+    		Utils.sendColorMessage(c, Utils.getPrefix() + "&7Load AdvancedChat");
+    		Utils.sendColorMessage(c, Utils.getPrefix() + "&7 * check config version!");
+    	}else {
+    		Utils.sendColorMessage(c, Utils.getPrefix() + "&7 [Error] invalid config version");
+    		getServer().getPluginManager().disablePlugin(this);
+    	}*/
         Utils.setEnabled(version);
         nmsversion = Bukkit.getServer().getClass().getPackage().getName();
         nmsversion = nmsversion.substring(nmsversion.lastIndexOf(".") + 1);
@@ -91,9 +98,9 @@ public class AdvancedChat extends JavaPlugin {
         }
         checkNMSVersion(nmsversion);
         plugin = this;
-        configfile.saveDefaultConfig();
+        /*configfile.saveDefaultConfig();
         configfile.create();
-        preConfigLoad.load();
+        preConfigLoad.load();*/
         if(AdvancedChat.isDebug()) {
         	plugin.logger.Log(Level.INFO, "Pre Config Load completed");
         }else {
@@ -170,6 +177,21 @@ public class AdvancedChat extends JavaPlugin {
         placeholder = false;
         metrics = null;
         uselegacyversion = false;
+    }
+ 
+    public void onLoad() {
+    	Utils.setLoad(version);
+    	if(!getDataFolder().exists()) {
+    		getDataFolder().mkdirs();
+    	}
+    	Utils.setLineLoad("&eCheck DataFolder Exist!");
+    	Utils.setTitleLoad("&bLoading Files");
+        configfile.saveDefaultConfig();
+        configfile.create();
+        Utils.setLineLoad("&eLoad Config.yml");
+        preConfigLoad.load();
+        Utils.setLineLoad("&eLoad Pre Config");
+    	Utils.setEndLoad();
     }
     
     static {

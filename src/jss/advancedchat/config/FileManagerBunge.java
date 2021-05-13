@@ -50,7 +50,10 @@ public class FileManagerBunge {
         }
 
     }
-
+    
+    public File getNewFile(String name) {
+    	return new File(getDataFolder(), name);
+    }
 
     public ConfigurationProvider getConfigProvider() {
         return ConfigurationProvider.getProvider(YamlConfiguration.class);
@@ -71,6 +74,7 @@ public class FileManagerBunge {
     public InputStream getResources(String filename) {
         return plugin.getResourceAsStream(filename);
     }
+    
 
     public File getDataFolder() {
         return plugin.getDataFolder();

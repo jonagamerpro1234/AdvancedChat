@@ -26,11 +26,31 @@ public class Settings {
     public static String mysql_user;
     public static String mysql_password;
     public static String mysql_database;
+    public static boolean mysql_use;
     public static boolean boolean_antitabcompleted;
     public static boolean boolean_protocollib;
     public static String message_protocol_state;
     public static boolean boolean_use_default_prefix;
+    public static boolean boolean_chatclear_autoclear;
+    public static int int_clearchat_tick;
+    public static boolean boolean_custom_type_normal;
+    public static boolean boolean_custom_type_hover;
+    public static boolean boolean_custom_type_click;
+    public static boolean boolean_custom_type_double;
+    public static boolean boolean_custom_type_experimental;
+    public static boolean boolean_custom_type_all;
+    public static boolean boolean_group_type_normal;
+    public static boolean boolean_group_type_hover;
+    public static boolean boolean_group_type_click;
+    public static boolean boolean_group_type_double;
+    public static boolean boolean_group_type_experimental;
+    public static boolean boolean_group_type_all;
+    public static boolean boolean_chat_format_normal;
+    public static boolean boolean_chat_format_custom;
+    public static boolean boolean_chat_format_group;
+    //example
     public static boolean boolean_;
     public static String message_;
+    public static int int_;
 
 }
