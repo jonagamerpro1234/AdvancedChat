@@ -13,7 +13,6 @@ public class ConfigManager extends FileManager{
 	private File file;
 	private String[] folderNames = new String[]{"Data","Gui","Log"};
 	private HashMap<String, YamlConfiguration> configs;
-	private Files files = new Files();
 	private boolean removeExist;
 	
 	public ConfigManager(AdvancedChat plugin) {
@@ -33,7 +32,7 @@ public class ConfigManager extends FileManager{
 	}*/
 	
 	public YamlConfiguration getConfig(FileName name) {
-		return (YamlConfiguration) this.configs.get(files.getName(name));
+		return (YamlConfiguration) this.configs.get(Files.getName(name));
 	}
 	
 

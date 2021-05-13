@@ -4,7 +4,7 @@ public class Files {
 	
 	//file names list
 	
-	public String getName(FileName name) {
+	public static String getName(FileName name) {
 		switch (name) {
 		case CONFIG:
 			return "config.yml";

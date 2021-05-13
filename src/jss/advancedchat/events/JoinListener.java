@@ -8,6 +8,7 @@ import jss.advancedchat.PlayerDataFile;
 import jss.advancedchat.database.DataBaseManage;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.OnlinePlayers;
+import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.UpdateSettings;
 import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
@@ -36,7 +37,9 @@ public class JoinListener implements Listener {
 
     @EventHandler
     public void onJoinPlayer(PlayerJoinEvent e) {
-    	FileConfiguration c = plugin.getConfigFile().getConfig();
+    	//Utils.sendJsonMessage(e.getPlayer(), "");
+    	
+    	//FileConfiguration c = plugin.getConfigFile().getConfig();
         PlayerDataFile dataFile = plugin.getPlayerDataFile();
         FileConfiguration config = dataFile.getConfig();
         ChatDataFile chatDataFile = plugin.getChatDataFile();
@@ -47,10 +50,8 @@ public class JoinListener implements Listener {
         FileConfiguration command = commandLogFile.getConfig();
 
         Player j = e.getPlayer();
-
-        String path = "Settings.Use-Database";
-
-        if (c.getString(path).equals("true")) {
+        
+        if (Settings.mysql_use) {
             if (!DataBaseManage.existPlayer(plugin.getConnectionMySQL().getConnection(), j.getUniqueId().toString())) {
                 DataBaseManage.createPlayer(plugin.getConnectionMySQL().getConnection(), Utils.colorless(j.getDisplayName()), j.getUniqueId().toString());
             }
