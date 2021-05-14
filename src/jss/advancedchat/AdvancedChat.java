@@ -1,10 +1,10 @@
 package jss.advancedchat;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,8 +18,9 @@ import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
 import jss.advancedchat.config.FileManager;
 import jss.advancedchat.config.PreConfigLoader;
-import jss.advancedchat.database.ConnectionMySQL;
-import jss.advancedchat.events.ChatListener1;
+import jss.advancedchat.database.MySQL;
+import jss.advancedchat.database.SQLGetter;
+import jss.advancedchat.events.ChatListener;
 import jss.advancedchat.events.CommandListener;
 import jss.advancedchat.events.EventLoader;
 import jss.advancedchat.events.InventoryListener;
@@ -69,7 +70,8 @@ public class AdvancedChat extends JavaPlugin {
     private ArrayList<ChatManager> chatManagers;
     private ArrayList<OnlinePlayers> onlinePlayers;
     private PreConfigLoader preConfigLoad = new PreConfigLoader(this);
-	private ConnectionMySQL connectionMySQL;
+    private MySQL mySQL = new MySQL();
+	private SQLGetter data = new SQLGetter();
     private EventUtils eventUtils;
     public boolean uselatestversion = false;
     private boolean BungeeMode = false;
@@ -77,13 +79,6 @@ public class AdvancedChat extends JavaPlugin {
     private static GsonBuilder gsonBuilder;
    
     public void onEnable() {
-    	/*if(configfile.getConfig().getString("Config-Version").equals("1")) {
-    		Utils.sendColorMessage(c, Utils.getPrefix() + "&7Load AdvancedChat");
-    		Utils.sendColorMessage(c, Utils.getPrefix() + "&7 * check config version!");
-    	}else {
-    		Utils.sendColorMessage(c, Utils.getPrefix() + "&7 [Error] invalid config version");
-    		getServer().getPluginManager().disablePlugin(this);
-    	}*/
         Utils.setEnabled(version);
         nmsversion = Bukkit.getServer().getClass().getPackage().getName();
         nmsversion = nmsversion.substring(nmsversion.lastIndexOf(".") + 1);
@@ -98,9 +93,6 @@ public class AdvancedChat extends JavaPlugin {
         }
         checkNMSVersion(nmsversion);
         plugin = this;
-        /*configfile.saveDefaultConfig();
-        configfile.create();
-        preConfigLoad.load();*/
         if(AdvancedChat.isDebug()) {
         	plugin.logger.Log(Level.INFO, "Pre Config Load completed");
         }else {
@@ -137,13 +129,15 @@ public class AdvancedChat extends JavaPlugin {
         	}else {    			
         		Logger.Warning(getConfigFile().getConfig().getString("AdvancedChat.Depend-Plugin") + " " + "&e[&bProtocolLib&e]");
         	}
-        }/*else {
-        	Logger.Default("&5<|| &c* &7[ProtocolLib> &e[Path= ProtocolLib-Packet.Enabled: "+ Settings.message_protocol_state +"]");
-        }*/
-        
+        }
         try {
-            if(getConfigFile().getConfig().getString("Settings.Use-Database").equals("true")) {
-            	loadMySQL();	
+            if(Settings.mysql_use) {
+            	try {
+        			mySQL.connect(Settings.mysql_host, Settings.mysql_port, Settings.mysql_database, Settings.mysql_user, Settings.mysql_password, Settings.mysql_usessl);
+        			Logger.Succerss("Connected database");
+            	} catch (ClassNotFoundException | SQLException e) {
+        			Logger.Warning(Settings.message_error_mysql);
+        		}
             }
         }catch(NullPointerException e) {
         	logger.Log(Level.ERROR, "the config [database] is null?");
@@ -174,6 +168,7 @@ public class AdvancedChat extends JavaPlugin {
 
     public void onDisable() {
         Utils.setDisabled(version);
+        //mySQL.disconnect();
         placeholder = false;
         metrics = null;
         uselegacyversion = false;
@@ -210,28 +205,12 @@ public class AdvancedChat extends JavaPlugin {
     public void setupEvents() {
         new JoinListener(this);
         new InventoryListener(this);
-        //new ChatListener(this);
-        new ChatListener1(this);
+        new ChatListener(this);
         new CommandListener(this);
         EventLoader eventLoader = new EventLoader(this);
         eventLoader.runClearChat();
     }
-
-	public void loadMySQL() {
-        FileConfiguration config = getConfigFile().getConfig();
-        String host = config.getString("DataBase.Host");
-        int port = config.getInt("DataBase.Port");
-        String database = config.getString("DataBase.Database");
-        String user = config.getString("DataBase.User");
-        String password = config.getString("DataBase.Password");
-
-        if((host != null) ||( port != 0) || (user != null) || (database != null)) {
-        	connectionMySQL = new ConnectionMySQL(this, host, port, user, password, database);
-        }else {
-        	Logger.Warning(Settings.message_error_mysql);
-        }
-        //connectionMySQL = new ConnectionMySQL(this, "localhost", 3306, "root", "", "test");
-    }
+    
 	
 	private void checkNMSVersion(String nmsversion) {
 		try {
@@ -280,6 +259,10 @@ public class AdvancedChat extends JavaPlugin {
         return this.placeholder;
     }
 
+	public MySQL getMySQL() {
+		return this.mySQL;
+	}
+	
     public boolean setupPlaceHolderAPI() {
         if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             placeholder = true;
@@ -332,9 +315,6 @@ public class AdvancedChat extends JavaPlugin {
         return null;
     }
 
-    public ConnectionMySQL getConnectionMySQL() {
-        return connectionMySQL;
-    }
 
     public int getTotalPage() {
         if (this.onlinePlayers.size() % 45 == 0) {
@@ -389,4 +369,8 @@ public class AdvancedChat extends JavaPlugin {
     public PreConfigLoader getPreConfigLoader() {
 		return preConfigLoad;
 	}
+
+    public SQLGetter getSQLGetter() {
+    	return this.data;
+    }
 }
