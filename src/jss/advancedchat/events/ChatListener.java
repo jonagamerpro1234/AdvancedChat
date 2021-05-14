@@ -36,7 +36,7 @@ public class ChatListener implements Listener {
 
     @SuppressWarnings("deprecation")
     @EventHandler
-    public void onChatFormat(AsyncPlayerChatEvent e) {
+    public void ChatFormat(AsyncPlayerChatEvent e) {
         PlayerManager manager = new PlayerManager(plugin);
         FileConfiguration config = plugin.getConfigFile().getConfig();
         Player j = e.getPlayer();
@@ -188,7 +188,7 @@ public class ChatListener implements Listener {
     }
 
     @EventHandler
-    public void onChatDataLog(AsyncPlayerChatEvent e) {
+    public void ChatDataLog(AsyncPlayerChatEvent e) {
         ChatDataFile chatDataFile = plugin.getChatDataFile();
         FileConfiguration config = chatDataFile.getConfig();
         Player j = e.getPlayer();
@@ -202,7 +202,7 @@ public class ChatListener implements Listener {
     }
 
     @EventHandler
-    public void onChatLog(AsyncPlayerChatEvent e) {
+    public void ChatLog(AsyncPlayerChatEvent e) {
         ChatLogFile chatLogFile = plugin.getChatLogFile();
         FileConfiguration config = chatLogFile.getConfig();
         Player j = e.getPlayer();
@@ -217,7 +217,7 @@ public class ChatListener implements Listener {
 
     @SuppressWarnings("unused")
     @EventHandler
-    public void onChatFilter(AsyncPlayerChatEvent e) {
+    public void ChatFilter(AsyncPlayerChatEvent e) {
         PlayerManager manager = new PlayerManager(plugin);
         Player j = e.getPlayer();
         FileConfiguration config = plugin.getConfigFile().getConfig();
@@ -257,7 +257,7 @@ public class ChatListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onChatMute(AsyncPlayerChatEvent e) {
+    public void ChatMute(AsyncPlayerChatEvent e) {
         FileConfiguration config = plugin.getPlayerDataFile().getConfig();
         FileConfiguration cconfig = plugin.getConfigFile().getConfig();
         Player j = e.getPlayer();
