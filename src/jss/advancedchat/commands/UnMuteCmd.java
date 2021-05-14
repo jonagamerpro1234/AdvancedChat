@@ -72,7 +72,7 @@ public class UnMuteCmd implements CommandExecutor {
             }
         } else {
         	//Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
-            Utils.sendHoverEvent(j, "text", config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
+            Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
         	return true;
         }
 

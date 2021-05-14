@@ -113,7 +113,8 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 						}
 						Utils.sendColorMessage(j, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 					} else {
-						Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
+						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+						//Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
 					}
 					return true;
 				}
@@ -132,7 +133,8 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 									+ config.getString("AdvancedChat.Reload"));
 						}
 					} else {
-						Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
+						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+						//Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
 					}
 					return true;
 				}
@@ -152,7 +154,8 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 						}
 						guiColor.openGuiColor(j, j.getName());
 					} else {
-						Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
+						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+						//Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
 					}
 					return true;
 				}
@@ -175,7 +178,8 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 							return true;
 						}
 					} else {
-						Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
+						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+						//Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
 					}
 					return true;
 				}
@@ -206,7 +210,8 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				return true;
 			}
 		} else {
-			Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
+			Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+			//Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
 			return true;
 		}
 		if (config.getString("Settings.Use-Default-Prefix").equals("true")) {

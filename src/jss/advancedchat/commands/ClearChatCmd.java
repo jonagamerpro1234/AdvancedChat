@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.ConfigFile;
 import jss.advancedchat.utils.EventUtils;
+import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 
 public class ClearChatCmd implements CommandExecutor {
@@ -34,7 +35,8 @@ public class ClearChatCmd implements CommandExecutor {
             eventUtils.getClearChatAction("player");
             eventUtils.getPlayerMessage(j, config);
         } else {
-        	Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
+        	Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+        	//Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
             /*TextComponent msg = new TextComponent();
             msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
             msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
