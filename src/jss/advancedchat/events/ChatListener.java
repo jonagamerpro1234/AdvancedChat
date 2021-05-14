@@ -78,7 +78,7 @@ public class ChatListener implements Listener {
                     //ClickEvent click = new ClickEvent(ClickEvent.Action.valueOf(Utils.getActionClickType(clickmode)), clickaction);
                     component.setHoverEvent(hover);
                     //component.setClickEvent(click);
-                    if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) == true || manager.isBadword() == true) {
+                    if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) || manager.isBadword()) {
                         return;
                     }
                     Utils.sendAllPlayerBaseComponent(component);
@@ -88,7 +88,7 @@ public class ChatListener implements Listener {
                     tc.setHoverEvent(hover);
                     tc.setText(format);
                     e.setCancelled(true);
-                    if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) == true || manager.isBadword() == true) {
+                    if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) || manager.isBadword()) {
                         return;
                     }
                     Utils.sendAllPlayerBaseComponent(tc, e);
@@ -98,7 +98,7 @@ public class ChatListener implements Listener {
                     ClickEvent click = new ClickEvent(ClickEvent.Action.valueOf(Utils.getActionClickType(clickmode)), clickaction);
                     tc.setClickEvent(click);
                     e.setCancelled(true);
-                    if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) == true || manager.isBadword() == true) {
+                    if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) || manager.isBadword()) {
                         return;
                     }
                     Utils.sendAllPlayerBaseComponent(tc, e);
@@ -110,7 +110,7 @@ public class ChatListener implements Listener {
                     tc.setClickEvent(click);
                     tc.setText(format);
                     e.setCancelled(true);
-                    if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) == true || manager.isBadword() == true) {
+                    if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) || manager.isBadword()) {
                         return;
                     }
                     Utils.sendAllPlayerBaseComponent(tc);
@@ -150,7 +150,7 @@ public class ChatListener implements Listener {
                         tc.setHoverEvent(hover);
                         tc.setText(format);
                         e.setCancelled(true);
-                        if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) == true || manager.isBadword() == true) {
+                        if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) || manager.isBadword()) {
                             return;
                         }
                         Utils.sendAllPlayerBaseComponent(tc);
@@ -160,7 +160,7 @@ public class ChatListener implements Listener {
                         tc.setClickEvent(click);
                         tc.setText(format);
                         e.setCancelled(true);
-                        if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) == true || manager.isBadword() == true) {
+                        if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) || manager.isBadword()) {
                             return;
                         }
                         Utils.sendAllPlayerBaseComponent(tc);
@@ -172,7 +172,7 @@ public class ChatListener implements Listener {
                         tc.setClickEvent(click);
                         tc.setText(format);
                         e.setCancelled(true);
-                        if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) == true || manager.isBadword() == true) {
+                        if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) || manager.isBadword()) {
                             return;
                         }
                         Utils.sendAllPlayerBaseComponent(tc);

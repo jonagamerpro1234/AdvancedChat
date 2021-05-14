@@ -44,7 +44,6 @@ public class UnMuteCmd implements CommandExecutor {
         }
 
         if (!(sender instanceof Player)) {
-
             if (args.length >= 1) {
                 Player p = Bukkit.getPlayer(args[0]);
                 if(Settings.mysql_use) {
@@ -72,8 +71,9 @@ public class UnMuteCmd implements CommandExecutor {
                 return true;
             }
         } else {
-        	Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
-            return true;
+        	//Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
+            Utils.sendHoverEvent(j, "text", config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
+        	return true;
         }
 
         Utils.sendColorMessage(j, Utils.getPrefix() + " " + text);
