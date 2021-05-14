@@ -13,9 +13,11 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.ChatDataFile;
 import jss.advancedchat.ChatLogFile;
+import jss.advancedchat.database.SQLGetter;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.EventUtils;
+import jss.advancedchat.utils.Settings;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -38,6 +40,7 @@ public class ChatListener implements Listener {
         PlayerManager manager = new PlayerManager(plugin);
         FileConfiguration config = plugin.getConfigFile().getConfig();
         Player j = e.getPlayer();
+        SQLGetter sql = plugin.getSQLGetter();
 
         String path = config.getString("Settings.ChatFormat-Type");
 
@@ -75,6 +78,9 @@ public class ChatListener implements Listener {
                     //ClickEvent click = new ClickEvent(ClickEvent.Action.valueOf(Utils.getActionClickType(clickmode)), clickaction);
                     component.setHoverEvent(hover);
                     //component.setClickEvent(click);
+                    if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) == true || manager.isBadword() == true) {
+                        return;
+                    }
                     Utils.sendAllPlayerBaseComponent(component);
                 } else if (config.getString(pathtype).equals("hover")) {
                     TextComponent tc = new TextComponent(e.getFormat());
@@ -82,7 +88,7 @@ public class ChatListener implements Listener {
                     tc.setHoverEvent(hover);
                     tc.setText(format);
                     e.setCancelled(true);
-                    if (manager.isMute(j) == true || manager.isBadword() == true) {
+                    if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) == true || manager.isBadword() == true) {
                         return;
                     }
                     Utils.sendAllPlayerBaseComponent(tc, e);
@@ -92,7 +98,7 @@ public class ChatListener implements Listener {
                     ClickEvent click = new ClickEvent(ClickEvent.Action.valueOf(Utils.getActionClickType(clickmode)), clickaction);
                     tc.setClickEvent(click);
                     e.setCancelled(true);
-                    if (manager.isMute(j) == true || manager.isBadword() == true) {
+                    if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) == true || manager.isBadword() == true) {
                         return;
                     }
                     Utils.sendAllPlayerBaseComponent(tc, e);
@@ -104,8 +110,9 @@ public class ChatListener implements Listener {
                     tc.setClickEvent(click);
                     tc.setText(format);
                     e.setCancelled(true);
-                    if (manager.isMute(j) == true) return;
-                    if (manager.isBadword() == true) return;
+                    if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) == true || manager.isBadword() == true) {
+                        return;
+                    }
                     Utils.sendAllPlayerBaseComponent(tc);
                 }
             } else if (path.equals("group")) {
@@ -143,7 +150,7 @@ public class ChatListener implements Listener {
                         tc.setHoverEvent(hover);
                         tc.setText(format);
                         e.setCancelled(true);
-                        if (manager.isMute(j) == true || manager.isBadword() == true) {
+                        if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) == true || manager.isBadword() == true) {
                             return;
                         }
                         Utils.sendAllPlayerBaseComponent(tc);
@@ -153,7 +160,7 @@ public class ChatListener implements Listener {
                         tc.setClickEvent(click);
                         tc.setText(format);
                         e.setCancelled(true);
-                        if (manager.isMute(j) == true || manager.isBadword() == true) {
+                        if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) == true || manager.isBadword() == true) {
                             return;
                         }
                         Utils.sendAllPlayerBaseComponent(tc);
@@ -165,8 +172,9 @@ public class ChatListener implements Listener {
                         tc.setClickEvent(click);
                         tc.setText(format);
                         e.setCancelled(true);
-                        if (manager.isMute(j) == true) return;
-                        if (manager.isBadword() == true) return;
+                        if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) == true || manager.isBadword() == true) {
+                            return;
+                        }
                         Utils.sendAllPlayerBaseComponent(tc);
                     }
                 }
@@ -253,18 +261,33 @@ public class ChatListener implements Listener {
         FileConfiguration config = plugin.getPlayerDataFile().getConfig();
         FileConfiguration cconfig = plugin.getConfigFile().getConfig();
         Player j = e.getPlayer();
-        for (String key : config.getConfigurationSection("Players").getKeys(false)) {
-            if (key.contains(j.getName())) {
-                String mute = config.getString("Players." + key + ".Mute");
-                if (!(j.isOp()) && !(j.hasPermission("AdvancedChat.Chat.Bypass"))) {
-                    if (mute.equals("true")) {
-                        Utils.sendColorMessage(j, cconfig.getString("AdvancedChat.Alert-Mute").replace("<name>", j.getName()));
-                        e.setCancelled(true);
+        SQLGetter sql = plugin.getSQLGetter();
+        
+        if(Settings.mysql_use) {
+            if (!(j.isOp()) || !(j.hasPermission("AdvancedChat.Chat.Bypass"))) {
+                if (sql.isMute(plugin.getMySQL(), j.getUniqueId().toString())) {
+                    Utils.sendColorMessage(j, cconfig.getString("AdvancedChat.Alert-Mute").replace("<name>", j.getName()));
+                    e.setCancelled(true);
+                }
+            } else {
+                return;
+            }
+        }else {
+            for (String key : config.getConfigurationSection("Players").getKeys(false)) {
+                if (key.contains(j.getName())) {
+                    String mute = config.getString("Players." + key + ".Mute");
+                    if (!(j.isOp()) || !(j.hasPermission("AdvancedChat.Chat.Bypass"))) {
+                        if (mute.equals("true")) {
+                            Utils.sendColorMessage(j, cconfig.getString("AdvancedChat.Alert-Mute").replace("<name>", j.getName()));
+                            e.setCancelled(true);
+                        }
+                    } else {
+                        return;
                     }
-                } else {
-                    return;
                 }
             }
         }
+        
+
     }
 }

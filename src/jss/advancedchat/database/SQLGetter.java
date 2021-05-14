@@ -1,16 +1,15 @@
 package jss.advancedchat.database;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DataBaseManage {
-
-    public static boolean existPlayer(Connection connection, String uuid) {
+public class SQLGetter {
+	
+    public boolean exist(MySQL sql,String uuid) {
         try {
 
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM players WHERE (UUID=?)");
+            PreparedStatement statement = sql.getConnection().prepareStatement("SELECT * FROM AdvancedChat_Players WHERE (UUID=?)");
             statement.setString(1, uuid);
             ResultSet resultSet = statement.executeQuery();
 
@@ -24,11 +23,11 @@ public class DataBaseManage {
         return false;
     }
 
-    public static void createPlayer(Connection connection, String name, String uuid) {
+    public void createPlayer(MySQL sql, String name, String uuid) {
         try {
 
-            if (!existPlayer(connection, uuid)) {
-                PreparedStatement statement = connection.prepareStatement("INSERT INTO players VALUE (?,?,?,?)");
+            if (!exist(sql,uuid)) {
+                PreparedStatement statement = sql.getConnection().prepareStatement("INSERT INTO AdvancedChat_Players VALUE (?,?,?,?)");
                 statement.setString(1, name);
                 statement.setString(2, uuid);
                 statement.setBoolean(3, false);
@@ -41,10 +40,10 @@ public class DataBaseManage {
     }
 
 
-    public static String getColor(Connection connection, String uuid) {
+    public String getColor(MySQL sql ,String uuid) {
         try {
 
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM players WHERE (UUID=?)");
+            PreparedStatement statement = sql.getConnection().prepareStatement("SELECT * FROM AdvancedChat_Players WHERE (UUID=?)");
             statement.setString(1, uuid);
             ResultSet resultSet = statement.executeQuery();
 
@@ -59,10 +58,10 @@ public class DataBaseManage {
         return null;
     }
 
-    public static boolean isMute(Connection connection, String uuid) {
+    public boolean isMute(MySQL sql, String uuid) {
         try {
 
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM players WHERE (UUID=?)");
+            PreparedStatement statement = sql.getConnection().prepareStatement("SELECT * FROM AdvancedChat_Players WHERE (UUID=?)");
             statement.setString(1, uuid);
             ResultSet resultSet = statement.executeQuery();
 
@@ -77,9 +76,9 @@ public class DataBaseManage {
         return false;
     }
 
-    public static void setColor(Connection connection, String uuid, String color) {
+    public void setColor(MySQL sql, String uuid, String color) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE players SET COLOR=? WHERE (UUID=?)");
+            PreparedStatement statement = sql.getConnection().prepareStatement("UPDATE AdvancedChat_Players SET COLOR=? WHERE (UUID=?)");
             statement.setString(1, color);
             statement.setString(2, uuid);
             statement.executeUpdate();
@@ -88,9 +87,9 @@ public class DataBaseManage {
         }
     }
 
-    public static void setMute(Connection connection, String name, String uuid, boolean mute) {
+    public void setMute(MySQL sql, String name, String uuid, boolean mute) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE players SET MUTE=? WHERE (UUID=?)");
+            PreparedStatement statement = sql.getConnection().prepareStatement("UPDATE AdvancedChat_Players SET MUTE=? WHERE (UUID=?)");
             statement.setBoolean(1, mute);
             statement.setString(2, uuid);
             statement.executeUpdate();

@@ -28,14 +28,15 @@ Settings:
     AutoClear: true
     Tick: 24000
 #
-# |DataBase|
+# |MySQL|
 #
-DataBase:
-  host: 'localhost'
-  port: '3306'
-  database: 'advancedchatDB'
-  username: 'root'
-  password: '1234'
+MySQL:
+  Use-SSL: false
+  Host: localhost
+  Port: 3306'
+  Database: advancedchatDB
+  User: root
+  Password: 1234
 #
 # |Command Blocker|
 # |here you can block the commands that you do not want to be used on the server at the moment it does not have the function of [antitabcomplete]

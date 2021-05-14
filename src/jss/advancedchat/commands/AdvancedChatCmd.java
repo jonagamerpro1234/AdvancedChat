@@ -113,8 +113,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 						}
 						Utils.sendColorMessage(j, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 					} else {
-						Utils.sendHoverEvent(j, "text", config.getString("AdvancedChat.No-Permission"),
-								config.getString("AdvancedChat.No-Permission-Hover"));
+						Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
 					}
 					return true;
 				}
@@ -133,8 +132,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 									+ config.getString("AdvancedChat.Reload"));
 						}
 					} else {
-						Utils.sendHoverEvent(j, "text", config.getString("AdvancedChat.No-Permission"),
-								config.getString("AdvancedChat.No-Permission-Hover"));
+						Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
 					}
 					return true;
 				}
@@ -154,8 +152,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 						}
 						guiColor.openGuiColor(j, j.getName());
 					} else {
-						Utils.sendHoverEvent(j, "text", config.getString("AdvancedChat.No-Permission"),
-								config.getString("AdvancedChat.No-Permission-Hover"));
+						Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
 					}
 					return true;
 				}
@@ -178,8 +175,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 							return true;
 						}
 					} else {
-						Utils.sendHoverEvent(j, "text", config.getString("AdvancedChat.No-Permission"),
-								config.getString("AdvancedChat.No-Permission-Hover"));
+						Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
 					}
 					return true;
 				}
@@ -210,8 +206,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				return true;
 			}
 		} else {
-			Utils.sendHoverEvent(j, "text", config.getString("AdvancedChat.No-Permission"),
-					config.getString("AdvancedChat.No-Permission-Hover"));
+			Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
 			return true;
 		}
 		if (config.getString("Settings.Use-Default-Prefix").equals("true")) {

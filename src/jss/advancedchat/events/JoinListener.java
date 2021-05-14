@@ -5,7 +5,8 @@ import jss.advancedchat.ChatDataFile;
 import jss.advancedchat.ChatLogFile;
 import jss.advancedchat.CommandLogFile;
 import jss.advancedchat.PlayerDataFile;
-import jss.advancedchat.database.DataBaseManage;
+import jss.advancedchat.database.MySQL;
+import jss.advancedchat.database.SQLGetter;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.OnlinePlayers;
 import jss.advancedchat.utils.Settings;
@@ -38,7 +39,6 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onJoinPlayer(PlayerJoinEvent e) {
     	//Utils.sendJsonMessage(e.getPlayer(), "");
-    	
     	//FileConfiguration c = plugin.getConfigFile().getConfig();
         PlayerDataFile dataFile = plugin.getPlayerDataFile();
         FileConfiguration config = dataFile.getConfig();
@@ -48,13 +48,20 @@ public class JoinListener implements Listener {
         FileConfiguration chatlog = chatLogFile.getConfig();
         CommandLogFile commandLogFile = plugin.getCommandLogFile();
         FileConfiguration command = commandLogFile.getConfig();
-
+        
+        MySQL mysql = plugin.getMySQL();
+        SQLGetter sql = new SQLGetter();
         Player j = e.getPlayer();
         
         if (Settings.mysql_use) {
-            if (!DataBaseManage.existPlayer(plugin.getConnectionMySQL().getConnection(), j.getUniqueId().toString())) {
-                DataBaseManage.createPlayer(plugin.getConnectionMySQL().getConnection(), Utils.colorless(j.getDisplayName()), j.getUniqueId().toString());
-            }
+           /* if (!DataBaseManage.existPlayer(plugin.getConnectionMySQL().getConnection(), j.getUniqueId().toString())) {
+                DataBaseManage.createPlayer(plugin.getConnectionMySQL().getConnection(), j.getName(), j.getUniqueId().toString());
+            }*/
+        	
+        	if(!sql.exist(mysql,j.getUniqueId().toString())) {
+        		sql.createPlayer(mysql,j.getName(), j.getUniqueId().toString());
+        	}
+        	
         }
 
         if (!config.contains("Players." + j.getName())) {
