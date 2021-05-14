@@ -193,7 +193,7 @@ AdvancedChat:
   ClearChat-Server: '&7The chat has been cleaned'
   ClearChat-Player: '&7The chat has been cleaned by &b[&e<name>&b]'
   No-Permission: '&cYou dont have permission to do that!'
-  No-Permission-Label: 'Ask the server owner or an administrator for help for more information.'
+  No-Permission-Label: '&7Ask the server &b[&cowner&7 or an &eadministrator&b]&7 for help for more information'
   Error-Args: '&cUnknown Arguments'
   Reload: '&aReload Completed'
   Help-Mute: '&7Use &b/Mute &e<player> &7'
