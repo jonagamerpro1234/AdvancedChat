@@ -27,7 +27,7 @@ public class UnMuteCmd implements CommandExecutor {
         PlayerManager manager = new PlayerManager(plugin);
         SQLGetter sqlGetter = plugin.getSQLGetter();
         
-        String text = config.getString("AdvancedChat.Help-UnMute");
+        String text = Settings.message_Help_UnMute;
         String prefix = "";
         String prefixserver = "";
 
