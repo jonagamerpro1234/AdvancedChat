@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Settings {
 
+	public static String message_prefix_custom;
     public static String message_NoPermission;
     public static String message_NoPermission_Label;
     public static String message_ClearChat_Server;
@@ -25,8 +26,12 @@ public class Settings {
     public static boolean mysql_usessl;
     public static int mysql_port;
     public static String mysql_user;
+    public static String mysql_table;
+    public static boolean mysql_use_default_table;
     public static String mysql_password;
     public static String mysql_database;
+    public static boolean mysql_use_t;
+    public static boolean mysql_use_f;
     public static boolean mysql_use;
     public static boolean boolean_antitabcompleted;
     public static boolean boolean_protocollib;
@@ -34,6 +39,7 @@ public class Settings {
     public static boolean boolean_use_default_prefix;
     public static boolean boolean_chatclear_autoclear;
     public static int int_clearchat_tick;
+    public static boolean boolean_filter_use_msg;
     public static boolean boolean_custom_type_normal;
     public static boolean boolean_custom_type_hover;
     public static boolean boolean_custom_type_click;

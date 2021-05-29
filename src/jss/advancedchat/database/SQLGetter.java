@@ -6,17 +6,15 @@ import java.sql.SQLException;
 
 public class SQLGetter {
 	
-    public boolean exist(MySQL sql,String uuid) {
+    public boolean exists(MySQL sql,String uuid) {
         try {
-
-            PreparedStatement statement = sql.getConnection().prepareStatement("SELECT * FROM AdvancedChat_Players WHERE (UUID=?)");
+            PreparedStatement statement = sql.getConnection().prepareStatement("SELECT * FROM `advancedchat_players` WHERE (UUID=?)");
             statement.setString(1, uuid);
             ResultSet resultSet = statement.executeQuery();
 
-            if (resultSet.next()) {
-                return true;
+            while(resultSet.next()) {
+            	return true;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -26,8 +24,8 @@ public class SQLGetter {
     public void createPlayer(MySQL sql, String name, String uuid) {
         try {
 
-            if (!exist(sql,uuid)) {
-                PreparedStatement statement = sql.getConnection().prepareStatement("INSERT INTO AdvancedChat_Players VALUE (?,?,?,?)");
+            if (!this.exists(sql,uuid)) {
+                PreparedStatement statement = sql.getConnection().prepareStatement("INSERT INTO `advancedchat_players` VALUE (?,?,?,?)");
                 statement.setString(1, name);
                 statement.setString(2, uuid);
                 statement.setBoolean(3, false);
@@ -43,12 +41,12 @@ public class SQLGetter {
     public String getColor(MySQL sql ,String uuid) {
         try {
 
-            PreparedStatement statement = sql.getConnection().prepareStatement("SELECT * FROM AdvancedChat_Players WHERE (UUID=?)");
+            PreparedStatement statement = sql.getConnection().prepareStatement("SELECT * FROM `advancedchat_players` WHERE (UUID=?)");
             statement.setString(1, uuid);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                String color = resultSet.getString("COLOR");
+                String color = resultSet.getString("Color");
                 return color;
             }
 
@@ -58,18 +56,15 @@ public class SQLGetter {
         return null;
     }
 
-    public boolean isMute(MySQL sql, String uuid) {
+    public boolean getMuted(MySQL sql, String uuid) {
         try {
-
-            PreparedStatement statement = sql.getConnection().prepareStatement("SELECT * FROM AdvancedChat_Players WHERE (UUID=?)");
+            PreparedStatement statement = sql.getConnection().prepareStatement("SELECT * FROM `advancedchat_players` WHERE (UUID=?)");
             statement.setString(1, uuid);
             ResultSet resultSet = statement.executeQuery();
-
             if (resultSet.next()) {
-                boolean mute = resultSet.getBoolean("MUTE");
-                return mute;
+                int muted = resultSet.getInt("Mute");
+                return muted == 1 ? true : false;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -78,7 +73,7 @@ public class SQLGetter {
 
     public void setColor(MySQL sql, String uuid, String color) {
         try {
-            PreparedStatement statement = sql.getConnection().prepareStatement("UPDATE AdvancedChat_Players SET COLOR=? WHERE (UUID=?)");
+            PreparedStatement statement = sql.getConnection().prepareStatement("UPDATE `advancedchat_players` SET Color=? WHERE (UUID=?)");
             statement.setString(1, color);
             statement.setString(2, uuid);
             statement.executeUpdate();
@@ -87,9 +82,9 @@ public class SQLGetter {
         }
     }
 
-    public void setMute(MySQL sql, String name, String uuid, boolean mute) {
+    public void setMuted(MySQL sql, String name, String uuid, boolean mute) {
         try {
-            PreparedStatement statement = sql.getConnection().prepareStatement("UPDATE AdvancedChat_Players SET MUTE=? WHERE (UUID=?)");
+            PreparedStatement statement = sql.getConnection().prepareStatement("UPDATE `advancedchat_players` SET Mute=? WHERE (UUID=?)");
             statement.setBoolean(1, mute);
             statement.setString(2, uuid);
             statement.executeUpdate();

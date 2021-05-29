@@ -16,6 +16,7 @@ import jss.advancedchat.ColorFile;
 import jss.advancedchat.ConfigFile;
 import jss.advancedchat.PlayerDataFile;
 import jss.advancedchat.PlayerGuiFile;
+import jss.advancedchat.chat.Json;
 import jss.advancedchat.inv.GuiColor;
 import jss.advancedchat.inv.GuiPlayer;
 import jss.advancedchat.inv.GuiTest;
@@ -199,6 +200,16 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					test.test(j);
 					return true;
 				}
+				
+				if (args[0].equalsIgnoreCase("test")) {
+					List<String> t = new ArrayList<>();
+					t.add("1");
+					t.add("2");
+					t.add("3");
+					Json json = new Json(j, "&cHola");
+					json.setHover(t).setOpenURL("https://www.spigotmc.org/resources/advancedchat-1-7-x-1-16-x.83889/").send();
+					return true;
+				}
 
 				if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
 					Utils.sendColorMessage(j,
@@ -224,12 +235,10 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 	}
 
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+		List<String> listOptions = new ArrayList<>();
+		String lastArgs = args.length != 0 ? args[args.length - 1] : "";
 		if (!(sender instanceof Player)) {
-			List<String> listOptions = new ArrayList<>();
-			String lastArgs = args.length != 0 ? args[args.length - 1] : "";
-
 			switch (args.length) {
-
 			case 0:
 			case 1:
 				listOptions.add("help");
@@ -238,26 +247,85 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				listOptions.add("color");
 				listOptions.add("player");
 				break;
+			case 2:
+				if(args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("player")) {
+					for(Player p : Bukkit.getOnlinePlayers()) {
+						listOptions.add(p.getName());
+					}
+				}
+				break;
+			case 3:
+				if(args[0].equalsIgnoreCase("color")) {
+					listOptions.add("set");
+				}
+				break;
+			case 4:
+				if(args[0].equalsIgnoreCase("color")) {
+					listOptions.add("black");
+					listOptions.add("white");
+					listOptions.add("dark_gray");
+					listOptions.add("gray");
+					listOptions.add("dark_purple");
+					listOptions.add("light_purple");
+					listOptions.add("dark_aqua");
+					listOptions.add("aqua");
+					listOptions.add("gold");
+					listOptions.add("yellow");
+					listOptions.add("green");
+					listOptions.add("dark_green");
+					listOptions.add("blue");
+					listOptions.add("dark_blue");
+					listOptions.add("red");
+					listOptions.add("dark_red");
+				}
+				break;
 			}
 			return Utils.setLimitTab(listOptions, lastArgs);
-
 		}
-		List<String> listOptions = new ArrayList<>();
-		String lastArgs = args.length != 0 ? args[args.length - 1] : "";
 		Player j = (Player) sender;
-
-		switch (args.length) {
-
-		case 0:
-		case 1:
-			if ((j.isOp()) || (j.hasPermission("AdvancedChat.Tab")))
-				return null;
-			listOptions.add("help");
-			listOptions.add("reload");
-			listOptions.add("info");
-			listOptions.add("color");
-			listOptions.add("player");
-			break;
+		if ((j.isOp()) || (j.hasPermission("AdvancedChat.Tab"))) {
+			switch (args.length) {
+			case 0:
+			case 1:
+				listOptions.add("help");
+				listOptions.add("reload");
+				listOptions.add("info");
+				listOptions.add("color");
+				listOptions.add("player");
+				break;
+			case 2:
+				if(args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("player")) {
+					for(Player p : Bukkit.getOnlinePlayers()) {
+						listOptions.add(p.getName());
+					}
+				}
+				break;
+			case 3:
+				if(args[0].equalsIgnoreCase("color")) {
+					listOptions.add("set");
+				}
+				break;
+			case 4:
+				if(args[0].equalsIgnoreCase("color")) {
+					listOptions.add("black");
+					listOptions.add("white");
+					listOptions.add("dark_gray");
+					listOptions.add("gray");
+					listOptions.add("dark_purple");
+					listOptions.add("light_purple");
+					listOptions.add("dark_aqua");
+					listOptions.add("aqua");
+					listOptions.add("gold");
+					listOptions.add("yellow");
+					listOptions.add("green");
+					listOptions.add("dark_green");
+					listOptions.add("blue");
+					listOptions.add("dark_blue");
+					listOptions.add("red");
+					listOptions.add("dark_red");
+				}
+				break;
+			}			
 		}
 		return Utils.setLimitTab(listOptions, lastArgs);
 	}
