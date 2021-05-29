@@ -30,7 +30,6 @@ public class MuteCmd implements CommandExecutor {
         String text = config.getString("AdvancedChat.Help-Mute");
         String prefix = "";
         String prefixserver = "";
-        
         if (config.getString("Settings.Use-Default-Prefix").equals("false")) {
             prefixserver = config.getString("Settings.Prefix");
         } else if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
@@ -46,12 +45,19 @@ public class MuteCmd implements CommandExecutor {
 
             if (args.length >= 1) {
                 Player p = Bukkit.getPlayer(args[0]);
-                if(Settings.mysql_use) {
-                	sqlGetter.setMute(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), true);
-                }else {
-                	manager.setMute(p, true);
+                if(p == null) {
+                	Utils.sendColorMessage(sender, Settings.message_No_Online_Player);
+                	return true;
                 }
-                
+                if((p.isOp()) || (p.hasPermission(""))) {
+                	return true;
+                }else {
+                    if(Settings.mysql_use) {
+                    	sqlGetter.setMuted(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), true);
+                    } else {
+                    	manager.setMute(p, true);
+                    }
+                }
                 Utils.sendColorMessage(sender, prefixserver + config.getString("AdvancedChat.Mute-Player").replace("<name>", p.getName()));
                 return true;
             }
@@ -63,22 +69,35 @@ public class MuteCmd implements CommandExecutor {
             if (args.length >= 1) {
                 text = Utils.getVar(j, text);
                 Player p = Bukkit.getPlayer(args[0]);
-                if(Settings.mysql_use) {
-                	sqlGetter.setMute(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), true);
+                
+                if(p == null) {
+                	Utils.sendColorMessage(j, Settings.message_No_Online_Player);
+                	return true;
+                }
+                
+                if((p.isOp()) || (p.hasPermission(""))) {
+                    return true;
                 }else {
-                	manager.setMute(p, true);
+                    /*if(Settings.mysql_use_t) {
+                    	sqlGetter.setMuted(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), true);
+                    }
+                    if(Settings.mysql_use_f){
+                    	manager.setMute(p, true);
+                    }*/
+                    if(Settings.mysql_use) {
+                    	sqlGetter.setMuted(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), true);
+                    } else {
+                    	manager.setMute(p, true);
+                    }
                 }
                 Utils.sendColorMessage(j, prefix + config.getString("AdvancedChat.Mute-Player").replace("<name>", p.getName()));
                 return true;
             }
         } else {
-        	//Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
         	Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
         	return true;
         }
-
         Utils.sendColorMessage(j, Utils.getPrefix() + " " + text);
         return true;
     }
-
 }

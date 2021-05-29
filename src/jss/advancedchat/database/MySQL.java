@@ -9,10 +9,11 @@ import java.sql.SQLException;
 import jss.advancedchat.utils.Logger;
 
 public class MySQL {
-
-	private Connection connection;
 	
-	public void connect(String host, int port, String database, String user, String pass, boolean ssl) throws ClassNotFoundException, SQLException {
+	private Connection connection;
+	private boolean isconnected = false;
+	
+	public void connect(String host, int port, String database, String user, String pass, boolean ssl) {
         try {
             synchronized (this) {
                 if (connection != null && !connection.isClosed()) {
@@ -20,8 +21,9 @@ public class MySQL {
                     return;
                 }
                 Class.forName("com.mysql.jdbc.Driver");
-                this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=" + ssl, user, pass);
-                queryUpdate("CREATE TABLE IF NOT EXISTS `AdvancedChat_Players` (`Name` VARCHAR(100), `UUID` VARCHAR(100), `Mute` BOOLEAN, `COLOR` VARCHAR(10))");
+                this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=" + ssl + "&autoReconnect=true", user, pass);
+                this.isconnected = true;
+                updateQuery("CREATE TABLE IF NOT EXISTS `advancedchat_players` (`Name` VARCHAR(100), `UUID` VARCHAR(100), `Mute` BOOLEAN, `Color` VARCHAR(10))");
             }	
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,7 +32,7 @@ public class MySQL {
         }
 	}
 	
-	public void queryUpdate(String query) {
+	public void updateQuery(String query) {
 		Connection con = connection;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -43,9 +45,32 @@ public class MySQL {
 		finally {
 			closeResources(null, preparedStatement);
 		}
+	}	
+	
+	public void disconnected() {
+		try {
+			if(!isConnected()) {
+				this.connection.close();
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public static void closeResources(ResultSet rs, PreparedStatement st) {
+	public ResultSet executeQuery(String query) {
+		if(!isConnected()) {
+			return null;
+		}else {
+			try {
+				this.connection.createStatement().executeQuery(query);
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	public void closeResources(ResultSet rs, PreparedStatement st) {
 		if (rs != null) {
 			try {
 				rs.close();
@@ -63,23 +88,17 @@ public class MySQL {
 	}
     
 	public boolean isConnected() {
+		return this.isconnected;
+	}
+	
+	/*public boolean isConnected() {
 		try{
 			return connection != null || connection.isValid(100);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-			
-		
 		return false;
-	}
-	
-	public void disconnect() {
-		try {
-			connection.close();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-	}
+	}*/
 	
 	public Connection getConnection() {
 		return this.connection;

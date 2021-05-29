@@ -47,8 +47,8 @@ public class UnMuteCmd implements CommandExecutor {
             if (args.length >= 1) {
                 Player p = Bukkit.getPlayer(args[0]);
                 if(Settings.mysql_use) {
-                	sqlGetter.setMute(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), false);
-                }else {
+                	sqlGetter.setMuted(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), false);
+                } else {
                 	manager.setMute(p, false);
                 }
                 Utils.sendColorMessage(sender, prefixserver + config.getString("AdvancedChat.UnMute-Player").replace("<name>", p.getName()));
@@ -62,9 +62,21 @@ public class UnMuteCmd implements CommandExecutor {
             if (args.length >= 1) {
                 text = Utils.getVar(j, text);
                 Player p = Bukkit.getPlayer(args[0]);
+                
+                if(p == null) {
+                	Utils.sendColorMessage(j, Settings.message_No_Online_Player);
+                	return true;
+                }
+                
+                /*if(Settings.mysql_use_t) {
+                	sqlGetter.setMuted(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), false);
+                }
+                if(Settings.mysql_use_f){
+                	manager.setMute(p, false);
+                }*/
                 if(Settings.mysql_use) {
-                	sqlGetter.setMute(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), false);
-                }else {
+                	sqlGetter.setMuted(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), false);
+                } else {
                 	manager.setMute(p, false);
                 }
                 Utils.sendColorMessage(j, prefix + config.getString("AdvancedChat.UnMute-Player").replace("<name>", p.getName()));

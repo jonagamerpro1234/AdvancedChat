@@ -1,6 +1,5 @@
 package jss.advancedchat;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
@@ -77,7 +76,7 @@ public class AdvancedChat extends JavaPlugin {
     private boolean BungeeMode = false;
     private static IPacketSender iPacketSender;
     private static GsonBuilder gsonBuilder;
-   
+    
     public void onEnable() {
         Utils.setEnabled(version);
         nmsversion = Bukkit.getServer().getClass().getPackage().getName();
@@ -99,7 +98,6 @@ public class AdvancedChat extends JavaPlugin {
         	Logger.Default("&5<|| &c* &ePre Config Load completed");
         	Utils.sendLile();
         }
-        filemanager.createVoidFolder("Modules");
         commandFile.create();
         try {
         	if(this.getConfigFile().getConfig().getString("Settings.BungeeMode").equals("false")) {
@@ -130,26 +128,14 @@ public class AdvancedChat extends JavaPlugin {
         		Logger.Warning(getConfigFile().getConfig().getString("AdvancedChat.Depend-Plugin") + " " + "&e[&bProtocolLib&e]");
         	}
         }
-        try {
-            if(Settings.mysql_use) {
-            	try {
-        			mySQL.connect(Settings.mysql_host, Settings.mysql_port, Settings.mysql_database, Settings.mysql_user, Settings.mysql_password, Settings.mysql_usessl);
-        			Logger.Succerss("Connected database");
-            	} catch (ClassNotFoundException | SQLException e) {
-        			Logger.Warning(Settings.message_error_mysql);
-        		}
-            }
-        }catch(NullPointerException e) {
-        	logger.Log(Level.ERROR, "the config [database] is null?");
-        	e.printStackTrace();
-        }
+        loadMySQL();
         metrics = new Metrics(this);
         this.inventoryPlayers = new ArrayList<>();
         this.chatManagers = new ArrayList<>();
         this.onlinePlayers = new ArrayList<>();
-        setupCommands();
+        loadCommands();
         setEventUtils(new EventUtils(this));
-        setupEvents();
+        loadEvents();
         setupSoftDepends();
         new UpdateChecker(this, 83889).getUpdateVersion(version -> {
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
@@ -168,7 +154,7 @@ public class AdvancedChat extends JavaPlugin {
 
     public void onDisable() {
         Utils.setDisabled(version);
-        //mySQL.disconnect();
+        
         placeholder = false;
         metrics = null;
         uselegacyversion = false;
@@ -195,14 +181,14 @@ public class AdvancedChat extends JavaPlugin {
     	gsonBuilder.registerTypeAdapter(JsonClickEvent.class, new SerializerClickEvent());
     }
 
-    public void setupCommands() {
+    public void loadCommands() {
         new AdvancedChatCmd(this);
         new ClearChatCmd(this);
         new MuteCmd(this);
         new UnMuteCmd(this);
     }
 
-    public void setupEvents() {
+    public void loadEvents() {
         new JoinListener(this);
         new InventoryListener(this);
         new ChatListener(this);
@@ -211,12 +197,24 @@ public class AdvancedChat extends JavaPlugin {
         eventLoader.runClearChat();
     }
     
-	
+	public void loadMySQL() {
+        try {
+            if(Settings.mysql_use_t) {
+            	mySQL.connect(Settings.mysql_host, Settings.mysql_port, Settings.mysql_database, Settings.mysql_user, Settings.mysql_password, Settings.mysql_usessl);
+				Logger.Succerss("Connected database");
+            }
+        }catch(NullPointerException e) {
+        	logger.Log(Level.ERROR, "the config [database] is null?");
+        	e.printStackTrace();
+        }
+	}
+    
+	@SuppressWarnings("deprecation")
 	private void checkNMSVersion(String nmsversion) {
 		try {
 			Class<?> clazz = Class.forName("jss.advancedchat.utils.version.nms"+ "." + nmsversion + "." + "PacketSender");
 			iPacketSender = (IPacketSender) clazz.newInstance();
-			logger.Log(Level.DEBUG, "&bLoad Nms:" + " &e" + clazz);
+			//logger.Log(Level.DEBUG, "&bLoad Nms:" + " &e" + clazz);
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}

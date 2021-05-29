@@ -36,11 +36,6 @@ public class ClearChatCmd implements CommandExecutor {
             eventUtils.getPlayerMessage(j, config);
         } else {
         	Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-        	//Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
-            /*TextComponent msg = new TextComponent();
-            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-            j.spigot().sendMessage(msg);*/
         }
         return true;
     }
