@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.chat.Json;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Settings;
@@ -26,13 +27,17 @@ public class ChatListener0 implements Listener {
         eventUtils.getEventManager().registerEvents(this, plugin);
     }
 
+
     @SuppressWarnings("unused")
-    @EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.HIGHEST)
     public void onChat(AsyncPlayerChatEvent e) {
         PlayerManager playerManager = new PlayerManager(plugin);
         FileConfiguration config = plugin.getConfigFile().getConfig();
         Player j = e.getPlayer();
-        String path = "Settings.Chat-Format-Type";
+        
+        Json json;
+        
+        String path = "Settings.ChatFormat-Type";
         String message = e.getMessage();
 
         if (config.getString(path).equals("normal")) {
@@ -41,26 +46,68 @@ public class ChatListener0 implements Listener {
 
             String format = config.getString("Custom-Format.Text");
             List<String> hover = config.getStringList("Custom-Format.HoverEvent.Text");
-            String hovermode = config.getString("Custom-Format.HoverEvent.Mode");
-            String clickaction = config.getString("Custom-Format.");
+            
+            String cmd_action = config.getString("Custom-Format.ClickEvent.Command");
+            String url_action = config.getString("Custom-Format.ClickEvent.Url");
+            
 
             if ((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Color"))) {
-
+            	
             }
 
             if (Settings.boolean_custom_type_normal) {
-
-
+            	e.setCancelled(true);
+            	json = new Json(j, format, message);
+            	json.sendDoubleToAll();
             } else if (Settings.boolean_custom_type_hover) {
-
+            	json = new Json(j, format, message);
+            	json.setHover(hover).sendDoubleToAll();
             } else if (Settings.boolean_custom_type_click) {
-
+            	e.setCancelled(true);
+            	json = new Json(j, format, message);
+            	if(cmd_action != null) {
+            		json = json.setExecuteCommand(cmd_action);
+            	}
+            	if(url_action != null) {
+            		json = json.setOpenURL(url_action);
+            	}
+            	json.sendDoubleToAll();
             } else if (Settings.boolean_custom_type_double) {
-
+            	e.setCancelled(true);
+            	json = new Json(j, format, message);
+            	if(hover != null) {
+            		json.setHover(hover);
+            	}
+            	if(cmd_action != null) {
+            		json = json.setExecuteCommand(cmd_action);
+            	}
+            	if(url_action != null) {
+            		json = json.setOpenURL(url_action);
+            	}
+            	json.sendDoubleToAll();
             } else if (Settings.boolean_custom_type_experimental) {
-
+            	e.setCancelled(true);
+            	json = new Json(j, format, message);
+            	if(hover != null) {
+            		json.setHover(hover);
+            	}
+            	if(cmd_action != null) {
+            		json = json.setExecuteCommand(cmd_action);
+            	}
+            	if(url_action != null) {
+            		json = json.setOpenURL(url_action);
+            	}
+            	json.sendDoubleToAll();
             } else if (Settings.boolean_custom_type_all) {
-
+            	e.setCancelled(true);
+            	json = new Json(j, format, message);
+            	if(cmd_action != null) {
+            		json = json.setExecuteCommand(cmd_action);
+            	}
+            	if(url_action != null) {
+            		json = json.setOpenURL(url_action);
+            	}
+            	json.sendDoubleToAll();
             } else {
 
             }
@@ -69,7 +116,6 @@ public class ChatListener0 implements Listener {
         } else if (config.getString(path).equals("group")) {
 
             if (Settings.boolean_group_type_normal) {
-
 
             } else if (Settings.boolean_group_type_hover) {
 

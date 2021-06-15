@@ -9,13 +9,12 @@ public class AdvancedChatCmd extends Command {
 
     public AdvancedChatCmd() {
         super("AdvancedChat");
-
     }
 
     public void execute(CommandSender sender, String[] args) {
         if (!(sender instanceof ProxiedPlayer)) {
             Utils.sendBungeeColorMessage(sender, "&6Test Sender message ");
-            //this.onCommand(sender, args);
+
             return;
         }
         ProxiedPlayer j = (ProxiedPlayer) sender;

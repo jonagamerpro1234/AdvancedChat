@@ -38,7 +38,7 @@ public class UpdateChecker implements UpdateHelper {
                     consumer.accept(scanner.next());
                 }
             } catch (IOException e) {
-                logger.Log(Level.INFO, "Could not check for updates:&c" + e.getMessage());
+                logger.Log(Level.INFO, "Could not check for updates: &c" + e.getMessage());
             }
         });
     }
@@ -46,7 +46,6 @@ public class UpdateChecker implements UpdateHelper {
     public void getUpdateVersion(String msg) {
         String version = getJson("https://songoda.com/api/v2/products/advancedchat-chat-related/");
         if (version.trim() != null && !version.trim().equalsIgnoreCase(plugin.version)) {
-           
         }
     }
 
