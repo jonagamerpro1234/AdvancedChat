@@ -100,6 +100,8 @@ Custom-Format:
     Text: '&ahello &d<name>'
     Mode: Text
   ClickEvent:
+    Command: ''
+    Url: ''
     Action: 'say hello <name>'
     Mode: Cmd
 #
@@ -215,6 +217,8 @@ AdvancedChat:
   No-Online-Player: '&cThis player does not exist or is not connected!'
   No-Use-Command: '&e[&b!&e] &cYou can t use that command! &b[&c<cmd>&b]'
   No-Use-Command-Mute: '&e[&b!&e]You cannot use that command while it is muted! &b[&c<cmd>&b]'
+  Empty-Msg: '&c[!] &7write a message to send it'
+  Help-Msg-Use: '&7Use &b/Msg &6<player> &e<message> &7To send a private message to another player'
 #
 # This is the end of the configuration ... [-_-] more things coming soon
 # 

@@ -13,6 +13,7 @@ import com.google.gson.GsonBuilder;
 
 import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
+import jss.advancedchat.commands.MsgCmd;
 import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
 import jss.advancedchat.config.FileManager;
@@ -20,6 +21,7 @@ import jss.advancedchat.config.PreConfigLoader;
 import jss.advancedchat.database.MySQL;
 import jss.advancedchat.database.SQLGetter;
 import jss.advancedchat.events.ChatListener;
+import jss.advancedchat.events.ChatListener0;
 import jss.advancedchat.events.CommandListener;
 import jss.advancedchat.events.EventLoader;
 import jss.advancedchat.events.InventoryListener;
@@ -186,12 +188,14 @@ public class AdvancedChat extends JavaPlugin {
         new ClearChatCmd(this);
         new MuteCmd(this);
         new UnMuteCmd(this);
+        new MsgCmd(this);
     }
 
     public void loadEvents() {
         new JoinListener(this);
         new InventoryListener(this);
         new ChatListener(this);
+        new ChatListener0(this);
         new CommandListener(this);
         EventLoader eventLoader = new EventLoader(this);
         eventLoader.runClearChat();
@@ -209,12 +213,10 @@ public class AdvancedChat extends JavaPlugin {
         }
 	}
     
-	@SuppressWarnings("deprecation")
 	private void checkNMSVersion(String nmsversion) {
 		try {
 			Class<?> clazz = Class.forName("jss.advancedchat.utils.version.nms"+ "." + nmsversion + "." + "PacketSender");
 			iPacketSender = (IPacketSender) clazz.newInstance();
-			//logger.Log(Level.DEBUG, "&bLoad Nms:" + " &e" + clazz);
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}

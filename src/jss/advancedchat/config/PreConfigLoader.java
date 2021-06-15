@@ -16,6 +16,8 @@ public class PreConfigLoader {
     public void load() {
         FileConfiguration config = plugin.getConfigFile().getConfig();
         try {
+        	Settings.message_msg_empty = config.getString("AdvancedChat.Empty.Msg");
+        	Settings.message_msg_use = config.getString("AdvancedChat.Help-Msg-Use");
         	Settings.boolean_filter_use_msg = config.getString("Filter-Chat.Use-Custom-Msg").equals("true");
         	Settings.boolean_custom_type_normal = config.getString("Custom-Format.Type").equals("normal");
         	Settings.boolean_custom_type_hover = config.getString("Custom-Format.Type").equals("hover");
@@ -23,7 +25,6 @@ public class PreConfigLoader {
         	Settings.boolean_custom_type_double = config.getString("Custom-Format.Type").equals("double");
         	Settings.boolean_custom_type_experimental = config.getString("Custom-Format.Type").equals("experimental");
         	Settings.boolean_custom_type_all = config.getString("Custom-Format.Type").equals("all");
-        	/*
          	for(String key : config.getConfigurationSection("Groups").getKeys(false)) {
             	Settings.boolean_group_type_normal = config.getString("Groups." + key + ".Type").equals("normal");
             	Settings.boolean_group_type_hover = config.getString("Groups." + key + ".Type").equals("hover");
@@ -31,7 +32,7 @@ public class PreConfigLoader {
             	Settings.boolean_group_type_double = config.getString("Groups." + key + ".Type").equals("double");
             	Settings.boolean_group_type_experimental = config.getString("Groups." + key + ".Type").equals("experimental");
             	Settings.boolean_group_type_all = config.getString("Groups." + key + ".Type").equals("all");
-         	}*/
+         	}
          	Settings.mysql_use = config.getString("Settings.Use-Database").equals("true");
          	//debug
         	Settings.mysql_use_t = config.getString("Settings.Use-Database").equals("true");
