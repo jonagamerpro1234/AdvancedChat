@@ -88,22 +88,22 @@ public class MsgCmd implements CommandExecutor, TabCompleter{
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
 		List<String> list = new ArrayList<>();
 		String lastArgs = args.length != 0 ? args[args.length - 1] : "";
-		if(!(sender instanceof Player)) {
+		if (!(sender instanceof Player)) {
 			switch (args.length) {
 			case 0:
 			case 1:
-				for(Player p : Bukkit.getOnlinePlayers()) {
+				for (Player p : Bukkit.getOnlinePlayers()) {
 					list.add(p.getName());
 				}
 				break;
 			}
 			return Utils.setLimitTab(list, lastArgs);
 		}
-		
+
 		switch (args.length) {
 		case 0:
 		case 1:
-			for(Player p : Bukkit.getOnlinePlayers()) {
+			for (Player p : Bukkit.getOnlinePlayers()) {
 				list.add(p.getName());
 			}
 			break;
