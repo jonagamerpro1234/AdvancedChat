@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2020 Crypto Morin
+ * Copyright (c) 2021 Crypto Morin
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import javax.annotation.Nonnull;
@@ -45,9 +46,17 @@ import java.util.UUID;
 /**
  * This class is currently unused until I find a solution.
  */
+
 final class SkullCacheListener {
     protected static final Map<UUID, String> CACHE = new HashMap<>();
     private static final String SESSION = "https://sessionserver.mojang.com/session/minecraft/profile/";
+
+    @Nonnull
+    public static SkullMeta applyCachedSkin(@Nonnull ItemMeta head, @Nonnull UUID identifier) {
+        String base64 = SkullCacheListener.CACHE.get(identifier);
+        SkullMeta meta = (SkullMeta) head;
+        return SkullUtils.getSkullByValue(meta, base64);
+    }
 
     /**
      * https://api.mojang.com/users/profiles/minecraft/Username gives the ID
@@ -93,8 +102,7 @@ final class SkullCacheListener {
     public static String getIdFromUsername(@Nonnull String username) {
         Validate.notEmpty(username, "Cannot get UUID of a null or empty username");
         int len = username.length();
-        if (len < 3 || len > 16)
-            throw new IllegalArgumentException("Username cannot be less than 3 and longer than 16 characters: " + username);
+        if (len < 3 || len > 16) throw new IllegalArgumentException("Username cannot be less than 3 and longer than 16 characters: " + username);
 
         try {
             URL convertName = new URL("https://api.mojang.com/users/profiles/minecraft/" + username);

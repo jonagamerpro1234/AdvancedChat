@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2020 Crypto Morin
+ * Copyright (c) 2021 Crypto Morin
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.*;
+import org.bukkit.map.MapView;
+import org.bukkit.material.MaterialData;
+import org.bukkit.material.SpawnEgg;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffect;
@@ -64,7 +67,7 @@ import java.util.*;
  * ItemStack: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/inventory/ItemStack.html
  *
  * @author Crypto Morin
- * @version 4.2.0
+ * @version 5.1.0
  * @see XMaterial
  * @see XPotion
  * @see SkullUtils
@@ -73,8 +76,7 @@ import java.util.*;
  */
 @SuppressWarnings("deprecation")
 public final class XItemStack {
-    private XItemStack() {
-    }
+    private XItemStack() { }
 
     /**
      * Writes an ItemStack object into a config.
@@ -82,32 +84,41 @@ public final class XItemStack {
      *
      * @param item   the ItemStack to serialize.
      * @param config the config section to write this item to.
+     *
      * @since 1.0.0
      */
     public static void serialize(@Nonnull ItemStack item, @Nonnull ConfigurationSection config) {
         Objects.requireNonNull(item, "Cannot serialize a null item");
         Objects.requireNonNull(config, "Cannot serialize item from a null configuration section.");
         ItemMeta meta = item.getItemMeta();
+        boolean isNewVersion = XMaterial.isNewVersion();
 
-        if (meta.hasDisplayName()) config.set("name", ChatColor.stripColor(meta.getDisplayName()));
-        if (meta.hasLore()) {
-            List<String> lores = meta.getLore();
-            List<String> lines = new ArrayList<>(lores.size());
-            for (String lore : lores) lines.add(ChatColor.stripColor(lore));
-            config.set("lore", lines);
-        }
+        // Material
+        config.set("material", item.getType().name());
+
+        // Amount
         if (item.getAmount() > 1) config.set("amount", item.getAmount());
-        if (XMaterial.isNewVersion()) {
+
+        // Durability - Damage
+        if (isNewVersion) {
             if (meta instanceof Damageable) {
                 Damageable damageable = (Damageable) meta;
                 if (damageable.hasDamage()) config.set("damage", damageable.getDamage());
             }
-        } else if (item.getType().getMaxDurability() > 0) {
+        } else {
             config.set("damage", item.getDurability());
         }
-        config.set("material", item.getType().name());
-        if (meta.hasCustomModelData()) config.set("custom-model", meta.getCustomModelData());
-        if (meta.isUnbreakable()) config.set("unbreakable", true);
+
+        // Display Name & Lore
+        if (meta.hasDisplayName()) config.set("name", meta.getDisplayName());
+        if (meta.hasLore()) config.set("lore", meta.getLore()); // TODO Add a method to "untranslate" color codes.
+
+        if (XMaterial.supports(14)) {
+            if (meta.hasCustomModelData()) config.set("custom-model", meta.getCustomModelData());
+        }
+        if (XMaterial.supports(11)) {
+            if (meta.isUnbreakable()) config.set("unbreakable", true);
+        }
 
         // Enchantments
         for (Map.Entry<Enchantment, Integer> enchant : meta.getEnchants().entrySet()) {
@@ -167,7 +178,6 @@ public final class XItemStack {
         } else if (meta instanceof BannerMeta) {
             BannerMeta banner = (BannerMeta) meta;
             ConfigurationSection patterns = config.createSection("patterns");
-
             for (Pattern pattern : banner.getPatterns()) {
                 patterns.set(pattern.getPattern().name(), pattern.getColor().name());
             }
@@ -217,16 +227,53 @@ public final class XItemStack {
                 List<String> baseColors = new ArrayList<>(fwBaseColors.size());
                 List<String> fadeColors = new ArrayList<>(fwFadeColors.size());
 
-                for (Color color : fwBaseColors)
-                    baseColors.add(color.getRed() + ", " + color.getGreen() + ", " + color.getBlue());
-                fwc.set("base-colors", baseColors);
+                ConfigurationSection colors = fwc.createSection("colors");
+                for (Color color : fwBaseColors) baseColors.add(color.getRed() + ", " + color.getGreen() + ", " + color.getBlue());
+                colors.set("base", baseColors);
 
-                for (Color color : fwFadeColors)
-                    fadeColors.add(color.getRed() + ", " + color.getGreen() + ", " + color.getBlue());
-                fwc.set("fade-colors", fadeColors);
+                for (Color color : fwFadeColors) fadeColors.add(color.getRed() + ", " + color.getGreen() + ", " + color.getBlue());
+                colors.set("fade", fadeColors);
                 i++;
             }
-            //} else if (meta instanceof MapMeta) {
+        } else if (meta instanceof BookMeta) {
+            BookMeta book = (BookMeta) meta;
+            ConfigurationSection bookInfo = config.createSection("book");
+
+            bookInfo.set("title", book.getTitle());
+            bookInfo.set("author", book.getAuthor());
+            if (XMaterial.supports(9)) {
+                BookMeta.Generation generation = book.getGeneration();
+                if (generation != null) {
+                    bookInfo.set("generation", book.getGeneration().toString());
+                }
+            }
+
+            bookInfo.set("pages", book.getPages());
+        } else if (meta instanceof MapMeta) {
+            MapMeta map = (MapMeta) meta;
+            ConfigurationSection mapSection = config.createSection("map");
+            mapSection.set("scaling", map.isScaling());
+            if (XMaterial.supports(11)) {
+                if (map.hasLocationName()) mapSection.set("location", map.getLocationName());
+                if (map.hasColor()) {
+                    Color color = map.getColor();
+                    mapSection.set("color", color.getRed() + ", " + color.getGreen() + ", " + color.getBlue());
+                }
+            }
+            if (XMaterial.supports(14)) {
+                if (map.hasMapView()) {
+                    MapView mapView = map.getMapView();
+                    ConfigurationSection view = mapSection.createSection("view");
+                    view.set("scale", mapView.getScale().toString());
+                    view.set("world", mapView.getWorld().getName());
+                    ConfigurationSection centerSection = view.createSection("center");
+                    centerSection.set("x", mapView.getCenterX());
+                    centerSection.set("z", mapView.getCenterZ());
+                    view.set("locked", mapView.isLocked());
+                    view.set("tracking-position", mapView.isTrackingPosition());
+                    view.set("unlimited-tracking", mapView.isUnlimitedTracking());
+                }
+            }
         } else if (XMaterial.supports(14)) {
             if (meta instanceof CrossbowMeta) {
                 CrossbowMeta crossbow = (CrossbowMeta) meta;
@@ -251,6 +298,20 @@ public final class XItemStack {
 
                 config.set("effects", effects);
             }
+        } else if (!isNewVersion) {
+            // Spawn Eggs
+            if (XMaterial.supports(11)) {
+                if (meta instanceof SpawnEggMeta) {
+                    SpawnEggMeta spawnEgg = (SpawnEggMeta) meta;
+                    config.set("creature", spawnEgg.getSpawnedType().getName());
+                }
+            } else {
+                MaterialData data = item.getData();
+                if (data instanceof SpawnEgg) {
+                    SpawnEgg spawnEgg = (SpawnEgg) data;
+                    config.set("creature", spawnEgg.getSpawnedType().getName());
+                }
+            }
         }
     }
 
@@ -258,12 +319,14 @@ public final class XItemStack {
      * Deserialize an ItemStack from the config.
      *
      * @param config the config section to deserialize the ItemStack object from.
+     *
      * @return a deserialized ItemStack.
      * @since 1.0.0
      */
     @Nullable
     public static ItemStack deserialize(@Nonnull ConfigurationSection config) {
         Objects.requireNonNull(config, "Cannot deserialize item to a null configuration section.");
+        boolean isNewVersion = XMaterial.isNewVersion();
 
         // Material
         String material = config.getString("material");
@@ -281,7 +344,7 @@ public final class XItemStack {
         if (amount > 1) item.setAmount(amount);
 
         // Durability - Damage
-        if (XMaterial.isNewVersion()) {
+        if (isNewVersion) {
             if (meta instanceof Damageable) {
                 int damage = config.getInt("damage");
                 if (damage > 0) ((Damageable) meta).setDamage(damage);
@@ -292,7 +355,7 @@ public final class XItemStack {
         }
 
         // Special Items
-        if (matOpt.get() == XMaterial.PLAYER_HEAD) {
+        if (meta instanceof SkullMeta) {
             String skull = config.getString("skull");
             if (skull != null) SkullUtils.applySkin(meta, skull);
         } else if (meta instanceof BannerMeta) {
@@ -302,8 +365,7 @@ public final class XItemStack {
             if (patterns != null) {
                 for (String pattern : patterns.getKeys(false)) {
                     PatternType type = PatternType.getByIdentifier(pattern);
-                    if (type == null)
-                        type = Enums.getIfPresent(PatternType.class, pattern.toUpperCase(Locale.ENGLISH)).or(PatternType.BASE);
+                    if (type == null) type = Enums.getIfPresent(PatternType.class, pattern.toUpperCase(Locale.ENGLISH)).or(PatternType.BASE);
                     DyeColor color = Enums.getIfPresent(DyeColor.class, patterns.getString(pattern).toUpperCase(Locale.ENGLISH)).or(DyeColor.WHITE);
 
                     banner.addPattern(new Pattern(color, type));
@@ -376,12 +438,14 @@ public final class XItemStack {
             } else if (state instanceof Banner) {
                 Banner banner = (Banner) state;
                 ConfigurationSection patterns = config.getConfigurationSection("patterns");
+                if (!XMaterial.supports(14))
+                    banner.setBaseColor(DyeColor.WHITE); // https://hub.spigotmc.org/stash/projects/SPIGOT/repos/craftbukkit/diff/src/main/java/org/bukkit/craftbukkit/block
+                // /CraftBanner.java?until=b3dc236663a55450c69356e660c0c84f0abbb3aa
 
                 if (patterns != null) {
                     for (String pattern : patterns.getKeys(false)) {
                         PatternType type = PatternType.getByIdentifier(pattern);
-                        if (type == null)
-                            type = Enums.getIfPresent(PatternType.class, pattern.toUpperCase(Locale.ENGLISH)).or(PatternType.BASE);
+                        if (type == null) type = Enums.getIfPresent(PatternType.class, pattern.toUpperCase(Locale.ENGLISH)).or(PatternType.BASE);
                         DyeColor color = Enums.getIfPresent(DyeColor.class, patterns.getString(pattern).toUpperCase(Locale.ENGLISH)).or(DyeColor.WHITE);
 
                         banner.addPattern(new Pattern(color, type));
@@ -405,12 +469,13 @@ public final class XItemStack {
                     builder.trail(fw.getBoolean("trail"));
                     builder.with(Enums.getIfPresent(FireworkEffect.Type.class, fw.getString("type").toUpperCase(Locale.ENGLISH)).or(FireworkEffect.Type.STAR));
 
-                    List<String> fwColors = fw.getStringList("colors");
+                    ConfigurationSection colorsSection = fw.getConfigurationSection("colors");
+                    List<String> fwColors = colorsSection.getStringList("base");
                     List<Color> colors = new ArrayList<>(fwColors.size());
                     for (String colorStr : fwColors) colors.add(parseColor(colorStr));
                     builder.withColor(colors);
 
-                    fwColors = fw.getStringList("fade-colors");
+                    fwColors = colorsSection.getStringList("fade");
                     colors = new ArrayList<>(fwColors.size());
                     for (String colorStr : fwColors) colors.add(parseColor(colorStr));
                     builder.withFade(colors);
@@ -418,9 +483,56 @@ public final class XItemStack {
                     firework.addEffect(builder.build());
                 }
             }
-            //} else if (meta instanceof MapMeta) {
-            // TODO This is a little bit too complicated.
-            //MapMeta map = (MapMeta) meta;
+        } else if (meta instanceof BookMeta) {
+            BookMeta book = (BookMeta) meta;
+            ConfigurationSection bookInfo = config.getConfigurationSection("book");
+
+            if (bookInfo != null) {
+                book.setTitle(bookInfo.getString("title"));
+                book.setAuthor(bookInfo.getString("author"));
+                book.setPages(bookInfo.getStringList("pages"));
+
+                if (XMaterial.supports(9)) {
+                    String generationValue = bookInfo.getString("generation");
+                    if (generationValue != null) {
+                        BookMeta.Generation generation = Enums.getIfPresent(BookMeta.Generation.class, generationValue).orNull();
+                        book.setGeneration(generation);
+                    }
+                }
+            }
+        } else if (meta instanceof MapMeta) {
+            MapMeta map = (MapMeta) meta;
+            ConfigurationSection mapSection = config.getConfigurationSection("map");
+
+            map.setScaling(mapSection.getBoolean("scaling"));
+            if (XMaterial.supports(11)) {
+                if (mapSection.isSet("location")) map.setLocationName(mapSection.getString("location"));
+                if (mapSection.isSet("color")) {
+                    Color color = parseColor(mapSection.getString("color"));
+                    map.setColor(color);
+                }
+            }
+
+            if (XMaterial.supports(14)) {
+                ConfigurationSection view = mapSection.getConfigurationSection("view");
+                if (view != null) {
+                    World world = Bukkit.getWorld(view.getString("world"));
+                    if (world != null) {
+                        MapView mapView = Bukkit.createMap(world);
+                        mapView.setWorld(world);
+                        mapView.setScale(Enums.getIfPresent(MapView.Scale.class, view.getString("scale")).or(MapView.Scale.NORMAL));
+                        mapView.setLocked(view.getBoolean("locked"));
+                        mapView.setTrackingPosition(view.getBoolean("tracking-position"));
+                        mapView.setUnlimitedTracking(view.getBoolean("unlimited-tracking"));
+
+                        ConfigurationSection centerSection = view.getConfigurationSection("center");
+                        mapView.setCenterX(centerSection.getInt("x"));
+                        mapView.setCenterZ(centerSection.getInt("z"));
+
+                        map.setMapView(mapView);
+                    }
+                }
+            }
         } else if (XMaterial.supports(14)) {
             if (meta instanceof CrossbowMeta) {
                 CrossbowMeta crossbow = (CrossbowMeta) meta;
@@ -447,6 +559,23 @@ public final class XItemStack {
                     stew.addCustomEffect(effect, true);
                 }
             }
+        } else if (!isNewVersion) {
+            // Spawn Eggs
+            if (XMaterial.supports(11)) {
+                if (meta instanceof SpawnEggMeta) {
+                    SpawnEggMeta spawnEgg = (SpawnEggMeta) meta;
+                    EntityType creature = Enums.getIfPresent(EntityType.class, config.getString("creature").toUpperCase(Locale.ENGLISH)).or(EntityType.BAT);
+                    spawnEgg.setSpawnedType(creature);
+                }
+            } else {
+                MaterialData data = item.getData();
+                if (data instanceof SpawnEgg) {
+                    SpawnEgg spawnEgg = (SpawnEgg) data;
+                    EntityType creature = Enums.getIfPresent(EntityType.class, config.getString("creature").toUpperCase(Locale.ENGLISH)).or(EntityType.BAT);
+                    spawnEgg.setSpawnedType(creature);
+                    item.setData(data);
+                }
+            }
         }
 
         // Display Name
@@ -454,8 +583,7 @@ public final class XItemStack {
         if (!Strings.isNullOrEmpty(name)) {
             String translated = ChatColor.translateAlternateColorCodes('&', name);
             meta.setDisplayName(translated);
-        } else if (name != null && name.isEmpty())
-            meta.setDisplayName(" "); // For GUI easy access configuration purposes
+        } else if (name != null && name.isEmpty()) meta.setDisplayName(" "); // For GUI easy access configuration purposes
 
         // Unbreakable
         if (XMaterial.supports(11)) meta.setUnbreakable(config.getBoolean("unbreakable"));
@@ -545,7 +673,7 @@ public final class XItemStack {
         }
 
         // Atrributes - https://minecraft.gamepedia.com/Attribute
-        if (XMaterial.supports(13)) {
+        if (isNewVersion) {
             ConfigurationSection attributes = config.getConfigurationSection("attributes");
             if (attributes != null) {
                 for (String attribute : attributes.getKeys(false)) {
@@ -577,6 +705,7 @@ public final class XItemStack {
      * This only works for 1.13 and above.
      *
      * @param str the RGB string.
+     *
      * @return a color based on the RGB.
      * @since 1.1.0
      */
@@ -593,6 +722,7 @@ public final class XItemStack {
      *
      * @param player the player to give the items to.
      * @param items  the items to give.
+     *
      * @return the items that did not fit and were dropped.
      * @since 2.0.1
      */
@@ -607,6 +737,7 @@ public final class XItemStack {
      * @param player the player to give the items to.
      * @param items  the items to give.
      * @param split  same as {@link #addItems(Inventory, boolean, ItemStack...)}
+     *
      * @return the items that did not fit and were dropped.
      * @since 2.0.1
      */
@@ -630,6 +761,7 @@ public final class XItemStack {
      *                  item's max stack size {@link ItemStack#getMaxStackSize()} when putting items. This is useful when
      *                  you're adding stacked tools such as swords that you'd like to split them to other slots.
      * @param items     the items to add.
+     *
      * @return items that didn't fit in the inventory.
      * @since 4.0.0
      */
@@ -639,21 +771,32 @@ public final class XItemStack {
         Objects.requireNonNull(items, "Cannot add null items to inventory");
 
         List<ItemStack> leftOvers = new ArrayList<>(items.length);
+
+        // No other optimized way to access this using Bukkit API...
+        // We could pass the length to individual methods so they could also use getItem() which
+        // skips parsing all the items in the inventory if not needed, but that's just too much.
+        // Note: This is not the same as Inventory#getSize()
+        int invSize = inventory.getStorageContents().length;
         int lastEmpty = 0;
-        int invSize = inventory.getSize();
 
         for (ItemStack item : items) {
-            int partialIndex = 0;
+            int lastPartial = 0;
 
             while (true) {
-                int firstPartial = firstPartial(inventory, item, partialIndex);
+                // Check if there is a similar item that can be stacked before using free slots.
+                int firstPartial = lastPartial >= invSize ? -1 : firstPartial(inventory, item, lastPartial);
                 if (firstPartial == -1) {
+                    // Start adding items to left overs if there are no partial and empty slots
+                    // -1 means that there are no empty slots left.
                     if (lastEmpty != -1) lastEmpty = firstEmpty(inventory, lastEmpty);
                     if (lastEmpty == -1) {
                         leftOvers.add(item);
                         break;
                     }
-                    partialIndex = lastEmpty;
+
+                    // Avoid firstPartial() for checking again for no reason, since if we're already checking
+                    // for free slots, that means there are no partials even left.
+                    lastPartial = invSize + 1;
 
                     int maxSize = split ? item.getMaxStackSize() : inventory.getMaxStackSize();
                     int amount = item.getAmount();
@@ -683,7 +826,7 @@ public final class XItemStack {
                         inventory.setItem(firstPartial, partialItem);
                         item.setAmount(sum - maxAmount);
                     }
-                    partialIndex = firstPartial + 1;
+                    lastPartial = firstPartial + 1;
                 }
             }
         }
@@ -699,6 +842,7 @@ public final class XItemStack {
      * @param inventory  the inventory to match the item from.
      * @param item       the item to match.
      * @param beginIndex the index which to start the search from in the inventory.
+     *
      * @return the first matched item slot, otherwise -1
      * @throws IndexOutOfBoundsException if the beginning index is less than 0 or greater than the inventory storage size.
      * @since 4.0.0
@@ -706,14 +850,12 @@ public final class XItemStack {
     public static int firstPartial(@Nonnull Inventory inventory, @Nullable ItemStack item, int beginIndex) {
         if (item != null) {
             ItemStack[] items = inventory.getStorageContents();
-            int len = items.length;
-            if (beginIndex < 0 || beginIndex >= len)
-                throw new IndexOutOfBoundsException("Begin Index: " + beginIndex + ", Size: " + len);
+            int invSize = items.length;
+            if (beginIndex < 0 || beginIndex >= invSize) throw new IndexOutOfBoundsException("Begin Index: " + beginIndex + ", Inventory storage content size: " + invSize);
 
-            for (; beginIndex < len; beginIndex++) {
+            for (; beginIndex < invSize; beginIndex++) {
                 ItemStack cItem = items[beginIndex];
-                if (cItem != null && cItem.getAmount() < cItem.getMaxStackSize() && cItem.isSimilar(item))
-                    return beginIndex;
+                if (cItem != null && cItem.getAmount() < cItem.getMaxStackSize() && cItem.isSimilar(item)) return beginIndex;
             }
         }
         return -1;
@@ -723,6 +865,7 @@ public final class XItemStack {
      * Stacks up the items in the given item collection that are {@link ItemStack#isSimilar(ItemStack)}.
      *
      * @param items the items to stack.
+     *
      * @return stacked up items.
      * @since 4.0.0
      */
@@ -755,17 +898,17 @@ public final class XItemStack {
      *
      * @param inventory  the inventory to search from.
      * @param beginIndex the item slot to start the search from in the inventory.
+     *
      * @return first empty item slot, otherwise -1
      * @throws IndexOutOfBoundsException if the beginning index is less than 0 or greater than the inventory storage size.
      * @since 4.0.0
      */
     public static int firstEmpty(@Nonnull Inventory inventory, int beginIndex) {
         ItemStack[] items = inventory.getStorageContents();
-        int len = items.length;
-        if (beginIndex < 0 || beginIndex >= len)
-            throw new IndexOutOfBoundsException("Begin Index: " + beginIndex + ", Size: " + len);
+        int invSize = items.length;
+        if (beginIndex < 0 || beginIndex >= invSize) throw new IndexOutOfBoundsException("Begin Index: " + beginIndex + ", Inventory storage content size: " + invSize);
 
-        for (; beginIndex < len; beginIndex++) {
+        for (; beginIndex < invSize; beginIndex++) {
             if (items[beginIndex] == null) return beginIndex;
         }
         return -1;
@@ -776,6 +919,7 @@ public final class XItemStack {
      *
      * @param inventory  the inventory to search from.
      * @param beginIndex the item slot to start the search from in the inventory.
+     *
      * @return first empty or partial item slot, otherwise -1
      * @throws IndexOutOfBoundsException if the beginning index is less than 0 or greater than the inventory storage size.
      * @see #firstEmpty(Inventory, int)
@@ -786,13 +930,11 @@ public final class XItemStack {
         if (item != null) {
             ItemStack[] items = inventory.getStorageContents();
             int len = items.length;
-            if (beginIndex < 0 || beginIndex >= len)
-                throw new IndexOutOfBoundsException("Begin Index: " + beginIndex + ", Size: " + len);
+            if (beginIndex < 0 || beginIndex >= len) throw new IndexOutOfBoundsException("Begin Index: " + beginIndex + ", Size: " + len);
 
             for (; beginIndex < len; beginIndex++) {
                 ItemStack cItem = items[beginIndex];
-                if (cItem == null || (cItem.getAmount() < cItem.getMaxStackSize() && cItem.isSimilar(item)))
-                    return beginIndex;
+                if (cItem == null || (cItem.getAmount() < cItem.getMaxStackSize() && cItem.isSimilar(item))) return beginIndex;
             }
         }
         return -1;

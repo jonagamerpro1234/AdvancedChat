@@ -2,7 +2,6 @@ package jss.advancedchat.events;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,7 +12,6 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-
 import com.cryptomorin.xseries.XEnchantment;
 import com.cryptomorin.xseries.XMaterial;
 
@@ -23,11 +21,8 @@ import jss.advancedchat.inv.GuiPlayer;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.InventoryPlayer;
+import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 
 public class InventoryListener implements Listener {
 
@@ -39,11 +34,9 @@ public class InventoryListener implements Listener {
         eventUtils.getEventManager().registerEvents(this, plugin);
     }
 
-    @SuppressWarnings("deprecation")
 	@EventHandler
     public void onInventoryPlayer(InventoryClickEvent e) {
         PlayerManager manager = new PlayerManager(plugin);
-        FileConfiguration config = plugin.getConfigFile().getConfig();
         Player p = (Player) e.getWhoClicked();
         InventoryPlayer inventoryPlayer = plugin.getInventoryPlayer(p);
         if (inventoryPlayer != null) {
@@ -101,10 +94,7 @@ public class InventoryListener implements Listener {
                                 e.getInventory().setItem(13, item);
                             }
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -115,10 +105,7 @@ public class InventoryListener implements Listener {
                             GuiColor guiColor = new GuiColor(plugin);
                             guiColor.openGuiColor(p, name);
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -127,10 +114,8 @@ public class InventoryListener implements Listener {
         }
     }
 
-    @SuppressWarnings("deprecation")
     @EventHandler
     public void onInventoryColor(InventoryClickEvent e) {
-        FileConfiguration config = plugin.getConfigFile().getConfig();
         PlayerManager playerManager = new PlayerManager(plugin);
         Player p = (Player) e.getWhoClicked();
         InventoryPlayer inventoryPlayer = plugin.getInventoryPlayer(p);
@@ -156,10 +141,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "Dark_Red");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -168,10 +150,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "Red");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -180,10 +159,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "Dark_Blue");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -192,10 +168,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "Blue");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -204,10 +177,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "Dark_Green");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -216,10 +186,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "Green");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -228,10 +195,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "Yellow");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -240,10 +204,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "Gold");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -252,10 +213,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "Dark_Aqua");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -264,10 +222,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "Aqua");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -276,10 +231,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "Light_Purple");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -288,10 +240,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "Dark_Purple");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -300,10 +249,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "Gray");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -312,10 +258,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "Dark_Gray");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -324,10 +267,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "White");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -336,10 +276,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "RainBow");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -348,10 +285,7 @@ public class InventoryListener implements Listener {
                             e.setCancelled(true);
                             playerManager.setColor(pp, "Black");
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
                     }
@@ -361,13 +295,9 @@ public class InventoryListener implements Listener {
                             GuiPlayer guiPlayer = new GuiPlayer(plugin);
                             guiPlayer.openPlayerGui(p, name);
                         } else {
-                            TextComponent msg = new TextComponent();
-                            msg.setText(Utils.color(config.getString("AdvancedChat.No-Permission")));
-                            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(config.getString("AdvancedChat.No-Permission-Label")).color(ChatColor.YELLOW).create()));
-                            p.spigot().sendMessage(msg);
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
                         }
-
                     }
                 }
             }

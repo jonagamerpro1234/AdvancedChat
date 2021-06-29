@@ -21,7 +21,7 @@ public class InvChannel {
 		int scale = config.getInt("Row");
 		
 		InventoryApi api = new InventoryApi(title, scale, player).createInventory();
-		
+	
 		api.open();
 	}
 }

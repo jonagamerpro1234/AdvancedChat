@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2020 Crypto Morin
+ * Copyright (c) 2021 Crypto Morin
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -124,6 +124,7 @@ public enum XPotion {
      * the normal RegEx + String Methods approach for both formatted and unformatted material names.
      *
      * @param name the potion effect type name to format.
+     *
      * @return an enum name.
      * @since 1.0.0
      */
@@ -137,8 +138,7 @@ public enum XPotion {
         for (int i = 0; i < len; i++) {
             char ch = name.charAt(i);
 
-            if (!appendUnderline && count != 0 && (ch == '-' || ch == ' ' || ch == '_') && chs[count] != '_')
-                appendUnderline = true;
+            if (!appendUnderline && count != 0 && (ch == '-' || ch == ' ' || ch == '_') && chs[count] != '_') appendUnderline = true;
             else {
                 if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')) {
                     if (appendUnderline) {
@@ -158,6 +158,7 @@ public enum XPotion {
      * Supports type IDs.
      *
      * @param potion the type of the type's ID of the potion effect type.
+     *
      * @return a potion effect type.
      * @since 1.0.0
      */
@@ -177,6 +178,7 @@ public enum XPotion {
      * Parses the XPotion for this potion effect.
      *
      * @param type the potion effect type.
+     *
      * @return the XPotion of this potion effect.
      * @throws IllegalArgumentException may be thrown as an unexpected exception.
      * @since 1.0.0
@@ -191,6 +193,7 @@ public enum XPotion {
      * Parses the type ID if available.
      *
      * @param type the ID of the potion effect type.
+     *
      * @return a potion effect type from the ID, or null if it's not an ID or the effect is not found.
      * @since 1.0.0
      */
@@ -215,6 +218,7 @@ public enum XPotion {
      * </pre>
      *
      * @param potion the potion string to parse.
+     *
      * @return a potion effect, or null if the potion type is wrong.
      * @see #parsePotion(int, int)
      * @since 1.0.0
@@ -245,6 +249,7 @@ public enum XPotion {
      *
      * @param player  the player to add potion effects to.
      * @param effects the list of potion effects to parse and add to the player.
+     *
      * @see #parsePotionEffectFromString(String)
      * @since 1.0.0
      */
@@ -265,6 +270,7 @@ public enum XPotion {
      * @param entity  the entity to throw the potion from.
      * @param color   the color of the potion's bottle.
      * @param effects the effects of the potion.
+     *
      * @return a thrown splash potion.
      * @since 1.0.0
      */
@@ -302,6 +308,7 @@ public enum XPotion {
      * @param type    the type of the potion.
      * @param color   the color of the potion's bottle.
      * @param effects the effects of the potion.
+     *
      * @return an item with the specified effects.
      * @since 1.0.0
      */
@@ -327,6 +334,7 @@ public enum XPotion {
      * You should avoid using them or use XMaterial instead.
      *
      * @param material the material to check.
+     *
      * @return true if the material is a potion, otherwise false.
      * @since 1.0.0
      */
@@ -383,6 +391,7 @@ public enum XPotion {
      *
      * @param duration  the duration of the potion effect.
      * @param amplifier the amplifier of the potion effect.
+     *
      * @return a potion effect.
      * @see #parsePotionEffectFromString(String)
      * @since 1.0.0
