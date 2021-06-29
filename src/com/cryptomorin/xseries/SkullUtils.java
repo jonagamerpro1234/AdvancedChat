@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2020 Crypto Morin
+ * Copyright (c) 2021 Crypto Morin
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,7 @@ import java.util.UUID;
  * <p>
  * Some websites to get custom heads:
  * <ul>
- * <li>https://minecraft-heads.com/</li>
+ *     <li>https://minecraft-heads.com/</li>
  * </ul>
  *
  * @author Crypto Morin
@@ -90,13 +90,6 @@ public class SkullUtils {
         return head;
     }
 
-    @Nonnull
-    public static SkullMeta applyCachedSkin(@Nonnull ItemMeta head, @Nonnull UUID identifier) {
-        String base64 = SkullCacheListener.CACHE.get(identifier);
-        SkullMeta meta = (SkullMeta) head;
-        return getSkullByValue(meta, base64);
-    }
-
     @SuppressWarnings("deprecation")
     @Nonnull
     public static SkullMeta applySkin(@Nonnull ItemMeta head, @Nonnull OfflinePlayer identifier) {
@@ -125,7 +118,7 @@ public class SkullUtils {
     }
 
     @Nonnull
-    private static SkullMeta getSkullByValue(@Nonnull SkullMeta head, @Nonnull String value) {
+    protected static SkullMeta getSkullByValue(@Nonnull SkullMeta head, @Nonnull String value) {
         Validate.notEmpty(value, "Skull value cannot be null or empty");
         GameProfile profile = new GameProfile(UUID.randomUUID(), null);
         profile.getProperties().put("textures", new Property("textures", value));
@@ -195,6 +188,7 @@ public class SkullUtils {
      * https://help.minecraft.net/hc/en-us/articles/360034636712
      *
      * @param name the username to check.
+     *
      * @return true if the string matches the Minecraft username rule, otherwise false.
      */
     private static boolean isUsername(@Nonnull String name) {
@@ -203,8 +197,7 @@ public class SkullUtils {
 
         // For some reasons Apache's Lists.charactersOf is faster than character indexing for small strings.
         for (char ch : Lists.charactersOf(name)) {
-            if (ch != '_' && !(ch >= 'A' && ch <= 'Z') && !(ch >= 'a' && ch <= 'z') && !(ch >= '0' && ch <= '9'))
-                return false;
+            if (ch != '_' && !(ch >= 'A' && ch <= 'Z') && !(ch >= 'a' && ch <= 'z') && !(ch >= '0' && ch <= '9')) return false;
         }
         return true;
     }

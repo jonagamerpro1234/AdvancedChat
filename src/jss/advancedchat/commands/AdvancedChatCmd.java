@@ -16,10 +16,10 @@ import jss.advancedchat.ColorFile;
 import jss.advancedchat.ConfigFile;
 import jss.advancedchat.PlayerDataFile;
 import jss.advancedchat.PlayerGuiFile;
-import jss.advancedchat.chat.Json;
+import jss.advancedchat.database.SQLGetter;
 import jss.advancedchat.inv.GuiColor;
 import jss.advancedchat.inv.GuiPlayer;
-import jss.advancedchat.inv.GuiTest;
+import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.UpdateSettings;
@@ -42,6 +42,9 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 		ColorFile colorFile = plugin.getColorFile();
 		PlayerGuiFile playerGuiFile = plugin.getPlayerGuiFile();
 		FileConfiguration config = configFile.getConfig();
+		SQLGetter sql = plugin.getSQLGetter();
+		PlayerManager manager = new PlayerManager(plugin);
+		
 		if (!(sender instanceof Player)) {
 			if (args.length >= 1) {
 				if (args[0].equalsIgnoreCase("info")) {
@@ -115,7 +118,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 						Utils.sendColorMessage(j, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 					} else {
 						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-						//Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
 					}
 					return true;
 				}
@@ -135,7 +137,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 						}
 					} else {
 						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-						//Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
 					}
 					return true;
 				}
@@ -150,13 +151,35 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 								Utils.sendColorMessage(j, config.getString("AdvancedChat.No-Online-Player"));
 								return true;
 							}
+							
+							
+							if(args.length >= 3) {
+								if(args[2].equalsIgnoreCase("set")) {
+									
+									String color = args[3];
+									
+									if(color == null) {
+										return true;
+									}
+									
+									if(Settings.mysql_use) {
+										sql.setColor(plugin.getMySQL(), playername, color);
+									}else {
+										manager.setColor(p, color);
+									}
+									return true;
+								}
+								
+								
+								return true;
+							}
+							
 							guiColor.openGuiColor(j, p.getName());
 							return true;
 						}
 						guiColor.openGuiColor(j, j.getName());
 					} else {
 						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-						//Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
 					}
 					return true;
 				}
@@ -173,15 +196,12 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 								return true;
 							}
 							guiPlayer.openPlayerGui(j, p.getName());
-
 						} else {
 							guiPlayer.openPlayerGui(j, j.getName());
 							return true;
 						}
 					} else {
-						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-						//Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
-					}
+						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);					}
 					return true;
 				}
 				if (args[0].equalsIgnoreCase("info")) {
@@ -193,24 +213,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					Utils.sendColorMessage(j, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 					return true;
 				}
-
-				// Test
-				if (args[0].equalsIgnoreCase("opent")) {
-					GuiTest test = new GuiTest();
-					test.test(j);
-					return true;
-				}
-				
-				if (args[0].equalsIgnoreCase("test")) {
-					List<String> t = new ArrayList<>();
-					t.add("1");
-					t.add("2");
-					t.add("3");
-					Json json = new Json(j, "&cHola");
-					json.setHover(t).setOpenURL("https://www.spigotmc.org/resources/advancedchat-1-7-x-1-16-x.83889/").send();
-					return true;
-				}
-
 				if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
 					Utils.sendColorMessage(j,
 							Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Error-Args"));
@@ -222,7 +224,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 			}
 		} else {
 			Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-			//Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
 			return true;
 		}
 		if (config.getString("Settings.Use-Default-Prefix").equals("true")) {

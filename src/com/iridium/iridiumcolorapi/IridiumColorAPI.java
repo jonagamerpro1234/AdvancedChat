@@ -5,6 +5,9 @@ import com.iridium.iridiumcolorapi.patterns.GradientPattern;
 import com.iridium.iridiumcolorapi.patterns.Pattern;
 import com.iridium.iridiumcolorapi.patterns.RainbowPattern;
 import com.iridium.iridiumcolorapi.patterns.SolidPattern;
+
+import jss.advancedchat.chat.patterns.GradientPattern2;
+import jss.advancedchat.chat.patterns.GradientPattern3;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
@@ -63,7 +66,7 @@ public class IridiumColorAPI {
      *
      * @since 1.0.2
      */
-    private static final List<Pattern> PATTERNS = Arrays.asList(new GradientPattern(), new SolidPattern(), new RainbowPattern());
+    private static final List<Pattern> PATTERNS = Arrays.asList(new GradientPattern(), new SolidPattern(), new RainbowPattern(), new GradientPattern2(), new GradientPattern3());
 
     /**
      * Processes a string to add color to it.
