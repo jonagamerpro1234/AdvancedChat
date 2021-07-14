@@ -3,7 +3,8 @@ package jss.advancedchat.utils;
 import java.util.List;
 
 public class Settings {
-
+	
+	public static boolean hook_vault;
 	public static String message_prefix_custom;
     public static String message_NoPermission;
     public static String message_NoPermission_Label;
@@ -25,6 +26,7 @@ public class Settings {
     public static String message_msg_empty;
     public static String message_msg_use;
     public static String mysql_host;
+    public static String inv_color_back;
     public static boolean mysql_usessl;
     public static int mysql_port;
     public static String mysql_user;

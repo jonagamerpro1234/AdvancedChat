@@ -1,6 +1,6 @@
 package jss.advancedchat.bungee;
 
-import jss.advancedchat.bungee.commands.AdvancedChatCmd;
+//import jss.advancedchat.bungee.commands.AdvancedChatCmd;
 import jss.advancedchat.bungee.utils.Utils;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
@@ -32,7 +32,7 @@ public class AdvancedChat extends Plugin {
     }
     
     public void setupCommands() {
-        registerCommand(new AdvancedChatCmd());
+       // registerCommand(new AdvancedChatCmd());
     }
 
     public void setupEvents() {

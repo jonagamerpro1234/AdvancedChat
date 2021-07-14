@@ -11,9 +11,10 @@ import com.comphenix.protocol.events.PacketEvent;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Settings;
 
-public class ProtocolLibHook {
+public class ProtocolLibHook{
 	
 	private final ProtocolManager manager = ProtocolLibrary.getProtocolManager();
+	
 	public void initPacketListening() {
 		
 		if(Settings.boolean_antitabcompleted) {

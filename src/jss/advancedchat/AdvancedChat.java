@@ -1,5 +1,6 @@
 package jss.advancedchat;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
@@ -63,6 +64,7 @@ public class AdvancedChat extends JavaPlugin {
     private ChatLogFile chatLogFile = new ChatLogFile(this, "chat.yml", "Log");
     private CommandLogFile commandLogFile = new CommandLogFile(this, "command.yml", "Log");
     private CommandFile commandFile = new CommandFile(this, "custom-command.yml");
+    private InventoryDataFile inventoryDataFile = new InventoryDataFile(this, "inventory.data", "Data");
     public String nmsversion;
     public boolean uselegacyversion = false;
     public Logger logger = new Logger(this);
@@ -70,6 +72,7 @@ public class AdvancedChat extends JavaPlugin {
     private ArrayList<InventoryPlayer> inventoryPlayers;
     private ArrayList<ChatManager> chatManagers;
     private ArrayList<OnlinePlayers> onlinePlayers;
+    private ArrayList<InventoryFile> inventoryFiles;
     private PreConfigLoader preConfigLoad = new PreConfigLoader(this);
     private MySQL mySQL = new MySQL();
 	private SQLGetter data = new SQLGetter();
@@ -78,6 +81,7 @@ public class AdvancedChat extends JavaPlugin {
     private boolean BungeeMode = false;
     private static IPacketSender iPacketSender;
     private static GsonBuilder gsonBuilder;
+    private HooksManager hooksManager = new HooksManager(this);
     
     public void onEnable() {
         Utils.setEnabled(version);
@@ -94,6 +98,7 @@ public class AdvancedChat extends JavaPlugin {
         }
         checkNMSVersion(nmsversion);
         plugin = this;
+        this.inventoryFiles = new ArrayList<>();
         if(AdvancedChat.isDebug()) {
         	plugin.logger.Log(Level.INFO, "Pre Config Load completed");
         }else {
@@ -103,7 +108,6 @@ public class AdvancedChat extends JavaPlugin {
         commandFile.create();
         try {
         	if(this.getConfigFile().getConfig().getString("Settings.BungeeMode").equals("false")) {
-                filemanager.createVoidFolder("Data");
                 playerdata.create();
                 BungeeMode = false;
         	} else if(this.getConfigFile().getConfig().getString("Settings.BungeeMode").equals("true")) {
@@ -114,15 +118,19 @@ public class AdvancedChat extends JavaPlugin {
         }catch(NullPointerException e) {
         	e.printStackTrace();
         }
-        filemanager.createVoidFolder("Log");
+        inventoryDataFile.create();
         chatLogFile.create();
         commandLogFile.create();
-        filemanager.createVoidFolder("Gui");
-        colorFile.create();
-        playerGuiFile.create();
+        InventoryFile file = new InventoryFile(this, colorFile.getPath());
+        file.create();
+        file = new InventoryFile(this, playerGuiFile.getPath());
+        file.create();
+        //colorFile.create();
+        //playerGuiFile.create();
         chatDataFile.create();
         channelGuiFile.create();
-        HooksManager.loadDependencies();
+        hooksManager.load();
+        HooksManager.loadProtocol();
         if(Settings.boolean_protocollib) {
         	if(HooksManager.isLoadProtocolLib()) {
         		HooksManager.InitPacketListening();
@@ -136,9 +144,9 @@ public class AdvancedChat extends JavaPlugin {
         this.chatManagers = new ArrayList<>();
         this.onlinePlayers = new ArrayList<>();
         loadCommands();
-        setEventUtils(new EventUtils(this));
         loadEvents();
-        setupSoftDepends();
+       // setupSoftDepends();
+
         new UpdateChecker(this, 83889).getUpdateVersion(version -> {
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
                 logger.Log(Level.SUCCESS, "&a" + this.name + " is up to date!");
@@ -168,12 +176,20 @@ public class AdvancedChat extends JavaPlugin {
     		getDataFolder().mkdirs();
     	}
     	Utils.setLineLoad("&eCheck DataFolder Exist!");
+    	this.eventUtils = new EventUtils(this);
+    	Utils.setLineLoad("&eLoading EventUtils");
     	Utils.setTitleLoad("&bLoading Files");
         configfile.saveDefaultConfig();
         configfile.create();
         Utils.setLineLoad("&eLoad Config.yml");
         preConfigLoad.load();
         Utils.setLineLoad("&eLoad Pre Config");
+        filemanager.createVoidFolder("Gui");
+        Utils.setLineLoad("&eLoad Gui Folder");
+        filemanager.createVoidFolder("Data");
+        Utils.setLineLoad("&eLoad Data Folder");
+        filemanager.createVoidFolder("Log");
+        Utils.setLineLoad("&eLoad Log Folder");
     	Utils.setEndLoad();
     }
     
@@ -221,6 +237,37 @@ public class AdvancedChat extends JavaPlugin {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void loadInventoryFile() {
+		File folder = new File(getDataFolder() + File.separator + "Gui");
+		File[] list = folder.listFiles();
+		
+		for(int i = 0; i < list.length; i++) {
+			if(list[i].isFile()) {
+				String name = list[i].getName();
+				InventoryFile file = new InventoryFile(this, name + ".yml");
+				file.create();
+				this.inventoryFiles.add(file);
+			}
+		}
+	}
+	
+	public InventoryFile getInventoryFile(String name) {
+		for(int i = 0; i < inventoryFiles.size(); i++) {
+			if(((InventoryFile)this.inventoryFiles.get(i)).getPath().equalsIgnoreCase(name)) {
+				return (InventoryFile)this.inventoryFiles.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public ArrayList<InventoryFile> getInventoryFiles(){
+		return this.inventoryFiles;
+	}
+	
+	public InventoryDataFile getInventoryDataFile() {
+		return this.inventoryDataFile;
 	}
 	
     public PlayerDataFile getPlayerDataFile() {
@@ -344,10 +391,6 @@ public class AdvancedChat extends JavaPlugin {
 
 	public EventUtils getEventUtils() {
 		return eventUtils;
-	}
-
-	public void setEventUtils(EventUtils eventUtils) {
-		this.eventUtils = eventUtils;
 	}
 
 	public boolean isBungeeMode() {

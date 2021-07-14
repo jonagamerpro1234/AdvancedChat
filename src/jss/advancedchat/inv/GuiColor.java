@@ -26,9 +26,7 @@ public class GuiColor {
     }
 
     public void openGuiColor(Player player, String player2) {
-        ColorFile colorFile = plugin.getColorFile();
-        FileConfiguration config = colorFile.getConfig();
-
+        FileConfiguration config = plugin.getColorFile().getConfig();
         String title = config.getString("Title");
         title = title.replace("<player>", player2);
         Inventory inv = Bukkit.createInventory(null, 45, Utils.color(title));
@@ -44,7 +42,15 @@ public class GuiColor {
         skullMeta = SkullUtils.applySkin(skullMeta, player2);
         item.setItemMeta(skullMeta);
         inv.setItem(36, item);
-
+        
+        
+        for(String key: config.getConfigurationSection("").getKeys(false)) {
+        	
+        	String mat = config.getString("Items." + key + ".");
+        	
+        }
+        
+        //old code
         for (String key : config.getConfigurationSection("Items").getKeys(false)) {
             String material = config.getString("Items." + key + ".Item");
             int slots = config.getInt("Items." + key + ".Slot");
@@ -99,7 +105,6 @@ public class GuiColor {
     }
 
     private void setDecoration(Inventory inv, ItemStack item, ItemMeta meta, String path) {
-
         for (int i = 0; i < 9; i++) {
             item = XMaterial.valueOf(path).parseItem();
             meta = item.getItemMeta();
