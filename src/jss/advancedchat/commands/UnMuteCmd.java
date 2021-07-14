@@ -51,7 +51,7 @@ public class UnMuteCmd implements CommandExecutor {
                 } else {
                 	manager.setMute(p, false);
                 }
-                Utils.sendColorMessage(sender, prefixserver + config.getString("AdvancedChat.UnMute-Player").replace("<name>", p.getName()));
+                Utils.sendColorMessage(sender, prefixserver + Utils.getVar(p, config.getString("AdvancedChat.UnMute-Player")));
                 return true;
             }
             Utils.sendColorMessage(sender, Utils.getPrefix() + " " + text);
@@ -79,11 +79,10 @@ public class UnMuteCmd implements CommandExecutor {
                 } else {
                 	manager.setMute(p, false);
                 }
-                Utils.sendColorMessage(j, prefix + config.getString("AdvancedChat.UnMute-Player").replace("<name>", p.getName()));
+                Utils.sendColorMessage(j, prefix + Utils.getVar(j, config.getString("AdvancedChat.UnMute-Player")));
                 return true;
             }
         } else {
-        	//Utils.sendHoverEventText(j, config.getString("AdvancedChat.No-Permission"),config.getString("AdvancedChat.No-Permission-Hover"));
             Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
         	return true;
         }

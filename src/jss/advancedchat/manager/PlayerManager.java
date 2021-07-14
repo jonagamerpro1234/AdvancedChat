@@ -15,6 +15,7 @@ public class PlayerManager {
     private float range;
     private int spam;
     private ColorManager colorManager;
+    private String stateMute;
     
     public PlayerManager(AdvancedChat plugin) {
         this.plugin = plugin;
@@ -55,7 +56,25 @@ public class PlayerManager {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public String getStateMute(Player player) {
+    	if(this.isMute(player) == false) {
+    		stateMute = "false";
+    	}else if(this.isMute(player) == true){
+    		stateMute ="true";
+    	}
+		return stateMute;
+	}
 
+    public String getStateMuteLore(Player player) {
+    	if(this.isMute(player) == false) {
+    		stateMute = "true";
+    	}else if(this.isMute(player) == true){
+    		stateMute ="false";
+    	}
+		return stateMute;
+	}
+    
     public boolean isMute(Player player) {
         FileConfiguration config = plugin.getPlayerDataFile().getConfig();
         for (String key : config.getConfigurationSection("Players").getKeys(false)) {

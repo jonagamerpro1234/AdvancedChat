@@ -1,0 +1,149 @@
+# |    AdvancedChat     |
+# | By jonagamerpro1234 |
+# |     Version 1.6.0   |
+# |_____________________|
+#
+Title: '&7&l<name> '
+Item-Back:
+  Name: '&c&lBack'
+  Item: RED_STAINED_GLASS_PANE
+  Options:
+    Use-Custom-Command: false
+    Command: '/profile'
+Items:
+  Rainbow:
+    Name: '&a&lR&e&la&b&li&d&ln&6&lb&3&lo&7&lw'
+    Item: black_wool
+    Item-Skull: player_head
+    Slot: 31
+    Lore:
+      - '&7Your chat would look like this: &e[&0H&6&be&al&dl&3o &7p&8la&9y&ce&1r&e]'
+      - '&b&nClick to select this chat color'
+  Black:
+    Name: '&0&lBlack'
+    Item: black_wool
+    Item-Skull: player_head
+    Slot: 32
+    Lore:
+      - '&7Your chat would look like this: &e[&0Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Blue:
+    Name: '&9&lBlue'
+    Item: blue_wool
+    Item-Skull: player_head
+    Slot: 13
+    Lore:
+      - '&7Your chat would look like this: &e[&9Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Dark-Gray:
+    Name: '&8&lDark Gray'
+    Item: gray_wool
+    Item-Skull: player_head
+    Slot: 25
+    Lore:
+      - '&7Your chat would look like this: &e[&8Hello player&e]'
+      - '&b&nClick to select this chat color'      
+  Gray:
+    Name: '&7&lGray'
+    Item: light_gray_wool
+    Item-Skull: player_head
+    Slot: 24
+    Lore:
+      - '&7Your chat would look like this: &e[&7Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Gold:
+    Name: '&6&lGold'
+    Item: orange_wool
+    Item-Skull: player_head
+    Slot: 19
+    Lore:
+      - '&7Your chat would look like this: &e[&6Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Dark-Purple:
+    Name: '&5&lDark Purple'
+    Item: purple_wool
+    Item-Skull: player_head
+    Slot: 23
+    Lore:
+      - '&7Your chat would look like this: &e[&5Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Dark-Red:
+    Name: '&4&lDark Red'
+    Item: light_gray_wool
+    Item-Skull: player_head
+    Slot: 10
+    Lore:
+      - '&7Your chat would look like this: &e[&4Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Dark-Aqua:
+    Name: '&3&lDark Aqua'
+    Item: light_gray_wool
+    Item-Skull: player_head
+    Slot: 20
+    Lore:
+      - '&7Your chat would look like this: &e[&3Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Dark-Blue:
+    Name: '&2&lDark Blue'
+    Item: light_gray_wool
+    Item-Skull: player_head
+    Slot: 12
+    Lore:
+      - '&7Your chat would look like this: &e[&2Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Dark-Green:
+    Name: '&1&lDark Green'
+    Item: light_gray_wool
+    Item-Skull: player_head
+    Slot: 14
+    Lore:
+      - '&7Your chat would look like this: &e[&1Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Green:
+    Name: '&a&lGreen'
+    Item: lime_wool
+    Item-Skull: player_head
+    Slot: 15
+    Lore:
+      - '&7Your chat would look like this: &e[&aHello player&e]'
+      - '&b&nClick to select this chat color'
+  Aqua:
+    Name: '&b&lAqua'
+    Item: cyan_wool
+    Item-Skull: player_head
+    Slot: 21
+    Lore:
+      - '&7Your chat would look like this: &e[&bHello player&e]'
+      - '&b&nClick to select this chat color'
+  Red:
+    Name: '&c&lRed'
+    Item: red_wool
+    Item-Skull: player_head
+    Slot: 11
+    Lore:
+      - '&7Your chat would look like this: &e[&cHello player&e]'
+      - '&b&nClick to select this chat color'
+  Light-Purple:
+    Name: '&7&lLight Purple'
+    Item: pink_wool
+    Item-Skull: player_head
+    Slot: 22
+    Lore:
+      - '&7Your chat would look like this: &e[&dHello player&e]'
+      - '&b&nClick to select this chat color'
+  Yellow:
+    Name: '&e&lYellow'
+    Item: yellow_wool
+    Item-Skull: player_head
+    Slot: 16
+    Lore:
+      - '&7Your chat would look like this: &a[&eHello player&a]'
+      - '&b&nClick to select this chat color'
+  White:
+    Name: '&f&lWhite'
+    Item: white_wool
+    Item-Skull: player_head
+    Slot: 30
+    Lore:
+      - '&7Your chat would look like this: &e[&fHello player&e]'
+      - '&b&nClick to select this chat color'
