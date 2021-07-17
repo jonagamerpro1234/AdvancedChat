@@ -78,12 +78,6 @@ public class MuteCmd implements CommandExecutor {
                 if((p.isOp()) || (p.hasPermission(""))) {
                     return true;
                 }else {
-                    /*if(Settings.mysql_use_t) {
-                    	sqlGetter.setMuted(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), true);
-                    }
-                    if(Settings.mysql_use_f){
-                    	manager.setMute(p, true);
-                    }*/
                     if(Settings.mysql_use) {
                     	sqlGetter.setMuted(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), true);
                     } else {

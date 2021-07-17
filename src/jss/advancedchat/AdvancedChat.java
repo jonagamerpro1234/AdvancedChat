@@ -106,9 +106,10 @@ public class AdvancedChat extends JavaPlugin {
         	Utils.sendLile();
         }
         commandFile.create();
+        playerdata.create();
         try {
         	if(this.getConfigFile().getConfig().getString("Settings.BungeeMode").equals("false")) {
-                playerdata.create();
+                
                 BungeeMode = false;
         	} else if(this.getConfigFile().getConfig().getString("Settings.BungeeMode").equals("true")) {
         		BungeeMode = true;
@@ -164,7 +165,6 @@ public class AdvancedChat extends JavaPlugin {
 
     public void onDisable() {
         Utils.setDisabled(version);
-        
         placeholder = false;
         metrics = null;
         uselegacyversion = false;
@@ -271,7 +271,7 @@ public class AdvancedChat extends JavaPlugin {
 	}
 	
     public PlayerDataFile getPlayerDataFile() {
-        return this.playerdata;
+        return playerdata;
     }
 
     public ConfigFile getConfigFile() {

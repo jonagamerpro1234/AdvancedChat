@@ -13,9 +13,10 @@ import jss.advancedchat.config.FileManager;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.interfaces.FileHelper;
+import jss.advancedchat.utils.interfaces.FileLoader;
 
 
-public class ConfigFile extends FileManager implements FileHelper {
+public class ConfigFile extends FileManager implements FileHelper, FileLoader {
 
     private AdvancedChat plugin;
     private File file;

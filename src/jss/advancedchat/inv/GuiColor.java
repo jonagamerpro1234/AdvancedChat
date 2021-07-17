@@ -14,19 +14,20 @@ import com.cryptomorin.xseries.SkullUtils;
 import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.ColorFile;
 import jss.advancedchat.utils.Utils;
 
 public class GuiColor {
 
     private AdvancedChat plugin;
-
+    
     public GuiColor(AdvancedChat plugin) {
         this.plugin = plugin;
     }
 
     public void openGuiColor(Player player, String player2) {
         FileConfiguration config = plugin.getColorFile().getConfig();
+        FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
+        
         String title = config.getString("Title");
         title = title.replace("<player>", player2);
         Inventory inv = Bukkit.createInventory(null, 45, Utils.color(title));
@@ -43,48 +44,59 @@ public class GuiColor {
         item.setItemMeta(skullMeta);
         inv.setItem(36, item);
         
+        String texture = "";
+        String id = "";
+        String namecolor = "";
+        boolean useSkull = invData.getString("Use-Custom-Skull-Color").equals("true");
         
-        for(String key: config.getConfigurationSection("").getKeys(false)) {
-        	
-        	String mat = config.getString("Items." + key + ".");
-        	
+        for(String key : invData.getConfigurationSection("Skull_Color_List").getKeys(false)) {
+        	texture = invData.getString("Skull_Color_List." + key + ".Texture");
+        	id = invData.getString("Skull_Color_List." + key + ".Id");  
+        	namecolor = invData.getString("Skull_Color_List." + key);
         }
         
-        //old code
         for (String key : config.getConfigurationSection("Items").getKeys(false)) {
+        	
             String material = config.getString("Items." + key + ".Item");
-            int slots = config.getInt("Items." + key + ".Slot");
             String name = config.getString("Items." + key + ".Name");
-            String useSkull = config.getString("Items." + key + ".Use-Custom-Skull");
-            String texture = config.getString("Items." + key + ".Texture");
-            String id = config.getString("Items." + key + ".ID");
-            int amont = config.getInt("Items." + key + ".Amount");
             List<String> lore = config.getStringList("Items." + key + ".Lore");
+            int slots = config.getInt("Items." + key + ".Slot");
+            int amont = config.getInt("Items." + key + ".Amount");
+            String ItemName = config.getString("Items." + key);
 
             item = XMaterial.valueOf(material).parseItem();
 
-            if (useSkull.contains("true")) {
-                item = Utils.setSkull(item, id, texture);
+            if (useSkull) {
+            	if(ItemName.contains(namecolor)) {
+            		 item = Utils.setSkull(item, id, texture);
+            	}
                 skullMeta = (SkullMeta) item.getItemMeta();
                 skullMeta.setDisplayName(Utils.color(name));
-                for (int i = 0; i < lore.size(); i++) {
-                    String text = (String) lore.get(i);
-                    text = Utils.color(text);
-                    text = Utils.getVar(player, text);
-                    lore.add(text);
+                if(lore != null) {
+					for (int i = 0; i < lore.size(); i++) {
+
+						String text = (String) lore.get(i);
+						text = Utils.color(text);
+						text = Utils.getVar(player, text);
+						lore.add(text);
+					}
+					skullMeta.setLore(lore);
                 }
-                skullMeta.setLore(lore);
+
                 item.setItemMeta(skullMeta);
-            } else if (useSkull.contains("false")) {
+            } else {
                 meta = item.getItemMeta();
                 meta.setDisplayName(Utils.color(name));
-                for (int i = 0; i < lore.size(); i++) {
-                    String text = (String) lore.get(i);
-                    text = Utils.color(text);
-                    text = Utils.getVar(player, text);
-                    lore.add(text);
+                if(lore != null) {
+					for (int i = 0; i < lore.size(); i++) {
+
+						String text = (String) lore.get(i);
+						text = Utils.color(text);
+						text = Utils.getVar(player, text);
+						lore.add(text);
+					}
+					skullMeta.setLore(lore);
                 }
-                meta.setLore(lore);
                 item.setItemMeta(meta);
             }
             item.setAmount(amont);

@@ -82,7 +82,7 @@ public class PlaceholderApiHook implements Hook {
 				if(Settings.mysql_use) {
 					return getter.getMuted(plugin.getMySQL(), player.getUniqueId().toString()) + "";
 				}else {
-					return manager.getStateMute(player);
+					return manager.isMute(player) + "";
 				}
 			}
 			

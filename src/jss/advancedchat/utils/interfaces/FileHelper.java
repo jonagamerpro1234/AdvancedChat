@@ -4,8 +4,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public interface FileHelper {
 
-    public void create();
-
     public FileConfiguration getConfig();
 
     public void saveConfig();
