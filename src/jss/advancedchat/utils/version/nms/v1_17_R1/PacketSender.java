@@ -12,7 +12,6 @@ import net.minecraft.network.protocol.game.PacketPlayOutChat;
 
 public class PacketSender extends IPacketSender{
 
-	@Override
 	protected void sendPlayOutChat(Player player, String jsonText, boolean dummy) {
 		IChatBaseComponent baseComponent = ChatSerializer.a(jsonText);
 		PacketPlayOutChat packetPlayOutChat = new PacketPlayOutChat(baseComponent, ChatMessageType.a, player.getUniqueId());
