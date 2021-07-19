@@ -16,11 +16,11 @@ import com.cryptomorin.xseries.XEnchantment;
 import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.inv.GuiColor;
-import jss.advancedchat.inv.GuiPlayer;
+import jss.advancedchat.inventory.GuiColor;
+import jss.advancedchat.inventory.GuiPlayer;
+import jss.advancedchat.inventory.utils.InventoryPlayer;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.EventUtils;
-import jss.advancedchat.utils.InventoryPlayer;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 
