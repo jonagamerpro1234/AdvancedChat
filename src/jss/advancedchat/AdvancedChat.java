@@ -28,18 +28,17 @@ import jss.advancedchat.events.EventLoader;
 import jss.advancedchat.events.InventoryListener;
 import jss.advancedchat.events.JoinListener;
 import jss.advancedchat.hooks.HooksManager;
+import jss.advancedchat.inventory.utils.InventoryPlayer;
+import jss.advancedchat.json.handlers.JsonClickEvent;
+import jss.advancedchat.json.handlers.JsonHoverEvent;
+import jss.advancedchat.json.serializers.SerializerClickEvent;
+import jss.advancedchat.json.serializers.SerializerHoverEvent;
 import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.utils.EventUtils;
-import jss.advancedchat.utils.InventoryPlayer;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.OnlinePlayers;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Logger.Level;
-import jss.advancedchat.utils.json.handlers.JsonClickEvent;
-import jss.advancedchat.utils.json.handlers.JsonHoverEvent;
-import jss.advancedchat.utils.json.serializers.SerializerClickEvent;
-import jss.advancedchat.utils.json.serializers.SerializerHoverEvent;
-import jss.advancedchat.utils.version.nms.IPacketSender;
 import jss.advancedchat.utils.UpdateSettings;
 import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
@@ -79,7 +78,7 @@ public class AdvancedChat extends JavaPlugin {
     private EventUtils eventUtils;
     public boolean uselatestversion = false;
     private boolean BungeeMode = false;
-    private static IPacketSender iPacketSender;
+
     private static GsonBuilder gsonBuilder;
     private HooksManager hooksManager = new HooksManager(this);
     
@@ -231,9 +230,10 @@ public class AdvancedChat extends JavaPlugin {
     
 	private void checkNMSVersion(String nmsversion) {
 		try {
-			Class<?> clazz = Class.forName("jss.advancedchat.utils.version.nms"+ "." + nmsversion + "." + "PacketSender");
-			iPacketSender = (IPacketSender) clazz.newInstance();
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			@SuppressWarnings("unused")
+			Class<?> clazz = Class.forName("jss.advancedchat.nms.versions"+ "." + nmsversion + "." + "PacketSender");
+			//iPacketSender = (IPacketSender) clazz.newInstance();
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 
@@ -399,10 +399,6 @@ public class AdvancedChat extends JavaPlugin {
 
 	public void setBungeeMode(boolean isBungeeMode) {
 		this.BungeeMode = isBungeeMode;
-	}
-
-	public static IPacketSender getiPacketSender() {
-		return iPacketSender;
 	}
 
 	public static Gson getGson() {
