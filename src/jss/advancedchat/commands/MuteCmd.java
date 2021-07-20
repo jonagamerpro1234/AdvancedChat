@@ -8,8 +8,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.database.SQLGetter;
 import jss.advancedchat.manager.PlayerManager;
+import jss.advancedchat.storage.SQLGetter;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 
