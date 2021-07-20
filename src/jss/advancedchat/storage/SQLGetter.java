@@ -1,4 +1,4 @@
-package jss.advancedchat.database;
+package jss.advancedchat.storage;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
