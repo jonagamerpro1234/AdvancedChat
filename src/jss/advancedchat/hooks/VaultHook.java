@@ -8,23 +8,26 @@ import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.Utils;
-import jss.advancedchat.utils.interfaces.Hook;
+//import jss.advancedchat.utils.interfaces.Hook;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
-public class VaultHook implements Hook{
+public class VaultHook {
 
-	private final HooksManager hooksManager;
-	private AdvancedChat plugin = AdvancedChat.getPlugin();
+	private AdvancedChat plugin;
 	private Logger logger = new Logger(plugin);
 	private EventUtils eventUtils = new EventUtils(plugin);
-	private Permission permission;
-	private Economy economy;
-	private Chat chat;
+	
+	public static Permission permission;
+	public static Economy economy;
+	public static Chat chat;
 
-	public VaultHook(HooksManager hooksManager) {
-		this.hooksManager = hooksManager;
+	public VaultHook(AdvancedChat plugin) {
+		this.plugin = plugin;
+		permission = null;
+		chat = null;
+		economy = null;
 	}
 
 	public void setup() {
@@ -32,11 +35,9 @@ public class VaultHook implements Hook{
 			logger.Log(Level.WARNING, "vault not enabled! - Disable Features...");
 			return;
 		}
-		
 		/*if(!Settings.hook_vault) {
 			return;
 		}*/
-		
 		Utils.sendColorConsoleMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&aLoading vault features...");
 		RegisteredServiceProvider<Economy> rspE = Bukkit.getServer().getServicesManager().getRegistration(Economy.class);
 		RegisteredServiceProvider<Permission> rspP = Bukkit.getServer().getServicesManager().getRegistration(Permission.class);
@@ -52,20 +53,10 @@ public class VaultHook implements Hook{
 			chat = rspC.getProvider();
 		}
 	}
-
-	public Permission getPermission() {
-		return permission;
-	}
-
-	public Economy getEconomy() {
-		return economy;
-	}
-
-	public Chat getChat() {
-		return chat;
-	}
 	
-	public HooksManager getHooksManager() {
-		return hooksManager;
+	public static boolean setupPermission() {
+		
+		return false;
 	}
+
 }

@@ -1,8 +1,10 @@
 package jss.advancedchat.events;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -14,6 +16,7 @@ import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.ChatDataFile;
 import jss.advancedchat.ChatLogFile;
 import jss.advancedchat.chat.Json;
+import jss.advancedchat.hooks.VaultHook;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.SQLGetter;
 import jss.advancedchat.utils.Utils;
@@ -38,7 +41,7 @@ public class ChatListener implements Listener {
 
     @SuppressWarnings({ "unused", "deprecation" })
 	//@EventHandler(priority = EventPriority.HIGH)
-    public void chatFormat(AsyncPlayerChatEvent e) {
+    public void chatFormat0(AsyncPlayerChatEvent e) {
         PlayerManager manager = new PlayerManager(plugin);
         FileConfiguration config = plugin.getConfigFile().getConfig();
         Player j = e.getPlayer();
@@ -96,9 +99,7 @@ public class ChatListener implements Listener {
                             	json.setHover(hovertext).sendDoubleToAll();
                             }
                     	}
-
-                    }
-                    
+                    }        
                 } else if (config.getString(pathtype).equals("hover")) {
                     TextComponent tc = new TextComponent(e.getFormat());
                     tc.setText(format);
@@ -155,13 +156,11 @@ public class ChatListener implements Listener {
                     if (config.getString(pathtype).equals("normal")) {
                         if (j.hasPermission(perm)) {
                             e.setFormat(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage()));
-
                         }
                     } else if (config.getString(pathtype).equals("experimental")) {
                         if (j.hasPermission(perm)) {
                             e.setFormat(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage()));
                             String msg = e.getMessage();
-
                             e.setMessage(Utils.color(manager.getColor(j, msg)));
                         }
                     } else if (config.getString(pathtype).equals("hover")) {
@@ -215,6 +214,88 @@ public class ChatListener implements Listener {
         }
     }
 
+    @EventHandler( priority = EventPriority.HIGH )
+    public void chatFormat(AsyncPlayerChatEvent e) {
+    	e.setCancelled(true);
+    	FileConfiguration config = plugin.getConfigFile().getConfig();
+    	Player j = e.getPlayer();
+    	String msg = e.getMessage();
+    	String formatprefix = "";
+    	String formatmessage = "";
+    	List<String> hover = new ArrayList<String>();
+    	String vaultkey = VaultHook.permission.getPrimaryGroup(j);
+    	Set<String> key = config.getConfigurationSection("ChatFormat.Groups").getKeys(false);
+    	SQLGetter sql = plugin.getSQLGetter();
+    	PlayerManager manager = new PlayerManager(plugin);
+    	
+    	if(config.getBoolean("ChatFormat.Enabled")) {
+    		if(config.getBoolean("ChatFormat.Use-Vault-Group")) {
+        		if(config.getConfigurationSection("ChatFormat.Groups." + vaultkey) != null) {
+        			formatprefix = config.getString("ChatFormat.Groups." + vaultkey + ".Format.Prefix");
+        			formatmessage = config.getString("ChatFormat.Groups." + vaultkey + ".Format.Message");
+        			if(config.getConfigurationSection("ChatFormat.Groups." + vaultkey + ".HoverEvent") != null) {
+        				List<String> list = config.getStringList("ChatFormat.Groups." + vaultkey + ".HoverEvent");
+        				for(int i = 0; i < list.size(); i++) {
+        					String text = (String) list.get(i);
+        					hover.add(text);
+        				}
+        			}
+        		}else {
+        			formatprefix = config.getString("ChatFormat.Default.Format.Prefix");
+        			formatmessage = config.getString("ChatFormat.Default.Format.Message");
+        			if(config.getConfigurationSection("ChatFormat.Default.HoverEvent") != null) {
+        				List<String> list = config.getStringList("ChatFormat.Default.HoverEvent");
+        				for(int i = 0; i < list.size(); i++) {
+        					String text = (String) list.get(i);
+        					hover.add(text);
+        				}
+        			}
+        		}
+    		}else {
+        		if(config.getConfigurationSection("ChatFormat.Groups." + key) != null) {
+        			formatprefix = config.getString("ChatFormat.Groups." + key + ".Format.Prefix");
+        			formatmessage = config.getString("ChatFormat.Groups." + key + ".Format.Message");
+        			if(config.getConfigurationSection("ChatFormat.Groups." + key + ".HoverEvent") != null) {
+        				List<String> list = config.getStringList("ChatFormat.Groups." + key + ".HoverEvent");
+        				for(int i = 0; i < list.size(); i++) {
+        					String text = (String) list.get(i);
+        					hover.add(text);
+        				}
+        			}
+        		}else {
+        			formatprefix = config.getString("ChatFormat.Default.Format.Prefix");
+        			formatmessage = config.getString("ChatFormat.Default.Format.Message");
+    				List<String> list = config.getStringList("ChatFormat.Default.HoverEvent");
+    				for(int i = 0; i < list.size(); i++) {
+    					String text = (String) list.get(i);
+    					hover.add(text);
+    				}
+        		}
+    		}
+
+    		formatprefix = formatprefix.replace("<player>", j.getDisplayName());
+    		formatmessage = formatmessage.replace("<message>", msg);
+    		
+    		if(Settings.mysql_use) {
+                if (sql.getMuted(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) == true|| Settings.boolean_filter_use_msg) {
+                    return;
+                }else {
+            		Json json = new Json(j, formatprefix, formatmessage);
+            		json.setHover(hover).sendDoubleToAll();
+                }
+        	}else {
+                if (manager.isMute(j) == true|| this.badword) {
+                	this.badword = false;
+                    return;
+                }else {
+            		Json json = new Json(j, formatprefix, formatmessage);
+            		json.setHover(hover).sendDoubleToAll();
+                }
+        	}
+
+    	}
+    }
+    
     @EventHandler
     public void chatDataLog(AsyncPlayerChatEvent e) {
         ChatDataFile chatDataFile = plugin.getChatDataFile();
@@ -252,25 +333,77 @@ public class ChatListener implements Listener {
         String censorship = config.getString("Filter-Chat.Form-Of-Censorship");
         String msg = config.getString("Filter-Chat.Message");
         String message = e.getMessage().toLowerCase();
+    	String formatprefix = "";
+    	String formatmessage = "";
+    	List<String> hover = new ArrayList<String>();
+    	String vaultkey = VaultHook.permission.getPrimaryGroup(j);
+    	Set<String> key = config.getConfigurationSection("ChatFormat.Groups").getKeys(false);
+    	
+		if(config.getBoolean("ChatFormat.Use-Vault-Group")) {
+    		if(config.getConfigurationSection("ChatFormat.Groups." + vaultkey) != null) {
+    			formatprefix = config.getString("ChatFormat.Groups." + vaultkey + ".Format.Prefix");
+    			formatmessage = config.getString("ChatFormat.Groups." + vaultkey + ".Format.Message");
+    			if(config.getConfigurationSection("ChatFormat.Groups." + vaultkey + ".HoverEvent") != null) {
+    				List<String> listh = config.getStringList("ChatFormat.Groups." + vaultkey + ".HoverEvent");
+    				for(int i = 0; i < listh.size(); i++) {
+    					String text = (String) listh.get(i);
+    					hover.add(text);
+    				}
+    			}
+    		}else {
+    			formatprefix = config.getString("ChatFormat.Default.Format.Prefix");
+    			formatmessage = config.getString("ChatFormat.Default.Format.Message");
+    			if(config.getConfigurationSection("ChatFormat.Default.HoverEvent") != null) {
+    				List<String> listh = config.getStringList("ChatFormat.Default.HoverEvent");
+    				for(int i = 0; i < listh.size(); i++) {
+    					String text = (String) listh.get(i);
+    					hover.add(text);
+    				}
+    			}
+    		}
+		}else {
+    		if(config.getConfigurationSection("ChatFormat.Groups." + key) != null) {
+    			formatprefix = config.getString("ChatFormat.Groups." + key + ".Format.Prefix");
+    			formatmessage = config.getString("ChatFormat.Groups." + key + ".Format.Message");
+    			if(config.getConfigurationSection("ChatFormat.Groups." + key + ".HoverEvent") != null) {
+    				List<String> listh = config.getStringList("ChatFormat.Groups." + key + ".HoverEvent");
+    				for(int i = 0; i < listh.size(); i++) {
+    					String text = (String) listh.get(i);
+    					hover.add(text);
+    				}
+    			}
+    		}else {
+    			formatprefix = config.getString("ChatFormat.Default.Format.Prefix");
+    			formatmessage = config.getString("ChatFormat.Default.Format.Message");
+				List<String> listh = config.getStringList("ChatFormat.Default.HoverEvent");
+				for(int i = 0; i < list.size(); i++) {
+					String text = (String) listh.get(i);
+					hover.add(text);
+				}
+    		}
+		}
+		
+		formatprefix = formatprefix.replace("<player>", j.getDisplayName());
+		
         if (config.getString(path).equals("true")) {
             for (int i = 0; i < list.size(); i++) {
             	
             	if(Settings.boolean_filter_use_msg) {
             		if(message.contains(list.get(i))) {
             			this.badword = true;
-            			e.setCancelled(true);
-            			msg = Utils.getVar(j, msg);
             			Utils.sendColorMessage(j, msg);
             		}
             	}else {
             		message = message.toLowerCase();
             		if(message.contains(list.get(i))) {
-            			String a = " ";
+            			this.badword = true;
+            			String a = "";
             			for(int g = 0; g < list.size(); g++) {
             				a = a + censorship;
             			}
             			message = message.replace(list.get(i), a);
-            			e.setMessage(message);
+                		Json json = new Json(j, formatprefix, formatmessage.replace("<message>", message));
+                		json.setHover(hover).sendDoubleToAll();
             		}
             	}
             }

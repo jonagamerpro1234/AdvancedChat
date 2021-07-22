@@ -4,17 +4,27 @@
 # |_____________________|
 #
 Title: '&7&l<name> '
-Item-Back:
-  Name: '&c&lBack'
-  Item: RED_STAINED_GLASS_PANE
-  Options:
-    Use-Custom-Command: false
-    Command: '/profile'
+Items-Scroll:
+  Next:
+    Name: '&a&lNext Menu'
+    Item: stone
+    Texture: '[next]'
+    Slot: 5
+  Last:
+    Name: '&e&lLast Menu'
+    Item: stone
+    Texture: '[last]'
+    Slot: 3
+  Exit:
+    Name: '&c&lExit'
+    Item: stone
+    Texture: '[exit]'
+    Slot: 0
 Items:
   Rainbow:
     Name: '&a&lR&e&la&b&li&d&ln&6&lb&3&lo&7&lw'
     Item: black_wool
-    Item-Skull: player_head
+    Texture: '[rainbow]'
     Slot: 31
     Lore:
       - '&7Your chat would look like this: &e[&0H&6&be&al&dl&3o &7p&8la&9y&ce&1r&e]'
@@ -22,7 +32,7 @@ Items:
   Black:
     Name: '&0&lBlack'
     Item: black_wool
-    Item-Skull: player_head
+    Texture: '[black]'
     Slot: 32
     Lore:
       - '&7Your chat would look like this: &e[&0Hello player&e]'
@@ -30,7 +40,7 @@ Items:
   Blue:
     Name: '&9&lBlue'
     Item: blue_wool
-    Item-Skull: player_head
+    Texture: '[blue]'
     Slot: 13
     Lore:
       - '&7Your chat would look like this: &e[&9Hello player&e]'
@@ -38,7 +48,7 @@ Items:
   Dark-Gray:
     Name: '&8&lDark Gray'
     Item: gray_wool
-    Item-Skull: player_head
+    Texture: '[dark_gray]'
     Slot: 25
     Lore:
       - '&7Your chat would look like this: &e[&8Hello player&e]'
@@ -46,7 +56,7 @@ Items:
   Gray:
     Name: '&7&lGray'
     Item: light_gray_wool
-    Item-Skull: player_head
+    Texture: '[gray]'
     Slot: 24
     Lore:
       - '&7Your chat would look like this: &e[&7Hello player&e]'
@@ -54,7 +64,7 @@ Items:
   Gold:
     Name: '&6&lGold'
     Item: orange_wool
-    Item-Skull: player_head
+    Texture: '[gold]'
     Slot: 19
     Lore:
       - '&7Your chat would look like this: &e[&6Hello player&e]'
@@ -62,7 +72,7 @@ Items:
   Dark-Purple:
     Name: '&5&lDark Purple'
     Item: purple_wool
-    Item-Skull: player_head
+    Texture: '[dark_purple]'
     Slot: 23
     Lore:
       - '&7Your chat would look like this: &e[&5Hello player&e]'
@@ -70,7 +80,7 @@ Items:
   Dark-Red:
     Name: '&4&lDark Red'
     Item: light_gray_wool
-    Item-Skull: player_head
+    Texture: '[dark_red]'
     Slot: 10
     Lore:
       - '&7Your chat would look like this: &e[&4Hello player&e]'
@@ -78,7 +88,7 @@ Items:
   Dark-Aqua:
     Name: '&3&lDark Aqua'
     Item: light_gray_wool
-    Item-Skull: player_head
+    Texture: '[dark_aqua]'
     Slot: 20
     Lore:
       - '&7Your chat would look like this: &e[&3Hello player&e]'
@@ -86,7 +96,7 @@ Items:
   Dark-Blue:
     Name: '&2&lDark Blue'
     Item: light_gray_wool
-    Item-Skull: player_head
+    Texture: '[dark_blue]'
     Slot: 12
     Lore:
       - '&7Your chat would look like this: &e[&2Hello player&e]'
@@ -94,7 +104,7 @@ Items:
   Dark-Green:
     Name: '&1&lDark Green'
     Item: light_gray_wool
-    Item-Skull: player_head
+    Texture: '[dark_green]'
     Slot: 14
     Lore:
       - '&7Your chat would look like this: &e[&1Hello player&e]'
@@ -102,7 +112,7 @@ Items:
   Green:
     Name: '&a&lGreen'
     Item: lime_wool
-    Item-Skull: player_head
+    Texture: '[green]'
     Slot: 15
     Lore:
       - '&7Your chat would look like this: &e[&aHello player&e]'
@@ -110,7 +120,7 @@ Items:
   Aqua:
     Name: '&b&lAqua'
     Item: cyan_wool
-    Item-Skull: player_head
+    Texture: '[aqua]'
     Slot: 21
     Lore:
       - '&7Your chat would look like this: &e[&bHello player&e]'
@@ -118,7 +128,7 @@ Items:
   Red:
     Name: '&c&lRed'
     Item: red_wool
-    Item-Skull: player_head
+    Texture: '[red]'
     Slot: 11
     Lore:
       - '&7Your chat would look like this: &e[&cHello player&e]'
@@ -126,7 +136,7 @@ Items:
   Light-Purple:
     Name: '&7&lLight Purple'
     Item: pink_wool
-    Item-Skull: player_head
+    Texture: '[light_purple]'
     Slot: 22
     Lore:
       - '&7Your chat would look like this: &e[&dHello player&e]'
@@ -134,7 +144,7 @@ Items:
   Yellow:
     Name: '&e&lYellow'
     Item: yellow_wool
-    Item-Skull: player_head
+    Texture: '[yellow]'
     Slot: 16
     Lore:
       - '&7Your chat would look like this: &a[&eHello player&a]'
@@ -142,7 +152,7 @@ Items:
   White:
     Name: '&f&lWhite'
     Item: white_wool
-    Item-Skull: player_head
+    Texture: '[white]'
     Slot: 30
     Lore:
       - '&7Your chat would look like this: &e[&fHello player&e]'

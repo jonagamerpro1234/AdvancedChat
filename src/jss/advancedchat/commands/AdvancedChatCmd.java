@@ -144,14 +144,13 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					if ((j.isOp()) || (j.hasPermission("AdvancedChat.Admin.Gui.Color"))) {
 						GuiColor guiColor = new GuiColor(plugin);
 
-						if (args.length >= 1) {
+						if (args.length >= 2) {
 							String playername = args[1];
 							Player p = Bukkit.getPlayer(playername);
 							if (p == null) {
 								Utils.sendColorMessage(j, config.getString("AdvancedChat.No-Online-Player"));
 								return true;
 							}
-							
 							
 							if(args.length >= 3) {
 								if(args[2].equalsIgnoreCase("set")) {
@@ -169,8 +168,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 									}
 									return true;
 								}
-								
-								
 								return true;
 							}
 							

@@ -20,12 +20,11 @@ import jss.advancedchat.commands.UnMuteCmd;
 import jss.advancedchat.config.FileManager;
 import jss.advancedchat.config.PreConfigLoader;
 import jss.advancedchat.events.ChatListener;
-import jss.advancedchat.events.ChatListener0;
 import jss.advancedchat.events.CommandListener;
 import jss.advancedchat.events.EventLoader;
 import jss.advancedchat.events.InventoryListener;
 import jss.advancedchat.events.JoinListener;
-import jss.advancedchat.hooks.HooksManager;
+import jss.advancedchat.hooks.HookManager;
 import jss.advancedchat.inventory.utils.InventoryPlayer;
 import jss.advancedchat.json.handlers.JsonClickEvent;
 import jss.advancedchat.json.handlers.JsonHoverEvent;
@@ -80,7 +79,7 @@ public class AdvancedChat extends JavaPlugin {
     private boolean BungeeMode = false;
 
     private static GsonBuilder gsonBuilder;
-    private HooksManager hooksManager = new HooksManager(this);
+    private HookManager HookManager = new HookManager(this);
     
     public void onEnable() {
         Utils.setEnabled(version);
@@ -89,13 +88,13 @@ public class AdvancedChat extends JavaPlugin {
         if (nmsversion.equalsIgnoreCase("v1_8_R3")) {
             uselegacyversion = true;
             if (uselegacyversion) {
-                Utils.sendColorMessage(c, Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &cdisabled &7method &b1.16");
+                Utils.sendColorMessage(c, Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &cdisabled &7method &b1.16 &7and &e1.17");
             }
         } else if (nmsversion.equalsIgnoreCase("v1_16_R1") || nmsversion.equalsIgnoreCase("v1_16_R2") || nmsversion.equalsIgnoreCase("v1_16_R3")) {
             uselatestversion = true;
         	Utils.sendColorMessage(c, Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
         }
-        checkNMSVersion(nmsversion);
+        //checkNMSVersion(nmsversion);
         plugin = this;
         this.inventoryFiles = new ArrayList<>();
         if(AdvancedChat.isDebug()) {
@@ -121,19 +120,14 @@ public class AdvancedChat extends JavaPlugin {
         inventoryDataFile.create();
         chatLogFile.create();
         commandLogFile.create();
-        InventoryFile file = new InventoryFile(this, colorFile.getPath());
-        file.create();
-        file = new InventoryFile(this, playerGuiFile.getPath());
-        file.create();
-        //colorFile.create();
-        //playerGuiFile.create();
+        colorFile.create();
+        playerGuiFile.create();
         chatDataFile.create();
         channelGuiFile.create();
-        hooksManager.load();
-        HooksManager.loadProtocol();
+        HookManager.loadProtocol();
         if(Settings.boolean_protocollib) {
-        	if(HooksManager.isLoadProtocolLib()) {
-        		HooksManager.InitPacketListening();
+        	if(HookManager.isLoadProtocolLib()) {
+        		HookManager.InitPacketListening();
         	}else {    			
         		Logger.Warning(getConfigFile().getConfig().getString("AdvancedChat.Depend-Plugin") + " " + "&e[&bProtocolLib&e]");
         	}
@@ -210,7 +204,7 @@ public class AdvancedChat extends JavaPlugin {
         new JoinListener(this);
         new InventoryListener(this);
         new ChatListener(this);
-        new ChatListener0(this);
+        //new ChatListener0(this);
         new CommandListener(this);
         EventLoader eventLoader = new EventLoader(this);
         eventLoader.runClearChat();
@@ -228,16 +222,16 @@ public class AdvancedChat extends JavaPlugin {
         }
 	}
     
+	/*@SuppressWarnings("unused")
 	private void checkNMSVersion(String nmsversion) {
 		try {
-			@SuppressWarnings("unused")
 			Class<?> clazz = Class.forName("jss.advancedchat.nms.versions"+ "." + nmsversion + "." + "PacketSender");
 			//iPacketSender = (IPacketSender) clazz.newInstance();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 
-	}
+	}*/
 	
 	public void loadInventoryFile() {
 		File folder = new File(getDataFolder() + File.separator + "Gui");
@@ -302,10 +296,14 @@ public class AdvancedChat extends JavaPlugin {
 		return channelGuiFile;
 	}
 
-	public boolean getPlaceHolderState() {
-        return this.placeholder;
-    }
+	//public boolean getPlaceHolderState() {
+   //     return this.placeholder;
+  //  }/
 
+    public HookManager getHookManager() {
+    	return HookManager;
+    }
+    
 	public MySQL getMySQL() {
 		return this.mySQL;
 	}

@@ -22,18 +22,51 @@ Settings:
   Update: true
   Use-Default-Prefix: true
   Prefix: '&6[&bMy Server&6]&7'
-  ChatFormat-Type: custom
   Custom-Commands: false
   ClearChat:
     AutoClear: true
     Tick: 24000
+#
+# | ChatFormat |
+#
+ChatFormat:
+  #
+  #
+  #
+  Enabled: true
+  #
+  #
+  #
+  Default:
+    Format: 
+      Prefix: '<player>'
+      Message: '&8> &7<message>'
+    HoverEvent:
+      - ''
+      - ''
+      - ''
+  #
+  #
+  #
+  Use-Vault-Group: false
+  #
+  Groups:
+    Default:
+      Format: ''
+      HoverEvent:
+        - ''
+        - ''
+        - ''
+  
+  Debug-Format: '<&f<player>&f> &f<message>'
+  
 #
 # |MySQL|
 #
 MySQL:
   Use-SSL: false
   Host: localhost
-  Port: 3306'
+  Port: 3306
   Database: advancedchatDB
   User: root
   Password: 1234
@@ -73,10 +106,6 @@ Command-Blocker:
 ProtocolLib-Packet:
   Enabled: true
   Disable-TabCompleted: true 
-#
-# | Default |
-# | This section serves as an emergency backup in case any of the other functions do not work properly. |
-Default-Format: '<&f<name>&f> &f<msg>'
 #
 # | Custom |
 # | here you can customize the chat in a general way that affects both ranks, groups, and has all players |

@@ -12,12 +12,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import com.cryptomorin.xseries.SkullUtils;
 import com.cryptomorin.xseries.XEnchantment;
 import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
+import jss.advancedchat.utils.SkullUtils;
 import jss.advancedchat.utils.Utils;
 
 public class GuiPlayer {
@@ -29,14 +29,13 @@ public class GuiPlayer {
     }
 
     public void openPlayerGui(Player player, String player2) {
-
         FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
+        FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
+        
+        String title = config.getString("Title");
+        String colorglass = invData.getString("Color-Glass.Color");
 
-        String title = config.getString("Player-Gui.Title");
-        String pathcolor = config.getString("Player-Gui.Decoration.Glass-Color.Item");
-
-        title = title.replace("<player>", player2);
-        Inventory inv = Bukkit.createInventory(null, 36, Utils.color(title));
+        Inventory inv = Bukkit.createInventory(null, 54, Utils.color(title));
 
         ItemStack item = null;
         ItemMeta meta = null;
@@ -44,20 +43,24 @@ public class GuiPlayer {
 
         Player p = Bukkit.getPlayer(player2);
 
-        setDecorationPlayer(inv, item, meta, pathcolor);
-        //player head
-        item = XMaterial.PLAYER_HEAD.parseItem();
-        skullmeta = (SkullMeta) item.getItemMeta();
-        skullmeta.setDisplayName(Utils.color("&6&l&n" + player2));
-        skullmeta = SkullUtils.applySkin(skullmeta, player2);
-        item.setItemMeta(skullmeta);
-        inv.setItem(10, item);
-        //mute
-        setMuteItem(config,p, inv, item, meta);
+        setDecoration(inv, item, meta, colorglass);
+        item = Utils.getPlayerHead(player2);
+        inv.setItem(4, item);
+        
+        for(String key : config.getConfigurationSection("Items-Scroll").getKeys(false)) {
+        	int slot = config.getInt("Items-Scroll." + key + ".Slot");
+        	String textures = config.getString("Items-Scroll." + key + ".Texture");
+        	textures = SkullUtils.replace(textures);
+        	
+        	item = Utils.createSkull(textures);
+        	
+        	inv.setItem(slot, item);
+        }
+        
+        
+        
 
-        //color
-
-        String material = config.getString("Player-Gui.Items.Color.Item");
+       /* String material = config.getString("Player-Gui.Items.Color.Item");
         String useSkull = config.getString("Player-Gui.Items.Color.Use-Custom-Skull");
         String name = config.getString("Player-Gui.Items.Color.Name");
         String texture = config.getString("Player-Gui.Items.Color.Texture");
@@ -74,12 +77,26 @@ public class GuiPlayer {
             meta.setDisplayName(Utils.color(name));
             item.setItemMeta(meta);
         }
-        inv.setItem(16, item);
+        inv.setItem(16, item);*/
 
         player.openInventory(inv);
-        plugin.addInventoryPlayer(player, "player");
+        //plugin.addInventoryPlayer(player, "player");
     }
 
+    private void setDecoration(Inventory inv, ItemStack item, ItemMeta meta, String path) {
+        for(int i = 0 ; i < 54; i++) {
+            item = XMaterial.valueOf(path).parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(Utils.color(" "));
+            item.setItemMeta(meta);
+            item.setAmount(1);
+            inv.setItem(i, item);
+
+            if (i == 54) {
+                break;
+            }
+        }
+    }
 
     private void setMuteItem(FileConfiguration config, Player player, Inventory inv, ItemStack item, ItemMeta meta) {
 

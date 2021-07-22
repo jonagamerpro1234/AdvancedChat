@@ -9,20 +9,20 @@ import jss.advancedchat.storage.SQLGetter;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Utils;
-import jss.advancedchat.utils.interfaces.Hook;
+//import jss.advancedchat.utils.interfaces.Hook;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.Settings;
 
-public class PlaceholderApiHook implements Hook {
+public class PlaceholderApiHook {
 	
 	private AdvancedChat plugin = AdvancedChat.getPlugin();
-	private HooksManager hooksManager;
+	private HookManager hooksManager;
 	private Logger logger = new Logger(plugin);
 	private EventUtils eventUtils = new EventUtils(plugin);
 	private boolean isEnabled;
 	
-	public PlaceholderApiHook(HooksManager hooksManager) {
+	public PlaceholderApiHook(HookManager hooksManager) {
 		this.hooksManager = hooksManager;
 	}
 
@@ -42,7 +42,7 @@ public class PlaceholderApiHook implements Hook {
 		return isEnabled;
 	}
 
-	public HooksManager getHooksManager() {
+	public HookManager getHooksManager() {
 		return hooksManager;
 	}
 	
@@ -67,7 +67,7 @@ public class PlaceholderApiHook implements Hook {
 		}
 		
 		public String getIdentifier() {
-			return "ac";
+			return "advancedchat";
 		}
 		
 		public String getVersion() {
@@ -80,9 +80,13 @@ public class PlaceholderApiHook implements Hook {
 			
 			if(args.equals("mute_state")) {
 				if(Settings.mysql_use) {
-					return getter.getMuted(plugin.getMySQL(), player.getUniqueId().toString()) + "";
+					if(getter.getMuted(plugin.getMySQL(), player.getUniqueId().toString())) {
+						return "true";
+					}
 				}else {
-					return manager.isMute(player) + "";
+					if(manager.isMute(player)){
+						return "true 	";
+					}
 				}
 			}
 			
