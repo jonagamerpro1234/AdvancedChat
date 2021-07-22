@@ -10,10 +10,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import com.cryptomorin.xseries.SkullUtils;
 import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.utils.SkullUtils;
 import jss.advancedchat.utils.Utils;
 
 public class GuiColor {
@@ -24,7 +24,7 @@ public class GuiColor {
         this.plugin = plugin;
     }
 
-    public void openGuiColor(Player player, String player2) {
+    public void openGuiColor0(Player player, String player2) {
         FileConfiguration config = plugin.getColorFile().getConfig();
         FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
         
@@ -34,42 +34,29 @@ public class GuiColor {
         ItemStack item = null;
         SkullMeta skullMeta = null;
         ItemMeta meta = null;
-        String materialglass = config.getString("Decoration.Glass-Color.Item");
-        setDecoration(inv, item, meta, materialglass);
+        
+        boolean useSkull = invData.getBoolean("Use-Custom-Skull-Color");
+        int amont = invData.getInt("Amount-Items");
+        String colorglass = invData.getString("Color-Glass.Color");
+        
+        setDecoration(inv, item, meta, colorglass);
 
-        item = XMaterial.PLAYER_HEAD.parseItem();
-        skullMeta = (SkullMeta) item.getItemMeta();
-        skullMeta.setDisplayName(Utils.color("&6&l&n" + player2));
-        skullMeta = SkullUtils.applySkin(skullMeta, player2);
-        item.setItemMeta(skullMeta);
+        item = Utils.getPlayerHead(player2);
         inv.setItem(36, item);
-        
-        String texture = "";
-        String id = "";
-        String namecolor = "";
-        boolean useSkull = invData.getString("Use-Custom-Skull-Color").equals("true");
-        
-        for(String key : invData.getConfigurationSection("Skull_Color_List").getKeys(false)) {
-        	texture = invData.getString("Skull_Color_List." + key + ".Texture");
-        	id = invData.getString("Skull_Color_List." + key + ".Id");  
-        	namecolor = invData.getString("Skull_Color_List." + key);
-        }
-        
+                
         for (String key : config.getConfigurationSection("Items").getKeys(false)) {
-        	
+        	String texture = "Items." +key + ".Texture";
             String material = config.getString("Items." + key + ".Item");
             String name = config.getString("Items." + key + ".Name");
             List<String> lore = config.getStringList("Items." + key + ".Lore");
             int slots = config.getInt("Items." + key + ".Slot");
-            int amont = config.getInt("Items." + key + ".Amount");
-            String ItemName = config.getString("Items." + key);
-
+            
+            texture = SkullUtils.replace(texture);
+            
             item = XMaterial.valueOf(material).parseItem();
-
+            
             if (useSkull) {
-            	if(ItemName.contains(namecolor)) {
-            		 item = Utils.setSkull(item, id, texture);
-            	}
+            	item = Utils.createSkull(texture);
                 skullMeta = (SkullMeta) item.getItemMeta();
                 skullMeta.setDisplayName(Utils.color(name));
                 if(lore != null) {
@@ -85,6 +72,7 @@ public class GuiColor {
 
                 item.setItemMeta(skullMeta);
             } else {
+            	
                 meta = item.getItemMeta();
                 meta.setDisplayName(Utils.color(name));
                 if(lore != null) {
@@ -103,20 +91,109 @@ public class GuiColor {
             inv.setItem(slots, item);
         }
 
-        String nameBack = config.getString("Decoration.Back.Name");
+       /* String nameBack = config.getString("Decoration.Back.Name");
         String materialback = config.getString("Decoration.Back.Item");
         item = XMaterial.valueOf(materialback).parseItem();
         meta = item.getItemMeta();
         meta.setDisplayName(Utils.color(Utils.getVar(player, nameBack)));
         item.setItemMeta(meta);
         item.setAmount(1);
-        inv.setItem(40, item);
+        inv.setItem(40, item);*/
 
         player.openInventory(inv);
         plugin.addInventoryPlayer(player, "color");
     }
 
+    public void openGuiColor(Player player, String player2) {
+        FileConfiguration config = plugin.getColorFile().getConfig();
+        FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
+        
+        String title = config.getString("Title");
+        int amont = invData.getInt("Amount-Items");
+        String colorglass = invData.getString("Color-Glass.Color");
+        
+        
+        Inventory inv = Bukkit.createInventory(null, 54, Utils.color(title));
+        
+        ItemStack item = null;
+        ItemMeta meta = null;
+        
+        setDecoration(inv, item, meta, colorglass);
+        
+        item = Utils.getPlayerHead(player2);
+        inv.setItem(4, item);
+        
+        for(String key : config.getConfigurationSection("Items-Scroll").getKeys(false)) {
+        	int slot = config.getInt("Items-Scroll." + key + ".Slot");
+        	String textures = config.getString("Items-Scroll." + key + ".Texture");
+        	String name = config.getString("Items-Scroll." + key + ".Name");
+        	textures = SkullUtils.replace(textures);
+        	
+        	item = Utils.createSkull(textures);
+        	meta = item.getItemMeta();
+        	meta.setDisplayName(Utils.color(name));
+        	List<String> list = config.getStringList("Items-Scroll." + key + ".Lore");
+        	
+        	for(int i = 0; i < list.size(); i++) {
+        		String l = (String) list.get(i);
+        		list.add(Utils.color(l));
+        	}
+        	
+        	if(list != null) {
+        		meta.setLore(list);
+        	}
+        	item.setItemMeta(meta);
+        	item.setAmount(amont);
+        	inv.setItem(slot, item);
+        }
+        
+        for(String key : config.getConfigurationSection("Items").getKeys(false)) {
+        	
+        	String name = config.getString("Items." + key + ".Name");
+        	String textures = config.getString("Items." + key + ".Texture");
+        	int slot = config.getInt("Items." + key + ".Slot");
+        	
+        	textures = SkullUtils.replace(textures);
+        	
+        	item = Utils.createSkull(textures);
+        	meta = item.getItemMeta();
+        	meta.setDisplayName(Utils.color(name));
+        	List<String> list = config.getStringList("Items." + key + ".Lore");
+        	
+        	for(int i = 0; i < list.size(); i++) {
+        		String l = (String) list.get(i);
+        		list.add(Utils.color(l));
+        	}
+        	
+        	meta.setLore(list);
+        	item.setItemMeta(meta);
+        	item.setAmount(amont);
+        	inv.setItem(slot, item);
+        }
+        
+
+        
+        //open
+        player.openInventory(inv);
+    }
+    
     private void setDecoration(Inventory inv, ItemStack item, ItemMeta meta, String path) {
+        for(int i = 0 ; i < 54; i++) {
+            item = XMaterial.valueOf(path).parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(Utils.color(" "));
+            item.setItemMeta(meta);
+            item.setAmount(1);
+            inv.setItem(i, item);
+
+            if (i == 54) {
+                break;
+            }
+        }
+    }
+    
+    private void setDecoration2(Inventory inv, ItemStack item, ItemMeta meta, String path) {
+    	
         for (int i = 0; i < 9; i++) {
             item = XMaterial.valueOf(path).parseItem();
             meta = item.getItemMeta();

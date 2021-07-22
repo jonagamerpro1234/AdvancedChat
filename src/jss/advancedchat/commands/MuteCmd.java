@@ -75,7 +75,7 @@ public class MuteCmd implements CommandExecutor {
                 	return true;
                 }
                 
-                if((p.isOp()) || (p.hasPermission(""))) {
+                if((p.isOp()) || (p.hasPermission("AdvancedChat.Mute.Bypass"))) {
                     return true;
                 }else {
                     if(Settings.mysql_use) {

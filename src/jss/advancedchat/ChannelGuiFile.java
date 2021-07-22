@@ -1,5 +1,6 @@
 package jss.advancedchat;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -68,8 +69,9 @@ public class ChannelGuiFile extends FileManager implements FileHelper, FolderHel
         Reader defaultConfigStream;
         try {
             defaultConfigStream = new InputStreamReader(getResources(this.path), "UTF8");
+            BufferedReader in = new BufferedReader(defaultConfigStream);
             if (defaultConfigStream != null) {
-                YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
+                YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
                 config.setDefaults(defaultConfig);
             }
         }catch(UnsupportedEncodingException e) {
