@@ -19,9 +19,9 @@ public class VaultHook {
 	private Logger logger = new Logger(plugin);
 	private EventUtils eventUtils = new EventUtils(plugin);
 	
-	public static Permission permission;
-	public static Economy economy;
-	public static Chat chat;
+	public Permission permission;
+	public Economy economy;
+	public Chat chat;
 
 	public VaultHook(AdvancedChat plugin) {
 		this.plugin = plugin;
@@ -35,9 +35,11 @@ public class VaultHook {
 			logger.Log(Level.WARNING, "vault not enabled! - Disable Features...");
 			return;
 		}
+		
 		/*if(!Settings.hook_vault) {
 			return;
 		}*/
+		
 		Utils.sendColorConsoleMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&aLoading vault features...");
 		RegisteredServiceProvider<Economy> rspE = Bukkit.getServer().getServicesManager().getRegistration(Economy.class);
 		RegisteredServiceProvider<Permission> rspP = Bukkit.getServer().getServicesManager().getRegistration(Permission.class);
@@ -53,10 +55,17 @@ public class VaultHook {
 			chat = rspC.getProvider();
 		}
 	}
-	
-	public static boolean setupPermission() {
-		
-		return false;
+
+	public Permission getPermission() {
+		return permission;
+	}
+
+	public Economy getEconomy() {
+		return economy;
+	}
+
+	public Chat getChat() {
+		return chat;
 	}
 
 }
