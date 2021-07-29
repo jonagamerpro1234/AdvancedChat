@@ -48,16 +48,19 @@ public class MuteCmd implements CommandExecutor {
                 if(p == null) {
                 	Utils.sendColorMessage(sender, Settings.message_No_Online_Player);
                 	return true;
-                }
-                if((p.isOp()) || (p.hasPermission(""))) {
-                	return true;
                 }else {
+                    if(p.isOp() || p.hasPermission("AdvancedChat.Mute.Bypass")) {
+                    	Utils.sendColorMessage(sender, "");
+                        return true;
+                    }
+                    
                     if(Settings.mysql_use) {
                     	sqlGetter.setMuted(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), true);
                     } else {
                     	manager.setMute(p, true);
                     }
                 }
+                
                 Utils.sendColorMessage(sender, prefixserver + config.getString("AdvancedChat.Mute-Player").replace("<name>", p.getName()));
                 return true;
             }
@@ -73,17 +76,19 @@ public class MuteCmd implements CommandExecutor {
                 if(p == null) {
                 	Utils.sendColorMessage(j, Settings.message_No_Online_Player);
                 	return true;
-                }
-                
-                if((p.isOp()) || (p.hasPermission("AdvancedChat.Mute.Bypass"))) {
-                    return true;
                 }else {
+                    if(p.isOp() || p.hasPermission("AdvancedChat.Mute.Bypass")) {
+                    	Utils.sendColorMessage(j, "&eThis player cannot be muted because he is bypassed.");
+                        return true;
+                    }
+                    
                     if(Settings.mysql_use) {
                     	sqlGetter.setMuted(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), true);
                     } else {
                     	manager.setMute(p, true);
                     }
                 }
+                
                 Utils.sendColorMessage(j, prefix + config.getString("AdvancedChat.Mute-Player").replace("<name>", p.getName()));
                 return true;
             }

@@ -26,6 +26,7 @@ import jss.advancedchat.events.InventoryListener;
 import jss.advancedchat.events.JoinListener;
 import jss.advancedchat.hooks.HookManager;
 import jss.advancedchat.inventory.utils.InventoryPlayer;
+import jss.advancedchat.inventory.utils.ItemId;
 import jss.advancedchat.json.handlers.JsonClickEvent;
 import jss.advancedchat.json.handlers.JsonHoverEvent;
 import jss.advancedchat.json.serializers.SerializerClickEvent;
@@ -71,6 +72,7 @@ public class AdvancedChat extends JavaPlugin {
     private ArrayList<ChatManager> chatManagers;
     private ArrayList<OnlinePlayers> onlinePlayers;
     private ArrayList<InventoryFile> inventoryFiles;
+    private ArrayList<ItemId> itemIds;
     private PreConfigLoader preConfigLoad = new PreConfigLoader(this);
     private MySQL mySQL = new MySQL();
 	private SQLGetter data = new SQLGetter();
@@ -137,6 +139,7 @@ public class AdvancedChat extends JavaPlugin {
         this.inventoryPlayers = new ArrayList<>();
         this.chatManagers = new ArrayList<>();
         this.onlinePlayers = new ArrayList<>();
+        this.itemIds = new ArrayList<>();
         loadCommands();
         loadEvents();
        // setupSoftDepends();
@@ -337,6 +340,33 @@ public class AdvancedChat extends JavaPlugin {
         return plugin;
     }
 
+    public void addItemId(String id, int slot, String inventory) {
+    	if(this.getItemId(id) == null) {
+    		this.itemIds.add(new ItemId(id, slot, inventory));
+    	}
+    }
+    
+    public void removeItemId(String id) {
+        for (int i = 0; i < itemIds.size(); i++) {
+            if (((ItemId) this.itemIds.get(i)).getItemid().equals(id)) {
+                this.itemIds.remove(i);
+            }
+        }
+    }
+    
+    public ItemId getItemId(String inventory) {
+    	for(int i = 0; i < itemIds.size(); i++) {
+    		if(((ItemId)this.itemIds.get(i)).getInventory().equals(inventory)) {
+    			return (ItemId) this.itemIds.get(i);
+    		}
+    	}
+    	return null;
+    }
+    
+    public ArrayList<ItemId> getItemIds() {
+    	return this.itemIds;
+    }
+    
     public void addInventoryPlayer(Player player, String inventoryname) {
         if (this.getInventoryPlayer(player) == null) {
             this.inventoryPlayers.add(new InventoryPlayer(player, inventoryname));

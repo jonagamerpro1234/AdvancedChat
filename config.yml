@@ -3,56 +3,80 @@
 # |     Version 1.6.0   |
 # |_____________________|
 #
-# |Type| the types are the modes that exist according to the function they can be different or the same these are all the types that exist 
-# [Default | Custom | Group ]  , this options only works on certain options not all [Normal |Experimental]
+# a simple plugin that helps you customize your server chat to make it look better also provides a customizable chat system by group or rank
 #
-# |Use default prefix|
-# if it is true it will use the prefix of the plugin itself, but if it is false it will use the prefix that you define in [Prefix: 'my server']
-# |ChatForma Type|
-# [Default] use default chat by minecraft 
-# [Custom] use the chat defined in [Custom-Format] 
-# [Group] use the chat defined in [Group.<name>] but you need to add the permission that you defined for the group
-# |ClearChat|
-#   [AutoClear] you can activate the automatic cleaning of the chat according to the number of ticks [Default | true]
-#   [Ticks] here you can define the time that the actions are automatically executed [Default | 24000], 24000 tick = 20 min
-Config-Version: 1
 Settings:
+  
+  #
+  Config-Version: 1
+  
+  # |Use-Database| You can save the data saved by the plugin in the .data files in a database and they can be synchronized with various servers
   Use-Database: false
-  BungeeMode: false
+  
+  # ![Disabled]! |BungeeMode| this function allows you to synchronize all your servers that have the advancedchat plugin 
+  #BungeeMode: false #[Not implemented]
+  
+  # |Update| This function lets you know if there is a plugin update [Does not disable console messages]
   Update: true
+  
+  # |Use-Default-Prefix| if it is true it will use the prefix of the plugin itself, but if it is false it will use the prefix that you define in [Prefix: 'my server']
   Use-Default-Prefix: true
+  
+  # |Prefix| here you can define a custom prefix
   Prefix: '&6[&bMy Server&6]&7'
-  Custom-Commands: false
-  ClearChat:
-    AutoClear: true
-    Tick: 24000
+  
+  # ![Disabled]!
+  #Custom-Commands: false
+#
+# | ClearChat |
+#
+ClearChat:
+  
+  # |Broadcast| is the message that will be sent when cleaning the chat [this does not affect the command for the player only the message from the server]
+  Broadcast: true
+  
+  # |AutoClear| you can activate the automatic cleaning of the chat according to the number of ticks [Default: true]
+  AutoClear: true
+  
+  # |Tick| here you can define the time that the actions are automatically executed [Default | 24000], 24000 tick = 20 min
+  Tick: 24000
+  
+  #blank lines to broadcast in chat
+  LineClear: 100
 #
 # | ChatFormat |
 #
 ChatFormat:
-  #
-  #
+
   #
   Enabled: true
-  #
-  #
+
   #
   Default:
-    Format: 
+  
+    #
+    Format:
+    
+      #
       Prefix: '<player>'
+      
+      #
       Message: '&8> &7<message>'
+    
+    #
     HoverEvent:
       - ''
       - ''
       - ''
-  #
-  #
-  #
-  Use-Vault-Group: false
+
+  
   #
   Groups:
     Default:
-      Format: ''
+      Permission: 'advancedchat.group.default'
+      Format:
+        Prefix: '<player>'
+        Message: '&8> &7<message>'
       HoverEvent:
         - ''
         - ''
@@ -74,35 +98,54 @@ MySQL:
 # |Command Blocker|
 # |here you can block the commands that you do not want to be used on the server at the moment it does not have the function of [antitabcomplete]
 #
-# |In this list you can define which commands the silenced players cannot use
-# |Mute-BlackList:|
-#    - tell
-#    - <you command>
-# |In this list you can define which commands cannot be used by players in general including your server staff [this function may change in future updates]
-# |BlackList:|
-#    - /plugins
-#    - /pl
-#    - /?
-#    - <you command>
-#
 Command-Blocker:
+
+  # |Enabled| disabling this option will stop command blocking [Default: true]
   Enabled: true
-  Mute-BlackList:
-    - '/tell'
-    - '/me'
-    - '/say'
-    - '/msg'
-  BlackList:
-    - '/plugins'
-    - '/pl'
-    - '/?'
-    - '/ver'
-    - '/version'
-    - '/bukkit:version'
-    - '/bukkit:pl'
-    - '/bukkit:plugins'
-    - '/bukkit:ver'
-    - '/bukkit:?'
+  
+  # |Chat| here you will find all the command block functions for chat
+  Chat:
+    
+    # |Disable-Commands| By disabling this feature, muted players will be able to use the listed commands [Default: true]
+    Disable-Commands: true
+    
+    # |Command-List| In this list you can define which commands cannot be used by players in general including your server staff
+    Command-List:
+      - '/plugins'
+      - '/pl'
+      - '/?'
+      - '/ver'
+      - '/version'
+      - '/bukkit:version'
+      - '/bukkit:pl'
+      - '/bukkit:plugins'
+      - '/bukkit:ver'
+      - '/bukkit:?'
+  
+  # |Mute| here you will find all the command block functions for muted players
+  Mute:
+    
+    # |Disable-Commands| By disabling this feature, muted players will be able to use the listed commands [Default: true]
+    Disable-Commands: true
+    
+    # |Command-List| In this list you can define which commands the silenced players cannot use
+    Command-List:
+      - '/tell'
+      - '/me'
+      - '/say'
+      - '/msg'
+
+#
+# |TabComplete|
+#
+TabComplete:
+  Enabled: false
+  Allow-Space: false
+  WhiteList:
+    - 'Msg'
+    - 'Me'
+    - 'Say'
+    
 ProtocolLib-Packet:
   Enabled: true
   Disable-TabCompleted: true 
@@ -206,14 +249,31 @@ Groups:
 #
 Filter-Chat:
   Enabled: true
-  Use-Custom-Msg: false #Not touch  
-  #  Message: 'you cannot use this word, it is blocked!' [Not Implement]
+  Use-Custom-Msg: false
+  Message: 'you cannot use this word, it is blocked!'
   Form-Of-Censorship: '*'
-  #  Delay: 5 [Not Implement]
+  Delay: 5 [Not Implement]
   BadWords:
     - 'noob'
     - 'stupid'
     - 'fuck'
+#
+# | Anti Swear |
+#
+Anti-Swear:
+
+  #
+  Enabled: false
+  
+  # 
+  Chat: {}
+  
+  #
+  Commands: {} 
+  
+  #
+  Sings: {}
+
 #
 # |Translation of messages from AdvancedChat|
 # |Version: 1.6|
@@ -239,6 +299,8 @@ AdvancedChat:
     - '&5> &b/AdvancedChat &6player &e<player name> open the player settings'
     - '&5> &b/Mute &e<player name> &7mute the player'
     - '&5> &b/UnMute &e<player name> &7demute the player'
+    - '&5> &b/ClearChat &8| &9/Cc &7clean the chat when it is very full or necessary'
+  Mute-Bypass: '&eThis player cannot be muted because he is bypassed.'
   Mute-Player: '&e[&b<name>&e] &cis now muted!'
   UnMute-Player: '&e[&b<name>&e] &ais now unmuted!'
   Alert-Mute: '&e[!] &cright now you are muted'

@@ -12,7 +12,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.inventory.utils.InventoryUtils;
 import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.utils.Utils;
 
@@ -28,7 +27,7 @@ public class GuiLog {
     public void openGuiLog(Player player, String name, int page) {
     	
     	
-    	new InventoryUtils(player, 1, "s").create();
+    	//new InventoryUtils(player, 1, "s").create();
     	
         FileConfiguration config = plugin.getChatDataFile().getConfig();
 

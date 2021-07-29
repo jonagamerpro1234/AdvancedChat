@@ -169,5 +169,9 @@ public class PlayerManager {
         }
         return false;
     }
+    
+    public void save() {
+    	plugin.getPlayerDataFile().saveConfig();
+    }
 
 }

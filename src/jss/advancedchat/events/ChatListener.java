@@ -16,7 +16,6 @@ import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.ChatDataFile;
 import jss.advancedchat.ChatLogFile;
 import jss.advancedchat.chat.Json;
-import jss.advancedchat.hooks.VaultHook;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.SQLGetter;
 import jss.advancedchat.utils.Utils;
@@ -223,13 +222,13 @@ public class ChatListener implements Listener {
     	String formatprefix = "";
     	String formatmessage = "";
     	List<String> hover = new ArrayList<String>();
-    	String vaultkey = VaultHook.permission.getPrimaryGroup(j);
+    	//String vaultkey = VaultHook.permission.getPrimaryGroup(j);
     	Set<String> key = config.getConfigurationSection("ChatFormat.Groups").getKeys(false);
     	SQLGetter sql = plugin.getSQLGetter();
     	PlayerManager manager = new PlayerManager(plugin);
     	
     	if(config.getBoolean("ChatFormat.Enabled")) {
-    		if(config.getBoolean("ChatFormat.Use-Vault-Group")) {
+    		/*if(config.getBoolean("ChatFormat.Use-Vault-Group")) {
         		if(config.getConfigurationSection("ChatFormat.Groups." + vaultkey) != null) {
         			formatprefix = config.getString("ChatFormat.Groups." + vaultkey + ".Format.Prefix");
         			formatmessage = config.getString("ChatFormat.Groups." + vaultkey + ".Format.Message");
@@ -251,7 +250,7 @@ public class ChatListener implements Listener {
         				}
         			}
         		}
-    		}else {
+    		}else {*/
         		if(config.getConfigurationSection("ChatFormat.Groups." + key) != null) {
         			formatprefix = config.getString("ChatFormat.Groups." + key + ".Format.Prefix");
         			formatmessage = config.getString("ChatFormat.Groups." + key + ".Format.Message");
@@ -271,7 +270,7 @@ public class ChatListener implements Listener {
     					hover.add(text);
     				}
         		}
-    		}
+    		//}
 
     		formatprefix = formatprefix.replace("<player>", j.getDisplayName());
     		formatmessage = formatmessage.replace("<message>", msg);
@@ -336,10 +335,10 @@ public class ChatListener implements Listener {
     	String formatprefix = "";
     	String formatmessage = "";
     	List<String> hover = new ArrayList<String>();
-    	String vaultkey = VaultHook.permission.getPrimaryGroup(j);
+    	//String vaultkey = VaultHook.permission.getPrimaryGroup(j);
     	Set<String> key = config.getConfigurationSection("ChatFormat.Groups").getKeys(false);
     	
-		if(config.getBoolean("ChatFormat.Use-Vault-Group")) {
+		/*if(config.getBoolean("ChatFormat.Use-Vault-Group")) {
     		if(config.getConfigurationSection("ChatFormat.Groups." + vaultkey) != null) {
     			formatprefix = config.getString("ChatFormat.Groups." + vaultkey + ".Format.Prefix");
     			formatmessage = config.getString("ChatFormat.Groups." + vaultkey + ".Format.Message");
@@ -361,7 +360,7 @@ public class ChatListener implements Listener {
     				}
     			}
     		}
-		}else {
+		}else {*/
     		if(config.getConfigurationSection("ChatFormat.Groups." + key) != null) {
     			formatprefix = config.getString("ChatFormat.Groups." + key + ".Format.Prefix");
     			formatmessage = config.getString("ChatFormat.Groups." + key + ".Format.Message");
@@ -381,7 +380,7 @@ public class ChatListener implements Listener {
 					hover.add(text);
 				}
     		}
-		}
+		//}
 		
 		formatprefix = formatprefix.replace("<player>", j.getDisplayName());
 		

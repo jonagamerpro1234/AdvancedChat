@@ -25,6 +25,7 @@ public class Settings {
     public static String message_error_mysql;
     public static String message_msg_empty;
     public static String message_msg_use;
+    public static String message_mute_bypass;
     public static String mysql_host;
     public static String inv_color_back;
     public static boolean mysql_usessl;
