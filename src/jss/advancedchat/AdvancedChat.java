@@ -1,6 +1,5 @@
 package jss.advancedchat;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
@@ -19,14 +18,23 @@ import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
 import jss.advancedchat.config.FileManager;
 import jss.advancedchat.config.PreConfigLoader;
+import jss.advancedchat.config.files.ChannelGuiFile;
+import jss.advancedchat.config.files.ChatDataFile;
+import jss.advancedchat.config.files.ChatLogFile;
+import jss.advancedchat.config.files.ColorFile;
+import jss.advancedchat.config.files.CommandFile;
+import jss.advancedchat.config.files.CommandLogFile;
+import jss.advancedchat.config.files.ConfigFile;
+import jss.advancedchat.config.files.InventoryDataFile;
+import jss.advancedchat.config.files.PlayerDataFile;
+import jss.advancedchat.config.files.PlayerGuiFile;
 import jss.advancedchat.events.ChatListener;
 import jss.advancedchat.events.CommandListener;
 import jss.advancedchat.events.EventLoader;
 import jss.advancedchat.events.InventoryListener;
 import jss.advancedchat.events.JoinListener;
 import jss.advancedchat.hooks.HookManager;
-import jss.advancedchat.inventory.utils.InventoryPlayer;
-import jss.advancedchat.inventory.utils.ItemId;
+import jss.advancedchat.inventory.utils.InventoryView;
 import jss.advancedchat.json.handlers.JsonClickEvent;
 import jss.advancedchat.json.handlers.JsonHoverEvent;
 import jss.advancedchat.json.serializers.SerializerClickEvent;
@@ -44,13 +52,7 @@ import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
 
 public class AdvancedChat extends JavaPlugin {
-
-    private PluginDescriptionFile jss = getDescription();    
-    public String name = this.jss.getName();
-    public String version = this.jss.getVersion();
-    public Metrics metrics;
-    public String latestversion;
-    public boolean placeholder = false;
+ 
     private CommandSender c = Bukkit.getConsoleSender();
     private static boolean debug = false;
     private FileManager filemanager = new FileManager(this);
@@ -64,24 +66,27 @@ public class AdvancedChat extends JavaPlugin {
     private CommandLogFile commandLogFile = new CommandLogFile(this, "command.yml", "Log");
     private CommandFile commandFile = new CommandFile(this, "custom-command.yml");
     private InventoryDataFile inventoryDataFile = new InventoryDataFile(this, "inventory.data", "Data");
-    public String nmsversion;
-    public boolean uselegacyversion = false;
-    public Logger logger = new Logger(this);
+    private PluginDescriptionFile jss = getDescription();   
     private static AdvancedChat plugin;
-    private ArrayList<InventoryPlayer> inventoryPlayers;
+    private ArrayList<InventoryView> inventoryPlayers;
     private ArrayList<ChatManager> chatManagers;
     private ArrayList<OnlinePlayers> onlinePlayers;
-    private ArrayList<InventoryFile> inventoryFiles;
-    private ArrayList<ItemId> itemIds;
     private PreConfigLoader preConfigLoad = new PreConfigLoader(this);
     private MySQL mySQL = new MySQL();
 	private SQLGetter data = new SQLGetter();
     private EventUtils eventUtils;
-    public boolean uselatestversion = false;
     private boolean BungeeMode = false;
-
     private static GsonBuilder gsonBuilder;
     private HookManager HookManager = new HookManager(this);
+    public String name = this.jss.getName();
+    public String version = this.jss.getVersion();
+    public Metrics metrics;
+    public String latestversion;
+    public boolean placeholder = false;
+    public Logger logger = new Logger(this);
+    public String nmsversion;
+    public boolean uselegacyversion = false;
+    public boolean uselatestversion = false;
     
     public void onEnable() {
         Utils.setEnabled(version);
@@ -98,7 +103,6 @@ public class AdvancedChat extends JavaPlugin {
         }
         //checkNMSVersion(nmsversion);
         plugin = this;
-        this.inventoryFiles = new ArrayList<>();
         if(AdvancedChat.isDebug()) {
         	plugin.logger.Log(Level.INFO, "Pre Config Load completed");
         }else {
@@ -114,7 +118,7 @@ public class AdvancedChat extends JavaPlugin {
         	} else if(this.getConfigFile().getConfig().getString("Settings.BungeeMode").equals("true")) {
         		BungeeMode = true;
         		logger.Log(Level.INFO, "Bungee Mode can only be used if the database is active and configured");
-        		logger.Log(Level.INFO, "Folder [data] and its [files] are not created");
+        		//logger.Log(Level.INFO, "Folder [data] and its [files] are not created");
         	}
         }catch(NullPointerException e) {
         	e.printStackTrace();
@@ -139,21 +143,20 @@ public class AdvancedChat extends JavaPlugin {
         this.inventoryPlayers = new ArrayList<>();
         this.chatManagers = new ArrayList<>();
         this.onlinePlayers = new ArrayList<>();
-        this.itemIds = new ArrayList<>();
         loadCommands();
         loadEvents();
-       // setupSoftDepends();
 
         new UpdateChecker(this, 83889).getUpdateVersion(version -> {
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
                 logger.Log(Level.SUCCESS, "&a" + this.name + " is up to date!");
             } else {
                 logger.Log(Level.OUTLINE, "&5<||" + Utils.getLine("&5"));
-                logger.Log(Level.WARNING, "&5<||" + "&b" + this.name + "is outdated!");
+                logger.Log(Level.WARNING, "&5<||" + "&b" + this.name + " is outdated!");
                 logger.Log(Level.WARNING, "&5<||" + "&bNewest version: &a" + version);
                 logger.Log(Level.WARNING, "&5<||" + "&bYour version: &d" + UpdateSettings.VERSION);
                 logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on Spigot: &e" + UpdateSettings.URL_PLUGIN[0]);
                 logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on Songoda: &e" + UpdateSettings.URL_PLUGIN[1]);
+                logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on GitHub: &e" + UpdateSettings.URL_PLUGIN[2]);
                 logger.Log(Level.OUTLINE, "&5<||" + Utils.getLine("&5"));
             }
         });
@@ -207,10 +210,9 @@ public class AdvancedChat extends JavaPlugin {
         new JoinListener(this);
         new InventoryListener(this);
         new ChatListener(this);
-        //new ChatListener0(this);
         new CommandListener(this);
-        EventLoader eventLoader = new EventLoader(this);
-        eventLoader.runClearChat();
+        EventLoader e = new EventLoader(this);
+        e.runClearChat();
     }
     
 	public void loadMySQL() {
@@ -225,6 +227,8 @@ public class AdvancedChat extends JavaPlugin {
         }
 	}
     
+	
+	//Working progress
 	/*@SuppressWarnings("unused")
 	private void checkNMSVersion(String nmsversion) {
 		try {
@@ -235,34 +239,7 @@ public class AdvancedChat extends JavaPlugin {
 		}
 
 	}*/
-	
-	public void loadInventoryFile() {
-		File folder = new File(getDataFolder() + File.separator + "Gui");
-		File[] list = folder.listFiles();
-		
-		for(int i = 0; i < list.length; i++) {
-			if(list[i].isFile()) {
-				String name = list[i].getName();
-				InventoryFile file = new InventoryFile(this, name + ".yml");
-				file.create();
-				this.inventoryFiles.add(file);
-			}
-		}
-	}
-	
-	public InventoryFile getInventoryFile(String name) {
-		for(int i = 0; i < inventoryFiles.size(); i++) {
-			if(((InventoryFile)this.inventoryFiles.get(i)).getPath().equalsIgnoreCase(name)) {
-				return (InventoryFile)this.inventoryFiles.get(i);
-			}
-		}
-		return null;
-	}
-	
-	public ArrayList<InventoryFile> getInventoryFiles(){
-		return this.inventoryFiles;
-	}
-	
+
 	public InventoryDataFile getInventoryDataFile() {
 		return this.inventoryDataFile;
 	}
@@ -299,9 +276,9 @@ public class AdvancedChat extends JavaPlugin {
 		return channelGuiFile;
 	}
 
-	//public boolean getPlaceHolderState() {
-   //     return this.placeholder;
-  //  }/
+	public boolean getPlaceHolderState() {
+       return this.placeholder;
+    }
 
     public HookManager getHookManager() {
     	return HookManager;
@@ -339,52 +316,25 @@ public class AdvancedChat extends JavaPlugin {
     public static AdvancedChat getPlugin() {
         return plugin;
     }
-
-    public void addItemId(String id, int slot, String inventory) {
-    	if(this.getItemId(id) == null) {
-    		this.itemIds.add(new ItemId(id, slot, inventory));
-    	}
-    }
-    
-    public void removeItemId(String id) {
-        for (int i = 0; i < itemIds.size(); i++) {
-            if (((ItemId) this.itemIds.get(i)).getItemid().equals(id)) {
-                this.itemIds.remove(i);
-            }
-        }
-    }
-    
-    public ItemId getItemId(String inventory) {
-    	for(int i = 0; i < itemIds.size(); i++) {
-    		if(((ItemId)this.itemIds.get(i)).getInventory().equals(inventory)) {
-    			return (ItemId) this.itemIds.get(i);
-    		}
-    	}
-    	return null;
-    }
-    
-    public ArrayList<ItemId> getItemIds() {
-    	return this.itemIds;
-    }
-    
+   
     public void addInventoryPlayer(Player player, String inventoryname) {
         if (this.getInventoryPlayer(player) == null) {
-            this.inventoryPlayers.add(new InventoryPlayer(player, inventoryname));
+            this.inventoryPlayers.add(new InventoryView(player, inventoryname));
         }
     }
 
     public void removeInvetoryPlayer(Player player) {
         for (int i = 0; i < inventoryPlayers.size(); i++) {
-            if (((InventoryPlayer) this.inventoryPlayers.get(i)).getPlayer().getName().equals(player.getName())) {
+            if (((InventoryView) this.inventoryPlayers.get(i)).getPlayer().getName().equals(player.getName())) {
                 this.inventoryPlayers.remove(i);
             }
         }
     }
 
-    public InventoryPlayer getInventoryPlayer(Player player) {
+    public InventoryView getInventoryPlayer(Player player) {
         for (int i = 0; i < inventoryPlayers.size(); i++) {
-            if (((InventoryPlayer) this.inventoryPlayers.get(i)).getPlayer().getName().equals(player.getName())) {
-                return (InventoryPlayer) this.inventoryPlayers.get(i);
+            if (((InventoryView) this.inventoryPlayers.get(i)).getPlayer().getName().equals(player.getName())) {
+                return (InventoryView) this.inventoryPlayers.get(i);
             }
         }
         return null;

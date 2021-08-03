@@ -12,10 +12,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.ColorFile;
-import jss.advancedchat.ConfigFile;
-import jss.advancedchat.PlayerDataFile;
-import jss.advancedchat.PlayerGuiFile;
+import jss.advancedchat.config.files.ColorFile;
+import jss.advancedchat.config.files.ConfigFile;
+import jss.advancedchat.config.files.PlayerDataFile;
+import jss.advancedchat.config.files.PlayerGuiFile;
 import jss.advancedchat.inventory.GuiColor;
 import jss.advancedchat.inventory.GuiPlayer;
 import jss.advancedchat.manager.PlayerManager;

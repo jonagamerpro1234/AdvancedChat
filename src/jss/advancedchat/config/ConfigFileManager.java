@@ -1,7 +1,7 @@
 package jss.advancedchat.config;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.ConfigFile;
+import jss.advancedchat.config.files.ConfigFile;
 import jss.advancedchat.utils.interfaces.FileLoader;
 
 public class ConfigFileManager {

@@ -44,24 +44,24 @@ public class MuteCmd implements CommandExecutor {
         if (!(sender instanceof Player)) {
 
             if (args.length >= 1) {
-                Player p = Bukkit.getPlayer(args[0]);
-                if(p == null) {
+                Player target = Bukkit.getPlayer(args[0]);
+                if(target == null) {
                 	Utils.sendColorMessage(sender, Settings.message_No_Online_Player);
                 	return true;
                 }else {
-                    if(p.isOp() || p.hasPermission("AdvancedChat.Mute.Bypass")) {
-                    	Utils.sendColorMessage(sender, "");
+                    if(target.isOp() || target.hasPermission("AdvancedChat.Mute.Bypass")) {
+                    	Utils.sendColorMessage(sender, Settings.message_mute_bypass);
                         return true;
                     }
                     
                     if(Settings.mysql_use) {
-                    	sqlGetter.setMuted(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), true);
+                    	sqlGetter.setMuted(plugin.getMySQL(), target.getName(), target.getUniqueId().toString(), true);
                     } else {
-                    	manager.setMute(p, true);
+                    	manager.setMute(target, true);
                     }
                 }
                 
-                Utils.sendColorMessage(sender, prefixserver + config.getString("AdvancedChat.Mute-Player").replace("<name>", p.getName()));
+                Utils.sendColorMessage(sender, prefixserver + Utils.getVar(target, config.getString("AdvancedChat.Mute-Player")));
                 return true;
             }
             Utils.sendColorMessage(sender, Utils.getPrefix() + " " + text);
@@ -71,25 +71,25 @@ public class MuteCmd implements CommandExecutor {
         if (j.isOp() || j.hasPermission("AdvancedChat.Mute")) {
             if (args.length >= 1) {
                 text = Utils.getVar(j, text);
-                Player p = Bukkit.getPlayer(args[0]);
+                Player target = Bukkit.getPlayer(args[0]);
                 
-                if(p == null) {
+                if(target == null) {
                 	Utils.sendColorMessage(j, Settings.message_No_Online_Player);
                 	return true;
                 }else {
-                    if(p.isOp() || p.hasPermission("AdvancedChat.Mute.Bypass")) {
-                    	Utils.sendColorMessage(j, "&eThis player cannot be muted because he is bypassed.");
+                    if(target.isOp() || target.hasPermission("AdvancedChat.Mute.Bypass")) {
+                    	Utils.sendColorMessage(j, Settings.message_mute_bypass);
                         return true;
                     }
                     
                     if(Settings.mysql_use) {
-                    	sqlGetter.setMuted(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), true);
+                    	sqlGetter.setMuted(plugin.getMySQL(), target.getName(), target.getUniqueId().toString(), true);
                     } else {
-                    	manager.setMute(p, true);
+                    	manager.setMute(target, true);
                     }
                 }
                 
-                Utils.sendColorMessage(j, prefix + config.getString("AdvancedChat.Mute-Player").replace("<name>", p.getName()));
+                Utils.sendColorMessage(j, prefix + Utils.getVar(target, config.getString("AdvancedChat.Mute-Player")));
                 return true;
             }
         } else {

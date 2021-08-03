@@ -16,7 +16,6 @@ import jss.advancedchat.utils.Utils;
 
 public class MsgCmd implements CommandExecutor, TabCompleter{
 	
-	@SuppressWarnings("unused")
 	private AdvancedChat plugin;
 	
 	public MsgCmd(AdvancedChat plugin) {
@@ -75,7 +74,7 @@ public class MsgCmd implements CommandExecutor, TabCompleter{
 				}
 				
 				Utils.sendColorMessage(j,  "&d[&e"+p.getName()+"&d] &b> &7"+ message);
-				Utils.sendColorMessage(p,  "&a[&b"+j.getName()+"&a] &e> &7"+ message);
+				Utils.sendColorMessage(p,  "&8* &a[&b"+j.getName()+"&a] &e> &7"+ message);
 				return true;
 			}
 			Utils.sendColorMessage(j, Utils.getPrefixPlayer() + Settings.message_msg_use);
@@ -111,4 +110,8 @@ public class MsgCmd implements CommandExecutor, TabCompleter{
 		return Utils.setLimitTab(list, lastArgs);
 	}
 	
+	
+	public AdvancedChat getPlugin() {
+		return plugin;
+	}
 }
