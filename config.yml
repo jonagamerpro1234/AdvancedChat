@@ -7,7 +7,7 @@
 #
 Settings:
   
-  #
+  # |Config-Version|
   Config-Version: 1
   
   # |Use-Database| You can save the data saved by the plugin in the .data files in a database and they can be synchronized with various servers
@@ -304,7 +304,6 @@ AdvancedChat:
   Mute-Player: '&e[&b<name>&e] &cis now muted!'
   UnMute-Player: '&e[&b<name>&e] &ais now unmuted!'
   Alert-Mute: '&e[!] &cright now you are muted'
-  Alert-Mute-Bypass: '&c[!] &7This player cannot be muted'
   No-Online-Player: '&cThis player does not exist or is not connected!'
   No-Use-Command: '&e[&b!&e] &cYou can t use that command! &b[&c<cmd>&b]'
   No-Use-Command-Mute: '&e[&b!&e]You cannot use that command while it is muted! &b[&c<cmd>&b]'

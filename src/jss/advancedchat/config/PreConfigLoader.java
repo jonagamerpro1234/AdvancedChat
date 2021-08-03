@@ -25,19 +25,15 @@ public class PreConfigLoader {
         	Settings.boolean_custom_type_double = config.getString("Custom-Format.Type").equals("double");
         	Settings.boolean_custom_type_experimental = config.getString("Custom-Format.Type").equals("experimental");
         	Settings.boolean_custom_type_all = config.getString("Custom-Format.Type").equals("all");
-         	for(String key : config.getConfigurationSection("Groups").getKeys(false)) {
-            	Settings.boolean_group_type_normal = config.getString("Groups." + key + ".Type").equals("normal");
-            	Settings.boolean_group_type_hover = config.getString("Groups." + key + ".Type").equals("hover");
-            	Settings.boolean_group_type_click = config.getString("Groups." + key + ".Type").equals("click");
-            	Settings.boolean_group_type_double = config.getString("Groups." + key + ".Type").equals("double");
-            	Settings.boolean_group_type_experimental = config.getString("Groups." + key + ".Type").equals("experimental");
-            	Settings.boolean_group_type_all = config.getString("Groups." + key + ".Type").equals("all");
-         	}
+
          	Settings.mysql_use = config.getString("Settings.Use-Database").equals("true");
-         	//debug
+         	
+         	//debug section
         	Settings.mysql_use_t = config.getString("Settings.Use-Database").equals("true");
         	Settings.mysql_use_f = config.getString("Settings.Use-Database").equals("false");
         	//---------------------------------
+        	
+        	Settings.message_mute_bypass = config.getString("AdvancedChat.Mute-Bypass");
         	Settings.boolean_chatclear_autoclear = config.getString("Settings.ClearChat.AutoClear").equals("true");
         	Settings.int_clearchat_tick = config.getInt("Settings.ClearChat.Tick");
         	Settings.boolean_use_default_prefix = config.getString("Settings.Use-Default-Prefix").equals("true");

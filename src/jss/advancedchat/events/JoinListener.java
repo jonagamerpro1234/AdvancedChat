@@ -1,10 +1,10 @@
 package jss.advancedchat.events;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.ChatDataFile;
-import jss.advancedchat.ChatLogFile;
-import jss.advancedchat.CommandLogFile;
-import jss.advancedchat.PlayerDataFile;
+import jss.advancedchat.config.files.ChatDataFile;
+import jss.advancedchat.config.files.ChatLogFile;
+import jss.advancedchat.config.files.CommandLogFile;
+import jss.advancedchat.config.files.PlayerDataFile;
 import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.storage.SQLGetter;
 import jss.advancedchat.utils.EventUtils;

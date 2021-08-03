@@ -16,7 +16,8 @@ public class EventLoader {
     public EventLoader(AdvancedChat plugin) {
         this.plugin = plugin;
     }
-
+    
+    
     public void runClearChat() {
         FileConfiguration config = plugin.getConfig();
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
