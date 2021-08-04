@@ -18,6 +18,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import com.cryptomorin.xseries.XSound;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.chat.AdvancedChatEvent;
 import jss.advancedchat.chat.Json;
 import jss.advancedchat.config.files.ChatDataFile;
 import jss.advancedchat.config.files.ChatLogFile;
@@ -49,102 +50,11 @@ public class ChatListener implements Listener {
 	public ChatListener(AdvancedChat plugin) {
 		this.plugin = plugin;
 		eventsUtils.getEventManager().registerEvents(this, plugin);
-	}
-
-	@EventHandler(priority = EventPriority.HIGH)
-	public void chatFormat(AsyncPlayerChatEvent e) {
-		e.setCancelled(true);
-		FileConfiguration config = plugin.getConfigFile().getConfig();
-		Player j = e.getPlayer();
-		String msg = e.getMessage();
-		String formatprefix = "";
-		String formatmessage = "";
-		List<String> hover = new ArrayList<String>();
-		SQLGetter sql = plugin.getSQLGetter();
-		PlayerManager manager = new PlayerManager(plugin);
-
-		if (config.getBoolean("ChatFormat.Enabled")) {
-			
-			formatprefix = config.getString("ChatFormat.Default.Format.Prefix");
-			formatmessage = config.getString("ChatFormat.Default.Format.Message");
-			List<String> list = config.getStringList("ChatFormat.Default.HoverEvent");
-			for (int i = 0; i < list.size(); i++) {
-				String text = (String) list.get(i);
-				hover.add(text);
-			}
-
-			formatprefix = formatprefix.replace("<player>", j.getDisplayName());
-			formatmessage = formatmessage.replace("<message>", msg);
-			formatmessage = Utils.color(formatmessage);
-			formatmessage = formatColor(formatmessage, j);
-
-			if (Settings.mysql_use) {
-				if (sql.getMuted(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) == true
-						|| Settings.boolean_filter_use_msg) {
-					return;
-				} else {
-					Json json = new Json(j, formatprefix, formatmessage);
-					json.setHover(hover).sendDoubleToAll();
-				}
-			} else {
-				if (manager.isMute(j) == true || this.badword || this.ismention) {
-					this.badword = false;
-					this.ismention = false;
-					return;
-				} else {
-					Json json = new Json(j, formatprefix, formatmessage);
-					json.setHover(hover).sendDoubleToAll();
-				}
-			}
-		}
-	}
-	
-	//@EventHandler [Disabled] next update 
-	public void chatMention(AsyncPlayerChatEvent e){
-		Player j = e.getPlayer();
-		String message = e.getMessage();
 		
-		if(message.contains(j.getName())) {
-			this.ismention = true;
-			
-			for(Player p : Bukkit.getOnlinePlayers()) {
-				
-				j.playSound(j.getLocation(), XSound.BLOCK_NOTE_BLOCK_PLING.parseSound(), 1.0f, 0.5f);
-				Utils.sendColorMessage(p, "&dTest Mentiaon &b" + j.getName());
-			}
-			
-		}
 		
 	}
 
-	@EventHandler
-	public void chatDataLog(AsyncPlayerChatEvent e) {
-		ChatDataFile chatDataFile = plugin.getChatDataFile();
-		FileConfiguration config = chatDataFile.getConfig();
-		Player j = e.getPlayer();
-
-		String date = Utils.getDate(System.currentTimeMillis());
-		String time = Utils.getTime(System.currentTimeMillis());
-
-		config.set("Players." + j.getName() + ".Log." + date + ".Chat." + time, Utils.colorless(e.getMessage()));
-		chatDataFile.saveConfig();
-
-	}
-
-	@EventHandler
-	public void chatLog(AsyncPlayerChatEvent e) {
-		ChatLogFile chatLogFile = plugin.getChatLogFile();
-		FileConfiguration config = chatLogFile.getConfig();
-		Player j = e.getPlayer();
-
-		String date = Utils.getDate(System.currentTimeMillis());
-		String time = Utils.getTime(System.currentTimeMillis());
-
-		config.set("Players." + j.getName() + ".Chat." + date + "." + time, Utils.colorless(e.getMessage()));
-		chatLogFile.saveConfig();
-	}
-
-
+	//Chat filter
 	@EventHandler(priority = EventPriority.HIGH)
 	public void chatFilter(AsyncPlayerChatEvent e) {
 		Player j = e.getPlayer();
@@ -207,7 +117,9 @@ public class ChatListener implements Listener {
 			}
 		}
 	}
-
+	
+	
+	//Mute chat
 	@EventHandler(priority = EventPriority.HIGH)
 	public void chatMute(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getPlayerDataFile().getConfig();
@@ -242,6 +154,134 @@ public class ChatListener implements Listener {
 			}
 		}
 	}
+	
+	//Chatformat
+	@EventHandler(priority = EventPriority.HIGH)
+	public void chatFormat(AsyncPlayerChatEvent e) {
+		FileConfiguration config = plugin.getConfigFile().getConfig();
+		Player j = e.getPlayer();
+		String msg = e.getMessage();
+		String formatprefix = "";
+		String formatmessage = "";
+		List<String> hover = new ArrayList<String>();
+		SQLGetter sql = plugin.getSQLGetter();
+		PlayerManager manager = new PlayerManager(plugin);
+
+		if (config.getBoolean("ChatFormat.Enabled")) {
+			e.setCancelled(true);
+			formatprefix = config.getString("ChatFormat.Default.Format.Prefix");
+			formatmessage = config.getString("ChatFormat.Default.Format.Message");
+			List<String> list = config.getStringList("ChatFormat.Default.HoverEvent");
+			for (int i = 0; i < list.size(); i++) {
+				String text = (String) list.get(i);
+				hover.add(text);
+			}
+
+			formatprefix = formatprefix.replace("<player>", j.getDisplayName());
+			formatmessage = formatmessage.replace("<message>", msg);
+			formatmessage = Utils.color(formatmessage);
+			//formatmessage = formatColor(formatmessage, j);
+
+			/*if (Settings.mysql_use) {
+				if (sql.getMuted(plugin.getMySQL(), j.getUniqueId().toString()) || manager.isMute(j) || Settings.boolean_filter_use_msg || this.badword || this.ismention) {
+					this.badword = false;
+					this.ismention = false;
+					Json json = new Json(j, formatprefix, formatmessage);
+					json.setHover(hover).sendDoubleToAll();
+				}else {
+					
+				}
+
+			} else {
+				if (manager.isMute(j) || this.badword || this.ismention) {
+					this.badword = false;
+					this.ismention = false;
+					return;
+				} else {
+					Json json = new Json(j, formatprefix, formatmessage);
+					json.setHover(hover).sendDoubleToAll();
+				}
+			}*/
+			
+			if(Settings.mysql_use) {
+				
+				if(Settings.boolean_filter_use_msg) return;
+				
+				if((this.badword  || this.ismention)) {
+					this.badword = false;
+					this.ismention = false;
+					return;
+				}
+				
+				if(sql.getMuted(plugin.getMySQL(), j.getUniqueId().toString())) return;
+				
+				Json json = new Json(j, formatprefix, formatmessage);
+				json.setHover(hover).sendDoubleToAll();
+			}else{
+				
+				if(manager.isMute(j)) return;
+
+				if(Settings.boolean_filter_use_msg) return;
+				
+				if(this.badword || this.ismention) {
+					this.badword = false;
+					this.ismention = false;
+					return;
+				}
+				
+				Json json = new Json(j, formatprefix, formatmessage);
+				json.setHover(hover).sendDoubleToAll();				
+			}
+		}
+	}
+	
+	//@EventHandler [Disabled] next update 
+	public void chatMention(AsyncPlayerChatEvent e){
+		Player j = e.getPlayer();
+		String message = e.getMessage();
+		
+		if(message.contains(j.getName())) {
+			this.ismention = true;
+			
+			for(Player p : Bukkit.getOnlinePlayers()) {
+				
+				j.playSound(j.getLocation(), XSound.BLOCK_NOTE_BLOCK_PLING.parseSound(), 1.0f, 0.5f);
+				Utils.sendColorMessage(p, "&dTest Mentiaon &b" + j.getName());
+			}
+			
+		}
+		
+	}
+
+	@EventHandler
+	public void chatDataLog(AsyncPlayerChatEvent e) {
+		ChatDataFile chatDataFile = plugin.getChatDataFile();
+		FileConfiguration config = chatDataFile.getConfig();
+		Player j = e.getPlayer();
+
+		String date = Utils.getDate(System.currentTimeMillis());
+		String time = Utils.getTime(System.currentTimeMillis());
+
+		config.set("Players." + j.getName() + ".Log." + date + ".Chat." + time, Utils.colorless(e.getMessage()));
+		chatDataFile.saveConfig();
+
+	}
+
+	@EventHandler
+	public void chatLog(AsyncPlayerChatEvent e) {
+		ChatLogFile chatLogFile = plugin.getChatLogFile();
+		FileConfiguration config = chatLogFile.getConfig();
+		Player j = e.getPlayer();
+
+		String date = Utils.getDate(System.currentTimeMillis());
+		String time = Utils.getTime(System.currentTimeMillis());
+
+		config.set("Players." + j.getName() + ".Chat." + date + "." + time, Utils.colorless(e.getMessage()));
+		chatLogFile.saveConfig();
+	}
+
+
+
 
 	@Deprecated
 	@SuppressWarnings({ "unused",  })

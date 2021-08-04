@@ -57,7 +57,6 @@ public class JoinListener implements Listener {
            /* if (!DataBaseManage.existPlayer(plugin.getConnectionMySQL().getConnection(), j.getUniqueId().toString())) {
                 DataBaseManage.createPlayer(plugin.getConnectionMySQL().getConnection(), j.getName(), j.getUniqueId().toString());
             }*/
-        	
         	if(!sql.exists(mysql,j.getUniqueId().toString())) {
         		sql.createPlayer(mysql,j.getName(), j.getUniqueId().toString());
         	}
