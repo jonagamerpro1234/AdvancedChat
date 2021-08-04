@@ -5,11 +5,11 @@ import org.bukkit.entity.Player;
 public class InventoryView {
 
     private Player player;
-    private String inventory;
+    private String inventoryname;
 
-    public InventoryView(Player player, String inventory) {
+    public InventoryView(Player player, String inventoryname) {
         this.player = player;
-        this.inventory = inventory;
+        this.inventoryname = inventoryname;
     }
 
     public Player getPlayer() {
@@ -20,12 +20,12 @@ public class InventoryView {
         this.player = player;
     }
 
-    public String getInventory() {
-        return inventory;
+    public String getInventoryName() {
+        return inventoryname;
     }
 
-    public void setInventory(String inventory) {
-        this.inventory = inventory;
+    public void setInventoryName(String inventory) {
+        this.inventoryname = inventory;
     }
 
 }

@@ -91,15 +91,6 @@ public class MySQL {
 		return this.isconnected;
 	}
 	
-	/*public boolean isConnected() {
-		try{
-			return connection != null || connection.isValid(100);
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}*/
-	
 	public Connection getConnection() {
 		return this.connection;
 	}

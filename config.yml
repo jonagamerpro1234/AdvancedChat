@@ -7,7 +7,7 @@
 #
 Settings:
   
-  # |Config-Version|
+  # |Config-Version| not touch
   Config-Version: 1
   
   # |Use-Database| You can save the data saved by the plugin in the .data files in a database and they can be synchronized with various servers
@@ -88,11 +88,23 @@ ChatFormat:
 # |MySQL|
 #
 MySQL:
+
+  #
   Use-SSL: false
+  
+  #
   Host: localhost
+  
+  #
   Port: 3306
+  
+  #
   Database: advancedchatDB
+  
+  #
   User: root
+  
+  #
   Password: 1234
 #
 # |Command Blocker|

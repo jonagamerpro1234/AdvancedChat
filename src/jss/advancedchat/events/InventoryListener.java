@@ -35,7 +35,7 @@ public class InventoryListener implements Listener {
         Player p = (Player) e.getWhoClicked();
         InventoryView inventoryPlayer = plugin.getInventoryPlayer(p);
         if (inventoryPlayer != null) {
-            if (inventoryPlayer.getInventory().contains("playerGui")) {
+            if (inventoryPlayer.getInventoryName().contains("playerGui")) {
                 if (e.getCurrentItem() == null) {
                     return;
                 }
@@ -74,7 +74,7 @@ public class InventoryListener implements Listener {
         Player p = (Player) e.getWhoClicked();
         InventoryView inventoryPlayer = plugin.getInventoryPlayer(p);
         if (inventoryPlayer != null) {
-            if (inventoryPlayer.getInventory().contains("colorGui")) {
+            if (inventoryPlayer.getInventoryName().contains("colorGui")) {
                 if (e.getCurrentItem() == null) {
                     return;
                 }
@@ -88,7 +88,6 @@ public class InventoryListener implements Listener {
                     String name = Utils.colorless(namecolor);
 
                     Player target = Bukkit.getPlayer(name);
-
 
                     if (slot == c.getInt("Items.Dark-Red.Slot")) {
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Red")) {
