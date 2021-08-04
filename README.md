@@ -26,6 +26,7 @@ a simple plugin that helps you customize your server chat to make it look better
 
 ## Support
 * [Issue Tracker](https://github.com/jonagamerpro1234/AdvancedChat/issues)
+* [Discord](https://discord.gg/c5GhQDQCK5)
 
 ## Quick Links
 * [Spigot Page][spigot]
