@@ -60,6 +60,7 @@ public class Settings {
     public static boolean boolean_chat_format_normal;
     public static boolean boolean_chat_format_custom;
     public static boolean boolean_chat_format_group;
+    public static int int_range_chat;
     //example
     public static boolean boolean_;
     public static String message_;

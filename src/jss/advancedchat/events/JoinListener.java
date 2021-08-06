@@ -38,8 +38,6 @@ public class JoinListener implements Listener {
 
     @EventHandler
     public void onJoinPlayer(PlayerJoinEvent e) {
-    	//Utils.sendJsonMessage(e.getPlayer(), "");
-    	//FileConfiguration c = plugin.getConfigFile().getConfig();
         PlayerDataFile dataFile = plugin.getPlayerDataFile();
         FileConfiguration config = dataFile.getConfig();
         ChatDataFile chatDataFile = plugin.getChatDataFile();
@@ -54,9 +52,6 @@ public class JoinListener implements Listener {
         Player j = e.getPlayer();
         
         if (Settings.mysql_use) {
-           /* if (!DataBaseManage.existPlayer(plugin.getConnectionMySQL().getConnection(), j.getUniqueId().toString())) {
-                DataBaseManage.createPlayer(plugin.getConnectionMySQL().getConnection(), j.getName(), j.getUniqueId().toString());
-            }*/
         	if(!sql.exists(mysql,j.getUniqueId().toString())) {
         		sql.createPlayer(mysql,j.getName(), j.getUniqueId().toString());
         	}
@@ -67,7 +62,8 @@ public class JoinListener implements Listener {
             config.set("Players." + j.getName() + ".UUID", j.getUniqueId().toString());
             config.set("Players." + j.getName() + ".Color", "WHITE");
             config.set("Players." + j.getName() + ".Mute", false);
-            config.set("Players." + j.getName() + ".Chat-Channel", "ALL");
+            config.set("Players." + j.getName() + ".Chat.Channel", "ALL");
+            config.set("Players." + j.getName() + ".Chat.Range", "10");
             dataFile.saveConfig();
             //	Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[PlayerdataFile] &aadd " + j.getName());
         } else {
@@ -117,7 +113,6 @@ public class JoinListener implements Listener {
 
         if (config.getString("Settings.Update").equals("true")) {
             if (j.isOp() && j.hasPermission("AdvancedChat.Update.Notify")) {
-
                 new UpdateChecker(AdvancedChat.getPlugin(), 83889).getUpdateVersion(version -> {
                     if (!AdvancedChat.getPlugin().getDescription().getVersion().equalsIgnoreCase(version)) {
                         TextComponent component = new TextComponent(Utils.color(Utils.getPrefixPlayer() + " &aThere is a new version available for download"));
@@ -126,7 +121,6 @@ public class JoinListener implements Listener {
                         j.spigot().sendMessage(component);
                     }
                 });
-
             }
         }
 

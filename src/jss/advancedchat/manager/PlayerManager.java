@@ -133,17 +133,36 @@ public class PlayerManager {
     	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
     	for(String key : config.getConfigurationSection("Players").getKeys(false)) {
     		if(key.contains(player.getName())) {
-    			String channel = config.getString("Players."+key+".Channel");
+    			String channel = config.getString("Players." + key + ".Chat.Channel");
     			return channel.toLowerCase();
     		}
     	}
     	return null;
     }
     
-    public void setChannel(Player player, String channel) {
+    public void setChannel(Player player, int range) {
     	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-        if (config.contains("Players." + player.getName() + ".Channel")) {
-            config.set("Players." + player.getName() + ".Channel", channel);
+        if (config.contains("Players." + player.getName() + ".Chat.Channel")) {
+            config.set("Players." + player.getName() + ".Chat.Channel", range);
+            plugin.getPlayerDataFile().saveConfig();
+        }
+    }
+    
+    public String getRange(Player player) {
+    	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+    	for(String key : config.getConfigurationSection("Players").getKeys(false)) {
+    		if(key.contains(player.getName())) {
+    			String channel = config.getString("Players." + key + ".Chat.Range");
+    			return channel.toLowerCase();
+    		}
+    	}
+    	return null;
+    }
+    
+    public void setRange(Player player, int range) {
+    	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+        if (config.contains("Players." + player.getName() + ".Chat.Range")) {
+            config.set("Players." + player.getName() + ".Chat.Range", range);
             plugin.getPlayerDataFile().saveConfig();
         }
     }
