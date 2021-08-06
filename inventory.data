@@ -4,5 +4,7 @@ Use-Custom-Skull-Player: true
 Amount-Items: 1
 # colors decoration
 Color-Gui-Decoration:
+  Settings: BLACK_STAINED_GLASS_PANE
   Player: BLACK_STAINED_GLASS_PANE
+  Channel: BLACK_STAINED_GLASS_PANE
   Color: BLACK_STAINED_GLASS_PANE
