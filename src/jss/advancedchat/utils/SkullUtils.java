@@ -25,9 +25,14 @@ public class SkullUtils {
 	private static String exit = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmViNTg4YjIxYTZmOThhZDFmZjRlMDg1YzU1MmRjYjA1MGVmYzljYWI0MjdmNDYwNDhmMThmYzgwMzQ3NWY3In19fQ==";
 	private static String rainbowcube = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzgzZmQzZDExOTUzOWEyNDI1ZjdkYzczMzNkNDJmYWQ2OTRlNjJmNWY0Mzg4MjM1MjQ3MzE5ZDU5NjNkNTY3NyJ9fX0=";
 	private static String choosecolor = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzIyNzY3MGQxNDg3OTQ5MTUzMDQ4MjdiMGViMDNlZmYyNzNjYTE1M2Y4NzRkYjVlOTA5NGQxY2RiYjYyNThhMiJ9fX0=";
+	private static String missing = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2M2MDNjNzk1NjAzMTk5OTZkNjM5NDEyOGI0OWZlYzc2NTBjZjg2N2ExZTQ4ZmI4MGM2MDQzZTc3MGRkNzFiZCJ9fX0=";
+	private static String mute_on = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzJmMDU4ZGRjMjk2OTEzMzI1OTFhYzU1YTBmZDczZjQzMjAxMTc5ODJjZmRiY2U3OTY5OTQxY2ZhOGVkOGM2YiJ9fX0=";
+	private static String mute_off = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjAyYWYzY2EyZDVhMTYwY2ExMTE0MDQ4Yjc5NDc1OTQyNjlhZmUyYjFiNWVjMjU1ZWU3MmI2ODNiNjBiOTliOSJ9fX0=";
 	
 	public static String replace(String texture) {
-		
+		if(texture == null) {
+			return missing;
+		}
 		String temp = texture;
 		
 		if(temp.equalsIgnoreCase("[colors]")) {
@@ -186,6 +191,122 @@ public class SkullUtils {
 		return exit;
 	}
 
+	public static String getMissing() {
+		return missing;
+	}
+
+	public static String getMute_on() {
+		return mute_on;
+	}
+
+	public static String getMute_off() {
+		return mute_off;
+	}
+
+	public static void setColors(String colors) {
+		SkullUtils.colors = colors;
+	}
+
+	public static void setWhite(String white) {
+		SkullUtils.white = white;
+	}
+
+	public static void setGray(String gray) {
+		SkullUtils.gray = gray;
+	}
+
+	public static void setBlack(String black) {
+		SkullUtils.black = black;
+	}
+
+	public static void setRed(String red) {
+		SkullUtils.red = red;
+	}
+
+	public static void setBlue(String blue) {
+		SkullUtils.blue = blue;
+	}
+
+	public static void setGreen(String green) {
+		SkullUtils.green = green;
+	}
+
+	public static void setYellow(String yellow) {
+		SkullUtils.yellow = yellow;
+	}
+
+	public static void setGold(String gold) {
+		SkullUtils.gold = gold;
+	}
+
+	public static void setAqua(String aqua) {
+		SkullUtils.aqua = aqua;
+	}
+
+	public static void setLight_purple(String light_purple) {
+		SkullUtils.light_purple = light_purple;
+	}
+
+	public static void setDark_purple(String dark_purple) {
+		SkullUtils.dark_purple = dark_purple;
+	}
+
+	public static void setDark_aqua(String dark_aqua) {
+		SkullUtils.dark_aqua = dark_aqua;
+	}
+
+	public static void setDark_green(String dark_green) {
+		SkullUtils.dark_green = dark_green;
+	}
+
+	public static void setDark_blue(String dark_blue) {
+		SkullUtils.dark_blue = dark_blue;
+	}
+
+	public static void setDark_red(String dark_red) {
+		SkullUtils.dark_red = dark_red;
+	}
+
+	public static void setDark_gray(String dark_gray) {
+		SkullUtils.dark_gray = dark_gray;
+	}
+
+	public static void setRainbow(String rainbow) {
+		SkullUtils.rainbow = rainbow;
+	}
+
+	public static void setNext(String next) {
+		SkullUtils.next = next;
+	}
+
+	public static void setLast(String last) {
+		SkullUtils.last = last;
+	}
+
+	public static void setExit(String exit) {
+		SkullUtils.exit = exit;
+	}
+
+	public static void setRainbowcube(String rainbowcube) {
+		SkullUtils.rainbowcube = rainbowcube;
+	}
+
+	public static void setChoosecolor(String choosecolor) {
+		SkullUtils.choosecolor = choosecolor;
+	}
+
+	public static void setMissing(String missing) {
+		SkullUtils.missing = missing;
+	}
+
+	public static void setMute_on(String mute_on) {
+		SkullUtils.mute_on = mute_on;
+	}
+
+	public static void setMute_off(String mute_off) {
+		SkullUtils.mute_off = mute_off;
+	}
+
 	public static String getRainbowcube() {
 		return rainbowcube;
 	}
@@ -193,5 +314,7 @@ public class SkullUtils {
 	public static String getChoosecolor() {
 		return choosecolor;
 	}	
+	
+	
 	
 }

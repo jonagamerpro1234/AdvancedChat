@@ -133,6 +133,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 						configFile.reloadConfig();
 						playerDataFile.reloadConfig();
 						colorFile.reloadConfig();
+						plugin.getChannelGuiFile().reloadConfig();
 						playerGuiFile.reloadConfig();
 						plugin.getPreConfigLoader().load();
 						if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
