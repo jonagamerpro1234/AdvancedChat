@@ -3,7 +3,6 @@ package jss.advancedchat;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -53,41 +52,40 @@ import jss.advancedchat.utils.Utils;
 
 public class AdvancedChat extends JavaPlugin {
 
-	private CommandSender c = Bukkit.getConsoleSender();
 	private static boolean debug = false;
 	private FileManager filemanager = new FileManager(this);
-	private PlayerDataFile playerdata = new PlayerDataFile(this, "players.data", "Data");
 	private ConfigFile configfile = new ConfigFile(this, "config.yml");
+	private CommandFile commandFile = new CommandFile(this, "custom-command.yml");
 	private ColorFile colorFile = new ColorFile(this, "color-gui.yml", "Gui");
 	private PlayerGuiFile playerGuiFile = new PlayerGuiFile(this, "player-gui.yml", "Gui");
 	private ChannelGuiFile channelGuiFile = new ChannelGuiFile(this, "channel-gui.yml", "Gui");
-	private ChatDataFile chatDataFile = new ChatDataFile(this, "chat-log.data", "Data");
 	private ChatLogFile chatLogFile = new ChatLogFile(this, "chat.yml", "Log");
 	private CommandLogFile commandLogFile = new CommandLogFile(this, "command.yml", "Log");
-	private CommandFile commandFile = new CommandFile(this, "custom-command.yml");
+	private ChatDataFile chatDataFile = new ChatDataFile(this, "chat-log.data", "Data");
+	private PlayerDataFile playerdata = new PlayerDataFile(this, "players.data", "Data");
 	private InventoryDataFile inventoryDataFile = new InventoryDataFile(this, "inventory.data", "Data");
 	private PluginDescriptionFile jss = getDescription();
 	private static AdvancedChat plugin;
-	private ArrayList<InventoryView> inventoryPlayers;
-	private ArrayList<ChatManager> chatManagers;
-	private ArrayList<OnlinePlayers> onlinePlayers;
 	private PreConfigLoader preConfigLoad = new PreConfigLoader(this);
+	public Logger logger = new Logger(this);
 	private MySQL mySQL = new MySQL();
 	private SQLGetter data = new SQLGetter();
-	private EventUtils eventUtils;
-	private boolean BungeeMode = false;
+	private EventUtils eventUtils = new EventUtils(this);
+	public Metrics metrics;
 	private static GsonBuilder gsonBuilder;
 	private HookManager HookManager = new HookManager(this);
 	public String name = this.jss.getName();
 	public String version = this.jss.getVersion();
-	public Metrics metrics;
 	public String latestversion;
-	public boolean placeholder = false;
-	public Logger logger = new Logger(this);
 	public String nmsversion;
+	public boolean placeholder = false;
+	private boolean BungeeMode = false;
 	public boolean uselegacyversion = false;
 	public boolean uselatestversion = false;
-
+	private ArrayList<InventoryView> inventoryView;
+	private ArrayList<ChatManager> chatManagers;
+	private ArrayList<OnlinePlayers> onlinePlayers;
+	
 	public void onEnable() {
 		Utils.setEnabled(version);
 		nmsversion = Bukkit.getServer().getClass().getPackage().getName();
@@ -95,13 +93,13 @@ public class AdvancedChat extends JavaPlugin {
 		if (nmsversion.equalsIgnoreCase("v1_8_R3")) {
 			uselegacyversion = true;
 			if (uselegacyversion) {
-				Utils.sendColorMessage(c, Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion
+				Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion
 						+ " &cdisabled &7method &b1.16 &7and &e1.17");
 			}
 		} else if (nmsversion.equalsIgnoreCase("v1_16_R1") || nmsversion.equalsIgnoreCase("v1_16_R2")
 				|| nmsversion.equalsIgnoreCase("v1_16_R3")) {
 			uselatestversion = true;
-			Utils.sendColorMessage(c,
+			Utils.sendColorMessage(eventUtils.getConsoleSender(),
 					Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
 		}
 		// checkNMSVersion(nmsversion);
@@ -114,7 +112,7 @@ public class AdvancedChat extends JavaPlugin {
 		}
 		commandFile.create();
 		playerdata.create();
-		try {
+		/*try {
 			if (this.getConfigFile().getConfig().getString("Settings.BungeeMode").equals("false")) {
 
 				BungeeMode = false;
@@ -125,7 +123,7 @@ public class AdvancedChat extends JavaPlugin {
 			}
 		} catch (NullPointerException e) {
 			e.printStackTrace();
-		}
+		}*/
 		inventoryDataFile.create();
 		chatLogFile.create();
 		commandLogFile.create();
@@ -144,7 +142,7 @@ public class AdvancedChat extends JavaPlugin {
 		}
 		loadMySQL();
 		metrics = new Metrics(this);
-		this.inventoryPlayers = new ArrayList<>();
+		this.inventoryView = new ArrayList<>();
 		this.chatManagers = new ArrayList<>();
 		this.onlinePlayers = new ArrayList<>();
 		loadCommands();
@@ -291,6 +289,7 @@ public class AdvancedChat extends JavaPlugin {
 		return this.mySQL;
 	}
 
+	@Deprecated
 	public boolean setupPlaceHolderAPI() {
 		if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
 			placeholder = true;
@@ -298,17 +297,18 @@ public class AdvancedChat extends JavaPlugin {
 		return placeholder;
 	}
 
+	@Deprecated
 	public void setupSoftDepends() {
 		if (setupPlaceHolderAPI()) {
-			Utils.sendColorMessage(c, Utils.getPrefix() + "&5<||============================================-----");
-			Utils.sendColorMessage(c, Utils.getPrefix() + "&5<|| &c* &ePlaceHolderAPI:&b" + " " + placeholder);
-			Utils.sendColorMessage(c, Utils.getPrefix() + "&5<|| &c* &eVars PlaceHolderAPI:&a true");
-			Utils.sendColorMessage(c, Utils.getPrefix() + "&5<||============================================-----");
+			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<||============================================-----");
+			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &ePlaceHolderAPI:&b" + " " + placeholder);
+			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &eVars PlaceHolderAPI:&a true");
+			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<||============================================-----");
 		} else {
-			Utils.sendColorMessage(c, Utils.getPrefix() + "&5<||============================================-----");
-			Utils.sendColorMessage(c, Utils.getPrefix() + "&5<|| &c* &ePlaceHolderAPI:&b" + " " + placeholder);
-			Utils.sendColorMessage(c, Utils.getPrefix() + "&5<|| &c* &eVars PlaceHolderAPI:&c false");
-			Utils.sendColorMessage(c, Utils.getPrefix() + "&5<||============================================-----");
+			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<||============================================-----");
+			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &ePlaceHolderAPI:&b" + " " + placeholder);
+			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &eVars PlaceHolderAPI:&c false");
+			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<||============================================-----");
 		}
 	}
 
@@ -322,22 +322,22 @@ public class AdvancedChat extends JavaPlugin {
 
 	public void addInventoryPlayer(Player player, String inventoryname) {
 		if (this.getInventoryPlayer(player) == null) {
-			this.inventoryPlayers.add(new InventoryView(player, inventoryname));
+			this.inventoryView.add(new InventoryView(player, inventoryname));
 		}
 	}
 
 	public void removeInvetoryPlayer(Player player) {
-		for (int i = 0; i < inventoryPlayers.size(); i++) {
-			if (((InventoryView) this.inventoryPlayers.get(i)).getPlayer().getName().equals(player.getName())) {
-				this.inventoryPlayers.remove(i);
+		for (int i = 0; i < inventoryView.size(); i++) {
+			if (((InventoryView) this.inventoryView.get(i)).getPlayer().getName().equals(player.getName())) {
+				this.inventoryView.remove(i);
 			}
 		}
 	}
 
 	public InventoryView getInventoryPlayer(Player player) {
-		for (int i = 0; i < inventoryPlayers.size(); i++) {
-			if (((InventoryView) this.inventoryPlayers.get(i)).getPlayer().getName().equals(player.getName())) {
-				return (InventoryView) this.inventoryPlayers.get(i);
+		for (int i = 0; i < inventoryView.size(); i++) {
+			if (((InventoryView) this.inventoryView.get(i)).getPlayer().getName().equals(player.getName())) {
+				return (InventoryView) this.inventoryView.get(i);
 			}
 		}
 		return null;

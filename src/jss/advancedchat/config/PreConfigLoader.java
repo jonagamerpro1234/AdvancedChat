@@ -19,13 +19,6 @@ public class PreConfigLoader {
         	Settings.message_msg_empty = config.getString("AdvancedChat.Empty.Msg");
         	Settings.message_msg_use = config.getString("AdvancedChat.Help-Msg-Use");
         	Settings.boolean_filter_use_msg = config.getString("Filter-Chat.Use-Custom-Msg").equals("true");
-        	Settings.boolean_custom_type_normal = config.getString("Custom-Format.Type").equals("normal");
-        	Settings.boolean_custom_type_hover = config.getString("Custom-Format.Type").equals("hover");
-        	Settings.boolean_custom_type_click = config.getString("Custom-Format.Type").equals("click");
-        	Settings.boolean_custom_type_double = config.getString("Custom-Format.Type").equals("double");
-        	Settings.boolean_custom_type_experimental = config.getString("Custom-Format.Type").equals("experimental");
-        	Settings.boolean_custom_type_all = config.getString("Custom-Format.Type").equals("all");
-
          	Settings.mysql_use = config.getString("Settings.Use-Database").equals("true");
          	
          	//debug section
@@ -34,8 +27,9 @@ public class PreConfigLoader {
         	//---------------------------------
         	
         	Settings.message_mute_bypass = config.getString("AdvancedChat.Mute-Bypass");
-        	Settings.boolean_chatclear_autoclear = config.getString("Settings.ClearChat.AutoClear").equals("true");
-        	Settings.int_clearchat_tick = config.getInt("Settings.ClearChat.Tick");
+        	Settings.boolean_chatclear_autoclear = config.getString("ClearChat.AutoClear").equals("true");
+        	Settings.int_clearchat_tick = config.getInt("ClearChat.Tick");
+        	Settings.int_clearchat_lines = config.getInt("ClearChat.LineClear");
         	Settings.boolean_use_default_prefix = config.getString("Settings.Use-Default-Prefix").equals("true");
         	Settings.message_protocol_state = config.getString("ProtocolLib-Packet.Enabled");
         	Settings.message_error_mysql = config.getString("AdvancedChat.Error-MySql");

@@ -1,5 +1,7 @@
 package jss.advancedchat.inventory;
 
+import java.util.Set;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -16,6 +18,8 @@ import jss.advancedchat.utils.Utils;
 public class GuiPlayer {
 
     private AdvancedChat plugin;
+    private ItemStack item;
+    private ItemMeta meta;
 
     public GuiPlayer(AdvancedChat plugin) {
         this.plugin = plugin;
@@ -27,36 +31,45 @@ public class GuiPlayer {
         FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
         
         String title = config.getString("Title");
-        String colorglass = invData.getString("Color-Glass.Color");
+        String colorglass = invData.getString("Color-Glass.Player");
         int amount = invData.getInt("Amount-Items");
         
         Inventory inv = Bukkit.createInventory(null, 54, Utils.color(title));
 
-        ItemStack item = null;
-        ItemMeta meta = null;
-
-        //Player p = Bukkit.getPlayer(player2);
-
-        setGlass(inv, item, meta, colorglass);
+        setGlass(inv, colorglass);
+        
         item = Utils.getPlayerHead(player2);
         inv.setItem(4, item);
         
-        for(String key : config.getConfigurationSection("Items").getKeys(false)) {
-        	int slot = config.getInt("Items." + key + ".Slot");
-        	String textures = config.getString("Items." + key + ".Texture");
-        	textures = SkullUtils.replace(textures);
+       Set<String> section = config.getConfigurationSection("Items").getKeys(false);
+       
+       section.forEach( (key) -> {
+    	   int slot = config.getInt("Items." + key + ".Slot");
+        	boolean isSkull = config.getBoolean("Items." + key + ".Is-Skull");
+        	String name = config.getString("Items." + key + ".Name");
         	
-        	item = Utils.createSkull(textures);
+        	if(isSkull) {
+            	String textures = config.getString("Items." + key + ".Texture");
+            	textures = SkullUtils.replace(textures);
+            	item = Utils.createSkull(textures);
+        	}else {
+        		String mat = config.getString("Items." + key + ".Item");
+        		item = XMaterial.valueOf(mat.toUpperCase()).parseItem();
+        	}
+        	meta = item.getItemMeta();
+        	meta.setDisplayName(Utils.color(name));
         	
+        	item.setItemMeta(meta);
         	item.setAmount(amount);
+        	
         	inv.setItem(slot, item);
-        }
+        });
         
         plugin.addInventoryPlayer(player, "playerGui");
         player.openInventory(inv);
     }
 
-    private void setGlass(Inventory inv, ItemStack item, ItemMeta meta, String path) {
+    private void setGlass(Inventory inv, String path) {
         for(int i = 0 ; i < 54; i++) {
             item = XMaterial.valueOf(path).parseItem();
             meta = item.getItemMeta();
