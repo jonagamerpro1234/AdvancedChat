@@ -27,6 +27,7 @@ import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Settings;
 
+@SuppressWarnings("unused")
 public class ChatListener implements Listener {
 
 	private AdvancedChat plugin;
@@ -45,7 +46,6 @@ public class ChatListener implements Listener {
 	
 	public ChatListener(AdvancedChat plugin) {
 		this.plugin = plugin;
-		eventsUtils.getEventManager().registerEvents(this, plugin);
 	}
 
 	//Chat filter

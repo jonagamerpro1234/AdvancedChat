@@ -209,10 +209,11 @@ public class AdvancedChat extends JavaPlugin {
 	}
 
 	public void loadEvents() {
-		new JoinListener(this);
-		new InventoryListener(this);
-		new ChatListener(this);
-		new CommandListener(this);
+		eventUtils.initEvent(
+		new JoinListener(this),
+		new InventoryListener(this),
+		new ChatListener(this),
+		new CommandListener(this));
 		EventLoader e = new EventLoader(this);
 		e.runClearChat();
 	}
@@ -362,7 +363,7 @@ public class AdvancedChat extends JavaPlugin {
 	}
 
 	public ArrayList<ChatManager> getChatManagers() {
-		return chatManagers;
+		return this.chatManagers;
 	}
 
 	public void setChatManagers(ChatManager chat) {
@@ -370,11 +371,11 @@ public class AdvancedChat extends JavaPlugin {
 	}
 
 	public EventUtils getEventUtils() {
-		return eventUtils;
+		return this.eventUtils;
 	}
 
 	public boolean isBungeeMode() {
-		return BungeeMode;
+		return this.BungeeMode;
 	}
 
 	public void setBungeeMode(boolean isBungeeMode) {
@@ -386,7 +387,7 @@ public class AdvancedChat extends JavaPlugin {
 	}
 
 	public PreConfigLoader getPreConfigLoader() {
-		return preConfigLoad;
+		return this.preConfigLoad;
 	}
 
 	public SQLGetter getSQLGetter() {

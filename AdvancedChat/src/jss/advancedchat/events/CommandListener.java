@@ -13,17 +13,14 @@ import jss.advancedchat.config.files.ChatDataFile;
 import jss.advancedchat.config.files.CommandLogFile;
 import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Utils;
 
 public class CommandListener implements Listener {
 
     private AdvancedChat plugin;
-    private EventUtils eventsUtils = new EventUtils(plugin);
 
     public CommandListener(AdvancedChat plugin) {
         this.plugin = plugin;
-        eventsUtils.getEventManager().registerEvents(this, plugin);
     }
 
     @EventHandler

@@ -26,7 +26,7 @@ public class GuiPlayer {
     }
     
 
-    public void openPlayerGui(Player player, String player2) {
+    public void open(Player player, String player2) {
         FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
         FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
         
@@ -63,8 +63,11 @@ public class GuiPlayer {
         	item.setAmount(amount);
         	
         	inv.setItem(slot, item);
+        	
+        	
+        	
         });
-        
+       
         plugin.addInventoryPlayer(player, "playerGui");
         player.openInventory(inv);
     }
@@ -84,16 +87,16 @@ public class GuiPlayer {
         }
     }
 
-    public void setMuteItem(FileConfiguration config, Player player, Inventory inv, ItemStack item, ItemMeta meta) {
+    public ItemStack getMuteItem(Player player) {
         PlayerManager manager = new PlayerManager(plugin);
         if (manager.check(player)) {
-            if (manager.isMute(player) == true) {
-            	
+            if (manager.isMute(player)) {
+            	return item = XMaterial.GREEN_DYE.parseItem();
             } else {
-            	
+            	return item = XMaterial.GRAY_DYE.parseItem();
             }
         } else {
-            return;
+            return XMaterial.STONE.parseItem();
         }
     }
 

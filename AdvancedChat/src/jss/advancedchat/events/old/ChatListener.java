@@ -22,7 +22,7 @@ public class ChatListener {
 	private AdvancedChat plugin;
 	private boolean badword;
 	
-	@SuppressWarnings({ "unused",  })
+	@SuppressWarnings({ "unused",  "deprecation"})
 	// @EventHandler(priority = EventPriority.HIGH)
 	public void onChat(AsyncPlayerChatEvent e) {
 		
