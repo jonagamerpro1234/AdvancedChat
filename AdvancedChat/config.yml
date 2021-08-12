@@ -59,26 +59,20 @@ ChatFormat:
   #
   Enabled: true
 
-  #
+  # |Default| 
   Default:
   
-    #
-    Format:
+    # |Format|
+    Format: '&b<name> &8>'
     
-      #
-      Prefix: '<player>'
-      
-      #
-      Message: '&8> &7<message>'
-    
-    #
+    # |HoverEvent|
     HoverEvent:
-      - ''
-      - ''
-      - ''
+      - '&6Hello player'
+      - '<0>'
+      - '&e> %player_name%'
 
   
-  #
+  # |Groups| 
   Groups:
     Default:
       Permission: 'advancedchat.group.default'
@@ -100,19 +94,19 @@ MySQL:
   #
   Use-SSL: false
   
-  #
+  # |Host|
   Host: localhost
   
-  #
+  # |Port|
   Port: 3306
   
-  #
+  # |Database|
   Database: advancedchatDB
   
-  #
+  # |User|
   User: root
   
-  #
+  # |Password|
   Password: 1234
 #
 # |Command Blocker|
@@ -169,6 +163,8 @@ TabComplete:
 ProtocolLib-Packet:
   Enabled: true
   Disable-TabCompleted: true 
+
+#-------------------------------------- remove section
 #
 # | Custom |
 # | here you can customize the chat in a general way that affects both ranks, groups, and has all players |
@@ -250,7 +246,7 @@ ProtocolLib-Packet:
 #    ClickEvent:
 #      Action: 'say hello <name>'
 #      Mode: Cmd
-
+#--------------------------------------
 #
 # |Filter Chat|
 # |here you can filter the unwanted words on your server and have a little more control over the chat

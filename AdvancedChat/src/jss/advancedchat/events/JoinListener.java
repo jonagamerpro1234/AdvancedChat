@@ -7,7 +7,6 @@ import jss.advancedchat.config.files.CommandLogFile;
 import jss.advancedchat.config.files.PlayerDataFile;
 import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.storage.SQLGetter;
-import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.OnlinePlayers;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.UpdateSettings;
@@ -29,11 +28,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class JoinListener implements Listener {
 
     private AdvancedChat plugin;
-    private EventUtils eventsUtils = new EventUtils(plugin);
 
     public JoinListener(AdvancedChat plugin) {
         this.plugin = plugin;
-        eventsUtils.getEventManager().registerEvents(this, plugin);
     }
 
     @EventHandler

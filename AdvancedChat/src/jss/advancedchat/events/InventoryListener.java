@@ -18,6 +18,7 @@ import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 
+@SuppressWarnings("unused")
 public class InventoryListener implements Listener {
 
     private AdvancedChat plugin;
@@ -25,7 +26,6 @@ public class InventoryListener implements Listener {
 
     public InventoryListener(AdvancedChat plugin) {
         this.plugin = plugin;
-        eventUtils.getEventManager().registerEvents(this, plugin);
     }
 
 	@EventHandler
@@ -250,7 +250,7 @@ public class InventoryListener implements Listener {
                     	e.setCancelled(true);
                     	p.closeInventory();
                     	GuiPlayer guiPlayer = new GuiPlayer(plugin);
-                    	guiPlayer.openPlayerGui(p, name);
+                    	guiPlayer.open(p, name);
                     			
                     }
                 }

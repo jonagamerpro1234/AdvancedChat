@@ -203,9 +203,9 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 								Utils.sendColorMessage(j, config.getString("AdvancedChat.No-Online-Player"));
 								return true;
 							}
-							guiPlayer.openPlayerGui(j, p.getName());
+							guiPlayer.open(j, p.getName());
 						} else {
-							guiPlayer.openPlayerGui(j, j.getName());
+							guiPlayer.open(j, j.getName());
 							return true;
 						}
 					} else {
