@@ -1,0 +1,38 @@
+# |    AdvancedChat     |
+# | By jonagamerpro1234 |
+# |     Version 1.6.0   |
+# |_____________________|
+#
+#
+# |Default-Channel|
+#
+# Types: [ALL] [Local] [Group] comming soon more options
+#
+Default-Channel: ALL
+#
+# |DataBase|
+#
+DataBase:
+  Host: 'localhost'
+  port: '3306'
+  database: 'advancedchatDB'
+  username: 'root'
+  password: '1234'
+#
+# |Translation of messages from AdvancedChat|
+# |Version: 1.5|
+#
+AdvancedChat:
+  No-Permission: '&cYou dont have permission to do that!'
+  No-Permission-Label: 'Ask the server owner or an administrator for help for more information.'
+  Error-Args: '&cUnknown Arguments'
+  Reload: '&aReload Completed'
+  Help-Mute: '&7Use &b/Mute &e<player> &7'
+  Help-UnMute: '&7Use &b/UnMute &e<player> &7'
+  Help-Cmd: '&7Use &b/AdvanceChat &8| &9/Ac &6Help &7 show more information of plugin'
+#
+# This is the end of the configuration ... [-_-] more things coming soon
+# 
+# | Config File
+# | Version 1.6.0
+#
