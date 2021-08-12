@@ -1,0 +1,40 @@
+# |    AdvancedChat     |
+# | By jonagamerpro1234 |
+# |     Version 1.6.0   |
+# |_____________________|
+#
+Title: '&b&lMenu &8&l> &e&lChannel'
+Items:
+  Global:
+    Name: '&bGlobal'
+    Item: Paper
+    Slot: 10
+    Lore:
+      - '&7By selecting this channel you can talk to all the players who are on the same channel as you'
+      - '&e&nclick to select'
+  World:
+    Name: '&bWorld'
+    Item: STONE
+    Slot: 12
+    Lore:
+      - '&7By selecting this channel you can talk to world the players who are on the same channel as you'
+      - '&e&nclick to select'
+  Local:
+    Name: '&bLocal'
+    Item: STONE
+    Slot: 14
+    Lore:
+      - '&7By selecting this channel you can talk to local the players who are on the same channel as you'
+      - 'range: <range>'
+      - '&e&nclick to select'
+  Staff:
+    Name: '&bStaff'
+    Item: STONE
+    Slot: 16
+    Lore:
+      No_Perm:
+        - '&7This channel is dedicated to the server staff and only those who have the corresponding permission will be able to select it.'
+        - '&c&ndoes not have permissions'
+      Perm:
+        - '&7This channel is dedicated to the server staff and only those who have the corresponding permission will be able to select it.'
+        - '&e&nclick to select'
