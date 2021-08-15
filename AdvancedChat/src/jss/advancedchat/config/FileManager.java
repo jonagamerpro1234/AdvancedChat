@@ -3,8 +3,6 @@ package jss.advancedchat.config;
 import java.io.File;
 import java.io.InputStream;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
@@ -50,11 +48,6 @@ public class FileManager {
             }
         }
 
-    }
-
-    @Deprecated
-    public JavaPlugin getJavaPlugin() {
-        return plugin;
     }
 
     public void saveResources(String filename, boolean replace) {
