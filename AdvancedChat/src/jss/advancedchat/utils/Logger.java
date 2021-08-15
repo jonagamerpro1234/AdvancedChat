@@ -8,7 +8,6 @@ public class Logger {
     private EventUtils eventsUtils = new EventUtils(plugin);
 
     public Logger(AdvancedChat plugin) {
-        super();
         this.plugin = plugin;
     }
     
