@@ -11,6 +11,8 @@
 [songoda]: https://songoda.com/marketplace/product/advancedchat-chat-related.542
 [javaversion]: https://img.shields.io/badge/Java-8%2B-red?style=flat-square/
  
+<!-- The stuff above isn't visible in the readme --> 
+ 
 [![advancedchat]][spigot]
 
 [![releasesImg]][releases] [![licenseImg]][license] [![spigotreleases]][spigot] ![javaversion] [![issues]][issueslink] [![sgdr]][songoda]
