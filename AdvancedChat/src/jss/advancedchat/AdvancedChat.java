@@ -78,6 +78,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public String version = this.jss.getVersion();
 	public String latestversion;
 	public String nmsversion;
+	@Deprecated
 	public boolean placeholder = false;
 	private boolean BungeeMode = false;
 	public boolean uselegacyversion = false;
@@ -102,7 +103,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 			Utils.sendColorMessage(eventUtils.getConsoleSender(),
 					Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
 		}
-		// checkNMSVersion(nmsversion);
 		plugin = this;
 		if (AdvancedChat.isDebug()) {
 			plugin.logger.Log(Level.INFO, "Pre Config Load completed");
@@ -231,7 +231,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		}
 	}
 
-	// Working progress
 	/*
 	 * @SuppressWarnings("unused") private void checkNMSVersion(String nmsversion) {
 	 * try { Class<?> clazz = Class.forName("jss.advancedchat.nms.versions"+ "." +
@@ -376,10 +375,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
 	public boolean isBungeeMode() {
 		return this.BungeeMode;
-	}
-
-	public void setBungeeMode(boolean isBungeeMode) {
-		this.BungeeMode = isBungeeMode;
 	}
 
 	public static Gson getGson() {

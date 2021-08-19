@@ -290,7 +290,52 @@ Anti-Swear:
   
   #
   Sings: {}
-
+#
+# | Mention |
+#
+Mention:
+  
+  # |Enabled|
+  Enabled: true
+  
+  # |Send-Format|
+  Send-Format: ''
+  
+  # |Receive-Format|
+  Receive-Format: ''
+  
+  Title:
+  
+    Enabled: true
+    
+    Title: ''
+    
+    SubTitle: ''
+    
+    FadeIn: 20
+    
+    Stay: 40
+    
+    FadeOut: 20
+  
+  Actionbar:
+  
+    Enabled: true
+    
+    Text: ''
+  
+  
+  # |Sound|
+  Sound:
+    
+    # |Name| 
+    Name: NOTE_PLING
+    
+    # |Pitch|
+    Pitch: 0.5
+    
+    # |Vol|
+    Vol: 1
 #
 # |Translation of messages from AdvancedChat|
 # |Version: 1.6|
