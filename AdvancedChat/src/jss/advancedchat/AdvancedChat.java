@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -41,6 +40,7 @@ import jss.advancedchat.json.serializers.SerializerHoverEvent;
 import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.storage.SQLGetter;
+import jss.advancedchat.utils.AdvancedChatPlugin;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.OnlinePlayers;
@@ -50,7 +50,7 @@ import jss.advancedchat.utils.UpdateSettings;
 import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
 
-public class AdvancedChat extends JavaPlugin {
+public class AdvancedChat extends AdvancedChatPlugin {
 
 	private static boolean debug = false;
 	private FileManager filemanager = new FileManager(this);
