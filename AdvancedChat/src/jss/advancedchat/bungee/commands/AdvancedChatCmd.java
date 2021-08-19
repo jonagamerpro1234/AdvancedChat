@@ -20,8 +20,12 @@ public class AdvancedChatCmd extends Command {
         ProxiedPlayer j = (ProxiedPlayer) sender;
         
         if(args.length >= 1) {
-        	if(args[0].equalsIgnoreCase("test")) {
+        	if(args[0].equalsIgnoreCase("reload")) {
         		Utils.sendBungeeColorMessage(j, "&6Test Player message ");
+        		return;
+        	}
+        	
+        	if(args[0].equalsIgnoreCase("sync")) {
         		return;
         	}
         	
