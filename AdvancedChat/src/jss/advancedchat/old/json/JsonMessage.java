@@ -1,10 +1,10 @@
-package jss.advancedchat.json;
+package jss.advancedchat.old.json;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
-import jss.advancedchat.json.handlers.JsonClickEvent;
-import jss.advancedchat.json.handlers.JsonHoverEvent;
+import jss.advancedchat.old.json.handlers.JsonClickEvent;
+import jss.advancedchat.old.json.handlers.JsonHoverEvent;
 
 public abstract class JsonMessage {
 	

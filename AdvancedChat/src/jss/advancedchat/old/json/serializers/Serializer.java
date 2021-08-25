@@ -1,4 +1,4 @@
-package jss.advancedchat.json.serializers;
+package jss.advancedchat.old.json.serializers;
 
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonSerializer;

@@ -1,4 +1,4 @@
-package jss.advancedchat.json.serializers;
+package jss.advancedchat.old.json.serializers;
 
 import java.lang.reflect.Type;
 
@@ -8,8 +8,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 
-import jss.advancedchat.json.handlers.ClickAction;
-import jss.advancedchat.json.handlers.JsonClickEvent;
+import jss.advancedchat.old.json.handlers.ClickAction;
+import jss.advancedchat.old.json.handlers.JsonClickEvent;
 
 public class SerializerClickEvent implements Serializer<JsonClickEvent> {
 
