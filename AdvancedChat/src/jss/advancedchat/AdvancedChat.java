@@ -52,7 +52,7 @@ import jss.advancedchat.utils.Utils;
 
 public class AdvancedChat extends AdvancedChatPlugin {
 
-	private static boolean debug = false;
+	
 	@SuppressWarnings("unused")
 	private FileManager filemanager = new FileManager(this);
 	private ConfigFile configfile = new ConfigFile(this, "config.yml");
@@ -84,6 +84,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private boolean BungeeMode = false;
 	public boolean uselegacyversion = false;
 	public boolean uselatestversion = false;
+	private static boolean debug;
 	private ArrayList<InventoryView> inventoryView;
 	private ArrayList<ChatManager> chatManagers;
 	private ArrayList<OnlinePlayers> onlinePlayers;
@@ -105,7 +106,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 					Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
 		}
 		plugin = this;
-		if (AdvancedChat.isDebug()) {
+		if (isDebug()) {
 			plugin.logger.Log(Level.INFO, "Pre Config Load completed");
 		} else {
 			Logger.Default("&5<|| &c* &ePre Config Load completed");
@@ -183,6 +184,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		Utils.setTitleLoad("&bLoading Files");
 		configfile.saveDefaultConfig();
 		configfile.create();
+		debug = configfile.getConfig().getBoolean("Settings.Debug");
 		Utils.setLineLoad("&eLoad Config.yml");
 		preConfigLoad.load();
 		Utils.setLineLoad("&eLoad Pre Config");
@@ -313,7 +315,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		}
 	}
 
-	public static boolean isDebug() {
+	public boolean isDebug() {
 		return debug;
 	}
 

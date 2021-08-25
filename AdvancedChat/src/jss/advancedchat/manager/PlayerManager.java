@@ -7,13 +7,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.utils.Logger;
 
 public class PlayerManager {
 
     private AdvancedChat plugin;
     private int spam;
     private ColorManager colorManager;
-    private FileConfiguration config = plugin.getPlayerDataFile().getConfig();
     
     public PlayerManager(AdvancedChat plugin) {
         this.plugin = plugin;
@@ -29,6 +29,7 @@ public class PlayerManager {
     }
 
     public boolean isMute(Player player) {
+    	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
     	Set<String> sections = config.getKeys(false);
     	Iterator<String> section = sections.iterator();
     	while(true) {
@@ -92,7 +93,19 @@ public class PlayerManager {
         if (player == null) {
             return;
         }
-        if (config.contains("Players." + player.getName() + ".Mute")) {
+        if (config.contains(player.getName() + ".Mute")) {
+            config.set(player.getName() + ".Mute", mute);
+            plugin.getPlayerDataFile().saveConfig();
+        }
+    }
+    
+    @Deprecated
+    public void setMuteOld(Player player, boolean mute) {
+        FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+        if (player == null) {
+            return;
+        }
+        if (config.contains(player.getName() + ".Mute")) {
             config.set("Players." + player.getName() + ".Mute", mute);
             plugin.getPlayerDataFile().saveConfig();
         }
@@ -156,14 +169,40 @@ public class PlayerManager {
         }
     }
     
-    public boolean check(Player player) {
-        FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-        for (String key : config.getConfigurationSection("Players").getKeys(false)) {
-            if (key.contains(player.getName())) {
-                return true;
+    public void create(Player player) {
+    	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+    	if(!this.exist(player)) {
+    		config.set(player.getName() + ".UUID", player.getUniqueId());
+            config.set(player.getName() + ".Color", "WHITE");
+            config.set(player.getName() + ".Mute", false);
+            config.set(player.getName() + ".Chat.Channel", "ALL");
+            config.set(player.getName() + ".Chat.Range", 10);
+            plugin.getPlayerDataFile().saveConfig();
+            if(plugin.isDebug()) {
+            	Logger.Debug("&9folder &7-> &e[Data] &7-> &efile &b[player.data] &7-> &aAdded " + player.getName());
             }
-        }
-        return false;
+    	}else {
+    		if(plugin.isDebug()) {
+    			Logger.Debug("&9folder &7-> &e[Data] &7-> &efile &b[player.data] &7-> &eIt already exists " + player.getName());
+    		}
+    	}
+    }
+    
+    public boolean exist(Player player) {
+		FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+		Set<String> sections = config.getKeys(false);
+		Iterator<String> section = sections.iterator();
+		while (true) {
+			while (section.hasNext()) {
+				String key = (String) section.next();
+
+				if (key.contains(player.getName())) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
     }
 
     public boolean removePlayerlist(Player player) {

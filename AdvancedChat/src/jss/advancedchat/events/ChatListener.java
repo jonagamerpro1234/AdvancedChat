@@ -2,6 +2,7 @@ package jss.advancedchat.events;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -118,7 +119,7 @@ public class ChatListener implements Listener {
 		FileConfiguration cconfig = plugin.getConfigFile().getConfig();
 		Player j = e.getPlayer();
 		SQLGetter sql = plugin.getSQLGetter();
-
+		
 		if (Settings.mysql_use) {
 			if ((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Bypass"))) {
 				return;
@@ -130,6 +131,31 @@ public class ChatListener implements Listener {
 				}
 			}
 		} else {
+			
+			Set<String> sections = config.getKeys(false);
+			//Iterator<String> section = sections.iterator();
+			
+			sections.forEach( key -> {
+				if (key.contains(j.getName())) {
+					String mute = config.getString(key + ".Mute");
+					if (!(j.isOp()) || !(j.hasPermission("AdvancedChat.Chat.Bypass"))) {
+						if (mute.equals("true")) {
+							Utils.sendColorMessage(j,
+									cconfig.getString("AdvancedChat.Alert-Mute").replace("<name>", j.getName()));
+							e.setCancelled(true);
+						}
+					} else {
+						return;
+					}
+				}
+			});
+			
+			/*while(true) {
+				while(section.hasNext()) {
+					String key =
+				}
+			}*/
+			
 			for (String key : config.getConfigurationSection("Players").getKeys(false)) {
 				if (key.contains(j.getName())) {
 					String mute = config.getString("Players." + key + ".Mute");
