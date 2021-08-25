@@ -47,7 +47,6 @@ public class FileManager {
                 e.printStackTrace();
             }
         }
-
     }
 
     public void saveResources(String filename, boolean replace) {

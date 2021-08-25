@@ -23,7 +23,7 @@ public class MySQL {
                 Class.forName("com.mysql.jdbc.Driver");
                 this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=" + ssl + "&autoReconnect=true", user, pass);
                 this.isconnected = true;
-                updateQuery("CREATE TABLE IF NOT EXISTS `advancedchat_players` (`Name` VARCHAR(100), `UUID` VARCHAR(100), `Mute` BOOLEAN, `Color` VARCHAR(10))");
+                updateQuery("CREATE TABLE IF NOT EXISTS `advancedchat_players` (`Name` VARCHAR(100), `UUID` VARCHAR(100), `Mute` BOOLEAN, `Color` VARCHAR(10), `Channel` VARCHAR(16))");
             }	
         } catch (SQLException e) {
             e.printStackTrace();

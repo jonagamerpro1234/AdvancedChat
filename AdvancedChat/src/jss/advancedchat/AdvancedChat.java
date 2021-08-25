@@ -53,6 +53,7 @@ import jss.advancedchat.utils.Utils;
 public class AdvancedChat extends AdvancedChatPlugin {
 
 	private static boolean debug = false;
+	@SuppressWarnings("unused")
 	private FileManager filemanager = new FileManager(this);
 	private ConfigFile configfile = new ConfigFile(this, "config.yml");
 	private CommandFile commandFile = new CommandFile(this, "custom-command.yml");
@@ -185,11 +186,11 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		Utils.setLineLoad("&eLoad Config.yml");
 		preConfigLoad.load();
 		Utils.setLineLoad("&eLoad Pre Config");
-		filemanager.createVoidFolder("Gui");
+		createVoidFolder("Gui");
 		Utils.setLineLoad("&eLoad Gui Folder");
-		filemanager.createVoidFolder("Data");
+		createVoidFolder("Data");
 		Utils.setLineLoad("&eLoad Data Folder");
-		filemanager.createVoidFolder("Log");
+		createVoidFolder("Log");
 		Utils.setLineLoad("&eLoad Log Folder");
 		Utils.setEndLoad();
 	}
