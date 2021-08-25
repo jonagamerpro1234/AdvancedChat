@@ -7,6 +7,7 @@ import jss.advancedchat.config.files.CommandLogFile;
 import jss.advancedchat.config.files.PlayerDataFile;
 import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.storage.SQLGetter;
+import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.OnlinePlayers;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.UpdateSettings;
@@ -54,8 +55,20 @@ public class JoinListener implements Listener {
         	}
         	
         }
-
-        if (!config.contains("Players." + j.getName())) {
+        
+        if (!config.contains(j.getName())) {
+            config.set(j.getName() + ".UUID", j.getUniqueId().toString());
+            config.set(j.getName() + ".Color", "WHITE");
+            config.set(j.getName() + ".Mute", false);
+            config.set(j.getName() + ".Chat.Channel", "ALL");
+            config.set(j.getName() + ".Chat.Range", "10");
+            dataFile.saveConfig();
+            Logger.Debug("&9folder &7-> &e[Data] &7-> &efile &b[player.data] &7-> &aAdded " + j.getName());
+        } else {
+        	Logger.Debug("&9folder &7-> &e[Data] &7-> &efile &b[player.data] &7-> &eIt already exists " + j.getName());
+        }
+        
+       if (!config.contains("Players." + j.getName())) {
             config.set("Players." + j.getName() + ".UUID", j.getUniqueId().toString());
             config.set("Players." + j.getName() + ".Color", "WHITE");
             config.set("Players." + j.getName() + ".Mute", false);

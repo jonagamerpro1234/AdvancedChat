@@ -13,4 +13,12 @@ public class ReflectionUtils {
 		return null;
 	}
 	
+	public static void getOBSClass(String classname) {
+		
+	}
+	
+	public static void sendPacket() {
+		
+	}
+	
 }

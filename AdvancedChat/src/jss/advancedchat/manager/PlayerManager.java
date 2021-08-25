@@ -1,6 +1,7 @@
 package jss.advancedchat.manager;
 
-import java.util.UUID;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -10,17 +11,12 @@ import jss.advancedchat.AdvancedChat;
 public class PlayerManager {
 
     private AdvancedChat plugin;
-    public UUID uuid;
-    public String name;
-    private float range;
     private int spam;
     private ColorManager colorManager;
+    private FileConfiguration config = plugin.getPlayerDataFile().getConfig();
     
     public PlayerManager(AdvancedChat plugin) {
         this.plugin = plugin;
-        this.uuid = null;
-        this.name = "";
-        this.range = 0;
         this.spam = 0;
     }
 
@@ -32,28 +28,20 @@ public class PlayerManager {
         this.spam = spam;
     }
 
-    public float getRange() {
-        return range;
-    }
-
-    public void setRange(float range) {
-        this.range = range;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public boolean isMute(Player player) {
+    	Set<String> sections = config.getKeys(false);
+    	Iterator<String> section = sections.iterator();
+    	while(true) {
+    		while(section.hasNext()) {
+    			String key = (String) section.next();
+    			
+    			if(key.contains(player.getName())) {
+    				return config.getBoolean(key + ".Mute");
+    			}else {
+    				return false;
+    			}
+    		}
+    	}
     }
     
     public String getStateMute(Player player) {
@@ -88,7 +76,8 @@ public class PlayerManager {
 		return stateMute;
 	}
     
-    public boolean isMute(Player player) {
+    @Deprecated
+    public boolean isMuteOld(Player player) {
         FileConfiguration config = plugin.getPlayerDataFile().getConfig();
         for (String key : config.getConfigurationSection("Players").getKeys(false)) {
             if (key.contains(player.getName())) {

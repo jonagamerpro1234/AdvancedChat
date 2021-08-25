@@ -1,4 +1,4 @@
-package jss.advancedchat.json.handlers;
+package jss.advancedchat.old.json.handlers;
 
 public enum ClickAction {
     open_url,
