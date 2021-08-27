@@ -18,6 +18,9 @@ Settings:
   # |Config-Version| not touch
   Config-Version: 1
   
+  # |Debug| This option should only be used if there is a problem with certain functions of the plugin, debug messages will be activated in the console
+  Debug: true
+  
   # |Use-Database| You can save the data saved by the plugin in the .data files in a database and they can be synchronized with various servers
   Use-Database: false
   
@@ -87,26 +90,27 @@ ChatFormat:
   Debug-Format: '<&f<player>&f> &f<message>'
   
 #
-# |MySQL|
+# | MySQL|
+# |MySql is a database where you can save plugin data remotely and it can be synchronized with other servers if you are using BungeeCord
 #
 MySQL:
 
-  #
-  Use-SSL: false
+  # ![Disable]!
+  #Use-SSL: false
   
-  # |Host|
+  # |Host| this is where you should put the database host
   Host: localhost
   
-  # |Port|
+  # |Port| this is where you should put the database port
   Port: 3306
   
-  # |Database|
+  # |Database| this is where you should put the name of the database
   Database: advancedchatDB
   
-  # |User|
+  # |User| this is where you should put the database user name
   User: root
   
-  # |Password|
+  # |Password| this is where you should put the database password
   Password: 1234
 #
 # |Command Blocker|
@@ -325,16 +329,16 @@ Mention:
     Text: ''
   
   
-  # |Sound|
+  # |Sound| In this section you can configure the sound of the mentions
   Sound:
     
-    # |Name| 
+    # |Name| This is the name of the sound you will hear when it is mentioned to you in chat.
     Name: NOTE_PLING
     
-    # |Pitch|
+    # |Pitch| This is the pitch of the sound that you will hear when mentioned in the chat
     Pitch: 0.5
     
-    # |Vol|
+    # |Vol| This is the volume of the sound that you will hear when the chat mentions it
     Vol: 1
 #
 # |Translation of messages from AdvancedChat|
