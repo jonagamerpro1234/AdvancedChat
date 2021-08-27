@@ -4,7 +4,6 @@ import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.config.files.ChatDataFile;
 import jss.advancedchat.config.files.ChatLogFile;
 import jss.advancedchat.config.files.CommandLogFile;
-import jss.advancedchat.config.files.PlayerDataFile;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.storage.SQLGetter;
@@ -36,8 +35,6 @@ public class JoinListener implements Listener {
 
     @EventHandler
     public void onJoinPlayer(PlayerJoinEvent e) {
-        PlayerDataFile dataFile = plugin.getPlayerDataFile();
-        FileConfiguration config = dataFile.getConfig();
         ChatDataFile chatDataFile = plugin.getChatDataFile();
         FileConfiguration chat = chatDataFile.getConfig();
         ChatLogFile chatLogFile = plugin.getChatLogFile();
@@ -54,13 +51,12 @@ public class JoinListener implements Listener {
         	if(!sql.exists(mysql,j.getUniqueId().toString())) {
         		sql.createPlayer(mysql,j.getName(), j.getUniqueId().toString());
         	}
-        	
         }
         
         manager.create(j);
         
-        
-       if (!config.contains("Players." + j.getName())) {
+        //old code
+       /*if (!config.contains("Players." + j.getName())) {
             config.set("Players." + j.getName() + ".UUID", j.getUniqueId().toString());
             config.set("Players." + j.getName() + ".Color", "WHITE");
             config.set("Players." + j.getName() + ".Mute", false);
@@ -70,7 +66,7 @@ public class JoinListener implements Listener {
             //	Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[PlayerdataFile] &aadd " + j.getName());
         } else {
             //Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[PlayerdataFile] &cya existe " + j.getName());
-        }
+        }*/
 
         if (!chat.contains("Players." + j.getName())) {
             chat.set("Players." + j.getName() + ".UUID", j.getUniqueId().toString());
@@ -125,7 +121,6 @@ public class JoinListener implements Listener {
                 });
             }
         }
-
-
     }
+    
 }

@@ -38,8 +38,6 @@ public class PlayerManager {
     			
     			if(key.contains(player.getName())) {
     				return config.getBoolean(key + ".Mute");
-    			}else {
-    				return false;
     			}
     		}
     	}

@@ -2,7 +2,6 @@ package jss.advancedchat.events;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -133,7 +132,6 @@ public class ChatListener implements Listener {
 		} else {
 			
 			Set<String> sections = config.getKeys(false);
-			//Iterator<String> section = sections.iterator();
 			
 			sections.forEach( key -> {
 				if (key.contains(j.getName())) {

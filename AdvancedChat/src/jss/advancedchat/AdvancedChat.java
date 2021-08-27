@@ -138,8 +138,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 			if (HookManager.isLoadProtocolLib()) {
 				HookManager.InitPacketListening();
 			} else {
-				Logger.Warning(getConfigFile().getConfig().getString("AdvancedChat.Depend-Plugin") + " "
-						+ "&e[&bProtocolLib&e]");
+				Logger.Warning(getConfigFile().getConfig().getString("AdvancedChat.Depend-Plugin") + " " + "&e[&bProtocolLib&e]");
 			}
 		}
 		loadMySQL();

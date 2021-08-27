@@ -73,8 +73,11 @@ public class InventoryListener implements Listener {
         FileConfiguration c = plugin.getColorFile().getConfig();
         Player p = (Player) e.getWhoClicked();
         InventoryView inventoryPlayer = plugin.getInventoryPlayer(p);
+        
         if (inventoryPlayer != null) {
+        	
             if (inventoryPlayer.getInventoryName().contains("colorGui")) {
+            	
                 if (e.getCurrentItem() == null) {
                     return;
                 }
@@ -90,6 +93,7 @@ public class InventoryListener implements Listener {
                     Player target = Bukkit.getPlayer(name);
 
                     if (slot == c.getInt("Items.Dark-Red.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Red")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "Dark_Red");
@@ -98,7 +102,9 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.Red.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Red")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "Red");
@@ -107,7 +113,9 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.Dark-Blue.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Blue")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "Dark_Blue");
@@ -116,7 +124,9 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.Blue.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Blue")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "Blue");
@@ -125,7 +135,9 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.Dark-Green.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Green")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "Dark_Green");
@@ -134,7 +146,9 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.Green.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Green")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "Green");
@@ -143,7 +157,9 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.Yellow.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Yellow")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "Yellow");
@@ -152,7 +168,9 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.Gold.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Gold")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "Gold");
@@ -161,7 +179,9 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.Dark-Aqua.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Aqua")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "Dark_Aqua");
@@ -170,7 +190,9 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.Aqua.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Aqua")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "Aqua");
@@ -179,7 +201,9 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.Light-Purple.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Light_Purple")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "Light_Purple");
@@ -188,7 +212,9 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.Dark-Purple.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Purple")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "Dark_Purple");
@@ -197,7 +223,9 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.Gray.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Gray")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "Gray");
@@ -206,7 +234,9 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.Dark-Gray.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Gray")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "Dark_Gray");
@@ -215,7 +245,9 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.White.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.White")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "White");
@@ -224,7 +256,9 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.Rainbow.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.RainBow")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "RainBow");
@@ -233,7 +267,9 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.Black.Slot")) {
+                    	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Black")) {
                             e.setCancelled(true);
                             playerManager.setColor(target, "Black");
@@ -242,16 +278,17 @@ public class InventoryListener implements Listener {
                             return;
                         }
                     }
+                    
                     if (slot == c.getInt("Items.Exit.Slot")) {
                     	e.setCancelled(true);
                     	p.closeInventory();
                     }
+                    
                     if (slot == c.getInt("Items.Last.Slot")) {
                     	e.setCancelled(true);
                     	p.closeInventory();
                     	GuiPlayer guiPlayer = new GuiPlayer(plugin);
-                    	guiPlayer.open(p, name);
-                    			
+                    	guiPlayer.open(p, name);	
                     }
                 }
             }
