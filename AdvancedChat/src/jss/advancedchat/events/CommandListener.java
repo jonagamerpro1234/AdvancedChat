@@ -11,7 +11,6 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.config.files.ChatDataFile;
 import jss.advancedchat.config.files.CommandLogFile;
-import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Utils;
 
@@ -66,9 +65,9 @@ public class CommandListener implements Listener {
         String date = Utils.getDate(System.currentTimeMillis());
         String time = Utils.getTime(System.currentTimeMillis());
 
-        config.set("Players." + j.getName() + ".Log." + date + ".Command." + time, Utils.colorless(e.getMessage()));
+        config.set(j.getName() + ".Log." + date + ".Command." + time, Utils.colorless(e.getMessage()));
         chatDataFile.saveConfig();
-        plugin.setChatManagers(new ChatManager(date, time, e.getMessage(), j));
+        //plugin.setChatManagers(new ChatManager(date, time, e.getMessage(), j));
     }
 
     @EventHandler

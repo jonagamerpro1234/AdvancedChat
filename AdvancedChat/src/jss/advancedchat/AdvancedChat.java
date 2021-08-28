@@ -322,13 +322,13 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		return plugin;
 	}
 
-	public void addInventoryPlayer(Player player, String inventoryname) {
-		if (this.getInventoryPlayer(player) == null) {
+	public void addInventoryView(Player player, String inventoryname) {
+		if (this.getInventoryView(player) == null) {
 			this.inventoryView.add(new InventoryView(player, inventoryname));
 		}
 	}
 
-	public void removeInvetoryPlayer(Player player) {
+	public void removeInvetoryView(Player player) {
 		for (int i = 0; i < inventoryView.size(); i++) {
 			if (((InventoryView) this.inventoryView.get(i)).getPlayer().getName().equals(player.getName())) {
 				this.inventoryView.remove(i);
@@ -336,7 +336,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		}
 	}
 
-	public InventoryView getInventoryPlayer(Player player) {
+	public InventoryView getInventoryView(Player player) {
 		for (int i = 0; i < inventoryView.size(); i++) {
 			if (((InventoryView) this.inventoryView.get(i)).getPlayer().getName().equals(player.getName())) {
 				return (InventoryView) this.inventoryView.get(i);

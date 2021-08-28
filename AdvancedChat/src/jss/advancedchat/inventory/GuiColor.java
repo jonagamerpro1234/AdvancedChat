@@ -66,7 +66,7 @@ public class GuiColor {
 			
 		});
 
-		plugin.addInventoryPlayer(player, "colorGui");
+		plugin.addInventoryView(player, "colorGui");
 		player.openInventory(inv);
 	}
 
