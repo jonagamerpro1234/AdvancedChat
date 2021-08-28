@@ -68,7 +68,7 @@ public class GuiPlayer {
         	
         });
        
-        plugin.addInventoryPlayer(player, "playerGui");
+        plugin.addInventoryView(player, "playerGui");
         player.openInventory(inv);
     }
 

@@ -1,44 +1,38 @@
 package jss.advancedchat.manager;
 
-import org.bukkit.entity.Player;
+import java.util.Iterator;
+import java.util.Set;
+
+import org.bukkit.configuration.file.FileConfiguration;
+
+import jss.advancedchat.AdvancedChat;
 
 public class ChatManager {
 	
-	private String prefix;
-    private String message;
-    private Player player;
-    private String date;
-    private String time;
+	private AdvancedChat plugin;
+
     
-    public ChatManager() {}
-    
-    public ChatManager(String date, String time, String message, Player player) {
-        this.message = message;
-        this.player = player;
+    public ChatManager(AdvancedChat plugin) {
+        this.plugin = plugin;
     }
         
-    public String getPrefix() {
-		return prefix;
-	}
-
-	public void setPrefix(String prefix) {
-		this.prefix = prefix;
-	}
-
 	public String getMessage() {
-        return message;
+		FileConfiguration config = plugin.getChatDataFile().getConfig();
+		
+		Set<String> sections = config.getKeys(false);
+		Iterator<String> section = sections.iterator();
+		
+		while(true) {
+			while(section.hasNext()) {
+				String key = (String) section.next();
+				String message = config.getString(key + ".Log." +  key + ".Chat." + key );
+				return message;
+			}
+		}
     }
 
-    public void setMessage(String message) {
+    /*public void setMessage(String message) {
         this.message = message;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
     }
 
     public String getDate() {
@@ -55,6 +49,6 @@ public class ChatManager {
 
     public void setTime(String time) {
         this.time = time;
-    }
+    }*/
 
 }

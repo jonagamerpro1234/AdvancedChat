@@ -33,7 +33,7 @@ public class InventoryListener implements Listener {
     	FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
 		PlayerManager manager = new PlayerManager(plugin);
         Player p = (Player) e.getWhoClicked();
-        InventoryView inventoryPlayer = plugin.getInventoryPlayer(p);
+        InventoryView inventoryPlayer = plugin.getInventoryView(p);
         if (inventoryPlayer != null) {
             if (inventoryPlayer.getInventoryName().contains("playerGui")) {
                 if (e.getCurrentItem() == null) {
@@ -72,7 +72,7 @@ public class InventoryListener implements Listener {
         PlayerManager playerManager = new PlayerManager(plugin);
         FileConfiguration c = plugin.getColorFile().getConfig();
         Player p = (Player) e.getWhoClicked();
-        InventoryView inventoryPlayer = plugin.getInventoryPlayer(p);
+        InventoryView inventoryPlayer = plugin.getInventoryView(p);
         
         if (inventoryPlayer != null) {
         	
@@ -298,13 +298,13 @@ public class InventoryListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
-        plugin.removeInvetoryPlayer(p);
+        plugin.removeInvetoryView(p);
     }
 
     @EventHandler
     public void onInventoryCloseColor(InventoryCloseEvent e) {
         Player p = (Player) e.getPlayer();
-        plugin.removeInvetoryPlayer(p);
+        plugin.removeInvetoryView(p);
     }
 
 }
