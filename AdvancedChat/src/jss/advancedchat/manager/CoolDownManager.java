@@ -11,6 +11,8 @@ import jss.advancedchat.AdvancedChat;
 
 public class CoolDownManager {
 
+	//comming soon
+	
 	private Map<UUID,Integer> cooldownMap = new HashMap<>();
 	
 	public CoolDownManager(AdvancedChat plugin) {

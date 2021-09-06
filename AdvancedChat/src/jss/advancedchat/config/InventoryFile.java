@@ -1,4 +1,4 @@
-package jss.advancedchat.config.files;
+package jss.advancedchat.config;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,43 +6,51 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.FileManager;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
-import jss.advancedchat.utils.interfaces.FileHelper;
-import jss.advancedchat.utils.interfaces.FolderHelper;
+import jss.advancedchat.utils.file.FileHelper;
+import jss.advancedchat.utils.file.FileManager;
+import jss.advancedchat.utils.file.FolderHelper;
 
-public class ColorFile extends FileManager implements FileHelper, FolderHelper {
+public class InventoryFile extends FileManager implements FileHelper, FolderHelper{
 
-    private AdvancedChat plugin;
-    private File file;
-    private FileConfiguration config;
-    private String path;
-    private String folderpath;
-    private Logger logger = new Logger(plugin);
-
-    public ColorFile(AdvancedChat plugin, String path, String folderpath) {
-        super(plugin);
-        this.plugin = plugin;
-        this.file = null;
-        this.config = null;
-        this.path = path;
-        this.folderpath = folderpath;
-    }
-
-    public String getFolderPath() {
-        return this.folderpath;
-    }
-
+	private AdvancedChat plugin;
+	private Logger logger = new Logger(plugin);
+	private File file;
+	private FileConfiguration config;
+	private String path;
+	private String folderpath;
+	
+	public InventoryFile(AdvancedChat plugin, String path) {
+		super(plugin);
+		this.plugin = plugin;
+		this.file = null;
+		this.config = null;
+		this.path = path;
+		this.folderpath = "Gui";
+	}
+	
     public void create() {
-        this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
+        this.file = new File(getDataFolder() + File.separator + folderpath, this.path);
         if (!this.file.exists()) {
-            getConfig().options().copyDefaults(true);
-            saveConfig();
+        	saveResources(this.folderpath + File.separator + this.path, false);
+        }
+        
+        this.config = new YamlConfiguration();
+        
+        try {
+        	this.config.load(this.file);
+        }catch(IOException e) {
+        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
+        	e.printStackTrace();
+        }catch(InvalidConfigurationException e) {
+        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
+        	e.printStackTrace();
         }
     }
 
@@ -56,19 +64,20 @@ public class ColorFile extends FileManager implements FileHelper, FolderHelper {
     public void saveConfig() {
         try {
             this.config.save(this.file);
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
+        	e.printStackTrace();
         }
     }
 
     public void reloadConfig() {
         if (this.config == null) {
-            this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
+            this.file = new File(getDataFolder() + File.separator + folderpath, this.path);
         }
         this.config = YamlConfiguration.loadConfiguration(this.file);
         Reader defaultConfigStream;
         try {
-            defaultConfigStream = new InputStreamReader(getResources(this.path), "UTF8");
+            defaultConfigStream = new InputStreamReader(getResources(this.folderpath+ File.separator + this.path), "UTF8");
             if (defaultConfigStream != null) {
                 YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
                 config.setDefaults(defaultConfig);
@@ -113,8 +122,11 @@ public class ColorFile extends FileManager implements FileHelper, FolderHelper {
     }
 
     public boolean isFileExists() {
-        this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
-        return this.file.exists();
+    	this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
+    	return this.file.exists();
     }
-
+    
+    public String getFolderPath() {
+    	return this.folderpath;
+    }
 }

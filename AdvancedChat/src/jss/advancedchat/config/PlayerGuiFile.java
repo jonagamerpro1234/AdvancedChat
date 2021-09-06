@@ -1,4 +1,4 @@
-package jss.advancedchat.config.files;
+package jss.advancedchat.config;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,13 +11,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.FileManager;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
-import jss.advancedchat.utils.interfaces.FileHelper;
-import jss.advancedchat.utils.interfaces.FolderHelper;
+import jss.advancedchat.utils.file.FileHelper;
+import jss.advancedchat.utils.file.FileManager;
+import jss.advancedchat.utils.file.FolderHelper;
 
-public class ChannelGuiFile extends FileManager implements FileHelper, FolderHelper {
+public class PlayerGuiFile extends FileManager implements FileHelper, FolderHelper {
 
     private AdvancedChat plugin;
     private File file;
@@ -26,7 +26,7 @@ public class ChannelGuiFile extends FileManager implements FileHelper, FolderHel
     private String folderpath;
     private Logger logger = new Logger(plugin);
 
-    public ChannelGuiFile(AdvancedChat plugin, String path, String folderpath) {
+    public PlayerGuiFile(AdvancedChat plugin, String path, String folderpath) {
         super(plugin);
         this.plugin = plugin;
         this.file = null;
@@ -57,8 +57,9 @@ public class ChannelGuiFile extends FileManager implements FileHelper, FolderHel
     public void saveConfig() {
         try {
             this.config.save(this.file);
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
+        	e.printStackTrace();
         }
     }
 
@@ -68,7 +69,7 @@ public class ChannelGuiFile extends FileManager implements FileHelper, FolderHel
         }
         this.config = YamlConfiguration.loadConfiguration(this.file);
         Reader defaultConfigStream;
-        try {
+        try{
             defaultConfigStream = new InputStreamReader(getResources(this.path), "UTF8");
             BufferedReader in = new BufferedReader(defaultConfigStream);
             if (defaultConfigStream != null) {

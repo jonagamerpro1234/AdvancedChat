@@ -89,7 +89,7 @@ public class GuiPlayer {
 
     public ItemStack getMuteItem(Player player) {
         PlayerManager manager = new PlayerManager(plugin);
-        if (manager.exist(player)) {
+        if (manager.exists(player)) {
             if (manager.isMute(player)) {
             	return item = XMaterial.GREEN_DYE.parseItem();
             } else {

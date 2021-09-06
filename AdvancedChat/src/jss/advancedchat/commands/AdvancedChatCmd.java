@@ -12,13 +12,14 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.files.ColorFile;
-import jss.advancedchat.config.files.ConfigFile;
-import jss.advancedchat.config.files.PlayerDataFile;
-import jss.advancedchat.config.files.PlayerGuiFile;
+import jss.advancedchat.config.ColorFile;
+import jss.advancedchat.config.ConfigFile;
+import jss.advancedchat.config.PlayerDataFile;
+import jss.advancedchat.config.PlayerGuiFile;
 import jss.advancedchat.inventory.GuiChannel;
 import jss.advancedchat.inventory.GuiColor;
 import jss.advancedchat.inventory.GuiPlayer;
+import jss.advancedchat.inventory.GuiTest;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.SQLGetter;
 import jss.advancedchat.utils.EventUtils;
@@ -210,6 +211,15 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 						}
 					} else {
 						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);					}
+					return true;
+				}
+				
+				if(args[0].equalsIgnoreCase("open")) {
+				
+					GuiTest guiTest = new GuiTest();
+					
+					guiTest.open(j);
+					
 					return true;
 				}
 				

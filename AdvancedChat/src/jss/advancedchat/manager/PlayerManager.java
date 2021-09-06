@@ -169,7 +169,7 @@ public class PlayerManager {
     
     public void create(Player player) {
     	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-    	if(!this.exist(player)) {
+    	if(!this.exists(player)) {
     		config.set(player.getName() + ".UUID", player.getUniqueId());
             config.set(player.getName() + ".Color", "WHITE");
             config.set(player.getName() + ".Mute", false);
@@ -186,7 +186,7 @@ public class PlayerManager {
     	}
     }
     
-    public boolean exist(Player player) {
+    public boolean exists(Player player) {
 		FileConfiguration config = plugin.getPlayerDataFile().getConfig();
 		Set<String> sections = config.getKeys(false);
 		Iterator<String> section = sections.iterator();

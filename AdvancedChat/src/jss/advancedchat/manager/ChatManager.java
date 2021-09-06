@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
 
@@ -16,7 +17,7 @@ public class ChatManager {
         this.plugin = plugin;
     }
         
-	public String getMessage() {
+	public String getMessage(Player player) {
 		FileConfiguration config = plugin.getChatDataFile().getConfig();
 		
 		Set<String> sections = config.getKeys(false);
@@ -25,30 +26,39 @@ public class ChatManager {
 		while(true) {
 			while(section.hasNext()) {
 				String key = (String) section.next();
-				String message = config.getString(key + ".Log." +  key + ".Chat." + key );
-				return message;
+				
+				if(this.exists(player)) {
+					return config.getString(key + ".Log." + key + ".Chat." + key);
+				}
 			}
 		}
     }
 
-    /*public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }*/
-
+	public String getCommand(Player player) {
+		FileConfiguration config = plugin.getChatDataFile().getConfig();
+		
+		Set<String> sections = config.getKeys(false);
+		Iterator<String> section = sections.iterator();
+		
+		while(true) {
+			while(section.hasNext()) {
+				String key = (String) section.next();
+				
+				if(this.exists(player)) {
+					return config.getString(key + ".Log." + key + ".Command." + key);
+				}
+			}
+		}
+	}
+	
+	public boolean exists(Player player) {
+		FileConfiguration config = plugin.getChatDataFile().getConfig();
+		
+		for(String key : config.getKeys(false)) {
+			if(key.contains(player.getName())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

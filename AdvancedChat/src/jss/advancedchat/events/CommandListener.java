@@ -9,8 +9,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.files.ChatDataFile;
-import jss.advancedchat.config.files.CommandLogFile;
+import jss.advancedchat.config.ChatDataFile;
+import jss.advancedchat.config.CommandLogFile;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Utils;
 

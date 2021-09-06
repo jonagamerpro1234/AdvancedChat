@@ -1,4 +1,4 @@
-package jss.advancedchat.config.files;
+package jss.advancedchat.config;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,17 +6,18 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
+//import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.FileManager;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
-import jss.advancedchat.utils.interfaces.FileHelper;
-import jss.advancedchat.utils.interfaces.FolderHelper;
+import jss.advancedchat.utils.file.FileHelper;
+import jss.advancedchat.utils.file.FileManager;
+import jss.advancedchat.utils.file.FolderHelper;
 
-public class InventoryDataFile extends FileManager implements FileHelper, FolderHelper {
+public class CommandLogFile extends FileManager implements FileHelper, FolderHelper {
 
     private AdvancedChat plugin;
     private File file;
@@ -24,8 +25,8 @@ public class InventoryDataFile extends FileManager implements FileHelper, Folder
     private String path;
     private String folderpath;
     private Logger logger = new Logger(plugin);
-
-    public InventoryDataFile(AdvancedChat plugin, String path, String folderpath) {
+    
+    public CommandLogFile(AdvancedChat plugin, String path, String folderpath) {
         super(plugin);
         this.plugin = plugin;
         this.path = path;
@@ -56,9 +57,8 @@ public class InventoryDataFile extends FileManager implements FileHelper, Folder
     public void saveConfig() {
         try {
             this.config.save(this.file);
-        } catch (IOException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
-        	e.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -86,7 +86,6 @@ public class InventoryDataFile extends FileManager implements FileHelper, Folder
         }
 
     }
-    
 
     public String getPath() {
         return this.path;

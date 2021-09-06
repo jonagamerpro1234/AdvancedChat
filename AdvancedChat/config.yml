@@ -352,10 +352,11 @@ AdvancedChat:
   No-Permission: '&cYou dont have permission to do that!'
   No-Permission-Label: '&7Ask the server &b[&cowner&7 or an &eadministrator&b]&7 for help for more information'
   Error-Args: '&cUnknown Arguments'
+  Error-Console: '&cThis command is only available to players'
   Reload: '&aReload Completed'
   Help-Mute: '&7Use &b/Mute &e<player> &7'
   Help-UnMute: '&7Use &b/UnMute &e<player> &7'
-  Help-Cmd: '&7Use &b/AdvanceChat &8| &9/Ac &6Help &7 show more information of plugin'
+  Help-Use-Cmd: '&7Use &b/AdvanceChat &8| &9/Ac &6Help &7 show more information of plugin'
   Help-Msg:
     - '&5> &b/AdvancedChat &8| &9/Ac &7these are the variants of the main plugin command'
     - '&5> &b/AdvancedChat &6help &7show this same message'

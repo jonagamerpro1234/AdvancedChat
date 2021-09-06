@@ -14,18 +14,17 @@ import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.commands.MsgCmd;
 import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
-import jss.advancedchat.config.FileManager;
+import jss.advancedchat.config.ChannelGuiFile;
+import jss.advancedchat.config.ChatDataFile;
+import jss.advancedchat.config.ChatLogFile;
+import jss.advancedchat.config.ColorFile;
+import jss.advancedchat.config.CommandFile;
+import jss.advancedchat.config.CommandLogFile;
+import jss.advancedchat.config.ConfigFile;
+import jss.advancedchat.config.InventoryDataFile;
+import jss.advancedchat.config.PlayerDataFile;
+import jss.advancedchat.config.PlayerGuiFile;
 import jss.advancedchat.config.PreConfigLoader;
-import jss.advancedchat.config.files.ChannelGuiFile;
-import jss.advancedchat.config.files.ChatDataFile;
-import jss.advancedchat.config.files.ChatLogFile;
-import jss.advancedchat.config.files.ColorFile;
-import jss.advancedchat.config.files.CommandFile;
-import jss.advancedchat.config.files.CommandLogFile;
-import jss.advancedchat.config.files.ConfigFile;
-import jss.advancedchat.config.files.InventoryDataFile;
-import jss.advancedchat.config.files.PlayerDataFile;
-import jss.advancedchat.config.files.PlayerGuiFile;
 import jss.advancedchat.events.ChatListener;
 import jss.advancedchat.events.CommandListener;
 import jss.advancedchat.events.EventLoader;
@@ -46,13 +45,13 @@ import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.OnlinePlayers;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Logger.Level;
+import jss.advancedchat.utils.file.FileManager;
 import jss.advancedchat.utils.UpdateSettings;
 import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
 
 public class AdvancedChat extends AdvancedChatPlugin {
 
-	
 	@SuppressWarnings("unused")
 	private FileManager filemanager = new FileManager(this);
 	private ConfigFile configfile = new ConfigFile(this, "config.yml");
@@ -114,6 +113,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		}
 		commandFile.create();
 		playerdata.create();
+		//Disabled
 		/*try {
 			if (this.getConfigFile().getConfig().getString("Settings.BungeeMode").equals("false")) {
 
@@ -167,6 +167,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
 	public void onDisable() {
 		Utils.setDisabled(version);
+		//remove releases 1.6.0
 		placeholder = false;
 		metrics = null;
 		uselegacyversion = false;
@@ -196,6 +197,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		Utils.setEndLoad();
 	}
 
+	//unused
 	static {
 		gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(JsonHoverEvent.class, new SerializerHoverEvent());
@@ -233,7 +235,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		}
 	}
 
-	/*
+	/* remove release v1.6.0
 	 * @SuppressWarnings("unused") private void checkNMSVersion(String nmsversion) {
 	 * try { Class<?> clazz = Class.forName("jss.advancedchat.nms.versions"+ "." +
 	 * nmsversion + "." + "PacketSender"); //iPacketSender = (IPacketSender)
@@ -279,6 +281,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		return channelGuiFile;
 	}
 
+	@Deprecated
 	public boolean getPlaceHolderState() {
 		return this.placeholder;
 	}

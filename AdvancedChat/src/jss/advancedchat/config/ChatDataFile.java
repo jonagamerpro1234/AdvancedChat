@@ -1,4 +1,4 @@
-package jss.advancedchat.config.files;
+package jss.advancedchat.config;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,11 +11,11 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.FileManager;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
-import jss.advancedchat.utils.interfaces.FileHelper;
-import jss.advancedchat.utils.interfaces.FolderHelper;
+import jss.advancedchat.utils.file.FileHelper;
+import jss.advancedchat.utils.file.FileManager;
+import jss.advancedchat.utils.file.FolderHelper;
 
 public class ChatDataFile extends FileManager implements FileHelper, FolderHelper {
 

@@ -55,6 +55,7 @@ public class GuiChannel {
 			inv.setItem(slot, item);
 		});
 		
+		plugin.addInventoryView(player, "channel");
 		player.openInventory(inv);
 	}
 	
