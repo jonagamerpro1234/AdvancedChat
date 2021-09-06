@@ -1,5 +1,7 @@
 package jss.advancedchat.events;
 
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -17,6 +19,8 @@ import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.inventory.Gui;
+import jss.advancedchat.utils.inventory.IAction;
 
 @SuppressWarnings("unused")
 public class InventoryListener implements Listener {
@@ -28,6 +32,33 @@ public class InventoryListener implements Listener {
         this.plugin = plugin;
     }
 
+    @EventHandler
+    public void onInvetoryTest(InventoryClickEvent e) {
+    	if(!(e.getWhoClicked() instanceof Player)) {
+    		return;
+    	}
+    	
+    	Player player = (Player) e.getWhoClicked();
+    	UUID uuid = player.getUniqueId();
+    	
+    	
+    	UUID invetoryUUID = Gui.getOpenIventories().get(uuid);
+    	
+    	if(invetoryUUID != null) {
+    		e.setCancelled(true);
+    		if(e.getClickedInventory().equals(player.getOpenInventory().getTopInventory())) {
+        		Gui gui = Gui.getInventoriesByUUID().get(invetoryUUID);
+        		IAction action = gui.getActions().get(e.getSlot());
+        		
+        		if(action != null) {
+        			action.onClick(player);
+        		}
+    		}
+
+    	}
+    	
+    }
+    
 	@EventHandler
     public void onInventoryClickPlayer(InventoryClickEvent e) {
     	FileConfiguration config = plugin.getPlayerGuiFile().getConfig();

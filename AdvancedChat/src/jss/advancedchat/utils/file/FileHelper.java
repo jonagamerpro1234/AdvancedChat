@@ -1,4 +1,4 @@
-package jss.advancedchat.utils.interfaces;
+package jss.advancedchat.utils.file;
 
 import org.bukkit.configuration.file.FileConfiguration;
 

@@ -1,4 +1,4 @@
-package jss.advancedchat.config.files;
+package jss.advancedchat.config;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,33 +6,41 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
+//import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.FileManager;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
-import jss.advancedchat.utils.interfaces.FileHelper;
+import jss.advancedchat.utils.file.FileHelper;
+import jss.advancedchat.utils.file.FileManager;
+import jss.advancedchat.utils.file.FolderHelper;
 
-public class CommandFile extends FileManager implements FileHelper{
+public class ChatLogFile extends FileManager implements FileHelper, FolderHelper {
 
     private AdvancedChat plugin;
     private File file;
     private FileConfiguration config;
     private String path;
+    private String folderpath;
     private Logger logger = new Logger(plugin);
-	
-    public CommandFile(AdvancedChat plugin, String path) {
+
+    public ChatLogFile(AdvancedChat plugin, String path, String folderpath) {
         super(plugin);
         this.plugin = plugin;
-        this.file = null;
-        this.config = null;
         this.path = path;
+        this.folderpath = folderpath;
+        this.config = null;
+        this.file = null;
     }
-    
+
+    public String getFolderPath() {
+        return this.folderpath;
+    }
+
     public void create() {
-        this.file = new File(getDataFolder(), this.path);
+        this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
         if (!this.file.exists()) {
             getConfig().options().copyDefaults(true);
             saveConfig();
@@ -56,7 +64,7 @@ public class CommandFile extends FileManager implements FileHelper{
 
     public void reloadConfig() {
         if (this.config == null) {
-            this.file = new File(getDataFolder(), this.path);
+            this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
         }
         this.config = YamlConfiguration.loadConfiguration(this.file);
         Reader defaultConfigStream;
@@ -89,7 +97,7 @@ public class CommandFile extends FileManager implements FileHelper{
 
     public void saveDefaultConfig() {
         if (this.file == null) {
-            this.file = new File(getDataFolder(), this.path);
+            this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
         }
         if (!this.file.exists()) {
             saveResources(this.path, false);
@@ -98,7 +106,7 @@ public class CommandFile extends FileManager implements FileHelper{
 
     public void resetConfig() {
         if (this.file == null) {
-            this.file = new File(getDataFolder(), this.path);
+            this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
         }
         if (!this.file.exists()) {
             saveResources(this.path, true);
@@ -106,8 +114,7 @@ public class CommandFile extends FileManager implements FileHelper{
     }
 
     public boolean isFileExists() {
-    	this.file = new File(getDataFolder(), this.path);
-    	return this.file.exists();
+        this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
+        return this.file.exists();
     }
-
 }

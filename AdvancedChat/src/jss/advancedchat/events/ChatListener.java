@@ -19,8 +19,8 @@ import com.cryptomorin.xseries.XSound;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.chat.Json;
-import jss.advancedchat.config.files.ChatDataFile;
-import jss.advancedchat.config.files.ChatLogFile;
+import jss.advancedchat.config.ChatDataFile;
+import jss.advancedchat.config.ChatLogFile;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.SQLGetter;
 import jss.advancedchat.utils.Utils;

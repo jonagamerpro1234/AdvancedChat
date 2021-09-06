@@ -7,7 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.files.ConfigFile;
+import jss.advancedchat.config.ConfigFile;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;

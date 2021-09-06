@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 
-import jss.advancedchat.config.FileManagerBunge;
+import jss.advancedchat.utils.file.FileManagerBunge;
 import net.md_5.bungee.config.Configuration;
 
 public class ConfigFile extends FileManagerBunge{

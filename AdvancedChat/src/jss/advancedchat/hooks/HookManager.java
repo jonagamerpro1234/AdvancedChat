@@ -32,6 +32,10 @@ public class HookManager {
 		}
 	}
 	
+	public void loadHook() {
+		placeholderApiHook.setup();
+	}
+	
 	/*public void load() {
 		initHooks(
 				new VaultHook(this),

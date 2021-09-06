@@ -1,23 +1,23 @@
-package jss.advancedchat.config.files;
+package jss.advancedchat.config;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
-//import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.FileManager;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
-import jss.advancedchat.utils.interfaces.FileHelper;
-import jss.advancedchat.utils.interfaces.FolderHelper;
+import jss.advancedchat.utils.file.FileHelper;
+import jss.advancedchat.utils.file.FileManager;
+import jss.advancedchat.utils.file.FolderHelper;
 
-public class CommandLogFile extends FileManager implements FileHelper, FolderHelper {
+public class ChannelGuiFile extends FileManager implements FileHelper, FolderHelper {
 
     private AdvancedChat plugin;
     private File file;
@@ -25,14 +25,14 @@ public class CommandLogFile extends FileManager implements FileHelper, FolderHel
     private String path;
     private String folderpath;
     private Logger logger = new Logger(plugin);
-    
-    public CommandLogFile(AdvancedChat plugin, String path, String folderpath) {
+
+    public ChannelGuiFile(AdvancedChat plugin, String path, String folderpath) {
         super(plugin);
         this.plugin = plugin;
+        this.file = null;
+        this.config = null;
         this.path = path;
         this.folderpath = folderpath;
-        this.config = null;
-        this.file = null;
     }
 
     public String getFolderPath() {
@@ -70,8 +70,9 @@ public class CommandLogFile extends FileManager implements FileHelper, FolderHel
         Reader defaultConfigStream;
         try {
             defaultConfigStream = new InputStreamReader(getResources(this.path), "UTF8");
+            BufferedReader in = new BufferedReader(defaultConfigStream);
             if (defaultConfigStream != null) {
-                YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
+                YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
                 config.setDefaults(defaultConfig);
             }
         }catch(UnsupportedEncodingException e) {
@@ -117,4 +118,5 @@ public class CommandLogFile extends FileManager implements FileHelper, FolderHel
         this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
         return this.file.exists();
     }
+
 }
