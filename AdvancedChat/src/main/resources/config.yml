@@ -1,0 +1,384 @@
+# |    AdvancedChat     |
+# | By jonagamerpro1234 |
+# |     Version 1.6.0   |
+# |_____________________|
+#
+# a simple plugin that helps you customize your server chat to make it look better also provides a customizable chat system by group or rank
+#
+# |Links|
+# -> Spigot: https://www.spigotmc.org/resources/advancedchat-1-7-x-1-17-x.83889/
+# -> Songoda: https://songoda.com/marketplace/product/advancedchat-chat-related.542
+# -> Wiki [Working Progress]: https://jonagamerpro1234.gitbook.io/advancedchat/
+# -> Discord: https://discord.gg/c5GhQDQCK5
+# -> Issue Tracker: https://github.com/jonagamerpro1234/AdvancedChat/issues
+# -> Plugin Statistics: https://bstats.org/plugin/bukkit/AdvancedChat/8826
+#
+Settings:
+  
+  # |Config-Version| not touch
+  Config-Version: 1
+  
+  # |Debug| This option should only be used if there is a problem with certain functions of the plugin, debug messages will be activated in the console
+  Debug: true
+  
+  # |Use-Database| You can save the data saved by the plugin in the .data files in a database and they can be synchronized with various servers
+  Use-Database: false
+  
+  # ![Disabled]! |BungeeMode| this function allows you to synchronize all your servers that have the advancedchat plugin 
+  #BungeeMode: false #[Not implemented]
+  
+  # |Update| This function lets you know if there is a plugin update [Does not disable console messages]
+  Update: true
+  
+  # |Use-Default-Prefix| if it is true it will use the prefix of the plugin itself, but if it is false it will use the prefix that you define in [Prefix: 'my server']
+  Use-Default-Prefix: true
+  
+  # |Prefix| here you can define a custom prefix
+  Prefix: '&6[&bMy Server&6]&7'
+  
+  # ![Disabled]!
+  #Custom-Commands: false
+#
+# | ClearChat |
+#
+ClearChat:
+  
+  # |Broadcast| is the message that will be sent when cleaning the chat [this does not affect the command for the player only the message from the server]
+  Broadcast: true
+  
+  # |AutoClear| you can activate the automatic cleaning of the chat according to the number of ticks [Default: true]
+  AutoClear: true
+  
+  # |Tick| here you can define the time that the actions are automatically executed [Default | 24000], 24000 tick = 20 min
+  Tick: 24000
+  
+  #blank lines to broadcast in chat
+  LineClear: 100
+#
+# | ChatFormat |
+#
+ChatFormat:
+
+  #
+  Enabled: true
+
+  # |Default| 
+  Default:
+  
+    # |Format|
+    Format: '&b<name> &8>'
+    
+    # |HoverEvent|
+    HoverEvent:
+      - '&6Hello player'
+      - '<0>'
+      - '&e> %player_name%'
+
+  
+  # |Groups| 
+  Groups:
+    Default:
+      Permission: 'advancedchat.group.default'
+      Format:
+        Prefix: '<player>'
+        Message: '&8> &7<message>'
+      HoverEvent:
+        - ''
+        - ''
+        - ''
+  
+  Debug-Format: '<&f<player>&f> &f<message>'
+  
+#
+# | MySQL|
+# |MySql is a database where you can save plugin data remotely and it can be synchronized with other servers if you are using BungeeCord
+#
+MySQL:
+
+  # ![Disable]!
+  #Use-SSL: false
+  
+  # |Host| this is where you should put the database host
+  Host: localhost
+  
+  # |Port| this is where you should put the database port
+  Port: 3306
+  
+  # |Database| this is where you should put the name of the database
+  Database: advancedchatDB
+  
+  # |User| this is where you should put the database user name
+  User: root
+  
+  # |Password| this is where you should put the database password
+  Password: 1234
+#
+# |Command Blocker|
+# |here you can block the commands that you do not want to be used on the server at the moment it does not have the function of [antitabcomplete]
+#
+Command-Blocker:
+
+  # |Enabled| disabling this option will stop command blocking [Default: true]
+  Enabled: true
+  
+  # |Chat| here you will find all the command block functions for chat
+  Chat:
+    
+    # |Disable-Commands| By disabling this feature, muted players will be able to use the listed commands [Default: true]
+    Disable-Commands: true
+    
+    # |Command-List| In this list you can define which commands cannot be used by players in general including your server staff
+    Command-List:
+      - '/plugins'
+      - '/pl'
+      - '/?'
+      - '/ver'
+      - '/version'
+      - '/bukkit:version'
+      - '/bukkit:pl'
+      - '/bukkit:plugins'
+      - '/bukkit:ver'
+      - '/bukkit:?'
+  
+  # |Mute| here you will find all the command block functions for muted players
+  Mute:
+    
+    # |Disable-Commands| By disabling this feature, muted players will be able to use the listed commands [Default: true]
+    Disable-Commands: true
+    
+    # |Command-List| In this list you can define which commands the silenced players cannot use
+    Command-List:
+      - '/tell'
+      - '/me'
+      - '/say'
+      - '/msg'
+
+#
+# |TabComplete|
+#
+TabComplete:
+  Enabled: false
+  Allow-Space: false
+  WhiteList:
+    - 'Msg'
+    - 'Me'
+    - 'Say'
+    
+ProtocolLib-Packet:
+  Enabled: true
+  Disable-TabCompleted: true 
+
+#-------------------------------------- remove section
+#
+# | Custom |
+# | here you can customize the chat in a general way that affects both ranks, groups, and has all players |
+# | in custom we have a new function which is hover text this option only works if the type is in experimental its format is
+#
+# |Type: [normal] [hover] [click] [double] [experimental]
+#
+# |this option only works in hover to return to normal the chat change the type to [Normal]    
+#    HoverEvent:  
+#      Text: 'hello <name>'
+#      Color: AQUA
+#      Mode: Text there are three different modes which are [ Text | Entity | Item] the second and third are for testing, they can be removed at any time
+#    ClickEvent:
+#      Action: 'say hello <name>'
+#      Mode: Cmd there are three different modes which are [ Cmd | Url | Suggest_Cmd ]  
+#Custom-Format:
+#  Text: '&6[&c<name>&6] &7<msg>'
+#  Experimental-Text: '&6[&c<name>&6] '
+#  Type: experimental
+#  HoverEvent:
+#    Text: '&ahello &d<name>'
+#    Mode: Text
+#  ClickEvent:
+#    Command: ''
+#    Url: ''
+#    Action: 'say hello <name>'
+#    Mode: Cmd
+#
+# | Groups |
+# | here you can customize the chat of different groups or ranks in a more specific way |
+# | with this format you can add more groups
+# | in group we have a new function which is hover text this option only works if the type is in experimental its format is
+# Groups:
+#   Default:
+#    Format: '&9|&e<name>&9|&8> &7<msg>'
+#    Permission: 'advancedchat.group.default'
+#
+# |Type: [normal] [hover] [click] [double] [experimental]
+#
+# |this option only works in hover to return to normal the chat change the type to [Normal]    
+#    HoverEvent:  
+#      Text: 'hello <name>'
+#      Color: AQUA
+#      Mode: Text there are three different modes which are [ Text | Entity | Item] the second and third are for testing, they can be removed at any time
+#    ClickEvent:
+#      Action: 'say hello <name>'
+#      Mode: Cmd there are three different modes which are [ Cmd | Url | Suggest_Cmd ] 
+#Groups:
+#  Default:
+#    Format: '&9|&e<name>&9|&8> &7<msg>'
+#    Experimental-Format: '&6[&c<name>&6] '
+#    Permission: 'advancedchat.group.default'
+#    Type: normal
+#    HoverEvent:
+#      Text: '&6hello &b<name>'
+#      Mode: Text
+#    ClickEvent:
+#      Action: 'say hello <name>'
+#      Mode: Cmd
+#  Admin:
+#    Format: '&9|&e<name>&9|&8> &e<msg>'
+#    Experimental-Format: '&6[&c<name>&6] '
+#    Permission: 'advancedchat.group.admin'
+#    Type: normal
+#    HoverEvent:
+#      Text: '&6hello &b<name>'
+#      Mode: Text
+#    ClickEvent:
+#      Action: 'say hello <name>'
+#      Mode: Cmd
+#  Owner:
+#    Format: '&9|&e<name>&9|&8> &c<msg>'
+#    Experimental-Format: '&6[&c<name>&6] '
+#    Permission: 'advancedchat.group.owner'
+#    Type: normal
+#    HoverEvent:
+#      Text: '&6hello &b<name>'
+#      Mode: Text
+#    ClickEvent:
+#      Action: 'say hello <name>'
+#      Mode: Cmd
+#--------------------------------------
+#
+# |Filter Chat|
+# |here you can filter the unwanted words on your server and have a little more control over the chat
+# 
+# [!] The chat filter function is in development at a may contain error or problems
+#
+# [Use-Custom-Msg] will use a custom message found in the [Message] section instead of using [Form Of Censorship] [Default | false]
+# [Message] here you can define a personalized message that will be sent to the player
+# [Form-Of-Censorship] this is the format that the word will be censored, for example [noob = ****] this will depend on the number of characters that the word has
+# [Delay] It is the waiting time that the message will have before it is sent so that spam does not form in the player's chat [Defalt | 100 ]
+#
+# |The format is very simple, you just have to add the word you want to censor to the list
+#  Words:
+#    - 'noob'
+#    - 'stupid'
+#    - '<word>'
+#
+Filter-Chat:
+  Enabled: true
+  Use-Custom-Msg: false
+  Message: 'you cannot use this word, it is blocked!'
+  Form-Of-Censorship: '*'
+  Delay: 5 [Not Implement]
+  BadWords:
+    - 'noob'
+    - 'stupid'
+    - 'fuck'
+#
+# | Anti Swear |
+#
+Anti-Swear:
+
+  #
+  Enabled: false
+  
+  # 
+  Chat: {}
+  
+  #
+  Commands: {} 
+  
+  #
+  Sings: {}
+#
+# | Mention |
+#
+Mention:
+  
+  # |Enabled|
+  Enabled: true
+  
+  # |Send-Format|
+  Send-Format: ''
+  
+  # |Receive-Format|
+  Receive-Format: ''
+  
+  Title:
+  
+    Enabled: true
+    
+    Title: ''
+    
+    SubTitle: ''
+    
+    FadeIn: 20
+    
+    Stay: 40
+    
+    FadeOut: 20
+  
+  Actionbar:
+  
+    Enabled: true
+    
+    Text: ''
+  
+  
+  # |Sound| In this section you can configure the sound of the mentions
+  Sound:
+    
+    # |Name| This is the name of the sound you will hear when it is mentioned to you in chat.
+    Name: NOTE_PLING
+    
+    # |Pitch| This is the pitch of the sound that you will hear when mentioned in the chat
+    Pitch: 0.5
+    
+    # |Vol| This is the volume of the sound that you will hear when the chat mentions it
+    Vol: 1
+#
+# |Translation of messages from AdvancedChat|
+# |Version: 1.6|
+#
+AdvancedChat:
+  Depend-Plugin: '&cCannot enable packet features!, Required plugin missing:'
+  Error-MySql: '&cCould not find the data, check the config &e[&bPath = Database&e]'
+  ClearChat-Server: '&7The chat has been cleaned'
+  ClearChat-Player: '&7The chat has been cleaned by &b[&e<name>&b]'
+  No-Permission: '&cYou dont have permission to do that!'
+  No-Permission-Label: '&7Ask the server &b[&cowner&7 or an &eadministrator&b]&7 for help for more information'
+  Error-Args: '&cUnknown Arguments'
+  Error-Console: '&cThis command is only available to players'
+  Reload: '&aReload Completed'
+  Help-Mute: '&7Use &b/Mute &e<player> &7'
+  Help-UnMute: '&7Use &b/UnMute &e<player> &7'
+  Help-Use-Cmd: '&7Use &b/AdvanceChat &8| &9/Ac &6Help &7 show more information of plugin'
+  Help-Msg:
+    - '&5> &b/AdvancedChat &8| &9/Ac &7these are the variants of the main plugin command'
+    - '&5> &b/AdvancedChat &6help &7show this same message'
+    - '&5> &b/AdvancedChat &6reload &7reload the plugin files'
+    - '&5> &b/AdvancedChat &6info &7shows information about the plugin'
+    - '&5> &b/AdvancedChat &6color &7 open color gui'
+    - '&5> &b/AdvancedChat &6player &e<player name> open the player settings'
+    - '&5> &b/Mute &e<player name> &7mute the player'
+    - '&5> &b/UnMute &e<player name> &7demute the player'
+    - '&5> &b/ClearChat &8| &9/Cc &7clean the chat when it is very full or necessary'
+  Mute-Bypass: '&eThis player cannot be muted because he is bypassed.'
+  Mute-Player: '&e[&b<name>&e] &cis now muted!'
+  UnMute-Player: '&e[&b<name>&e] &ais now unmuted!'
+  Alert-Mute: '&e[!] &cright now you are muted'
+  No-Online-Player: '&cThis player does not exist or is not connected!'
+  No-Use-Command: '&e[&b!&e] &cYou can t use that command! &b[&c<cmd>&b]'
+  No-Use-Command-Mute: '&e[&b!&e]You cannot use that command while it is muted! &b[&c<cmd>&b]'
+  Empty-Msg: '&c[!] &7write a message to send it'
+  Help-Msg-Use: '&7Use &b/Msg &6<player> &e<message> &7To send a private message to another player'
+#
+# This is the end of the configuration ... [-_-] more things coming soon
+# 
+# | Config File
+# | Version 1.6.0
+#
