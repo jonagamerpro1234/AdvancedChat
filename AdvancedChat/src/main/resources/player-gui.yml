@@ -1,0 +1,36 @@
+# |    AdvancedChat     |
+# | By jonagamerpro1234 |
+# |     Version 1.6.0   |
+# |_____________________|
+#
+Title: '&b&lMenu &8&l> &e&lPlayer'
+Items:
+  Next:
+    Name: '&a&lNext Menu'
+    Item: stone
+    Texture: '[next]'
+    Is-Skull: true
+    Slot: 5
+  Last:
+    Name: '&e&lLast Menu'
+    Item: stone
+    Texture: '[last]'
+    Is-Skull: true
+    Slot: 3
+  Exit:
+    Name: '&c&lExit'
+    Item: stone
+    Texture: '[exit]'
+    Is-Skull: true
+    Slot: 0
+  Colors:
+    Name: '&b&lColors'
+    Item: stone
+    Is-Skull: true
+    Texture: '[colors]'
+    Slot: 20
+  Mute:
+    Name: '&e&lPlayer is [state_mute]'
+    Is-Skull: false
+    Slot: 24 
+    Texture: ''
