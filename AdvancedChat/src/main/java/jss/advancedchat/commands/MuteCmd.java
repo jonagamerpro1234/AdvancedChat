@@ -55,7 +55,7 @@ public class MuteCmd implements CommandExecutor {
                     }
                     
                     if(Settings.mysql_use) {
-                    	sqlGetter.setMuted(plugin.getMySQL(), target.getName(), target.getUniqueId().toString(), true);
+                    	sqlGetter.setMuted(target.getName(), target.getUniqueId().toString(), true);
                     } else {
                     	manager.setMute(target, true);
                     }
@@ -83,7 +83,7 @@ public class MuteCmd implements CommandExecutor {
                     }
                     
                     if(Settings.mysql_use) {
-                    	sqlGetter.setMuted(plugin.getMySQL(), target.getName(), target.getUniqueId().toString(), true);
+                    	sqlGetter.setMuted(target.getName(), target.getUniqueId().toString(), true);
                     } else {
                     	manager.setMute(target, true);
                     }

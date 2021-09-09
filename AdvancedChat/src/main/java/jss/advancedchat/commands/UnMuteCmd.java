@@ -47,7 +47,7 @@ public class UnMuteCmd implements CommandExecutor {
             if (args.length >= 1) {
                 Player p = Bukkit.getPlayer(args[0]);
                 if(Settings.mysql_use) {
-                	sqlGetter.setMuted(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), false);
+                	sqlGetter.setMuted(p.getName(), p.getUniqueId().toString(), false);
                 } else {
                 	manager.setMute(p, false);
                 }
@@ -75,7 +75,7 @@ public class UnMuteCmd implements CommandExecutor {
                 	manager.setMute(p, false);
                 }*/
                 if(Settings.mysql_use) {
-                	sqlGetter.setMuted(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), false);
+                	sqlGetter.setMuted(p.getName(), p.getUniqueId().toString(), false);
                 } else {
                 	manager.setMute(p, false);
                 }

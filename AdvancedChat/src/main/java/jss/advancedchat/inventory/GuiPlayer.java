@@ -12,8 +12,8 @@ import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.utils.SkullUtils;
 import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.inventory.SkullUtils;
 
 public class GuiPlayer {
 

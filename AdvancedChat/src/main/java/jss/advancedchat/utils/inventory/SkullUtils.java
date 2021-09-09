@@ -1,4 +1,4 @@
-package jss.advancedchat.utils;
+package jss.advancedchat.utils.inventory;
 
 public class SkullUtils {
 

@@ -8,29 +8,42 @@ import java.sql.SQLException;
 
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class MySQL {
+
+	private final String host;
+	private final String port;
+	private final String database;
+	private final String username;
+	private final String  password;
+	private final String options;
 	
 	private Connection connection;
 	private boolean isconnected = false;
 	
 	
-	private String host;
-	private String port;
-	private String database;
-	private String username;
-	private String  password;
-	private String options;
-	
-	public MySQL(String host, String port, String database, String username, String password, String options) {
+	/*public MySQL(String host, String port, String database, String username, String password, String options) {
 		this.host = host;
 		this.port = port;
 		this.database = database;
 		this.username = username;
 		this.password = password;
 		this.options = options;
+	}*/
+	
+	public void openConnection() throws SQLException{
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
+			
+			this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?" + options, username, password);
+			
+		}
 	}
-
+	
 	//advancedchat_players
 	public void connect(String host, int port, String database, String user, String pass, boolean ssl) {
         try {

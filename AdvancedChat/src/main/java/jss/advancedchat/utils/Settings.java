@@ -28,8 +28,9 @@ public class Settings {
     public static String message_mute_bypass;
     public static String mysql_host;
     public static String inv_color_back;
+    public static String mysql_options;
     public static boolean mysql_usessl;
-    public static int mysql_port;
+    public static String mysql_port;
     public static String mysql_user;
     public static String mysql_table;
     public static boolean mysql_use_default_table;
