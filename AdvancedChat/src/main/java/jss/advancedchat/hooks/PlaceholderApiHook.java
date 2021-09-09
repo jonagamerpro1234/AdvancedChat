@@ -80,7 +80,7 @@ public class PlaceholderApiHook {
 			
 			if(args.equals("mute_state")) {
 				if(Settings.mysql_use) {
-					if(getter.getMuted(plugin.getMySQL(), player.getUniqueId().toString())) {
+					if(getter.getMuted(player.getUniqueId().toString())) {
 						return "true";
 					}
 				}else {

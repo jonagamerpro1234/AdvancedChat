@@ -191,6 +191,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		Utils.setLineLoad("&eLoad Data Folder");
 		createVoidFolder("Log");
 		Utils.setLineLoad("&eLoad Log Folder");
+		createVoidFolder("Data" + File.separator + "Players");
+		Utils.setLineLoad("&eLoad Test SubFolder Folder");
 		Utils.setEndLoad();
 	}
 
@@ -222,8 +224,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public void loadMySQL() {
 		try {
 			if (Settings.mysql_use_t) {
-				mySQL.connect(Settings.mysql_host, Settings.mysql_port, Settings.mysql_database, Settings.mysql_user,
-						Settings.mysql_password, Settings.mysql_usessl);
+				//mySQL.connect(Settings.mysql_host, Settings.mysql_port, Settings.mysql_database, Settings.mysql_user,
+				//		Settings.mysql_password, Settings.mysql_usessl);
 				Logger.succers("Connected database");
 			}
 		} catch (NullPointerException e) {

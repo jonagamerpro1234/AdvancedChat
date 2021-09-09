@@ -33,10 +33,10 @@ public class PreConfigLoader {
         	Settings.boolean_use_default_prefix = config.getString("Settings.Use-Default-Prefix").equals("true");
         	Settings.message_protocol_state = config.getString("ProtocolLib-Packet.Enabled");
         	Settings.message_error_mysql = config.getString("AdvancedChat.Error-MySql");
-        	Settings.mysql_usessl = config.getString("MySQL.Use-SSL").equals("true");
+        	Settings.mysql_options = config.getString("MySQL.Options");
         	Settings.mysql_host = config.getString("MySQL.Host");
-        	Settings.mysql_port = config.getInt("MySQL.Port");
-        	Settings.mysql_user = config.getString("MySQL.User");
+        	Settings.mysql_port = config.getString("MySQL.Port");
+        	Settings.mysql_user = config.getString("MySQL.Username");
         	Settings.mysql_password = config.getString("MySQL.Password");
         	Settings.mysql_database = config.getString("MySQL.Database");
         	Settings.boolean_protocollib = config.getString("ProtocolLib-Packet.Enabled").equals("true");

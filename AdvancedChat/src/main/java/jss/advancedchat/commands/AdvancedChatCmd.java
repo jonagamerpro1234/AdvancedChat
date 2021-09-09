@@ -172,7 +172,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 									}
 									
 									if(Settings.mysql_use) {
-										sql.setColor(plugin.getMySQL(), playername, color);
+										sql.setColor(playername, color);
 									}else {
 										manager.setColor(p, color);
 									}

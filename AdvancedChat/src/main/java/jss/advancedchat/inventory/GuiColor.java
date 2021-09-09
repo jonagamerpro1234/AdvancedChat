@@ -15,8 +15,8 @@ import org.bukkit.inventory.meta.SkullMeta;
 import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.SkullUtils;
 import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.inventory.SkullUtils;
 
 public class GuiColor {
 

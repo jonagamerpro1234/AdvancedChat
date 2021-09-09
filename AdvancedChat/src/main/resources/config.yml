@@ -91,27 +91,30 @@ ChatFormat:
   
 #
 # | MySQL|
-# |MySql is a database where you can save plugin data remotely and it can be synchronized with other servers if you are using BungeeCord
+# | MySql is a database where you can save plugin data remotely and it can be synchronized with other servers if you are using BungeeCord
 #
 MySQL:
 
-  # ![Disable]!
-  #Use-SSL: false
+  # |Options|  
+  Options: "useSSL=false&autoReconnect=true"
+  
+  # |Table|
+  Table: "advancedchat_players"
   
   # |Host| this is where you should put the database host
-  Host: localhost
+  Host: "localhost"
   
   # |Port| this is where you should put the database port
-  Port: 3306
+  Port: "3306"
   
   # |Database| this is where you should put the name of the database
-  Database: advancedchatDB
+  Database: "advancedchatDB"
   
   # |User| this is where you should put the database user name
-  User: root
+  Username: "root"
   
   # |Password| this is where you should put the database password
-  Password: 1234
+  Password: "1234"
 #
 # |Command Blocker|
 # |here you can block the commands that you do not want to be used on the server at the moment it does not have the function of [antitabcomplete]
@@ -167,113 +170,30 @@ TabComplete:
 ProtocolLib-Packet:
   Enabled: true
   Disable-TabCompleted: true 
-
-#-------------------------------------- remove section
-#
-# | Custom |
-# | here you can customize the chat in a general way that affects both ranks, groups, and has all players |
-# | in custom we have a new function which is hover text this option only works if the type is in experimental its format is
-#
-# |Type: [normal] [hover] [click] [double] [experimental]
-#
-# |this option only works in hover to return to normal the chat change the type to [Normal]    
-#    HoverEvent:  
-#      Text: 'hello <name>'
-#      Color: AQUA
-#      Mode: Text there are three different modes which are [ Text | Entity | Item] the second and third are for testing, they can be removed at any time
-#    ClickEvent:
-#      Action: 'say hello <name>'
-#      Mode: Cmd there are three different modes which are [ Cmd | Url | Suggest_Cmd ]  
-#Custom-Format:
-#  Text: '&6[&c<name>&6] &7<msg>'
-#  Experimental-Text: '&6[&c<name>&6] '
-#  Type: experimental
-#  HoverEvent:
-#    Text: '&ahello &d<name>'
-#    Mode: Text
-#  ClickEvent:
-#    Command: ''
-#    Url: ''
-#    Action: 'say hello <name>'
-#    Mode: Cmd
-#
-# | Groups |
-# | here you can customize the chat of different groups or ranks in a more specific way |
-# | with this format you can add more groups
-# | in group we have a new function which is hover text this option only works if the type is in experimental its format is
-# Groups:
-#   Default:
-#    Format: '&9|&e<name>&9|&8> &7<msg>'
-#    Permission: 'advancedchat.group.default'
-#
-# |Type: [normal] [hover] [click] [double] [experimental]
-#
-# |this option only works in hover to return to normal the chat change the type to [Normal]    
-#    HoverEvent:  
-#      Text: 'hello <name>'
-#      Color: AQUA
-#      Mode: Text there are three different modes which are [ Text | Entity | Item] the second and third are for testing, they can be removed at any time
-#    ClickEvent:
-#      Action: 'say hello <name>'
-#      Mode: Cmd there are three different modes which are [ Cmd | Url | Suggest_Cmd ] 
-#Groups:
-#  Default:
-#    Format: '&9|&e<name>&9|&8> &7<msg>'
-#    Experimental-Format: '&6[&c<name>&6] '
-#    Permission: 'advancedchat.group.default'
-#    Type: normal
-#    HoverEvent:
-#      Text: '&6hello &b<name>'
-#      Mode: Text
-#    ClickEvent:
-#      Action: 'say hello <name>'
-#      Mode: Cmd
-#  Admin:
-#    Format: '&9|&e<name>&9|&8> &e<msg>'
-#    Experimental-Format: '&6[&c<name>&6] '
-#    Permission: 'advancedchat.group.admin'
-#    Type: normal
-#    HoverEvent:
-#      Text: '&6hello &b<name>'
-#      Mode: Text
-#    ClickEvent:
-#      Action: 'say hello <name>'
-#      Mode: Cmd
-#  Owner:
-#    Format: '&9|&e<name>&9|&8> &c<msg>'
-#    Experimental-Format: '&6[&c<name>&6] '
-#    Permission: 'advancedchat.group.owner'
-#    Type: normal
-#    HoverEvent:
-#      Text: '&6hello &b<name>'
-#      Mode: Text
-#    ClickEvent:
-#      Action: 'say hello <name>'
-#      Mode: Cmd
-#--------------------------------------
 #
 # |Filter Chat|
 # |here you can filter the unwanted words on your server and have a little more control over the chat
 # 
 # [!] The chat filter function is in development at a may contain error or problems
-#
-# [Use-Custom-Msg] will use a custom message found in the [Message] section instead of using [Form Of Censorship] [Default | false]
-# [Message] here you can define a personalized message that will be sent to the player
-# [Form-Of-Censorship] this is the format that the word will be censored, for example [noob = ****] this will depend on the number of characters that the word has
-# [Delay] It is the waiting time that the message will have before it is sent so that spam does not form in the player's chat [Defalt | 100 ]
-#
-# |The format is very simple, you just have to add the word you want to censor to the list
-#  Words:
-#    - 'noob'
-#    - 'stupid'
-#    - '<word>'
-#
+# 
 Filter-Chat:
+
+  # |Enabled|
   Enabled: true
+
+  # |Use-Custom-Msg| will use a custom message found in the [Message] section instead of using [Form Of Censorship] [Default | false]
   Use-Custom-Msg: false
-  Message: 'you cannot use this word, it is blocked!'
+
+  # |Message| here you can define a personalized message that will be sent to the player
+  Message: '&eyou cannot use this word, it is blocked!'
+
+  # |Form-Of-Censorship| this is the format that the word will be censored, for example [noob = ****] this will depend on the number of characters that the word has
   Form-Of-Censorship: '*'
-  Delay: 5 [Not Implement]
+
+  # ![Disabled]! |Delay| It is the waiting time that the message will have before it is sent so that spam does not form in the player's chat [Defalt | 100 ]
+  Delay: 5 #[Not Implement]
+  
+  # |BadWords| The format is very simple, you just have to add the word you want to censor to the list
   BadWords:
     - 'noob'
     - 'stupid'
@@ -308,24 +228,34 @@ Mention:
   # |Receive-Format|
   Receive-Format: ''
   
+  # |Title|
   Title:
   
+    # |Enabled|
     Enabled: true
     
+    # |Title|
     Title: ''
     
+    # |SubTitle|
     SubTitle: ''
     
+    # |FadeIn|
     FadeIn: 20
     
+    # |Stay|
     Stay: 40
     
+    # |FadeOut|
     FadeOut: 20
   
+  # |Actionbar|
   Actionbar:
   
+    # |Enabled|
     Enabled: true
     
+    # |Text|
     Text: ''
   
   

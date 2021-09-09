@@ -123,16 +123,14 @@ public class ChatListener implements Listener {
 			if ((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Bypass"))) {
 				return;
 			} else {
-				if (sql.getMuted(plugin.getMySQL(), j.getUniqueId().toString())) {
+				if (sql.getMuted(j.getUniqueId().toString())) {
 					Utils.sendColorMessage(j,
 							cconfig.getString("AdvancedChat.Alert-Mute").replace("<name>", j.getName()));
 					e.setCancelled(true);
 				}
 			}
 		} else {
-			
 			Set<String> sections = config.getKeys(false);
-			
 			sections.forEach( key -> {
 				if (key.contains(j.getName())) {
 					String mute = config.getString(key + ".Mute");
@@ -147,13 +145,7 @@ public class ChatListener implements Listener {
 					}
 				}
 			});
-			
-			/*while(true) {
-				while(section.hasNext()) {
-					String key =
-				}
-			}*/
-			
+		
 			for (String key : config.getConfigurationSection("Players").getKeys(false)) {
 				if (key.contains(j.getName())) {
 					String mute = config.getString("Players." + key + ".Mute");
@@ -182,7 +174,6 @@ public class ChatListener implements Listener {
 		String format = "";
 		String message = "";
 		List<String> hover = new ArrayList<String>();
-
 
 		if (config.getBoolean("ChatFormat.Enabled")) {
 			e.setCancelled(true);

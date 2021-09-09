@@ -1,6 +1,6 @@
 # |    AdvancedChat     |
 # | By jonagamerpro1234 |
-# |     Version 1.6.0   |
+# |     Version 1.x.x   |
 # |_____________________|
 #
 #
@@ -20,7 +20,7 @@ DataBase:
   password: '1234'
 #
 # |Translation of messages from AdvancedChat|
-# |Version: 1.5|
+# |Version: 1.x|
 #
 AdvancedChat:
   No-Permission: '&cYou dont have permission to do that!'
@@ -34,5 +34,5 @@ AdvancedChat:
 # This is the end of the configuration ... [-_-] more things coming soon
 # 
 # | Config File
-# | Version 1.6.0
+# | Version 1.x.x
 #
