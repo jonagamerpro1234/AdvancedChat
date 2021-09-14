@@ -16,7 +16,7 @@ import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Utils;
-import jss.advancedchat.utils.inventory.SkullUtils;
+import jss.advancedchat.utils.inventory.TSkullUtils;
 
 public class GuiColor {
 
@@ -38,8 +38,6 @@ public class GuiColor {
 
 		Inventory inv = Bukkit.createInventory(null, 54, Utils.color(title));
 
-
-
 		setDecoration(inv, colorglass);
 
 		item = Utils.getPlayerHead(target);
@@ -53,7 +51,7 @@ public class GuiColor {
 			String textures = config.getString("Items." + key + ".Texture");
 			int slot = config.getInt("Items." + key + ".Slot");
 			List<String> lore = key.contains("Lore") ? new ArrayList<>() : config.getStringList("Items." + key + ".Lore");
-			textures = SkullUtils.replace(textures);
+			textures = TSkullUtils.replace(textures);
 
 			item = Utils.createSkull(textures);
 			meta = (SkullMeta) item.getItemMeta();

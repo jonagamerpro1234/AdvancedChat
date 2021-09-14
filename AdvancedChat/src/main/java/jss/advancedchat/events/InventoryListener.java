@@ -14,13 +14,13 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.inventory.GuiColor;
 import jss.advancedchat.inventory.GuiPlayer;
-import jss.advancedchat.inventory.utils.InventoryView;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.inventory.Gui;
 import jss.advancedchat.utils.inventory.IAction;
+import jss.advancedchat.utils.inventory.InventoryView;
 
 @SuppressWarnings("unused")
 public class InventoryListener implements Listener {

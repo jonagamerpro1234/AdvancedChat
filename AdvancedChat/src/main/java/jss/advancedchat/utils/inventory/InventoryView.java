@@ -1,4 +1,4 @@
-package jss.advancedchat.inventory.utils;
+package jss.advancedchat.utils.inventory;
 
 import org.bukkit.entity.Player;
 

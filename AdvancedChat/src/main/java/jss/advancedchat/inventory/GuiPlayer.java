@@ -13,7 +13,7 @@ import com.cryptomorin.xseries.XMaterial;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Utils;
-import jss.advancedchat.utils.inventory.SkullUtils;
+import jss.advancedchat.utils.inventory.TSkullUtils;
 
 public class GuiPlayer {
 
@@ -50,7 +50,7 @@ public class GuiPlayer {
         	
         	if(isSkull) {
             	String textures = config.getString("Items." + key + ".Texture");
-            	textures = SkullUtils.replace(textures);
+            	textures = TSkullUtils.replace(textures);
             	item = Utils.createSkull(textures);
         	}else {
         		String mat = config.getString("Items." + key + ".Item");

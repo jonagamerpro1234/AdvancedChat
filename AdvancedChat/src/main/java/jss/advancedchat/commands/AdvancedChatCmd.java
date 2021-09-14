@@ -46,7 +46,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 		FileConfiguration config = configFile.getConfig();
 		SQLGetter sql = plugin.getSQLGetter();
 		PlayerManager manager = new PlayerManager(plugin);
-		
+
 		if (!(sender instanceof Player)) {
 			if (args.length >= 1) {
 				if (args[0].equalsIgnoreCase("info")) {
@@ -105,30 +105,31 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 			}
 			return false;
 		}
-		
-		//player
-		
+
+		// player
+
 		Player j = (Player) sender;
 		if ((j.isOp()) || (j.hasPermission("AdvancedChat.Admin"))) {
 			if (args.length >= 1) {
-				
+
 				//
 				if (args[0].equalsIgnoreCase("help")) {
 					if ((j.isOp()) || (j.hasPermission("AdvancedChat.Admin.Help"))) {
 						List<String> help = config.getStringList("AdvancedChat.Help-Msg");
-						Utils.sendColorMessage(j,
-								"&5-=-=-=-=-=-=-=-=-=-=-=&6[&d" + plugin.name + "&6]&5=-=-=-=-=-=-=-=-=-=-=-");
-						for (int i = 0; i < help.size(); i++) {
+						Utils.sendColorMessage(j, "&5-=-=-=-=-=-=-=-=-=-=-=&6[&d" + plugin.name + "&6]&5=-=-=-=-=-=-=-=-=-=-=-");
+						help.forEach( (text) -> {
+							Utils.sendColorMessage(j, text);
+						});
+						/*for (int i = 0; i < help.size(); i++) {
 							String text = (String) help.get(i);
 							Utils.sendColorMessage(j, text);
-						}
+						}*/
 						Utils.sendColorMessage(j, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 					} else {
 						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 					}
 					return true;
 				}
-				//
 				if (args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")) {
 					if ((j.isOp()) || (j.hasPermission("AdvancedChat.Admin.Reload"))) {
 						configFile.reloadConfig();
@@ -137,19 +138,27 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 						plugin.getChannelGuiFile().reloadConfig();
 						playerGuiFile.reloadConfig();
 						plugin.getPreConfigLoader().load();
-						if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
+						
+						/*if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
 							Utils.sendColorMessage(j,
 									Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Reload"));
 						} else if (config.getString("Settings.Use-Default-Prefix").equals("false")) {
 							Utils.sendColorMessage(j, config.getString("Settings.Prefix") + " "
 									+ config.getString("AdvancedChat.Reload"));
+						}*/
+						
+						if(Settings.boolean_use_default_prefix) {
+							Utils.sendColorMessage(j,  Utils.getPrefixPlayer() + " " + Settings.message_Reload);
+						}else {
+							Utils.sendColorMessage(j, Settings.message_prefix_custom + " " + Settings.message_Reload);
 						}
+						
+						
 					} else {
 						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 					}
 					return true;
 				}
-				//
 				if (args[0].equalsIgnoreCase("color")) {
 					if ((j.isOp()) || (j.hasPermission("AdvancedChat.Admin.Gui.Color"))) {
 						GuiColor guiColor = new GuiColor(plugin);
@@ -158,29 +167,29 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 							String playername = args[1];
 							Player p = Bukkit.getPlayer(playername);
 							if (p == null) {
-								Utils.sendColorMessage(j, config.getString("AdvancedChat.No-Online-Player"));
+								Utils.sendColorMessage(j, Settings.message_No_Online_Player);
 								return true;
 							}
-							
-							if(args.length >= 3) {
-								if(args[2].equalsIgnoreCase("set")) {
-									
+
+							if (args.length >= 3) {
+								if (args[2].equalsIgnoreCase("set")) {
+
 									String color = args[3];
-									
-									if(color == null) {
+
+									if (color == null) {
 										return true;
 									}
-									
-									if(Settings.mysql_use) {
+
+									if (Settings.mysql_use) {
 										sql.setColor(playername, color);
-									}else {
+									} else {
 										manager.setColor(p, color);
 									}
 									return true;
 								}
 								return true;
 							}
-							
+
 							guiColor.openGuiColor(j, p.getName());
 							return true;
 						}
@@ -190,7 +199,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					}
 					return true;
 				}
-				
+
 				//
 				if (args[0].equalsIgnoreCase("player")) {
 					if ((j.isOp()) || (j.hasPermission("AdvancedChat.Gui.Player"))) {
@@ -201,7 +210,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 
 							Player p = Bukkit.getPlayer(name);
 							if (p == null) {
-								Utils.sendColorMessage(j, config.getString("AdvancedChat.No-Online-Player"));
+								Utils.sendColorMessage(j, Settings.message_No_Online_Player);
 								return true;
 							}
 							guiPlayer.open(j, p.getName());
@@ -210,45 +219,46 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 							return true;
 						}
 					} else {
-						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);					}
-					return true;
-				}
-				
-				if(args[0].equalsIgnoreCase("open")) {
-				
-					GuiTest guiTest = new GuiTest();
-					
-					guiTest.open(j);
-					
-					return true;
-				}
-				
-				//
-				if(args[0].equalsIgnoreCase("channel")) {
-					if((j.isOp()) || (j.hasPermission("AdvancedChat.Gui.Channel"))) {
-						GuiChannel guichannel = new GuiChannel(plugin);
-						
-						if(args.length >= 2) {
-						
-							String name = args[1];
-							
-							Player p = Bukkit.getPlayer(name);
-							
-							if(p == null) {
-								Utils.sendColorMessage(j, config.getString("AdvancedChat.No-Online-Player"));
-								return true;
-							}
-							guichannel.open(j, j.getName());
-						}else {
-							guichannel.open(j, j.getName());
-							return true;
-						}
-					}else {
 						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 					}
 					return true;
 				}
-				
+				if (args[0].equalsIgnoreCase("open")) {
+
+					GuiTest guiTest = new GuiTest();
+
+					guiTest.open(j);
+
+					return true;
+				}
+
+				//
+				if (args[0].equalsIgnoreCase("channel")) {
+					if ((j.isOp()) || (j.hasPermission("AdvancedChat.Gui.Channel"))) {
+						GuiChannel guichannel = new GuiChannel(plugin);
+
+						if (args.length >= 2) {
+
+							String name = args[1];
+
+							Player p = Bukkit.getPlayer(name);
+
+							if (p == null) {
+								Utils.sendColorMessage(j, config.getString("AdvancedChat.No-Online-Player"));
+								return true;
+							}
+							guichannel.open(j, j.getName());
+						} else {
+							guichannel.open(j, j.getName());
+							return true;
+						}
+					} else {
+						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission,
+								Settings.message_NoPermission_Label);
+					}
+					return true;
+				}
+
 				if (args[0].equalsIgnoreCase("info")) {
 					Utils.sendColorMessage(j, "&5-=-=-=-=-=[&b" + plugin.name + "&5]=-=-=-=-=-=-");
 					Utils.sendColorMessage(j, "&5> &3Name: &b" + plugin.name);
@@ -258,28 +268,43 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					Utils.sendColorMessage(j, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 					return true;
 				}
-				
-					if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
+
+				/*if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
 					Utils.sendColorMessage(j,
 							Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Error-Args"));
-					} else if (config.getString("Settings.Use-Default-Prefix").equals("false")) {
-						Utils.sendColorMessage(j,
+				} else if (config.getString("Settings.Use-Default-Prefix").equals("false")) {
+					Utils.sendColorMessage(j,
 							config.getString("Settings.Prefix") + " " + config.getString("AdvancedChat.Error-Args"));
+				}*/
+
+				
+				if(Settings.boolean_use_default_prefix) {
+					Utils.sendColorMessage(j, Utils.getPrefixPlayer() + " " + Settings.message_Error_Args);
+				} else {
+					Utils.sendColorMessage(j, Settings.message_prefix_custom + " " + Settings.message_Error_Args);
 				}
+				
 				return true;
 			}
 		} else {
 			Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 			return true;
 		}
+		/*
 		if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
 			Utils.sendColorMessage(j, Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Help-Cmd"));
 		} else if (config.getString("Settings.Use-Default-Prefix").equals("false")) {
 			Utils.sendColorMessage(j,
 					config.getString("Settings.Prefix") + " " + config.getString("AdvancedChat.Help-Cmd"));
+		}*/
+		
+		
+		if(Settings.boolean_use_default_prefix) {
+			Utils.sendColorMessage(j, Utils.getPrefixPlayer() + " " + Settings.message_Help_Cmd);
+		} else {
+			Utils.sendColorMessage(j, Settings.message_prefix_custom + " " + Settings.message_Help_Cmd);
 		}
 		return true;
-		
 	}
 
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
@@ -297,19 +322,20 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				listOptions.add("channel");
 				break;
 			case 2:
-				if(args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("player") || args[0].equalsIgnoreCase("channel")) {
-					for(Player p : Bukkit.getOnlinePlayers()) {
+				if (args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("player")
+						|| args[0].equalsIgnoreCase("channel")) {
+					for (Player p : Bukkit.getOnlinePlayers()) {
 						listOptions.add(p.getName());
 					}
 				}
 				break;
 			case 3:
-				if(args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("channel")) {
+				if (args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("channel")) {
 					listOptions.add("set");
 				}
 				break;
 			case 4:
-				if(args[0].equalsIgnoreCase("color")) {
+				if (args[0].equalsIgnoreCase("color")) {
 					listOptions.add("black");
 					listOptions.add("white");
 					listOptions.add("dark_gray");
@@ -327,8 +353,8 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					listOptions.add("red");
 					listOptions.add("dark_red");
 				}
-				
-				if(args[0].equalsIgnoreCase("channel")){
+
+				if (args[0].equalsIgnoreCase("channel")) {
 					listOptions.add("global");
 					listOptions.add("world");
 					listOptions.add("local");
@@ -351,19 +377,20 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				listOptions.add("channel");
 				break;
 			case 2:
-				if(args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("player") || args[0].equalsIgnoreCase("channel")) {
-					for(Player p : Bukkit.getOnlinePlayers()) {
+				if (args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("player")
+						|| args[0].equalsIgnoreCase("channel")) {
+					for (Player p : Bukkit.getOnlinePlayers()) {
 						listOptions.add(p.getName());
 					}
 				}
 				break;
 			case 3:
-				if(args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("channel")) {
+				if (args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("channel")) {
 					listOptions.add("set");
 				}
 				break;
 			case 4:
-				if(args[0].equalsIgnoreCase("color")) {
+				if (args[0].equalsIgnoreCase("color")) {
 					listOptions.add("black");
 					listOptions.add("white");
 					listOptions.add("dark_gray");
@@ -381,15 +408,15 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					listOptions.add("red");
 					listOptions.add("dark_red");
 				}
-				
-				if(args[0].equalsIgnoreCase("channel")){
+
+				if (args[0].equalsIgnoreCase("channel")) {
 					listOptions.add("global");
 					listOptions.add("world");
 					listOptions.add("local");
 					listOptions.add("staff");
 				}
 				break;
-			}			
+			}
 		}
 		return Utils.setLimitTab(listOptions, lastArgs);
 	}

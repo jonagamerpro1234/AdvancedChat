@@ -31,6 +31,7 @@ public class PreConfigLoader {
         	Settings.int_clearchat_tick = config.getInt("ClearChat.Tick");
         	Settings.int_clearchat_lines = config.getInt("ClearChat.LineClear");
         	Settings.boolean_use_default_prefix = config.getString("Settings.Use-Default-Prefix").equals("true");
+        	Settings.message_prefix_custom = config.getString("Settings.Prefix");
         	Settings.message_protocol_state = config.getString("ProtocolLib-Packet.Enabled");
         	Settings.message_error_mysql = config.getString("AdvancedChat.Error-MySql");
         	Settings.mysql_options = config.getString("MySQL.Options");

@@ -1,4 +1,4 @@
-package jss.advancedchat.inventory.utils;
+package jss.advancedchat.utils.inventory;
 
 import java.util.ArrayList;
 import java.util.List;
