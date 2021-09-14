@@ -5,6 +5,7 @@
 #
 Commands:
   Example-Help:
+    Name: Test
     Use-Delay: false    
     Delay: 5s
     Command: '/Help'

@@ -1,6 +1,6 @@
 package jss.advancedchat.utils.inventory;
 
-public class SkullUtils {
+public class TSkullUtils {
 
 	private static String colors = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5ZTNlNmU1YjJiOTJmMGJlYjM2OGI3MzhiOTkzZDdiYTIyNWJmOWJiMjc1OGJmYzlmYzJkYWJhNGE1YTdkIn19fQ==";
 	private static String white = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzY2YTVjOTg5MjhmYTVkNGI1ZDViOGVmYjQ5MDE1NWI0ZGRhMzk1NmJjYWE5MzcxMTc3ODE0NTMyY2ZjIn19fQ==";
@@ -204,107 +204,107 @@ public class SkullUtils {
 	}
 
 	public static void setColors(String colors) {
-		SkullUtils.colors = colors;
+		TSkullUtils.colors = colors;
 	}
 
 	public static void setWhite(String white) {
-		SkullUtils.white = white;
+		TSkullUtils.white = white;
 	}
 
 	public static void setGray(String gray) {
-		SkullUtils.gray = gray;
+		TSkullUtils.gray = gray;
 	}
 
 	public static void setBlack(String black) {
-		SkullUtils.black = black;
+		TSkullUtils.black = black;
 	}
 
 	public static void setRed(String red) {
-		SkullUtils.red = red;
+		TSkullUtils.red = red;
 	}
 
 	public static void setBlue(String blue) {
-		SkullUtils.blue = blue;
+		TSkullUtils.blue = blue;
 	}
 
 	public static void setGreen(String green) {
-		SkullUtils.green = green;
+		TSkullUtils.green = green;
 	}
 
 	public static void setYellow(String yellow) {
-		SkullUtils.yellow = yellow;
+		TSkullUtils.yellow = yellow;
 	}
 
 	public static void setGold(String gold) {
-		SkullUtils.gold = gold;
+		TSkullUtils.gold = gold;
 	}
 
 	public static void setAqua(String aqua) {
-		SkullUtils.aqua = aqua;
+		TSkullUtils.aqua = aqua;
 	}
 
 	public static void setLight_purple(String light_purple) {
-		SkullUtils.light_purple = light_purple;
+		TSkullUtils.light_purple = light_purple;
 	}
 
 	public static void setDark_purple(String dark_purple) {
-		SkullUtils.dark_purple = dark_purple;
+		TSkullUtils.dark_purple = dark_purple;
 	}
 
 	public static void setDark_aqua(String dark_aqua) {
-		SkullUtils.dark_aqua = dark_aqua;
+		TSkullUtils.dark_aqua = dark_aqua;
 	}
 
 	public static void setDark_green(String dark_green) {
-		SkullUtils.dark_green = dark_green;
+		TSkullUtils.dark_green = dark_green;
 	}
 
 	public static void setDark_blue(String dark_blue) {
-		SkullUtils.dark_blue = dark_blue;
+		TSkullUtils.dark_blue = dark_blue;
 	}
 
 	public static void setDark_red(String dark_red) {
-		SkullUtils.dark_red = dark_red;
+		TSkullUtils.dark_red = dark_red;
 	}
 
 	public static void setDark_gray(String dark_gray) {
-		SkullUtils.dark_gray = dark_gray;
+		TSkullUtils.dark_gray = dark_gray;
 	}
 
 	public static void setRainbow(String rainbow) {
-		SkullUtils.rainbow = rainbow;
+		TSkullUtils.rainbow = rainbow;
 	}
 
 	public static void setNext(String next) {
-		SkullUtils.next = next;
+		TSkullUtils.next = next;
 	}
 
 	public static void setLast(String last) {
-		SkullUtils.last = last;
+		TSkullUtils.last = last;
 	}
 
 	public static void setExit(String exit) {
-		SkullUtils.exit = exit;
+		TSkullUtils.exit = exit;
 	}
 
 	public static void setRainbowcube(String rainbowcube) {
-		SkullUtils.rainbowcube = rainbowcube;
+		TSkullUtils.rainbowcube = rainbowcube;
 	}
 
 	public static void setChoosecolor(String choosecolor) {
-		SkullUtils.choosecolor = choosecolor;
+		TSkullUtils.choosecolor = choosecolor;
 	}
 
 	public static void setMissing(String missing) {
-		SkullUtils.missing = missing;
+		TSkullUtils.missing = missing;
 	}
 
 	public static void setMute_on(String mute_on) {
-		SkullUtils.mute_on = mute_on;
+		TSkullUtils.mute_on = mute_on;
 	}
 
 	public static void setMute_off(String mute_off) {
-		SkullUtils.mute_off = mute_off;
+		TSkullUtils.mute_off = mute_off;
 	}
 
 	public static String getRainbowcube() {
