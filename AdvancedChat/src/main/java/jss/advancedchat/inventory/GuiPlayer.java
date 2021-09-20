@@ -63,9 +63,7 @@ public class GuiPlayer {
         	item.setAmount(amount);
         	
         	inv.setItem(slot, item);
-        	
-        	
-        	
+
         });
        
         plugin.addInventoryView(player, "playerGui");
@@ -74,7 +72,7 @@ public class GuiPlayer {
 
     private void setGlass(Inventory inv, String path) {
         for(int i = 0 ; i < 54; i++) {
-            item = XMaterial.valueOf(path).parseItem();
+            item = XMaterial.valueOf(path.toUpperCase()).parseItem();
             meta = item.getItemMeta();
             meta.setDisplayName(" ");
             item.setItemMeta(meta);

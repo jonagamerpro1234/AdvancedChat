@@ -30,17 +30,15 @@ public class MuteCmd implements CommandExecutor {
         String text = config.getString("AdvancedChat.Help-Mute");
         String prefix = "";
         String prefixserver = "";
-        if (config.getString("Settings.Use-Default-Prefix").equals("false")) {
-            prefixserver = config.getString("Settings.Prefix");
-        } else if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
-            prefixserver = Utils.getPrefix();
-        }
 
-        if (config.getString("Settings.Use-Default-Prefix").equals("false")) {
-            prefix = config.getString("Settings.Prefix");
-        } else if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
+        if (Settings.boolean_use_default_prefix) {
             prefix = Utils.getPrefixPlayer();
+            prefixserver = Utils.getPrefix();
+        } else {
+        	prefix = Settings.message_prefix_custom;
+        	prefixserver = Settings.message_prefix_custom;
         }
+        
         if (!(sender instanceof Player)) {
 
             if (args.length >= 1) {
