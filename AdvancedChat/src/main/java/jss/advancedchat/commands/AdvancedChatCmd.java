@@ -50,28 +50,22 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 		if (!(sender instanceof Player)) {
 			if (args.length >= 1) {
 				if (args[0].equalsIgnoreCase("info")) {
-					Utils.sendColorMessage(eventUtils.getConsoleSender(),
-							"&5-=-=-=-=-=[&b" + plugin.name + "&5]=-=-=-=-=-=-");
+					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5-=-=-=-=-=[&b" + plugin.name + "&5]=-=-=-=-=-=-");
 					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &3Name: &b" + plugin.name);
 					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &3Author: &6jonagamerpro1234");
 					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &3Version: &6" + plugin.version);
 					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &3Update: &a" + plugin.latestversion);
-					Utils.sendColorMessage(eventUtils.getConsoleSender(),
-							"&5> &6Spigot: &a" + UpdateSettings.URL_PLUGIN[0]);
-					Utils.sendColorMessage(eventUtils.getConsoleSender(),
-							"&5> &dSongoda: &a" + UpdateSettings.URL_PLUGIN[1]);
-					Utils.sendColorMessage(eventUtils.getConsoleSender(),
-							"&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &6Spigot: &a" + UpdateSettings.URL_PLUGIN[0]);
+					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5> &dSongoda: &a" + UpdateSettings.URL_PLUGIN[1]);
+					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 				} else if (args[0].equalsIgnoreCase("help")) {
 					List<String> help = config.getStringList("AdvancedChat.Help-Msg");
-					Utils.sendColorMessage(eventUtils.getConsoleSender(),
-							"&5-=-=-=-=-=-=-=-=-=-=-=&6[&d" + plugin.name + "&6]&5=-=-=-=-=-=-=-=-=-=-=-");
+					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5-=-=-=-=-=-=-=-=-=-=-=&6[&d" + plugin.name + "&6]&5=-=-=-=-=-=-=-=-=-=-=-");
 					for (int i = 0; i < help.size(); i++) {
 						String text = (String) help.get(i);
 						Utils.sendColorMessage(eventUtils.getConsoleSender(), text);
 					}
-					Utils.sendColorMessage(eventUtils.getConsoleSender(),
-							"&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 				} else if (args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")) {
 					configFile.reloadConfig();
 					playerDataFile.reloadConfig();
@@ -79,34 +73,26 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					playerGuiFile.reloadConfig();
 					plugin.getPreConfigLoader().load();
 					if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
-						Utils.sendColorMessage(eventUtils.getConsoleSender(),
-								Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Reload"));
+						Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefixPlayer() + config.getString("AdvancedChat.Reload"));
 					} else if (config.getString("Settings.Use-Default-Prefix").equals("false")) {
-						Utils.sendColorMessage(eventUtils.getConsoleSender(),
-								config.getString("Settings.Prefix") + " " + config.getString("AdvancedChat.Reload"));
+						Utils.sendColorMessage(eventUtils.getConsoleSender(), config.getString("Settings.Prefix") + config.getString("AdvancedChat.Reload"));
 					}
 				} else {
 					if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
-						Utils.sendColorMessage(eventUtils.getConsoleSender(),
-								Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Error-Args"));
+						Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefixPlayer() + config.getString("AdvancedChat.Error-Args"));
 					} else if (config.getString("Settings.Use-Default-Prefix").equals("false")) {
-						Utils.sendColorMessage(eventUtils.getConsoleSender(), config.getString("Settings.Prefix") + " "
-								+ config.getString("AdvancedChat.Error-Args"));
+						Utils.sendColorMessage(eventUtils.getConsoleSender(), config.getString("Settings.Prefix") + config.getString("AdvancedChat.Error-Args"));
 					}
 				}
 				return true;
 			}
 			if (Settings.boolean_use_default_prefix) {
-				Utils.sendColorMessage(eventUtils.getConsoleSender(),
-						Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Help-Cmd"));
+				Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefixPlayer() + config.getString("AdvancedChat.Help-Cmd"));
 			} else {
-				Utils.sendColorMessage(eventUtils.getConsoleSender(),
-						config.getString("Settings.Prefix") + " " + config.getString("AdvancedChat.Help-Cmd"));
+				Utils.sendColorMessage(eventUtils.getConsoleSender(), config.getString("Settings.Prefix") + config.getString("AdvancedChat.Help-Cmd"));
 			}
 			return false;
 		}
-
-		// player
 
 		Player j = (Player) sender;
 		if ((j.isOp()) || (j.hasPermission("AdvancedChat.Admin"))) {
@@ -138,17 +124,8 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 						plugin.getChannelGuiFile().reloadConfig();
 						playerGuiFile.reloadConfig();
 						plugin.getPreConfigLoader().load();
-						
-						/*if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
-							Utils.sendColorMessage(j,
-									Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Reload"));
-						} else if (config.getString("Settings.Use-Default-Prefix").equals("false")) {
-							Utils.sendColorMessage(j, config.getString("Settings.Prefix") + " "
-									+ config.getString("AdvancedChat.Reload"));
-						}*/
-						
 						if(Settings.boolean_use_default_prefix) {
-							Utils.sendColorMessage(j,  Utils.getPrefixPlayer() + " " + Settings.message_Reload);
+							Utils.sendColorMessage(j,  Utils.getPrefixPlayer() + Settings.message_Reload);
 						}else {
 							Utils.sendColorMessage(j, Settings.message_prefix_custom + " " + Settings.message_Reload);
 						}
@@ -408,7 +385,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					listOptions.add("red");
 					listOptions.add("dark_red");
 				}
-
 				if (args[0].equalsIgnoreCase("channel")) {
 					listOptions.add("global");
 					listOptions.add("world");
