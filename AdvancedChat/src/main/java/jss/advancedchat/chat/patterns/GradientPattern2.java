@@ -1,23 +1,25 @@
 package jss.advancedchat.chat.patterns;
 
-import java.awt.Color;
-import java.util.regex.Matcher;
-
 import com.iridium.iridiumcolorapi.IridiumColorAPI;
-import com.iridium.iridiumcolorapi.patterns.Pattern;
+import com.iridium.iridiumcolorapi.patterns.IPattern;
 
-public class GradientPattern2 implements Pattern {
+import java.awt.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-	java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("<#([0-9A-Fa-f]{6})>(.*?)</#([0-9A-Fa-f]{6})>");
+public class GradientPattern2 implements IPattern {
 
-	public String process(String string) {
-		Matcher matcher = pattern.matcher(string);
-		while (matcher.find()) {
-			String start = matcher.group(1);
-			String end = matcher.group(3);
-			String content = matcher.group(2);
-			string = string.replace(matcher.group(), IridiumColorAPI.color(content, new Color(Integer.parseInt(start, 16)), new Color(Integer.parseInt(end, 16))));
-		}
-		return string;
-	}
+    Pattern pattern = Pattern.compile("<GRADIENT:([0-9A-Fa-f]{6})>(.*?)</GRADIENT:([0-9A-Fa-f]{6})>");
+
+    public String process(String string) {
+        Matcher matcher = pattern.matcher(string);
+        while (matcher.find()) {
+            String start = matcher.group(1);
+            String end = matcher.group(3);
+            String content = matcher.group(2);
+            string = string.replace(matcher.group(), IridiumColorAPI.color(content, new Color(Integer.parseInt(start, 16)), new Color(Integer.parseInt(end, 16))));
+        }
+        return string;
+    }
+
 }

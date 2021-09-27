@@ -49,6 +49,9 @@ ClearChat:
   # |AutoClear| you can activate the automatic cleaning of the chat according to the number of ticks [Default: true]
   AutoClear: true
   
+  # |ByPass-Staff| With this function you can make the staff is not affected by the clearchat [AdvancedChat.ClearChat.Bypass]
+  ByPass-Staff: false
+  
   # |Tick| here you can define the time that the actions are automatically executed [Default | 24000], 24000 tick = 20 min
   Tick: 24000
   
@@ -59,7 +62,7 @@ ClearChat:
 #
 ChatFormat:
 
-  #
+  # |Enabled| Here you can enable or disable this feature
   Enabled: true
 
   # |Default| 
@@ -114,14 +117,14 @@ MySQL:
   Username: "root"
   
   # |Password| this is where you should put the database password
-  Password: "1234"
+  Password: "123456"
 #
 # |Command Blocker|
 # |here you can block the commands that you do not want to be used on the server at the moment it does not have the function of [antitabcomplete]
 #
 Command-Blocker:
 
-  # |Enabled| disabling this option will stop command blocking [Default: true]
+  # |Enabled| Here you can enable or disable this feature
   Enabled: true
   
   # |Chat| here you will find all the command block functions for chat
@@ -160,8 +163,12 @@ Command-Blocker:
 # |TabComplete|
 #
 TabComplete:
+  
+   # |Enabled| Here you can enable or disable this feature
   Enabled: false
+
   Allow-Space: false
+
   WhiteList:
     - 'Msg'
     - 'Me'
@@ -178,7 +185,7 @@ ProtocolLib-Packet:
 # 
 Filter-Chat:
 
-  # |Enabled|
+   # |Enabled| Here you can enable or disable this feature
   Enabled: true
 
   # |Use-Custom-Msg| will use a custom message found in the [Message] section instead of using [Form Of Censorship] [Default | false]
@@ -197,13 +204,13 @@ Filter-Chat:
   BadWords:
     - 'noob'
     - 'stupid'
-    - 'fuck'
+    - 'fuck' 
 #
 # | Anti Swear |
 #
 Anti-Swear:
 
-  #
+   # |Enabled| Here you can enable or disable this feature
   Enabled: false
   
   # 
@@ -219,7 +226,7 @@ Anti-Swear:
 #
 Mention:
   
-  # |Enabled|
+   # |Enabled| Here you can enable or disable this feature
   Enabled: true
   
   # |Send-Format|
@@ -252,10 +259,10 @@ Mention:
   # |Actionbar|
   Actionbar:
   
-    # |Enabled|
+    # |Enabled| Here you can enable or disable this feature
     Enabled: true
     
-    # |Text|
+    # |Text| Here you can define the text of the action bar
     Text: ''
   
   
@@ -263,13 +270,13 @@ Mention:
   Sound:
     
     # |Name| This is the name of the sound you will hear when it is mentioned to you in chat.
-    Name: NOTE_PLING
+    Name: BLOCK_NOTE_BLOCK_PLING
     
     # |Pitch| This is the pitch of the sound that you will hear when mentioned in the chat
     Pitch: 0.5
     
     # |Vol| This is the volume of the sound that you will hear when the chat mentions it
-    Vol: 1
+    Volume: 10
 #
 # |Translation of messages from AdvancedChat|
 # |Version: 1.6|
