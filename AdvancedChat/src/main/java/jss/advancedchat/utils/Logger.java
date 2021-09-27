@@ -27,7 +27,7 @@ public class Logger {
     	Utils.sendColorConsoleMessage(EventUtils.getStaticConsoleSender(), OUTLINEPrefix() + " " + msg);
     }
     
-    public static void succers(String msg) {
+    public static void success(String msg) {
     	Utils.sendColorConsoleMessage(EventUtils.getStaticConsoleSender(), SUCCESSPrefix() + " " + msg);
     }
     

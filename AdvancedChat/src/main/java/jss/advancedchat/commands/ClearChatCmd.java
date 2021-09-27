@@ -31,8 +31,16 @@ public class ClearChatCmd implements CommandExecutor {
             return false;
         }
         Player j = (Player) sender;
-        if ((j.isOp()) || (j.hasPermission("AdvancedChat.ClearChat"))) {
-            eventUtils.getClearChatAction("player");
+        if (j.isOp() || j.hasPermission("AdvancedChat.ClearChat")) {
+        	if(Settings.boolean_clearchat_bypass) {
+            	if(j.isOp() || j.hasPermission("AdvancedChat.ClearChat.Bypass")) {
+            		return true;
+            	}else{
+            		eventUtils.getClearChatAction("player");
+            	}
+        	}else {
+        		eventUtils.getClearChatAction("player");
+        	}
             eventUtils.getPlayerMessage(j, config);
         } else {
         	Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);

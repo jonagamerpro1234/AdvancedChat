@@ -23,6 +23,7 @@ import jss.advancedchat.config.ColorFile;
 import jss.advancedchat.config.CommandFile;
 import jss.advancedchat.config.CommandLogFile;
 import jss.advancedchat.config.ConfigFile;
+import jss.advancedchat.config.GradientColorFile;
 import jss.advancedchat.config.InventoryDataFile;
 import jss.advancedchat.config.PlayerDataFile;
 import jss.advancedchat.config.PlayerGuiFile;
@@ -61,6 +62,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private ColorFile colorFile = new ColorFile(this, "color-gui.yml", "Gui");
 	private PlayerGuiFile playerGuiFile = new PlayerGuiFile(this, "player-gui.yml", "Gui");
 	private ChannelGuiFile channelGuiFile = new ChannelGuiFile(this, "channel-gui.yml", "Gui");
+	private GradientColorFile gradientColorFile = new GradientColorFile(this, "gradient-gui.yml", "Gui");
 	private ChatLogFile chatLogFile = new ChatLogFile(this, "chat.yml", "Log");
 	private CommandLogFile commandLogFile = new CommandLogFile(this, "command.yml", "Log");
 	private ChatDataFile chatDataFile = new ChatDataFile(this, "chat-log.data", "Data");
@@ -97,36 +99,21 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		if (nmsversion.equalsIgnoreCase("v1_8_R3")) {
 			uselegacyversion = true;
 			if (uselegacyversion) {
-				Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion
-						+ " &cdisabled &7method &b1.16 &7and &e1.17");
+				Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &cdisabled &7method &b1.16 &7and &e1.17");
 			}
-		} else if (nmsversion.equalsIgnoreCase("v1_16_R1") || nmsversion.equalsIgnoreCase("v1_16_R2")
-				|| nmsversion.equalsIgnoreCase("v1_16_R3")) {
+		} else if (nmsversion.equalsIgnoreCase("v1_16_R1") || nmsversion.equalsIgnoreCase("v1_16_R2") || nmsversion.equalsIgnoreCase("v1_16_R3")) {
 			uselatestversion = true;
-			Utils.sendColorMessage(eventUtils.getConsoleSender(),
-					Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
+			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
 		}
 		instance = this;
 		checkBungeeMode();
 		commandFile.create();
 		playerdata.create();
-		//Disabled
-		/*try {
-			if (this.getConfigFile().getConfig().getString("Settings.BungeeMode").equals("false")) {
-
-				BungeeMode = false;
-			} else if (this.getConfigFile().getConfig().getString("Settings.BungeeMode").equals("true")) {
-				BungeeMode = true;
-				logger.Log(Level.INFO, "Bungee Mode can only be used if the database is active and configured");
-				// logger.Log(Level.INFO, "Folder [data] and its [files] are not created");
-			}
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		}*/
 		inventoryDataFile.create();
 		chatLogFile.create();
 		commandLogFile.create();
 		colorFile.create();
+		gradientColorFile.create();
 		playerGuiFile.create();
 		chatDataFile.create();
 		channelGuiFile.create();
@@ -223,11 +210,11 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
 	public void loadMySQL() {
 		try {
-			if (Settings.mysql_use_t) {
+			/*if (Settings.mysql_use_t) {
 				//mySQL.connect(Settings.mysql_host, Settings.mysql_port, Settings.mysql_database, Settings.mysql_user,
 				//		Settings.mysql_password, Settings.mysql_usessl);
 				Logger.succers("Connected database");
-			}
+			}*/
 		} catch (NullPointerException e) {
 			logger.Log(Level.ERROR, "the config [database] is null?");
 			e.printStackTrace();
@@ -252,6 +239,10 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		}catch(Exception e) {}
 	}
 
+	public GradientColorFile getGradientColorFile() {
+		return gradientColorFile;
+	}
+	
 	public InventoryDataFile getInventoryDataFile() {
 		return this.inventoryDataFile;
 	}

@@ -35,6 +35,7 @@ public class ChatListener implements Listener {
 	private EventUtils eventsUtils = new EventUtils(plugin);
 	private boolean badword;
 	private boolean ismention;
+	
 	//experimental
 	private final Pattern COLOR_REGEX = Pattern.compile("(?i)&([0-9A-F])");
 	private final Pattern MAGIC_REGEN = Pattern.compile("(?i)&([K])");
@@ -164,7 +165,7 @@ public class ChatListener implements Listener {
 	}
 	
 	//Chatformat
-	//@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void chatFormat(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfigFile().getConfig();
 		SQLGetter sql = plugin.getSQLGetter();
@@ -172,7 +173,6 @@ public class ChatListener implements Listener {
 		Player j = e.getPlayer();
 		String msg = e.getMessage();
 		String format = "";
-		String message = "";
 		List<String> hover = new ArrayList<String>();
 
 		if (config.getBoolean("ChatFormat.Enabled")) {
@@ -185,8 +185,10 @@ public class ChatListener implements Listener {
 			}
 
 			format = format.replace("<player>", j.getDisplayName());
-			
 		}
+		
+		
+		
 	}
 	
 	@EventHandler 

@@ -1,23 +1,27 @@
 package com.iridium.iridiumcolorapi;
 
-import com.google.common.collect.ImmutableMap;
-import com.iridium.iridiumcolorapi.patterns.GradientPattern;
-import com.iridium.iridiumcolorapi.patterns.Pattern;
-import com.iridium.iridiumcolorapi.patterns.RainbowPattern;
-import com.iridium.iridiumcolorapi.patterns.SolidPattern;
-
-import jss.advancedchat.chat.patterns.GradientPattern2;
-import jss.advancedchat.chat.patterns.GradientPattern3;
-import net.md_5.bungee.api.ChatColor;
-import org.apache.commons.lang.Validate;
-import org.bukkit.Bukkit;
-
-import javax.annotation.Nonnull;
-import java.awt.*;
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+
+import org.apache.commons.lang.Validate;
+import org.bukkit.Bukkit;
+
+import com.google.common.collect.ImmutableMap;
+import com.iridium.iridiumcolorapi.patterns.GradientPattern;
+import com.iridium.iridiumcolorapi.patterns.IPattern;
+import com.iridium.iridiumcolorapi.patterns.RainbowPattern;
+import com.iridium.iridiumcolorapi.patterns.SolidPattern;
+
+import jss.advancedchat.chat.patterns.GradientPattern2;
+import jss.advancedchat.chat.patterns.PadPattern;
+import jss.advancedchat.chat.patterns.PadPattern2;
+import jss.advancedchat.chat.patterns.RainbowPattern2;
+import net.md_5.bungee.api.ChatColor;
 
 public class IridiumColorAPI {
 
@@ -66,8 +70,8 @@ public class IridiumColorAPI {
      *
      * @since 1.0.2
      */
-    private static final List<Pattern> PATTERNS = Arrays.asList(new GradientPattern(), new SolidPattern(), new RainbowPattern(), new GradientPattern2(), new GradientPattern3());
-
+    private static final List<IPattern> PATTERNS = Arrays.asList(new GradientPattern(), new SolidPattern(), new RainbowPattern(),
+    		new PadPattern(), new PadPattern2(), new RainbowPattern2(), new GradientPattern2());
     /**
      * Processes a string to add color to it.
      * Thanks to Distressing for helping with the regex <3
@@ -77,7 +81,7 @@ public class IridiumColorAPI {
      */
     @Nonnull
     public static String process(@Nonnull String string) {
-        for (Pattern pattern : PATTERNS) {
+        for (IPattern pattern : PATTERNS) {
             string = pattern.process(string);
         }
         string = ChatColor.translateAlternateColorCodes('&', string);

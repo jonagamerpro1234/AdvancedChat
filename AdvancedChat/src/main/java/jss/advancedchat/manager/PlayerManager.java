@@ -12,22 +12,12 @@ import jss.advancedchat.utils.Logger;
 public class PlayerManager {
 
     private AdvancedChat plugin;
-    private int spam;
     private ColorManager colorManager;
     
     public PlayerManager(AdvancedChat plugin) {
         this.plugin = plugin;
-        this.spam = 0;
     }
-
-    public int getSpam() {
-        return spam;
-    }
-
-    public void setSpam(int spam) {
-        this.spam = spam;
-    }
-
+    
     public boolean isMute(Player player) {
     	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
     	Set<String> sections = config.getKeys(false);
@@ -111,11 +101,13 @@ public class PlayerManager {
 
     public String getColor(Player player, String text) {
         FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-
+        
+        
+        
         for (String key : config.getConfigurationSection("Players").getKeys(false)) {
             if (key.contains(player.getName())) {
                 String color = config.getString("Players." + key + ".Color");
-                return colorManager.convertColor(color, text);
+                return colorManager.convertColor(player, color, text);
             }
         }
         return null;
@@ -167,11 +159,79 @@ public class PlayerManager {
         }
     }
     
+    
+    public void setGradient1(Player player, String hex) {
+    	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
+    	
+    	Set<String> sections = config.getKeys(false);
+    	Iterator<String> section = sections.iterator();
+    	
+    	while(true) {
+    		while(section.hasNext()) {
+    			String key = (String) section.next();
+    			if(key.contains(player.getName())) {
+    				config.set(key + ".Gradient.Color-1", hex);
+    			}
+    		}
+    	}
+    }
+    
+    public void setGradient2(Player player, String hex) {
+    	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
+    	
+    	Set<String> sections = config.getKeys(false);
+    	Iterator<String> section = sections.iterator();
+    	
+    	while(true) {
+    		while(section.hasNext()) {
+    			String key = (String) section.next();
+    			if(key.contains(player.getName())) {
+    				config.set(key + ".Gradient.Color-2", hex);
+    			}
+    		}
+    	}
+    }
+    
+    public String getGradient1(Player player) {
+    	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
+    	
+    	Set<String> sections = config.getKeys(false);
+    	Iterator<String> section = sections.iterator();
+    	
+    	while(true) {
+    		while(section.hasNext()) {
+    			String key = (String) section.next();
+    			if(key.contains(player.getName())) {
+    				return config.getString(key + ".Gradient.Color-1");
+    			}
+    		}
+    	}
+    }
+    
+    public String getGradient2(Player player) {
+    	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
+    	
+    	Set<String> sections = config.getKeys(false);
+    	Iterator<String> section = sections.iterator();
+    	
+    	while(true) {
+    		while(section.hasNext()) {
+    			String key = (String) section.next();
+    			if(this.exists(player)) {
+    				return config.getString(key + ".Gradient.Color-2");
+    			}
+    		}	
+    	}
+    }
+    
+    
     public void create(Player player) {
     	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
     	if(!this.exists(player)) {
     		config.set(player.getName() + ".UUID", player.getUniqueId());
             config.set(player.getName() + ".Color", "WHITE");
+            config.set(player.getName() + ".Gradient.Color-1", "FFFFFF");
+            config.set(player.getName() + ".Gradient.Color-2", "FFFFFF");
             config.set(player.getName() + ".Mute", false);
             config.set(player.getName() + ".Chat.Channel", "ALL");
             config.set(player.getName() + ".Chat.Range", 10);

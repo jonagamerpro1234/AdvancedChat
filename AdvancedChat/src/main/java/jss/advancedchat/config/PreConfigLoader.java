@@ -40,13 +40,11 @@ public class PreConfigLoader {
         	Settings.message_msg_use = config.getString("AdvancedChat.Help-Msg-Use");
         	Settings.message_Alert_Mute = config.getString("AdvancedChat.Alert-Mute");
         	
-        	
         	Settings.boolean_protocollib = config.getString("ProtocolLib-Packet.Enabled").equals("true");
         	Settings.boolean_antitabcompleted = config.getString("ProtocolLib-Packet.Disable-TabCompleted").equals("true");
         	Settings.boolean_use_default_prefix = config.getString("Settings.Use-Default-Prefix").equals("true");
         	Settings.boolean_filter_use_msg = config.getString("Filter-Chat.Use-Custom-Msg").equals("true");
         	Settings.boolean_chatclear_autoclear = config.getString("ClearChat.AutoClear").equals("true");
-         	
         	
         	Settings.int_clearchat_tick = config.getInt("ClearChat.Tick");
         	Settings.int_clearchat_lines = config.getInt("ClearChat.LineClear");
