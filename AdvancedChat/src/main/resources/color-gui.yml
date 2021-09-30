@@ -116,7 +116,7 @@ Items:
       - '&7Your chat would look like this: &e[&cHello player&e]'
       - '&b&nClick to select this chat color'
   Light-Purple:
-    Name: '&7&lLight Purple'    
+    Name: '&d&lLight Purple'    
     Texture: '[light_purple]'
     Slot: 31
     Lore:

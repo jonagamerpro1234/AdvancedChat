@@ -23,7 +23,7 @@ public class Placeholders {
 		str = str.replace("<name>", player.getName());
 		str = str.replace("<displayname>", player.getDisplayName());
 		str = str.replace("<channel>", m.getChannel(player));
-		str = str.replace("<mute_state>", m.getStateMute(player));
+		//str = str.replace("<mute_state>", m.getStateMute(player));
 		str = Utils.getOnlinePlayers(str);
 		return str;
 	}

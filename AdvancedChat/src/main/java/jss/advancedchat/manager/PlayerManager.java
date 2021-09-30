@@ -32,129 +32,85 @@ public class PlayerManager {
     		}
     	}
     }
-    
-    public String getStateMute(Player player) {
-        FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-        String stateMute = "";
-        for (String key : config.getConfigurationSection("Players").getKeys(false)) {
-            if (key.contains(player.getName())) {
-            	boolean is = config.getString("Players." + key + ".Mute").equals("true");
-            	if(is) {
-            		stateMute = "true";
-            	}else{
-            		stateMute ="false";
-            	}
-            }
-        }
-		return stateMute;
-	}
-
-    public String getStateMuteLore(Player player) {
-        FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-        String stateMute = "";
-        for (String key : config.getConfigurationSection("Players").getKeys(false)) {
-            if (key.contains(player.getName())) {
-            	boolean is = config.getString("Players." + key + ".Mute").equals("true");
-            	if(is) {
-            		stateMute = "false";
-            	}else{
-            		stateMute = "true";
-            	}
-            }
-        }
-		return stateMute;
-	}
-    
-    @Deprecated
-    public boolean isMuteOld(Player player) {
-        FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-        for (String key : config.getConfigurationSection("Players").getKeys(false)) {
-            if (key.contains(player.getName())) {
-                return config.getBoolean("Players." + key + ".Mute");
-            }
-        }
-        return false;
-    }
 
     public void setMute(Player player, boolean mute) {
         FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-        if (player == null) {
-            return;
-        }
         if (config.contains(player.getName() + ".Mute")) {
             config.set(player.getName() + ".Mute", mute);
             plugin.getPlayerDataFile().saveConfig();
         }
     }
     
-    @Deprecated
-    public void setMuteOld(Player player, boolean mute) {
-        FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-        if (player == null) {
-            return;
-        }
-        if (config.contains(player.getName() + ".Mute")) {
-            config.set("Players." + player.getName() + ".Mute", mute);
-            plugin.getPlayerDataFile().saveConfig();
-        }
-    }
-
     public String getColor(Player player, String text) {
         FileConfiguration config = plugin.getPlayerDataFile().getConfig();
         
+        Set<String> sections = config.getKeys(false);
+        Iterator<String> section = sections.iterator();
         
-        
-        for (String key : config.getConfigurationSection("Players").getKeys(false)) {
-            if (key.contains(player.getName())) {
-                String color = config.getString("Players." + key + ".Color");
-                return colorManager.convertColor(player, color, text);
-            }
+        while(true) {
+        	while(section.hasNext()) {
+        		String key = (String) section.next();
+        		if(key.contains(player.getName())) {
+        			return colorManager.convertColor(player, config.getString(key + ".Color"), text);
+        		}
+        	}
         }
-        return null;
     }
 
     public void setColor(Player player, String color) {
         FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-        if (config.contains("Players." + player.getName() + ".Color")) {
-            config.set("Players." + player.getName() + ".Color", color);
+        if (config.contains(player.getName() + ".Color")) {
+            config.set(player.getName() + ".Color", color);
             plugin.getPlayerDataFile().saveConfig();
         }
     }
     
     public String getChannel(Player player) {
     	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-    	for(String key : config.getConfigurationSection("Players").getKeys(false)) {
-    		if(key.contains(player.getName())) {
-    			String channel = config.getString("Players." + key + ".Chat.Channel");
-    			return channel.toLowerCase();
-    		}
-    	}
-    	return null;
-    }
+    	
+        Set<String> sections = config.getKeys(false);
+        Iterator<String> section = sections.iterator();
+        
+		while (true) {
+			while (section.hasNext()) {
+				String key = (String) section.next();
+				if (key.contains(player.getName())) {
+					String channel = config.getString(key + ".Chat.Channel");
+					return channel.toLowerCase();
+				}
+			}
+		}
+	}
     
     public void setChannel(Player player, int range) {
     	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-        if (config.contains("Players." + player.getName() + ".Chat.Channel")) {
-            config.set("Players." + player.getName() + ".Chat.Channel", range);
+        if (config.contains(player.getName() + ".Chat.Channel")) {
+            config.set(player.getName() + ".Chat.Channel", range);
             plugin.getPlayerDataFile().saveConfig();
         }
     }
     
     public String getRange(Player player) {
     	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-    	for(String key : config.getConfigurationSection("Players").getKeys(false)) {
-    		if(key.contains(player.getName())) {
-    			String channel = config.getString("Players." + key + ".Chat.Range");
-    			return channel.toLowerCase();
-    		}
-    	}
-    	return null;
+    	
+        Set<String> sections = config.getKeys(false);
+        Iterator<String> section = sections.iterator();
+        
+		while (true) {
+			while (section.hasNext()) {
+				String key = (String) section.next();
+				if (key.contains(player.getName())) {
+					String range = config.getString(key + ".Chat.Range");
+					return range;
+				}
+			}
+		}
     }
     
     public void setRange(Player player, int range) {
     	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-        if (config.contains("Players." + player.getName() + ".Chat.Range")) {
-            config.set("Players." + player.getName() + ".Chat.Range", range);
+        if (config.contains(player.getName() + ".Chat.Range")) {
+            config.set(player.getName() + ".Chat.Range", range);
             plugin.getPlayerDataFile().saveConfig();
         }
     }
@@ -162,39 +118,34 @@ public class PlayerManager {
     
     public void setGradient1(Player player, String hex) {
     	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
-    	
-    	Set<String> sections = config.getKeys(false);
-    	
-    	sections.forEach( key -> {
-			if(key.contains(player.getName())) {
-				config.set(key + ".Gradient.Color-1", hex);
-			}
-    	});
+        if (config.contains(player.getName() + ".Gradient")) {
+            config.set(player.getName() + ".Gradient.Color-1", hex);
+            plugin.getPlayerDataFile().saveConfig();
+        }
     }
     
     public void setGradient2(Player player, String hex) {
     	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
-    	
-    	Set<String> sections = config.getKeys(false);
-    	
-    	sections.forEach( key -> {
-			if(key.contains(player.getName())) {
-				config.set(key + ".Gradient.Color-2", hex);
-			}
-    	});
+        if (config.contains(player.getName() + ".Gradient")) {
+            config.set(player.getName() + ".Gradient.Color-2", hex);
+            plugin.getPlayerDataFile().saveConfig();
+        }
     }
     
     public String getGradient1(Player player) {
     	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
     	
     	Set<String> sections = config.getKeys(false);
-    	String color = "";	
-    	for(String key : sections) {
-			if(key.contains(player.getName())) {
-				color = config.getString(key + ".Gradient.Color-1");
-			}
+    	Iterator<String> section = sections.iterator();
+    	
+    	while(true) {
+    		while(section.hasNext()) {
+    			String key = (String) section.next();
+    			if(this.exists(player)) {
+    				return config.getString(key + ".Gradient.Color-1");
+    			}
+    		}	
     	}
-    	return color;
     }
     
     public String getGradient2(Player player) {

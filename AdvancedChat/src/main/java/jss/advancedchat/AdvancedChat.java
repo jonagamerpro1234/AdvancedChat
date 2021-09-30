@@ -50,6 +50,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	@SuppressWarnings("unused")
 	private FileManager filemanager = new FileManager(this);
 	private ConfigFile configfile = new ConfigFile(this, "config.yml");
+	@SuppressWarnings("unused")
 	private CommandFile commandFile = new CommandFile(this, "custom-command.yml");
 	private ColorFile colorFile = new ColorFile(this, "color-gui.yml", "Gui");
 	private PlayerGuiFile playerGuiFile = new PlayerGuiFile(this, "player-gui.yml", "Gui");
@@ -97,7 +98,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		}
 		instance = this;
 		checkBungeeMode();
-		commandFile.create();
+		//commandFile.create();
 		playerdata.create();
 		inventoryDataFile.create();
 		chatLogFile.create();
@@ -139,8 +140,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
 	public void onDisable() {
 		Utils.setDisabled(version);
-		//remove releases 1.6.0
-		placeholder = false;
 		metrics = null;
 		uselegacyversion = false;
 	}
@@ -166,8 +165,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		Utils.setLineLoad("&eLoad Data Folder");
 		createVoidFolder("Log");
 		Utils.setLineLoad("&eLoad Log Folder");
-		createVoidFolder("Data" + File.separator + "Players");
-		Utils.setLineLoad("&eLoad Test SubFolder Folder");
 		Utils.setEndLoad();
 	}
 
@@ -187,6 +184,20 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		new CommandListener(this));
 		EventLoader e = new EventLoader(this);
 		e.runClearChat();
+	}
+	
+	public void reloadAllFiles() {
+		this.preConfigLoad.load();
+		this.getConfigFile().reloadConfig();
+		this.getChatDataFile().reloadConfig();
+		this.getChatLogFile().reloadConfig();
+		this.getPlayerDataFile().reloadConfig();
+		this.getPlayerGuiFile().reloadConfig();
+		this.getColorFile().reloadConfig();
+		this.getGradientColorFile().reloadConfig();
+		this.getChannelGuiFile().reloadConfig();
+		this.getCommandLogFile().reloadConfig();
+		this.getInventoryDataFile().reloadConfig();
 	}
 	
 	private void checkBungeeMode() {
