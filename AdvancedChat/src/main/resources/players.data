@@ -1,1 +1,5 @@
-Players: {}
+Settings:
+  Default-Color: 'white'
+  Default-Gradient:
+    Color-1: 'FFFFFF'
+    Color-2: 'FFFFFF'

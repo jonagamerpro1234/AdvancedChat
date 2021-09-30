@@ -11,6 +11,7 @@ public class Settings {
     public static String message_NoPermission_Label;
     public static String message_ClearChat_Server;
     public static String message_ClearChat_Player;
+    public static String message_ClearChat_Staff;
     public static String message_Error_Args;
     public static String message_Reload;
     public static String message_Help_Mute;

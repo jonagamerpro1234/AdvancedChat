@@ -50,7 +50,7 @@ public class ChatListener implements Listener {
 	}
 
 	//Chat filter
-	@EventHandler(priority = EventPriority.HIGH)
+	//@EventHandler(priority = EventPriority.HIGH)
 	public void chatFilter(AsyncPlayerChatEvent e) {
 		Player j = e.getPlayer();
 		FileConfiguration config = plugin.getConfigFile().getConfig();
@@ -147,7 +147,7 @@ public class ChatListener implements Listener {
 				}
 			});
 		
-			for (String key : config.getConfigurationSection("Players").getKeys(false)) {
+			/*for (String key : config.getConfigurationSection("Players").getKeys(false)) {
 				if (key.contains(j.getName())) {
 					String mute = config.getString("Players." + key + ".Mute");
 					if (!(j.isOp()) || !(j.hasPermission("AdvancedChat.Chat.Bypass"))) {
@@ -160,7 +160,7 @@ public class ChatListener implements Listener {
 						return;
 					}
 				}
-			}
+			}*/
 		}
 	}
 	
@@ -171,9 +171,7 @@ public class ChatListener implements Listener {
 		SQLGetter sql = plugin.getSQLGetter();
 		PlayerManager manager = new PlayerManager(plugin);
 		Player j = e.getPlayer();
-		String msg = e.getMessage();
-		String format = "";
-		List<String> hover = new ArrayList<String>();
+
 
 		if (config.getBoolean("ChatFormat.Enabled")) {
 			e.setCancelled(true);

@@ -25,6 +25,7 @@ public class PreConfigLoader {
             Settings.message_NoPermission_Label = config.getString("AdvancedChat.No-Permission-Label");
             Settings.message_ClearChat_Server = config.getString("AdvancedChat.ClearChat-Server");
             Settings.message_ClearChat_Player = config.getString("AdvancedChat.ClearChat-Player");
+            Settings.message_ClearChat_Staff = config.getString("AdvancedChat.ClearChat-Staff");
             Settings.message_Error_Args = config.getString("AdvancedChat.Error-Args");
             Settings.message_Reload = config.getString("AdvancedChat.Reload");
             Settings.message_Help_Mute = config.getString("AdvancedChat.Help-Mute");
@@ -45,6 +46,7 @@ public class PreConfigLoader {
         	Settings.boolean_use_default_prefix = config.getString("Settings.Use-Default-Prefix").equals("true");
         	Settings.boolean_filter_use_msg = config.getString("Filter-Chat.Use-Custom-Msg").equals("true");
         	Settings.boolean_chatclear_autoclear = config.getString("ClearChat.AutoClear").equals("true");
+        	Settings.boolean_clearchat_bypass = config.getString("ClearChat.ByPass-Staff").equals("true");
         	
         	Settings.int_clearchat_tick = config.getInt("ClearChat.Tick");
         	Settings.int_clearchat_lines = config.getInt("ClearChat.LineClear");
