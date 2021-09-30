@@ -2,7 +2,6 @@
 # | By jonagamerpro1234 |
 # |     Version 1.6.0   |
 # |_____________________|
-#
 Title: '&b&lMenu &8&l> &e&lGradient'
 Items:
   Last:
@@ -14,114 +13,114 @@ Items:
     Texture: '[exit]'
     Slot: 0
   Black:
-    Name: '&0&lBlack'    
+    Name: '&0&lBlack'
     Texture: '[black]'
     Slot: 41
     Lore:
-      - '&7Your chat would look like this: &e[&0Hello player&e]'
-      - '&b&nClick to select this chat color'
+    - '&7Your chat would look like this: &e[&0Hello player&e]'
+    - '&b&nClick to select this chat color'
   Blue:
-    Name: '&9&lBlue'  
+    Name: '&9&lBlue'
     Texture: '[blue]'
     Slot: 22
     Lore:
-      - '&7Your chat would look like this: &e[&9Hello player&e]'
-      - '&b&nClick to select this chat color'
+    - '&7Your chat would look like this: &e[&9Hello player&e]'
+    - '&b&nClick to select this chat color'
   Dark-Gray:
-    Name: '&8&lDark Gray'   
+    Name: '&8&lDark Gray'
     Texture: '[dark_gray]'
     Slot: 34
     Lore:
-      - '&7Your chat would look like this: &e[&8Hello player&e]'
-      - '&b&nClick to select this chat color'      
+    - '&7Your chat would look like this: &e[&8Hello player&e]'
+    - '&b&nClick to select this chat color'
   Gray:
     Name: '&7&lGray'
     Texture: '[gray]'
     Slot: 33
     Lore:
-      - '&7Your chat would look like this: &e[&7Hello player&e]'
-      - '&b&nClick to select this chat color'
+    - '&7Your chat would look like this: &e[&7Hello player&e]'
+    - '&b&nClick to select this chat color'
   Gold:
-    Name: '&6&lGold'    
+    Name: '&6&lGold'
     Texture: '[gold]'
     Slot: 28
     Lore:
-      - '&7Your chat would look like this: &e[&6Hello player&e]'
-      - '&b&nClick to select this chat color'
+    - '&7Your chat would look like this: &e[&6Hello player&e]'
+    - '&b&nClick to select this chat color'
   Dark-Purple:
-    Name: '&5&lDark Purple' 
+    Name: '&5&lDark Purple'
     Texture: '[dark_purple]'
     Slot: 32
     Lore:
-      - '&7Your chat would look like this: &e[&5Hello player&e]'
-      - '&b&nClick to select this chat color'
+    - '&7Your chat would look like this: &e[&5Hello player&e]'
+    - '&b&nClick to select this chat color'
   Dark-Red:
-    Name: '&4&lDark Red'    
+    Name: '&4&lDark Red'
     Texture: '[dark_red]'
     Slot: 19
     Lore:
-      - '&7Your chat would look like this: &e[&4Hello player&e]'
-      - '&b&nClick to select this chat color'
+    - '&7Your chat would look like this: &e[&4Hello player&e]'
+    - '&b&nClick to select this chat color'
   Dark-Aqua:
-    Name: '&3&lDark Aqua'    
+    Name: '&3&lDark Aqua'
     Texture: '[dark_aqua]'
     Slot: 29
     Lore:
-      - '&7Your chat would look like this: &e[&3Hello player&e]'
-      - '&b&nClick to select this chat color'
+    - '&7Your chat would look like this: &e[&3Hello player&e]'
+    - '&b&nClick to select this chat color'
   Dark-Blue:
-    Name: '&1&lDark Blue'   
+    Name: '&1&lDark Blue'
     Texture: '[dark_blue]'
     Slot: 21
     Lore:
-      - '&7Your chat would look like this: &e[&1Hello player&e]'
-      - '&b&nClick to select this chat color'
+    - '&7Your chat would look like this: &e[&1Hello player&e]'
+    - '&b&nClick to select this chat color'
   Dark-Green:
-    Name: '&2&lDark Green'    
+    Name: '&2&lDark Green'
     Texture: '[dark_green]'
     Slot: 23
     Lore:
-      - '&7Your chat would look like this: &e[&2Hello player&e]'
-      - '&b&nClick to select this chat color'
+    - '&7Your chat would look like this: &e[&2Hello player&e]'
+    - '&b&nClick to select this chat color'
   Green:
-    Name: '&a&lGreen'    
+    Name: '&a&lGreen'
     Texture: '[green]'
     Slot: 24
     Lore:
-      - '&7Your chat would look like this: &e[&aHello player&e]'
-      - '&b&nClick to select this chat color'
+    - '&7Your chat would look like this: &e[&aHello player&e]'
+    - '&b&nClick to select this chat color'
   Aqua:
-    Name: '&b&lAqua'    
+    Name: '&b&lAqua'
     Texture: '[aqua]'
     Slot: 30
     Lore:
-      - '&7Your chat would look like this: &e[&bHello player&e]'
-      - '&b&nClick to select this chat color'
+    - '&7Your chat would look like this: &e[&bHello player&e]'
+    - '&b&nClick to select this chat color'
   Red:
-    Name: '&c&lRed'   
+    Name: '&c&lRed'
     Texture: '[red]'
     Slot: 20
     Lore:
-      - '&7Your chat would look like this: &e[&cHello player&e]'
-      - '&b&nClick to select this chat color'
+    - '&7Your chat would look like this: &e[&cHello player&e]'
+    - '&b&nClick to select this chat color'
   Light-Purple:
-    Name: '&7&lLight Purple'    
+    Name: '&d&lLight Purple'
     Texture: '[light_purple]'
     Slot: 31
     Lore:
-      - '&7Your chat would look like this: &e[&7Hello player&e]'
-      - '&b&nClick to select this chat color'
+    - '&7Your chat would look like this: &e[&dHello player&e]'
+    - '&b&nClick to select this chat color'
   Yellow:
     Name: '&e&lYellow'
     Texture: '[yellow]'
     Slot: 25
     Lore:
-      - '&7Your chat would look like this: &a[&eHello player&a]'
-      - '&b&nClick to select this chat color'
+    - '&7Your chat would look like this: &a[&eHello player&a]'
+    - '&b&nClick to select this chat color'
   White:
     Name: '&f&lWhite'
     Texture: '[white]'
     Slot: 39
     Lore:
-      - '&7Your chat would look like this: &e[&fHello player&e]'
-      - '&b&nClick to select this chat color'
+    - '&7Your chat would look like this: &e[&fHello player&e]'
+    - '&b&nClick to select this chat color'

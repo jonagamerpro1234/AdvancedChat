@@ -105,9 +105,9 @@ public class InventoryListener implements Listener {
 
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Red")) {
 				e.setCancelled(true);
-				if (e.isLeftClick()) {
+				if (e.getClick().isLeftClick()) {
 					playerManager.setGradient1(target, "FF5555");
-				} else if (e.isRightClick()) {
+				} else if (e.getClick().isRightClick()) {
 					playerManager.setGradient2(target, "FF5555");
 				}
 			} else {
@@ -120,9 +120,9 @@ public class InventoryListener implements Listener {
 
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Blue")) {
 				e.setCancelled(true);
-				if (e.isLeftClick()) {
+				if (e.getClick().isLeftClick()) {
 					playerManager.setGradient1(target, "0000AA");
-				} else if (e.isRightClick()) {
+				} else if (e.getClick().isRightClick()) {
 					playerManager.setGradient2(target, "0000AA");
 				}
 			} else {
@@ -135,9 +135,9 @@ public class InventoryListener implements Listener {
 
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Blue")) {
 				e.setCancelled(true);
-				if (e.isLeftClick()) {
+				if (e.getClick().isLeftClick()) {
 					playerManager.setGradient1(target, "5555FF");
-				} else if (e.isRightClick()) {
+				} else if (e.getClick().isRightClick()) {
 					playerManager.setGradient2(target, "5555FF");
 				}
 			} else {
@@ -150,9 +150,9 @@ public class InventoryListener implements Listener {
 
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Green")) {
 				e.setCancelled(true);
-				if (e.isLeftClick()) {
+				if (e.getClick().isLeftClick()) {
 					playerManager.setGradient1(target, "00AA00");
-				} else if (e.isRightClick()) {
+				} else if (e.getClick().isRightClick()) {
 					playerManager.setGradient2(target, "00AA00");
 				}
 			} else {
@@ -165,9 +165,9 @@ public class InventoryListener implements Listener {
 
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Green")) {
 				e.setCancelled(true);
-				if (e.isLeftClick()) {
+				if (e.getClick().isLeftClick()) {
 					playerManager.setGradient1(target, "55FF55");
-				} else if (e.isRightClick()) {
+				} else if (e.getClick().isRightClick()) {
 					playerManager.setGradient2(target, "55FF55");
 				}
 			} else {
@@ -180,9 +180,9 @@ public class InventoryListener implements Listener {
 
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Yellow")) {
 				e.setCancelled(true);
-				if (e.isLeftClick()) {
+				if (e.getClick().isLeftClick()) {
 					playerManager.setGradient1(target, "FFFF55");
-				} else if (e.isRightClick()) {
+				} else if (e.getClick().isRightClick()) {
 					playerManager.setGradient2(target, "FFFF55");
 				}
 			} else {
@@ -195,9 +195,9 @@ public class InventoryListener implements Listener {
 
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Gold")) {
 				e.setCancelled(true);
-				if (e.isLeftClick()) {
+				if (e.getClick().isLeftClick()) {
 					playerManager.setGradient1(target, "FFAA00");
-				} else if (e.isRightClick()) {
+				} else if (e.getClick().isRightClick()) {
 					playerManager.setGradient2(target, "FFAA00");
 				}
 			} else {
@@ -210,9 +210,9 @@ public class InventoryListener implements Listener {
 
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Aqua")) {
 				e.setCancelled(true);
-				if (e.isLeftClick()) {
+				if (e.getClick().isLeftClick()) {
 					playerManager.setGradient1(target, "00AAAA");
-				} else if (e.isRightClick()) {
+				} else if (e.getClick().isRightClick()) {
 					playerManager.setGradient2(target, "00AAAA");
 				}
 			} else {
@@ -225,9 +225,9 @@ public class InventoryListener implements Listener {
 
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Aqua")) {
 				e.setCancelled(true);
-				if (e.isLeftClick()) {
+				if (e.getClick().isLeftClick()) {
 					playerManager.setGradient1(target, "55FFFF");
-				} else if (e.isRightClick()) {
+				} else if (e.getClick().isRightClick()) {
 					playerManager.setGradient2(target, "55FFFF");
 				}
 			} else {
@@ -240,9 +240,9 @@ public class InventoryListener implements Listener {
 
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Light_Purple")) {
 				e.setCancelled(true);
-				if (e.isLeftClick()) {
+				if (e.getClick().isLeftClick()) {
 					playerManager.setGradient1(target, "FF55FF");
-				} else if (e.isRightClick()) {
+				} else if (e.getClick().isRightClick()) {
 					playerManager.setGradient2(target, "FF55FF");
 				}
 			} else {
@@ -255,9 +255,9 @@ public class InventoryListener implements Listener {
 
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Purple")) {
 				e.setCancelled(true);
-				if (e.isLeftClick()) {
+				if (e.getClick().isLeftClick()) {
 					playerManager.setGradient1(target, "AA00AA");
-				} else if (e.isRightClick()) {
+				} else if (e.getClick().isRightClick()) {
 					playerManager.setGradient2(target, "AA00AA");
 				}
 			} else {
@@ -270,9 +270,9 @@ public class InventoryListener implements Listener {
 
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Gray")) {
 				e.setCancelled(true);
-				if (e.isLeftClick()) {
+				if (e.getClick().isLeftClick()) {
 					playerManager.setGradient1(target, "AAAAAA");
-				} else if (e.isRightClick()) {
+				} else if (e.getClick().isRightClick()) {
 					playerManager.setGradient2(target, "AAAAAA");
 				}
 			} else {
@@ -285,9 +285,9 @@ public class InventoryListener implements Listener {
 
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Gray")) {
 				e.setCancelled(true);
-				if (e.isLeftClick()) {
+				if (e.getClick().isLeftClick()) {
 					playerManager.setGradient1(target, "555555");
-				} else if (e.isRightClick()) {
+				} else if (e.getClick().isRightClick()) {
 					playerManager.setGradient2(target, "555555");
 				}
 			} else {
@@ -300,9 +300,9 @@ public class InventoryListener implements Listener {
 
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.White")) {
 				e.setCancelled(true);
-				if (e.isLeftClick()) {
+				if (e.getClick().isLeftClick()) {
 					playerManager.setGradient1(target, "FFFFFF");
-				} else if (e.isRightClick()) {
+				} else if (e.getClick().isRightClick()) {
 					playerManager.setGradient2(target, "FFFFFF");
 				}
 			} else {
@@ -315,9 +315,9 @@ public class InventoryListener implements Listener {
 
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Black")) {
 				e.setCancelled(true);
-				if (e.isLeftClick()) {
+				if (e.getClick().isLeftClick()) {
 					playerManager.setGradient1(target, "000000");
-				} else if (e.isRightClick()) {
+				} else if (e.getClick().isRightClick()) {
 					playerManager.setGradient2(target, "000000");
 				}
 			} else {

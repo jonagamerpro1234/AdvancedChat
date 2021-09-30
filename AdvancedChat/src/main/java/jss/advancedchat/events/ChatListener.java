@@ -177,14 +177,7 @@ public class ChatListener implements Listener {
 
 		if (config.getBoolean("ChatFormat.Enabled")) {
 			e.setCancelled(true);
-			format = config.getString("ChatFormat.Default.Format.Prefix");
-			List<String> list = config.getStringList("ChatFormat.Default.HoverEvent");
-			for (int i = 0; i < list.size(); i++) {
-				String text = (String) list.get(i);
-				hover.add(text);
-			}
-
-			format = format.replace("<player>", j.getDisplayName());
+			
 		}
 		
 		

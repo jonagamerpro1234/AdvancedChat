@@ -32,5 +32,6 @@ Items:
   Mute:
     Name: '&e&lPlayer is [state_mute]'
     Is-Skull: false
+    Item: stone
     Slot: 24 
     Texture: ''

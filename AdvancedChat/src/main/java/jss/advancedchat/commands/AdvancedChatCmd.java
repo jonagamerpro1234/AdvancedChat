@@ -12,10 +12,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.ColorFile;
-import jss.advancedchat.config.ConfigFile;
-import jss.advancedchat.config.PlayerDataFile;
-import jss.advancedchat.config.PlayerGuiFile;
 import jss.advancedchat.inventory.GuiChannel;
 import jss.advancedchat.inventory.GuiColor;
 import jss.advancedchat.inventory.GuiPlayer;
@@ -39,11 +35,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		ConfigFile configFile = plugin.getConfigFile();
-		PlayerDataFile playerDataFile = plugin.getPlayerDataFile();
-		ColorFile colorFile = plugin.getColorFile();
-		PlayerGuiFile playerGuiFile = plugin.getPlayerGuiFile();
-		FileConfiguration config = configFile.getConfig();
+		FileConfiguration config = plugin.getConfigFile().getConfig();
 		SQLGetter sql = plugin.getSQLGetter();
 		PlayerManager manager = new PlayerManager(plugin);
 
@@ -67,11 +59,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					}
 					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 				} else if (args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")) {
-					configFile.reloadConfig();
-					playerDataFile.reloadConfig();
-					colorFile.reloadConfig();
-					playerGuiFile.reloadConfig();
-					plugin.getPreConfigLoader().load();
+					plugin.reloadAllFiles();
 					if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
 						Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefixPlayer() + config.getString("AdvancedChat.Reload"));
 					} else if (config.getString("Settings.Use-Default-Prefix").equals("false")) {
@@ -114,19 +102,12 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				}
 				if (args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")) {
 					if ((j.isOp()) || (j.hasPermission("AdvancedChat.Admin.Reload"))) {
-						configFile.reloadConfig();
-						playerDataFile.reloadConfig();
-						colorFile.reloadConfig();
-						plugin.getChannelGuiFile().reloadConfig();
-						playerGuiFile.reloadConfig();
-						plugin.getPreConfigLoader().load();
+						plugin.reloadAllFiles();
 						if(Settings.boolean_use_default_prefix) {
 							Utils.sendColorMessage(j,  Utils.getPrefixPlayer() + Settings.message_Reload);
 						}else {
 							Utils.sendColorMessage(j, Settings.message_prefix_custom + " " + Settings.message_Reload);
 						}
-						
-						
 					} else {
 						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 					}
@@ -215,7 +196,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 							Player p = Bukkit.getPlayer(name);
 
 							if (p == null) {
-								Utils.sendColorMessage(j, config.getString("AdvancedChat.No-Online-Player"));
+								Utils.sendColorMessage(j, Settings.message_No_Online_Player);
 								return true;
 							}
 							guichannel.open(j, j.getName());
@@ -224,8 +205,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 							return true;
 						}
 					} else {
-						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission,
-								Settings.message_NoPermission_Label);
+						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 					}
 					return true;
 				}
@@ -241,20 +221,18 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				}
 				
 				if(Settings.boolean_use_default_prefix) {
-					Utils.sendColorMessage(j, Utils.getPrefixPlayer() + " " + Settings.message_Error_Args);
+					Utils.sendColorMessage(j, Utils.getPrefixPlayer() + Settings.message_Error_Args);
 				} else {
 					Utils.sendColorMessage(j, Settings.message_prefix_custom + " " + Settings.message_Error_Args);
 				}
-				
 				return true;
 			}
 		} else {
 			Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 			return true;
 		}
-		
 		if(Settings.boolean_use_default_prefix) {
-			Utils.sendColorMessage(j, Utils.getPrefixPlayer() + " " + Settings.message_Help_Cmd);
+			Utils.sendColorMessage(j, Utils.getPrefixPlayer() + Settings.message_Help_Cmd);
 		} else {
 			Utils.sendColorMessage(j, Settings.message_prefix_custom + " " + Settings.message_Help_Cmd);
 		}
