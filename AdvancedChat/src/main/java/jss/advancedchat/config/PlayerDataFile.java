@@ -10,11 +10,11 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.file.FileHelper;
 import jss.advancedchat.utils.file.FileManager;
-import jss.advancedchat.utils.file.FolderHelper;
+import jss.advancedchat.utils.interfaces.IFileHelper;
+import jss.advancedchat.utils.interfaces.IFolderHelper;
 
-public class PlayerDataFile extends FileManager implements FileHelper, FolderHelper {
+public class PlayerDataFile extends FileManager implements IFileHelper, IFolderHelper {
 	
 	private AdvancedChat plugin;
 	private File file;

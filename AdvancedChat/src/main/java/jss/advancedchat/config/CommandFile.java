@@ -12,10 +12,10 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
-import jss.advancedchat.utils.file.FileHelper;
 import jss.advancedchat.utils.file.FileManager;
+import jss.advancedchat.utils.interfaces.IFileHelper;
 
-public class CommandFile extends FileManager implements FileHelper{
+public class CommandFile extends FileManager implements IFileHelper{
 
     private AdvancedChat plugin;
     private File file;

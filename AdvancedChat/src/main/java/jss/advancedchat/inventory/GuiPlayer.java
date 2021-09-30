@@ -53,8 +53,8 @@ public class GuiPlayer {
             	textures = TSkullUtils.replace(textures);
             	item = Utils.createSkull(textures);
         	}else {
-        		String mat = config.getString("Items." + key + ".Item");
-        		item = XMaterial.valueOf(mat.toUpperCase()).parseItem();
+        		String mat = config.getString("Items." + key + ".Item").toUpperCase();
+        		item = XMaterial.valueOf(mat).parseItem();
         	}
         	meta = item.getItemMeta();
         	meta.setDisplayName(Utils.color(name));

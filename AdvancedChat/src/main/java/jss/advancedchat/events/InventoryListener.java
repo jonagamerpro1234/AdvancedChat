@@ -8,6 +8,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -33,308 +35,308 @@ public class InventoryListener implements Listener {
         this.plugin = plugin;
     }
 
-    //@EventHandler
+	@EventHandler
     public void onInvetoryTest(InventoryClickEvent e) {
-    	if(!(e.getWhoClicked() instanceof Player)) {
-    		return;
-    	}
+        Player p = (Player) e.getWhoClicked();
+        InventoryView inventoryPlayer = plugin.getInventoryView(p);
     	
-    	Player player = (Player) e.getWhoClicked();
-    	UUID uuid = player.getUniqueId();
-    	UUID invetoryUUID = Gui.getOpenIventories().get(uuid);
-    	
-    	if(invetoryUUID != null) {
-    		e.setCancelled(true);
-    		if(e.getClickedInventory().equals(player.getOpenInventory().getTopInventory())) {
-        		Gui gui = Gui.getInventoriesByUUID().get(invetoryUUID);
-        		IAction action = gui.getActions().get(e.getSlot());
-        		
-        		if(action != null) {
-        			action.onClick(player);
-        		}
-    		}
-    	}
+        if (inventoryPlayer == null) return;
+        if (!inventoryPlayer.getInventoryName().contains("test")) return;
+        if (e.getCurrentItem() == null) return;
+        if (e.getClickedInventory() == null || !e.getClickedInventory().equals(p.getOpenInventory().getTopInventory())) return;
+        if (e.getCurrentItem().getType() == Material.AIR || e.getSlotType() == null) return;
+        if (e.getSlot() != 0) return;
+     
+        e.setCancelled(true);
+                          
+        if(e.getSlot() == 0) {
+        	e.setCancelled(true);
+        	if(e.getClick() == ClickType.LEFT) {
+        		p.sendMessage("Left click");
+        	}else if(e.getClick().isRightClick()) {
+        		p.sendMessage("Right click");
+        	}
+        }
+
+        
+                
+            
     }
     
     @EventHandler
     public void onInventoryClickGradient(InventoryClickEvent e) {
     	PlayerManager playerManager = new PlayerManager(plugin);
-        FileConfiguration c = plugin.getColorFile().getConfig();
+        FileConfiguration c = plugin.getGradientColorFile().getConfig();
         Player p = (Player) e.getWhoClicked();
         InventoryView inventoryPlayer = plugin.getInventoryView(p);
         
-        if (inventoryPlayer != null) {
-        	
-            if (inventoryPlayer.getInventoryName().contains("gradientGui")) {
-            	
-                if (e.getCurrentItem() == null) {
-                    return;
-                }
-                if (e.getClickedInventory() != null && e.getClickedInventory().equals(p.getOpenInventory().getTopInventory())) {
-                    if ((e.getCurrentItem().getType() == Material.AIR) || (e.getSlotType() == null)) {
-                        return;
-                    }
-                    e.setCancelled(true);
-                    int slot = e.getSlot();
-                    String namecolor = e.getClickedInventory().getItem(4).getItemMeta().getDisplayName();
-                    String name = Utils.colorless(namecolor);
+        if (inventoryPlayer == null) return;
+		if (!inventoryPlayer.getInventoryName().contains("gradientGui")) return;
+		if (e.getCurrentItem() == null) return;
+		if (e.getClickedInventory() == null || !e.getClickedInventory().equals(p.getOpenInventory().getTopInventory())) return;
+		if ((e.getCurrentItem().getType() == Material.AIR) || (e.getSlotType() == null)) return;
+		
+		int slot = e.getSlot();		
+		e.setCancelled(true);
+		
+		
+		ClickType clickType = e.getClick();
+		String namecolor = e.getClickedInventory().getItem(4).getItemMeta().getDisplayName();
+		String name = Utils.colorless(namecolor);
 
-                    Player target = Bukkit.getPlayer(name);
+		Player target = Bukkit.getPlayer(name);
 
-                    if (slot == c.getInt("Items.Dark-Red.Slot")) {
-                    	
-                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Red")) {
-                            e.setCancelled(true);
-                            if(e.isLeftClick()) {
-                            	playerManager.setGradient1(target, "AA0000");
-                            }else if(e.isRightClick()) {
-                            	playerManager.setGradient2(target, "AA0000");
-                            }
-                        } else {
-                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-                            return;
-                        }
-                    }
-                    
-                    if (slot == c.getInt("Items.Red.Slot")) {
-                    	
-                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Red")) {
-                            e.setCancelled(true);
-                            if(e.isLeftClick()) {
-                            	playerManager.setGradient1(target, "FF5555");
-                            }else if(e.isRightClick()) {
-                            	playerManager.setGradient2(target, "FF5555");
-                            }
-                        } else {
-                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-                            return;
-                        }
-                    }
-                    
-                    if (slot == c.getInt("Items.Dark-Blue.Slot")) {
-                    	
-                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Blue")) {
-                            e.setCancelled(true);
-                            if(e.isLeftClick()) {
-                            	playerManager.setGradient1(target, "0000AA");
-                            }else if(e.isRightClick()) {
-                            	playerManager.setGradient2(target, "0000AA");
-                            }
-                        } else {
-                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-                            return;
-                        }
-                    }
-                    
-                    if (slot == c.getInt("Items.Blue.Slot")) {
-                    	
-                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Blue")) {
-                            e.setCancelled(true);
-                            if(e.isLeftClick()) {
-                            	playerManager.setGradient1(target, "5555FF");
-                            }else if(e.isRightClick()) {
-                            	playerManager.setGradient2(target, "5555FF");
-                            }
-                        } else {
-                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-                            return;
-                        }
-                    }
-                    
-                    if (slot == c.getInt("Items.Dark-Green.Slot")) {
-                    	
-                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Green")) {
-                            e.setCancelled(true);
-                            if(e.isLeftClick()) {
-                            	playerManager.setGradient1(target, "00AA00");
-                            }else if(e.isRightClick()) {
-                            	playerManager.setGradient2(target, "00AA00");
-                            }
-                        } else {
-                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-                            return;
-                        }
-                    }
-                    
-                    if (slot == c.getInt("Items.Green.Slot")) {
-                    	
-                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Green")) {
-                            e.setCancelled(true);
-                            if(e.isLeftClick()) {
-                            	playerManager.setGradient1(target, "55FF55");
-                            }else if(e.isRightClick()) {
-                            	playerManager.setGradient2(target, "55FF55");
-                            }
-                        } else {
-                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-                            return;
-                        }
-                    }
-                    
-                    if (slot == c.getInt("Items.Yellow.Slot")) {
-                    	
-                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Yellow")) {
-                            e.setCancelled(true);
-                            if(e.isLeftClick()) {
-                            	playerManager.setGradient1(target, "FFFF55");
-                            }else if(e.isRightClick()) {
-                            	playerManager.setGradient2(target, "FFFF55");
-                            }
-                        } else {
-                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-                            return;
-                        }
-                    }
-                    
-                    if (slot == c.getInt("Items.Gold.Slot")) {
-                    	
-                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Gold")) {
-                            e.setCancelled(true);
-                            if(e.isLeftClick()) {
-                            	playerManager.setGradient1(target, "FFAA00");
-                            }else if(e.isRightClick()) {
-                            	playerManager.setGradient2(target, "FFAA00");
-                            }
-                        } else {
-                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-                            return;
-                        }
-                    }
-                    
-                    if (slot == c.getInt("Items.Dark-Aqua.Slot")) {
-                    	
-                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Aqua")) {
-                            e.setCancelled(true);
-                            if(e.isLeftClick()) {
-                            	playerManager.setGradient1(target, "00AAAA");
-                            }else if(e.isRightClick()) {
-                            	playerManager.setGradient2(target, "00AAAA");
-                            }
-                        } else {
-                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-                            return;
-                        }
-                    }
-                    
-                    if (slot == c.getInt("Items.Aqua.Slot")) {
-                    	
-                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Aqua")) {
-                            e.setCancelled(true);
-                            if(e.isLeftClick()) {
-                            	playerManager.setGradient1(target, "55FFFF");
-                            }else if(e.isRightClick()) {
-                            	playerManager.setGradient2(target, "55FFFF");
-                            }
-                        } else {
-                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-                            return;
-                        }
-                    }
-                    
-                    if (slot == c.getInt("Items.Light-Purple.Slot")) {
-                    	
-                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Light_Purple")) {
-                            e.setCancelled(true);
-                            if(e.isLeftClick()) {
-                            	playerManager.setGradient1(target, "FF55FF");
-                            }else if(e.isRightClick()) {
-                            	playerManager.setGradient2(target, "FF55FF");
-                            }
-                        } else {
-                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-                            return;
-                        }
-                    }
-                    
-                    if (slot == c.getInt("Items.Dark-Purple.Slot")) {
-                    	
-                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Purple")) {
-                            e.setCancelled(true);
-                            if(e.isLeftClick()) {
-                            	playerManager.setGradient1(target, "AA00AA");
-                            }else if(e.isRightClick()) {
-                            	playerManager.setGradient2(target, "AA00AA");
-                            }
-                        } else {
-                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-                            return;
-                        }
-                    }
-                    
-                    if (slot == c.getInt("Items.Gray.Slot")) {
-                    	
-                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Gray")) {
-                            e.setCancelled(true);
-                            if(e.isLeftClick()) {
-                            	playerManager.setGradient1(target, "AAAAAA");
-                            }else if(e.isRightClick()) {
-                            	playerManager.setGradient2(target, "AAAAAA");
-                            }
-                        } else {
-                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-                            return;
-                        }
-                    }
-                    
-                    if (slot == c.getInt("Items.Dark-Gray.Slot")) {
-                    	
-                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Gray")) {
-                            e.setCancelled(true);
-                            if(e.isLeftClick()) {
-                            	playerManager.setGradient1(target, "555555");
-                            }else if(e.isRightClick()) {
-                            	playerManager.setGradient2(target, "555555");
-                            }
-                        } else {
-                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-                            return;
-                        }
-                    }
-                    
-                    if (slot == c.getInt("Items.White.Slot")) {
-                    	
-                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.White")) {
-                            e.setCancelled(true);
-                            if(e.isLeftClick()) {
-                            	playerManager.setGradient1(target, "FFFFFF");
-                            }else if(e.isRightClick()) {
-                            	playerManager.setGradient2(target, "FFFFFF");
-                            }
-                        } else {
-                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-                            return;
-                        }
-                    }
-                    
-                    if (slot == c.getInt("Items.Black.Slot")) {
-                    	
-                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Black")) {
-                            e.setCancelled(true);
-                            if(e.isLeftClick()) {
-                            	playerManager.setGradient1(target, "000000");
-                            }else if(e.isRightClick()) {
-                            	playerManager.setGradient2(target, "000000");
-                            }
-                        } else {
-                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-                            return;
-                        }
-                    }
-                    
-                    if (slot == c.getInt("Items.Exit.Slot")) {
-                    	e.setCancelled(true);
-                    	p.closeInventory();
-                    }
-                    
-                    if (slot == c.getInt("Items.Last.Slot")) {
-                    	e.setCancelled(true);
-                    	p.closeInventory();
-                    	GuiColor color = new GuiColor(plugin);
-                    	color.openGuiColor(p, name);
-                    }
-                }
-            }
-        }
+		if (slot == c.getInt("Items.Dark-Red.Slot")) {
+			e.setCancelled(true);
+			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Red")) {
+
+				if (e.getClick().isLeftClick()) {
+					Utils.sendColorMessage(p, "&eLeft Click");
+				} else if (e.getClick().isRightClick()) {
+					Utils.sendColorMessage(p, "&6Right Click");
+				}
+			} else {
+				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+				return;
+			}
+		}
+
+		if (slot == c.getInt("Items.Red.Slot")) {
+
+			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Red")) {
+				e.setCancelled(true);
+				if (e.isLeftClick()) {
+					playerManager.setGradient1(target, "FF5555");
+				} else if (e.isRightClick()) {
+					playerManager.setGradient2(target, "FF5555");
+				}
+			} else {
+				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+				return;
+			}
+		}
+
+		if (slot == c.getInt("Items.Dark-Blue.Slot")) {
+
+			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Blue")) {
+				e.setCancelled(true);
+				if (e.isLeftClick()) {
+					playerManager.setGradient1(target, "0000AA");
+				} else if (e.isRightClick()) {
+					playerManager.setGradient2(target, "0000AA");
+				}
+			} else {
+				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+				return;
+			}
+		}
+
+		if (slot == c.getInt("Items.Blue.Slot")) {
+
+			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Blue")) {
+				e.setCancelled(true);
+				if (e.isLeftClick()) {
+					playerManager.setGradient1(target, "5555FF");
+				} else if (e.isRightClick()) {
+					playerManager.setGradient2(target, "5555FF");
+				}
+			} else {
+				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+				return;
+			}
+		}
+
+		if (slot == c.getInt("Items.Dark-Green.Slot")) {
+
+			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Green")) {
+				e.setCancelled(true);
+				if (e.isLeftClick()) {
+					playerManager.setGradient1(target, "00AA00");
+				} else if (e.isRightClick()) {
+					playerManager.setGradient2(target, "00AA00");
+				}
+			} else {
+				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+				return;
+			}
+		}
+
+		if (slot == c.getInt("Items.Green.Slot")) {
+
+			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Green")) {
+				e.setCancelled(true);
+				if (e.isLeftClick()) {
+					playerManager.setGradient1(target, "55FF55");
+				} else if (e.isRightClick()) {
+					playerManager.setGradient2(target, "55FF55");
+				}
+			} else {
+				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+				return;
+			}
+		}
+
+		if (slot == c.getInt("Items.Yellow.Slot")) {
+
+			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Yellow")) {
+				e.setCancelled(true);
+				if (e.isLeftClick()) {
+					playerManager.setGradient1(target, "FFFF55");
+				} else if (e.isRightClick()) {
+					playerManager.setGradient2(target, "FFFF55");
+				}
+			} else {
+				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+				return;
+			}
+		}
+
+		if (slot == c.getInt("Items.Gold.Slot")) {
+
+			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Gold")) {
+				e.setCancelled(true);
+				if (e.isLeftClick()) {
+					playerManager.setGradient1(target, "FFAA00");
+				} else if (e.isRightClick()) {
+					playerManager.setGradient2(target, "FFAA00");
+				}
+			} else {
+				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+				return;
+			}
+		}
+
+		if (slot == c.getInt("Items.Dark-Aqua.Slot")) {
+
+			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Aqua")) {
+				e.setCancelled(true);
+				if (e.isLeftClick()) {
+					playerManager.setGradient1(target, "00AAAA");
+				} else if (e.isRightClick()) {
+					playerManager.setGradient2(target, "00AAAA");
+				}
+			} else {
+				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+				return;
+			}
+		}
+
+		if (slot == c.getInt("Items.Aqua.Slot")) {
+
+			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Aqua")) {
+				e.setCancelled(true);
+				if (e.isLeftClick()) {
+					playerManager.setGradient1(target, "55FFFF");
+				} else if (e.isRightClick()) {
+					playerManager.setGradient2(target, "55FFFF");
+				}
+			} else {
+				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+				return;
+			}
+		}
+
+		if (slot == c.getInt("Items.Light-Purple.Slot")) {
+
+			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Light_Purple")) {
+				e.setCancelled(true);
+				if (e.isLeftClick()) {
+					playerManager.setGradient1(target, "FF55FF");
+				} else if (e.isRightClick()) {
+					playerManager.setGradient2(target, "FF55FF");
+				}
+			} else {
+				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+				return;
+			}
+		}
+
+		if (slot == c.getInt("Items.Dark-Purple.Slot")) {
+
+			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Purple")) {
+				e.setCancelled(true);
+				if (e.isLeftClick()) {
+					playerManager.setGradient1(target, "AA00AA");
+				} else if (e.isRightClick()) {
+					playerManager.setGradient2(target, "AA00AA");
+				}
+			} else {
+				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+				return;
+			}
+		}
+
+		if (slot == c.getInt("Items.Gray.Slot")) {
+
+			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Gray")) {
+				e.setCancelled(true);
+				if (e.isLeftClick()) {
+					playerManager.setGradient1(target, "AAAAAA");
+				} else if (e.isRightClick()) {
+					playerManager.setGradient2(target, "AAAAAA");
+				}
+			} else {
+				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+				return;
+			}
+		}
+
+		if (slot == c.getInt("Items.Dark-Gray.Slot")) {
+
+			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Gray")) {
+				e.setCancelled(true);
+				if (e.isLeftClick()) {
+					playerManager.setGradient1(target, "555555");
+				} else if (e.isRightClick()) {
+					playerManager.setGradient2(target, "555555");
+				}
+			} else {
+				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+				return;
+			}
+		}
+
+		if (slot == c.getInt("Items.White.Slot")) {
+
+			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.White")) {
+				e.setCancelled(true);
+				if (e.isLeftClick()) {
+					playerManager.setGradient1(target, "FFFFFF");
+				} else if (e.isRightClick()) {
+					playerManager.setGradient2(target, "FFFFFF");
+				}
+			} else {
+				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+				return;
+			}
+		}
+
+		if (slot == c.getInt("Items.Black.Slot")) {
+
+			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Black")) {
+				e.setCancelled(true);
+				if (e.isLeftClick()) {
+					playerManager.setGradient1(target, "000000");
+				} else if (e.isRightClick()) {
+					playerManager.setGradient2(target, "000000");
+				}
+			} else {
+				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+				return;
+			}
+		}
+
+		if (slot == c.getInt("Items.Exit.Slot")) {
+			e.setCancelled(true);
+			p.closeInventory();
+		}
+
+		if (slot == c.getInt("Items.Last.Slot")) {
+			e.setCancelled(true);
+			p.closeInventory();
+			GuiColor color = new GuiColor(plugin);
+			color.openGuiColor(p, name);
+		}
     }
     
 	@EventHandler

@@ -6,7 +6,6 @@ import jss.advancedchat.config.ChatLogFile;
 import jss.advancedchat.config.CommandLogFile;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.SQLGetter;
-import jss.advancedchat.utils.OnlinePlayers;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.UpdateSettings;
 import jss.advancedchat.utils.UpdateChecker;
@@ -17,7 +16,6 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -53,19 +51,6 @@ public class JoinListener implements Listener {
         
         manager.create(j);
         
-        //old code
-       /*if (!config.contains("Players." + j.getName())) {
-            config.set("Players." + j.getName() + ".UUID", j.getUniqueId().toString());
-            config.set("Players." + j.getName() + ".Color", "WHITE");
-            config.set("Players." + j.getName() + ".Mute", false);
-            config.set("Players." + j.getName() + ".Chat.Channel", "ALL");
-            config.set("Players." + j.getName() + ".Chat.Range", "10");
-            dataFile.saveConfig();
-            //	Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[PlayerdataFile] &aadd " + j.getName());
-        } else {
-            //Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[PlayerdataFile] &cya existe " + j.getName());
-        }*/
-
         if (!chat.contains("Players." + j.getName())) {
             chat.set("Players." + j.getName() + ".UUID", j.getUniqueId().toString());
             chat.set("Players." + j.getName() + ".Log", null);
@@ -92,12 +77,6 @@ public class JoinListener implements Listener {
         } else {
             //	Utils.sendColorMessage(eventsUtils.getConsoleSender(), "&b[commandLogFile] &cya existe " + j.getName());
         }
-
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            plugin.setOnlinePlayers(new OnlinePlayers(p.getName()));
-        }
-
-
     }
 
 

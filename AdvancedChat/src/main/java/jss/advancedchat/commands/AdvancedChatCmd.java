@@ -106,10 +106,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 						help.forEach( (text) -> {
 							Utils.sendColorMessage(j, text);
 						});
-						/*for (int i = 0; i < help.size(); i++) {
-							String text = (String) help.get(i);
-							Utils.sendColorMessage(j, text);
-						}*/
 						Utils.sendColorMessage(j, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 					} else {
 						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -177,7 +173,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					return true;
 				}
 
-				//
 				if (args[0].equalsIgnoreCase("player")) {
 					if ((j.isOp()) || (j.hasPermission("AdvancedChat.Gui.Player"))) {
 						GuiPlayer guiPlayer = new GuiPlayer(plugin);
@@ -202,14 +197,13 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				}
 				if (args[0].equalsIgnoreCase("open")) {
 
-					GuiTest guiTest = new GuiTest();
+					GuiTest guiTest = new GuiTest(plugin);
 
 					guiTest.open(j);
 
 					return true;
 				}
 
-				//
 				if (args[0].equalsIgnoreCase("channel")) {
 					if ((j.isOp()) || (j.hasPermission("AdvancedChat.Gui.Channel"))) {
 						GuiChannel guichannel = new GuiChannel(plugin);
@@ -245,15 +239,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					Utils.sendColorMessage(j, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 					return true;
 				}
-
-				/*if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
-					Utils.sendColorMessage(j,
-							Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Error-Args"));
-				} else if (config.getString("Settings.Use-Default-Prefix").equals("false")) {
-					Utils.sendColorMessage(j,
-							config.getString("Settings.Prefix") + " " + config.getString("AdvancedChat.Error-Args"));
-				}*/
-
 				
 				if(Settings.boolean_use_default_prefix) {
 					Utils.sendColorMessage(j, Utils.getPrefixPlayer() + " " + Settings.message_Error_Args);
@@ -267,14 +252,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 			Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 			return true;
 		}
-		/*
-		if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
-			Utils.sendColorMessage(j, Utils.getPrefixPlayer() + " " + config.getString("AdvancedChat.Help-Cmd"));
-		} else if (config.getString("Settings.Use-Default-Prefix").equals("false")) {
-			Utils.sendColorMessage(j,
-					config.getString("Settings.Prefix") + " " + config.getString("AdvancedChat.Help-Cmd"));
-		}*/
-		
 		
 		if(Settings.boolean_use_default_prefix) {
 			Utils.sendColorMessage(j, Utils.getPrefixPlayer() + " " + Settings.message_Help_Cmd);

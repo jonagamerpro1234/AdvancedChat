@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nonnull;
-
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 
@@ -25,28 +23,12 @@ import net.md_5.bungee.api.ChatColor;
 
 public class IridiumColorAPI {
 
-    /**
-     * The current version of the server in the a form of a major version.
-     * If the static initialization for this fails, you know something's wrong with the server software.
-     *
-     * @since 1.0.0
-     */
     private static final int VERSION = Integer.parseInt(getMajorVersion(Bukkit.getVersion()).substring(2));
 
-    /**
-     * Cached result if the server version is after the v1.16 RGB update.
-     *
-     * @since 1.0.0
-     */
     private static final boolean SUPPORTS_RGB = VERSION >= 16;
 
     private static final List<String> SPECIAL_COLORS = Arrays.asList("&l", "&n", "&o", "&k", "&m");
 
-    /**
-     * Cached result of all legacy colors.
-     *
-     * @since 1.0.0
-     */
     private static final Map<Color, ChatColor> COLORS = ImmutableMap.<Color, ChatColor>builder()
             .put(new Color(0), ChatColor.getByChar('0'))
             .put(new Color(170), ChatColor.getByChar('1'))
@@ -65,22 +47,10 @@ public class IridiumColorAPI {
             .put(new Color(16777045), ChatColor.getByChar('e'))
             .put(new Color(16777215), ChatColor.getByChar('f')).build();
 
-    /**
-     * Cached result of patterns.
-     *
-     * @since 1.0.2
-     */
     private static final List<IPattern> PATTERNS = Arrays.asList(new GradientPattern(), new SolidPattern(), new RainbowPattern(),
     		new PadPattern(), new PadPattern2(), new RainbowPattern2(), new GradientPattern2());
-    /**
-     * Processes a string to add color to it.
-     * Thanks to Distressing for helping with the regex <3
-     *
-     * @param string The string we want to process
-     * @since 1.0.0
-     */
-    @Nonnull
-    public static String process(@Nonnull String string) {
+
+    public static String process( String string) {
         for (IPattern pattern : PATTERNS) {
             string = pattern.process(string);
         }
@@ -88,40 +58,15 @@ public class IridiumColorAPI {
         return string;
     }
 
-    /**
-     * Processes multiple strings in a list.
-     *
-     * @param strings The list of the strings we are processing
-     * @return The list of processed strings
-     * @since 1.0.3
-     */
-    @Nonnull
-    public static List<String> process(@Nonnull List<String> strings) {
+    public static List<String> process(List<String> strings) {
         return strings.stream().map(IridiumColorAPI::process).collect(Collectors.toList());
     }
 
-    /**
-     * Colors a String.
-     *
-     * @param string The string we want to color
-     * @param color  The color we want to set it to
-     * @since 1.0.0
-     */
-    @Nonnull
-    public static String color(@Nonnull String string, @Nonnull Color color) {
+    public static String color(String string,  Color color) {
         return (SUPPORTS_RGB ? ChatColor.of(color) : getClosestColor(color)) + string;
     }
-
-    /**
-     * Colors a String with a gradiant.
-     *
-     * @param string The string we want to color
-     * @param start  The starting gradiant
-     * @param end    The ending gradiant
-     * @since 1.0.0
-     */
-    @Nonnull
-    public static String color(@Nonnull String string, @Nonnull Color start, @Nonnull Color end) {
+  
+    public static String color(String string,  Color start,  Color end) {
         StringBuilder specialColors = new StringBuilder();
         for (String color : SPECIAL_COLORS) {
             if (string.contains(color)) {
@@ -138,15 +83,7 @@ public class IridiumColorAPI {
         return stringBuilder.toString();
     }
 
-    /**
-     * Colors a String with rainbow colors.
-     *
-     * @param string     The string which should have rainbow colors
-     * @param saturation The saturation of the rainbow colors
-     * @since 1.0.3
-     */
-    @Nonnull
-    public static String rainbow(@Nonnull String string, float saturation) {
+    public static String rainbow(String string, float saturation) {
         StringBuilder specialColors = new StringBuilder();
         for (String color : SPECIAL_COLORS) {
             if (string.contains(color)) {
@@ -163,26 +100,10 @@ public class IridiumColorAPI {
         return stringBuilder.toString();
     }
 
-    /**
-     * Gets a color from hex code.
-     *
-     * @param string The hex code of the color
-     * @since 1.0.0
-     */
-    @Nonnull
-    public static ChatColor getColor(@Nonnull String string) {
+    public static ChatColor getColor(String string) {
         return SUPPORTS_RGB ? ChatColor.of(new Color(Integer.parseInt(string, 16))) : getClosestColor(new Color(Integer.parseInt(string, 16)));
     }
 
-    /**
-     * Returns a rainbow array of chat colors.
-     *
-     * @param step       How many colors we return
-     * @param saturation The saturation of the rainbow
-     * @return The array of colors
-     * @since 1.0.3
-     */
-    @Nonnull
     private static ChatColor[] createRainbow(int step, float saturation) {
         ChatColor[] colors = new ChatColor[step];
         double colorStep = (1.00 / step);
@@ -197,17 +118,7 @@ public class IridiumColorAPI {
         return colors;
     }
 
-    /**
-     * Returns a gradient array of chat colors.
-     *
-     * @param start The starting color.
-     * @param end   The ending color.
-     * @param step  How many colors we return.
-     * @author TheViperShow
-     * @since 1.0.0
-     */
-    @Nonnull
-    private static ChatColor[] createGradient(@Nonnull Color start, @Nonnull Color end, int step) {
+    private static ChatColor[] createGradient(Color start,  Color end, int step) {
         ChatColor[] colors = new ChatColor[step];
         int stepR = Math.abs(start.getRed() - end.getRed()) / (step - 1);
         int stepG = Math.abs(start.getGreen() - end.getGreen()) / (step - 1);
@@ -229,14 +140,6 @@ public class IridiumColorAPI {
         return colors;
     }
 
-
-    /**
-     * Returns the closest legacy color from an rgb color
-     *
-     * @param color The color we want to transform
-     * @since 1.0.0
-     */
-    @Nonnull
     private static ChatColor getClosestColor(Color color) {
         Color nearestColor = null;
         double nearestDistance = Integer.MAX_VALUE;
@@ -251,29 +154,17 @@ public class IridiumColorAPI {
         return COLORS.get(nearestColor);
     }
 
-    /**
-     * Gets the exact major version (..., 1.9, 1.10, ..., 1.14).
-     * In most cases, you shouldn't be using this method.
-     *
-     * @param version Supports {@link Bukkit#getVersion()}, {@link Bukkit#getBukkitVersion()} and normal formats such as "1.14"
-     * @return the exact major version.
-     * @since 1.0.0
-     */
-    @Nonnull
-    private static String getMajorVersion(@Nonnull String version) {
+    private static String getMajorVersion(String version) {
         Validate.notEmpty(version, "Cannot get major Minecraft version from null or empty string");
 
-        // getVersion()
         int index = version.lastIndexOf("MC:");
         if (index != -1) {
             version = version.substring(index + 4, version.length() - 1);
         } else if (version.endsWith("SNAPSHOT")) {
-            // getBukkitVersion()
             index = version.indexOf('-');
             version = version.substring(0, index);
         }
 
-        // 1.13.2, 1.14.4, etc...
         int lastDot = version.lastIndexOf('.');
         if (version.indexOf('.') != lastDot) version = version.substring(0, lastDot);
 
