@@ -37,7 +37,7 @@ public class GuiChannel {
 		
 		title = Utils.color(title);
 		
-		Inventory inv = Bukkit.createInventory(null, 4*9, title);
+		Inventory inv = Bukkit.createInventory(null, 4 * 9, title);
 		
 		setDecoration(inv, colorglass);
 		

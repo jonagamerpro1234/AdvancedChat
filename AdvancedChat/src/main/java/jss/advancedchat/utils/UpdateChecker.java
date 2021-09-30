@@ -17,10 +17,10 @@ import com.google.gson.JsonParser;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Logger.Level;
-import jss.advancedchat.utils.interfaces.UpdateHelper;
+import jss.advancedchat.utils.interfaces.IUpdate;
 
 
-public class UpdateChecker implements UpdateHelper {
+public class UpdateChecker implements IUpdate {
 
     private AdvancedChat plugin;
     private Logger logger = new Logger(plugin);

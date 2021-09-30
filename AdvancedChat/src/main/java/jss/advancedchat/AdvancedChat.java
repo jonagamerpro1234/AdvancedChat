@@ -8,9 +8,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.commands.MsgCmd;
@@ -35,16 +32,11 @@ import jss.advancedchat.events.InventoryListener;
 import jss.advancedchat.events.JoinListener;
 import jss.advancedchat.hooks.HookManager;
 import jss.advancedchat.manager.ChatManager;
-import jss.advancedchat.old.json.handlers.JsonClickEvent;
-import jss.advancedchat.old.json.handlers.JsonHoverEvent;
-import jss.advancedchat.old.json.serializers.SerializerClickEvent;
-import jss.advancedchat.old.json.serializers.SerializerHoverEvent;
 import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.storage.SQLGetter;
 import jss.advancedchat.utils.AdvancedChatPlugin;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.OnlinePlayers;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.file.FileManager;
@@ -76,7 +68,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private SQLGetter data = new SQLGetter();
 	private EventUtils eventUtils = new EventUtils(this);
 	public Metrics metrics;
-	private static GsonBuilder gsonBuilder;
 	private HookManager HookManager = new HookManager(this);
 	public String name = this.jss.getName();
 	public String version = this.jss.getVersion();
@@ -90,7 +81,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private static boolean debug;
 	private ArrayList<InventoryView> inventoryView;
 	private ArrayList<ChatManager> chatManagers;
-	private ArrayList<OnlinePlayers> onlinePlayers;
 	
 	public void onEnable() {
 		Utils.setEnabled(version);
@@ -125,11 +115,9 @@ public class AdvancedChat extends AdvancedChatPlugin {
 				Logger.warning(getConfigFile().getConfig().getString("AdvancedChat.Depend-Plugin") + " " + "&e[&bProtocolLib&e]");
 			}
 		}
-		loadMySQL();
 		metrics = new Metrics(this, 8826);
 		this.inventoryView = new ArrayList<>();
 		this.chatManagers = new ArrayList<>();
-		this.onlinePlayers = new ArrayList<>();
 		loadCommands();
 		loadEvents();
 
@@ -183,13 +171,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		Utils.setEndLoad();
 	}
 
-	//unused
-	static {
-		gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(JsonHoverEvent.class, new SerializerHoverEvent());
-		gsonBuilder.registerTypeAdapter(JsonClickEvent.class, new SerializerClickEvent());
-	}
-
 	public void loadCommands() {
 		new AdvancedChatCmd(this);
 		new ClearChatCmd(this);
@@ -206,19 +187,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		new CommandListener(this));
 		EventLoader e = new EventLoader(this);
 		e.runClearChat();
-	}
-
-	public void loadMySQL() {
-		try {
-			/*if (Settings.mysql_use_t) {
-				//mySQL.connect(Settings.mysql_host, Settings.mysql_port, Settings.mysql_database, Settings.mysql_user,
-				//		Settings.mysql_password, Settings.mysql_usessl);
-				Logger.succers("Connected database");
-			}*/
-		} catch (NullPointerException e) {
-			logger.Log(Level.ERROR, "the config [database] is null?");
-			e.printStackTrace();
-		}
 	}
 	
 	private void checkBungeeMode() {
@@ -292,29 +260,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		return this.mySQL;
 	}
 
-	@Deprecated
-	public boolean setupPlaceHolderAPI() {
-		if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-			placeholder = true;
-		}
-		return placeholder;
-	}
-
-	@Deprecated
-	public void setupSoftDepends() {
-		if (setupPlaceHolderAPI()) {
-			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<||============================================-----");
-			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &ePlaceHolderAPI:&b" + " " + placeholder);
-			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &eVars PlaceHolderAPI:&a true");
-			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<||============================================-----");
-		} else {
-			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<||============================================-----");
-			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &ePlaceHolderAPI:&b" + " " + placeholder);
-			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &eVars PlaceHolderAPI:&c false");
-			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<||============================================-----");
-		}
-	}
-
 	public boolean isDebug() {
 		return debug;
 	}
@@ -346,23 +291,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		return null;
 	}
 
-	public int getTotalPage() {
-		if (this.onlinePlayers.size() % 45 == 0) {
-			int pag = (this.onlinePlayers.size() / 45);
-			return pag;
-		} else {
-			int pag = (this.onlinePlayers.size() / 45) + 1;
-			return pag;
-		}
-	}
-
-	public ArrayList<OnlinePlayers> getOnlinePlayers() {
-		return onlinePlayers;
-	}
-
-	public void setOnlinePlayers(OnlinePlayers player) {
-		this.onlinePlayers.add(player);
-	}
 
 	public ArrayList<ChatManager> getChatManagers() {
 		return this.chatManagers;
@@ -378,10 +306,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
 	public boolean isBungeeMode() {
 		return this.BungeeMode;
-	}
-
-	public static Gson getGson() {
-		return gsonBuilder.create();
 	}
 
 	public PreConfigLoader getPreConfigLoader() {

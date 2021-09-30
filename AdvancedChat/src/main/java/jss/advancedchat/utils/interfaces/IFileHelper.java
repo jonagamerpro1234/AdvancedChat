@@ -1,8 +1,8 @@
-package jss.advancedchat.utils.file;
+package jss.advancedchat.utils.interfaces;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-public interface FileHelper {
+public interface IFileHelper {
 
     public FileConfiguration getConfig();
 
