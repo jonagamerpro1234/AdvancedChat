@@ -68,4 +68,5 @@ public class Settings {
     public static int int_range_chat;
     public static int int_clearchat_lines;    
 
+    public static String api_group_list_name;
 }

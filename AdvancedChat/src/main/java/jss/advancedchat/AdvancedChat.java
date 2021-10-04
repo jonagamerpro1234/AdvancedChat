@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
-
+import jss.advancedchat.api.AdvancedChatApi;
 import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.commands.MsgCmd;
@@ -122,7 +122,9 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		loadCommands();
 		loadEvents();
 
-		new UpdateChecker(this, 83889).getUpdateVersion(version -> {
+		
+		Utils.setEndLoad();
+		new UpdateChecker(this, 83889).getUpdateVersionSpigot(version -> {
 			if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
 				logger.Log(Level.SUCCESS, "&a" + this.name + " is up to date!");
 			} else {
@@ -137,7 +139,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 			}
 		});
 	}
-
+	
 	public void onDisable() {
 		Utils.setDisabled(version);
 		metrics = null;
@@ -218,6 +220,10 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		}catch(Exception e) {}
 	}
 
+	public AdvancedChatApi getAdvancedChatApi() {
+		return AdvancedChatApi.getInstance();
+	}
+	
 	public GradientColorFile getGradientColorFile() {
 		return gradientColorFile;
 	}

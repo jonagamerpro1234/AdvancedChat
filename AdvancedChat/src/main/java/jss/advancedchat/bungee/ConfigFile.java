@@ -10,11 +10,11 @@ import net.md_5.bungee.config.Configuration;
 
 public class ConfigFile extends FileManagerBunge{
 	
-	private AdvancedChat plugin;
+	private AdvancedChatBungee plugin;
 	private Configuration config;
 	private File file;
 	
-	public ConfigFile(AdvancedChat plugin) {
+	public ConfigFile(AdvancedChatBungee plugin) {
 		super(plugin);
 		this.plugin = plugin;
 		this.file = null;
