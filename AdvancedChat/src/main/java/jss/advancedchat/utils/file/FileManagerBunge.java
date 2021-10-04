@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import jss.advancedchat.bungee.AdvancedChat;
+import jss.advancedchat.bungee.AdvancedChatBungee;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
@@ -13,9 +13,9 @@ import net.md_5.bungee.config.YamlConfiguration;
 
 public class FileManagerBunge {
 
-    private AdvancedChat plugin;
+    private AdvancedChatBungee plugin;
 
-    public FileManagerBunge(AdvancedChat plugin) {
+    public FileManagerBunge(AdvancedChatBungee plugin) {
         this.plugin = plugin;
     }
 

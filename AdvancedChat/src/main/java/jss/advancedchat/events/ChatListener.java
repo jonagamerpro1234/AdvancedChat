@@ -25,6 +25,7 @@ import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.SQLGetter;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.EventUtils;
+import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 
 @SuppressWarnings("unused")
@@ -165,7 +166,7 @@ public class ChatListener implements Listener {
 	}
 	
 	//Chatformat
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void chatFormat(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfigFile().getConfig();
 		SQLGetter sql = plugin.getSQLGetter();
@@ -173,17 +174,16 @@ public class ChatListener implements Listener {
 		Player j = e.getPlayer();
 
 
-		if (config.getBoolean("ChatFormat.Enabled")) {
-			e.setCancelled(true);
-			
-		}
+		Json json = new Json(j, "["+j.getName()+"] ", e.getMessage());
+		json.sendDoubleToAll();
 		
-		
+		plugin.getLogger().info(json.getText() + json.getExtraText());
 		
 	}
 	
 	@EventHandler 
 	public void chatMention(AsyncPlayerChatEvent e){
+		e.setCancelled(true);
 		Player j = e.getPlayer();
 		String message = e.getMessage();
 		
@@ -193,7 +193,7 @@ public class ChatListener implements Listener {
 			for(Player p : Bukkit.getOnlinePlayers()) {
 				
 				j.playSound(j.getLocation(), XSound.BLOCK_NOTE_BLOCK_PLING.parseSound(), 1.0f, 0.5f);
-				Utils.sendColorMessage(p, "&dTest Mentiaon &b" + j.getName());
+				Utils.sendColorMessage("&dTest Mentiaon &b" + j.getName());
 			}
 			
 		}

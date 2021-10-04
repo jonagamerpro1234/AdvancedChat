@@ -88,7 +88,7 @@ public class JoinListener implements Listener {
 
         if (config.getString("Settings.Update").equals("true")) {
             if (j.isOp() && j.hasPermission("AdvancedChat.Update.Notify")) {
-                new UpdateChecker(AdvancedChat.getInstance(), 83889).getUpdateVersion(version -> {
+                new UpdateChecker(AdvancedChat.getInstance(), 83889).getUpdateVersionSpigot(version -> {
                     if (!AdvancedChat.getInstance().getDescription().getVersion().equalsIgnoreCase(version)) {
                         TextComponent component = new TextComponent(Utils.color(Utils.getPrefixPlayer() + " &aThere is a new version available for download"));
                         component.setClickEvent(new ClickEvent(Action.OPEN_URL, UpdateSettings.URL_PLUGIN[0]));

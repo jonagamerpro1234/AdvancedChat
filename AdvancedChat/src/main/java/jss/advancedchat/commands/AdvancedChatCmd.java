@@ -38,7 +38,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 		FileConfiguration config = plugin.getConfigFile().getConfig();
 		SQLGetter sql = plugin.getSQLGetter();
 		PlayerManager manager = new PlayerManager(plugin);
-
+		
 		if (!(sender instanceof Player)) {
 			if (args.length >= 1) {
 				if (args[0].equalsIgnoreCase("info")) {
@@ -130,9 +130,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 
 									String color = args[3];
 
-									if (color == null) {
-										return true;
-									}
+									if (color == null) return true;
 
 									if (Settings.mysql_use) {
 										sql.setColor(playername, color);
@@ -151,6 +149,17 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					} else {
 						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 					}
+					return true;
+				}
+				
+				if(args[0].equalsIgnoreCase("gradint")) {
+					
+					if((j.isOp()) || (j.hasPermission("AdvancedChat.Gui.Gradient"))) {
+						
+					} else {
+						
+					}
+					
 					return true;
 				}
 

@@ -58,7 +58,11 @@ public class PreConfigLoader {
         	Settings.mysql_user = config.getString("MySQL.Username");
         	Settings.mysql_password = config.getString("MySQL.Password");
         	Settings.mysql_database = config.getString("MySQL.Database");
-
+        	
+        	//api section
+        	
+        	
+        	
         } catch (Exception e) {
             e.printStackTrace();
         }
