@@ -47,22 +47,8 @@ public class Settings {
     public static boolean boolean_chatclear_autoclear;
     public static boolean boolean_filter_use_msg;
     public static boolean boolean_clearchat_bypass;
-    //remove
-    public static boolean boolean_custom_type_normal;
-    public static boolean boolean_custom_type_hover;
-    public static boolean boolean_custom_type_click;
-    public static boolean boolean_custom_type_double;
-    public static boolean boolean_custom_type_experimental;
-    public static boolean boolean_custom_type_all;
-    public static boolean boolean_group_type_normal;
-    public static boolean boolean_group_type_hover;
-    public static boolean boolean_group_type_click;
-    public static boolean boolean_group_type_double;
-    public static boolean boolean_group_type_experimental;
-    public static boolean boolean_group_type_all;
-    public static boolean boolean_chat_format_normal;
-    public static boolean boolean_chat_format_custom;
-    public static boolean boolean_chat_format_group;
+    
+    public static boolean hook_discordsrv;
     
     public static int int_clearchat_tick;
     public static int int_range_chat;
