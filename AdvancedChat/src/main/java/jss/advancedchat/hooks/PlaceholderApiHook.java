@@ -4,17 +4,19 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.SQLGetter;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.interfaces.IHook;
 //import jss.advancedchat.utils.interfaces.Hook;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.Settings;
 
-public class PlaceholderApiHook {
+public class PlaceholderApiHook implements IHook{
 	
 	private AdvancedChat plugin = AdvancedChat.getInstance();
 	private HookManager hooksManager;

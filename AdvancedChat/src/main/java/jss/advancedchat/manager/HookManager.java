@@ -1,11 +1,15 @@
-package jss.advancedchat.hooks;
+package jss.advancedchat.manager;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.api.HookLoader;
+import jss.advancedchat.hooks.DiscordSRVHook;
+import jss.advancedchat.hooks.PlaceholderApiHook;
+import jss.advancedchat.hooks.ProtocolLibHook;
+import jss.advancedchat.hooks.VaultHook;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
-//import jss.advancedchat.utils.interfaces.Hook;
 
-public class HookManager {
+public class HookManager extends HookLoader{
 	
 	private AdvancedChat plugin;
 	private static ProtocolLibHook protocolLib;
@@ -31,22 +35,13 @@ public class HookManager {
 			protocolLib.initPacketListening();
 		}
 	}
-	
-	public void loadHook() {
-		placeholderApiHook.setup();
-	}
-	
-	/*public void load() {
+		
+	public void load() {
 		initHooks(
-				new VaultHook(this),
-				new PlaceholderApiHook(this));
+				new PlaceholderApiHook(this),
+				new DiscordSRVHook(this));
+		loadRegisteredHook();
 	}
-	
-	public void initHooks(Hook... hooks) {
-		for(Hook hook : hooks) {
-			hook.setup();
-		}
-	}*/
 	
 	public VaultHook getVaultHook() {
 		return this.vaultHook;

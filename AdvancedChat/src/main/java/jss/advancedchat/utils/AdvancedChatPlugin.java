@@ -4,10 +4,15 @@ import java.io.File;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class AdvancedChatPlugin extends JavaPlugin {
+	
+	private PluginDescriptionFile jss = getDescription();
+	public String name = this.jss.getName();
+	public String version = this.jss.getVersion();
 	
 	public void registerEvent(Listener listener) {
 		this.getPluginManager().registerEvents(listener, this);

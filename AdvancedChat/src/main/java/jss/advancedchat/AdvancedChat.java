@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginDescriptionFile;
+
 import jss.advancedchat.api.AdvancedChatApi;
 import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
@@ -30,8 +30,8 @@ import jss.advancedchat.events.CommandListener;
 import jss.advancedchat.events.EventLoader;
 import jss.advancedchat.events.InventoryListener;
 import jss.advancedchat.events.JoinListener;
-import jss.advancedchat.hooks.HookManager;
 import jss.advancedchat.manager.ChatManager;
+import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.storage.SQLGetter;
 import jss.advancedchat.utils.AdvancedChatPlugin;
@@ -61,7 +61,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private ChatDataFile chatDataFile = new ChatDataFile(this, "chat-log.data", "Data");
 	private PlayerDataFile playerdata = new PlayerDataFile(this, "players.data", "Data");
 	private InventoryDataFile inventoryDataFile = new InventoryDataFile(this, "inventory.data", "Data");
-	private PluginDescriptionFile jss = getDescription();
 	private static AdvancedChat instance;
 	private PreConfigLoader preConfigLoad = new PreConfigLoader(this);
 	public Logger logger = new Logger(this);
@@ -70,8 +69,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private EventUtils eventUtils = new EventUtils(this);
 	public Metrics metrics;
 	private HookManager HookManager = new HookManager(this);
-	public String name = this.jss.getName();
-	public String version = this.jss.getVersion();
 	public String latestversion;
 	public String nmsversion;
 	@Deprecated
@@ -151,6 +148,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		if (!getDataFolder().exists()) {
 			getDataFolder().mkdirs();
 		}
+		
 		Utils.setLineLoad("&eCheck DataFolder Exist!");
 		this.eventUtils = new EventUtils(this);
 		Utils.setLineLoad("&eLoading EventUtils");
@@ -177,7 +175,11 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		new UnMuteCmd(this);
 		new MsgCmd(this);
 	}
-
+	
+	public void setupCommands() {
+		
+	}
+	
 	public void loadEvents() {
 		eventUtils.initEvent(
 		new JoinListener(this),
