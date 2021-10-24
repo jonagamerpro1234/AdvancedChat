@@ -21,18 +21,25 @@ import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.chat.Json;
 import jss.advancedchat.config.ChatDataFile;
 import jss.advancedchat.config.ChatLogFile;
+import jss.advancedchat.hooks.DiscordSRVHook;
+import jss.advancedchat.hooks.LuckPermsHook;
+import jss.advancedchat.hooks.VaultHook;
+import jss.advancedchat.manager.GroupManager;
+import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.SQLGetter;
 import jss.advancedchat.utils.Utils;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
-
 @SuppressWarnings("unused")
 public class ChatListener implements Listener {
 
 	private AdvancedChat plugin;
 	public Map<String, Long> delaywords = new HashMap<String, Long>();
+	
 	private EventUtils eventsUtils = new EventUtils(plugin);
 	private boolean badword;
 	private boolean ismention;
@@ -147,37 +154,148 @@ public class ChatListener implements Listener {
 					}
 				}
 			});
-		
-			/*for (String key : config.getConfigurationSection("Players").getKeys(false)) {
-				if (key.contains(j.getName())) {
-					String mute = config.getString("Players." + key + ".Mute");
-					if (!(j.isOp()) || !(j.hasPermission("AdvancedChat.Chat.Bypass"))) {
-						if (mute.equals("true")) {
-							Utils.sendColorMessage(j,
-									cconfig.getString("AdvancedChat.Alert-Mute").replace("<name>", j.getName()));
-							e.setCancelled(true);
-						}
-					} else {
-						return;
-					}
-				}
-			}*/
 		}
 	}
 	
-	//Chatformat
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void chatFormat(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfigFile().getConfig();
 		SQLGetter sql = plugin.getSQLGetter();
 		PlayerManager manager = new PlayerManager(plugin);
-		Player j = e.getPlayer();
-
-
-		Json json = new Json(j, "["+j.getName()+"] ", e.getMessage());
-		json.sendDoubleToAll();
+		GroupManager groupManager = new GroupManager(plugin);
+		VaultHook vaultHook = HookManager.getInstance().getVaultHook();
+		DiscordSRVHook discordSRVHook = HookManager.getInstance().getDiscordSRVHook();
+		LuckPermsHook luckPermsHook = HookManager.getInstance().getLuckPermsHook();
 		
-		plugin.getLogger().info(json.getText() + json.getExtraText());
+		Player j = e.getPlayer();
+		
+		String path = Settings.boolean_chat_type;
+		
+		boolean isDefault = path.equalsIgnoreCase("default");
+		boolean isNormal = path.equalsIgnoreCase("normal");
+		boolean isGroup = path.equalsIgnoreCase("group");
+		
+		String format = config.getString("ChatFormat.Format");
+		String message = " &r" + manager.getColor(j, e.getMessage());
+		
+		format = Utils.getVar(j, format);
+		message = Utils.getVar(j, message);
+		
+		if ((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Color"))) {
+			format = Utils.color(format);
+			message = Utils.color(message);
+		}
+
+		if(isDefault) {
+			return;
+		} else if(isNormal) {
+			
+			Json json = new Json(j, format, message);
+			
+			boolean hover = config.getString("ChatFormat.HoverEvent.Enabled").equals("true");
+			List<String> hovertext = config.getStringList("ChatFormat.HoverEvent.Hover");
+			
+			boolean click = config.getString("ChatFormat.ClickEvent.Enabled").equals("true");
+			String cmd_action = config.getString("ChatFormat.ClickEvent.Actions.Command");
+			String click_mode = config.getString("ChatFormat.ClickEvent.Mode");
+			String url_action = config.getString("ChatFormat.ClickEvent.Actions.Url");
+			String suggest_action = config.getString("ChatFormat.ClickEvent.Actions.Suggest-Command");
+			
+			cmd_action = Utils.getVar(j, cmd_action);
+			suggest_action = Utils.getVar(j, suggest_action);
+			
+			if (hover) {
+				if (click) {
+					if (click_mode.equals("command")) {
+						json.setHover(hovertext).setExecuteCommand(cmd_action).sendDoubleToAll();
+					} else if (click_mode.equals("url")) {
+						json.setHover(hovertext).setOpenURL(url_action).sendDoubleToAll();
+					} else if (click_mode.equals("suggest")) {
+						json.setHover(hovertext).setSuggestCommand(suggest_action).sendDoubleToAll();
+					}
+				} else {
+					json.setHover(hovertext).sendDoubleToAll();
+				}
+			} else {
+				if (click) {
+					if (click_mode.equals("command")) {
+						json.setExecuteCommand(cmd_action).sendDoubleToAll();
+					} else if (click_mode.equals("url")) {
+						json.setOpenURL(url_action).sendDoubleToAll();
+					} else if (click_mode.equals("suggest")) {
+						json.setSuggestCommand(suggest_action).sendDoubleToAll();
+					}
+				} else {
+					json.sendDoubleToAll();
+				}
+			}
+			return;
+		} else if(isGroup) {
+			
+			LuckPerms luckPerms = LuckPermsProvider.get();
+			
+			String vaultGroup = VaultHook.getVaultHook().getChat().getPrimaryGroup(j);
+			String luckpermsGroup = luckPerms.getUserManager().getUser(j.getName()).getPrimaryGroup();
+			
+			String group = "";
+			
+			if(vaultHook.isEnabled()) {
+				group = vaultGroup;
+			}else if(luckPermsHook.isEnabled()) {
+				group = luckpermsGroup;
+			}else {
+				Logger.error("&cThe Vault or LuckPerms could not be found to activate the group system");
+				Logger.warning("&eplease check that Vault or LuckPerms is active or inside your plugins folder");
+				return;
+			}
+			
+			Json json = new Json(j, format, message);
+			
+			boolean hover = groupManager.isHover(group);
+			List<String> hovertext = groupManager.getHover(group);
+			
+			boolean click = groupManager.isClick(group);
+			String click_mode = groupManager.getClickMode(group);
+			String cmd_action = groupManager.getClickCommand(group);
+			String url_action = groupManager.getClickUrl(group);
+			String suggest_action = groupManager.getClickSuggestCommand(group);
+			
+			cmd_action = Utils.getVar(j, cmd_action);
+			suggest_action = Utils.getVar(j, suggest_action);
+			
+			if (hover) {
+				if (click) {
+					if (click_mode.equals("command")) {
+						json.setHover(hovertext).setExecuteCommand(cmd_action).sendDoubleToAll();
+					} else if (click_mode.equals("url")) {
+						json.setHover(hovertext).setOpenURL(url_action).sendDoubleToAll();
+					} else if (click_mode.equals("suggest")) {
+						json.setHover(hovertext).setSuggestCommand(suggest_action).sendDoubleToAll();
+					}
+				} else {
+					json.setHover(hovertext).sendDoubleToAll();
+				}
+			} else {
+				if (click) {
+					if (click_mode.equals("command")) {
+						json.setExecuteCommand(cmd_action).sendDoubleToAll();
+					} else if (click_mode.equals("url")) {
+						json.setOpenURL(url_action).sendDoubleToAll();
+					} else if (click_mode.equals("suggest")) {
+						json.setSuggestCommand(suggest_action).sendDoubleToAll();
+					}
+				} else {
+					json.sendDoubleToAll();
+				}
+			}
+			return;
+		} else {
+			e.setFormat("<" + j.getName() + ">" + " " + e.getMessage());
+			Logger.error("");
+		}
+		
+		
+		//Logger.info(json.getText() + json.getText());
 		
 	}
 	

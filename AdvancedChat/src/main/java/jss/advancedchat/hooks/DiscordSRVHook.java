@@ -9,15 +9,15 @@ import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.interfaces.IHook;
 
-public class DiscordSRVHook implements IHook {
+public class DiscordSRVHook implements IHook{
 	
 	private HookManager hookManager;
-	public boolean isEnabled;
+	private boolean isEnabled;
 	
 	public DiscordSRVHook(HookManager hookManager) {
-		this.hookManager = hookManager;	
+		this.hookManager = hookManager;
 	}
-	
+
 	public void setup() {
 		if(!Bukkit.getPluginManager().isPluginEnabled("DiscordSRV")) {
 			Logger.warning("&eDiscordSRV not enabled! - Disable Features...");
@@ -30,7 +30,6 @@ public class DiscordSRVHook implements IHook {
 			Logger.warning("&eDiscordSRV not enabled! - Disable Features...");
 			return;
 		}
-		
 		this.isEnabled = true;
 		Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix() + "&aLoading DiscordSRV features...");
 	}
@@ -38,9 +37,9 @@ public class DiscordSRVHook implements IHook {
 	public boolean isEnabled() {
 		return isEnabled;
 	}
-
+	
 	public HookManager getHookManager() {
 		return hookManager;
 	}
-
+	
 }

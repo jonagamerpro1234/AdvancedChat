@@ -1,43 +1,41 @@
-<project
-	xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>jss.advancedchat</groupId>
 	<artifactId>AdvancedChat</artifactId>
 	<version>1.6.0-Pre</version>
 	<packaging>jar</packaging>
-	
+
 	<name>AdvancedChat</name>
 	<description>a simple plugin that helps you customize your server chat to make it look better also brings a customizable chat system by group or rank and more....</description>
 	<url>https://github.com/jonagamerpro1234/AdvancedChat</url>
-	
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-    	<maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
-    	
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
 	<issueManagement>
 		<system>GitHub</system>
 		<url>https://github.com/jonagamerpro1234/AdvancedChat/issues</url>
 	</issueManagement>
-	
+
 	<licenses>
 		<license>
 			<name>GLP-3.0</name>
 			<url>https://github.com/jonagamerpro1234/AdvancedChat/blob/main/LICENSE</url>
 		</license>
 	</licenses>
-	
+
 	<scm>
 		<connection>scm:git:https://github.com/jonagamerpro1234/AdvancedChat.git</connection>
 		<url>https://github.com/jonagamerpro1234/AdvancedChat</url>
 	</scm>
-	
-	<dependencies>
 
+	<dependencies>
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
@@ -68,41 +66,48 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-    		<groupId>com.comphenix.protocol</groupId>
-    		<artifactId>ProtocolLib</artifactId>
-    		<version>4.7.0</version>
-    		<scope>provided</scope>
-  		</dependency>
-  		<dependency>
-        	<groupId>com.github.MilkBowl</groupId>
-        	<artifactId>VaultAPI</artifactId>
-        	<version>1.7</version>
-        	<scope>provided</scope>
-    	</dependency>
-        <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-api</artifactId>
-            <version>1.17-R0.1-SNAPSHOT</version>
-            <type>jar</type>
-            <scope>provided</scope>
-        </dependency>
+			<groupId>com.comphenix.protocol</groupId>
+			<artifactId>ProtocolLib</artifactId>
+			<version>4.7.0</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
-    		<groupId>net.md-5</groupId>
-    		<artifactId>bungeecord-chat</artifactId>
-    		<version>1.17-R0.1-SNAPSHOT</version>
-    		<scope>provided</scope>
+			<groupId>com.github.MilkBowl</groupId>
+			<artifactId>VaultAPI</artifactId>
+			<version>1.7</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.md-5</groupId>
+			<artifactId>bungeecord-api</artifactId>
+			<version>1.17-R0.1-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.md-5</groupId>
+			<artifactId>bungeecord-chat</artifactId>
+			<version>1.17-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.luckperms</groupId>
+			<artifactId>api</artifactId>
+			<version>5.3</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
+
 	<repositories>
-        <repository>
-            <id>bungeecord-repo</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </repository>
-    	<repository>
-        	<id>jitpack.io</id>
-        	<url>https://jitpack.io</url>
-    	</repository>
+		<repository>
+			<id>bungeecord-repo</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</repository>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
 		<repository>
 			<id>dmulloy2-repo</id>
 			<url>https://repo.dmulloy2.net/repository/public/</url>
@@ -110,11 +115,11 @@
 		<repository>
 			<id>minecraft-repo</id>
 			<url>https://libraries.minecraft.net/</url>
-     	</repository>
+		</repository>
 		<repository>
-        	<id>spigot-repo</id>
-        	<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-     	</repository>
+			<id>spigot-repo</id>
+			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+		</repository>
 		<repository>
 			<id>placeholderapi</id>
 			<url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
@@ -152,9 +157,9 @@
 						<filter>
 							<artifact>*:*</artifact>
 							<excludes>
-                    			<exclude>com/cryptomorin/xseries/XBiome*</exclude>
-                    			<exclude>com/cryptomorin/xseries/NMSExtras*</exclude>
-                    			<exclude>com/cryptomorin/xseries/NoteBlockMusic*</exclude>
+								<exclude>com/cryptomorin/xseries/XBiome*</exclude>
+								<exclude>com/cryptomorin/xseries/NMSExtras*</exclude>
+								<exclude>com/cryptomorin/xseries/NoteBlockMusic*</exclude>
 							</excludes>
 						</filter>
 					</filters>
@@ -193,6 +198,4 @@
 			</resource>
 		</resources>
 	</build>
-
-
 </project>

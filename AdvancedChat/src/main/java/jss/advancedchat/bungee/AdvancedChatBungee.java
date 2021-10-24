@@ -16,7 +16,6 @@ public class AdvancedChatBungee extends AdvancedChatPlugin {
     private ConfigFile configFile = new ConfigFile(this);
     private Logger logger = new Logger(this);
     
-    
     public void onEnable() {
         Utils.setBungeeEnabled(version);
         
@@ -25,6 +24,8 @@ public class AdvancedChatBungee extends AdvancedChatPlugin {
         }
         configFile.create();
         
+        
+        getProxy().registerChannel("ac:messagechannel");
         
         new UpdateChecker(this).getUpdateVersionBungee(version -> {
 			if (this.getDescription().getVersion().equalsIgnoreCase(version)) {

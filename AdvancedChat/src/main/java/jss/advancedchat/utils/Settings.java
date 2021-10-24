@@ -28,8 +28,11 @@ public class Settings {
     public static String message_msg_use;
     public static String message_mute_bypass;
     public static String message_protocol_state;
-    public static String mysql_host;
+    public static String boolean_chat_type;
+    
     public static String inv_color_back;
+    
+    public static String mysql_host;
     public static String mysql_options;
     public static String mysql_port;
     public static String mysql_user;
@@ -40,7 +43,7 @@ public class Settings {
     public static boolean mysql_usessl;
     public static boolean mysql_use_default_table;
     public static boolean mysql_use;
-    public static boolean hook_vault;
+        
     public static boolean boolean_antitabcompleted;
     public static boolean boolean_protocollib;
     public static boolean boolean_use_default_prefix;
@@ -48,7 +51,10 @@ public class Settings {
     public static boolean boolean_filter_use_msg;
     public static boolean boolean_clearchat_bypass;
     
+    
     public static boolean hook_discordsrv;
+    public static boolean hook_vault;
+    public static boolean hook_luckperms;
     
     public static int int_clearchat_tick;
     public static int int_range_chat;

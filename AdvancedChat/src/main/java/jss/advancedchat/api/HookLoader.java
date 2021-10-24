@@ -28,11 +28,10 @@ public abstract class HookLoader {
 	}
 	
 	public boolean isRegisteredHook(String id) {
-		if(this.iHooks.get(id) != null || this.iHooks.get(id) == null && this.iHooks.containsKey(id)) {
+		if(this.iHooks.get(id) != null && this.iHooks.containsKey(id)) {
 			return false;
-		}else {
-			return true;
 		}
+		return true;
 	}
 	
 	public void initHooks(IHook... hooks) {
