@@ -3,6 +3,7 @@ package jss.advancedchat.manager;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.api.HookLoader;
 import jss.advancedchat.hooks.DiscordSRVHook;
+import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.hooks.PlaceholderApiHook;
 import jss.advancedchat.hooks.ProtocolLibHook;
 import jss.advancedchat.hooks.VaultHook;
@@ -13,11 +14,15 @@ public class HookManager extends HookLoader{
 	
 	private AdvancedChat plugin;
 	private static ProtocolLibHook protocolLib;
-	private VaultHook vaultHook;
-	private PlaceholderApiHook placeholderApiHook;
+	private DiscordSRVHook discordSRVHook = new DiscordSRVHook(this);
+	private LuckPermsHook luckPermsHook = new LuckPermsHook(this);
+	private VaultHook vaultHook = new VaultHook(this);
+	private PlaceholderApiHook placeholderApiHook = new PlaceholderApiHook(this);
+	private static HookManager hookManager;
 	
 	public HookManager(AdvancedChat plugin) {
 		this.plugin = plugin;
+		hookManager = this;
 	}	
 	
 	public void loadProtocol() {
@@ -47,6 +52,14 @@ public class HookManager extends HookLoader{
 		return this.vaultHook;
 	}
 	
+	public DiscordSRVHook getDiscordSRVHook() {
+		return discordSRVHook;
+	}
+
+	public LuckPermsHook getLuckPermsHook() {
+		return luckPermsHook;
+	}
+
 	public ProtocolLibHook getProtocolLib() {
 		return protocolLib;
 	}
@@ -57,5 +70,9 @@ public class HookManager extends HookLoader{
 	
 	public AdvancedChat getPlugin() {
 		return this.plugin;
+	}
+	
+	public static HookManager getInstance() {
+		return hookManager;
 	}
 }

@@ -2,70 +2,85 @@ package jss.advancedchat.hooks;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
-
-import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Logger.Level;
+import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
-//import jss.advancedchat.utils.interfaces.Hook;
+import jss.advancedchat.utils.interfaces.IHook;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
-public class VaultHook {
+public class VaultHook implements IHook{
 
-	private AdvancedChat plugin;
-	private Logger logger = new Logger(plugin);
-	private EventUtils eventUtils = new EventUtils(plugin);
+    private Permission permission;
+    private Chat chat;
+    private Economy economy;
+	private HookManager hookManager;
+	private boolean isEnabled;
+	private static VaultHook vaultHook;
 	
-	public Permission permission;
-	public Economy economy;
-	public Chat chat;
-
-	public VaultHook(AdvancedChat plugin) {
-		this.plugin = plugin;
-		permission = null;
-		chat = null;
-		economy = null;
+	public VaultHook(HookManager hookManager) {
+		this.hookManager = hookManager;
+		vaultHook = this;
 	}
-
+	
 	public void setup() {
 		if(!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
-			logger.Log(Level.WARNING, "vault not enabled! - Disable Features...");
+			this.isEnabled = false;
+			Logger.warning("&eVault not enabled! - Disable Features...");
 			return;
 		}
 		
-		/*if(!Settings.hook_vault) {
+		if(Settings.hook_vault) {
+			this.isEnabled = false;
+			Logger.warning("&eVault not enabled! - Disable Features...");
 			return;
-		}*/
+		}
 		
-		Utils.sendColorConsoleMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&aLoading vault features...");
-		RegisteredServiceProvider<Economy> rspE = Bukkit.getServer().getServicesManager().getRegistration(Economy.class);
-		RegisteredServiceProvider<Permission> rspP = Bukkit.getServer().getServicesManager().getRegistration(Permission.class);
-		RegisteredServiceProvider<Chat> rspC = Bukkit.getServer().getServicesManager().getRegistration(Chat.class);
+		this.isEnabled = true;
 		
-		if(rspE != null) {
-			economy = rspE.getProvider();
-		}
-		if(rspP != null) {
-			permission = rspP.getProvider();
-		}
-		if(rspC != null) {
-			chat = rspC.getProvider();
-		}
+        RegisteredServiceProvider<Permission> rspP = Bukkit.getServer().getServicesManager().getRegistration(Permission.class);
+        RegisteredServiceProvider<Chat> rspC = Bukkit.getServer().getServicesManager().getRegistration(Chat.class);
+        RegisteredServiceProvider<Economy> rspE = Bukkit.getServer().getServicesManager().getRegistration(Economy.class);
+
+        if (rspP != null) {
+            permission = rspP.getProvider();
+        }
+        if (rspC != null) {
+            chat = rspC.getProvider();
+        }
+        if (rspE != null) {
+            economy = rspE.getProvider();
+        }
+		
+		Utils.sendColorMessage(EventUtils.getStaticConsoleSender() , Utils.getPrefix() + "&aLoading Vault features...");
+	}
+	
+	public static VaultHook getVaultHook() {
+		return vaultHook;
+	}
+	
+	public boolean isEnabled() {
+		return isEnabled;
+	}
+	
+    public Permission getPermissions() {
+        return permission;
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public Economy getEconomy() {
+        return economy;
+    }
+	
+	public HookManager getHookManager() {
+		return hookManager;
 	}
 
-	public Permission getPermission() {
-		return permission;
-	}
-
-	public Economy getEconomy() {
-		return economy;
-	}
-
-	public Chat getChat() {
-		return chat;
-	}
-
+	
 }

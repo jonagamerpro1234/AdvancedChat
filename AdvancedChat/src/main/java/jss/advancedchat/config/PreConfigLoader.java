@@ -15,6 +15,7 @@ public class PreConfigLoader {
 
     public void load() {
         FileConfiguration config = plugin.getConfigFile().getConfig();
+        
         try {
         	
         	Settings.message_mute_bypass = config.getString("AdvancedChat.Mute-Bypass");
@@ -40,6 +41,11 @@ public class PreConfigLoader {
         	Settings.message_msg_empty = config.getString("AdvancedChat.Empty.Msg");
         	Settings.message_msg_use = config.getString("AdvancedChat.Help-Msg-Use");
         	Settings.message_Alert_Mute = config.getString("AdvancedChat.Alert-Mute");
+        	Settings.boolean_chat_type = config.getString("ChatFormat.Type");
+        	
+        	Settings.hook_vault = config.getString("Hooks.Vault.Enabled").equals("true");
+        	Settings.hook_discordsrv = config.getString("Hooks.DiscordSRV.Enabled").equals("true");
+        	Settings.hook_luckperms = config.getString("Hooks.LuckPerms.Enabled").equals("true");
         	
         	Settings.boolean_protocollib = config.getString("ProtocolLib-Packet.Enabled").equals("true");
         	Settings.boolean_antitabcompleted = config.getString("ProtocolLib-Packet.Disable-TabCompleted").equals("true");

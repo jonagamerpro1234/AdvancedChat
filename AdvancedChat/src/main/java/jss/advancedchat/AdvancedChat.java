@@ -13,6 +13,7 @@ import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.commands.MsgCmd;
 import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
+import jss.advancedchat.config.BadWordFile;
 import jss.advancedchat.config.ChannelGuiFile;
 import jss.advancedchat.config.ChatDataFile;
 import jss.advancedchat.config.ChatLogFile;
@@ -21,6 +22,7 @@ import jss.advancedchat.config.CommandFile;
 import jss.advancedchat.config.CommandLogFile;
 import jss.advancedchat.config.ConfigFile;
 import jss.advancedchat.config.GradientColorFile;
+import jss.advancedchat.config.GroupFile;
 import jss.advancedchat.config.InventoryDataFile;
 import jss.advancedchat.config.PlayerDataFile;
 import jss.advancedchat.config.PlayerGuiFile;
@@ -50,6 +52,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	@SuppressWarnings("unused")
 	private FileManager filemanager = new FileManager(this);
 	private ConfigFile configfile = new ConfigFile(this, "config.yml");
+	private GroupFile groupFile = new GroupFile(this, "groups.yml");
+	private BadWordFile badWordFile = new BadWordFile(this, "badword.yml");
 	@SuppressWarnings("unused")
 	private CommandFile commandFile = new CommandFile(this, "custom-command.yml");
 	private ColorFile colorFile = new ColorFile(this, "color-gui.yml", "Gui");
@@ -202,6 +206,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		this.getChannelGuiFile().reloadConfig();
 		this.getCommandLogFile().reloadConfig();
 		this.getInventoryDataFile().reloadConfig();
+		this.getGroupFile().reloadConfig();
+		this.getBadWordFile().reloadConfig();
 	}
 	
 	private void checkBungeeMode() {
@@ -224,6 +230,14 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
 	public AdvancedChatApi getAdvancedChatApi() {
 		return AdvancedChatApi.getInstance();
+	}
+	
+	public GroupFile getGroupFile() {
+		return groupFile;
+	}
+	
+	public BadWordFile getBadWordFile() {
+		return badWordFile;
 	}
 	
 	public GradientColorFile getGradientColorFile() {
