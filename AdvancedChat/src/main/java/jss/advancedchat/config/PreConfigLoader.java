@@ -60,7 +60,7 @@ public class PreConfigLoader {
         	Settings.mysql_use = config.getString("Settings.Use-Database").equals("true");
         	Settings.mysql_options = config.getString("MySQL.Options");
         	Settings.mysql_host = config.getString("MySQL.Host");
-        	Settings.mysql_port = config.getString("MySQL.Port");
+        	Settings.mysql_port = Integer.valueOf(config.getString("MySQL.Port"));
         	Settings.mysql_user = config.getString("MySQL.Username");
         	Settings.mysql_password = config.getString("MySQL.Password");
         	Settings.mysql_database = config.getString("MySQL.Database");

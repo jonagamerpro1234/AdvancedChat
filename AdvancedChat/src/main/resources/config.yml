@@ -150,9 +150,6 @@ ChatFormat:
 # | MySQL|
 # |MySql is a database where you can save plugin data remotely and it can be synchronized with other servers if you are using BungeeCord
 MySQL:
-
-  # |Options|  
-  Options: 'useSSL=false&autoReconnect=true'
   
   # |Table|
   Table: 'advancedchat_players'
@@ -165,7 +162,7 @@ MySQL:
   
   # |Database| this is where you should put the name of the database
   Database: 'advancedchatDB'
-  
+    
   # |User| this is where you should put the database user name
   Username: 'root'
   
@@ -362,6 +359,8 @@ AdvancedChat:
   Mute-Bypass: '&eThis player cannot be muted because he is bypassed.'
   Mute-Player: '&e[&b<name>&e] &cis now muted!'
   UnMute-Player: '&e[&b<name>&e] &ais now unmuted!'
+  Player-Is-Not-Mute: ''
+  Player-Is-Mute: ''
   Alert-Mute: '&e[!] &cright now you are muted'
   No-Online-Player: '&cThis player does not exist or is not connected!'
   No-Use-Command: '&e[&b!&e] &cYou can t use that command! &b[&c<cmd>&b]'

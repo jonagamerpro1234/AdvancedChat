@@ -1,6 +1,7 @@
 package jss.advancedchat;
 
 import java.io.File;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
@@ -27,14 +28,14 @@ import jss.advancedchat.config.InventoryDataFile;
 import jss.advancedchat.config.PlayerDataFile;
 import jss.advancedchat.config.PlayerGuiFile;
 import jss.advancedchat.config.PreConfigLoader;
-import jss.advancedchat.events.ChatListener;
-import jss.advancedchat.events.CommandListener;
-import jss.advancedchat.events.EventLoader;
-import jss.advancedchat.events.InventoryListener;
-import jss.advancedchat.events.JoinListener;
+import jss.advancedchat.listeners.ChatListener;
+import jss.advancedchat.listeners.CommandListener;
+import jss.advancedchat.listeners.EventLoader;
+import jss.advancedchat.listeners.InventoryListener;
+import jss.advancedchat.listeners.JoinListener;
 import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.manager.HookManager;
-import jss.advancedchat.storage.MySQL;
+import jss.advancedchat.storage.MySQLConnection;
 import jss.advancedchat.storage.SQLGetter;
 import jss.advancedchat.utils.AdvancedChatPlugin;
 import jss.advancedchat.utils.EventUtils;
@@ -68,15 +69,13 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private static AdvancedChat instance;
 	private PreConfigLoader preConfigLoad = new PreConfigLoader(this);
 	public Logger logger = new Logger(this);
-	private MySQL mySQL;
+	private MySQLConnection connection;
 	private SQLGetter data = new SQLGetter();
 	private EventUtils eventUtils = new EventUtils(this);
 	public Metrics metrics;
 	private HookManager HookManager = new HookManager(this);
 	public String latestversion;
 	public String nmsversion;
-	@Deprecated
-	public boolean placeholder = false;
 	private boolean BungeeMode;
 	public boolean uselegacyversion = false;
 	public boolean uselatestversion = false;
@@ -280,17 +279,12 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		return channelGuiFile;
 	}
 
-	@Deprecated
-	public boolean getPlaceHolderState() {
-		return this.placeholder;
-	}
-
 	public HookManager getHookManager() {
 		return HookManager;
 	}
 
-	public MySQL getMySQL() {
-		return this.mySQL;
+	public Connection getConnection() {
+		return this.connection.getConnetion();
 	}
 
 	public boolean isDebug() {

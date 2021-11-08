@@ -1,133 +1,52 @@
 package jss.advancedchat.storage;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class MySQL {
 
-	private final String host;
-	private final String port;
-	private final String database;
-	private final String username;
-	private final String  password;
-	private final String options;
-	
-	private Connection connection;
-	private boolean isconnected = false;
-	
-	
-	/*public MySQL(String host, String port, String database, String username, String password, String options) {
-		this.host = host;
-		this.port = port;
-		this.database = database;
-		this.username = username;
-		this.password = password;
-		this.options = options;
-	}*/
-	
-	public void openConnection() throws SQLException{
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		}catch(ClassNotFoundException e) {
-			e.printStackTrace();
-			
-			this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?" + options, username, password);
-			
-		}
-	}
-	
-	//advancedchat_players
-	public void connect(String host, int port, String database, String user, String pass, boolean ssl) {
-        try {
-            synchronized (this) {
-                if (connection != null && !connection.isClosed()) {
-                    Logger.error("Error al conectar con MySQL");
-                    return;
-                }
-                Class.forName("com.mysql.jdbc.Driver");
-                this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=" + ssl + "&autoReconnect=true", user, pass);
-                this.isconnected = true;
-                
-            }	
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-	}
-	
-	public void createTable() {
-		updateQuery("CREATE TABLE IF NOT EXISTS `" + Settings.mysql_table + "` (`Name` VARCHAR(100), `UUID` VARCHAR(100), `Mute` BOOLEAN, `Color` VARCHAR(10), `Channel` VARCHAR(16))");
-	}
-	
-	public void updateQuery(String query) {
-		Connection con = connection;
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = con.prepareStatement(query);
-			preparedStatement.executeUpdate();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		
-		finally {
-			closeResources(null, preparedStatement);
-		}
-	}	
-	
-	public void disconnected() {
-		try {
-			if(!isConnected()) {
-				this.connection.close();
-			}
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public ResultSet executeQuery(String query) {
-		if(!isConnected()) {
-			return null;
+	public static boolean isEnabled() {
+		if(Settings.mysql_use) {
+			return true;
 		}else {
-			try {
-				this.connection.createStatement().executeQuery(query);
-			}catch(SQLException e) {
-				e.printStackTrace();
-			}
+			return false;
 		}
-		return null;
+	}
+
+	public static void createTable(AdvancedChat plugin) {
+		try(Connection connection = plugin.getConnection()){
+			PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `" + Settings.mysql_table + "` (`UUID` VARCHAR(200), `PLAYER_NAME` VARCHAR(100), `COLOR_NAME` VARCHAR(16), `GRADIENT_COLOR_ONE` VARCHAR(20), `GRADIENT_COLOR_TWO` VARCHAR(20), `IS_MUTE` BOOLEAN)");
+			statement.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public void closeResources(ResultSet rs, PreparedStatement st) {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		if (st != null) {
-			try {
-				st.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-    
-	public boolean isConnected() {
-		return this.isconnected;
+	public static void createPlayer(AdvancedChat plugin, final String uuid, final String name, String color, String gradient_one, String gradient_two, boolean ismute) {
+		
 	}
 	
-	public Connection getConnection() {
-		return this.connection;
+	public static boolean existsPlayer(AdvancedChat plugin, String uuid) {
+		try {
+			PreparedStatement statement = plugin.getConnection().prepareStatement("SELECT * FROM `" + Settings.mysql_table + "` WHERE (UUID=?)");
+			statement.setString(1, uuid);
+			
+			ResultSet resultSet = statement.executeQuery();
+			Logger.debug("&aExists player in database");
+			while(resultSet.next()) {
+				return true;
+			}
+		}catch(SQLException e) {
+			Logger.debug("&eNo exists player in database");	
+		}
+		return false;
 	}
+
+	
 }

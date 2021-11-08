@@ -1,4 +1,4 @@
-package jss.advancedchat.events.old;
+package jss.advancedchat.listeners.old;
 
 import java.util.List;
 
