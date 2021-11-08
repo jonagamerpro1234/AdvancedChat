@@ -68,12 +68,6 @@ public class UnMuteCmd implements CommandExecutor {
                 	return true;
                 }
                 
-                /*if(Settings.mysql_use_t) {
-                	sqlGetter.setMuted(plugin.getMySQL(), p.getName(), p.getUniqueId().toString(), false);
-                }
-                if(Settings.mysql_use_f){
-                	manager.setMute(p, false);
-                }*/
                 if(Settings.mysql_use) {
                 	sqlGetter.setMuted(p.getName(), p.getUniqueId().toString(), false);
                 } else {

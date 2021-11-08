@@ -1,4 +1,4 @@
-package jss.advancedchat.events;
+package jss.advancedchat.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;

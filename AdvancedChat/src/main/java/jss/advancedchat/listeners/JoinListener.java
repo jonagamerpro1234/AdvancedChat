@@ -1,4 +1,4 @@
-package jss.advancedchat.events;
+package jss.advancedchat.listeners;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.config.ChatDataFile;

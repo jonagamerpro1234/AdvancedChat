@@ -326,12 +326,19 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				}
 				break;
 			case 3:
-				if (args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("channel")) {
+				if (args[0].equalsIgnoreCase("color")) {
+					listOptions.add("set");
+					listOptions.add("setgradient");
+				}
+				
+				if(args[0].equalsIgnoreCase("channel")) {
 					listOptions.add("set");
 				}
+				
 				break;
 			case 4:
 				if (args[0].equalsIgnoreCase("color")) {
+					
 					listOptions.add("black");
 					listOptions.add("white");
 					listOptions.add("dark_gray");
@@ -354,6 +361,14 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					listOptions.add("world");
 					listOptions.add("local");
 					listOptions.add("staff");
+				}
+				break;
+			case 5:
+				if (args[0].equalsIgnoreCase("color")) {
+					if(args[1].equalsIgnoreCase("setgradient")) {
+						listOptions.add("one");
+						listOptions.add("two");
+					}
 				}
 				break;
 			}

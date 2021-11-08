@@ -1,4 +1,4 @@
-package jss.advancedchat.events;
+package jss.advancedchat.listeners;
 
 import java.util.UUID;
 

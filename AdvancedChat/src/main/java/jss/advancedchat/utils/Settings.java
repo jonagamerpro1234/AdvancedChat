@@ -34,7 +34,7 @@ public class Settings {
     
     public static String mysql_host;
     public static String mysql_options;
-    public static String mysql_port;
+    public static int mysql_port;
     public static String mysql_user;
     public static String mysql_table;
     public static String mysql_password;
