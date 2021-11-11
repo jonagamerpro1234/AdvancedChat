@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.storage.SQLGetter;
+import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 
@@ -25,7 +25,6 @@ public class MuteCmd implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         FileConfiguration config = plugin.getConfigFile().getConfig();
         PlayerManager manager = new PlayerManager(plugin);
-        SQLGetter sqlGetter = plugin.getSQLGetter();
         
         String text = config.getString("AdvancedChat.Help-Mute");
         String prefix = "";
@@ -53,7 +52,7 @@ public class MuteCmd implements CommandExecutor {
                     }
                     
                     if(Settings.mysql_use) {
-                    	sqlGetter.setMuted(target.getName(), target.getUniqueId().toString(), true);
+                    	MySQL.setMute(plugin, target.getUniqueId().toString(), true);
                     } else {
                     	manager.setMute(target, true);
                     }
@@ -81,7 +80,7 @@ public class MuteCmd implements CommandExecutor {
                     }
                     
                     if(Settings.mysql_use) {
-                    	sqlGetter.setMuted(target.getName(), target.getUniqueId().toString(), true);
+                    	MySQL.setMute(plugin, target.getUniqueId().toString(), true);
                     } else {
                     	manager.setMute(target, true);
                     }

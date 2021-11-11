@@ -9,7 +9,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.chat.Json;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.storage.SQLGetter;
+import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -29,7 +29,7 @@ public class ChatListener {
 		PlayerManager manager = new PlayerManager(plugin);
 		FileConfiguration config = plugin.getConfigFile().getConfig();
 		Player j = e.getPlayer();
-		SQLGetter sql = plugin.getSQLGetter();
+
 		Json json;
 
 		String path = config.getString("Settings.ChatFormat-Type");
@@ -68,7 +68,7 @@ public class ChatListener {
 						json.setHover(hovertext).sendDoubleToAll();
 					} else {
 						if (Settings.mysql_use) {
-							if (sql.getMuted(j.getUniqueId().toString()) || manager.isMute(j) == true
+							if (MySQL.isMute(plugin, j.getUniqueId().toString()) || manager.isMute(j) == true
 									|| Settings.boolean_filter_use_msg) {
 								return;
 							} else {
@@ -92,7 +92,7 @@ public class ChatListener {
 					if ((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Bypass"))) {
 						Utils.sendAllPlayerBaseComponent(tc);
 					} else {
-						if (sql.getMuted(j.getUniqueId().toString()) || manager.isMute(j) == true) {
+						if (MySQL.isMute(plugin, j.getUniqueId().toString()) || manager.isMute(j) == true) {
 							return;
 						} else {
 							Utils.sendAllPlayerBaseComponent(tc);
@@ -105,7 +105,7 @@ public class ChatListener {
 							clickaction);
 					tc.setClickEvent(click);
 					e.setCancelled(true);
-					if (sql.getMuted(j.getUniqueId().toString()) || manager.isMute(j) == true) {
+					if (MySQL.isMute(plugin, j.getUniqueId().toString()) || manager.isMute(j) == true) {
 						return;
 					} else {
 						Utils.sendAllPlayerBaseComponent(tc);
@@ -121,7 +121,7 @@ public class ChatListener {
 					tc.setClickEvent(click);
 					tc.setText(format);
 					e.setCancelled(true);
-					if (sql.getMuted(j.getUniqueId().toString()) || manager.isMute(j) == true) {
+					if (MySQL.isMute(plugin, j.getUniqueId().toString()) || manager.isMute(j) == true) {
 						return;
 					} else {
 						Utils.sendAllPlayerBaseComponent(tc);
@@ -162,7 +162,7 @@ public class ChatListener {
 						tc.setHoverEvent(hover);
 						tc.setText(format);
 						e.setCancelled(true);
-						if (sql.getMuted(j.getUniqueId().toString()) || manager.isMute(j) == true) {
+						if (MySQL.isMute(plugin, j.getUniqueId().toString()) || manager.isMute(j) == true) {
 							return;
 						} else {
 							Utils.sendAllPlayerBaseComponent(tc);
@@ -175,7 +175,7 @@ public class ChatListener {
 						tc.setClickEvent(click);
 						tc.setText(format);
 						e.setCancelled(true);
-						if (sql.getMuted(j.getUniqueId().toString()) || manager.isMute(j) == true) {
+						if (MySQL.isMute(plugin, j.getUniqueId().toString()) || manager.isMute(j) == true) {
 							return;
 						} else {
 							Utils.sendAllPlayerBaseComponent(tc);
@@ -192,7 +192,7 @@ public class ChatListener {
 						tc.setClickEvent(click);
 						tc.setText(format);
 						e.setCancelled(true);
-						if (sql.getMuted(j.getUniqueId().toString()) || manager.isMute(j) == true) {
+						if (MySQL.isMute(plugin, j.getUniqueId().toString()) || manager.isMute(j) == true) {
 							return;
 						} else {
 							Utils.sendAllPlayerBaseComponent(tc);

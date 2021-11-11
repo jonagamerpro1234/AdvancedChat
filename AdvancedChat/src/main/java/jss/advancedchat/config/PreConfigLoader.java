@@ -17,7 +17,7 @@ public class PreConfigLoader {
         FileConfiguration config = plugin.getConfigFile().getConfig();
         
         try {
-        	
+        	Settings.default_color = config.getString("Settings.Default-Color-Message");
         	Settings.message_mute_bypass = config.getString("AdvancedChat.Mute-Bypass");
         	Settings.message_prefix_custom = config.getString("Settings.Prefix");
         	Settings.message_protocol_state = config.getString("ProtocolLib-Packet.Enabled");
@@ -58,7 +58,6 @@ public class PreConfigLoader {
         	Settings.int_clearchat_lines = config.getInt("ClearChat.LineClear");
 
         	Settings.mysql_use = config.getString("Settings.Use-Database").equals("true");
-        	Settings.mysql_options = config.getString("MySQL.Options");
         	Settings.mysql_host = config.getString("MySQL.Host");
         	Settings.mysql_port = Integer.valueOf(config.getString("MySQL.Port"));
         	Settings.mysql_user = config.getString("MySQL.Username");

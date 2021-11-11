@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.storage.SQLGetter;
+import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 
@@ -25,7 +25,6 @@ public class UnMuteCmd implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         FileConfiguration config = plugin.getConfigFile().getConfig();
         PlayerManager manager = new PlayerManager(plugin);
-        SQLGetter sqlGetter = plugin.getSQLGetter();
         
         String text = Settings.message_Help_UnMute;
         String prefix = "";
@@ -47,7 +46,7 @@ public class UnMuteCmd implements CommandExecutor {
             if (args.length >= 1) {
                 Player p = Bukkit.getPlayer(args[0]);
                 if(Settings.mysql_use) {
-                	sqlGetter.setMuted(p.getName(), p.getUniqueId().toString(), false);
+                	MySQL.setMute(plugin, p.getUniqueId().toString(), false);
                 } else {
                 	manager.setMute(p, false);
                 }
@@ -69,7 +68,7 @@ public class UnMuteCmd implements CommandExecutor {
                 }
                 
                 if(Settings.mysql_use) {
-                	sqlGetter.setMuted(p.getName(), p.getUniqueId().toString(), false);
+                	MySQL.setMute(plugin, p.getUniqueId().toString(), false);
                 } else {
                 	manager.setMute(p, false);
                 }

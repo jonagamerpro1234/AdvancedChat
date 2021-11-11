@@ -5,13 +5,14 @@ import java.util.List;
 public class Settings {
 	
 	public static List<String> message_Help_List;
+	public static List<String> list_filter_badword;
 	
 	public static String message_prefix_custom;
+	public static String message_ClearChat_Staff;
     public static String message_NoPermission;
     public static String message_NoPermission_Label;
     public static String message_ClearChat_Server;
     public static String message_ClearChat_Player;
-    public static String message_ClearChat_Staff;
     public static String message_Error_Args;
     public static String message_Reload;
     public static String message_Help_Mute;
@@ -27,38 +28,63 @@ public class Settings {
     public static String message_msg_empty;
     public static String message_msg_use;
     public static String message_mute_bypass;
+    public static String message_player_is_not_mute;
+    public static String message_player_is_mute;
     public static String message_protocol_state;
+    public static String message_filter;
+    
     public static String boolean_chat_type;
+    
+    public static String default_color;
     
     public static String inv_color_back;
     
     public static String mysql_host;
-    public static String mysql_options;
     public static int mysql_port;
     public static String mysql_user;
     public static String mysql_table;
     public static String mysql_password;
     public static String mysql_database;
-    
-    public static boolean mysql_usessl;
-    public static boolean mysql_use_default_table;
     public static boolean mysql_use;
-        
+
+    public static int int_clearchat_tick;
+    public static int int_range_chat;
+    public static int int_clearchat_lines;
+    public static long long_clearchat_start_tick;
+    public static long long_clearchat_tick;
+    
+    public static boolean hook_vault;
+    public static boolean hook_vault_use_group;
+    public static boolean hook_luckperms;
+    public static boolean hook_luckperms_use_group;
+    public static boolean hook_discordsrv;
+    public static String hook_discordsrv_channelid;
+    public static String hook_discordsrv_custom_format;
+    public static String hook_discordsrv_group_format;
+    
+    public static boolean boolean_clearchat_bypass;
+	public static boolean boolean_clearchat;
+	public static boolean boolean_chat_click_mode;
     public static boolean boolean_antitabcompleted;
     public static boolean boolean_protocollib;
     public static boolean boolean_use_default_prefix;
     public static boolean boolean_chatclear_autoclear;
     public static boolean boolean_filter_use_msg;
-    public static boolean boolean_clearchat_bypass;
+    public static boolean boolean_filter;
+    public static boolean boolean_custom_type_normal;
+    public static boolean boolean_custom_type_hover;
+    public static boolean boolean_custom_type_click;
+    public static boolean boolean_custom_type_double;
+    public static boolean boolean_custom_type_experimental;
+    public static boolean boolean_custom_type_all;
+    public static boolean boolean_group_type_normal;
+    public static boolean boolean_group_type_hover;
+    public static boolean boolean_group_type_click;
+    public static boolean boolean_group_type_double;
+    public static boolean boolean_group_type_experimental;
+    public static boolean boolean_group_type_all;
+    public static boolean boolean_chat_format_normal;
+    public static boolean boolean_chat_format_custom;
+    public static boolean boolean_chat_format_group;
     
-    
-    public static boolean hook_discordsrv;
-    public static boolean hook_vault;
-    public static boolean hook_luckperms;
-    
-    public static int int_clearchat_tick;
-    public static int int_range_chat;
-    public static int int_clearchat_lines;    
-
-    public static String api_group_list_name;
 }

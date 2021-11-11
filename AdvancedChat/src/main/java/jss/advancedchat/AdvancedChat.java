@@ -8,7 +8,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import jss.advancedchat.api.AdvancedChatApi;
 import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.commands.MsgCmd;
@@ -36,13 +35,11 @@ import jss.advancedchat.listeners.JoinListener;
 import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.storage.MySQLConnection;
-import jss.advancedchat.storage.SQLGetter;
 import jss.advancedchat.utils.AdvancedChatPlugin;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Logger.Level;
-import jss.advancedchat.utils.file.FileManager;
 import jss.advancedchat.utils.inventory.InventoryView;
 import jss.advancedchat.utils.UpdateSettings;
 import jss.advancedchat.utils.UpdateChecker;
@@ -50,8 +47,6 @@ import jss.advancedchat.utils.Utils;
 
 public class AdvancedChat extends AdvancedChatPlugin {
 
-	@SuppressWarnings("unused")
-	private FileManager filemanager = new FileManager(this);
 	private ConfigFile configfile = new ConfigFile(this, "config.yml");
 	private GroupFile groupFile = new GroupFile(this, "groups.yml");
 	private BadWordFile badWordFile = new BadWordFile(this, "badword.yml");
@@ -70,7 +65,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private PreConfigLoader preConfigLoad = new PreConfigLoader(this);
 	public Logger logger = new Logger(this);
 	private MySQLConnection connection;
-	private SQLGetter data = new SQLGetter();
 	private EventUtils eventUtils = new EventUtils(this);
 	public Metrics metrics;
 	private HookManager HookManager = new HookManager(this);
@@ -122,7 +116,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		loadCommands();
 		loadEvents();
 
-		
 		Utils.setEndLoad();
 		new UpdateChecker(this, 83889).getUpdateVersionSpigot(version -> {
 			if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
@@ -178,11 +171,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		new UnMuteCmd(this);
 		new MsgCmd(this);
 	}
-	
-	public void setupCommands() {
 		
-	}
-	
 	public void loadEvents() {
 		eventUtils.initEvent(
 		new JoinListener(this),
@@ -227,9 +216,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		}catch(Exception e) {}
 	}
 
-	public AdvancedChatApi getAdvancedChatApi() {
-		return AdvancedChatApi.getInstance();
-	}
 	
 	public GroupFile getGroupFile() {
 		return groupFile;
@@ -337,9 +323,5 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
 	public PreConfigLoader getPreConfigLoader() {
 		return this.preConfigLoad;
-	}
-
-	public SQLGetter getSQLGetter() {
-		return this.data;
 	}
 }

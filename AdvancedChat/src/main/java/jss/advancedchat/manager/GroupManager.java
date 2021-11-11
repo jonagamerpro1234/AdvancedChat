@@ -7,7 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import jss.advancedchat.AdvancedChat;
 
-public class GroupManager {
+public class GroupManager{
 
 	private AdvancedChat plugin;
 	
@@ -17,7 +17,7 @@ public class GroupManager {
 	
 	private final FileConfiguration config = plugin.getGroupFile().getConfig();
 	
-	public Set<String> getGroups() {
+	public Set<String> getGroupList() {
 		Set<String> sections = config.getKeys(false);
 		return sections;
 	}
