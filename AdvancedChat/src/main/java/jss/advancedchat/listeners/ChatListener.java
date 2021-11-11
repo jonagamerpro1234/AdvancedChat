@@ -27,7 +27,7 @@ import jss.advancedchat.hooks.VaultHook;
 import jss.advancedchat.manager.GroupManager;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.storage.SQLGetter;
+import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.utils.Utils;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
@@ -126,13 +126,12 @@ public class ChatListener implements Listener {
 		FileConfiguration config = plugin.getPlayerDataFile().getConfig();
 		FileConfiguration cconfig = plugin.getConfigFile().getConfig();
 		Player j = e.getPlayer();
-		SQLGetter sql = plugin.getSQLGetter();
 		
 		if (Settings.mysql_use) {
 			if ((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Bypass"))) {
 				return;
 			} else {
-				if (sql.getMuted(j.getUniqueId().toString())) {
+				if (MySQL.isMute(plugin, j.getUniqueId().toString())) {
 					Utils.sendColorMessage(j,
 							cconfig.getString("AdvancedChat.Alert-Mute").replace("<name>", j.getName()));
 					e.setCancelled(true);
@@ -160,7 +159,6 @@ public class ChatListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void chatFormat(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfigFile().getConfig();
-		SQLGetter sql = plugin.getSQLGetter();
 		PlayerManager manager = new PlayerManager(plugin);
 		GroupManager groupManager = new GroupManager(plugin);
 		VaultHook vaultHook = HookManager.getInstance().getVaultHook();

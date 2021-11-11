@@ -1,4 +1,4 @@
-package jss.advancedchat.api;
+package jss.advancedchat;
 
 import java.util.HashMap;
 

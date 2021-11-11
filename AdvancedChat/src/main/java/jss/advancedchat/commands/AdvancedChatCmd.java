@@ -17,7 +17,7 @@ import jss.advancedchat.inventory.GuiColor;
 import jss.advancedchat.inventory.GuiPlayer;
 import jss.advancedchat.inventory.GuiTest;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.storage.SQLGetter;
+import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.UpdateSettings;
@@ -35,8 +35,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		FileConfiguration config = plugin.getConfigFile().getConfig();
-		SQLGetter sql = plugin.getSQLGetter();
+		FileConfiguration config = plugin.getConfigFile().getConfig();;
 		PlayerManager manager = new PlayerManager(plugin);
 		
 		if (!(sender instanceof Player)) {
@@ -133,7 +132,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 									if (color == null) return true;
 
 									if (Settings.mysql_use) {
-										sql.setColor(playername, color);
+										MySQL.setColor(plugin, p.getUniqueId().toString(), color);
 									} else {
 										manager.setColor(p, color);
 									}

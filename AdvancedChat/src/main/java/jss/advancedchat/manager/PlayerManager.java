@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.Settings;
 
 public class PlayerManager {
 
@@ -168,7 +169,7 @@ public class PlayerManager {
     	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
     	if(!this.exists(player)) {
     		config.set(player.getName() + ".UUID", player.getUniqueId().toString());
-            config.set(player.getName() + ".Color", "WHITE");
+            config.set(player.getName() + ".Color", Settings.default_color);
             config.set(player.getName() + ".Gradient.Color-1", "FFFFFF");
             config.set(player.getName() + ".Gradient.Color-2", "FFFFFF");
             config.set(player.getName() + ".Mute", false);

@@ -151,8 +151,9 @@ ChatFormat:
 # |MySql is a database where you can save plugin data remotely and it can be synchronized with other servers if you are using BungeeCord
 MySQL:
   
-  # |Table|
-  Table: 'advancedchat_players'
+  # |Table| this is where you will find the name of the table that will be created or used to obtain the data 
+  # [Note]: it is not recommended to change this
+  Table: 'advancedchat_data'
   
   # |Host| this is where you should put the database host
   Host: 'localhost'
@@ -256,22 +257,6 @@ Filter-Chat:
     - 'noob'
     - 'stupid'
     - 'fuck' 
-#
-# | Anti Swear |
-#
-Anti-Swear:
-
-   # |Enabled| Here you can enable or disable this feature
-  Enabled: false
-  
-  # 
-  Chat: {}
-  
-  #
-  Commands: {} 
-  
-  #
-  Sings: {}
 #
 # | Mention |
 #

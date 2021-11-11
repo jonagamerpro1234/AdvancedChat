@@ -6,15 +6,15 @@ import org.bukkit.entity.Player;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.storage.SQLGetter;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.interfaces.IHook;
-//import jss.advancedchat.utils.interfaces.Hook;
-import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.Settings;
+import jss.advancedchat.storage.MySQL;
+
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
 public class PlaceholderApiHook implements IHook{
 	
@@ -78,11 +78,10 @@ public class PlaceholderApiHook implements IHook{
 		
 		public String onPlaceholderRequest(Player player, String args) {
 			PlayerManager manager = new PlayerManager(plugin);
-			SQLGetter getter = new SQLGetter();
 			
 			if(args.equals("mute_state")) {
 				if(Settings.mysql_use) {
-					if(getter.getMuted(player.getUniqueId().toString())) {
+					if(MySQL.isMute(plugin, player.getUniqueId().toString())) {
 						return "true";
 					}
 				}else {

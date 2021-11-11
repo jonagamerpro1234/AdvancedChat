@@ -5,7 +5,7 @@ import jss.advancedchat.config.ChatDataFile;
 import jss.advancedchat.config.ChatLogFile;
 import jss.advancedchat.config.CommandLogFile;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.storage.SQLGetter;
+import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.UpdateSettings;
 import jss.advancedchat.utils.UpdateChecker;
@@ -40,12 +40,11 @@ public class JoinListener implements Listener {
         FileConfiguration command = commandLogFile.getConfig();
         
         PlayerManager manager = new PlayerManager(plugin);
-        SQLGetter sql = new SQLGetter();
         Player j = e.getPlayer();
         
         if (Settings.mysql_use) {
-        	if(!sql.exists(j.getUniqueId().toString())) {
-        		sql.createPlayer(j.getName(), j.getUniqueId().toString());
+        	if(!MySQL.existsPlayer(plugin, null)) {
+        		MySQL.createPlayer(plugin, j.getName(), j.getUniqueId().toString(), Settings.default_color, "FFFFFF", "FFFFFF", false);
         	}
         }
         
