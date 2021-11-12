@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>jss.advancedchat</groupId>
-	<artifactId>AdvancedChat</artifactId>
+	<artifactId>advancedchat-parent</artifactId>
 	<version>1.6.0-Pre</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<name>AdvancedChat</name>
 	<description>a simple plugin that helps you customize your server chat to make it look better also brings a customizable chat system by group or rank and more....</description>
@@ -17,6 +17,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
+
 
 	<issueManagement>
 		<system>GitHub</system>
@@ -34,178 +35,132 @@
 		<connection>scm:git:https://github.com/jonagamerpro1234/AdvancedChat.git</connection>
 		<url>https://github.com/jonagamerpro1234/AdvancedChat</url>
 	</scm>
-
-	<dependencies>
+	
+	<modules>
+		<module>Bukkit</module>
+		<module>Api</module>
+		<module>Bungee</module>
+		<module>Shade</module>
+	</modules>
+	<dependencyManagement>
+	  <dependencies>
 		<dependency>
-			<groupId>com.zaxxer</groupId>
-			<artifactId>HikariCP</artifactId>
-			<version>3.1.0</version>
+			<groupId>jss.advancedchat</groupId>
+			<artifactId>advancedchat-bukkit</artifactId>
+			<version>1.6.0-Pre</version>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.6</version>
+			<groupId>jss.advancedchat</groupId>
+			<artifactId>advancedchat-bungee</artifactId>
+			<version>1.6.0-Pre</version>
 		</dependency>
 		<dependency>
-			<groupId>org.spigotmc</groupId>
-			<artifactId>spigot-api</artifactId>
-			<version>1.17.1-R0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
+			<groupId>jss.advancedchat</groupId>
+			<artifactId>advancedchat-api</artifactId>
+			<version>1.6.0-Pre</version>
+		</dependency>	
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.20</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>me.clip</groupId>
-			<artifactId>placeholderapi</artifactId>
-			<version>2.10.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.github.cryptomorin</groupId>
-			<artifactId>XSeries</artifactId>
-			<version>8.4.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.mojang</groupId>
-			<artifactId>authlib</artifactId>
-			<version>1.5.25</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.comphenix.protocol</groupId>
-			<artifactId>ProtocolLib</artifactId>
-			<version>4.7.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.github.MilkBowl</groupId>
-			<artifactId>VaultAPI</artifactId>
-			<version>1.7</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.md-5</groupId>
-			<artifactId>bungeecord-api</artifactId>
-			<version>1.17-R0.1-SNAPSHOT</version>
-			<type>jar</type>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.md-5</groupId>
-			<artifactId>bungeecord-chat</artifactId>
-			<version>1.17-R0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.luckperms</groupId>
-			<artifactId>api</artifactId>
-			<version>5.3</version>
-			<scope>provided</scope>
+			<groupId>jss.advancedchat</groupId>
+			<artifactId>advancedchat-shade</artifactId>
+			<version>1.6.0-Pre</version>
 		</dependency>
 	</dependencies>
-
-
-	<repositories>
-		<repository>
-			<id>bungeecord-repo</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</repository>
-		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
-		<repository>
-			<id>dmulloy2-repo</id>
-			<url>https://repo.dmulloy2.net/repository/public/</url>
-		</repository>
-		<repository>
-			<id>minecraft-repo</id>
-			<url>https://libraries.minecraft.net/</url>
-		</repository>
-		<repository>
-			<id>spigot-repo</id>
-			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-		</repository>
-		<repository>
-			<id>placeholderapi</id>
-			<url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-		</repository>
-	</repositories>
-
+ </dependencyManagement>
+	
 	<build>
-		<finalName>${project.name}-${project.version}</finalName>
+		<defaultGoal>clean package</defaultGoal>
+	
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.2.0</version>
+					<configuration>
+						<archive>
+							<addMavenDescriptor>false</addMavenDescriptor>
+							<manifest>
+								<addClasspath>false</addClasspath>
+							</manifest>
+						</archive>
+					</configuration>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.2.0</version>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>3.0.0</version>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-shade-plugin</artifactId>
+					<version>3.2.3</version>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>3.0.0-M3</version>
+				</plugin>
+				
+				<!-- This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-antrun-plugin</artifactId>
+										<versionRange>[0.0,)</versionRange>
+										<goals>
+											<goal>run</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.7.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<compilerArgs>
-						<arg>-parameters</arg>
-					</compilerArgs>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.2.4</version>
-				<configuration>
-					<createDependencyReducedPom>false</createDependencyReducedPom>
-					<relocations>
-						<relocation>
-							<pattern>com.cryptomorin.xseries</pattern>
-							<shadedPattern>jss.advancedchat.utils</shadedPattern>
-						</relocation>
-					</relocations>
-					<filters>
-						<filter>
-							<artifact>*:*</artifact>
-							<excludes>
-								<exclude>com/cryptomorin/xseries/XBiome*</exclude>
-								<exclude>com/cryptomorin/xseries/NMSExtras*</exclude>
-								<exclude>com/cryptomorin/xseries/NoteBlockMusic*</exclude>
-							</excludes>
-						</filter>
-					</filters>
-				</configuration>
+				<artifactId>maven-enforcer-plugin</artifactId>
 				<executions>
 					<execution>
-						<phase>package</phase>
 						<goals>
-							<goal>shade</goal>
+							<goal>enforce</goal>
 						</goals>
+						<configuration>
+							<rules>
+								<reactorModuleConvergence />
+								<requireMavenVersion>
+									<version>[3.6.0,)</version>
+								</requireMavenVersion>
+								<requireJavaVersion>
+									<version>[1.8,)</version>
+								</requireJavaVersion>
+							</rules>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.2.0</version>
-				<configuration>
-					<archive>
-						<manifestEntries>
-							<Built-By>jonagamerpro1234</Built-By>
-							<Version>${project.version}</Version>
-						</manifestEntries>
-					</archive>
-					<outputDirectory>C:\Users\Alumno\Desktop\LocalHost\Server\1.8\plugins</outputDirectory>
-					<excludes>
-						<exclude>srccopia</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
 		</plugins>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
 	</build>
 </project>
