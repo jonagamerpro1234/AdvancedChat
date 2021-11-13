@@ -11,11 +11,11 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.interfaces.IFileHelper;
+import jss.advancedchat.interfaces.IFileLoader;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.file.FileManager;
-import jss.advancedchat.utils.interfaces.IFileHelper;
-import jss.advancedchat.utils.interfaces.IFileLoader;
 
 
 public class ConfigFile extends FileManager implements IFileHelper, IFileLoader {

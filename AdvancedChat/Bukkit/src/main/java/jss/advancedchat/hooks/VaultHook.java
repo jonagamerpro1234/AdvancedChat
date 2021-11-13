@@ -2,12 +2,13 @@ package jss.advancedchat.hooks;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
+
+import jss.advancedchat.interfaces.IHook;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
-import jss.advancedchat.utils.interfaces.IHook;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;

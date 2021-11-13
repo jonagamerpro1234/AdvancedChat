@@ -8,6 +8,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.chat.Json;
+import jss.advancedchat.manager.ColorManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.utils.Settings;
@@ -21,6 +22,7 @@ public class ChatListener {
 	
 	private AdvancedChat plugin;
 	private boolean badword;
+	private ColorManager colorManager;
 	
 	@SuppressWarnings({ "unused",  "deprecation"})
 	// @EventHandler(priority = EventPriority.HIGH)
@@ -44,7 +46,7 @@ public class ChatListener {
 				String hovermode = config.getString("Custom-Format.HoverEvent.Mode");
 				String clickaction = config.getString("Custom-Format.ClickEvent.Action");
 				String clickmode = config.getString("Custom-Format.ClickEvent.Mode");
-				String colorbeta = "&r" + manager.getColor(j, e.getMessage());
+				String colorbeta = " &r" + colorManager.convertColor(j, manager.getColor(j), e.getMessage());
 
 				List<String> hovertext = config.getStringList("Custom-Format.HoverEvent.Text");
 
@@ -150,7 +152,7 @@ public class ChatListener {
 						if (j.hasPermission(perm)) {
 							e.setFormat(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage()));
 							String msg = e.getMessage();
-							e.setMessage(Utils.color(manager.getColor(j, msg)));
+							e.setMessage(Utils.color(" &r" + colorManager.convertColor(j, manager.getColor(j), e.getMessage())));
 						}
 					} else if (config.getString(pathtype).equals("hover")) {
 						if (j.hasPermission(perm)) {

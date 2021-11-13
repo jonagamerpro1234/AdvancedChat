@@ -16,9 +16,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.interfaces.IUpdate;
 import jss.advancedchat.update.UpdateSettings;
 import jss.advancedchat.utils.Logger.Level;
-import jss.advancedchat.utils.interfaces.IUpdate;
 
 
 public class UpdateChecker implements IUpdate {

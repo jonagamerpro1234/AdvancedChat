@@ -15,10 +15,10 @@ import com.iridium.iridiumcolorapi.patterns.IPattern;
 import com.iridium.iridiumcolorapi.patterns.RainbowPattern;
 import com.iridium.iridiumcolorapi.patterns.SolidPattern;
 
-import jss.advancedchat.chat.patterns.GradientPattern2;
-import jss.advancedchat.chat.patterns.PadPattern;
-import jss.advancedchat.chat.patterns.PadPattern2;
-import jss.advancedchat.chat.patterns.RainbowPattern2;
+import jss.advancedchat.patterns.GradientPattern2;
+import jss.advancedchat.patterns.PadPattern;
+import jss.advancedchat.patterns.PadPattern2;
+import jss.advancedchat.patterns.RainbowPattern2;
 import net.md_5.bungee.api.ChatColor;
 
 public class IridiumColorAPI {
