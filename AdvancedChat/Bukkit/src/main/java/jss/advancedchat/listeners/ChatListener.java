@@ -24,6 +24,7 @@ import jss.advancedchat.config.ChatLogFile;
 import jss.advancedchat.hooks.DiscordSRVHook;
 import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.hooks.VaultHook;
+import jss.advancedchat.manager.ColorManager;
 import jss.advancedchat.manager.GroupManager;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
@@ -39,7 +40,7 @@ public class ChatListener implements Listener {
 
 	private AdvancedChat plugin;
 	public Map<String, Long> delaywords = new HashMap<String, Long>();
-	
+	private ColorManager colorManager;
 	private EventUtils eventsUtils = new EventUtils(plugin);
 	private boolean badword;
 	private boolean ismention;
@@ -174,7 +175,7 @@ public class ChatListener implements Listener {
 		boolean isGroup = path.equalsIgnoreCase("group");
 		
 		String format = config.getString("ChatFormat.Format");
-		String message = " &r" + manager.getColor(j, e.getMessage());
+		String message = " &r" + colorManager.convertColor(j, manager.getColor(j), e.getMessage());
 		
 		format = Utils.getVar(j, format);
 		message = Utils.getVar(j, message);

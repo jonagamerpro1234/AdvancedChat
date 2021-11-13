@@ -1,6 +1,6 @@
 # |    AdvancedChat     |
 # | By jonagamerpro1234 |
-# |     Version 1.x.x   |
+# |     Version 1.7.0   |
 # |_____________________|
 #
 #
@@ -20,9 +20,10 @@ DataBase:
   password: '1234'
 #
 # |Translation of messages from AdvancedChat|
-# |Version: 1.x|
+# |Version: 1.7.0|
 #
 AdvancedChat:
+  Error-Sync-DataBase: ''
   No-Permission: '&cYou dont have permission to do that!'
   No-Permission-Label: 'Ask the server owner or an administrator for help for more information.'
   Error-Args: '&cUnknown Arguments'
@@ -34,5 +35,5 @@ AdvancedChat:
 # This is the end of the configuration ... [-_-] more things coming soon
 # 
 # | Config File
-# | Version 1.x.x
+# | Version 1.7.0
 #

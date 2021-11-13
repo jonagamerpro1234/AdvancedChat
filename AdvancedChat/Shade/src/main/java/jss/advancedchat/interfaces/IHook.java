@@ -1,4 +1,4 @@
-package jss.advancedchat.utils.interfaces;
+package jss.advancedchat.interfaces;
 
 public interface IHook {
 	

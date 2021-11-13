@@ -11,11 +11,11 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.interfaces.IFileHelper;
+import jss.advancedchat.interfaces.IFolderHelper;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.file.FileManager;
-import jss.advancedchat.utils.interfaces.IFileHelper;
-import jss.advancedchat.utils.interfaces.IFolderHelper;
 
 public class ChatDataFile extends FileManager implements IFileHelper, IFolderHelper {
 

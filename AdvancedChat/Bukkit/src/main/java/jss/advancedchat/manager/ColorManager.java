@@ -62,13 +62,33 @@ public class ColorManager {
         if (temp.equalsIgnoreCase("black")) {
             return "&0" + text;
         }
-        if (temp.equalsIgnoreCase("rainbow")) {
+        if (temp.equalsIgnoreCase("random")) {
             StringBuffer stringBuffer = new StringBuffer();
 
             for (char c : text.toCharArray()) {
                 stringBuffer.append(setColorRandom() + c);
             }
             return stringBuffer.toString();
+        }
+        
+        if(temp.equalsIgnoreCase("rainbow1")) {
+        	return Utils.color("<RAINBOW:1>" + text + "</RAINBOW>");
+        }
+        
+        if(temp.equalsIgnoreCase("rainbow2")) {
+        	return Utils.color("<RAINBOW:5>" + text + "</RAINBOW>");
+        }
+        
+        if(temp.equalsIgnoreCase("rainbow3")) {
+        	return Utils.color("<RAINBOW:10>" + text + "</RAINBOW>");
+        }
+        
+        if(temp.equalsIgnoreCase("rainbow4")) {
+        	return Utils.color("<RAINBOW:15>" + text + "</RAINBOW>");
+        }
+        
+        if(temp.equalsIgnoreCase("rainbow5")) {
+        	return Utils.color("<RAINBOW:20>" + text + "</RAINBOW>");
         }
         
         if(temp.equalsIgnoreCase("gradient")) {
@@ -79,7 +99,7 @@ public class ColorManager {
     
     public String setGradient(Player player, String text){
     	PlayerManager manager = new PlayerManager(AdvancedChat.getInstance());
-    	return Utils.color("<GRADIENT:" + manager.getGradient1(player) + ">" + text + "</GRADIENT:" + manager.getGradient2(player) + ">");
+    	return Utils.color("<GRADIENT:" + manager.getFirstGradient(player) + ">" + text + "</GRADIENT:" + manager.getSecondGradient(player) + ">");
     }
     
     public String setColorRandom() {

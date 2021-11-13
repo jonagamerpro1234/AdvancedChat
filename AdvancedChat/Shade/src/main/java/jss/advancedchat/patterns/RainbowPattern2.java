@@ -1,4 +1,4 @@
-package jss.advancedchat.chat.patterns;
+package jss.advancedchat.patterns;
 
 import com.iridium.iridiumcolorapi.IridiumColorAPI;
 import com.iridium.iridiumcolorapi.patterns.IPattern;

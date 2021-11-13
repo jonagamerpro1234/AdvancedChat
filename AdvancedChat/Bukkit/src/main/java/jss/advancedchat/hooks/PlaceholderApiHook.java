@@ -4,12 +4,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.interfaces.IHook;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Utils;
-import jss.advancedchat.utils.interfaces.IHook;
 import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.storage.MySQL;

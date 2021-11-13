@@ -7,13 +7,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.api.IPlayerData;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 
-public class PlayerManager {
+public class PlayerManager implements IPlayerData {
 
     private AdvancedChat plugin;
-    private ColorManager colorManager;
     
     public PlayerManager(AdvancedChat plugin) {
         this.plugin = plugin;
@@ -35,15 +35,15 @@ public class PlayerManager {
     	}
     }
 
-    public void setMute(Player player, boolean mute) {
+    public void setMute(Player player, boolean value) {
         FileConfiguration config = plugin.getPlayerDataFile().getConfig();
         if (config.contains(player.getName() + ".Mute")) {
-            config.set(player.getName() + ".Mute", mute);
+            config.set(player.getName() + ".Mute", value);
             plugin.getPlayerDataFile().saveConfig();
         }
     }
     
-    public String getColor(Player player, String text) {
+    public String getColor(Player player) {
         FileConfiguration config = plugin.getPlayerDataFile().getConfig();
         
         Set<String> sections = config.getKeys(false);
@@ -53,7 +53,7 @@ public class PlayerManager {
         	while(section.hasNext()) {
         		String key = (String) section.next();
         		if(key.contains(player.getName())) {
-        			return colorManager.convertColor(player, config.getString(key + ".Color"), text);
+        			return config.getString(key + ".Color");
         		}
         	}
         }
@@ -117,8 +117,15 @@ public class PlayerManager {
         }
     }
     
+    public void setUUID(Player player) {
+    	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+        if (config.contains(player.getName() + ".UUID")) {
+            config.set(player.getName() + ".UUID", player.getUniqueId().toString());
+            plugin.getPlayerDataFile().saveConfig();
+        }
+    }
     
-    public void setGradient1(Player player, String hex) {
+    public void setFirstGradient(Player player, String hex) {
     	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
         if (config.contains(player.getName() + ".Gradient")) {
             config.set(player.getName() + ".Gradient.Color-1", hex);
@@ -126,7 +133,7 @@ public class PlayerManager {
         }
     }
     
-    public void setGradient2(Player player, String hex) {
+    public void setSecondGradient(Player player, String hex) {
     	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
         if (config.contains(player.getName() + ".Gradient")) {
             config.set(player.getName() + ".Gradient.Color-2", hex);
@@ -134,7 +141,7 @@ public class PlayerManager {
         }
     }
     
-    public String getGradient1(Player player) {
+    public String getFirstGradient(Player player) {
     	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
     	
     	Set<String> sections = config.getKeys(false);
@@ -149,8 +156,24 @@ public class PlayerManager {
     		}	
     	}
     }
+    public String getUUID(Player player) {
+    	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
+    	
+    	Set<String> sections = config.getKeys(false);
+    	Iterator<String> section = sections.iterator();
+    	
+    	while(true) {
+    		while(section.hasNext()) {
+    			String key = (String) section.next();
+    			if(this.exists(player)) {
+    				return config.getString(key + ".UUID");
+    			}
+    		}	
+    	}
+    }
     
-    public String getGradient2(Player player) {
+    
+    public String getSecondGradient(Player player) {
     	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
     	
     	Set<String> sections = config.getKeys(false);
@@ -169,7 +192,7 @@ public class PlayerManager {
     public void create(Player player) {
     	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
     	if(!this.exists(player)) {
-    		config.set(player.getName() + ".UUID", player.getUniqueId().toString());
+    		this.setUUID(player);
             config.set(player.getName() + ".Color", Settings.default_color);
             config.set(player.getName() + ".Gradient.Color-1", "FFFFFF");
             config.set(player.getName() + ".Gradient.Color-2", "FFFFFF");
