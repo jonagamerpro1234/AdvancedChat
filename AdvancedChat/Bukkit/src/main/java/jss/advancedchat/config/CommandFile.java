@@ -10,7 +10,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.interfaces.IFileHelper;
+import jss.advancedchat.common.interfaces.IFileHelper;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.file.FileManager;

@@ -10,7 +10,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>advancedchat-shade</artifactId>
+			<artifactId>advancedchat-common</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -200,4 +200,5 @@
 		</resources>
 	</build>  
 
+	<name>AdvancedChat Bukkit</name>
 </project>

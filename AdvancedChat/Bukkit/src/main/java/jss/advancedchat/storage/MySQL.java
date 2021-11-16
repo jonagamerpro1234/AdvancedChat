@@ -10,7 +10,7 @@ import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 
 public class MySQL {
-
+	
 	public static boolean isEnabled() {
 		if(Settings.mysql_use) {
 			return true;
@@ -77,7 +77,7 @@ public class MySQL {
 		return null;
 	}
 	
-	public static String getGradientOne(AdvancedChat plugin, String uuid) {
+	public static String getFirstGradient(AdvancedChat plugin, String uuid) {
 		try (Connection connection = plugin.getConnection()){
 			PreparedStatement statement = connection.prepareStatement("SELECT * FROM `" + Settings.mysql_table + "` WHERE (UUID=?)");
 			statement.setString(1, uuid);
@@ -93,7 +93,7 @@ public class MySQL {
 		return null;
 	}
 	
-	public static String getGradientTwo(AdvancedChat plugin, String uuid) {
+	public static String getSecondGradient(AdvancedChat plugin, String uuid) {
 		try (Connection connection = plugin.getConnection()){
 			PreparedStatement statement = connection.prepareStatement("SELECT * FROM `" + Settings.mysql_table + "` WHERE (UUID=?)");
 			statement.setString(1, uuid);

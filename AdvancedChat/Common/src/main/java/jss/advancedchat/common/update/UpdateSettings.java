@@ -1,4 +1,4 @@
-package jss.advancedchat.update;
+package jss.advancedchat.common.update;
 
 
 public class UpdateSettings {

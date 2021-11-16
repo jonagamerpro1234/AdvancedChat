@@ -1,12 +1,12 @@
 package jss.advancedchat.listeners;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.common.update.UpdateSettings;
 import jss.advancedchat.config.ChatDataFile;
 import jss.advancedchat.config.ChatLogFile;
 import jss.advancedchat.config.CommandLogFile;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQL;
-import jss.advancedchat.update.UpdateSettings;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;

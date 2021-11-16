@@ -1,10 +1,9 @@
-package jss.advancedchat.patterns;
-
-import com.iridium.iridiumcolorapi.IridiumColorAPI;
-import com.iridium.iridiumcolorapi.patterns.IPattern;
+package jss.advancedchat.common.patterns;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import jss.advancedchat.common.utils.IridiumColorAPI;
 
 public class RainbowPattern2 implements IPattern {
 

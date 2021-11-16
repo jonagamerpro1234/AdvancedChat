@@ -3,9 +3,9 @@ package jss.advancedchat.bungee;
 import jss.advancedchat.bungee.utils.AdvancedChatPlugin;
 import jss.advancedchat.bungee.utils.Logger;
 import jss.advancedchat.bungee.utils.Logger.Level;
+import jss.advancedchat.common.update.UpdateSettings;
 import jss.advancedchat.bungee.utils.UpdateChecker;
 import jss.advancedchat.bungee.utils.Utils;
-import jss.advancedchat.update.UpdateSettings;
 import net.md_5.bungee.api.plugin.PluginDescription;
 
 public class AdvancedChatBungee extends AdvancedChatPlugin {

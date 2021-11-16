@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 import jss.advancedchat.bungee.AdvancedChatBungee;
 import jss.advancedchat.bungee.utils.Logger.Level;
-import jss.advancedchat.update.UpdateSettings;
+import jss.advancedchat.common.update.UpdateSettings;
 
 public class UpdateChecker  {
 

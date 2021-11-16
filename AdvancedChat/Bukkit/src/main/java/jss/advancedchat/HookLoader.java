@@ -2,7 +2,7 @@ package jss.advancedchat;
 
 import java.util.HashMap;
 
-import jss.advancedchat.interfaces.IHook;
+import jss.advancedchat.common.interfaces.IHook;
 
 public abstract class HookLoader {
 

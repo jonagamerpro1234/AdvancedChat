@@ -5,7 +5,7 @@
     <artifactId>advancedchat-parent</artifactId>
     <version>1.6.0-Pre</version>
   </parent>
-  <artifactId>advancedchat-shade</artifactId>
+  <artifactId>advancedchat-common</artifactId>
   
   <repositories>
 		<repository>
@@ -40,4 +40,5 @@
 		</dependency>			
   </dependencies>
   
+  <name>AdvancedChat Common</name>
 </project>
