@@ -2,7 +2,7 @@ package jss.advancedchat.hooks;
 
 import org.bukkit.Bukkit;
 
-import jss.advancedchat.interfaces.IHook;
+import jss.advancedchat.common.interfaces.IHook;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;

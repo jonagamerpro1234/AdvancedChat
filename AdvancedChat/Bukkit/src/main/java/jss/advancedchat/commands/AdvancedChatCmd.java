@@ -12,13 +12,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.common.update.UpdateSettings;
 import jss.advancedchat.inventory.GuiChannel;
 import jss.advancedchat.inventory.GuiColor;
 import jss.advancedchat.inventory.GuiPlayer;
 import jss.advancedchat.inventory.GuiTest;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQL;
-import jss.advancedchat.update.UpdateSettings;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;

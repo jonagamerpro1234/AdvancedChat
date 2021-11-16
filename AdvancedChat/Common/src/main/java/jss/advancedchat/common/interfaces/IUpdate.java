@@ -1,4 +1,4 @@
-package jss.advancedchat.interfaces;
+package jss.advancedchat.common.interfaces;
 
 import java.util.function.Consumer;
 

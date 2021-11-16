@@ -1,10 +1,10 @@
-package com.iridium.iridiumcolorapi.patterns;
-
-import com.iridium.iridiumcolorapi.IridiumColorAPI;
+package jss.advancedchat.common.patterns;
 
 import java.awt.Color;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import jss.advancedchat.common.utils.IridiumColorAPI;
 
 public class GradientPattern implements IPattern {
 

@@ -23,4 +23,5 @@
 		</dependency>
   </dependencies>
   
+  <name>AdvancedChat Api</name>
 </project>

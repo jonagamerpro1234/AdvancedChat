@@ -1,4 +1,4 @@
-package com.iridium.iridiumcolorapi;
+package jss.advancedchat.common.utils;
 
 import java.awt.Color;
 import java.util.Arrays;
@@ -10,15 +10,15 @@ import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 
 import com.google.common.collect.ImmutableMap;
-import com.iridium.iridiumcolorapi.patterns.GradientPattern;
-import com.iridium.iridiumcolorapi.patterns.IPattern;
-import com.iridium.iridiumcolorapi.patterns.RainbowPattern;
-import com.iridium.iridiumcolorapi.patterns.SolidPattern;
 
-import jss.advancedchat.patterns.GradientPattern2;
-import jss.advancedchat.patterns.PadPattern;
-import jss.advancedchat.patterns.PadPattern2;
-import jss.advancedchat.patterns.RainbowPattern2;
+import jss.advancedchat.common.patterns.GradientPattern;
+import jss.advancedchat.common.patterns.GradientPattern2;
+import jss.advancedchat.common.patterns.IPattern;
+import jss.advancedchat.common.patterns.PadPattern;
+import jss.advancedchat.common.patterns.PadPattern2;
+import jss.advancedchat.common.patterns.RainbowPattern;
+import jss.advancedchat.common.patterns.RainbowPattern2;
+import jss.advancedchat.common.patterns.SolidPattern;
 import net.md_5.bungee.api.ChatColor;
 
 public class IridiumColorAPI {

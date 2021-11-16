@@ -1,14 +1,13 @@
-package jss.advancedchat.patterns;
-
-import com.iridium.iridiumcolorapi.IridiumColorAPI;
-import com.iridium.iridiumcolorapi.patterns.IPattern;
+package jss.advancedchat.common.patterns;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PadPattern2 implements IPattern {
+import jss.advancedchat.common.utils.IridiumColorAPI;
 
-    Pattern pattern = Pattern.compile("#([0-9A-Fa-f]{6})");
+public class SolidPattern implements IPattern {
+
+    Pattern pattern = Pattern.compile("<#([0-9A-Fa-f]{6})>");
 
     public String process(String string) {
         Matcher matcher = pattern.matcher(string);

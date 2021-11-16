@@ -10,7 +10,7 @@
   <dependencies>		
 		<dependency>
 			<groupId>jss.advancedchat</groupId>
-			<artifactId>advancedchat-shade</artifactId>
+			<artifactId>advancedchat-common</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>net.md-5</groupId>
@@ -34,4 +34,5 @@
 		</repository>
 	</repositories>
   
+  	<name>AdvancedChat Bungee</name>
 </project>

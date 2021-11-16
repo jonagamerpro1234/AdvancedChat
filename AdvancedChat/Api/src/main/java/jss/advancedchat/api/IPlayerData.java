@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
  * @author jonagamerpro1234
  * @version 1.0 
  */
-public interface IPlayerData {
+public interface IPlayerData {	
 	
 	/**
 	 * 

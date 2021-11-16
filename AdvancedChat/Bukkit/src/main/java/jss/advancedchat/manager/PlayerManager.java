@@ -192,7 +192,8 @@ public class PlayerManager implements IPlayerData {
     public void create(Player player) {
     	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
     	if(!this.exists(player)) {
-    		this.setUUID(player);
+    		//this.setUUID(player);
+    		config.set(player.getName() + ".Color", Settings.default_color);
             config.set(player.getName() + ".Color", Settings.default_color);
             config.set(player.getName() + ".Gradient.Color-1", "FFFFFF");
             config.set(player.getName() + ".Gradient.Color-2", "FFFFFF");
