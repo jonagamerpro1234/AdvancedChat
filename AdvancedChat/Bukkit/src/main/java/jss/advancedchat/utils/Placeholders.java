@@ -18,15 +18,17 @@ public class Placeholders {
 	}
 
 	public String placeholders(Player player, String str) {
-		PlayerManager m = new PlayerManager(plugin);
 		str = str.replace("<range>", getRange());
 		str = str.replace("<name>", player.getName());
 		str = str.replace("<displayname>", player.getDisplayName());
-		str = str.replace("<channel>", m.getChannel(player));
+		str = str.replace("<channel>", PlayerManager.getChannel(player));
 		//str = str.replace("<mute_state>", m.getStateMute(player));
 		str = Utils.getOnlinePlayers(str);
 		return str;
 	}
 
+	public AdvancedChat getPlugin() {
+		return plugin;
+	}
 	
 }

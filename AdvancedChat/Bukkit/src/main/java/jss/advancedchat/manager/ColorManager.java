@@ -4,7 +4,6 @@ import java.util.Random;
 
 import org.bukkit.entity.Player;
 
-import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Utils;
 
 public class ColorManager {
@@ -98,8 +97,7 @@ public class ColorManager {
     }
     
     public String setGradient(Player player, String text){
-    	PlayerManager manager = new PlayerManager(AdvancedChat.getInstance());
-    	return Utils.color("<GRADIENT:" + manager.getFirstGradient(player) + ">" + text + "</GRADIENT:" + manager.getSecondGradient(player) + ">");
+    	return Utils.color("<GRADIENT:" + PlayerManager.getFirstGradient(player) + ">" + text + "</GRADIENT:" + PlayerManager.getSecondGradient(player) + ">");
     }
     
     public String setColorRandom() {

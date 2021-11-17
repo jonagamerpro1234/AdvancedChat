@@ -76,16 +76,14 @@ public class PlaceholderApiHook implements IHook{
 			return plugin.version;
 		}
 		
-		public String onPlaceholderRequest(Player player, String args) {
-			PlayerManager manager = new PlayerManager(plugin);
-			
+		public String onPlaceholderRequest(Player player, String args) {	
 			if(args.equals("mute_state")) {
 				if(Settings.mysql_use) {
 					if(MySQL.isMute(plugin, player.getUniqueId().toString())) {
 						return "true";
 					}
 				}else {
-					if(manager.isMute(player)){
+					if(PlayerManager.isMute(player)){
 						return "true 	";
 					}
 				}

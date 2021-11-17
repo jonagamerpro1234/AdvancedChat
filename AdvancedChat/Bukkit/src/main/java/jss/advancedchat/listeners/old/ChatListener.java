@@ -28,7 +28,6 @@ public class ChatListener {
 	// @EventHandler(priority = EventPriority.HIGH)
 	public void onChat(AsyncPlayerChatEvent e) {
 		
-		PlayerManager manager = new PlayerManager(plugin);
 		FileConfiguration config = plugin.getConfigFile().getConfig();
 		Player j = e.getPlayer();
 
@@ -46,7 +45,7 @@ public class ChatListener {
 				String hovermode = config.getString("Custom-Format.HoverEvent.Mode");
 				String clickaction = config.getString("Custom-Format.ClickEvent.Action");
 				String clickmode = config.getString("Custom-Format.ClickEvent.Mode");
-				String colorbeta = " &r" + colorManager.convertColor(j, manager.getColor(j), e.getMessage());
+				String colorbeta = " &r" + colorManager.convertColor(j, PlayerManager.getColor(j), e.getMessage());
 
 				List<String> hovertext = config.getStringList("Custom-Format.HoverEvent.Text");
 
@@ -70,7 +69,7 @@ public class ChatListener {
 						json.setHover(hovertext).sendDoubleToAll();
 					} else {
 						if (Settings.mysql_use) {
-							if (MySQL.isMute(plugin, j.getUniqueId().toString()) || manager.isMute(j) == true
+							if (MySQL.isMute(plugin, j.getUniqueId().toString()) || PlayerManager.isMute(j) == true
 									|| Settings.boolean_filter_use_msg) {
 								return;
 							} else {
@@ -78,7 +77,7 @@ public class ChatListener {
 								json.setHover(hovertext).sendDoubleToAll();
 							}
 						} else {
-							if (manager.isMute(j) == true || this.badword) {
+							if (PlayerManager.isMute(j) == true || this.badword) {
 								this.badword = false;
 								return;
 							} else {
@@ -94,7 +93,7 @@ public class ChatListener {
 					if ((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Bypass"))) {
 						Utils.sendAllPlayerBaseComponent(tc);
 					} else {
-						if (MySQL.isMute(plugin, j.getUniqueId().toString()) || manager.isMute(j) == true) {
+						if (MySQL.isMute(plugin, j.getUniqueId().toString()) || PlayerManager.isMute(j) == true) {
 							return;
 						} else {
 							Utils.sendAllPlayerBaseComponent(tc);
@@ -107,7 +106,7 @@ public class ChatListener {
 							clickaction);
 					tc.setClickEvent(click);
 					e.setCancelled(true);
-					if (MySQL.isMute(plugin, j.getUniqueId().toString()) || manager.isMute(j) == true) {
+					if (MySQL.isMute(plugin, j.getUniqueId().toString()) || PlayerManager.isMute(j) == true) {
 						return;
 					} else {
 						Utils.sendAllPlayerBaseComponent(tc);
@@ -123,7 +122,7 @@ public class ChatListener {
 					tc.setClickEvent(click);
 					tc.setText(format);
 					e.setCancelled(true);
-					if (MySQL.isMute(plugin, j.getUniqueId().toString()) || manager.isMute(j) == true) {
+					if (MySQL.isMute(plugin, j.getUniqueId().toString()) || PlayerManager.isMute(j) == true) {
 						return;
 					} else {
 						Utils.sendAllPlayerBaseComponent(tc);
@@ -152,7 +151,7 @@ public class ChatListener {
 						if (j.hasPermission(perm)) {
 							e.setFormat(format.replace("<name>", j.getName()).replace("<msg>", e.getMessage()));
 							String msg = e.getMessage();
-							e.setMessage(Utils.color(" &r" + colorManager.convertColor(j, manager.getColor(j), e.getMessage())));
+							e.setMessage(Utils.color(" &r" + colorManager.convertColor(j, PlayerManager.getColor(j), e.getMessage())));
 						}
 					} else if (config.getString(pathtype).equals("hover")) {
 						if (j.hasPermission(perm)) {
@@ -164,7 +163,7 @@ public class ChatListener {
 						tc.setHoverEvent(hover);
 						tc.setText(format);
 						e.setCancelled(true);
-						if (MySQL.isMute(plugin, j.getUniqueId().toString()) || manager.isMute(j) == true) {
+						if (MySQL.isMute(plugin, j.getUniqueId().toString()) || PlayerManager.isMute(j) == true) {
 							return;
 						} else {
 							Utils.sendAllPlayerBaseComponent(tc);
@@ -177,7 +176,7 @@ public class ChatListener {
 						tc.setClickEvent(click);
 						tc.setText(format);
 						e.setCancelled(true);
-						if (MySQL.isMute(plugin, j.getUniqueId().toString()) || manager.isMute(j) == true) {
+						if (MySQL.isMute(plugin, j.getUniqueId().toString()) || PlayerManager.isMute(j) == true) {
 							return;
 						} else {
 							Utils.sendAllPlayerBaseComponent(tc);
@@ -194,7 +193,7 @@ public class ChatListener {
 						tc.setClickEvent(click);
 						tc.setText(format);
 						e.setCancelled(true);
-						if (MySQL.isMute(plugin, j.getUniqueId().toString()) || manager.isMute(j) == true) {
+						if (MySQL.isMute(plugin, j.getUniqueId().toString()) || PlayerManager.isMute(j) == true) {
 							return;
 						} else {
 							Utils.sendAllPlayerBaseComponent(tc);

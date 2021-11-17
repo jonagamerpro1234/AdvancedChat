@@ -86,9 +86,8 @@ public class GuiPlayer {
     }
 
     public ItemStack getMuteItem(Player player) {
-        PlayerManager manager = new PlayerManager(plugin);
-        if (manager.exists(player)) {
-            if (manager.isMute(player)) {
+        if (PlayerManager.existsPlayer(player)) {
+            if (PlayerManager.isMute(player)) {
             	return item = XMaterial.GREEN_DYE.parseItem();
             } else {
             	return item = XMaterial.GRAY_DYE.parseItem();
