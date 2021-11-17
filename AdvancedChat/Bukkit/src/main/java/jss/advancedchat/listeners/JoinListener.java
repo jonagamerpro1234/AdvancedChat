@@ -39,7 +39,6 @@ public class JoinListener implements Listener {
         CommandLogFile commandLogFile = plugin.getCommandLogFile();
         FileConfiguration command = commandLogFile.getConfig();
         
-        PlayerManager manager = new PlayerManager(plugin);
         Player j = e.getPlayer();
         
         if (Settings.mysql_use) {
@@ -48,7 +47,7 @@ public class JoinListener implements Listener {
         	}
         }
         
-        manager.create(j);
+        PlayerManager.create(j);
         
         if (!chat.contains("Players." + j.getName())) {
             chat.set("Players." + j.getName() + ".UUID", j.getUniqueId().toString());

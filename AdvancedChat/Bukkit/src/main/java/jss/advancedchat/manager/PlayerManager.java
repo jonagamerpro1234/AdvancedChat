@@ -7,21 +7,17 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.api.IPlayerData;
+import jss.advancedchat.config.PlayerDataFile;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 
-public class PlayerManager implements IPlayerData {
+public class PlayerManager  {
 
-    private AdvancedChat plugin;
+	private final static PlayerDataFile playerDataFile = AdvancedChat.getInstance().getPlayerDataFile();
+	private final static FileConfiguration config = playerDataFile.getConfig();
     
-    public PlayerManager(AdvancedChat plugin) {
-        this.plugin = plugin;
-    }
-    
-    
-    public boolean isMute(Player player) {
-    	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+    public static boolean isMute(Player player) {
+    	
     	Set<String> sections = config.getKeys(false);
     	Iterator<String> section = sections.iterator();
     	while(true) {
@@ -35,17 +31,13 @@ public class PlayerManager implements IPlayerData {
     	}
     }
 
-    public void setMute(Player player, boolean value) {
-        FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+    public static void setMute(Player player, boolean value) {        
         if (config.contains(player.getName() + ".Mute")) {
             config.set(player.getName() + ".Mute", value);
-            plugin.getPlayerDataFile().saveConfig();
         }
     }
     
-    public String getColor(Player player) {
-        FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-        
+    public static String getColor(Player player) {
         Set<String> sections = config.getKeys(false);
         Iterator<String> section = sections.iterator();
         
@@ -59,17 +51,14 @@ public class PlayerManager implements IPlayerData {
         }
     }
 
-    public void setColor(Player player, String color) {
-        FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+    public static void setColor(Player player, String color) {
         if (config.contains(player.getName() + ".Color")) {
             config.set(player.getName() + ".Color", color);
-            plugin.getPlayerDataFile().saveConfig();
+            save();
         }
     }
     
-    public String getChannel(Player player) {
-    	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-    	
+    public static String getChannel(Player player) {
         Set<String> sections = config.getKeys(false);
         Iterator<String> section = sections.iterator();
         
@@ -84,17 +73,14 @@ public class PlayerManager implements IPlayerData {
 		}
 	}
     
-    public void setChannel(Player player, int range) {
-    	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+    public static void setChannel(Player player, int range) {
         if (config.contains(player.getName() + ".Chat.Channel")) {
             config.set(player.getName() + ".Chat.Channel", range);
-            plugin.getPlayerDataFile().saveConfig();
+            save();
         }
     }
     
-    public String getRange(Player player) {
-    	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-    	
+    public static String getRange(Player player) {
         Set<String> sections = config.getKeys(false);
         Iterator<String> section = sections.iterator();
         
@@ -109,63 +95,55 @@ public class PlayerManager implements IPlayerData {
 		}
     }
     
-    public void setRange(Player player, int range) {
-    	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+    public static void setRange(Player player, int range) {
         if (config.contains(player.getName() + ".Chat.Range")) {
             config.set(player.getName() + ".Chat.Range", range);
-            plugin.getPlayerDataFile().saveConfig();
+            save();
         }
     }
     
-    public void setUUID(Player player) {
-    	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+    public static void setUUID(Player player) {
         if (config.contains(player.getName() + ".UUID")) {
             config.set(player.getName() + ".UUID", player.getUniqueId().toString());
-            plugin.getPlayerDataFile().saveConfig();
+            save();
         }
     }
     
-    public void setFirstGradient(Player player, String hex) {
-    	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
+    public static void setFirstGradient(Player player, String hex) {
         if (config.contains(player.getName() + ".Gradient")) {
-            config.set(player.getName() + ".Gradient.Color-1", hex);
-            plugin.getPlayerDataFile().saveConfig();
+            config.set(player.getName() + ".FirstGradient", hex);
+            save();
         }
     }
     
-    public void setSecondGradient(Player player, String hex) {
-    	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
+    public static void setSecondGradient(Player player, String hex) {
         if (config.contains(player.getName() + ".Gradient")) {
-            config.set(player.getName() + ".Gradient.Color-2", hex);
-            plugin.getPlayerDataFile().saveConfig();
+            config.set(player.getName() + ".SecondGradient", hex);
+            save();
         }
     }
     
-    public String getFirstGradient(Player player) {
-    	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
-    	
+    public static String getFirstGradient(Player player) {
     	Set<String> sections = config.getKeys(false);
     	Iterator<String> section = sections.iterator();
     	
     	while(true) {
     		while(section.hasNext()) {
     			String key = (String) section.next();
-    			if(this.exists(player)) {
-    				return config.getString(key + ".Gradient.Color-1");
+    			if(existsPlayer(player)) {
+    				return config.getString(key + ".FirstGradient");
     			}
     		}	
     	}
     }
-    public String getUUID(Player player) {
-    	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
-    	
+    public static String getUUID(Player player) {  	
     	Set<String> sections = config.getKeys(false);
     	Iterator<String> section = sections.iterator();
     	
     	while(true) {
     		while(section.hasNext()) {
     			String key = (String) section.next();
-    			if(this.exists(player)) {
+    			if(existsPlayer(player)) {
     				return config.getString(key + ".UUID");
     			}
     		}	
@@ -173,46 +151,41 @@ public class PlayerManager implements IPlayerData {
     }
     
     
-    public String getSecondGradient(Player player) {
-    	FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
-    	
+    public static String getSecondGradient(Player player) {
     	Set<String> sections = config.getKeys(false);
     	Iterator<String> section = sections.iterator();
     	
     	while(true) {
     		while(section.hasNext()) {
     			String key = (String) section.next();
-    			if(this.exists(player)) {
-    				return config.getString(key + ".Gradient.Color-2");
+    			if(existsPlayer(player)) {
+    				return config.getString(key + ".SecondGradient");
     			}
     		}	
     	}
     }
         
-    public void create(Player player) {
-    	FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-    	if(!this.exists(player)) {
-    		//this.setUUID(player);
-    		config.set(player.getName() + ".Color", Settings.default_color);
+    public static void create(Player player) {
+    	if(!existsPlayer(player)) {
+    		config.set(player.getName() + ".UUID", player.getUniqueId().toString());
             config.set(player.getName() + ".Color", Settings.default_color);
-            config.set(player.getName() + ".Gradient.Color-1", "FFFFFF");
-            config.set(player.getName() + ".Gradient.Color-2", "FFFFFF");
+            config.set(player.getName() + ".FirstGradient", "FFFFFF");
+            config.set(player.getName() + ".SecondGradient", "FFFFFF");
             config.set(player.getName() + ".Mute", false);
             config.set(player.getName() + ".Chat.Channel", "ALL");
             config.set(player.getName() + ".Chat.Range", 10);
-            plugin.getPlayerDataFile().saveConfig();
-            if(plugin.isDebug()) {
+            save();
+            if(AdvancedChat.getInstance().isDebug()) {
             	Logger.debug("&9folder &7-> &e[Data] &7-> &efile &b[player.data] &7-> &aAdded " + player.getName());
             }
     	}else {
-    		if(plugin.isDebug()) {
-    			Logger.debug("&9folder &7-> &e[Data] &7-> &efile &b[player.data] &7-> &eIt already exists " + player.getName());
+    		if(AdvancedChat.getInstance().isDebug()) {
+    			Logger.debug("&9folder &7-> &e[Data] &7-> &efile &b[player.data] &7-> &eIt already existsPlayer " + player.getName());
     		}
     	}
     }
     
-    public boolean exists(Player player) {
-		FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+    public static boolean existsPlayer(Player player) {
 		Set<String> sections = config.getKeys(false);
 		Iterator<String> section = sections.iterator();
 		while (true) {
@@ -228,20 +201,19 @@ public class PlayerManager implements IPlayerData {
 		}
     }
 
-    public boolean removePlayerlist(Player player) {
-        FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+    public static boolean removePlayerlist(Player player) {
         for (String key : config.getConfigurationSection("Players").getKeys(false)) {
             if (key.contains(player.getName())) {
-                config.set("Players." + key, null);
-                plugin.getPlayerDataFile().saveConfig();
+                config.set(key, null);
+                save();
                 return true;
             }
         }
         return false;
     }
     
-    public void save() {
-    	plugin.getPlayerDataFile().saveConfig();
+    private static void save() {
+    	playerDataFile.saveConfig();
     }
 
 }

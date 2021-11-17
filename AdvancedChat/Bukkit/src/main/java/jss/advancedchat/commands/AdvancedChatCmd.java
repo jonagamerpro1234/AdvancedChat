@@ -36,7 +36,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		FileConfiguration config = plugin.getConfigFile().getConfig();;
-		PlayerManager manager = new PlayerManager(plugin);
 		
 		if (!(sender instanceof Player)) {
 			if (args.length >= 1) {
@@ -134,7 +133,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 									if (Settings.mysql_use) {
 										MySQL.setColor(plugin, p.getUniqueId().toString(), color);
 									} else {
-										manager.setColor(p, color);
+										PlayerManager.setColor(p, color);
 									}
 									return true;
 								}

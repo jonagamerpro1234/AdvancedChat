@@ -160,7 +160,6 @@ public class ChatListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void chatFormat(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfigFile().getConfig();
-		PlayerManager manager = new PlayerManager(plugin);
 		GroupManager groupManager = new GroupManager(plugin);
 		VaultHook vaultHook = HookManager.getInstance().getVaultHook();
 		DiscordSRVHook discordSRVHook = HookManager.getInstance().getDiscordSRVHook();
@@ -175,7 +174,7 @@ public class ChatListener implements Listener {
 		boolean isGroup = path.equalsIgnoreCase("group");
 		
 		String format = config.getString("ChatFormat.Format");
-		String message = " &r" + colorManager.convertColor(j, manager.getColor(j), e.getMessage());
+		String message = " &r" + colorManager.convertColor(j, PlayerManager.getColor(j), e.getMessage());
 		
 		format = Utils.getVar(j, format);
 		message = Utils.getVar(j, message);

@@ -24,7 +24,6 @@ public class MuteCmd implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         FileConfiguration config = plugin.getConfigFile().getConfig();
-        PlayerManager manager = new PlayerManager(plugin);
         
         String text = config.getString("AdvancedChat.Help-Mute");
         String prefix = "";
@@ -54,7 +53,7 @@ public class MuteCmd implements CommandExecutor {
                     if(Settings.mysql_use) {
                     	MySQL.setMute(plugin, target.getUniqueId().toString(), true);
                     } else {
-                    	manager.setMute(target, true);
+                    	PlayerManager.setMute(target, true);
                     }
                 }
                 
@@ -82,7 +81,7 @@ public class MuteCmd implements CommandExecutor {
                     if(Settings.mysql_use) {
                     	MySQL.setMute(plugin, target.getUniqueId().toString(), true);
                     } else {
-                    	manager.setMute(target, true);
+                    	PlayerManager.setMute(target, true);
                     }
                 }
                 

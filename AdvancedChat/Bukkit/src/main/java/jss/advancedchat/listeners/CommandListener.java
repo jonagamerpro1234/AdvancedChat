@@ -25,7 +25,6 @@ public class CommandListener implements Listener {
     @EventHandler
     public void onCommandChat(PlayerCommandPreprocessEvent e) {
         FileConfiguration config = plugin.getConfigFile().getConfig();
-        PlayerManager manager = new PlayerManager(plugin);
         Player j = e.getPlayer();
         List<String> list = config.getStringList("Command-Blocker.BlackList");
         String message = e.getMessage();
@@ -45,7 +44,7 @@ public class CommandListener implements Listener {
                 }
             }
         }
-        if (manager.isMute(j)) {
+        if (PlayerManager.isMute(j)) {
             for (String a : mutelist) {
                 if (message.toLowerCase().contains(a)) {
                     e.setCancelled(true);

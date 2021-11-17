@@ -24,8 +24,7 @@ public class UnMuteCmd implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         FileConfiguration config = plugin.getConfigFile().getConfig();
-        PlayerManager manager = new PlayerManager(plugin);
-        
+
         String text = Settings.message_Help_UnMute;
         String prefix = "";
         String prefixserver = "";
@@ -48,7 +47,7 @@ public class UnMuteCmd implements CommandExecutor {
                 if(Settings.mysql_use) {
                 	MySQL.setMute(plugin, p.getUniqueId().toString(), false);
                 } else {
-                	manager.setMute(p, false);
+                	PlayerManager.setMute(p, false);
                 }
                 Utils.sendColorMessage(sender, prefixserver + Utils.getVar(p, config.getString("AdvancedChat.UnMute-Player")));
                 return true;
@@ -70,7 +69,7 @@ public class UnMuteCmd implements CommandExecutor {
                 if(Settings.mysql_use) {
                 	MySQL.setMute(plugin, p.getUniqueId().toString(), false);
                 } else {
-                	manager.setMute(p, false);
+                	PlayerManager.setMute(p, false);
                 }
                 Utils.sendColorMessage(j, prefix + Utils.getVar(j, config.getString("AdvancedChat.UnMute-Player")));
                 return true;
