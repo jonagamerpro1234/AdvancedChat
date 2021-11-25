@@ -3,7 +3,7 @@
   <parent>
     <groupId>jss.advancedchat</groupId>
     <artifactId>advancedchat-parent</artifactId>
-    <version>1.6.0-Pre</version>
+    <version>1.7.0</version>
   </parent>
   <artifactId>advancedchat-common</artifactId>
   
