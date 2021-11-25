@@ -11,7 +11,7 @@ public interface IPlayerData {
 	/**
 	 * 
 	 * @param player
-	 * @return
+	 * @return uuid
 	 */
 	String getUUID(Player player);
 	

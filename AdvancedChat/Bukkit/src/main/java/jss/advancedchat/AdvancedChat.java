@@ -35,6 +35,7 @@ import jss.advancedchat.listeners.InventoryListener;
 import jss.advancedchat.listeners.JoinListener;
 import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.manager.HookManager;
+import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQLConnection;
 import jss.advancedchat.utils.AdvancedChatPlugin;
 import jss.advancedchat.utils.EventUtils;
@@ -91,8 +92,11 @@ public class AdvancedChat extends AdvancedChatPlugin {
 			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
 		}
 		instance = this;
+		
 		checkBungeeMode();
+		
 		//commandFile.create();
+		
 		playerdata.create();
 		inventoryDataFile.create();
 		chatLogFile.create();
@@ -102,7 +106,9 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		playerGuiFile.create();
 		chatDataFile.create();
 		channelGuiFile.create();
+		
 		HookManager.loadProtocol();
+		
 		if (Settings.boolean_protocollib) {
 			if (HookManager.isLoadProtocolLib()) {
 				HookManager.InitPacketListening();
@@ -110,9 +116,12 @@ public class AdvancedChat extends AdvancedChatPlugin {
 				Logger.warning(getConfigFile().getConfig().getString("AdvancedChat.Depend-Plugin") + " " + "&e[&bProtocolLib&e]");
 			}
 		}
-		metrics = new Metrics(this, 8826);
+		
+		//
+		
 		this.inventoryView = new ArrayList<>();
 		this.chatManagers = new ArrayList<>();
+		
 		loadCommands();
 		loadEvents();
 
@@ -196,6 +205,14 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		this.getInventoryDataFile().reloadConfig();
 		this.getGroupFile().reloadConfig();
 		this.getBadWordFile().reloadConfig();
+	}
+	
+	public void getMetric() {
+		metrics = new Metrics(this, 8826);
+		metrics.addCustomChart(new Metrics.SimplePie("colors_used_by_player", () -> {
+			Player p = (Player) Bukkit.getOnlinePlayers();
+			return PlayerManager.getColor(p);
+		}));
 	}
 	
 	private void checkBungeeMode() {
