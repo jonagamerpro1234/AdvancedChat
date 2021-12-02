@@ -16,7 +16,7 @@
 Settings:
   
   # |Config-Version| I would not change anything
-  Config-Version: 1
+  Config-Version: 2
   
   # |Debug| This option should only be used if there is a problem with certain functions of the plugin, debug messages will be activated in the console
   Debug: true
@@ -74,9 +74,18 @@ Hooks:
   
     # |Channel-ID| Here is the id of the channel that is used for the chat
     Channel-ID: 'none'
+    
+  # |EssentialsDiscord| Here you can define the discord channel where the messages from minecraft to discord are seen
+  # !This characteristic is in the experimental phase!    
+  EssentialsDiscord:
+    
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: true
+    
+    # |Channel-ID| Here is the id of the channel that is used for the chat
+    Channel-ID: 'none'
 #
-# | ClearChat |
-#
+# | ClearChat | 
 ClearChat:
   
   # |Broadcast| is the message that will be sent when cleaning the chat [this does not affect the command for the player only the message from the server]
@@ -95,17 +104,16 @@ ClearChat:
   LineClear: 100
 #
 # | ChatFormat |
-# | 
 ChatFormat:
 
   # |Enabled| Here you can enable or disable this feature
   Enabled: true
   
-  # |Type|
+  # |Chat-Type|
     # [default] use default chat by minecraft 
     # [normal] use the chat defined in [ChatFormat] 
     # [group] use the chat defined in the group found inside the [groups.yml] file
-  Type: normal
+  Chat-Type: normal
   
   # |Format| Here you define the chat format for all players.
   Format: '&b<name> &8>'
@@ -145,7 +153,6 @@ ChatFormat:
   
   # |Debug-Format| It is a chat that will be activated when the configuration contains an error
   Debug-Format: '&b[&cError in Config&b] &f<&f<player>&f> &f<message>'
-  
 #
 # | MySQL|
 # |MySql is a database where you can save plugin data remotely and it can be synchronized with other servers if you are using BungeeCord
@@ -236,22 +243,14 @@ Filter-Chat:
 
    # |Enabled| Here you can enable or disable this feature
   Enabled: true
-  
-  #Removed 1.6
-  # |Use-Custom-Msg| will use a custom message found in the [Message] section instead of using [Form Of Censorship] [Default | false]
-  Use-Custom-Msg: false
 
   # |Message| here you can define a personalized message that will be sent to the player
   Message: '&eyou cannot use this word, it is blocked!'
 
-  #Removed 1.6
-  # |Form-Of-Censorship| this is the format that the word will be censored, for example [noob = ****] this will depend on the number of characters that the word has
-  Form-Of-Censorship: '*'
-
   # ![Disabled]! |Delay| It is the waiting time that the message will have before it is sent so that spam does not form in the player's chat [Defalt | 100 ]
   Delay: 5 #[Not Implement]
   
-  #Changed 1.6
+  #Changed 1.7
   # |BadWords| The format is very simple, you just have to add the word you want to censor to the list
   BadWords:
     - 'noob'

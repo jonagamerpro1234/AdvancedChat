@@ -183,7 +183,17 @@ public class ChatListener implements Listener {
 			format = Utils.color(format);
 			message = Utils.color(message);
 		}
-
+		
+		if(PlayerManager.isMute(j) || this.badword) {
+			this.badword = false;
+			return;
+		}
+		
+		if(this.ismention) {
+			this.ismention = false;
+			return;
+		}
+		
 		if(isDefault) {
 			return;
 		} else if(isNormal) {
@@ -290,11 +300,7 @@ public class ChatListener implements Listener {
 		} else {
 			e.setFormat("<" + j.getName() + ">" + " " + e.getMessage());
 			Logger.error("");
-		}
-		
-		
-		//Logger.info(json.getText() + json.getText());
-		
+		}		
 	}
 	
 	@EventHandler 
