@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
@@ -23,23 +22,17 @@ public class UnMuteCmd implements CommandExecutor {
     }
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        FileConfiguration config = plugin.getConfigFile().getConfig();
-
-        String text = Settings.message_Help_UnMute;
         String prefix = "";
         String prefixserver = "";
-
-        if (config.getString("Settings.Use-Default-Prefix").equals("false")) {
-            prefixserver = config.getString("Settings.Prefix");
-        } else if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
-            prefixserver = Utils.getPrefixPlayer();
+        
+        if(Settings.boolean_use_default_prefix) {
+        	prefix = Utils.getPrefixPlayer();
+        	prefixserver = Utils.getPrefix();
+        }else {
+        	prefixserver = Settings.message_prefix_custom;
+        	prefix = Settings.message_prefix_custom;
         }
-
-        if (config.getString("Settings.Use-Default-Prefix").equals("false")) {
-            prefix = config.getString("Settings.Prefix");
-        } else if (config.getString("Settings.Use-Default-Prefix").equals("true")) {
-            prefix = Utils.getPrefixPlayer();
-        }
+        
 
         if (!(sender instanceof Player)) {
             if (args.length >= 1) {
@@ -49,16 +42,15 @@ public class UnMuteCmd implements CommandExecutor {
                 } else {
                 	PlayerManager.setMute(p, false);
                 }
-                Utils.sendColorMessage(sender, prefixserver + Utils.getVar(p, config.getString("AdvancedChat.UnMute-Player")));
+                Utils.sendColorMessage(sender, prefixserver + " " + Utils.getVar(p, Settings.message_UnMute_Player));
                 return true;
             }
-            Utils.sendColorMessage(sender, Utils.getPrefix() + " " + text);
+            Utils.sendColorMessage(sender, Utils.getPrefix() + Settings.message_Help_UnMute);
             return false;
         }
         Player j = (Player) sender;
         if (j.isOp() || j.hasPermission("AdvancedChat.UnMute")) {
             if (args.length >= 1) {
-                text = Utils.getVar(j, text);
                 Player p = Bukkit.getPlayer(args[0]);
                 
                 if(p == null) {
@@ -71,7 +63,7 @@ public class UnMuteCmd implements CommandExecutor {
                 } else {
                 	PlayerManager.setMute(p, false);
                 }
-                Utils.sendColorMessage(j, prefix + Utils.getVar(j, config.getString("AdvancedChat.UnMute-Player")));
+                Utils.sendColorMessage(j, prefix + " " + Utils.getVar(j, Settings.message_UnMute_Player));
                 return true;
             }
         } else {
@@ -79,7 +71,7 @@ public class UnMuteCmd implements CommandExecutor {
         	return true;
         }
 
-        Utils.sendColorMessage(j, Utils.getPrefix() + " " + text);
+        Utils.sendColorMessage(j, Utils.getPrefixPlayer() + Utils.getVar(j, Settings.message_Help_UnMute));
         return true;
     }
 

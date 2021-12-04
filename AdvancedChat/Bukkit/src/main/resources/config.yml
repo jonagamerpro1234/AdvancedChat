@@ -151,6 +151,15 @@ ChatFormat:
       Suggest-Command: '/msg <name>'  
 
   
+  # ||
+  Private-Message:
+    
+    # || 
+    Send-Format: ''
+    
+    # ||
+    Receive-Format: ''
+  
   # |Debug-Format| It is a chat that will be activated when the configuration contains an error
   Debug-Format: '&b[&cError in Config&b] &f<&f<player>&f> &f<message>'
 #
@@ -217,22 +226,23 @@ Command-Blocker:
       - '/msg'
 #
 # |TabComplete|
-#
 TabComplete:
   
    # |Enabled| Here you can enable or disable this feature
   Enabled: false
-
+  
+  # |Disable-TabComplete| 
+  Disable-TabComplete: true
+  
+  # |Allow-Space|
   Allow-Space: false
-
+  
+  # |WhiteList|
   WhiteList:
     - 'Msg'
     - 'Me'
     - 'Say'
-    
-ProtocolLib-Packet:
-  Enabled: true
-  Disable-TabCompleted: true 
+    - 'List'
 #
 # |Filter Chat|
 # |here you can filter the unwanted words on your server and have a little more control over the chat
@@ -265,10 +275,10 @@ Mention:
   Enabled: true
   
   # |Send-Format|
-  Send-Format: ''
+  Send-Format: '&b[&aS&b]&8: &e<name> &9-> &e[&d<name>&e]'
   
   # |Receive-Format|
-  Receive-Format: ''
+  Receive-Format: '&b[&eR&b]&8: &e[&a<name>&e] &9-> &d<name>'
   
   # |Title|
   Title:

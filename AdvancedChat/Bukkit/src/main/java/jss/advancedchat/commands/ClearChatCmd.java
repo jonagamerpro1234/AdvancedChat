@@ -7,7 +7,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.ConfigFile;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
@@ -23,14 +22,15 @@ public class ClearChatCmd implements CommandExecutor {
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        ConfigFile configFile = plugin.getConfigFile();
-        FileConfiguration config = configFile.getConfig();
+        FileConfiguration config = plugin.getConfigFile().getConfig();
         if (!(sender instanceof Player)) {
             eventUtils.getClearChatAction("server");
             eventUtils.getServerMessage(config);
             return false;
         }
+        
         Player j = (Player) sender;
+        
         if (j.isOp() || j.hasPermission("AdvancedChat.ClearChat")) {
         	if(Settings.boolean_clearchat_bypass) {
             	if((j.isOp()) || (j.hasPermission("AdvancedChat.ClearChat.Bypass"))) {

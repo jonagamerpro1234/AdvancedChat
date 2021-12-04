@@ -10,7 +10,7 @@ import jss.advancedchat.utils.Logger.Level;
 public class FileManager {
 
     private AdvancedChat plugin;
-    private Logger logger = new Logger(plugin);
+    private Logger logger = new Logger();
 
     public FileManager(AdvancedChat plugin) {
         this.plugin = plugin;

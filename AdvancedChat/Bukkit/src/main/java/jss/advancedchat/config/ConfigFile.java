@@ -24,7 +24,7 @@ public class ConfigFile extends FileManager implements IFileHelper, IFileLoader 
     private File file;
     private FileConfiguration config;
     private String path;
-    private Logger logger = new Logger(plugin);
+    private Logger logger = new Logger();
 
     public ConfigFile(AdvancedChat plugin, String path) {
         super(plugin);

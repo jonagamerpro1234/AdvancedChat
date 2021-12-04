@@ -34,7 +34,7 @@ public class VaultHook implements IHook{
 			return;
 		}
 		
-		if(Settings.hook_vault) {
+		if(!Settings.hook_vault) {
 			this.isEnabled = false;
 			Logger.warning("&eVault not enabled! - Disable Features...");
 			return;

@@ -24,7 +24,7 @@ public class PlayerGuiFile extends FileManager implements IFileHelper, IFolderHe
     private FileConfiguration config;
     private String path;
     private String folderpath;
-    private Logger logger = new Logger(plugin);
+    private Logger logger = new Logger();
 
     public PlayerGuiFile(AdvancedChat plugin, String path, String folderpath) {
         super(plugin);

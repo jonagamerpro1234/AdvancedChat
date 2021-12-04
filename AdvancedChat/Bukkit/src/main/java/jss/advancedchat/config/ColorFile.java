@@ -23,7 +23,7 @@ public class ColorFile extends FileManager implements IFileHelper, IFolderHelper
     private FileConfiguration config;
     private String path;
     private String folderpath;
-    private Logger logger = new Logger(plugin);
+    private Logger logger = new Logger();
 
     public ColorFile(AdvancedChat plugin, String path, String folderpath) {
         super(plugin);

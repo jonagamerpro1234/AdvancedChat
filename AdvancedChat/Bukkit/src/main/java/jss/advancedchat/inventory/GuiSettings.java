@@ -1,11 +1,13 @@
 package jss.advancedchat.inventory;
 
-import org.bukkit.entity.Player;
+import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.inventory.Gui;
 
-public class GuiSettings {
-
-	public void openSettings(Player player) {
-		
-	}
+public class GuiSettings extends Gui{
 	
+	
+	public GuiSettings() {
+		super(54, Utils.color("&"));
+	}
+
 }

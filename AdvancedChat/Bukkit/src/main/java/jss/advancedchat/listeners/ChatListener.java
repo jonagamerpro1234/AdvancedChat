@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
+import org.bukkit.SoundCategory;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -57,69 +58,6 @@ public class ChatListener implements Listener {
 	public ChatListener(AdvancedChat plugin) {
 		this.plugin = plugin;
 	}
-
-	//Chat filter
-	//@EventHandler(priority = EventPriority.HIGH)
-	public void chatFilter(AsyncPlayerChatEvent e) {
-		Player j = e.getPlayer();
-		FileConfiguration config = plugin.getConfigFile().getConfig();
-
-		String path = "Filter-Chat.Enabled";
-		List<String> list = config.getStringList("Filter-Chat.BadWords");
-		String censorship = config.getString("Filter-Chat.Form-Of-Censorship");
-		String msg = config.getString("Filter-Chat.Message");
-		String message = e.getMessage().toLowerCase();
-		String formatprefix = "";
-		String formatmessage = "";
-		List<String> hover = new ArrayList<String>();
-
-		Set<String> key = config.getConfigurationSection("ChatFormat.Groups").getKeys(false);
-		if (config.getConfigurationSection("ChatFormat.Groups." + key) != null) {
-			formatprefix = config.getString("ChatFormat.Groups." + key + ".Format.Prefix");
-			formatmessage = config.getString("ChatFormat.Groups." + key + ".Format.Message");
-			if (config.getConfigurationSection("ChatFormat.Groups." + key + ".HoverEvent") != null) {
-				List<String> listh = config.getStringList("ChatFormat.Groups." + key + ".HoverEvent");
-				listh.forEach( (lines) -> {
-					hover.add(lines);
-				});
-			}
-		} else {
-			formatprefix = config.getString("ChatFormat.Default.Format.Prefix");
-			formatmessage = config.getString("ChatFormat.Default.Format.Message");
-			List<String> listh = config.getStringList("ChatFormat.Default.HoverEvent");
-			listh.forEach( (lines) -> {
-				hover.add(lines);
-			});
-		}
-
-		formatprefix = formatprefix.replace("<player>", j.getDisplayName());
-		formatmessage = formatColor(formatmessage, j);
-		
-		if (config.getString(path).equals("true")) {
-			for (int i = 0; i < list.size(); i++) {
-
-				if (Settings.boolean_filter_use_msg) {
-					if (message.contains(list.get(i))) {
-						this.badword = true;
-						Utils.sendColorMessage(j, msg);
-					}
-				} else {
-					message = message.toLowerCase();
-					if (message.contains(list.get(i))) {
-						this.badword = true;
-						String a = "";
-						for (int g = 0; g < list.size(); g++) {
-							a = a + censorship;
-						}
-						message = message.replace(list.get(i), a);
-						Json json = new Json(j, formatprefix, formatmessage.replace("<message>", message));
-						json.setHover(hover).sendDoubleToAll();
-					}
-				}
-			}
-		}
-	}
-	
 	
 	//Mute chat
 	@EventHandler(priority = EventPriority.HIGH)
@@ -129,7 +67,7 @@ public class ChatListener implements Listener {
 		Player j = e.getPlayer();
 		
 		if (Settings.mysql_use) {
-			if ((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Bypass"))) {
+			if ((j.isOp()) || (j.hasPermission("AdvancedChat.Mute.Bypass"))) {
 				return;
 			} else {
 				if (MySQL.isMute(plugin, j.getUniqueId().toString())) {
@@ -143,7 +81,7 @@ public class ChatListener implements Listener {
 			sections.forEach( key -> {
 				if (key.contains(j.getName())) {
 					String mute = config.getString(key + ".Mute");
-					if (!(j.isOp()) || !(j.hasPermission("AdvancedChat.Chat.Bypass"))) {
+					if (!(j.isOp()) || !(j.hasPermission("AdvancedChat.Mute.Bypass"))) {
 						if (mute.equals("true")) {
 							Utils.sendColorMessage(j,
 									cconfig.getString("AdvancedChat.Alert-Mute").replace("<name>", j.getName()));
@@ -167,6 +105,10 @@ public class ChatListener implements Listener {
 		
 		Player j = e.getPlayer();
 		
+		if(!PlayerManager.existsPlayer(j)) {
+			PlayerManager.create(j);
+		}
+		
 		String path = Settings.boolean_chat_type;
 		
 		boolean isDefault = path.equalsIgnoreCase("default");
@@ -174,7 +116,13 @@ public class ChatListener implements Listener {
 		boolean isGroup = path.equalsIgnoreCase("group");
 		
 		String format = config.getString("ChatFormat.Format");
-		String message = " &r" + colorManager.convertColor(j, PlayerManager.getColor(j), e.getMessage());
+		String message = "";
+		
+		if(Settings.mysql_use) {
+			message = " &r" + colorManager.convertColor(j, MySQL.getColor(plugin, j.getUniqueId().toString()), e.getMessage());
+		} else {
+			message = " &r" + colorManager.convertColor(j, PlayerManager.getColor(j), e.getMessage());
+		}
 		
 		format = Utils.getVar(j, format);
 		message = Utils.getVar(j, message);
@@ -314,8 +262,7 @@ public class ChatListener implements Listener {
 			
 			for(Player p : Bukkit.getOnlinePlayers()) {
 				
-				j.playSound(j.getLocation(), XSound.BLOCK_NOTE_BLOCK_PLING.parseSound(), 1.0f, 0.5f);
-				Utils.sendColorMessage("&dTest Mentiaon &b" + j.getName());
+				p.playSound(p.getLocation(), message, 0, 0);
 			}
 			
 		}

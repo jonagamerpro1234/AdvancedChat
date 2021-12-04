@@ -48,22 +48,22 @@
 		<dependency>
 			<groupId>jss.advancedchat</groupId>
 			<artifactId>advancedchat-bukkit</artifactId>
-			<version>1.6.0-Pre</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>jss.advancedchat</groupId>
 			<artifactId>advancedchat-bungee</artifactId>
-			<version>1.6.0-Pre</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>jss.advancedchat</groupId>
 			<artifactId>advancedchat-api</artifactId>
-			<version>1.6.0-Pre</version>
+			<version>${project.version}</version>
 		</dependency>	
 		<dependency>
 			<groupId>jss.advancedchat</groupId>
 			<artifactId>advancedchat-common</artifactId>
-			<version>1.6.0-Pre</version>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
  </dependencyManagement>

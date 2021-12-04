@@ -20,7 +20,7 @@ import jss.advancedchat.utils.file.FileManager;
 public class InventoryFile extends FileManager implements IFileHelper, IFolderHelper{
 
 	private AdvancedChat plugin;
-	private Logger logger = new Logger(plugin);
+	private Logger logger = new Logger();
 	private File file;
 	private FileConfiguration config;
 	private String path;

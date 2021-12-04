@@ -36,7 +36,7 @@ public class EventUtils {
 
    public void getServerMessage(FileConfiguration config) {
       if (Settings.boolean_use_default_prefix) {
-         Utils.sendColorMessage(Utils.getPrefixPlayer() + Settings.message_ClearChat_Server);
+         Utils.sendColorMessage(Utils.getPrefix() + Settings.message_ClearChat_Server);
       } else {
          Utils.sendColorMessage(Settings.message_prefix_custom + " " + Settings.message_ClearChat_Server);
       }

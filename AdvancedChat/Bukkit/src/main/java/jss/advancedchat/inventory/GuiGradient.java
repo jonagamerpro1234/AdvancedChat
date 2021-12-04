@@ -23,20 +23,26 @@ public class GuiGradient {
 	private AdvancedChat plugin;
 	private ItemStack item;
 	private ItemMeta meta;
+	private Inventory inv;
 	
 	public GuiGradient(AdvancedChat plugin) {
 		this.plugin = plugin;
+		this.createInventory();
 	}
+	
+	private void createInventory() {
+		FileConfiguration config = plugin.getGradientColorFile().getConfig();
+		String title = config.getString("Title");
 
-	public void open(Player player, String target) {
+		inv = Bukkit.createInventory(null, 54, Utils.color(title));
+	}
+	
+	private void addItems(Player player, String target) {
 		FileConfiguration config = plugin.getGradientColorFile().getConfig();
 		FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
-
-		String title = config.getString("Title");
+		
 		int amont = invData.getInt("Amount-Items");
 		String colorglass = invData.getString("Color-Glass.Color");
-
-		Inventory inv = Bukkit.createInventory(null, 54, Utils.color(title));
 
 		setDecoration(inv, colorglass);
 
@@ -63,11 +69,14 @@ public class GuiGradient {
 			inv.setItem(slot, item);
 			
 		});
+	}
 
+	public void open(Player player, String target) {
+		this.addItems(player, target);
 		plugin.addInventoryView(player, "gradientGui");
 		player.openInventory(inv);
 	}
-
+	
 	private List<String> coloredLore(List<String> lore) {
 		List<String> coloredlore = new ArrayList<>();
 		lore.forEach((line) -> {
