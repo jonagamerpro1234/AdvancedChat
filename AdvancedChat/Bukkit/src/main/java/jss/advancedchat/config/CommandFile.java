@@ -21,7 +21,7 @@ public class CommandFile extends FileManager implements IFileHelper{
     private File file;
     private FileConfiguration config;
     private String path;
-    private Logger logger = new Logger(plugin);
+    private Logger logger = new Logger();
 	
     public CommandFile(AdvancedChat plugin, String path) {
         super(plugin);

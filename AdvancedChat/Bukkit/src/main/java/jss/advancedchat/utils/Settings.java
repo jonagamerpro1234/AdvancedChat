@@ -4,8 +4,10 @@ import java.util.List;
 
 public class Settings {
 	
-	public static List<String> message_Help_List;
+	public static List<String> list_message_help;
 	public static List<String> list_filter_badword;
+	public static List<String> list_command_blocker_no_use;
+	public static List<String> list_command_blocker_no_use_mute;
 	
 	public static String message_prefix_custom;
 	public static String message_ClearChat_Staff;
@@ -71,20 +73,8 @@ public class Settings {
     public static boolean boolean_chatclear_autoclear;
     public static boolean boolean_filter_use_msg;
     public static boolean boolean_filter;
-    public static boolean boolean_custom_type_normal;
-    public static boolean boolean_custom_type_hover;
-    public static boolean boolean_custom_type_click;
-    public static boolean boolean_custom_type_double;
-    public static boolean boolean_custom_type_experimental;
-    public static boolean boolean_custom_type_all;
-    public static boolean boolean_group_type_normal;
-    public static boolean boolean_group_type_hover;
-    public static boolean boolean_group_type_click;
-    public static boolean boolean_group_type_double;
-    public static boolean boolean_group_type_experimental;
-    public static boolean boolean_group_type_all;
-    public static boolean boolean_chat_format_normal;
-    public static boolean boolean_chat_format_custom;
-    public static boolean boolean_chat_format_group;
+    public static boolean boolean_command_blocker;
+    public static boolean boolean_command_blocker_disable_command;
+    public static boolean boolean_command_blocker_disable_command_mute;
     
 }

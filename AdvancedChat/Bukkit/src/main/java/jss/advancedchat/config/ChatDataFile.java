@@ -24,7 +24,7 @@ public class ChatDataFile extends FileManager implements IFileHelper, IFolderHel
     private FileConfiguration config;
     private String path;
     private String folderpath;
-    private Logger logger = new Logger(plugin);
+    private Logger logger = new Logger();
 
     public ChatDataFile(AdvancedChat plugin, String path, String folderpath) {
         super(plugin);

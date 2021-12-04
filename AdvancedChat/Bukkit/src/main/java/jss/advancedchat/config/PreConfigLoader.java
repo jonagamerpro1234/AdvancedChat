@@ -32,7 +32,7 @@ public class PreConfigLoader {
             Settings.message_Help_Mute = config.getString("AdvancedChat.Help-Mute");
             Settings.message_Help_UnMute = config.getString("AdvancedChat.Help-UnMute");
             Settings.message_Help_Cmd = config.getString("AdvancedChat.Help-Cmd");
-            Settings.message_Help_List = config.getStringList("AdvancedChat.Help-Msg");
+            Settings.list_message_help = config.getStringList("AdvancedChat.Help-Msg");
             Settings.message_Mute_Player = config.getString("AdvancedChat.Mute-Player");
             Settings.message_UnMute_Player = config.getString("AdvancedChat.UnMute-Player");
             Settings.message_No_Online_Player = config.getString("AdvancedChat.No-Online-Player");
@@ -71,5 +71,9 @@ public class PreConfigLoader {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public void loadLang( ) {
+    	
     }
 }

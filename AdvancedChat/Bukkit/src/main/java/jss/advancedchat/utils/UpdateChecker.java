@@ -24,7 +24,7 @@ import jss.advancedchat.utils.Logger.Level;
 public class UpdateChecker implements IUpdate {
 
     private AdvancedChat plugin;
-    private Logger logger = new Logger(plugin);
+    private Logger logger = new Logger();
     private int ID;
 
     public UpdateChecker(AdvancedChat plugin, int ID) {

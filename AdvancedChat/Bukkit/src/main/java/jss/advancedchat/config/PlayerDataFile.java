@@ -17,8 +17,8 @@ import jss.advancedchat.utils.file.FileManager;
 public class PlayerDataFile extends FileManager implements IFileHelper, IFolderHelper {
 	
 	private AdvancedChat plugin;
-	private File file;
-	private FileConfiguration config;
+	private File file = null;
+	private FileConfiguration config = null;
 	private String path;
 	private String folderpath;
 
@@ -27,12 +27,6 @@ public class PlayerDataFile extends FileManager implements IFileHelper, IFolderH
 		this.plugin = plugin;
 		this.path = path;
 		this.folderpath = folderpath;
-		this.config = null;
-		this.file = null;
-	}
-
-	public String getFolderPath() {
-		return this.folderpath;
 	}
 	
 	public void create() {
@@ -81,7 +75,11 @@ public class PlayerDataFile extends FileManager implements IFileHelper, IFolderH
 	public String getPath() {
 		return this.path;
 	}
-
+	
+	public String getFolderPath() {
+		return this.folderpath;
+	}
+	
 	public AdvancedChat getPlugin() {
 		return plugin;
 	}

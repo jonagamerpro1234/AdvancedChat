@@ -12,17 +12,17 @@ import jss.advancedchat.utils.Utils;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 
-public class LuckPermsHook implements IHook{
+public class EssentialsDiscord implements IHook{
 	
 	private HookManager hooksManager;
 	private boolean isEnabled;
 	
-	public LuckPermsHook(HookManager hooksManager) {
+	public EssentialsDiscord(HookManager hooksManager) {
 		this.hooksManager = hooksManager;
 	}
 
 	public void setup() {
-		if(!Bukkit.getPluginManager().isPluginEnabled("LuckPerms")) {
+		if(!Bukkit.getPluginManager().isPluginEnabled("EssentialsDiscord")) {
 			this.isEnabled = false;
 			Logger.warning("&eLuckPerms not enabled! - Disable Features...");
 			return;

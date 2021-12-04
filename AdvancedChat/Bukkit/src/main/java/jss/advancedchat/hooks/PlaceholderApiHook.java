@@ -20,8 +20,7 @@ public class PlaceholderApiHook implements IHook{
 	
 	private AdvancedChat plugin = AdvancedChat.getInstance();
 	private HookManager hooksManager;
-	private Logger logger = new Logger(plugin);
-	private EventUtils eventUtils = new EventUtils(plugin);
+	private Logger logger = new Logger();
 	private boolean isEnabled;
 	
 	public PlaceholderApiHook(HookManager hooksManager) {
@@ -37,7 +36,7 @@ public class PlaceholderApiHook implements IHook{
 		
 		this.isEnabled = true;
 		new AdvancedChatExtend(plugin).register();
-		Utils.sendColorConsoleMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&aLoading placeholderapi features...");
+		Utils.sendColorConsoleMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix() + "&aLoading placeholderapi features...");
 	}
 	
 	public boolean isEnabled() {

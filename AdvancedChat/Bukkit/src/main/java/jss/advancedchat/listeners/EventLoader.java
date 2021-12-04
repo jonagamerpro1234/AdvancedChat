@@ -6,6 +6,7 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.EventUtils;
+import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 
 public class EventLoader {
@@ -36,6 +37,7 @@ public class EventLoader {
             }, 6000L, tick);
 
         } catch (NullPointerException ex) {
+        	Logger.error(ex);
             ex.printStackTrace();
         }
     }

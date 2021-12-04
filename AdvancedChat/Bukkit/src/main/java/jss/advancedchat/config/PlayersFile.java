@@ -22,7 +22,7 @@ public class PlayersFile extends FileManager {
 	
 	private File file;
 	private FileConfiguration config;
-	private Logger logger = new Logger(plugin);
+	private Logger logger = new Logger();
 	
 	public PlayersFile(AdvancedChat plugin) {
 		super(plugin);

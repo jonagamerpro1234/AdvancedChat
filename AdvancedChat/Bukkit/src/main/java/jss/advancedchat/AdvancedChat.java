@@ -37,7 +37,6 @@ import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQLConnection;
-import jss.advancedchat.utils.AdvancedChatPlugin;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
@@ -64,7 +63,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private InventoryDataFile inventoryDataFile = new InventoryDataFile(this, "inventory.data", "Data");
 	private static AdvancedChat instance;
 	private PreConfigLoader preConfigLoad = new PreConfigLoader(this);
-	public Logger logger = new Logger(this);
+	public Logger logger = new Logger();
 	private MySQLConnection connection;
 	private EventUtils eventUtils = new EventUtils(this);
 	public Metrics metrics;
@@ -117,7 +116,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 			}
 		}
 		
-		//
+		this.getMetric();
 		
 		this.inventoryView = new ArrayList<>();
 		this.chatManagers = new ArrayList<>();
@@ -149,6 +148,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	}
 
 	public void onLoad() {
+		Utils.setTitle(version);
 		Utils.setLoad(version);
 		if (!getDataFolder().exists()) {
 			getDataFolder().mkdirs();
@@ -210,8 +210,11 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public void getMetric() {
 		metrics = new Metrics(this, 8826);
 		metrics.addCustomChart(new Metrics.SimplePie("colors_used_by_player", () -> {
-			Player p = (Player) Bukkit.getOnlinePlayers();
-			return PlayerManager.getColor(p);
+			String color = "";
+			for(Player p : Bukkit.getOnlinePlayers()) {
+				color = PlayerManager.getColor(p);
+			}
+			return color;
 		}));
 	}
 	

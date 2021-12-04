@@ -87,11 +87,16 @@ public class GuiPlayer {
 
     public ItemStack getMuteItem(Player player) {
         if (PlayerManager.existsPlayer(player)) {
-            if (PlayerManager.isMute(player)) {
-            	return item = XMaterial.GREEN_DYE.parseItem();
-            } else {
-            	return item = XMaterial.GRAY_DYE.parseItem();
-            }
+        	if(player.hasPermission("AdvancedChat.Mute.Bypass")) {
+        		return item = XMaterial.BARRIER.parseItem();
+        	}else {
+                if (PlayerManager.isMute(player)) {
+                	return item = XMaterial.GREEN_DYE.parseItem();
+                } else {
+                	return item = XMaterial.GRAY_DYE.parseItem();
+                }
+        	}
+
         } else {
             return XMaterial.STONE.parseItem();
         }
