@@ -26,6 +26,7 @@ import jss.advancedchat.config.GradientColorFile;
 import jss.advancedchat.config.GroupFile;
 import jss.advancedchat.config.InventoryDataFile;
 import jss.advancedchat.config.PlayerDataFile;
+import jss.advancedchat.config.PlayerDataFileOld;
 import jss.advancedchat.config.PlayerGuiFile;
 import jss.advancedchat.config.PreConfigLoader;
 import jss.advancedchat.listeners.ChatListener;
@@ -48,6 +49,7 @@ import jss.advancedchat.utils.Utils;
 public class AdvancedChat extends AdvancedChatPlugin {
 
 	private ConfigFile configfile = new ConfigFile(this, "config.yml");
+	private PlayerDataFile playerDataFile = new PlayerDataFile(this, "players.json", "Data");
 	private GroupFile groupFile = new GroupFile(this, "groups.yml");
 	private BadWordFile badWordFile = new BadWordFile(this, "badword.yml");
 	@SuppressWarnings("unused")
@@ -59,7 +61,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private ChatLogFile chatLogFile = new ChatLogFile(this, "chat.yml", "Log");
 	private CommandLogFile commandLogFile = new CommandLogFile(this, "command.yml", "Log");
 	private ChatDataFile chatDataFile = new ChatDataFile(this, "chat-log.data", "Data");
-	private PlayerDataFile playerdata = new PlayerDataFile(this, "players.data", "Data");
+	private PlayerDataFileOld playerdataold = new PlayerDataFileOld(this, "players.data", "Data");
 	private InventoryDataFile inventoryDataFile = new InventoryDataFile(this, "inventory.data", "Data");
 	private static AdvancedChat instance;
 	private PreConfigLoader preConfigLoad = new PreConfigLoader(this);
@@ -73,9 +75,39 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private boolean BungeeMode;
 	public boolean uselegacyversion = false;
 	public boolean uselatestversion = false;
+	public boolean uselatestConfig = false;
 	private static boolean debug;
 	private ArrayList<InventoryView> inventoryView;
 	private ArrayList<ChatManager> chatManagers;
+	
+	public void onLoad() {
+		Utils.setTitle(version);
+		Utils.setLoad(version);
+		if (!getDataFolder().exists()) {
+			getDataFolder().mkdirs();
+		}
+		
+		Utils.setLineLoad("&eCheck DataFolder Exist!");
+		this.eventUtils = new EventUtils(this);
+		Utils.setLineLoad("&eLoading EventUtils");
+		Utils.setTitleLoad("&bLoading Files");
+		configfile.saveDefaultConfig();
+		configfile.create();
+		debug = configfile.getConfig().getBoolean("Settings.Debug");
+		if(!configfile.getConfig().getString("Settings.Config-Version").equals("2")) {
+			uselatestConfig = true;
+		}
+		Utils.setLineLoad("&eLoad Config.yml");
+		preConfigLoad.load();
+		Utils.setLineLoad("&eLoad Pre Config");
+		createVoidFolder("Gui");
+		Utils.setLineLoad("&eLoad Gui Folder");
+		createVoidFolder("Data");
+		Utils.setLineLoad("&eLoad Data Folder");
+		createVoidFolder("Log");
+		Utils.setLineLoad("&eLoad Log Folder");
+		Utils.setEndLoad();
+	}
 	
 	public void onEnable() {
 		Utils.setEnabled(version);
@@ -94,9 +126,13 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		
 		checkBungeeMode();
 		
-		//commandFile.create();
+		if(uselatestConfig) {
+			Logger.warning("&e!Please update your config.yml!");
+		}
 		
-		playerdata.create();
+		//commandFile.create();
+		playerDataFile.create();
+		playerdataold.create();
 		inventoryDataFile.create();
 		chatLogFile.create();
 		commandLogFile.create();
@@ -106,6 +142,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		chatDataFile.create();
 		channelGuiFile.create();
 		
+		HookManager.load();
 		HookManager.loadProtocol();
 		
 		if (Settings.boolean_protocollib) {
@@ -126,13 +163,14 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
 		Utils.setEndLoad();
 		new UpdateChecker(this, 83889).getUpdateVersionSpigot(version -> {
+			latestversion = version;
 			if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
 				logger.Log(Level.SUCCESS, "&a" + this.name + " is up to date!");
 			} else {
 				logger.Log(Level.OUTLINE, "&5<||" + Utils.getLine("&5"));
 				logger.Log(Level.WARNING, "&5<||" + "&b" + this.name + " is outdated!");
 				logger.Log(Level.WARNING, "&5<||" + "&bNewest version: &a" + version);
-				logger.Log(Level.WARNING, "&5<||" + "&bYour version: &d" + UpdateSettings.VERSION);
+				logger.Log(Level.WARNING, "&5<||" + "&bYour version: &d" + this.version);
 				logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on Spigot: &e" + UpdateSettings.URL_PLUGIN[0]);
 				logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on Songoda: &e" + UpdateSettings.URL_PLUGIN[1]);
 				logger.Log(Level.WARNING, "&5<||" + "&bUpdate Here on GitHub: &e" + UpdateSettings.URL_PLUGIN[2]);
@@ -146,33 +184,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		metrics = null;
 		uselegacyversion = false;
 	}
-
-	public void onLoad() {
-		Utils.setTitle(version);
-		Utils.setLoad(version);
-		if (!getDataFolder().exists()) {
-			getDataFolder().mkdirs();
-		}
-		
-		Utils.setLineLoad("&eCheck DataFolder Exist!");
-		this.eventUtils = new EventUtils(this);
-		Utils.setLineLoad("&eLoading EventUtils");
-		Utils.setTitleLoad("&bLoading Files");
-		configfile.saveDefaultConfig();
-		configfile.create();
-		debug = configfile.getConfig().getBoolean("Settings.Debug");
-		Utils.setLineLoad("&eLoad Config.yml");
-		preConfigLoad.load();
-		Utils.setLineLoad("&eLoad Pre Config");
-		createVoidFolder("Gui");
-		Utils.setLineLoad("&eLoad Gui Folder");
-		createVoidFolder("Data");
-		Utils.setLineLoad("&eLoad Data Folder");
-		createVoidFolder("Log");
-		Utils.setLineLoad("&eLoad Log Folder");
-		Utils.setEndLoad();
-	}
-
+	
 	public void loadCommands() {
 		new AdvancedChatCmd(this);
 		new ClearChatCmd(this);
@@ -196,7 +208,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		this.getConfigFile().reloadConfig();
 		this.getChatDataFile().reloadConfig();
 		this.getChatLogFile().reloadConfig();
-		this.getPlayerDataFile().reloadConfig();
+		this.getplayerdataoldFile().reloadConfig();
 		this.getPlayerGuiFile().reloadConfig();
 		this.getColorFile().reloadConfig();
 		this.getGradientColorFile().reloadConfig();
@@ -253,8 +265,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		return this.inventoryDataFile;
 	}
 
-	public PlayerDataFile getPlayerDataFile() {
-		return playerdata;
+	public PlayerDataFileOld getplayerdataoldFile() {
+		return playerdataold;
 	}
 
 	public ConfigFile getConfigFile() {

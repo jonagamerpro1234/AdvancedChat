@@ -8,7 +8,12 @@
 # Here you can add new groups and configure them, but for this to work you need Vault or LuckPerms
 # The group name has to be the same as the range name or the group customization will not work
 default:
-    
+  
+  # |Default-Color-Message| Here you can define the chat color that is assigned by default to players
+    # The color system does not work with (&) but uses a simpler system that is by color names, here below you have the list of available colors
+    # Color List: https://jonagamerpro1234.gitbook.io/advancedchat/color-list
+  Default-Color-Message: 'white'
+  
   # |Format| Here you define the chat format for the group
   Format: '&a[default] &b<name> &8&l>'
   

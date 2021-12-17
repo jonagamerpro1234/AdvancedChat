@@ -18,6 +18,7 @@ public class PreConfigLoader {
         
         try {
         	Settings.default_color = config.getString("Settings.Default-Color-Message");
+        	
         	Settings.message_mute_bypass = config.getString("AdvancedChat.Mute-Bypass");
         	Settings.message_prefix_custom = config.getString("Settings.Prefix");
         	Settings.message_protocol_state = config.getString("ProtocolLib-Packet.Enabled");
@@ -47,10 +48,10 @@ public class PreConfigLoader {
         	Settings.hook_discordsrv = config.getString("Hooks.DiscordSRV.Enabled").equals("true");
         	Settings.hook_luckperms = config.getString("Hooks.LuckPerms.Enabled").equals("true");
         	
-        	Settings.boolean_protocollib = config.getString("ProtocolLib-Packet.Enabled").equals("true");
-        	Settings.boolean_antitabcompleted = config.getString("ProtocolLib-Packet.Disable-TabCompleted").equals("true");
+        	//	Settings.boolean_protocollib = config.getString("ProtocolLib-Packet.Enabled").equals("true");
+        	//Settings.boolean_antitabcompleted = config.getString("ProtocolLib-Packet.Disable-TabCompleted").equals("true");
         	Settings.boolean_use_default_prefix = config.getString("Settings.Use-Default-Prefix").equals("true");
-        	Settings.boolean_filter_use_msg = config.getString("Filter-Chat.Use-Custom-Msg").equals("true");
+        	//Settings.boolean_filter_use_msg = config.getString("Filter-Chat.Use-Custom-Msg").equals("true");
         	Settings.boolean_chatclear_autoclear = config.getString("ClearChat.AutoClear").equals("true");
         	Settings.boolean_clearchat_bypass = config.getString("ClearChat.ByPass-Staff").equals("true");
         	

@@ -8,7 +8,13 @@
   <artifactId>advancedchat-bukkit</artifactId>
 
 	<dependencies>
-	
+		
+		<!-- Common -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>advancedchat-bungee</artifactId>
+		</dependency>
+		
 		<!-- Common -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -39,7 +45,7 @@
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>1.17.1-R0.1-SNAPSHOT</version>
+			<version>1.18-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
@@ -100,14 +106,14 @@
 		<dependency>
 			<groupId>net.md-5</groupId>
 			<artifactId>bungeecord-api</artifactId>
-			<version>1.17-R0.1-SNAPSHOT</version>
+			<version>1.18-R0.1-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.md-5</groupId>
 			<artifactId>bungeecord-api</artifactId>
-			<version>1.17-R0.1-SNAPSHOT</version>
+			<version>1.18-R0.1-SNAPSHOT</version>
 			<type>javadoc</type>
 			<scope>provided</scope>
 		</dependency>

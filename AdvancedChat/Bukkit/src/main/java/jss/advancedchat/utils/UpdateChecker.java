@@ -57,7 +57,8 @@ public class UpdateChecker implements IUpdate {
             BufferedReader buffered = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line = "";
             if ((line = buffered.readLine()) != null) {
-                JsonElement jsonElement = (new JsonParser()).parse(line).getAsJsonObject().get("data").getAsJsonObject().get("versions").getAsJsonArray().get(0);
+                @SuppressWarnings("deprecation")
+				JsonElement jsonElement = (new JsonParser()).parse(line).getAsJsonObject().get("data").getAsJsonObject().get("versions").getAsJsonArray().get(0);
                 String latest = jsonElement.getAsJsonObject().get("version").getAsString();
                 return latest;
             }

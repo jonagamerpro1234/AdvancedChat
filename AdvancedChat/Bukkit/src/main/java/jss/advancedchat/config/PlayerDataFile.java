@@ -1,108 +1,58 @@
 package jss.advancedchat.config;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.common.interfaces.IFileHelper;
-import jss.advancedchat.common.interfaces.IFolderHelper;
+import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.file.FileManager;
 
-public class PlayerDataFile extends FileManager implements IFileHelper, IFolderHelper {
+public class PlayerDataFile extends FileManager {
 	
-	private AdvancedChat plugin;
-	private File file = null;
-	private FileConfiguration config = null;
 	private String path;
-	private String folderpath;
-
-	public PlayerDataFile(AdvancedChat plugin, String path, String folderpath) {
+	private String folder;
+	private File file;
+	private JSONObject json;
+	private JSONParser parser = new JSONParser();
+	
+	public PlayerDataFile(AdvancedChat plugin, String path, String folder) {
 		super(plugin);
-		this.plugin = plugin;
 		this.path = path;
-		this.folderpath = folderpath;
+		this.folder = folder;
 	}
 	
 	public void create() {
-		this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
-		if(!this.file.exists()) {
-			getConfig().options().copyDefaults(true);
-			saveConfig();
-		}
-	}
-
-	public FileConfiguration getConfig() {
-		if(this.config == null) {
-			reloadConfig();
-		}
-		return this.config;
-	}
-
-	public void saveConfig() {
+		Logger.debug("&e {File} -> create json file player data ");
+		this.file = new File(getDataFolder() + File.separator + this.folder, this.path);
 		try {
-			this.config.save(this.file);
-		}catch(IOException ex) {
-			ex.printStackTrace();
-		}
-	}
+			if(!this.file.exists()) {
+				PrintWriter printWriter;
+					printWriter = new PrintWriter(this.file, "UTF-8");
+					printWriter.append("{");
+					printWriter.append("}");
+					printWriter.flush();
+					printWriter.close();
 
-	public void reloadConfig() {
-		if(this.config == null) {
-			this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
-		}
-		this.config = YamlConfiguration.loadConfiguration(this.file);
-		Reader defaultConfigStream;
-		try {
-			defaultConfigStream = new InputStreamReader(getResources(this.path), "UTF8");
-			if(defaultConfigStream != null) {
-				YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
-				config.setDefaults(defaultConfig);
 			}
-		}catch(UnsupportedEncodingException ex) {
-			ex.printStackTrace();
-		}catch(NullPointerException e) {
+			this.json = (JSONObject) parser.parse(new InputStreamReader(new FileInputStream(this.file), "UTF-8"));	
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void reload() {
 		
 	}
-
-	public String getPath() {
-		return this.path;
+	
+	public void save() {
+		
 	}
 	
-	public String getFolderPath() {
-		return this.folderpath;
-	}
-	
-	public AdvancedChat getPlugin() {
-		return plugin;
-	}
-
-	public void saveDefaultConfig() {
-		if(this.file == null) {
-			this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
-		}
-		if(!this.file.exists()) {
-			saveResources(this.path, false);
-		}
-	}
-
-	public void resetConfig() {
-		if(this.file == null) {
-			this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
-		}
-		if(!this.file.exists()) {
-			saveResources(this.path, true);
-		}
-	}
-
-	public boolean isFileExists() {
-		return false;
-	}
 }

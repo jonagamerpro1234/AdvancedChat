@@ -57,4 +57,8 @@ public class GroupManager{
 	public String getClickSuggestCommand(String group) {
 		return config.getString(group + ".ClickEvent.Actions.Suggest-Command");
 	}
+	
+	public String getGroupColor(String group) {
+		return config.getString(group + ".Default-Color-Message");
+	}
 }
