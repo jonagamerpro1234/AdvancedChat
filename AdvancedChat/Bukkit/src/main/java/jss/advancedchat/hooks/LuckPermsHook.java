@@ -12,11 +12,11 @@ import jss.advancedchat.utils.Utils;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 
-public class LuckPermsHook implements IHook{
+public class LuckPermsHook implements IHook {
 	
 	private HookManager hooksManager;
 	private boolean isEnabled;
-	
+		
 	public LuckPermsHook(HookManager hooksManager) {
 		this.hooksManager = hooksManager;
 	}
@@ -49,20 +49,15 @@ public class LuckPermsHook implements IHook{
 	public boolean isGroup(Player player, String name){
 		LuckPerms api = LuckPermsProvider.get();
 		String group = api.getUserManager().getUser(player.getName()).getPrimaryGroup();
-		boolean a = false;
-		if(name.equals(group)) {
-			a = true;
-		}
-		return a;
+		return 	name.equals(group) ? true : false;
 	}
-	
-	
+
 	public String getGroup(Player player){
+		if(player != null) {
+			Logger.debug("&e{Group} &9-> &7Is the player not exists");
+		}
 		LuckPerms api = LuckPermsProvider.get();
-		String group = api.getUserManager().getUser(player.getName()).getPrimaryGroup();
-		return group;
+		return api.getUserManager().getUser(player.getName()).getPrimaryGroup();
 	}
 		
-		
-	
 }

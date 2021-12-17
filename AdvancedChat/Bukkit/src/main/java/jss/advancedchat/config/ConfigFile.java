@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -71,17 +70,10 @@ public class ConfigFile extends FileManager implements IFileHelper, IFileLoader 
                 YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
                 config.setDefaults(defaultConfig);
             }
-        }catch(UnsupportedEncodingException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
-        	e.printStackTrace();
-        }catch(NullPointerException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
-        	e.printStackTrace();
-        }catch(IllegalArgumentException e) {
+        }catch(Exception e) {
         	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
         	e.printStackTrace();
         }
-
     }
 
     public String getPath() {

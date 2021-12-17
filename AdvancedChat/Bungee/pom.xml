@@ -6,6 +6,7 @@
     <version>1.7.0</version>
   </parent>
   <artifactId>advancedchat-bungee</artifactId>
+  <name>AdvancedChat Bungee</name>
   
   <dependencies>		
 		<dependency>
@@ -15,14 +16,14 @@
 		<dependency>
 			<groupId>net.md-5</groupId>
 			<artifactId>bungeecord-api</artifactId>
-			<version>1.17-R0.1-SNAPSHOT</version>
+			<version>1.18-R0.1-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.md-5</groupId>
 			<artifactId>bungeecord-chat</artifactId>
-			<version>1.17-R0.1-SNAPSHOT</version>
+			<version>1.18-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>	
   </dependencies>
@@ -33,6 +34,4 @@
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</repository>
 	</repositories>
-  
-  	<name>AdvancedChat Bungee</name>
 </project>

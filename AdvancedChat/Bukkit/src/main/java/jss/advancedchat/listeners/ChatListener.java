@@ -19,6 +19,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import com.cryptomorin.xseries.XSound;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.api.event.AdvancedChatPlayerEvent;
 import jss.advancedchat.chat.Json;
 import jss.advancedchat.config.ChatDataFile;
 import jss.advancedchat.config.ChatLogFile;
@@ -59,10 +60,16 @@ public class ChatListener implements Listener {
 		this.plugin = plugin;
 	}
 	
+	//test chat event
+	@EventHandler
+	public void sendCustomChat(AdvancedChatPlayerEvent e) {
+		
+	}
+	
 	//Mute chat
 	@EventHandler(priority = EventPriority.HIGH)
 	public void chatMute(AsyncPlayerChatEvent e) {
-		FileConfiguration config = plugin.getPlayerDataFile().getConfig();
+		FileConfiguration config = plugin.getplayerdataoldFile().getConfig();
 		FileConfiguration cconfig = plugin.getConfigFile().getConfig();
 		Player j = e.getPlayer();
 		
