@@ -26,7 +26,7 @@ import jss.advancedchat.config.GradientColorFile;
 import jss.advancedchat.config.GroupFile;
 import jss.advancedchat.config.InventoryDataFile;
 import jss.advancedchat.config.PlayerDataFile;
-import jss.advancedchat.config.PlayerDataFileOld;
+import jss.advancedchat.config.PlayerDataFile;
 import jss.advancedchat.config.PlayerGuiFile;
 import jss.advancedchat.config.PreConfigLoader;
 import jss.advancedchat.listeners.ChatListener;
@@ -61,7 +61,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private ChatLogFile chatLogFile = new ChatLogFile(this, "chat.yml", "Log");
 	private CommandLogFile commandLogFile = new CommandLogFile(this, "command.yml", "Log");
 	private ChatDataFile chatDataFile = new ChatDataFile(this, "chat-log.data", "Data");
-	private PlayerDataFileOld playerdataold = new PlayerDataFileOld(this, "players.data", "Data");
+	private PlayerDataFile playerdataold = new PlayerDataFile(this, "players.data", "Data");
 	private InventoryDataFile inventoryDataFile = new InventoryDataFile(this, "inventory.data", "Data");
 	private static AdvancedChat instance;
 	private PreConfigLoader preConfigLoad = new PreConfigLoader(this);
@@ -265,7 +265,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		return this.inventoryDataFile;
 	}
 
-	public PlayerDataFileOld getplayerdataoldFile() {
+	public PlayerDataFile getplayerdataoldFile() {
 		return playerdataold;
 	}
 

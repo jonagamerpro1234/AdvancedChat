@@ -34,16 +34,14 @@ public class Settings {
     public static String message_player_is_mute;
     public static String message_protocol_state;
     public static String message_filter;
-    
+    public static String locale;
     public static String boolean_chat_type;
-    
     public static String default_color;
-    
     public static String inv_color_back;
     
     public static String mysql_host;
     public static int mysql_port;
-    public static String mysql_user;
+    public static String mysql_username;
     public static String mysql_table;
     public static String mysql_password;
     public static String mysql_database;
