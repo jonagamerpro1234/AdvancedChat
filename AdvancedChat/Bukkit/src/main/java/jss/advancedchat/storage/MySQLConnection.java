@@ -20,7 +20,7 @@ public class MySQLConnection {
 			host = Settings.mysql_host;
 			port = Settings.mysql_port;
 			database = Settings.mysql_database;
-			username = Settings.mysql_user;
+			username = Settings.mysql_username;
 			password = Settings.mysql_password;
 			source = new DataSource(host, port, database, username, password);
 			source.getDataSource().getConnection();

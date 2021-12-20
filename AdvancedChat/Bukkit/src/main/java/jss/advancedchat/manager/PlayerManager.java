@@ -7,13 +7,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.PlayerDataFileOld;
+import jss.advancedchat.config.PlayerDataFile;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 
 public class PlayerManager  {
 
-	private final static PlayerDataFileOld playerDataFile = AdvancedChat.getInstance().getplayerdataoldFile();
+	private final static PlayerDataFile playerDataFile = AdvancedChat.getInstance().getplayerdataoldFile();
 	private final static FileConfiguration config = playerDataFile.getConfig();
     
     public static boolean isMute(Player player) {

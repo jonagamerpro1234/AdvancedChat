@@ -15,7 +15,7 @@ public class AdvancedChatBungee extends AdvancedChatPlugin {
     public String version = this.jss.getVersion();
     private ConfigFile configFile = new ConfigFile(this);
     private Logger logger = new Logger(this);
-    
+        
     public void onEnable() {
         Utils.setBungeeEnabled(version);
         
