@@ -97,7 +97,8 @@ public class ColorManager {
     }
     
     public String setGradient(Player player, String text){
-    	return Utils.color("<GRADIENT:" + PlayerManager.getFirstGradient(player) + ">" + text + "</GRADIENT:" + PlayerManager.getSecondGradient(player) + ">");
+    	PlayerManager playerManager = new PlayerManager(player);
+    	return Utils.color("<GRADIENT:" + playerManager.getFirstGradient(player) + ">" + text + "</GRADIENT:" + playerManager.getSecondGradient(player) + ">");
     }
     
     public String setColorRandom() {

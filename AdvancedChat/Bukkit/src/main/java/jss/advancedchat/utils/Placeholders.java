@@ -20,10 +20,11 @@ public class Placeholders {
 	}
 
 	public String placeholders(Player player, String str) {
+		PlayerManager playerManager = new PlayerManager(player);
 		str = str.replace("<range>", getRange());
 		str = str.replace("<name>", player.getName());
 		str = str.replace("<displayname>", player.getDisplayName());
-		str = str.replace("<channel>", PlayerManager.getChannel(player));
+		str = str.replace("<channel>", playerManager.getChannel(player));
 		str = Utils.getOnlinePlayers(str);
 		
 		if(HookManager.getInstance().getLuckPermsHook().isEnabled()) {

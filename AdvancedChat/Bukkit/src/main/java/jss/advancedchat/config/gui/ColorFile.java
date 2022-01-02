@@ -1,6 +1,5 @@
-package jss.advancedchat.config;
+package jss.advancedchat.config.gui;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,7 +16,7 @@ import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.file.FileManager;
 
-public class ChannelGuiFile extends FileManager implements IFileHelper, IFolderHelper {
+public class ColorFile extends FileManager implements IFileHelper, IFolderHelper {
 
     private AdvancedChat plugin;
     private File file;
@@ -26,7 +25,7 @@ public class ChannelGuiFile extends FileManager implements IFileHelper, IFolderH
     private String folderpath;
     private Logger logger = new Logger();
 
-    public ChannelGuiFile(AdvancedChat plugin, String path, String folderpath) {
+    public ColorFile(AdvancedChat plugin, String path, String folderpath) {
         super(plugin);
         this.plugin = plugin;
         this.file = null;
@@ -70,9 +69,8 @@ public class ChannelGuiFile extends FileManager implements IFileHelper, IFolderH
         Reader defaultConfigStream;
         try {
             defaultConfigStream = new InputStreamReader(getResources(this.path), "UTF8");
-            BufferedReader in = new BufferedReader(defaultConfigStream);
             if (defaultConfigStream != null) {
-                YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
+                YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
                 config.setDefaults(defaultConfig);
             }
         }catch(UnsupportedEncodingException e) {

@@ -48,7 +48,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 			
 			if (args.length >= 1) {
 				if (args[0].equalsIgnoreCase("info")) {
-					Utils.getInfoPlugin(sender);
+					Utils.getInfoPlugin(sender, plugin.name, plugin.version, plugin.latestversion);
 				} else if (args[0].equalsIgnoreCase("help")) {
 					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5-=-=-=-=-=-=-=-=-=-=-=&6[&d" + plugin.name + "&6]&5=-=-=-=-=-=-=-=-=-=-=-");
 					Settings.list_message_help.forEach((text) -> {
@@ -68,6 +68,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 		}
 
 		Player j = (Player) sender;
+		PlayerManager playerManager = new PlayerManager(j);
 		if ((j.isOp()) || (j.hasPermission("AdvancedChat.Admin"))) {
 			if (args.length >= 1) {
 
@@ -97,12 +98,11 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 						GuiColor guiColor = new GuiColor(plugin);
 
 						if (args.length >= 2) {
+							
 							String playername = args[1];
 							Player p = Bukkit.getPlayer(playername);
-							if (p == null) {
-								Utils.sendColorMessage(j, Settings.message_No_Online_Player);
-								return true;
-							}
+							
+							if (p == null) Utils.sendColorMessage(j, Settings.message_No_Online_Player);
 
 							if (args.length >= 3) {
 								if (args[2].equalsIgnoreCase("set")) {
@@ -114,13 +114,11 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 									if (Settings.mysql_use) {
 										MySQL.setColor(plugin, p.getUniqueId().toString(), color);
 									} else {
-										PlayerManager.setColor(p, color);
+										playerManager.setColor(p, color);
 									}
-									return true;
 								}
 								return true;
 							}
-
 							guiColor.openGuiColor(j, p.getName());
 							return true;
 						}
@@ -198,7 +196,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				}
 
 				if (args[0].equalsIgnoreCase("info")) {
-					Utils.getInfoPlugin(j);
+					Utils.getInfoPlugin(j, plugin.name, plugin.version, plugin.latestversion);
 					return true;
 				}
 				

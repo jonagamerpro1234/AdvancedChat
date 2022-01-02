@@ -37,6 +37,7 @@ public class MuteCmd implements CommandExecutor {
 
             if (args.length >= 1) {
                 Player target = Bukkit.getPlayer(args[0]);
+                PlayerManager playerManager = new PlayerManager(target);
                 if(target == null) {
                 	Utils.sendColorMessage(sender, Settings.message_No_Online_Player);
                 	return true;
@@ -49,7 +50,7 @@ public class MuteCmd implements CommandExecutor {
                     if(Settings.mysql_use) {
                     	MySQL.setMute(plugin, target.getUniqueId().toString(), true);
                     } else {
-                    	PlayerManager.setMute(target, true);
+                    playerManager.setMute(target, true);
                     }
                 }
                 
@@ -60,10 +61,11 @@ public class MuteCmd implements CommandExecutor {
             return false;
         }
         Player j = (Player) sender;
+        
         if (j.isOp() || j.hasPermission("AdvancedChat.Mute")) {
             if (args.length >= 1) {
                 Player target = Bukkit.getPlayer(args[0]);
-                
+                PlayerManager playerManager = new PlayerManager(target);
                 if(target == null) {
                 	Utils.sendColorMessage(j, Settings.message_No_Online_Player);
                 	return true;
@@ -76,7 +78,7 @@ public class MuteCmd implements CommandExecutor {
                     if(Settings.mysql_use) {
                     	MySQL.setMute(plugin, target.getUniqueId().toString(), true);
                     } else {
-                    	PlayerManager.setMute(target, true);
+                    	playerManager.setMute(target, true);
                     }
                 }
                 

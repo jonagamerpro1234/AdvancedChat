@@ -80,7 +80,8 @@ public class InventoryListener implements Listener {
 		String name = Utils.colorless(namecolor);
 
 		Player target = Bukkit.getPlayer(name);
-
+		PlayerManager playerManager = new PlayerManager(target);
+		
 		if (slot == c.getInt("Items.Dark-Red.Slot")) {
 			e.setCancelled(true);
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Red")) {
@@ -101,9 +102,9 @@ public class InventoryListener implements Listener {
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Red")) {
 				e.setCancelled(true);
 				if (e.getClick().isLeftClick()) {
-					PlayerManager.setFirstGradient(target, "FF5555");
+					playerManager.setFirstGradient(target, "FF5555");
 				} else if (e.getClick().isRightClick()) {
-					PlayerManager.setSecondGradient(target, "FF5555");
+					playerManager.setSecondGradient(target, "FF5555");
 				}
 			} else {
 				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -116,9 +117,9 @@ public class InventoryListener implements Listener {
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Blue")) {
 				e.setCancelled(true);
 				if (e.getClick().isLeftClick()) {
-					PlayerManager.setFirstGradient(target, "0000AA");
+					playerManager.setFirstGradient(target, "0000AA");
 				} else if (e.getClick().isRightClick()) {
-					PlayerManager.setSecondGradient(target, "0000AA");
+					playerManager.setSecondGradient(target, "0000AA");
 				}
 			} else {
 				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -131,9 +132,9 @@ public class InventoryListener implements Listener {
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Blue")) {
 				e.setCancelled(true);
 				if (e.getClick().isLeftClick()) {
-					PlayerManager.setFirstGradient(target, "5555FF");
+					playerManager.setFirstGradient(target, "5555FF");
 				} else if (e.getClick().isRightClick()) {
-					PlayerManager.setSecondGradient(target, "5555FF");
+					playerManager.setSecondGradient(target, "5555FF");
 				}
 			} else {
 				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -146,9 +147,9 @@ public class InventoryListener implements Listener {
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Green")) {
 				e.setCancelled(true);
 				if (e.getClick().isLeftClick()) {
-					PlayerManager.setFirstGradient(target, "00AA00");
+					playerManager.setFirstGradient(target, "00AA00");
 				} else if (e.getClick().isRightClick()) {
-					PlayerManager.setSecondGradient(target, "00AA00");
+					playerManager.setSecondGradient(target, "00AA00");
 				}
 			} else {
 				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -161,9 +162,9 @@ public class InventoryListener implements Listener {
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Green")) {
 				e.setCancelled(true);
 				if (e.getClick().isLeftClick()) {
-					PlayerManager.setFirstGradient(target, "55FF55");
+					playerManager.setFirstGradient(target, "55FF55");
 				} else if (e.getClick().isRightClick()) {
-					PlayerManager.setSecondGradient(target, "55FF55");
+					playerManager.setSecondGradient(target, "55FF55");
 				}
 			} else {
 				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -176,9 +177,9 @@ public class InventoryListener implements Listener {
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Yellow")) {
 				e.setCancelled(true);
 				if (e.getClick().isLeftClick()) {
-					PlayerManager.setFirstGradient(target, "FFFF55");
+					playerManager.setFirstGradient(target, "FFFF55");
 				} else if (e.getClick().isRightClick()) {
-					PlayerManager.setSecondGradient(target, "FFFF55");
+					playerManager.setSecondGradient(target, "FFFF55");
 				}
 			} else {
 				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -191,9 +192,9 @@ public class InventoryListener implements Listener {
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Gold")) {
 				e.setCancelled(true);
 				if (e.getClick().isLeftClick()) {
-					PlayerManager.setFirstGradient(target, "FFAA00");
+					playerManager.setFirstGradient(target, "FFAA00");
 				} else if (e.getClick().isRightClick()) {
-					PlayerManager.setSecondGradient(target, "FFAA00");
+					playerManager.setSecondGradient(target, "FFAA00");
 				}
 			} else {
 				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -206,9 +207,9 @@ public class InventoryListener implements Listener {
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Aqua")) {
 				e.setCancelled(true);
 				if (e.getClick().isLeftClick()) {
-					PlayerManager.setFirstGradient(target, "00AAAA");
+					playerManager.setFirstGradient(target, "00AAAA");
 				} else if (e.getClick().isRightClick()) {
-					PlayerManager.setSecondGradient(target, "00AAAA");
+					playerManager.setSecondGradient(target, "00AAAA");
 				}
 			} else {
 				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -221,9 +222,9 @@ public class InventoryListener implements Listener {
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Aqua")) {
 				e.setCancelled(true);
 				if (e.getClick().isLeftClick()) {
-					PlayerManager.setFirstGradient(target, "55FFFF");
+					playerManager.setFirstGradient(target, "55FFFF");
 				} else if (e.getClick().isRightClick()) {
-					PlayerManager.setSecondGradient(target, "55FFFF");
+					playerManager.setSecondGradient(target, "55FFFF");
 				}
 			} else {
 				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -236,9 +237,9 @@ public class InventoryListener implements Listener {
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Light_Purple")) {
 				e.setCancelled(true);
 				if (e.getClick().isLeftClick()) {
-					PlayerManager.setFirstGradient(target, "FF55FF");
+					playerManager.setFirstGradient(target, "FF55FF");
 				} else if (e.getClick().isRightClick()) {
-					PlayerManager.setSecondGradient(target, "FF55FF");
+					playerManager.setSecondGradient(target, "FF55FF");
 				}
 			} else {
 				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -251,9 +252,9 @@ public class InventoryListener implements Listener {
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Purple")) {
 				e.setCancelled(true);
 				if (e.getClick().isLeftClick()) {
-					PlayerManager.setFirstGradient(target, "AA00AA");
+					playerManager.setFirstGradient(target, "AA00AA");
 				} else if (e.getClick().isRightClick()) {
-					PlayerManager.setSecondGradient(target, "AA00AA");
+					playerManager.setSecondGradient(target, "AA00AA");
 				}
 			} else {
 				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -266,9 +267,9 @@ public class InventoryListener implements Listener {
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Gray")) {
 				e.setCancelled(true);
 				if (e.getClick().isLeftClick()) {
-					PlayerManager.setFirstGradient(target, "AAAAAA");
+					playerManager.setFirstGradient(target, "AAAAAA");
 				} else if (e.getClick().isRightClick()) {
-					PlayerManager.setSecondGradient(target, "AAAAAA");
+					playerManager.setSecondGradient(target, "AAAAAA");
 				}
 			} else {
 				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -281,9 +282,9 @@ public class InventoryListener implements Listener {
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Gray")) {
 				e.setCancelled(true);
 				if (e.getClick().isLeftClick()) {
-					PlayerManager.setFirstGradient(target, "555555");
+					playerManager.setFirstGradient(target, "555555");
 				} else if (e.getClick().isRightClick()) {
-					PlayerManager.setSecondGradient(target, "555555");
+					playerManager.setSecondGradient(target, "555555");
 				}
 			} else {
 				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -296,9 +297,9 @@ public class InventoryListener implements Listener {
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.White")) {
 				e.setCancelled(true);
 				if (e.getClick().isLeftClick()) {
-					PlayerManager.setFirstGradient(target, "FFFFFF");
+					playerManager.setFirstGradient(target, "FFFFFF");
 				} else if (e.getClick().isRightClick()) {
-					PlayerManager.setSecondGradient(target, "FFFFFF");
+					playerManager.setSecondGradient(target, "FFFFFF");
 				}
 			} else {
 				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -311,9 +312,9 @@ public class InventoryListener implements Listener {
 			if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Black")) {
 				e.setCancelled(true);
 				if (e.getClick().isLeftClick()) {
-					PlayerManager.setFirstGradient(target, "000000");
+					playerManager.setFirstGradient(target, "000000");
 				} else if (e.getClick().isRightClick()) {
-					PlayerManager.setSecondGradient(target, "000000");
+					playerManager.setSecondGradient(target, "000000");
 				}
 			} else {
 				Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -395,12 +396,13 @@ public class InventoryListener implements Listener {
                     String name = Utils.colorless(namecolor);
 
                     Player target = Bukkit.getPlayer(name);
-
+                    PlayerManager playerManager = new PlayerManager(target);
+                    
                     if (slot == c.getInt("Items.Dark-Red.Slot")) {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Red")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "Dark_Red");
+                            playerManager.setColor(target, "Dark_Red");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
@@ -411,7 +413,7 @@ public class InventoryListener implements Listener {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Red")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "Red");
+                            playerManager.setColor(target, "Red");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
@@ -422,7 +424,7 @@ public class InventoryListener implements Listener {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Blue")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "Dark_Blue");
+                            playerManager.setColor(target, "Dark_Blue");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
@@ -433,7 +435,7 @@ public class InventoryListener implements Listener {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Blue")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "Blue");
+                            playerManager.setColor(target, "Blue");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
@@ -444,7 +446,7 @@ public class InventoryListener implements Listener {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Green")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "Dark_Green");
+                            playerManager.setColor(target, "Dark_Green");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
@@ -455,7 +457,7 @@ public class InventoryListener implements Listener {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Green")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "Green");
+                            playerManager.setColor(target, "Green");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
@@ -466,7 +468,7 @@ public class InventoryListener implements Listener {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Yellow")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "Yellow");
+                            playerManager.setColor(target, "Yellow");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
@@ -477,7 +479,7 @@ public class InventoryListener implements Listener {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Gold")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "Gold");
+                            playerManager.setColor(target, "Gold");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
@@ -488,7 +490,7 @@ public class InventoryListener implements Listener {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Aqua")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "Dark_Aqua");
+                            playerManager.setColor(target, "Dark_Aqua");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
@@ -499,7 +501,7 @@ public class InventoryListener implements Listener {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Aqua")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "Aqua");
+                            playerManager.setColor(target, "Aqua");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
@@ -510,7 +512,7 @@ public class InventoryListener implements Listener {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Light_Purple")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "Light_Purple");
+                            playerManager.setColor(target, "Light_Purple");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
@@ -521,7 +523,7 @@ public class InventoryListener implements Listener {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Purple")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "Dark_Purple");
+                            playerManager.setColor(target, "Dark_Purple");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
@@ -532,7 +534,7 @@ public class InventoryListener implements Listener {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Gray")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "Gray");
+                            playerManager.setColor(target, "Gray");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
@@ -543,7 +545,7 @@ public class InventoryListener implements Listener {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Gray")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "Dark_Gray");
+                            playerManager.setColor(target, "Dark_Gray");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
@@ -554,7 +556,7 @@ public class InventoryListener implements Listener {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.White")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "White");
+                            playerManager.setColor(target, "White");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
@@ -565,7 +567,7 @@ public class InventoryListener implements Listener {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.RainBow")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "RainBow");
+                            playerManager.setColor(target, "RainBow");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;
@@ -576,7 +578,7 @@ public class InventoryListener implements Listener {
                     	
                         if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Black")) {
                             e.setCancelled(true);
-                            PlayerManager.setColor(target, "Black");
+                            playerManager.setColor(target, "Black");
                         } else {
                             Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
                             return;

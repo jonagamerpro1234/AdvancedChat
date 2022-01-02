@@ -1,219 +1,103 @@
 package jss.advancedchat.manager;
 
-import java.util.Iterator;
-import java.util.Set;
-
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.PlayerDataFile;
+import jss.advancedchat.config.player.PlayerFile;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 
 public class PlayerManager  {
 
-	private final static PlayerDataFile playerDataFile = AdvancedChat.getInstance().getplayerdataoldFile();
-	private final static FileConfiguration config = playerDataFile.getConfig();
+	private final PlayerFile playerFile = AdvancedChat.get().getPlayerFile();
+	private FileConfiguration config = null;
+	
+	public PlayerManager(Player player) {
+		config = playerFile.getConfig(player.getName());
+	}
+	
+    public boolean isMute(Player player) {
+    	if(existsPlayer("Is-Mute")) if(config.getBoolean("Is-Mute")) return true; return false;
+    }
     
-    public static boolean isMute(Player player) {
-    	
-    	Set<String> sections = config.getKeys(false);
-    	Iterator<String> section = sections.iterator();
-    	while(true) {
-    		while(section.hasNext()) {
-    			String key = (String) section.next();
-    			
-    			if(key.contains(player.getName())) {
-    				return config.getBoolean(key + ".Mute");
-    			}
-    		}
-    	}
+    public String getColor(Player player) {
+    	if(existsPlayer("Message-Color")) return config.getString("Message-Color"); return null;
     }
 
-    public static void setMute(Player player, boolean value) {        
-        if (config.contains(player.getName() + ".Mute")) {
-            config.set(player.getName() + ".Mute", value);
-        }
-    }
-    
-    public static String getColor(Player player) {
-        Set<String> sections = config.getKeys(false);
-        Iterator<String> section = sections.iterator();
-        
-        while(true) {
-        	while(section.hasNext()) {
-        		String key = (String) section.next();
-        		if(key.contains(player.getName())) {
-        			return config.getString(key + ".Color");
-        		}
-        	}
-        }
-    }
-
-    public static void setColor(Player player, String color) {
-        if (config.contains(player.getName() + ".Color")) {
-            config.set(player.getName() + ".Color", color);
-            save();
-        }
-    }
-    
-    public static String getChannel(Player player) {
-        Set<String> sections = config.getKeys(false);
-        Iterator<String> section = sections.iterator();
-        
-		while (true) {
-			while (section.hasNext()) {
-				String key = (String) section.next();
-				if (key.contains(player.getName())) {
-					String channel = config.getString(key + ".Chat.Channel");
-					return channel.toLowerCase();
-				}
-			}
-		}
+    public String getChannel(Player player) {
+    	if(existsPlayer("Channel")) return config.getString("Channel"); return null;
 	}
     
-    public static void setChannel(Player player, int range) {
-        if (config.contains(player.getName() + ".Chat.Channel")) {
-            config.set(player.getName() + ".Chat.Channel", range);
-            save();
-        }
+    public String getRange(Player player) {
+    	if(existsPlayer("Chat-Range")) return config.getString("Chat-Range"); return null;
     }
     
-    public static String getRange(Player player) {
-        Set<String> sections = config.getKeys(false);
-        Iterator<String> section = sections.iterator();
-        
-		while (true) {
-			while (section.hasNext()) {
-				String key = (String) section.next();
-				if (key.contains(player.getName())) {
-					String range = config.getString(key + ".Chat.Range");
-					return range;
-				}
-			}
-		}
+    public String getFirstGradient(Player player) {
+    	if(existsPlayer("First-Gradient")) return config.getString("First-Gradient"); return null;
     }
     
-    public static void setRange(Player player, int range) {
-        if (config.contains(player.getName() + ".Chat.Range")) {
-            config.set(player.getName() + ".Chat.Range", range);
-            save();
-        }
+    public String getSecondGradient(Player player) {
+    	if(existsPlayer("Second-Gradient")) return config.getString("Second-Gradient"); return null;
     }
     
-    public static void setUUID(Player player) {
-        if (config.contains(player.getName() + ".UUID")) {
-            config.set(player.getName() + ".UUID", player.getUniqueId().toString());
-            save();
-        }
+    public String getUUID(Player player) {  	
+    	if(existsPlayer("UUID")) return config.getString("UUID"); return null;
     }
     
-    public static void setFirstGradient(Player player, String hex) {
-        if (config.contains(player.getName() + ".Gradient")) {
-            config.set(player.getName() + ".FirstGradient", hex);
-            save();
-        }
+    public void setColor(Player player, String color) {
+        if(existsPlayer("Message-Color")) config.set("Message-Color", color); save();
     }
     
-    public static void setSecondGradient(Player player, String hex) {
-        if (config.contains(player.getName() + ".Gradient")) {
-            config.set(player.getName() + ".SecondGradient", hex);
-            save();
-        }
+    public void setChannel(Player player, String channel) {
+        if(existsPlayer("Channel")) config.set("Channel", channel); save();
     }
     
-    public static String getFirstGradient(Player player) {
-    	Set<String> sections = config.getKeys(false);
-    	Iterator<String> section = sections.iterator();
-    	
-    	while(true) {
-    		while(section.hasNext()) {
-    			String key = (String) section.next();
-    			if(existsPlayer(player)) {
-    				return config.getString(key + ".FirstGradient");
-    			}
-    		}	
-    	}
-    }
-    public static String getUUID(Player player) {  	
-    	Set<String> sections = config.getKeys(false);
-    	Iterator<String> section = sections.iterator();
-    	
-    	while(true) {
-    		while(section.hasNext()) {
-    			String key = (String) section.next();
-    			if(existsPlayer(player)) {
-    				return config.getString(key + ".UUID");
-    			}
-    		}	
-    	}
+    public void setMute(Player player, boolean value) {        
+        if(config.contains("Is-Mute")) config.set("Is-Mute", value); save();
     }
     
+    public void setRange(Player player, int range) {
+        if(existsPlayer("Chat-Range")) config.set("Chat-Range", range); save();
+    }
     
-    public static String getSecondGradient(Player player) {
-    	Set<String> sections = config.getKeys(false);
-    	Iterator<String> section = sections.iterator();
-    	
-    	while(true) {
-    		while(section.hasNext()) {
-    			String key = (String) section.next();
-    			if(existsPlayer(player)) {
-    				return config.getString(key + ".SecondGradient");
-    			}
-    		}	
-    	}
+    public void setUUID(Player player) {
+        if(existsPlayer("UUID")) config.set("UUID", player.getUniqueId().toString()); save();
+    }
+    
+    public void setFirstGradient(Player player, String hex) {
+        if(existsPlayer("First-Gradient")) config.set("First-Gradient", hex); save();
+    }
+    
+    public void setSecondGradient(Player player, String hex) {
+        if(existsPlayer("Second-Gradient")) config.set("Second-Gradient", hex); save();
     }
         
-    public static void create(Player player) {
-    	if(!existsPlayer(player)) {
-    		config.set(player.getName() + ".UUID", player.getUniqueId().toString());
-            config.set(player.getName() + ".Color", Settings.default_color);
-            config.set(player.getName() + ".FirstGradient", "FFFFFF");
-            config.set(player.getName() + ".SecondGradient", "FFFFFF");
-            config.set(player.getName() + ".Mute", false);
-            config.set(player.getName() + ".Chat.Channel", "ALL");
-            config.set(player.getName() + ".Chat.Range", 10);
+    public void create(Player player) {
+    	if(!existsPlayer("Name")) {
+    		config.set("Name", player.getName());
+    		config.set("UUID", player.getUniqueId().toString());
+            config.set("Message-Color", Settings.default_color);
+            config.set("First-Gradient", "FFFFFF");
+            config.set("Second-Gradient", "FFFFFF");
+            config.set("Is-Mute", false);
+            config.set("Channel", "all");
+            config.set("Range-Chat", 10);
             save();
-            if(AdvancedChat.getInstance().isDebug()) {
-            	Logger.debug("&9folder &7-> &e[Data] &7-> &efile &b[player.data] &7-> &aAdded " + player.getName());
-            }
+            if(AdvancedChat.get().isDebug())
+            	Logger.debug("&9folder &7-> &e[Data] &7-> &d[Players] &7-> &efile &b[" + player.getName() + ".yml] &7-> &aAdded " + player.getName());
     	}else {
-    		if(AdvancedChat.getInstance().isDebug()) {
-    			Logger.debug("&9folder &7-> &e[Data] &7-> &efile &b[player.data] &7-> &eIt already existsPlayer " + player.getName());
-    		}
+    		if(AdvancedChat.get().isDebug())
+    			Logger.debug("&9folder &7-> &e[Data] &7-> &d[Players] &7-> &efile &b[" + player.getName() + ".yml] &7-> &eIt already existsPlayer " + player.getName());
     	}
     }
     
-    public static boolean existsPlayer(Player player) {
-		Set<String> sections = config.getKeys(false);
-		Iterator<String> section = sections.iterator();
-		while (true) {
-			while (section.hasNext()) {
-				String key = (String) section.next();
-
-				if (key.contains(player.getName())) {
-					return true;
-				} else {
-					return false;
-				}
-			}
-		}
-    }
-
-    public static boolean removePlayerlist(Player player) {
-        for (String key : config.getConfigurationSection("Players").getKeys(false)) {
-            if (key.contains(player.getName())) {
-                config.set(key, null);
-                save();
-                return true;
-            }
-        }
-        return false;
+    public boolean existsPlayer(String section) {
+    	if(config.contains(section)) return true; return false;
     }
     
-    private static void save() {
-    	playerDataFile.saveConfig();
+    private void save() {
+    	playerFile.save();
     }
 
 }

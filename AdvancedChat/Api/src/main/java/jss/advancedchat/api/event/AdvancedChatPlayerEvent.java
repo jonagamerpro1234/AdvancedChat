@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -26,6 +27,7 @@ public class AdvancedChatPlayerEvent extends Event implements Cancellable {
 	private String executeCommand;
 	private String openURL;
 	private String extraText;
+	private AsyncPlayerChatEvent asyncPlayerChatEvent;
 
 	public AdvancedChatPlayerEvent(Player player, String text, String extraText) {
 		this.player = player;
@@ -35,6 +37,10 @@ public class AdvancedChatPlayerEvent extends Event implements Cancellable {
 
 	public Player getPlayer() {
 		return this.player;
+	}
+	
+	public AsyncPlayerChatEvent getPlayerChatEvent() {
+		return asyncPlayerChatEvent;
 	}
 	
 	/**

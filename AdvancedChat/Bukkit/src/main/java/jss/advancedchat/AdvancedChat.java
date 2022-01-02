@@ -15,20 +15,22 @@ import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
 import jss.advancedchat.common.update.UpdateSettings;
 import jss.advancedchat.config.BadWordFile;
-import jss.advancedchat.config.ChannelGuiFile;
 import jss.advancedchat.config.ChatDataFile;
 import jss.advancedchat.config.ChatLogFile;
-import jss.advancedchat.config.ColorFile;
 import jss.advancedchat.config.CommandFile;
 import jss.advancedchat.config.CommandLogFile;
 import jss.advancedchat.config.ConfigFile;
-import jss.advancedchat.config.GradientColorFile;
 import jss.advancedchat.config.GroupFile;
 import jss.advancedchat.config.InventoryDataFile;
-import jss.advancedchat.config.PlayerDataFile;
-import jss.advancedchat.config.PlayerDataFile;
-import jss.advancedchat.config.PlayerGuiFile;
+import jss.advancedchat.config.MessageFile;
 import jss.advancedchat.config.PreConfigLoader;
+import jss.advancedchat.config.gui.ChannelGuiFile;
+import jss.advancedchat.config.gui.ColorFile;
+import jss.advancedchat.config.gui.GradientColorFile;
+import jss.advancedchat.config.gui.PlayerGuiFile;
+import jss.advancedchat.config.player.PlayerDataFile;
+import jss.advancedchat.config.player.PlayerFile;
+import jss.advancedchat.config.player.PlayerManagerFile;
 import jss.advancedchat.listeners.ChatListener;
 import jss.advancedchat.listeners.CommandListener;
 import jss.advancedchat.listeners.EventLoader;
@@ -45,14 +47,24 @@ import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.inventory.InventoryView;
 import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.file.FileManager;
 
 public class AdvancedChat extends AdvancedChatPlugin {
-
-	private ConfigFile configfile = new ConfigFile(this, "config.yml");
-	private PlayerDataFile playerDataFile = new PlayerDataFile(this, "players.json", "Data");
+	
+	private static AdvancedChat instance;
+	private PreConfigLoader preConfigLoad;
+	public Logger logger = new Logger();
+	public MySQLConnection connection;
+	public EventUtils eventUtils;
+	public Metrics metrics;
+	public HookManager HookManager;
+	public FileManager fileManager = new FileManager(this);
+	public ArrayList<InventoryView> inventoryView;
+	public ArrayList<ChatManager> chatManagers;
+	private MessageFile messageFile = new MessageFile(this, "messages.yml");
+	private ConfigFile configFile = new ConfigFile(this, "config.yml");
 	private GroupFile groupFile = new GroupFile(this, "groups.yml");
 	private BadWordFile badWordFile = new BadWordFile(this, "badword.yml");
-	@SuppressWarnings("unused")
 	private CommandFile commandFile = new CommandFile(this, "custom-command.yml");
 	private ColorFile colorFile = new ColorFile(this, "color-gui.yml", "Gui");
 	private PlayerGuiFile playerGuiFile = new PlayerGuiFile(this, "player-gui.yml", "Gui");
@@ -61,24 +73,17 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private ChatLogFile chatLogFile = new ChatLogFile(this, "chat.yml", "Log");
 	private CommandLogFile commandLogFile = new CommandLogFile(this, "command.yml", "Log");
 	private ChatDataFile chatDataFile = new ChatDataFile(this, "chat-log.data", "Data");
-	private PlayerDataFile playerdataold = new PlayerDataFile(this, "players.data", "Data");
+	private PlayerDataFile playerDataFile = new PlayerDataFile(this, "players.data", "Data");
 	private InventoryDataFile inventoryDataFile = new InventoryDataFile(this, "inventory.data", "Data");
-	private static AdvancedChat instance;
-	private PreConfigLoader preConfigLoad = new PreConfigLoader(this);
-	public Logger logger = new Logger();
-	private MySQLConnection connection;
-	private EventUtils eventUtils = new EventUtils(this);
-	public Metrics metrics;
-	private HookManager HookManager = new HookManager(this);
-	public String latestversion;
-	public String nmsversion;
-	private boolean BungeeMode;
+	private PlayerManagerFile playerManagerFile = new PlayerManagerFile(this);
+	private PlayerFile playerFile = new PlayerFile(this);
+	public boolean BungeeMode;
 	public boolean uselegacyversion = false;
 	public boolean uselatestversion = false;
 	public boolean uselatestConfig = false;
-	private static boolean debug;
-	private ArrayList<InventoryView> inventoryView;
-	private ArrayList<ChatManager> chatManagers;
+	public static boolean debug;
+	public String latestversion;
+	public String nmsversion;
 	
 	public void onLoad() {
 		Utils.setTitle(version);
@@ -86,23 +91,33 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		if (!getDataFolder().exists()) {
 			getDataFolder().mkdirs();
 		}
-		
-		Utils.setLineLoad("&eCheck DataFolder Exist!");
+		Utils.setLineLoad("&eCheck DataFolder Exist!");	
 		this.eventUtils = new EventUtils(this);
 		Utils.setLineLoad("&eLoading EventUtils");
+		inventoryView = new ArrayList<>();
+		Utils.setLineLoad("&eLoading InventoryView");
+		preConfigLoad = new PreConfigLoader(this);
+		Utils.setLineLoad("&eLoading PreConfigLoader");
+		HookManager = new HookManager(this);
+		Utils.setLineLoad("&eLoading HookManager");
 		Utils.setTitleLoad("&bLoading Files");
-		configfile.saveDefaultConfig();
-		configfile.create();
-		debug = configfile.getConfig().getBoolean("Settings.Debug");
-		if(!configfile.getConfig().getString("Settings.Config-Version").equals("2")) {
+		getConfigFile().saveDefaultConfig();
+		getConfigFile().create();
+		debug = getConfigFile().getConfig().getBoolean("Settings.Debug");
+		if(!getConfigFile().getConfig().getString("Settings.Config-Version").equals("2")) {
 			uselatestConfig = true;
 		}
 		Utils.setLineLoad("&eLoad Config.yml");
+		getMessageFile().saveDefault();
+		getMessageFile().createFile();
+		Utils.setLineLoad("&eLoad Message.yml");
 		preConfigLoad.load();
-		Utils.setLineLoad("&eLoad Pre Config");
+		preConfigLoad.loadMessage();
+		Utils.setLineLoad("&eLoad PreConfig");
 		createVoidFolder("Gui");
 		Utils.setLineLoad("&eLoad Gui Folder");
 		createVoidFolder("Data");
+		createVoidFolder("Data" + File.separator + "Players");
 		Utils.setLineLoad("&eLoad Data Folder");
 		createVoidFolder("Log");
 		Utils.setLineLoad("&eLoad Log Folder");
@@ -116,7 +131,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		if (nmsversion.equalsIgnoreCase("v1_8_R3")) {
 			uselegacyversion = true;
 			if (uselegacyversion) {
-				Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &cdisabled &7method &b1.16 &7and &e1.17");
+				Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &cdisabled &7method &b1.16 &3- &b1.18");
 			}
 		} else if (nmsversion.equalsIgnoreCase("v1_16_R1") || nmsversion.equalsIgnoreCase("v1_16_R2") || nmsversion.equalsIgnoreCase("v1_16_R3")) {
 			uselatestversion = true;
@@ -130,18 +145,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
 			Logger.warning("&e!Please update your config.yml!");
 		}
 		
-		//commandFile.create();
-		playerDataFile.create();
-		playerdataold.create();
-		inventoryDataFile.create();
-		chatLogFile.create();
-		commandLogFile.create();
-		colorFile.create();
-		gradientColorFile.create();
-		playerGuiFile.create();
-		chatDataFile.create();
-		channelGuiFile.create();
-		
+		createAllFiles();
+		//playerManagerFile.setup();
 		HookManager.load();
 		HookManager.loadProtocol();
 		
@@ -149,14 +154,11 @@ public class AdvancedChat extends AdvancedChatPlugin {
 			if (HookManager.isLoadProtocolLib()) {
 				HookManager.InitPacketListening();
 			} else {
-				Logger.warning(getConfigFile().getConfig().getString("AdvancedChat.Depend-Plugin") + " " + "&e[&bProtocolLib&e]");
+				Logger.warning(Settings.message_depend_plugin+ " " + "&e[&bProtocolLib&e]");
 			}
 		}
 		
 		this.getMetric();
-		
-		this.inventoryView = new ArrayList<>();
-		this.chatManagers = new ArrayList<>();
 		
 		loadCommands();
 		loadEvents();
@@ -183,6 +185,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		Utils.setDisabled(version);
 		metrics = null;
 		uselegacyversion = false;
+		uselatestConfig = false;
 	}
 	
 	public void loadCommands() {
@@ -205,10 +208,11 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	
 	public void reloadAllFiles() {
 		this.preConfigLoad.load();
+		this.preConfigLoad.loadMessage();
 		this.getConfigFile().reloadConfig();
 		this.getChatDataFile().reloadConfig();
 		this.getChatLogFile().reloadConfig();
-		this.getplayerdataoldFile().reloadConfig();
+		this.getPlayerDataFile().reloadConfig();
 		this.getPlayerGuiFile().reloadConfig();
 		this.getColorFile().reloadConfig();
 		this.getGradientColorFile().reloadConfig();
@@ -217,6 +221,19 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		this.getInventoryDataFile().reloadConfig();
 		this.getGroupFile().reloadConfig();
 		this.getBadWordFile().reloadConfig();
+		this.getMessageFile().reload();
+	}
+	
+	public void createAllFiles() {
+		playerDataFile.create();
+		inventoryDataFile.create();
+		chatLogFile.create();
+		commandLogFile.create();
+		colorFile.create();
+		gradientColorFile.create();
+		playerGuiFile.create();
+		chatDataFile.create();
+		channelGuiFile.create();
 	}
 	
 	public void getMetric() {
@@ -224,7 +241,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		metrics.addCustomChart(new Metrics.SimplePie("colors_used_by_player", () -> {
 			String color = "";
 			for(Player p : Bukkit.getOnlinePlayers()) {
-				color = PlayerManager.getColor(p);
+				PlayerManager playerManager = new PlayerManager(p);
+				color = playerManager.getColor(p);
 			}
 			return color;
 		}));
@@ -248,6 +266,76 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		}catch(Exception e) {}
 	}
 
+	public void addInventoryView(Player player, String inventoryname) {
+		if (this.getInventoryView(player) == null) {
+			this.inventoryView.add(new InventoryView(player, inventoryname));
+		}
+	}
+
+	public void removeInvetoryView(Player player) {
+		for (int i = 0; i < inventoryView.size(); i++) {
+			if (((InventoryView) this.inventoryView.get(i)).getPlayer().getName().equals(player.getName())) {
+				this.inventoryView.remove(i);
+			}
+		}
+	}
+
+	public InventoryView getInventoryView(Player player) {
+		for (int i = 0; i < inventoryView.size(); i++) {
+			if (((InventoryView) this.inventoryView.get(i)).getPlayer().getName().equals(player.getName())) {
+				return (InventoryView) this.inventoryView.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public PlayerFile getPlayerFile() {
+		return playerFile;
+	}
+	
+	public PlayerManagerFile getPlayerManagerFile() {
+		return playerManagerFile;
+	}
+	
+	public HookManager getHookManager() {
+		return HookManager;
+	}
+
+	public Connection getConnection() {
+		return this.connection.getConnetion();
+	}
+
+	public boolean isDebug() {
+		return debug;
+	}
+	
+	public static AdvancedChat get() {
+		return instance;
+	}
+	
+	public ArrayList<ChatManager> getChatManagers() {
+		return this.chatManagers;
+	}
+
+	public void setChatManagers(ChatManager chat) {
+		this.chatManagers.add(chat);
+	}
+
+	public EventUtils getEventUtils() {
+		return this.eventUtils;
+	}
+
+	public boolean isBungeeMode() {
+		return this.BungeeMode;
+	}
+
+	public PreConfigLoader getPreConfigLoader() {
+		return this.preConfigLoad;
+	}
+	
+	public MessageFile getMessageFile() {
+		return messageFile;
+	}
 	
 	public GroupFile getGroupFile() {
 		return groupFile;
@@ -265,12 +353,12 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		return this.inventoryDataFile;
 	}
 
-	public PlayerDataFile getplayerdataoldFile() {
-		return playerdataold;
+	public PlayerDataFile getPlayerDataFile() {
+		return this.playerDataFile;
 	}
 
 	public ConfigFile getConfigFile() {
-		return configfile;
+		return configFile;
 	}
 
 	public ColorFile getColorFile() {
@@ -296,64 +384,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public ChannelGuiFile getChannelGuiFile() {
 		return channelGuiFile;
 	}
-
-	public HookManager getHookManager() {
-		return HookManager;
-	}
-
-	public Connection getConnection() {
-		return this.connection.getConnetion();
-	}
-
-	public boolean isDebug() {
-		return debug;
-	}
-
-	public static AdvancedChat getInstance() {
-		return instance;
-	}
-
-	public void addInventoryView(Player player, String inventoryname) {
-		if (this.getInventoryView(player) == null) {
-			this.inventoryView.add(new InventoryView(player, inventoryname));
-		}
-	}
-
-	public void removeInvetoryView(Player player) {
-		for (int i = 0; i < inventoryView.size(); i++) {
-			if (((InventoryView) this.inventoryView.get(i)).getPlayer().getName().equals(player.getName())) {
-				this.inventoryView.remove(i);
-			}
-		}
-	}
-
-	public InventoryView getInventoryView(Player player) {
-		for (int i = 0; i < inventoryView.size(); i++) {
-			if (((InventoryView) this.inventoryView.get(i)).getPlayer().getName().equals(player.getName())) {
-				return (InventoryView) this.inventoryView.get(i);
-			}
-		}
-		return null;
-	}
-
-
-	public ArrayList<ChatManager> getChatManagers() {
-		return this.chatManagers;
-	}
-
-	public void setChatManagers(ChatManager chat) {
-		this.chatManagers.add(chat);
-	}
-
-	public EventUtils getEventUtils() {
-		return this.eventUtils;
-	}
-
-	public boolean isBungeeMode() {
-		return this.BungeeMode;
-	}
-
-	public PreConfigLoader getPreConfigLoader() {
-		return this.preConfigLoad;
+	
+	public CommandFile getCommandFile() {
+		return commandFile;
 	}
 }

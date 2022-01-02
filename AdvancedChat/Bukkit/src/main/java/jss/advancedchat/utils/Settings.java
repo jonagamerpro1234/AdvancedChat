@@ -74,5 +74,6 @@ public class Settings {
     public static boolean boolean_command_blocker;
     public static boolean boolean_command_blocker_disable_command;
     public static boolean boolean_command_blocker_disable_command_mute;
+	public static String message_depend_plugin;
     
 }

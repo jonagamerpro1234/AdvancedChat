@@ -18,7 +18,7 @@ public class ProtocolLibHook{
 	public void initPacketListening() {
 		
 		if(Settings.boolean_antitabcompleted) {
-			manager.addPacketListener(new PacketAdapter(AdvancedChat.getInstance(), PacketType.Play.Client.TAB_COMPLETE) {
+			manager.addPacketListener(new PacketAdapter(AdvancedChat.get(), PacketType.Play.Client.TAB_COMPLETE) {
 				@Override
 				public void onPacketReceiving(PacketEvent e) {
 					Player j = e.getPlayer();
