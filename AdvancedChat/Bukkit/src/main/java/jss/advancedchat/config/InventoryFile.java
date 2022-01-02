@@ -1,5 +1,6 @@
 package jss.advancedchat.config;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,13 +12,11 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.common.interfaces.IFileHelper;
-import jss.advancedchat.common.interfaces.IFolderHelper;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.file.FileManager;
 
-public class InventoryFile extends FileManager implements IFileHelper, IFolderHelper{
+public class InventoryFile extends FileManager {
 
 	private AdvancedChat plugin;
 	private Logger logger = new Logger();
@@ -45,23 +44,20 @@ public class InventoryFile extends FileManager implements IFileHelper, IFolderHe
         
         try {
         	this.config.load(this.file);
-        }catch(IOException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
-        	e.printStackTrace();
-        }catch(InvalidConfigurationException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
+        }catch(IOException | InvalidConfigurationException e) {
+        	Logger.error("The file could not be loaded &b[&e " + this.path + "&b]");
         	e.printStackTrace();
         }
     }
 
-    public FileConfiguration getConfig() {
+    public FileConfiguration get() {
         if (this.config == null) {
-            reloadConfig();
+            this.reload();
         }
         return this.config;
     }
 
-    public void saveConfig() {
+    public void save() {
         try {
             this.config.save(this.file);
         } catch (IOException e) {
@@ -70,7 +66,7 @@ public class InventoryFile extends FileManager implements IFileHelper, IFolderHe
         }
     }
 
-    public void reloadConfig() {
+    public void reload() {
         if (this.config == null) {
             this.file = new File(getDataFolder() + File.separator + folderpath, this.path);
         }
@@ -78,8 +74,9 @@ public class InventoryFile extends FileManager implements IFileHelper, IFolderHe
         Reader defaultConfigStream;
         try {
             defaultConfigStream = new InputStreamReader(getResources(this.folderpath+ File.separator + this.path), "UTF8");
+            BufferedReader in = new BufferedReader(defaultConfigStream);
             if (defaultConfigStream != null) {
-                YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
+                YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
                 config.setDefaults(defaultConfig);
             }
         }catch(UnsupportedEncodingException e) {

@@ -22,7 +22,8 @@ public class CommandListener implements Listener {
 	@EventHandler
 	public void onCommandChat(PlayerCommandPreprocessEvent e) {
 		Player j = e.getPlayer();
-
+		PlayerManager playerManager = new PlayerManager(j);
+		
 		if ((j.isOp()) || (j.hasPermission("AdvancedChat.CommandBlocker.Bypass")))
 			return;
 
@@ -37,7 +38,7 @@ public class CommandListener implements Listener {
 				}
 			}
 			if (Settings.boolean_command_blocker_disable_command_mute) {
-				if (PlayerManager.isMute(j)) {
+				if (playerManager.isMute(j)) {
 					for (String a : Settings.list_command_blocker_no_use_mute) {
 						if (e.getMessage().toLowerCase().contains(a)) {
 							e.setCancelled(true);

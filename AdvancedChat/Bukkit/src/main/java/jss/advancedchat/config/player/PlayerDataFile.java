@@ -1,4 +1,4 @@
-package jss.advancedchat.config;
+package jss.advancedchat.config.player;
 
 import java.io.File;
 import java.io.IOException;

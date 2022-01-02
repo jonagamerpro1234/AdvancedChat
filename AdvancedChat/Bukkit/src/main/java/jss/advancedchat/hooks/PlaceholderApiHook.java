@@ -18,7 +18,7 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
 public class PlaceholderApiHook implements IHook{
 	
-	private AdvancedChat plugin = AdvancedChat.getInstance();
+	private AdvancedChat plugin = AdvancedChat.get();
 	private HookManager hooksManager;
 	private Logger logger = new Logger();
 	private boolean isEnabled;
@@ -75,15 +75,20 @@ public class PlaceholderApiHook implements IHook{
 			return plugin.version;
 		}
 		
-		public String onPlaceholderRequest(Player player, String args) {	
+		public String onPlaceholderRequest(Player player, String args) {
+			PlayerManager playerManager = new PlayerManager(player);
 			if(args.equals("mute_state")) {
 				if(Settings.mysql_use) {
 					if(MySQL.isMute(plugin, player.getUniqueId().toString())) {
 						return "true";
+					}else {
+						return "false";
 					}
 				}else {
-					if(PlayerManager.isMute(player)){
-						return "true 	";
+					if(playerManager.isMute(player)){
+						return "true";
+					}else {
+						return "false";
 					}
 				}
 			}

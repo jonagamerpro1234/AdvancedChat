@@ -63,13 +63,14 @@ public class ChatListener implements Listener {
 	//test chat event
 	@EventHandler
 	public void sendCustomChat(AdvancedChatPlayerEvent e) {
-		
+		e.setText(e.getPlayerChatEvent().getMessage());
+		e.send();
 	}
 	
 	//Mute chat
 	@EventHandler(priority = EventPriority.HIGH)
 	public void chatMute(AsyncPlayerChatEvent e) {
-		FileConfiguration config = plugin.getplayerdataoldFile().getConfig();
+		FileConfiguration config = plugin.getPlayerDataFile().getConfig();
 		FileConfiguration cconfig = plugin.getConfigFile().getConfig();
 		Player j = e.getPlayer();
 		
@@ -102,7 +103,7 @@ public class ChatListener implements Listener {
 		}
 	}
 	
-	@EventHandler(priority = EventPriority.HIGHEST)
+	//@EventHandler(priority = EventPriority.HIGHEST)
 	public void chatFormat(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfigFile().getConfig();
 		GroupManager groupManager = new GroupManager(plugin);
@@ -111,11 +112,7 @@ public class ChatListener implements Listener {
 		LuckPermsHook luckPermsHook = HookManager.getInstance().getLuckPermsHook();
 		
 		Player j = e.getPlayer();
-		
-		if(!PlayerManager.existsPlayer(j)) {
-			PlayerManager.create(j);
-		}
-		
+		PlayerManager playerManager = new PlayerManager(j);
 		String path = Settings.boolean_chat_type;
 		
 		boolean isDefault = path.equalsIgnoreCase("default");
@@ -128,7 +125,7 @@ public class ChatListener implements Listener {
 		if(Settings.mysql_use) {
 			message = " &r" + colorManager.convertColor(j, MySQL.getColor(plugin, j.getUniqueId().toString()), e.getMessage());
 		} else {
-			message = " &r" + colorManager.convertColor(j, PlayerManager.getColor(j), e.getMessage());
+			message = " &r" + colorManager.convertColor(j, playerManager.getColor(j), e.getMessage());
 		}
 		
 		format = Utils.getVar(j, format);
@@ -139,7 +136,7 @@ public class ChatListener implements Listener {
 			message = Utils.color(message);
 		}
 		
-		if(PlayerManager.isMute(j) || this.badword) {
+		if(playerManager.isMute(j) || this.badword) {
 			this.badword = false;
 			return;
 		}

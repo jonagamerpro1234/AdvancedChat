@@ -86,11 +86,12 @@ public class GuiPlayer {
     }
 
     public ItemStack getMuteItem(Player player) {
-        if (PlayerManager.existsPlayer(player)) {
+    	PlayerManager playerManager = new PlayerManager(player);
+        if (playerManager.existsPlayer("Name")){
         	if(player.hasPermission("AdvancedChat.Mute.Bypass")) {
         		return item = XMaterial.BARRIER.parseItem();
         	}else {
-                if (PlayerManager.isMute(player)) {
+                if (playerManager.isMute(player)) {
                 	return item = XMaterial.GREEN_DYE.parseItem();
                 } else {
                 	return item = XMaterial.GRAY_DYE.parseItem();

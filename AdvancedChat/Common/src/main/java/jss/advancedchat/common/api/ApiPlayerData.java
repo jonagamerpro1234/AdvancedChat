@@ -8,11 +8,20 @@ import jss.advancedchat.api.IPlayerData;
 
 public class ApiPlayerData implements IPlayerData{
 	
+	private static ApiPlayerData apiPlayerData;
 	private HashMap<Player, String> uuidMap = new HashMap<Player, String>();
 	private HashMap<Player, String> colorMap = new HashMap<Player, String>();
 	private HashMap<Player, String> firstGradientMap = new HashMap<Player, String>();
 	private HashMap<Player, String> secondGradientMap = new HashMap<Player, String>();
 	private HashMap<Player, Boolean> muteMap = new HashMap<Player, Boolean>();
+	
+	public ApiPlayerData() {
+		apiPlayerData = this;
+	}
+
+	public static ApiPlayerData get() {
+		return apiPlayerData;
+	}
 	
 	@Override
 	public String getUUID(Player player) {

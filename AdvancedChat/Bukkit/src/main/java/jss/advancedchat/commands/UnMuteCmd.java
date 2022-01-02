@@ -36,13 +36,14 @@ public class UnMuteCmd implements CommandExecutor {
 
         if (!(sender instanceof Player)) {
             if (args.length >= 1) {
-                Player p = Bukkit.getPlayer(args[0]);
+                Player target = Bukkit.getPlayer(args[0]);
+                PlayerManager playerManager = new PlayerManager(target);
                 if(Settings.mysql_use) {
-                	MySQL.setMute(plugin, p.getUniqueId().toString(), false);
+                	MySQL.setMute(plugin, target.getUniqueId().toString(), false);
                 } else {
-                	PlayerManager.setMute(p, false);
+                	playerManager.setMute(target, false);
                 }
-                Utils.sendColorMessage(sender, prefixserver + " " + Utils.getVar(p, Settings.message_UnMute_Player));
+                Utils.sendColorMessage(sender, prefixserver + " " + Utils.getVar(target, Settings.message_UnMute_Player));
                 return true;
             }
             Utils.sendColorMessage(sender, Utils.getPrefix() + Settings.message_Help_UnMute);
@@ -51,17 +52,18 @@ public class UnMuteCmd implements CommandExecutor {
         Player j = (Player) sender;
         if (j.isOp() || j.hasPermission("AdvancedChat.UnMute")) {
             if (args.length >= 1) {
-                Player p = Bukkit.getPlayer(args[0]);
-                
-                if(p == null) {
+                Player target = Bukkit.getPlayer(args[0]);
+                PlayerManager playerManager = new PlayerManager(target);
+
+                if(target == null) {
                 	Utils.sendColorMessage(j, Settings.message_No_Online_Player);
                 	return true;
                 }
                 
                 if(Settings.mysql_use) {
-                	MySQL.setMute(plugin, p.getUniqueId().toString(), false);
+                	MySQL.setMute(plugin, target.getUniqueId().toString(), false);
                 } else {
-                	PlayerManager.setMute(p, false);
+                	playerManager.setMute(target, false);
                 }
                 Utils.sendColorMessage(j, prefix + " " + Utils.getVar(j, Settings.message_UnMute_Player));
                 return true;

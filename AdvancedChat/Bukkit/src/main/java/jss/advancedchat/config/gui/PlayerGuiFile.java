@@ -1,5 +1,6 @@
-package jss.advancedchat.config;
+package jss.advancedchat.config.gui;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,7 +17,7 @@ import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.file.FileManager;
 
-public class GradientColorFile extends FileManager implements IFileHelper, IFolderHelper {
+public class PlayerGuiFile extends FileManager implements IFileHelper, IFolderHelper {
 
     private AdvancedChat plugin;
     private File file;
@@ -25,7 +26,7 @@ public class GradientColorFile extends FileManager implements IFileHelper, IFold
     private String folderpath;
     private Logger logger = new Logger();
 
-    public GradientColorFile(AdvancedChat plugin, String path, String folderpath) {
+    public PlayerGuiFile(AdvancedChat plugin, String path, String folderpath) {
         super(plugin);
         this.plugin = plugin;
         this.file = null;
@@ -56,8 +57,9 @@ public class GradientColorFile extends FileManager implements IFileHelper, IFold
     public void saveConfig() {
         try {
             this.config.save(this.file);
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
+        	e.printStackTrace();
         }
     }
 
@@ -67,10 +69,11 @@ public class GradientColorFile extends FileManager implements IFileHelper, IFold
         }
         this.config = YamlConfiguration.loadConfiguration(this.file);
         Reader defaultConfigStream;
-        try {
+        try{
             defaultConfigStream = new InputStreamReader(getResources(this.path), "UTF8");
+            BufferedReader in = new BufferedReader(defaultConfigStream);
             if (defaultConfigStream != null) {
-                YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
+                YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
                 config.setDefaults(defaultConfig);
             }
         }catch(UnsupportedEncodingException e) {

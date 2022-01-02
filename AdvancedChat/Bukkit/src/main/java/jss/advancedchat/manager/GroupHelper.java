@@ -13,7 +13,7 @@ import jss.advancedchat.utils.Logger;
 public abstract class GroupHelper {
 	
 	
-	
+	@SuppressWarnings("unused")
 	public static void useLuckPermsGroup(GroupManager groupManager, LuckPermsHook luckPermsHook, DiscordSRVHook discordSRVHook, PlayerManager playerManager, FileConfiguration config, Player player, String message) {
 		if(!luckPermsHook.isEnabled()) {
 			
