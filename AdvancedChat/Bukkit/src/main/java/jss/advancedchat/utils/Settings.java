@@ -47,6 +47,26 @@ public class Settings {
     public static String mysql_database;
     public static boolean mysql_use;
 
+    public static int gradient_inv_slot_red;
+    public static int gradient_inv_slot_darkred;
+    public static int gradient_inv_slot_blue;
+    public static int gradient_inv_slot_darkblue;
+    public static int gradient_inv_slot_green;
+    public static int gradient_inv_slot_darkgreen;
+    public static int gradient_inv_slot_yellow;
+    public static int gradient_inv_slot_gold;
+    public static int gradient_inv_slot_gray;
+    public static int gradient_inv_slot_darkgray;
+    public static int gradient_inv_slot_lightpurple;
+    public static int gradient_inv_slot_darkpurple;
+    public static int gradient_inv_slot_aqua;
+    public static int gradient_inv_slot_darkaqua;
+    public static int gradient_inv_slot_white;
+    public static int gradient_inv_slot_black;
+    public static int gradient_inv_slot_back;
+    public static int gradient_inv_slot_exit;
+    public static int gradient_inv_slot_last;
+    
     public static int int_clearchat_tick;
     public static int int_range_chat;
     public static int int_clearchat_lines;

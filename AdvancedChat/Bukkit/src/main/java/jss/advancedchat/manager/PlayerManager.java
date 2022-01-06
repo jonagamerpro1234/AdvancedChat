@@ -4,12 +4,15 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.common.api.ApiPlayerData;
 import jss.advancedchat.config.player.PlayerFile;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 
 public class PlayerManager  {
-
+	
+	@SuppressWarnings("unused")
+	private static ApiPlayerData api = ApiPlayerData.api;
 	private final PlayerFile playerFile = AdvancedChat.get().getPlayerFile();
 	private FileConfiguration config = null;
 	
@@ -18,7 +21,7 @@ public class PlayerManager  {
 	}
 	
     public boolean isMute(Player player) {
-    	if(existsPlayer("Is-Mute")) if(config.getBoolean("Is-Mute")) return true; return false;
+    	if(existsPlayer("Is-Mute")) return config.getBoolean("Is-Mute"); return false;
     }
     
     public String getColor(Player player) {
