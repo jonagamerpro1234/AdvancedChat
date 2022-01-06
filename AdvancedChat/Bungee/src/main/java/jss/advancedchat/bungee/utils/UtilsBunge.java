@@ -7,7 +7,7 @@ import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
-public class Utils {
+public class UtilsBunge {
    private static final String prefix = getPrefix();
 
    public static String getLine() {

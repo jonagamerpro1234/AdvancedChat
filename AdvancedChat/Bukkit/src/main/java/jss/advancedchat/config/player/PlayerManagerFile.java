@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.bungee.utils.Logger;
+import jss.advancedchat.bungee.utils.LoggerBunge;
 
 public class PlayerManagerFile {
 	
@@ -30,7 +30,7 @@ public class PlayerManagerFile {
 			}
 		}catch(SecurityException e) {
 			folder = null;
-			Logger.error("Could not create folder &9-> &ePlayers");
+			LoggerBunge.error("Could not create folder &9-> &ePlayers");
 			e.printStackTrace();
 		}
 	}
