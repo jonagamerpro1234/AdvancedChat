@@ -8,7 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.bungee.utils.Logger;
+import jss.advancedchat.bungee.utils.LoggerBunge;
 import jss.advancedchat.utils.file.FileManager;
 
 public class PlayerFile extends FileManager {
@@ -41,7 +41,7 @@ public class PlayerFile extends FileManager {
 		try {
 			config.load(file);
 		} catch (IOException | InvalidConfigurationException e) {
-			Logger.error("The file could not be loaded");
+			LoggerBunge.error("The file could not be loaded");
 			e.printStackTrace();
 		}
 	}

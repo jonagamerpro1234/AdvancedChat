@@ -7,13 +7,13 @@ import java.util.Scanner;
 import java.util.function.Consumer;
 
 import jss.advancedchat.bungee.AdvancedChatBungee;
-import jss.advancedchat.bungee.utils.Logger.Level;
+import jss.advancedchat.bungee.utils.LoggerBunge.Level;
 import jss.advancedchat.common.update.UpdateSettings;
 
 public class UpdateChecker  {
 
     private AdvancedChatBungee plugin;
-    private Logger logger = new Logger(plugin);
+    private LoggerBunge logger = new LoggerBunge(plugin);
 
     public UpdateChecker(AdvancedChatBungee plugin) {
 		this.plugin = plugin;
