@@ -60,50 +60,28 @@ public class ChatListener implements Listener {
 		this.plugin = plugin;
 	}
 	
-	//test chat event
-	@EventHandler
-	public void sendCustomChat(AdvancedChatPlayerEvent e) {
-		e.setText(e.getPlayerChatEvent().getMessage());
-		e.send();
-	}
-	
 	//Mute chat
 	@EventHandler(priority = EventPriority.HIGH)
 	public void chatMute(AsyncPlayerChatEvent e) {
-		FileConfiguration config = plugin.getPlayerDataFile().getConfig();
-		FileConfiguration cconfig = plugin.getConfigFile().getConfig();
 		Player j = e.getPlayer();
+		PlayerManager playerManager = new PlayerManager(j);
 		
 		if (Settings.mysql_use) {
-			if ((j.isOp()) || (j.hasPermission("AdvancedChat.Mute.Bypass"))) {
-				return;
-			} else {
+			if (j.isOp() || j.hasPermission("AdvancedChat.Mute.Bypass")) return;
 				if (MySQL.isMute(plugin, j.getUniqueId().toString())) {
-					Utils.sendColorMessage(j,
-							cconfig.getString("AdvancedChat.Alert-Mute").replace("<name>", j.getName()));
+					Utils.sendColorMessage(j, Utils.getVar(j, Settings.message_Alert_Mute));
 					e.setCancelled(true);
 				}
-			}
 		} else {
-			Set<String> sections = config.getKeys(false);
-			sections.forEach( key -> {
-				if (key.contains(j.getName())) {
-					String mute = config.getString(key + ".Mute");
-					if (!(j.isOp()) || !(j.hasPermission("AdvancedChat.Mute.Bypass"))) {
-						if (mute.equals("true")) {
-							Utils.sendColorMessage(j,
-									cconfig.getString("AdvancedChat.Alert-Mute").replace("<name>", j.getName()));
-							e.setCancelled(true);
-						}
-					} else {
-						return;
-					}
+			if (j.isOp() || j.hasPermission("AdvancedChat.Mute.Bypass")) return;
+				if (playerManager.isMute(j)) {
+					Utils.sendColorMessage(j, Utils.getVar(j, Settings.message_Alert_Mute));
+					e.setCancelled(true);
 				}
-			});
 		}
 	}
 	
-	//@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void chatFormat(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfigFile().getConfig();
 		GroupManager groupManager = new GroupManager(plugin);

@@ -36,6 +36,9 @@ import jss.advancedchat.listeners.CommandListener;
 import jss.advancedchat.listeners.EventLoader;
 import jss.advancedchat.listeners.InventoryListener;
 import jss.advancedchat.listeners.JoinListener;
+import jss.advancedchat.listeners.inventory.ColorInventoryListener;
+import jss.advancedchat.listeners.inventory.GradientInventoryListener;
+import jss.advancedchat.listeners.inventory.PlayerInventoryListener;
 import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
@@ -126,6 +129,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	
 	public void onEnable() {
 		Utils.setEnabled(version);
+		//!!modify!!
 		nmsversion = Bukkit.getServer().getClass().getPackage().getName();
 		nmsversion = nmsversion.substring(nmsversion.lastIndexOf(".") + 1);
 		if (nmsversion.equalsIgnoreCase("v1_8_R3")) {
@@ -137,6 +141,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 			uselatestversion = true;
 			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
 		}
+		
 		instance = this;
 		
 		checkBungeeMode();
@@ -201,7 +206,10 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		new JoinListener(this),
 		new InventoryListener(this),
 		new ChatListener(this),
-		new CommandListener(this));
+		new CommandListener(this),
+		new ColorInventoryListener(this),
+		new GradientInventoryListener(this),
+		new PlayerInventoryListener(this));
 		EventLoader e = new EventLoader(this);
 		e.runClearChat();
 	}

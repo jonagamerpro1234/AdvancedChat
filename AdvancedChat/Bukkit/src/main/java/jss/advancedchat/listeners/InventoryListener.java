@@ -59,7 +59,7 @@ public class InventoryListener implements Listener {
         }    
     }
     
-    @EventHandler
+    //@EventHandler moved a GradientInventoryListener
     public void onInventoryClickGradient(InventoryClickEvent e) {
         FileConfiguration c = plugin.getGradientColorFile().getConfig();
         Player p = (Player) e.getWhoClicked();
