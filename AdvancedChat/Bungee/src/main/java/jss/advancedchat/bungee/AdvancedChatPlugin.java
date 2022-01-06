@@ -1,4 +1,4 @@
-package jss.advancedchat.bungee.utils;
+package jss.advancedchat.bungee;
 
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;

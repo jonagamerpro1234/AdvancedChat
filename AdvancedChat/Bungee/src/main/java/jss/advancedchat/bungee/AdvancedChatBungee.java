@@ -1,6 +1,5 @@
 package jss.advancedchat.bungee;
 
-import jss.advancedchat.bungee.utils.AdvancedChatPlugin;
 import jss.advancedchat.bungee.utils.LoggerBunge;
 import jss.advancedchat.bungee.utils.LoggerBunge.Level;
 import jss.advancedchat.common.update.UpdateSettings;
