@@ -1,61 +1,6 @@
 package jss.advancedchat.utils;
 
 public class Logger {
-
-	public Logger() {}
-
-    public void Log(Level level, Object object) {
-        if (object == null) {
-            return;
-        }
-        switch (level) {
-            case ERROR:
-                error(object);
-                break;
-            case WARNING:
-            	warning(object);
-                break;
-            case INFO:
-                info(object);
-                break;
-            case OUTLINE:
-                outline(object);
-                break;
-            case SUCCESS:
-                success(object);
-                break;
-            case DEBUG:
-            	debug(object);
-                break;
-        }
-    }
-
-    public void Log(Level level, String msg) {
-        if (msg == null) {
-            return;
-        }
-        switch (level) {
-            case ERROR:
-                error(msg);
-                break;
-            case WARNING:
-                warning(msg);
-                break;
-            case INFO:
-                info(msg);
-                break;
-            case OUTLINE:
-                outline(msg);
-                break;
-            case SUCCESS:
-                success(msg);
-                break;
-            case DEBUG:
-            	debug(msg);
-                break;
-        }
-
-    }
     
     public static void warning(String msg) {
     	Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix() + " -> &e[&dWARNING&e]&7" + " " + msg);
@@ -82,7 +27,7 @@ public class Logger {
     }
     
     public static void defaultMessage(String msg) {
-    	Utils.sendColorConsoleMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix() + msg);
+    	Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix() + msg);
     }
     
     public static void warning(Object object) {
@@ -110,11 +55,7 @@ public class Logger {
     }
 	
     public static void defaultMessage(Object object) {
-    	Utils.sendColorConsoleMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix() + object);
+    	Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix() + object);
     }
-    
-	public enum Level{
-		ERROR, WARNING, INFO, SUCCESS, OUTLINE, DEBUG;
-	}
 
 }

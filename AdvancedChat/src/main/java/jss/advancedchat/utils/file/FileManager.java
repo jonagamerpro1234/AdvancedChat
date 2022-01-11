@@ -4,13 +4,10 @@ import java.io.File;
 import java.io.InputStream;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Logger.Level;
 
 public class FileManager {
 
     private AdvancedChat plugin;
-    private Logger logger = new Logger();
 
     public FileManager(AdvancedChat plugin) {
         this.plugin = plugin;
@@ -22,8 +19,7 @@ public class FileManager {
             try {
                 folder.mkdir();
             } catch (Exception e) {
-            	logger.Log(Level.ERROR, "!!Error Load Folder!!");
-                logger.Log(Level.ERROR, e.getStackTrace());
+            	e.printStackTrace();
             }
         }
     }
@@ -34,8 +30,7 @@ public class FileManager {
             try {
                 folder.mkdir();
             } catch (Exception e) {
-            	logger.Log(Level.ERROR, "!!Error Load Folder!!");
-                logger.Log(Level.ERROR, e.getStackTrace());
+            	e.printStackTrace();
             }
         }
 

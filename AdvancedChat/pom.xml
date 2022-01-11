@@ -20,13 +20,13 @@
 	<distributionManagement>
 		<repository>
 			<id>central</id>
-			<name>a0qalvjphyeeq-artifactory-primary-0-releases</name>
-			<url>https://advancedchat.jfrog.io/artifactory/advancedchat-libs-release</url>
+			<name>a0kvglwywgir1-artifactory-primary-0-releases</name>
+			<url>https://srjssdev.jfrog.io/artifactory/advancedchat-libs-release</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
-			<name>a0qalvjphyeeq-artifactory-primary-0-snapshots</name>
-			<url>https://advancedchat.jfrog.io/artifactory/advancedchat-libs-snapshot</url>
+			<name>a0kvglwywgir1-artifactory-primary-0-snapshots</name>
+			<url>https://srjssdev.jfrog.io/artifactory/advancedchat-libs-snapshot</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -188,15 +188,6 @@
 	</repositories>
 
 	<build>
-		<finalName>AdvancedChat-${project.version}</finalName>
-
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -232,6 +223,7 @@
 							</excludes>
 						</filter>
 					</filters>
+					<minimizeJar>true</minimizeJar>
 				</configuration>
 				<executions>
 					<execution>
@@ -248,21 +240,37 @@
 				<version>3.2.0</version>
 				<configuration>
 					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+						<manifest>
+							<addClasspath>false</addClasspath>
+						</manifest>
 						<manifestEntries>
 							<Built-By>jonagamerpro1234</Built-By>
 							<Version>${project.version}</Version>
 						</manifestEntries>
 					</archive>
 					<outputDirectory>C:\Users\Alumno\Desktop\LocalHost\Server\1.8\plugins</outputDirectory>
-					<excludes>
-						<exclude>srccopia</exclude>
-					</excludes>
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.8.1</version>
+				<version>3.0.0-M2</version>
+				<configuration>
+					<retryFailedDeploymentCount>3</retryFailedDeploymentCount>
+				</configuration>
 			</plugin>
 		</plugins>
+
+		<finalName>AdvancedChat-${project.version}</finalName>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+
 	</build>
 </project>

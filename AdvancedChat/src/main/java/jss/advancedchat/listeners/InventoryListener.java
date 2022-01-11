@@ -373,7 +373,7 @@ public class InventoryListener implements Listener {
         }
     }
 
-    @EventHandler
+    //@EventHandler
     public void onInventoryClickColor(InventoryClickEvent e) {
         FileConfiguration c = plugin.getColorFile().getConfig();
         Player p = (Player) e.getWhoClicked();

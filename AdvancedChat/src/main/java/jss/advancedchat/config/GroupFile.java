@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,8 +13,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.common.interfaces.IFileHelper;
 import jss.advancedchat.common.interfaces.IFileLoader;
-import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.file.FileManager;
 
 
@@ -24,7 +22,6 @@ public class GroupFile extends FileManager implements IFileHelper, IFileLoader {
     private File file;
     private FileConfiguration config;
     private String path;
-    private Logger logger = new Logger();
 
     public GroupFile(AdvancedChat plugin, String path) {
         super(plugin);
@@ -53,7 +50,6 @@ public class GroupFile extends FileManager implements IFileHelper, IFileLoader {
         try {
             this.config.save(this.file);
         } catch (IOException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
         	e.printStackTrace();
         }
     }
@@ -71,14 +67,7 @@ public class GroupFile extends FileManager implements IFileHelper, IFileLoader {
                 YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
                 config.setDefaults(defaultConfig);
             }
-        }catch(UnsupportedEncodingException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
-        	e.printStackTrace();
-        }catch(NullPointerException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
-        	e.printStackTrace();
-        }catch(IllegalArgumentException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
+        }catch(Exception e) {
         	e.printStackTrace();
         }
 

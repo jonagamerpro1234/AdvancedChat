@@ -4,17 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 
-//import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.common.interfaces.IFileHelper;
 import jss.advancedchat.common.interfaces.IFolderHelper;
-import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.file.FileManager;
 
 public class CommandLogFile extends FileManager implements IFileHelper, IFolderHelper {
@@ -24,7 +20,6 @@ public class CommandLogFile extends FileManager implements IFileHelper, IFolderH
     private FileConfiguration config;
     private String path;
     private String folderpath;
-    private Logger logger = new Logger();
     
     public CommandLogFile(AdvancedChat plugin, String path, String folderpath) {
         super(plugin);
@@ -74,14 +69,7 @@ public class CommandLogFile extends FileManager implements IFileHelper, IFolderH
                 YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
                 config.setDefaults(defaultConfig);
             }
-        }catch(UnsupportedEncodingException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
-        	e.printStackTrace();
-        }catch(NullPointerException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
-        	e.printStackTrace();
-        }catch(IllegalArgumentException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
+        }catch(Exception e) {
         	e.printStackTrace();
         }
 

@@ -61,9 +61,9 @@ public class Json {
 		for (int i = 0; i < hover.size(); ++i) {
 			TextComponent component = new TextComponent();
 			if (i == hover.size() - 1) {
-				component.setText(Utils.hexcolor(Utils.getVar(this.player, (String) hover.get(i))));
+				component.setText(Utils.color(Utils.getVar(this.player, (String) hover.get(i))));
 			} else {
-				component.setText(Utils.hexcolor(Utils.getVar(this.player, (String) hover.get(i)) + "\n"));
+				component.setText(Utils.color(Utils.getVar(this.player, (String) hover.get(i)) + "\n"));
 			}
 
 			this.hoverText[i] = component;

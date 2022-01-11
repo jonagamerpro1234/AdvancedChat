@@ -12,8 +12,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.common.interfaces.IFileHelper;
 import jss.advancedchat.common.interfaces.IFileLoader;
-import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.file.FileManager;
 
 
@@ -23,7 +21,6 @@ public class ConfigFile extends FileManager implements IFileHelper, IFileLoader 
     private File file;
     private FileConfiguration config;
     private String path;
-    private Logger logger = new Logger();
 
     public ConfigFile(AdvancedChat plugin, String path) {
         super(plugin);
@@ -52,7 +49,6 @@ public class ConfigFile extends FileManager implements IFileHelper, IFileLoader 
         try {
             this.config.save(this.file);
         } catch (IOException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
         	e.printStackTrace();
         }
     }
@@ -71,7 +67,6 @@ public class ConfigFile extends FileManager implements IFileHelper, IFileLoader 
                 config.setDefaults(defaultConfig);
             }
         }catch(Exception e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
         	e.printStackTrace();
         }
     }
