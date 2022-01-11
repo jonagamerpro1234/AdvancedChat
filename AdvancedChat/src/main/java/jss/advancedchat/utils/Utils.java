@@ -39,8 +39,8 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 @SuppressWarnings({ "deprecation", "unused" })
 public class Utils {
+	
    private static final String prefix = getPrefix();
-   private static Pattern HEX_PATTERT = Pattern.compile("#[a-fA-F0-9]{6}");
    private static AdvancedChat plugin = AdvancedChat.get();
 
    public static String getCustomLine(String arg, String color) {
@@ -62,109 +62,69 @@ public class Utils {
    public static String getLine() {
       return "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-";
    }
-
-   public static String hexcolor2(String text) {
-      if (Bukkit.getVersion().contains("1.16") || Bukkit.getVersion().contains("1.17")) {
-         for(Matcher match = HEX_PATTERT.matcher(text); match.find(); match = HEX_PATTERT.matcher(text)) {
-            String color = text.substring(match.start(), match.end());
-            text = text.replace(color, "" + fixColor(color));
-         }
-      }
-      return color(text);
-   }
-
-   public static String hexcolor(String text) {
-      if (Bukkit.getVersion().contains("1.15")) {
-         return color(text);
-      } else {
-         Matcher match = HEX_PATTERT.matcher(text);
-         StringBuffer buffer = new StringBuffer();
-
-         while(match.find()) {
-            match.appendReplacement(buffer, fixColor(match.group()).toString());
-         }
-         return color(match.appendTail(buffer).toString());
-      }
-   }
-
-   public static String IridiumColor(String text) {
-      return IridiumColorAPI.process(text);
-   }
+   
 
    public static String color(String text) {
-      return ChatColor.translateAlternateColorCodes('&', text);
+      return IridiumColorAPI.process(text);
    }
 
    public static String colorless(String text) {
       return ChatColor.stripColor(text);
    }
 
-   public static ChatColor fixColor(String color) {
-      return ChatColor.of(color);
-   }
-
-   public static ChatColor fixColor2(String color) {
-      return ChatColor.of(hexcolor(color));
-   }
-
    public static void sendColorMessage(Player player, String text) {
-      player.sendMessage(hexcolor(text));
+      player.sendMessage(color(text));
    }
 
    public static void sendColorMessage(CommandSender sender, String text) {
-      sender.sendMessage(hexcolor(text));
-   }
-
-   public static void sendColorConsoleMessage(CommandSender sender, String text) {
       sender.sendMessage(color(text));
    }
 
    public static void sendColorMessage(String text, TextComponent component) {
       TextComponent textComponent = new TextComponent(text);
-      sendAllPlayerBaseComponent(component, (BaseComponent)textComponent);
+      sendAllPlayerBaseComponent(component, textComponent);
    }
 
    public static void sendColorMessage(String msg) {
-      Bukkit.broadcastMessage(hexcolor(msg));
+      Bukkit.broadcastMessage(color(msg));
    }
 
    private static void sendEnable(String prefix, String message) {
-      CommandSender c = Bukkit.getConsoleSender();
-      sendColorMessage((CommandSender)c, (String)(prefix + message));
+	   sendEnable(prefix + message);
    }
 
    private static void sendEnable(String message) {
       CommandSender c = Bukkit.getConsoleSender();
-      sendColorMessage((CommandSender)c, (String)message);
+      sendColorMessage(c, message);
    }
 
    public static void sendTextComponentHover(Player j, String action, String message, String submessage, String color) {
-      TextComponent msg = new TextComponent(hexcolor(message));
+      TextComponent msg = new TextComponent(color(message));
       msg.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(action)), (new ComponentBuilder(submessage)).color(ChatColor.of(color)).create()));
       j.spigot().sendMessage(msg);
    }
 
    public static void sendHoverEvent(Player j, String action, String message, String submessage) {
-      TextComponent msg = new TextComponent(hexcolor(message));
-      msg.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(action)), (new ComponentBuilder(hexcolor(submessage))).create()));
+      TextComponent msg = new TextComponent(color(message));
+      msg.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(action)), (new ComponentBuilder(color(submessage))).create()));
       j.spigot().sendMessage(msg);
    }
 
    public static void sendAllHoverEvent(String action, String message, String submessage) {
-      TextComponent msg = new TextComponent(hexcolor(message));
-      msg.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(action)), (new ComponentBuilder(hexcolor(submessage))).create()));
+      TextComponent msg = new TextComponent(color(message));
+      msg.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(action)), (new ComponentBuilder(color(submessage))).create()));
       sendAllPlayerBaseComponent(msg);
    }
 
    public static void sendClickEvent(Player j, String action, String message, String arg0) {
-      TextComponent msg = new TextComponent(hexcolor(message));
+      TextComponent msg = new TextComponent(color(message));
       msg.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.valueOf(getActionClickType(action)), arg0));
       j.spigot().sendMessage(msg);
    }
 
    public static void sendDoubleTextComponent(Player player, String text, String subtext, String hoverAction, String clickAction, String action) {
-      TextComponent component = new TextComponent(hexcolor(text));
-      component.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(hoverAction)), (new ComponentBuilder(hexcolor(subtext))).create()));
+      TextComponent component = new TextComponent(color(text));
+      component.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(hoverAction)), (new ComponentBuilder(color(subtext))).create()));
       component.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.valueOf(getActionClickType(clickAction)), action));
       player.spigot().sendMessage(component);
    }
@@ -225,19 +185,6 @@ public class Utils {
 	
 	public static void setLoad(String version) {
 		sendEnable("&5<||======================&e[&bLoading &dAdvancedChat&e]&5======================----");
-	}
-
-	@Deprecated
-	public static void setMessageLoad(String title, List<String> list) {
-		sendEnable("&5<||=====================&e[" + title + "&e]&5======================----");
-
-		for (int i = 0; i < list.size(); ++i) {
-			String text = (String) list.get(i);
-			sendEnable("&5<|| &c* " + text);
-			if (i == list.size()) {
-				break;
-			}
-		}
 	}
 
 	public static void setTitleLoad(String title) {
@@ -302,11 +249,11 @@ public class Utils {
    }
 
    public static boolean doesPluginExist(String plugin) {
-      return doesPluginExist(plugin, (String)null);
+      return doesPluginExist(plugin, "");
    }
 
    public static boolean doesPluginExist(String plugin, boolean s) {
-      return doesPluginExist(plugin, (String)null, s);
+      return doesPluginExist(plugin, "", s);
    }
 
    public static boolean doesPluginExist(String plugin, String msg, boolean s) {
@@ -376,8 +323,8 @@ public class Utils {
             Field profileField = headMeta.getClass().getDeclaredField("profile");
             profileField.setAccessible(true);
             profileField.set(headMeta, profile);
-         } catch (NoSuchFieldException | SecurityException | IllegalAccessException | IllegalArgumentException var5) {
-            var5.printStackTrace();
+         } catch (NoSuchFieldException | SecurityException | IllegalAccessException | IllegalArgumentException ex) {
+            ex.printStackTrace();
          }
 
          head.setItemMeta(headMeta);
@@ -398,8 +345,8 @@ public class Utils {
             Field profileField = headMeta.getClass().getDeclaredField("profile");
             profileField.setAccessible(true);
             profileField.set(headMeta, profile);
-         } catch (NoSuchFieldException | SecurityException | IllegalAccessException | IllegalArgumentException var6) {
-            var6.printStackTrace();
+         } catch (NoSuchFieldException | SecurityException | IllegalAccessException | IllegalArgumentException ex) {
+            ex.printStackTrace();
          }
 
          head.setItemMeta(headMeta);

@@ -2,10 +2,8 @@ package jss.advancedchat.config.gui;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,8 +11,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.common.interfaces.IFileHelper;
 import jss.advancedchat.common.interfaces.IFolderHelper;
-import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.file.FileManager;
 
 public class PlayerGuiFile extends FileManager implements IFileHelper, IFolderHelper {
@@ -24,8 +20,7 @@ public class PlayerGuiFile extends FileManager implements IFileHelper, IFolderHe
     private FileConfiguration config;
     private String path;
     private String folderpath;
-    private Logger logger = new Logger();
-
+    
     public PlayerGuiFile(AdvancedChat plugin, String path, String folderpath) {
         super(plugin);
         this.plugin = plugin;
@@ -57,10 +52,10 @@ public class PlayerGuiFile extends FileManager implements IFileHelper, IFolderHe
     public void saveConfig() {
         try {
             this.config.save(this.file);
-        } catch (IOException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
-        	e.printStackTrace();
-        }
+        } catch(Exception e){
+            	e.printStackTrace();
+            }
+
     }
 
     public void reloadConfig() {
@@ -76,16 +71,10 @@ public class PlayerGuiFile extends FileManager implements IFileHelper, IFolderHe
                 YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
                 config.setDefaults(defaultConfig);
             }
-        }catch(UnsupportedEncodingException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
-        	e.printStackTrace();
-        }catch(NullPointerException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
-        	e.printStackTrace();
-        }catch(IllegalArgumentException e) {
-        	logger.Log(Level.ERROR, "!!Error Load File!! &b[&e"+this.path+"&b]");
-        	e.printStackTrace();
-        }
+        }catch(Exception e){
+            	e.printStackTrace();
+            }
+
 
     }
 

@@ -1,6 +1,7 @@
 package jss.advancedchat.hooks;
 
 import org.bukkit.Bukkit;
+
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
@@ -10,7 +11,6 @@ import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Utils;
-import jss.advancedchat.utils.Logger.Level;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.storage.MySQL;
 
@@ -20,7 +20,6 @@ public class PlaceholderApiHook implements IHook{
 	
 	private AdvancedChat plugin = AdvancedChat.get();
 	private HookManager hooksManager;
-	private Logger logger = new Logger();
 	private boolean isEnabled;
 	
 	public PlaceholderApiHook(HookManager hooksManager) {
@@ -30,13 +29,13 @@ public class PlaceholderApiHook implements IHook{
 	public void setup() {
 		if(!Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
 			this.isEnabled = false;
-			logger.Log(Level.WARNING, "placeholderapi not enabled! - Disable Features...");
+			Logger.warning("placeholderapi not enabled! - Disable Features...");
 			return;
 		}
 		
 		this.isEnabled = true;
 		new AdvancedChatExtend(plugin).register();
-		Utils.sendColorConsoleMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix() + "&aLoading placeholderapi features...");
+		Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix() + "&aLoading placeholderapi features...");
 	}
 	
 	public boolean isEnabled() {

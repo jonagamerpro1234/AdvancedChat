@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.inventory.GuiChannel;
 import jss.advancedchat.inventory.GuiColor;
+import jss.advancedchat.inventory.GuiGradient;
 import jss.advancedchat.inventory.GuiPlayer;
 import jss.advancedchat.inventory.GuiTest;
 import jss.advancedchat.manager.PlayerManager;
@@ -131,7 +132,8 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				
 				if(args[0].equalsIgnoreCase("gradient")) {
 					if((j.isOp()) || (j.hasPermission("AdvancedChat.Command.Gui.Gradient"))) {
-						
+						GuiGradient guiGradient = new GuiGradient(plugin);
+						guiGradient.open(j, j.getName());
 					} else {
 						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 					}

@@ -13,7 +13,8 @@ public class PreConfigLoader {
     public PreConfigLoader(AdvancedChat plugin) {
         this.plugin = plugin;
     }
-
+    
+    //load config
     public void load() {
         FileConfiguration config = plugin.getConfigFile().getConfig();
         try {
@@ -40,6 +41,7 @@ public class PreConfigLoader {
         }
     }
     
+    //load messages
     public void loadMessage() {
     	try {
         	FileConfiguration config = plugin.getMessageFile().get();
@@ -67,6 +69,33 @@ public class PreConfigLoader {
         	Settings.message_Alert_Mute = config.getString("AdvancedChat.Alert-Mute");
     	}catch(Exception e) {
     		Logger.error(e.getMessage());
+    		e.printStackTrace();
+    	}
+    }
+
+    //load gradient gui file
+    public void loadGradientInv() {
+    	try {
+    		FileConfiguration config = plugin.getGradientColorFile().getConfig();
+    		Settings.gradient_inv_slot_exit = config.getInt("Items.Exit.Slot");
+    		Settings.gradient_inv_slot_last = config.getInt("Items.Last.Slot");
+    		Settings.gradient_inv_slot_red = config.getInt("Items.Red.Slot");
+    		Settings.gradient_inv_slot_darkred = config.getInt("Items.Dark-Red.Slot");
+    		Settings.gradient_inv_slot_blue = config.getInt("Items.Blue.Slot");
+    		Settings.gradient_inv_slot_darkblue = config.getInt("Items.Dark-Blue.Slot");
+    		Settings.gradient_inv_slot_green = config.getInt("Items.Green.Slot");
+    		Settings.gradient_inv_slot_darkgreen = config.getInt("Items.Dark-Green.Slot");
+    		Settings.gradient_inv_slot_yellow = config.getInt("Items.Yellow.Slot");
+    		Settings.gradient_inv_slot_gold = config.getInt("Items.Gold.Slot");
+    		Settings.gradient_inv_slot_aqua = config.getInt("Items.Aqua.Slot");
+    		Settings.gradient_inv_slot_darkaqua = config.getInt("Items.Dark-Aqua.Slot");
+    		Settings.gradient_inv_slot_lightpurple = config.getInt("Items.Light-Purple.Slot");
+    		Settings.gradient_inv_slot_darkpurple = config.getInt("Items.Dark-Purple.Slot");
+    		Settings.gradient_inv_slot_black = config.getInt("Items.Black.Slot");
+    		Settings.gradient_inv_slot_white = config.getInt("Items.White.Slot");
+    		Settings.gradient_inv_slot_darkgray = config.getInt("Items.Dark-Gray.Slot");
+    		Settings.gradient_inv_slot_gray = config.getInt("Items.Gray.Slot");
+    	}catch(Exception e) {
     		e.printStackTrace();
     	}
     }
