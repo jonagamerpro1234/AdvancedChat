@@ -42,7 +42,6 @@ public class MySQL {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public static boolean existsPlayer(AdvancedChat plugin, String uuid) {

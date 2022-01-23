@@ -3,7 +3,6 @@ package jss.advancedchat.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
@@ -22,10 +21,9 @@ public class ClearChatCmd implements CommandExecutor {
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        FileConfiguration config = plugin.getConfigFile().getConfig();
         if (!(sender instanceof Player)) {
             eventUtils.getClearChatAction("server");
-            eventUtils.getServerMessage(config);
+            eventUtils.getServerMessage();
             return false;
         }
         
@@ -46,7 +44,7 @@ public class ClearChatCmd implements CommandExecutor {
         	}else {
         		eventUtils.getClearChatAction("player");
         	}
-            eventUtils.getPlayerMessage(j, config);
+            eventUtils.getPlayerMessage(j);
         } else {
         	Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
         }
