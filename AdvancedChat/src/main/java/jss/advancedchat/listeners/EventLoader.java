@@ -1,7 +1,6 @@
 package jss.advancedchat.listeners;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import jss.advancedchat.AdvancedChat;
@@ -19,9 +18,7 @@ public class EventLoader {
         this.plugin = plugin;
     }
     
-    
     public void runClearChat() {
-        FileConfiguration config = plugin.getConfig();
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         try {
             Long tick = (long) Settings.int_clearchat_tick;
@@ -29,7 +26,7 @@ public class EventLoader {
                 public void run() {
                     if (Settings.boolean_chatclear_autoclear) {
                         eventsUtils.getClearChatAction("server");
-                        eventsUtils.getServerMessage(config);
+                        eventsUtils.getServerMessage();
                     } else {
                         scheduler.cancelTask(taskId);
                     }

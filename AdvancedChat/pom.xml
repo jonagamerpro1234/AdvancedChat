@@ -18,16 +18,11 @@
 	</properties>
 
 	<distributionManagement>
-		<repository>
-			<id>central</id>
-			<name>a0kvglwywgir1-artifactory-primary-0-releases</name>
-			<url>https://srjssdev.jfrog.io/artifactory/advancedchat-libs-release</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>a0kvglwywgir1-artifactory-primary-0-snapshots</name>
-			<url>https://srjssdev.jfrog.io/artifactory/advancedchat-libs-snapshot</url>
-		</snapshotRepository>
+	<repository>
+     <id>github</id>
+     <name>GitHub jonagamerpro1234 Apache Maven Packages</name>
+     <url>https://maven.pkg.github.com/jonagamerpro1234/advancedchat</url>
+   </repository>
 	</distributionManagement>
 
 	<issueManagement>

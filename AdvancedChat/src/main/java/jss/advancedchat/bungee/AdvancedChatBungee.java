@@ -1,8 +1,11 @@
 package jss.advancedchat.bungee;
 
+import java.sql.Connection;
+
 import jss.advancedchat.bungee.utils.LoggerBunge;
 import jss.advancedchat.bungee.utils.LoggerBunge.Level;
 import jss.advancedchat.common.update.UpdateSettings;
+import jss.advancedchat.storage.MySQLConnection;
 import jss.advancedchat.bungee.utils.UpdateChecker;
 import jss.advancedchat.bungee.utils.UtilsBunge;
 import net.md_5.bungee.api.plugin.PluginDescription;
@@ -14,10 +17,13 @@ public class AdvancedChatBungee extends AdvancedChatPlugin {
     public String version = this.jss.getVersion();
     private ConfigFile configFile = new ConfigFile(this);
     private LoggerBunge logger = new LoggerBunge(this);
-        
+    private static AdvancedChatBungee instance;
+    private MySQLConnection connection;
+    
     public void onEnable() {
+    	instance = this;
         UtilsBunge.setBungeeEnabled(version);
-        
+        LoggerBunge.warning("&ePlease do not use this version on bungeecord because it is in development and not ready");
         if(!getDataFolder().exists()) { 
         	getDataFolder().mkdirs();
         }
@@ -46,4 +52,12 @@ public class AdvancedChatBungee extends AdvancedChatPlugin {
     public void onDisable() {
     	UtilsBunge.setBungeeDisabled(version);
     }
+    
+    public static AdvancedChatBungee get() {
+		return instance;
+	}
+
+	public Connection getConnection() {
+		return this.connection.getConnetion();
+	}
 }

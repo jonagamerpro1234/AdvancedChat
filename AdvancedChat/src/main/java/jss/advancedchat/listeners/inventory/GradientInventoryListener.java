@@ -116,7 +116,7 @@ public class GradientInventoryListener implements Listener{
 			}
 			
 			if(slot == Settings.gradient_inv_slot_last) {
-				plugin.removeInvetoryView(target);
+				plugin.removeInvetoryView(j);
 				actionHelper.setOpenInventoryAction(playerName, InventoryType.Color);
 			}
 			
@@ -127,7 +127,7 @@ public class GradientInventoryListener implements Listener{
 	}
 	
 	@EventHandler
-	public void onClose(InventoryCloseEvent e) {
+	public void onInventoryClose(InventoryCloseEvent e) {
 		Player j = (Player) e.getPlayer();
 		plugin.removeInvetoryView(j);
 	}

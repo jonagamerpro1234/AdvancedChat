@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 public abstract class Gui {
 	
+	//experimental code
 	private UUID uuid;
 	private Inventory inventory;
 	private Map<Integer, IAction> actions;

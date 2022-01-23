@@ -370,23 +370,15 @@ public class Utils {
 
    public static List<String> setLimitTab(List<String> list, String inic) {
       List<String> returned = new ArrayList<String>();
-      Iterator<String> var4 = list.iterator();
+      Iterator<String> v = list.iterator();
 
-      while(var4.hasNext()) {
-         String s = (String)var4.next();
+      while(v.hasNext()) {
+         String s = (String)v.next();
          if (s != null && s.toLowerCase().startsWith(inic.toLowerCase())) {
             returned.add(s);
          }
       }
       return returned;
-   }
-
-   public static enum TypeEvent {
-      Legacy_Hover,
-      Hover,
-      Click,
-      Double,
-      Hover_All;
    }
    
    public static void getInfoPlugin(CommandSender sender, String name, String version, String latestversion) {
