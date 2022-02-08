@@ -21,7 +21,6 @@ public class PreConfigLoader {
         	Settings.locale = config.getString("Settings.Locale").toLowerCase();
         	Settings.default_color = config.getString("Settings.Default-Color-Message");
         	Settings.message_prefix_custom = config.getString("Settings.Prefix");
-        	Settings.boolean_chat_type = config.getString("ChatFormat.Type");
         	Settings.hook_vault = config.getString("Hooks.Vault.Enabled").equals("true");
         	Settings.hook_discordsrv = config.getString("Hooks.DiscordSRV.Enabled").equals("true");
         	Settings.hook_luckperms = config.getString("Hooks.LuckPerms.Enabled").equals("true");        	
@@ -30,6 +29,9 @@ public class PreConfigLoader {
         	Settings.boolean_clearchat_bypass = config.getString("ClearChat.ByPass-Staff").equals("true");
         	Settings.int_clearchat_tick = config.getInt("ClearChat.Tick");
         	Settings.int_clearchat_lines = config.getInt("ClearChat.LineClear");
+        	
+        	Settings.chatformat_chattype = config.getString("ChatFormat.Chat-Type");
+        	
         	Settings.mysql_use = config.getString("Settings.Use-Database").equals("true");
         	Settings.mysql_host = config.getString("MySQL.Host");
         	Settings.mysql_port = Integer.valueOf(config.getString("MySQL.Port"));

@@ -5,8 +5,12 @@
 # /_/  |_\____/    Thanks for using AdvancedChat <3
 #  
 #
-# Here you can add new groups and configure them, but for this to work you need Vault or LuckPerms
-# The group name has to be the same as the range name or the group customization will not work
+# ● Here you can add new groups and configure them, but for this to work you need Vault or LuckPerms
+# ● The group name has to be the same as the range name or the group customization will not work
+# ● For more information you can visit the AdvancedChat Wiki
+# 
+# ● Wiki [Working Progress]: https://jonagamerpro1234.gitbook.io/advancedchat/
+#
 default:
   
   # |Default-Color-Message| Here you can define the chat color that is assigned by default to players

@@ -9,11 +9,7 @@ import jss.advancedchat.AdvancedChat;
 
 public class GroupManager{
 
-	private AdvancedChat plugin;
-	
-	public GroupManager(AdvancedChat plugin) {
-		this.plugin = plugin;
-	}
+	private AdvancedChat plugin = AdvancedChat.get();
 	
 	private final FileConfiguration config = plugin.getGroupFile().getConfig();
 	
