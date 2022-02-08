@@ -4,6 +4,8 @@ import java.util.List;
 
 public class Settings {
 	
+	public static String chatformat_chattype;
+	
 	public static List<String> list_message_help;
 	public static List<String> list_filter_badword;
 	public static List<String> list_command_blocker_no_use;
@@ -35,7 +37,6 @@ public class Settings {
     public static String message_protocol_state;
     public static String message_filter;
     public static String locale;
-    public static String boolean_chat_type;
     public static String default_color;
     public static String inv_color_back;
     
@@ -104,13 +105,14 @@ public class Settings {
     public static String hook_discordsrv_custom_format;
     public static String hook_discordsrv_group_format;
     
-    public static boolean boolean_clearchat_bypass;
 	public static boolean boolean_clearchat;
+    public static boolean boolean_clearchat_bypass;
+    public static boolean boolean_chatclear_autoclear;
 	public static boolean boolean_chat_click_mode;
     public static boolean boolean_antitabcompleted;
     public static boolean boolean_protocollib;
     public static boolean boolean_use_default_prefix;
-    public static boolean boolean_chatclear_autoclear;
+
     public static boolean boolean_filter_use_msg;
     public static boolean boolean_filter;
     public static boolean boolean_command_blocker;

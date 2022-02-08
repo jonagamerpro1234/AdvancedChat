@@ -11,12 +11,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.common.interfaces.IFileHelper;
-import jss.advancedchat.common.interfaces.IFileLoader;
 import jss.advancedchat.utils.file.FileManager;
 
 
-public class GroupFile extends FileManager implements IFileHelper, IFileLoader {
+public class GroupFile extends FileManager {
 
     private AdvancedChat plugin;
     private File file;
@@ -81,7 +79,7 @@ public class GroupFile extends FileManager implements IFileHelper, IFileLoader {
         return plugin;
     }
 
-    public void saveDefaultConfig() {
+    public void saveDefault() {
         if (this.file == null) {
             this.file = new File(getDataFolder(), this.path);
         }

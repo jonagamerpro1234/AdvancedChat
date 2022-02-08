@@ -43,6 +43,7 @@ import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQLConnection;
+import jss.advancedchat.test.ChatListenerTest;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
@@ -51,6 +52,7 @@ import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.file.FileManager;
 
+@SuppressWarnings("unused")
 public class AdvancedChat extends AdvancedChatPlugin {
 	
 	private static AdvancedChat instance;
@@ -204,7 +206,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		eventUtils.initEvent(
 		new JoinListener(this),
 		new InventoryListener(this),
-		new ChatListener(this),
+		new ChatListenerTest(this),
+		//new ChatListener(this),
 		new CommandListener(this),
 		new ColorInventoryListener(this),
 		new GradientInventoryListener(this),
@@ -236,6 +239,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		inventoryDataFile.create();
 		chatLogFile.create();
 		commandLogFile.create();
+		groupFile.saveDefault();
+		groupFile.create();
 		colorFile.create();
 		gradientColorFile.create();
 		playerGuiFile.create();

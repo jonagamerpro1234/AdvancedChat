@@ -44,6 +44,8 @@ public class HookManager extends HookLoader{
 	public void load() {
 		initHooks(
 				new PlaceholderApiHook(this),
+				new LuckPermsHook(this),
+				new VaultHook(this),
 				new DiscordSRVHook(this));
 		loadRegisteredHook();
 	}
