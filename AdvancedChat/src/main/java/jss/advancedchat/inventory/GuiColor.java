@@ -23,20 +23,32 @@ public class GuiColor {
 	private AdvancedChat plugin;
 	private ItemStack item;
 	private ItemMeta meta;
+	private Inventory inv;
 
 	public GuiColor(AdvancedChat plugin) {
 		this.plugin = plugin;
+		this.createInventory();
 	}
+	
+	private void createInventory() {
+		FileConfiguration config = plugin.getColorFile().getConfig();
 
-	public void openGuiColor(Player player, String target) {
+		String title = config.getString("Title");
+		inv = Bukkit.createInventory(null, 54, Utils.color(title));
+	}
+	
+	public void open(Player player, String target) {
+		setItems(player, target);
+		plugin.addInventoryView(player, "colorGui");
+		player.openInventory(inv);
+	}
+	
+	private void setItems(Player player, String target) {
 		FileConfiguration config = plugin.getColorFile().getConfig();
 		FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
 
-		String title = config.getString("Title");
 		int amont = invData.getInt("Amount-Items");
 		String colorglass = invData.getString("Color-Glass.Color");
-
-		Inventory inv = Bukkit.createInventory(null, 54, Utils.color(title));
 
 		setDecoration(inv, colorglass);
 
@@ -63,9 +75,6 @@ public class GuiColor {
 			inv.setItem(slot, item);
 			
 		});
-
-		plugin.addInventoryView(player, "colorGui");
-		player.openInventory(inv);
 	}
 
 	private List<String> coloredLore(List<String> lore) {

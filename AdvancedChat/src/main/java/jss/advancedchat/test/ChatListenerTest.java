@@ -1,8 +1,6 @@
 package jss.advancedchat.test;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -18,6 +16,7 @@ import jss.advancedchat.hooks.DiscordSRVHook;
 import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.hooks.VaultHook;
 import jss.advancedchat.manager.ColorManager;
+import jss.advancedchat.manager.GroupHelper;
 import jss.advancedchat.manager.GroupManager;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
@@ -25,40 +24,33 @@ import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
-import net.luckperms.api.LuckPerms;
-import net.luckperms.api.LuckPermsProvider;
 
 public class ChatListenerTest implements Listener {
 
 	private AdvancedChat plugin;
-	public Map<String, Long> delaywords = new HashMap<String, Long>();
 	private ColorManager colorManager = new ColorManager();
 	private boolean badword;
 	private boolean ismention;
-
-	// experimental
-	@SuppressWarnings("unused")
-	private final Pattern COLOR_REGEX = Pattern.compile("(?i)&([0-9A-F])");
 	private final Pattern MAGIC_REGEN = Pattern.compile("(?i)&([K])");
 	private final Pattern BOLD_REGEX = Pattern.compile("(?i)&([L])");
 	private final Pattern STRIKETHROUGH_REGEX = Pattern.compile("(?i)&([M])");
 	private final Pattern UNDERLINE_REGEX = Pattern.compile("(?i)&([N])");
 	private final Pattern ITALIC_REGEX = Pattern.compile("(?i)&([O])");
-	@SuppressWarnings("unused")
-	private final Pattern RESET_REGEX = Pattern.compile("(?i)&([R])");
+
 
 	public ChatListenerTest(AdvancedChat plugin) {
 		this.plugin = plugin;
 	}
-
+	
 	@SuppressWarnings("unused")
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void chatFormat(AsyncPlayerChatEvent e) {
+	public void onChat(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfigFile().getConfig();
 		GroupManager groupManager = new GroupManager();
-		VaultHook vaultHook = HookManager.getInstance().getVaultHook();
-		DiscordSRVHook discordSRVHook = HookManager.getInstance().getDiscordSRVHook();
-		LuckPermsHook luckPermsHook = HookManager.getInstance().getLuckPermsHook();
+		GroupHelper groupHelper = new GroupHelper();
+		VaultHook vaultHook = HookManager.get().getVaultHook();
+		DiscordSRVHook discordSRVHook = HookManager.get().getDiscordSRVHook();
+		LuckPermsHook luckPermsHook = HookManager.get().getLuckPermsHook();
 
 		Player j = e.getPlayer();
 		PlayerManager playerManager = new PlayerManager(j);
@@ -71,7 +63,7 @@ public class ChatListenerTest implements Listener {
 		String format = config.getString("ChatFormat.Format");
 		String message = "";
 		
-		String msg = isFormatColor(e.getMessage(), j);
+		String msg = formatColor(e.getMessage(), j);
 		
 		Logger.debug(msg);
 		
@@ -84,13 +76,16 @@ public class ChatListenerTest implements Listener {
 
 		format = Utils.getVar(j, format);
 		message = Utils.getVar(j, message);
-
-		/* remove old code!
-		 * if ((j.isOp()) || (j.hasPermission("AdvancedChat.Chat.Color"))) {
-			message = Utils.color(message);
-		}*/
-
-		if (playerManager.isMute(j) || this.badword) {
+		
+		boolean isMute;
+		
+        if(Settings.mysql_use) {
+        	isMute = MySQL.isMute(plugin, j.getUniqueId().toString());
+        } else {
+        	isMute = playerManager.isMute(j);
+        }
+		
+		if (isMute || this.badword) {
 			this.badword = false;
 			return;
 		}
@@ -145,71 +140,11 @@ public class ChatListenerTest implements Listener {
 			}
 			return;
 		} else if (isGroup) {
-
-			LuckPerms luckPerms = LuckPermsProvider.get();
-
-			String vaultGroup = VaultHook.getVaultHook().getChat().getPrimaryGroup(j);
-			String luckpermsGroup = luckPerms.getUserManager().getUser(j.getName()).getPrimaryGroup();
-
-			String group = "";
-
-			if (vaultHook.isEnabled()) {
-				group = vaultGroup;
-			} else if (luckPermsHook.isEnabled()) {
-				group = luckpermsGroup;
-			} else {
-				Logger.error("&cThe Vault or LuckPerms could not be found to activate the group system");
-				Logger.warning("&eplease check that Vault or LuckPerms is active or inside your plugins folder");
-				return;
-			}
-
-			Json json = new Json(j, format, message);
-
-			boolean hover = groupManager.isHover(group);
-			List<String> hovertext = groupManager.getHover(group);
-
-			boolean click = groupManager.isClick(group);
-			String click_mode = groupManager.getClickMode(group);
-			String cmd_action = groupManager.getClickCommand(group);
-			String url_action = groupManager.getClickUrl(group);
-			String suggest_action = groupManager.getClickSuggestCommand(group);
-
-			cmd_action = Utils.getVar(j, cmd_action);
-			suggest_action = Utils.getVar(j, suggest_action);
-
-			if (hover) {
-				if (click) {
-					if (click_mode.equals("command")) {
-						json.setHover(hovertext).setExecuteCommand(cmd_action).sendDoubleToAll();
-					} else if (click_mode.equals("url")) {
-						json.setHover(hovertext).setOpenURL(url_action).sendDoubleToAll();
-					} else if (click_mode.equals("suggest")) {
-						json.setHover(hovertext).setSuggestCommand(suggest_action).sendDoubleToAll();
-					}
-				} else {
-					json.setHover(hovertext).sendDoubleToAll();
-				}
-			} else {
-				if (click) {
-					if (click_mode.equals("command")) {
-						json.setExecuteCommand(cmd_action).sendDoubleToAll();
-					} else if (click_mode.equals("url")) {
-						json.setOpenURL(url_action).sendDoubleToAll();
-					} else if (click_mode.equals("suggest")) {
-						json.setSuggestCommand(suggest_action).sendDoubleToAll();
-					}
-				} else {
-					json.sendDoubleToAll();
-				}
-			}
-			return;
-		} else {
-			e.setFormat("<" + j.getName() + ">" + " " + e.getMessage());
-			Logger.error("");
+			groupHelper.sendGroup(j, message);
 		}
 	}
 
-	public String isFormatColor(String msg, Player player) {
+	public String formatColor(String msg, Player player) {
 		if (msg == null) {
 			return "";
 		} else {

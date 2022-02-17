@@ -331,7 +331,7 @@ public class InventoryListener implements Listener {
 			e.setCancelled(true);
 			p.closeInventory();
 			GuiColor color = new GuiColor(plugin);
-			color.openGuiColor(p, name);
+			color.open(p, name);
 		}
     }
     
@@ -361,7 +361,7 @@ public class InventoryListener implements Listener {
                     	e.setCancelled(true);
                     	p.closeInventory();
                     	GuiColor guiColor = new GuiColor(plugin);
-                    	guiColor.openGuiColor(p, name);
+                    	guiColor.open(p, name);
                     }
                     
                     if(slot == config.getInt("Items.Exit.Slot")) {

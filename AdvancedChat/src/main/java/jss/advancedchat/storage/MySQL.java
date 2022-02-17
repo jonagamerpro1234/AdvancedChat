@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.bukkit.entity.Player;
+
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
@@ -124,33 +126,33 @@ public class MySQL {
 		return false;
 	}
 	
-	public static void setColor(AdvancedChat plugin, String uuid, String color_name) {
+	public static void setColor(AdvancedChat plugin, Player uuid, String color_name) {
 		try(Connection connection = plugin.getConnection()) {
 			PreparedStatement statement = connection.prepareStatement("UPDATE `" + Settings.mysql_table + "` SET COLOR_NAME WHERE (UUID=?)");
 			statement.setString(1, color_name);
-			statement.setString(2, uuid);
+			statement.setString(2, uuid.getUniqueId().toString());
 			statement.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void setGradientOne(AdvancedChat plugin, String uuid, String color) {
+	public static void setGradientFirst(AdvancedChat plugin, Player player, String color) {
 		try(Connection connection = plugin.getConnection()) {
 			PreparedStatement statement = connection.prepareStatement("UPDATE `" + Settings.mysql_table + "` SET GRADIENT_COLOR_ONE WHERE (UUID=?)");
 			statement.setString(1, color);
-			statement.setString(2, uuid);
+			statement.setString(2, player.getUniqueId().toString());
 			statement.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void setGradientTwo(AdvancedChat plugin, String uuid, String color) {
+	public static void setGradientSecond(AdvancedChat plugin, Player player, String color) {
 		try(Connection connection = plugin.getConnection()) {
 			PreparedStatement statement = connection.prepareStatement("UPDATE `" + Settings.mysql_table + "` SET GRADIENT_COLOR_TWO WHERE (UUID=?)");
 			statement.setString(1, color);
-			statement.setString(2, uuid);
+			statement.setString(2, player.getUniqueId().toString());
 			statement.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
