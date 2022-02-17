@@ -77,4 +77,8 @@ public class HookManager extends HookLoader{
 	public static HookManager getInstance() {
 		return hookManager;
 	}
+	
+	public static HookManager get() {
+		return hookManager;
+	}
 }

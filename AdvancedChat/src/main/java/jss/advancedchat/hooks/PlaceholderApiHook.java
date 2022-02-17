@@ -29,13 +29,13 @@ public class PlaceholderApiHook implements IHook{
 	public void setup() {
 		if(!Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
 			this.isEnabled = false;
-			Logger.warning("placeholderapi not enabled! - Disable Features...");
+			Logger.warning("&ePlaceHolderAPI not enabled! - Disable Features...");
 			return;
 		}
 		
 		this.isEnabled = true;
 		new AdvancedChatExtend(plugin).register();
-		Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix() + "&aLoading placeholderapi features...");
+		Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix() + "&aLoading PlaceHolderAPI features...");
 	}
 	
 	public boolean isEnabled() {
@@ -91,7 +91,6 @@ public class PlaceholderApiHook implements IHook{
 					}
 				}
 			}
-			
 			return null;
 		}
 		

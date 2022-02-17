@@ -10,6 +10,7 @@ import jss.advancedchat.inventory.GuiGradient;
 import jss.advancedchat.inventory.GuiPlayer;
 import jss.advancedchat.inventory.GuiSettings;
 import jss.advancedchat.manager.PlayerManager;
+import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 
@@ -35,10 +36,21 @@ public class InventoryActionHelper {
 	
 	public void setDoubleActionColor(String permission, String left, String right) {
 		if(player.isOp() || player.hasPermission(permission)) {
+			
 			if(inventoryClickEvent.getClick().isLeftClick()) {
-				playerManager.setFirstGradient(target, left);
+				
+				if(Settings.mysql_use) {
+					MySQL.setGradientFirst(plugin, target, left);
+				}else {
+					playerManager.setFirstGradient(target, left);
+				}
 			}else if(inventoryClickEvent.getClick().isRightClick()) {
-				playerManager.setSecondGradient(target, right);
+				if(Settings.mysql_use) {
+					MySQL.setGradientSecond(plugin, target, right);
+				}else {
+					playerManager.setSecondGradient(target, right);
+				}
+				
 			}
 		}else {
 			Utils.sendHoverEvent(player, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -47,7 +59,12 @@ public class InventoryActionHelper {
 	
 	public void setActionColor(String permission, String action) {
 		if(player.isOp() || player.hasPermission(permission)) {
-			playerManager.setColor(target, action);
+			
+			if(Settings.mysql_use) {
+				MySQL.setColor(plugin, target, action);
+			}else {
+				playerManager.setColor(target, action);
+			}
 		}else {
 			Utils.sendHoverEvent(player, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 		}
@@ -65,7 +82,7 @@ public class InventoryActionHelper {
 			break;
 		case Color:
 			GuiColor guiColor = new GuiColor(plugin);
-			guiColor.openGuiColor(player, playerName);
+			guiColor.open(player, playerName);
 			break;
 		case Gradient:
 			GuiGradient guiGradient = new GuiGradient(plugin);
