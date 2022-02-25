@@ -46,6 +46,10 @@ public class LuckPermsHook implements IHook {
 		return hooksManager;
 	}
 	
+	public static LuckPerms getApi() {
+		return LuckPermsProvider.get();
+	}
+	
 	public boolean isGroup(Player player, String name){
 		LuckPerms api = LuckPermsProvider.get();
 		String group = api.getUserManager().getUser(player.getName()).getPrimaryGroup();

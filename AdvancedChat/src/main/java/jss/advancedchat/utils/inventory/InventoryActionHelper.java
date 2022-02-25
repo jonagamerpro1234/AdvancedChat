@@ -16,7 +16,7 @@ import jss.advancedchat.utils.Utils;
 
 public class InventoryActionHelper {
 	
-	private AdvancedChat plugin;
+	private AdvancedChat plugin = AdvancedChat.get();
 	private PlayerManager playerManager;
 	private Player player;
 	private Player target;
@@ -26,8 +26,7 @@ public class InventoryActionHelper {
 		Player,Settings,Color,Gradient,Channel;
 	}
 	
-	public InventoryActionHelper(AdvancedChat plugin, Player player, Player target, PlayerManager playerManager, InventoryClickEvent inventoryClickEvent) {
-		this.plugin = plugin;
+	public InventoryActionHelper(Player player, Player target, PlayerManager playerManager, InventoryClickEvent inventoryClickEvent) {
 		this.player = player;
 		this.playerManager = playerManager;
 		this.target = target;
@@ -59,7 +58,6 @@ public class InventoryActionHelper {
 	
 	public void setActionColor(String permission, String action) {
 		if(player.isOp() || player.hasPermission(permission)) {
-			
 			if(Settings.mysql_use) {
 				MySQL.setColor(plugin, target, action);
 			}else {
@@ -73,7 +71,7 @@ public class InventoryActionHelper {
 	public void setOpenInventoryAction(String playerName, InventoryType inventoryType) {
 		switch (inventoryType) {
 		case Player:
-			GuiPlayer guiPlayer = new GuiPlayer(plugin);
+			GuiPlayer guiPlayer = new GuiPlayer();
 			guiPlayer.open(player, playerName);
 			break;
 		case Channel:
@@ -81,11 +79,11 @@ public class InventoryActionHelper {
 			guiChannel.open(player, playerName);
 			break;
 		case Color:
-			GuiColor guiColor = new GuiColor(plugin);
+			GuiColor guiColor = new GuiColor();
 			guiColor.open(player, playerName);
 			break;
 		case Gradient:
-			GuiGradient guiGradient = new GuiGradient(plugin);
+			GuiGradient guiGradient = new GuiGradient();
 			guiGradient.open(player, playerName);
 			break;
 		case Settings:

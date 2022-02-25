@@ -48,6 +48,13 @@ public class Settings {
     public static String mysql_database;
     public static boolean mysql_use;
 
+    public static int player_inv_slot_;
+    public static int player_inv_slot_settings;
+    public static int player_inv_slot_gradients;
+    public static int player_inv_slot_channels;
+    public static int player_inv_slot_mute;
+    public static int player_inv_slot_colors;
+    public static int player_inv_slot_last;
     public static int player_inv_slot_next;
     public static int player_inv_slot_exit;
     
@@ -67,6 +74,8 @@ public class Settings {
     public static int color_inv_slot_darkaqua;
     public static int color_inv_slot_white;
     public static int color_inv_slot_black;
+    public static int color_inv_slot_rainbow;
+    public static int color_inv_slot_random;
     public static int color_inv_slot_exit;
     public static int color_inv_slot_last;
     public static int color_inv_slot_next;

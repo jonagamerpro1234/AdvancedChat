@@ -20,28 +20,25 @@ import jss.advancedchat.utils.inventory.TSkullUtils;
 
 public class GuiColor {
 
-	private AdvancedChat plugin;
+	private AdvancedChat plugin = AdvancedChat.get();
 	private ItemStack item;
 	private ItemMeta meta;
 	private Inventory inv;
-
-	public GuiColor(AdvancedChat plugin) {
-		this.plugin = plugin;
-		this.createInventory();
+	
+	public void open(Player player, String target) {
+		plugin.addInventoryView(player, "colorGui");
+		create();
+		setItems(player, target);
+		player.openInventory(inv);
 	}
 	
-	private void createInventory() {
+	private void create() {
 		FileConfiguration config = plugin.getColorFile().getConfig();
 
 		String title = config.getString("Title");
 		inv = Bukkit.createInventory(null, 54, Utils.color(title));
 	}
 	
-	public void open(Player player, String target) {
-		setItems(player, target);
-		plugin.addInventoryView(player, "colorGui");
-		player.openInventory(inv);
-	}
 	
 	private void setItems(Player player, String target) {
 		FileConfiguration config = plugin.getColorFile().getConfig();
@@ -101,4 +98,5 @@ public class GuiColor {
 		}
 	}
 	
+
 }

@@ -48,22 +48,22 @@ public class ColorInventoryListener implements Listener {
 			String playerName = Utils.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
 			Player target = Bukkit.getPlayer(playerName);
 			PlayerManager playerManager = new PlayerManager(target);
-			InventoryActionHelper actionHelper = new InventoryActionHelper(plugin, j, target, playerManager, e);
+			InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
 			
 			if(slot == Settings.color_inv_slot_red) {
 				actionHelper.setActionColor("AdvancedChat.Gui.Color.Red", "red");
 			}
 			
 			if(slot == Settings.color_inv_slot_darkred) {
-				actionHelper.setActionColor("AdvancedChat.Gui.Color.Dark_Red", "dark_red");
+				actionHelper.setActionColor("AdvancedChat.Gui.Color.DarkRed", "dark_red");
 			}
 			
 			if(slot == Settings.color_inv_slot_blue) {
-				actionHelper.setActionColor("AdvancedChat.Gui.Color.blue", "blue");
+				actionHelper.setActionColor("AdvancedChat.Gui.Color.Blue", "blue");
 			}
 			
 			if(slot == Settings.color_inv_slot_darkblue) {
-				actionHelper.setActionColor("AdvancedChat.Gui.Color.Dark_Blue", "dark_blue");
+				actionHelper.setActionColor("AdvancedChat.Gui.Color.DarkBlue", "dark_blue");
 			}
 			
 			if(slot == Settings.color_inv_slot_green) {
@@ -71,7 +71,7 @@ public class ColorInventoryListener implements Listener {
 			}
 			
 			if(slot == Settings.color_inv_slot_darkgreen) {
-				actionHelper.setActionColor("AdvancedChat.Gui.Color.Dark_Green", "dark_green");
+				actionHelper.setActionColor("AdvancedChat.Gui.Color.DarkGreen", "dark_green");
 			}
 			
 			if(slot == Settings.color_inv_slot_yellow) {
@@ -87,7 +87,7 @@ public class ColorInventoryListener implements Listener {
 			}
 			
 			if(slot == Settings.color_inv_slot_darkpurple) {
-				actionHelper.setActionColor("AdvancedChat.Gui.Color.Dark_Purple", "dark_purple");
+				actionHelper.setActionColor("AdvancedChat.Gui.Color.DarkPurple", "dark_purple");
 			}
 			
 			if(slot == Settings.color_inv_slot_aqua) {
@@ -95,7 +95,7 @@ public class ColorInventoryListener implements Listener {
 			}
 			
 			if(slot == Settings.color_inv_slot_darkaqua) {
-				actionHelper.setActionColor("AdvancedChat.Gui.Color.Dark_Aqua", "dark_aqua");
+				actionHelper.setActionColor("AdvancedChat.Gui.Color.DarkAqua", "dark_aqua");
 			}
 			
 			if(slot == Settings.color_inv_slot_gray) {
@@ -103,7 +103,7 @@ public class ColorInventoryListener implements Listener {
 			}
 			
 			if(slot == Settings.color_inv_slot_darkgray) {
-				actionHelper.setActionColor("AdvancedChat.Gui.Color.Dark_Gray", "dark_gray");
+				actionHelper.setActionColor("AdvancedChat.Gui.Color.DarkGray", "dark_gray");
 			}
 			
 			if(slot == Settings.color_inv_slot_white) {
@@ -114,19 +114,23 @@ public class ColorInventoryListener implements Listener {
 				actionHelper.setActionColor("AdvancedChat.Gui.Color.Black", "black");
 			}
 			
+			if(slot == Settings.color_inv_slot_rainbow) {
+				actionHelper.setActionColor("AdvancedChat.Gui.Color.Random", "random");
+			}
+			
 			if(slot == Settings.color_inv_slot_last) {
-				actionHelper.setOpenInventoryAction(playerName, InventoryType.Gradient);
+				plugin.removeInvetoryView(target);
+				actionHelper.setOpenInventoryAction(playerName, InventoryType.Player);
 			}
 			
 			if(slot == Settings.color_inv_slot_next) {
 				plugin.removeInvetoryView(target);
-				actionHelper.setOpenInventoryAction(playerName, InventoryType.Player);
+				actionHelper.setOpenInventoryAction(playerName, InventoryType.Gradient);
 			}
 			
 			if(slot == Settings.color_inv_slot_exit) {
 				j.closeInventory();
 			}
-			
 		}
 	}
 	

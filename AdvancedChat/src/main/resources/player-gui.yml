@@ -6,6 +6,10 @@
 #  
 #
 Title: '&b&lMenu &8&l> &e&lPlayer'
+Especial-Items:
+  Mute:
+    Name: '&bPlayer is [state_mute]'
+    Slot: 24 
 Items:
   Next:
     Name: '&a&lNext Menu'
@@ -26,14 +30,20 @@ Items:
     Is-Skull: true
     Slot: 0
   Colors:
-    Name: '&b&lColors'
+    Name: '&bColors'
     Item: stone
     Is-Skull: true
     Texture: '[colors]'
     Slot: 20
-  Mute:
-    Name: '&e&lPlayer is [state_mute]'
-    Is-Skull: false
+  Channel:
+    Name: '&bChannel'
     Item: stone
-    Slot: 24 
-    Texture: ''
+    Is-Skull: true
+    Texture: '[channel]'
+    Slot: 22
+#  Gradient:
+#    Name: '&bGradient'
+#    Item: stone
+#    Is-Skull: true
+#    Texture: '[gradient]'
+#    Slot: -1

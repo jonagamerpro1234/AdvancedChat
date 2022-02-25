@@ -48,8 +48,7 @@ public class GradientInventoryListener implements Listener{
 			String playerName = Utils.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
 			Player target = Bukkit.getPlayer(playerName);
 			PlayerManager playerManager = new PlayerManager(target);
-			InventoryActionHelper actionHelper = new InventoryActionHelper(plugin, j, target, playerManager, e);
-			
+			InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
 			
 			if(slot == Settings.gradient_inv_slot_red) {
 				actionHelper.setDoubleActionColor("AdvancedChat.Gui.Gradient.Red", "FF5555", "FF5555");
@@ -116,7 +115,7 @@ public class GradientInventoryListener implements Listener{
 			}
 			
 			if(slot == Settings.gradient_inv_slot_last) {
-				plugin.removeInvetoryView(j);
+				plugin.removeInvetoryView(target);
 				actionHelper.setOpenInventoryAction(playerName, InventoryType.Color);
 			}
 			

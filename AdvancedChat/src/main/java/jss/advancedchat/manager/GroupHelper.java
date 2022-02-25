@@ -35,7 +35,7 @@ public class GroupHelper {
 		}
 		
 		if(useLuckPerms()) {
-			group = luckPermsHook.getGroup(player);
+			group = LuckPermsHook.getApi().getUserManager().getUser(player.getName()).getPrimaryGroup();
 		}
 		
 		if(useVautl()) {
@@ -50,15 +50,13 @@ public class GroupHelper {
 	
 	private void getGroupOptions(String group) {
 		format = groupManager.getFormat(group);
+		click = groupManager.isClick(group);
+		hover = groupManager.isHover(group);
 		click_mode = groupManager.getClickMode(group);
 		cmd_action = groupManager.getClickCommand(group);
 		url_action = groupManager.getClickUrl(group);
 		suggest_action = groupManager.getClickSuggestCommand(group);
-		
 		hovertext = groupManager.getHover(group);
-		
-		click = groupManager.isClick(group);
-		hover = groupManager.isHover(group);
 	}
 	
 	
