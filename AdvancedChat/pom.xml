@@ -5,8 +5,8 @@
 
 	<groupId>jss.advancedchat</groupId>
 	<artifactId>advancedchat</artifactId>
-	<version>1.7.0</version>
-
+	<version>1.7.0-b15.3</version>
+	
 	<name>AdvancedChat</name>
 	<description>a simple plugin that helps you customize your server chat to make it look better also brings a customizable chat system by group or rank and more....</description>
 	<url>https://github.com/jonagamerpro1234/AdvancedChat</url>

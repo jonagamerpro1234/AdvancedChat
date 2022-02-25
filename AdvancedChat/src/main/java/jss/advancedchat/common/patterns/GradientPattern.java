@@ -1,6 +1,6 @@
 package jss.advancedchat.common.patterns;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,7 +8,7 @@ import jss.advancedchat.common.utils.IridiumColorAPI;
 
 public class GradientPattern implements IPattern {
 
-    Pattern pattern = Pattern.compile("<#:([0-9A-Fa-f]{6})>(.*?)</#:([0-9A-Fa-f]{6})>");
+    Pattern pattern = Pattern.compile("<GRADIENT:([0-9A-Fa-f]{6})>(.*?)</GRADIENT:([0-9A-Fa-f]{6})>");
 
     public String process(String string) {
         Matcher matcher = pattern.matcher(string);

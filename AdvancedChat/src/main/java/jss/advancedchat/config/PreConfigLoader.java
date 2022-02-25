@@ -14,8 +14,7 @@ public class PreConfigLoader {
         this.plugin = plugin;
     }
     
-    //load config
-    public void load() {
+    public void loadConfig() {
         FileConfiguration config = plugin.getConfigFile().getConfig();
         try {
         	Settings.locale = config.getString("Settings.Locale").toLowerCase();
@@ -43,8 +42,8 @@ public class PreConfigLoader {
         }
     }
     
-    //load messages
     public void loadMessage() {
+    	Logger.debug("Load Config File");
     	try {
         	FileConfiguration config = plugin.getMessageFile().get();
         	Settings.message_mute_bypass = config.getString("AdvancedChat.Mute-Bypass");
@@ -75,8 +74,8 @@ public class PreConfigLoader {
     	}
     }
 
-    //load gradient gui file
     public void loadGradientInv() {
+    	Logger.debug("Load Gradient Inventory File");
     	try {
     		FileConfiguration config = plugin.getGradientColorFile().getConfig();
     		Settings.gradient_inv_slot_exit = config.getInt("Items.Exit.Slot");
@@ -100,5 +99,41 @@ public class PreConfigLoader {
     	}catch(Exception e) {
     		e.printStackTrace();
     	}
+    }
+    
+    public void loadColorInv() {
+    	Logger.debug("Load Color Inventory File");
+    	FileConfiguration config = plugin.getColorFile().getConfig();
+    	Settings.color_inv_slot_exit = config.getInt("Items.Exit.Slot");
+    	Settings.color_inv_slot_last = config.getInt("Items.Last.Slot");
+    	Settings.color_inv_slot_next = config.getInt("Items.Next.Slot");
+    	Settings.color_inv_slot_red = config.getInt("Items.Red.Slot");
+    	Settings.color_inv_slot_darkred = config.getInt("Items.Dark-Red.Slot");
+    	Settings.color_inv_slot_blue = config.getInt("Items.Blue.Slot");
+    	Settings.color_inv_slot_darkblue = config.getInt("Items.Dark-Blue.Slot");
+    	Settings.color_inv_slot_green = config.getInt("Items.Green.Slot");
+    	Settings.color_inv_slot_darkgreen = config.getInt("Items.Dark-Green.Slot");
+    	Settings.color_inv_slot_yellow = config.getInt("Items.Yellow.Slot");
+    	Settings.color_inv_slot_gold = config.getInt("Items.Gold.Slot");
+    	Settings.color_inv_slot_aqua = config.getInt("Items.Aqua.Slot");
+    	Settings.color_inv_slot_darkaqua = config.getInt("Items.Dark-Aqua.Slot");
+    	Settings.color_inv_slot_lightpurple = config.getInt("Items.Light-Purple.Slot");
+    	Settings.color_inv_slot_darkpurple = config.getInt("Items.Dark-Purple.Slot");
+    	Settings.color_inv_slot_black = config.getInt("Items.Black.Slot");
+    	Settings.color_inv_slot_white = config.getInt("Items.White.Slot");
+    	Settings.color_inv_slot_darkgray = config.getInt("Items.Dark-Gray.Slot");
+    	Settings.color_inv_slot_gray = config.getInt("Items.Gray.Slot");
+    	Settings.color_inv_slot_rainbow = config.getInt("Items.Rainbow.Slot");
+    	//Settings.color_inv_slot_exit = config.getInt("Items");
+    }
+    
+    public void loadPlayerInv() {
+    	Logger.debug("Load Player Inventory File");
+    	
+    	FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
+    	Settings.player_inv_slot_colors = config.getInt("Items.Colors.Slot");
+    	Settings.player_inv_slot_last = config.getInt("Items.Last.Slot");
+    	Settings.player_inv_slot_next = config.getInt("Items.Next.Slot");
+    	Settings.player_inv_slot_exit = config.getInt("Items.Exit.Slot");
     }
 }

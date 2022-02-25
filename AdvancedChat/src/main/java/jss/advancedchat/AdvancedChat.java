@@ -31,7 +31,6 @@ import jss.advancedchat.config.gui.PlayerGuiFile;
 import jss.advancedchat.config.player.PlayerDataFile;
 import jss.advancedchat.config.player.PlayerFile;
 import jss.advancedchat.config.player.PlayerManagerFile;
-import jss.advancedchat.listeners.ChatListener;
 import jss.advancedchat.listeners.CommandListener;
 import jss.advancedchat.listeners.EventLoader;
 import jss.advancedchat.listeners.InventoryListener;
@@ -52,7 +51,7 @@ import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.file.FileManager;
 
-@SuppressWarnings("unused")
+
 public class AdvancedChat extends AdvancedChatPlugin {
 	
 	private static AdvancedChat instance;
@@ -115,7 +114,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		getMessageFile().saveDefault();
 		getMessageFile().createFile();
 		Utils.setLineLoad("&eLoad Message.yml");
-		preConfigLoad.load();
+		preConfigLoad.loadConfig();
 		preConfigLoad.loadMessage();
 		Utils.setLineLoad("&eLoad PreConfig");
 		createVoidFolder("Gui");
@@ -153,6 +152,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		
 		createAllFiles();
 		preConfigLoad.loadGradientInv();
+		preConfigLoad.loadColorInv();
 		HookManager.load();
 		HookManager.loadProtocol();
 		
@@ -217,7 +217,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	}
 	
 	public void reloadAllFiles() {
-		this.preConfigLoad.load();
+		this.preConfigLoad.loadConfig();
 		this.preConfigLoad.loadMessage();
 		this.getConfigFile().reloadConfig();
 		this.getChatDataFile().reloadConfig();

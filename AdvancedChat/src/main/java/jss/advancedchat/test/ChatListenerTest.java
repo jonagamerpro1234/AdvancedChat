@@ -98,7 +98,7 @@ public class ChatListenerTest implements Listener {
 		if (isDefault) {
 			return;
 		} else if (isNormal) {
-
+			e.setCancelled(true);
 			Json json = new Json(j, format, message);
 
 			boolean hover = config.getString("ChatFormat.HoverEvent.Enabled").equals("true");
@@ -140,6 +140,7 @@ public class ChatListenerTest implements Listener {
 			}
 			return;
 		} else if (isGroup) {
+			e.setCancelled(true);
 			groupHelper.sendGroup(j, message);
 		}
 	}

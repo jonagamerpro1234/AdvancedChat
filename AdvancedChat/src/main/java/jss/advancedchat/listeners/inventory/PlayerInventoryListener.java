@@ -1,14 +1,22 @@
 package jss.advancedchat.listeners.inventory;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
+import jss.advancedchat.storage.MySQL;
+import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.inventory.InventoryActionHelper;
@@ -35,7 +43,7 @@ public class PlayerInventoryListener implements Listener {
 			return;
 		}
 		
-		if((e.getSlotType() == null)) {
+		if(e.getSlotType() == null) {
 			e.setCancelled(true);
 			return;
 		}else {
@@ -48,8 +56,12 @@ public class PlayerInventoryListener implements Listener {
 			String playerName = Utils.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
 			Player target = Bukkit.getPlayer(playerName);
 			PlayerManager playerManager = new PlayerManager(target);
-			InventoryActionHelper actionHelper = new InventoryActionHelper(plugin, j, target, playerManager, e);
-		
+			InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
+			
+			if(slot == 24) {
+				setChangeItemsState(playerManager, target, j.getInventory());
+			}
+			
 			if(slot == Settings.player_inv_slot_next) {
 				plugin.removeInvetoryView(j);
 				actionHelper.setOpenInventoryAction(playerName, InventoryType.Color);
@@ -65,5 +77,43 @@ public class PlayerInventoryListener implements Listener {
 	public void onInventoryClose(InventoryCloseEvent e) {
 		Player j = (Player) e.getPlayer();
 		plugin.removeInvetoryView(j);
+	}
+	
+	public void setChangeItemsState(PlayerManager playerManager,Player p, Inventory inv) {
+		FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
+		
+		int slotmute = config.getInt("Items.Mute.Slot");
+		String name = config.getString("Items.Mute.Name");
+		ItemStack it;
+		ItemMeta me;
+		
+		if(p.isOp() || p.hasPermission("AdvancedChat.Mute.ByPass")) return;
+		
+		if(Settings.mysql_use) {
+			if (MySQL.isMute(plugin, p.getUniqueId().toString())) {
+				it = XMaterial.GRAY_DYE.parseItem();
+				MySQL.setMute(plugin, p.getUniqueId().toString(), false);
+				Logger.debug("Mute off");
+			} else {
+				it = XMaterial.GREEN_DYE.parseItem();
+				MySQL.setMute(plugin, p.getUniqueId().toString(), true);
+				Logger.debug("Mute on");
+			}
+		}else {
+			if (playerManager.isMute(p)) {
+				it = XMaterial.GRAY_DYE.parseItem();
+				playerManager.setMute(p, false);
+				Logger.debug("Mute off");
+			} else {
+				it = XMaterial.GREEN_DYE.parseItem();
+				playerManager.setMute(p, true);
+				Logger.debug("Mute on");
+			}
+		}
+
+		me = it.getItemMeta();
+		me.setDisplayName(Utils.color(name));
+		it.setItemMeta(me);
+		inv.setItem(slotmute, it);
 	}
 }

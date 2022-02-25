@@ -20,17 +20,19 @@ import jss.advancedchat.utils.inventory.TSkullUtils;
 
 public class GuiGradient {
 
-	private AdvancedChat plugin;
+	private AdvancedChat plugin = AdvancedChat.get();
 	private ItemStack item;
 	private ItemMeta meta;
 	private Inventory inv;
 	
-	public GuiGradient(AdvancedChat plugin) {
-		this.plugin = plugin;
-		this.createInventory();
+	public void open(Player player, String target) {
+		plugin.addInventoryView(player, "gradientGui");
+		this.create();
+		this.addItems(player, target);
+		player.openInventory(inv);
 	}
 	
-	private void createInventory() {
+	private void create() {
 		FileConfiguration config = plugin.getGradientColorFile().getConfig();
 		String title = config.getString("Title");
 
@@ -69,12 +71,6 @@ public class GuiGradient {
 			inv.setItem(slot, item);
 			
 		});
-	}
-
-	public void open(Player player, String target) {
-		this.addItems(player, target);
-		plugin.addInventoryView(player, "gradientGui");
-		player.openInventory(inv);
 	}
 	
 	private List<String> coloredLore(List<String> lore) {
