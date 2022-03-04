@@ -63,7 +63,6 @@ public class PlayerInventoryListener implements Listener {
 			}
 			
 			if(slot == Settings.player_inv_slot_next) {
-				plugin.removeInvetoryView(j);
 				actionHelper.setOpenInventoryAction(playerName, InventoryType.Color);
 			}
 			
@@ -100,7 +99,7 @@ public class PlayerInventoryListener implements Listener {
 				Logger.debug("Mute on");
 			}
 		}else {
-			if (playerManager.isMute(p)) {
+			if (playerManager.isMute()) {
 				it = XMaterial.GRAY_DYE.parseItem();
 				playerManager.setMute(p, false);
 				Logger.debug("Mute off");

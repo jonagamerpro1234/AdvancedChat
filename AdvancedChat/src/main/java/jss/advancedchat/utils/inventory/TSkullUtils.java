@@ -28,8 +28,10 @@ public class TSkullUtils {
 	private static String missing = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2M2MDNjNzk1NjAzMTk5OTZkNjM5NDEyOGI0OWZlYzc2NTBjZjg2N2ExZTQ4ZmI4MGM2MDQzZTc3MGRkNzFiZCJ9fX0=";
 	private static String mute_on = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzJmMDU4ZGRjMjk2OTEzMzI1OTFhYzU1YTBmZDczZjQzMjAxMTc5ODJjZmRiY2U3OTY5OTQxY2ZhOGVkOGM2YiJ9fX0=";
 	private static String mute_off = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjAyYWYzY2EyZDVhMTYwY2ExMTE0MDQ4Yjc5NDc1OTQyNjlhZmUyYjFiNWVjMjU1ZWU3MmI2ODNiNjBiOTliOSJ9fX0=";
-	private static String gradient = "";
-	private static String settings = "";
+	private static String gradient = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDIzNWFmMTY2ZmE1ZjQ4NmQ1YzZiODRmN2FiYjAwOTNhMWVhMDE0OTBjMzM3ZjgwNDViNDk3NmJjOTNlN2Q2MCJ9fX0=";
+	private static String settings = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTRkNDliYWU5NWM3OTBjM2IxZmY1YjJmMDEwNTJhNzE0ZDYxODU0ODFkNWIxYzg1OTMwYjNmOTlkMjMyMTY3NCJ9fX0=";
+	private static String special_codes = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTkxNGQyZDYzNDE4MGU3MTJhZDliYzI1MmI0MjU1YWM3MGJiOWI4ZDQ0OTY2Y2ZhZmY5NzNmZWExYWRjYzlmMCJ9fX0=";
+	private static String channel= "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmQyOWEyMGVhZmE5MWY0ZWYyMTczOWZmZThjYjdiOTY3NGI4OTFkNTJkYWZjZjM4MTg4MDc1YTQxYjJlNjFlOCJ9fX0=";
 	
 	public static String replace(String texture) {
 		if(texture == null) {
@@ -111,6 +113,12 @@ public class TSkullUtils {
 		}
 		if(temp.equalsIgnoreCase("[settings]")) {
 			texture = settings;
+		}
+		if(temp.equalsIgnoreCase("[special_codes]")) {
+			texture = special_codes;
+		}
+		if(temp.equalsIgnoreCase("[channels]")) {
+			texture = channel;
 		}
 		return texture;
 	}

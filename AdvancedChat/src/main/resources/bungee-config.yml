@@ -1,7 +1,7 @@
 #     ___   ______
 #    /   | / ____/ 
 #   / /| |/ /      By jonagamerpro1234
-#  / ___ / /___    Version 1.7.x
+#  / ___ / /___    Version 1.7.x - 1.8.x
 # /_/  |_\____/    Thanks for using AdvancedChat <3
 #  
 # ● a simple plugin that helps you customize your server chat to make it look better also provides a customizable chat system by group or rank
@@ -26,7 +26,7 @@ DataBase:
   password: '1234'
 #
 # |Translation of messages from AdvancedChat|
-# |Version: 1.7.5|
+# |Version: 1.7.x - 1.8.x|
 #
 AdvancedChat:
   Error-Sync-DataBase: ''
@@ -41,5 +41,5 @@ AdvancedChat:
 # This is the end of the configuration ... [-_-] more things coming soon
 # 
 # | Config File
-# | Version 1.7.5
+# | Version 1.7.x - 1.8.x
 #

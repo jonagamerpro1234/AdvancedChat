@@ -154,7 +154,6 @@ ChatFormat:
       # |Suggest-Command| Clicking on the chat suggests a command that you define in the config
       Suggest-Command: '/msg <name>'  
 
-  
   # |Private-Message|
   Private-Message:
     
@@ -229,6 +228,28 @@ Command-Blocker:
       - '/say'
       - '/msg'
 #
+# |ChatLogs|
+ChatLogs:
+  
+  # |Commands-in-the-logger| the command is recorded in the file command.yml if this function is active
+  Commands-in-the-logger: true
+  
+  # |Messages-in-the-logger| the message is recorded in the file chat.yml if this function is active
+  Messages-in-the-logger: true
+  
+  # |Commands-List| 
+  Commands-List:
+    
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: true
+    
+    # |List| Here you can configure the commands that will not be logged.
+    List:
+      - '/login'
+      - '/register'
+      - '/log'
+      - '/reg'
+#
 # |TabComplete|
 TabComplete:
   
@@ -263,16 +284,8 @@ Filter-Chat:
 
   # ![Disabled]! |Delay| It is the waiting time that the message will have before it is sent so that spam does not form in the player's chat [Defalt | 100 ]
   Delay: 5 #[Not Implement]
-  
-  #Changed 1.7
-  # |BadWords| The format is very simple, you just have to add the word you want to censor to the list
-  BadWords:
-    - 'noob'
-    - 'stupid'
-    - 'fuck' 
 #
 # | Mention |
-#
 Mention:
   
    # |Enabled| Here you can enable or disable this feature
@@ -283,38 +296,7 @@ Mention:
   
   # |Receive-Format|
   Receive-Format: '&b[&eR&b]&8: &e[&a<name>&e] &9-> &d<name>'
-  
-  # |Title|
-  Title:
-  
-    # |Enabled| Here you can enable or disable this feature
-    Enabled: true
-    
-    # |Title|
-    Title: ''
-    
-    # |SubTitle|
-    SubTitle: ''
-    
-    # |FadeIn|
-    FadeIn: 20
-    
-    # |Stay|
-    Stay: 40
-    
-    # |FadeOut|
-    FadeOut: 20
-  
-  # |Actionbar|
-  Actionbar:
-  
-    # |Enabled| Here you can enable or disable this feature
-    Enabled: true
-    
-    # |Text| Here you can define the text of the action bar
-    Text: ''
-  
-  
+   
   # |Sound| In this section you can configure the sound of the mentions
   Sound:
     

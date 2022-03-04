@@ -5,15 +5,9 @@ import java.util.List;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.chat.Json;
-import jss.advancedchat.hooks.LuckPermsHook;
-import jss.advancedchat.hooks.VaultHook;
-import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Settings;
 
 public class GroupHelper {
 	
-	private LuckPermsHook luckPermsHook = HookManager.get().getLuckPermsHook();
-	private VaultHook vaultHook = HookManager.get().getVaultHook();
 	private GroupManager groupManager = new GroupManager();
 	private String group = "";
 	private String format;
@@ -26,26 +20,19 @@ public class GroupHelper {
 	private List<String> hovertext;
 	private Json json;
 	
+	public static GroupHelper get() {
+		return new GroupHelper();
+	}
+	
+	public GroupHelper setGroup(String group) {
+		this.group = group;
+		return this;
+	}
+	
 	public void sendGroup(Player player, String message) {
-		
-		if(luckPermsHook.isEnabled() || vaultHook.isEnabled()) {
-			Logger.error("&cThe Vault or LuckPerms could not be found to activate the group system");
-			Logger.warning("&eplease check that luckperms is active or inside your plugins folder");
-			return;
-		}
-		
-		if(useLuckPerms()) {
-			group = LuckPermsHook.getApi().getUserManager().getUser(player.getName()).getPrimaryGroup();
-		}
-		
-		if(useVautl()) {
-			group = VaultHook.getVaultHook().getChat().getPrimaryGroup(player);
-		}
-		
 		this.getGroupOptions(group);
 		json = new Json(player, format, message);
 		this.buildMessage();
-		
 	}
 	
 	private void getGroupOptions(String group) {
@@ -58,7 +45,6 @@ public class GroupHelper {
 		suggest_action = groupManager.getClickSuggestCommand(group);
 		hovertext = groupManager.getHover(group);
 	}
-	
 	
 	private void buildMessage() {
 		if (hover) {
@@ -86,14 +72,5 @@ public class GroupHelper {
 				json.sendDoubleToAll();
 			}
 		}
-	}
-	
-	private boolean useLuckPerms() {
-		return Settings.hook_luckperms_use_group;
-	}
-	
-	private boolean useVautl() {
-		return Settings.hook_vault_use_group;
-	}
-	
+	}	
 }

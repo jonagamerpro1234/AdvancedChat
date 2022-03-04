@@ -24,7 +24,7 @@ public class Placeholders {
 		str = str.replace("<range>", getRange());
 		str = str.replace("<name>", player.getName());
 		str = str.replace("<displayname>", player.getDisplayName());
-		str = str.replace("<channel>", playerManager.getChannel(player));
+		str = str.replace("<channel>", playerManager.getChannel());
 		str = Utils.getOnlinePlayers(str);
 		
 		if(HookManager.getInstance().getLuckPermsHook().isEnabled()) {

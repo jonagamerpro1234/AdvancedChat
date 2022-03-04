@@ -10,6 +10,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import github.scarsz.discordsrv.util.DiscordUtil;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.chat.Json;
 import jss.advancedchat.hooks.DiscordSRVHook;
@@ -17,7 +18,6 @@ import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.hooks.VaultHook;
 import jss.advancedchat.manager.ColorManager;
 import jss.advancedchat.manager.GroupHelper;
-import jss.advancedchat.manager.GroupManager;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQL;
@@ -37,17 +37,13 @@ public class ChatListenerTest implements Listener {
 	private final Pattern UNDERLINE_REGEX = Pattern.compile("(?i)&([N])");
 	private final Pattern ITALIC_REGEX = Pattern.compile("(?i)&([O])");
 
-
 	public ChatListenerTest(AdvancedChat plugin) {
 		this.plugin = plugin;
 	}
 	
-	@SuppressWarnings("unused")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onChat(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfigFile().getConfig();
-		GroupManager groupManager = new GroupManager();
-		GroupHelper groupHelper = new GroupHelper();
 		VaultHook vaultHook = HookManager.get().getVaultHook();
 		DiscordSRVHook discordSRVHook = HookManager.get().getDiscordSRVHook();
 		LuckPermsHook luckPermsHook = HookManager.get().getLuckPermsHook();
@@ -71,7 +67,7 @@ public class ChatListenerTest implements Listener {
 			message = " &r"
 					+ colorManager.convertColor(j, MySQL.getColor(plugin, j.getUniqueId().toString()), msg);
 		} else {
-			message = " &r" + colorManager.convertColor(j, playerManager.getColor(j), msg);
+			message = " &r" + colorManager.convertColor(j, playerManager.getColor(), msg);
 		}
 
 		format = Utils.getVar(j, format);
@@ -82,7 +78,7 @@ public class ChatListenerTest implements Listener {
         if(Settings.mysql_use) {
         	isMute = MySQL.isMute(plugin, j.getUniqueId().toString());
         } else {
-        	isMute = playerManager.isMute(j);
+        	isMute = playerManager.isMute();
         }
 		
 		if (isMute || this.badword) {
@@ -100,7 +96,17 @@ public class ChatListenerTest implements Listener {
 		} else if (isNormal) {
 			e.setCancelled(true);
 			Json json = new Json(j, format, message);
-
+			
+			if(config.getString("Settings.Show-Chat-In-Console").equals("true")) {
+				Logger.info(json.getText() + json.getExtraText());
+			}
+			
+			if(discordSRVHook.isEnabled()) {
+				if(Settings.hook_discordsrv_channelid.equalsIgnoreCase("none")) return;
+				
+				DiscordUtil.sendMessage(DiscordUtil.getTextChannelById(Settings.hook_discordsrv_channelid), json.getFormat());
+			}
+			
 			boolean hover = config.getString("ChatFormat.HoverEvent.Enabled").equals("true");
 			List<String> hovertext = config.getStringList("ChatFormat.HoverEvent.Hover");
 
@@ -141,6 +147,22 @@ public class ChatListenerTest implements Listener {
 			return;
 		} else if (isGroup) {
 			e.setCancelled(true);
+			
+			String group = "";
+			
+			if (luckPermsHook.isEnabled() || vaultHook.isEnabled()) {
+				Logger.error("&cThe Vault or LuckPerms could not be found to activate the group system");
+				Logger.warning("&eplease check that luckperms is active or inside your plugins folder");
+				return;
+			}
+
+			if (Settings.hook_luckperms_use_group) {
+				group = LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup();
+			} else if (Settings.hook_luckperms_use_group) {
+				group = VaultHook.getVaultHook().getChat().getPrimaryGroup(j);
+			}
+			
+			GroupHelper groupHelper = GroupHelper.get().setGroup(group);
 			groupHelper.sendGroup(j, message);
 		}
 	}

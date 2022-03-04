@@ -1,10 +1,11 @@
-package jss.advancedchat.bungee;
+package jss.advancedchat.bungee.config;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 
+import jss.advancedchat.bungee.AdvancedChatBungee;
 import jss.advancedchat.bungee.utils.file.FileManagerBunge;
 import net.md_5.bungee.config.Configuration;
 
@@ -43,25 +44,6 @@ public class ConfigFile extends FileManagerBunge{
 			e.printStackTrace();
 		}
 	}
-	
-	/*public void reloadConfig() {
-		if(this.config == null) {
-			this.file = new File(getDataFolder(), Files.getName(FileName.BUNGEECONFIG));
-		}
-		
-		Reader defaultConfigStream;
-		
-		try {
-			this.config = getConfigProvider().load(this.file);
-			
-			defaultConfigStream = new InputStreamReader(getResources("bungee-config.yml"));
-			if(defaultConfigStream != null) {
-				this.config = getConfigProvider().load(defaultConfigStream);	
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}*/
 	
 	public Configuration getConfig() {
 		if(this.config == null) {

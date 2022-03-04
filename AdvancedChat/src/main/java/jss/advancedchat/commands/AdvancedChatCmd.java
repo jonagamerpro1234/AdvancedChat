@@ -51,12 +51,10 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 			if (args.length >= 1) {
 				if (args[0].equalsIgnoreCase("info")) {
 					Utils.getInfoPlugin(sender, plugin.name, plugin.version, plugin.latestversion);
-					
 				} else if (args[0].equalsIgnoreCase("help")) {
 					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5-=-=-=-=-=-=-=-=-=-=-=&6[&d" + plugin.name + "&6]&5=-=-=-=-=-=-=-=-=-=-=-");
 					Settings.list_message_help.forEach((text) -> Utils.sendColorMessage(eventUtils.getConsoleSender(), text));
 					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-					
 				} else if (args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")) {
 					plugin.reloadAllFiles();
 					Utils.sendColorMessage(sender, prefixServer + Settings.message_Reload);
@@ -137,7 +135,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 							
 							String playerName = args[1];
 							
-							if (playerName == null) Utils.sendColorMessage(j, "&cPlease use the name of the player you want to set the color");;
+							if (playerName == null) Utils.sendColorMessage(j, "&cPlease use the name of the player you want to set the color");
 							
 							Player target = Bukkit.getPlayer(playerName);
 							
@@ -207,7 +205,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 							
 							guiPlayer.open(j, playerName);
 						} else {
-							guiPlayer.open(j, "this");
+							guiPlayer.open(j, j.getName());
 							return true;
 						}
 					} else {

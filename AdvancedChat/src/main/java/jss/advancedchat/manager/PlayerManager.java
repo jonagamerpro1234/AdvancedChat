@@ -20,31 +20,31 @@ public class PlayerManager  {
 		config = playerFile.getConfig(player.getName());
 	}
 	
-    public boolean isMute(Player player) {
+    public boolean isMute() {
     	if(existsPlayer("Is-Mute")) return config.getBoolean("Is-Mute"); return false;
     }
     
-    public String getColor(Player player) {
+    public String getColor() {
     	if(existsPlayer("Message-Color")) return config.getString("Message-Color"); return null;
     }
 
-    public String getChannel(Player player) {
+    public String getChannel() {
     	if(existsPlayer("Channel")) return config.getString("Channel"); return null;
 	}
     
-    public String getRange(Player player) {
+    public String getRange() {
     	if(existsPlayer("Chat-Range")) return config.getString("Chat-Range"); return null;
     }
     
-    public String getFirstGradient(Player player) {
+    public String getFirstGradient() {
     	if(existsPlayer("First-Gradient")) return config.getString("First-Gradient"); return null;
     }
     
-    public String getSecondGradient(Player player) {
+    public String getSecondGradient() {
     	if(existsPlayer("Second-Gradient")) return config.getString("Second-Gradient"); return null;
     }
     
-    public String getUUID(Player player) {  	
+    public String getUUID() {  	
     	if(existsPlayer("UUID")) return config.getString("UUID"); return null;
     }
     
@@ -76,16 +76,26 @@ public class PlayerManager  {
         if(existsPlayer("Second-Gradient")) config.set("Second-Gradient", hex); save();
     }
         
-    public void create(Player player) {
+    public void create(Player player, String group) {
     	if(!existsPlayer("Name")) {
-    		config.set("Name", player.getName());
-    		config.set("UUID", player.getUniqueId().toString());
-            config.set("Message-Color", Settings.default_color);
-            config.set("First-Gradient", "FFFFFF");
-            config.set("Second-Gradient", "FFFFFF");
-            config.set("Is-Mute", false);
-            config.set("Channel", "all");
-            config.set("Range-Chat", 10);
+			config.set("Name", player.getName());
+			config.set("UUID", player.getUniqueId().toString());
+
+			if (GroupManager.get().isGroup()) {
+				if (group == null) {
+					config.set("Message-Color", Settings.default_color);
+				}else {
+					config.set("Message-Color", GroupManager.get().getGroupColor(group));
+				}
+			} else {
+				config.set("Message-Color", Settings.default_color);
+			}
+
+			config.set("First-Gradient", "FFFFFF");
+			config.set("Second-Gradient", "FFFFFF");
+			config.set("Is-Mute", false);
+			config.set("Channel", "all");
+			config.set("Range-Chat", 10);
             save();
             if(AdvancedChat.get().isDebug())
             	Logger.debug("&9folder &7-> &e[Data] &7-> &d[Players] &7-> &efile &b[" + player.getName() + ".yml] &7-> &aAdded " + player.getName());

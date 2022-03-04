@@ -10,6 +10,7 @@ public class Settings {
 	public static List<String> list_filter_badword;
 	public static List<String> list_command_blocker_no_use;
 	public static List<String> list_command_blocker_no_use_mute;
+	public static List<String> list_chatlogs_no_register_commands;;
 	
 	public static String message_prefix_custom;
 	public static String message_ClearChat_Staff;
@@ -36,6 +37,7 @@ public class Settings {
     public static String message_player_is_mute;
     public static String message_protocol_state;
     public static String message_filter;
+	public static String message_depend_plugin;
     public static String locale;
     public static String default_color;
     public static String inv_color_back;
@@ -127,6 +129,17 @@ public class Settings {
     public static boolean boolean_command_blocker;
     public static boolean boolean_command_blocker_disable_command;
     public static boolean boolean_command_blocker_disable_command_mute;
-	public static String message_depend_plugin;
     
+	public static boolean chatlogs;
+	public static boolean chatlogs_log_chat;
+	public static boolean chatlogs_log_command;
+	public static boolean chatlogs_list_command;
+    
+	public static boolean mention;
+	public static String mention_send;
+	public static String mention_receive;
+	public static boolean mention_sound;
+	public static String mention_sound_name;
+	public static float mention_sound_pitch;
+	public static float mention_sound_volume;
 }
