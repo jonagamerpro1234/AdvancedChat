@@ -51,13 +51,8 @@ public class GuiPlayer {
 		FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
 
 		int amount = invData.getInt("Amount-Items");
-
-		if (target.equalsIgnoreCase("this")) {
-			target = player.getName();
-		}
-
-		item = Utils.getPlayerHead(target);
-		inv.setItem(4, item);
+		
+		inv.setItem(4, Utils.getPlayerHead(target));
 
 		Set<String> section = config.getConfigurationSection("Items").getKeys(false);
 
@@ -125,7 +120,7 @@ public class GuiPlayer {
 			if (player.hasPermission("AdvancedChat.Mute.Bypass")) {
 				return item = XMaterial.BARRIER.parseItem();
 			} else {
-				if (playerManager.isMute(player) || MySQL.isMute(plugin, player.getUniqueId().toString())) {
+				if (playerManager.isMute() || MySQL.isMute(plugin, player.getUniqueId().toString())) {
 					return item = XMaterial.GREEN_DYE.parseItem();
 				} else {
 					return item = XMaterial.GRAY_DYE.parseItem();

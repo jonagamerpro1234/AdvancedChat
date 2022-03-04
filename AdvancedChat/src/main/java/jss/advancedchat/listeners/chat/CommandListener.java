@@ -1,4 +1,4 @@
-package jss.advancedchat.listeners;
+package jss.advancedchat.listeners.chat;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -24,8 +24,7 @@ public class CommandListener implements Listener {
 		Player j = e.getPlayer();
 		PlayerManager playerManager = new PlayerManager(j);
 		
-		if ((j.isOp()) || (j.hasPermission("AdvancedChat.CommandBlocker.Bypass")))
-			return;
+		if ((j.isOp()) || (j.hasPermission("AdvancedChat.CommandBlocker.Bypass"))) return;
 
 		if (Settings.boolean_command_blocker) {
 			if (Settings.boolean_command_blocker_disable_command) {
@@ -38,7 +37,7 @@ public class CommandListener implements Listener {
 				}
 			}
 			if (Settings.boolean_command_blocker_disable_command_mute) {
-				if (playerManager.isMute(j)) {
+				if (playerManager.isMute()) {
 					for (String a : Settings.list_command_blocker_no_use_mute) {
 						if (e.getMessage().toLowerCase().contains(a)) {
 							e.setCancelled(true);
@@ -70,9 +69,19 @@ public class CommandListener implements Listener {
 
 		String date = Utils.getDate(System.currentTimeMillis());
 		String time = Utils.getTime(System.currentTimeMillis());
+		
+		if(Settings.chatlogs_list_command) {
+			for(int i = 0 ; i < Settings.list_chatlogs_no_register_commands.size(); i++) {
+				if(e.getMessage().contains(Settings.list_chatlogs_no_register_commands.get(i))) {
+					return;
+				}
+			}
+		}
 
-		config.set("Players." + j.getName() + ".Command." + date + "." + time, Utils.colorless(e.getMessage()));
-		plugin.getCommandLogFile().saveConfig();
+		if(Settings.chatlogs_log_command) {
+			config.set("Players." + j.getName() + ".Command." + date + "." + time, Utils.colorless(e.getMessage()));
+			plugin.getCommandLogFile().saveConfig();
+		}
 	}
 
 }

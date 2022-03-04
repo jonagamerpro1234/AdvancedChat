@@ -31,10 +31,10 @@ import jss.advancedchat.config.gui.PlayerGuiFile;
 import jss.advancedchat.config.player.PlayerDataFile;
 import jss.advancedchat.config.player.PlayerFile;
 import jss.advancedchat.config.player.PlayerManagerFile;
-import jss.advancedchat.listeners.CommandListener;
 import jss.advancedchat.listeners.EventLoader;
 import jss.advancedchat.listeners.InventoryListener;
 import jss.advancedchat.listeners.JoinListener;
+import jss.advancedchat.listeners.chat.CommandListener;
 import jss.advancedchat.listeners.inventory.ColorInventoryListener;
 import jss.advancedchat.listeners.inventory.GradientInventoryListener;
 import jss.advancedchat.listeners.inventory.PlayerInventoryListener;
@@ -43,6 +43,7 @@ import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQLConnection;
 import jss.advancedchat.test.ChatListenerTest;
+import jss.advancedchat.test.TestCommand;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
@@ -84,7 +85,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public boolean uselegacyversion = false;
 	public boolean uselatestversion = false;
 	public boolean uselatestConfig = false;
-	public static boolean debug;
+	public static boolean debug = true;
 	public String latestversion;
 	public String nmsversion;
 	
@@ -106,7 +107,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		Utils.setTitleLoad("&bLoading Files");
 		getConfigFile().saveDefaultConfig();
 		getConfigFile().create();
-		debug = getConfigFile().getConfig().getBoolean("Settings.Debug");
+		//debug = getConfigFile().getConfig().getBoolean("Settings.Debug");
 		if(!getConfigFile().getConfig().getString("Settings.Config-Version").equals("2")) {
 			uselatestConfig = true;
 		}
@@ -137,9 +138,9 @@ public class AdvancedChat extends AdvancedChatPlugin {
 			if (uselegacyversion) {
 				Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &cdisabled &7method &b1.16 &3- &b1.18");
 			}
-		} else if (nmsversion.equalsIgnoreCase("v1_16_R1") || nmsversion.equalsIgnoreCase("v1_16_R2") || nmsversion.equalsIgnoreCase("v1_16_R3")) {
+		} else if (nmsversion.startsWith("v1_16_") || nmsversion.startsWith("v1_17_") || nmsversion.startsWith("v1_18_")) {
 			uselatestversion = true;
-			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &aenabled &7method &b1.16");
+			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix() + "&5<|| &c* &7Use " + nmsversion + " &aenabled &7method");
 		}
 		
 		instance = this;
@@ -200,6 +201,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		new MuteCmd(this);
 		new UnMuteCmd(this);
 		new MsgCmd(this);
+		new TestCommand();
 	}
 		
 	public void loadEvents() {
@@ -235,7 +237,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	}
 	
 	public void createAllFiles() {
-		playerDataFile.create();
+		//playerDataFile.create();
 		inventoryDataFile.create();
 		chatLogFile.create();
 		commandLogFile.create();
@@ -254,7 +256,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 			String color = "";
 			for(Player p : Bukkit.getOnlinePlayers()) {
 				PlayerManager playerManager = new PlayerManager(p);
-				color = playerManager.getColor(p);
+				color = playerManager.getColor();
 			}
 			return color;
 		}));
@@ -318,7 +320,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	}
 
 	public boolean isDebug() {
-		return debug;
+		return true;
 	}
 	
 	public static AdvancedChat get() {

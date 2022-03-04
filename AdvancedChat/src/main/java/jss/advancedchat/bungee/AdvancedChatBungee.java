@@ -2,6 +2,7 @@ package jss.advancedchat.bungee;
 
 import java.sql.Connection;
 
+import jss.advancedchat.bungee.config.ConfigFile;
 import jss.advancedchat.bungee.utils.LoggerBunge;
 import jss.advancedchat.bungee.utils.LoggerBunge.Level;
 import jss.advancedchat.common.update.UpdateSettings;
@@ -30,7 +31,8 @@ public class AdvancedChatBungee extends AdvancedChatPlugin {
         configFile.create();
         
         
-        getProxy().registerChannel("ac:messagechannel");
+        getProxy().registerChannel("advancedchat:channel_chat");
+        getProxy().registerChannel("advancedchat:msg");
         
         new UpdateChecker(this).getUpdateVersionBungee(version -> {
 			if (this.getDescription().getVersion().equalsIgnoreCase(version)) {

@@ -86,6 +86,10 @@ public class Json {
 		return this;
 	}
 
+	public String getFormat() {
+		return Utils.color(Utils.getVar(player, this.text + this.extraText));
+	}
+	
 	public void send() {
 		TextComponent component = new TextComponent(TextComponent.fromLegacyText(this.getText()));
 		if (this.hoverText != null) {
@@ -133,8 +137,8 @@ public class Json {
 	}
 
 	public void sendDouble() {
-		TextComponent component = new TextComponent(TextComponent.fromLegacyText(this.getText()));
-		TextComponent component2 = new TextComponent(TextComponent.fromLegacyText(this.getExtraText()));
+		TextComponent component = new TextComponent(TextComponent.fromLegacyText(Utils.color(this.getText())));
+		TextComponent component2 = new TextComponent(TextComponent.fromLegacyText(Utils.color(this.getExtraText())));
 		if (this.hoverText != null) {
 			component.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, this.hoverText));
 		}
@@ -157,8 +161,8 @@ public class Json {
 	}
 
 	public void sendDoubleToAll() {
-		TextComponent component = new TextComponent(TextComponent.fromLegacyText(this.getText()));
-		TextComponent component2 = new TextComponent(TextComponent.fromLegacyText(this.getExtraText()));
+		TextComponent component = new TextComponent(TextComponent.fromLegacyText(Utils.color(this.getText())));
+		TextComponent component2 = new TextComponent(TextComponent.fromLegacyText(Utils.color(this.getExtraText())));
 		if (this.hoverText != null) {
 			component.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, this.hoverText));
 		}
@@ -177,6 +181,6 @@ public class Json {
 			component.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.OPEN_URL, this.openURL));
 		}
 
-		Utils.sendAllPlayerBaseComponent(component, component2);
+		Utils.sendAllBaseComponent(component, component2);
 	}
 }

@@ -1,14 +1,12 @@
-package jss.advancedchat.listeners;
+package jss.advancedchat.listeners.chat;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
-import org.bukkit.SoundCategory;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,11 +16,11 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import com.cryptomorin.xseries.XSound;
 
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
+
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.api.event.AdvancedChatPlayerEvent;
 import jss.advancedchat.chat.Json;
-import jss.advancedchat.config.ChatDataFile;
-import jss.advancedchat.config.ChatLogFile;
 import jss.advancedchat.hooks.DiscordSRVHook;
 import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.hooks.VaultHook;
@@ -32,18 +30,14 @@ import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.utils.Utils;
-import net.luckperms.api.LuckPerms;
-import net.luckperms.api.LuckPermsProvider;
-import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
-@SuppressWarnings("unused")
+
 public class ChatListener implements Listener {
 
 	private AdvancedChat plugin;
 	public Map<String, Long> delaywords = new HashMap<String, Long>();
 	private ColorManager colorManager;
-	private EventUtils eventsUtils = new EventUtils(plugin);
 	private boolean badword;
 	private boolean ismention;
 	
@@ -74,7 +68,7 @@ public class ChatListener implements Listener {
 				}
 		} else {
 			if (j.isOp() || j.hasPermission("AdvancedChat.Mute.Bypass")) return;
-				if (playerManager.isMute(j)) {
+				if (playerManager.isMute()) {
 					Utils.sendColorMessage(j, Utils.getVar(j, Settings.message_Alert_Mute));
 					e.setCancelled(true);
 				}
@@ -85,9 +79,9 @@ public class ChatListener implements Listener {
 	public void chatFormat(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfigFile().getConfig();
 		GroupManager groupManager = new GroupManager();
-		VaultHook vaultHook = HookManager.getInstance().getVaultHook();
-		DiscordSRVHook discordSRVHook = HookManager.getInstance().getDiscordSRVHook();
-		LuckPermsHook luckPermsHook = HookManager.getInstance().getLuckPermsHook();
+		VaultHook vaultHook = HookManager.get().getVaultHook();
+		DiscordSRVHook discordSRVHook = HookManager.get().getDiscordSRVHook();
+		LuckPermsHook luckPermsHook = HookManager.get().getLuckPermsHook();
 		
 		Player j = e.getPlayer();
 		PlayerManager playerManager = new PlayerManager(j);
@@ -103,7 +97,7 @@ public class ChatListener implements Listener {
 		if(Settings.mysql_use) {
 			message = " &r" + colorManager.convertColor(j, MySQL.getColor(plugin, j.getUniqueId().toString()), e.getMessage());
 		} else {
-			message = " &r" + colorManager.convertColor(j, playerManager.getColor(j), e.getMessage());
+			message = " &r" + colorManager.convertColor(j, playerManager.getColor(), e.getMessage());
 		}
 		
 		format = Utils.getVar(j, format);
@@ -114,7 +108,7 @@ public class ChatListener implements Listener {
 			message = Utils.color(message);
 		}
 		
-		if(playerManager.isMute(j) || this.badword) {
+		if(playerManager.isMute() || this.badword) {
 			this.badword = false;
 			return;
 		}
@@ -239,43 +233,18 @@ public class ChatListener implements Listener {
 		Player j = e.getPlayer();
 		String message = e.getMessage();
 		
-		if(message.contains(j.getName())) {
-			this.ismention = true;
-			
-			for(Player p : Bukkit.getOnlinePlayers()) {
+		if(Settings.mention) {
+			Utils.sendColorMessage(j, Settings.mention_send);
+			if(message.contains(j.getName())) {
+				this.ismention = true;
 				
-				p.playSound(p.getLocation(), message, 0, 0);
+				for(Player p : Bukkit.getOnlinePlayers()) {
+					
+					p.playSound(p.getLocation(), Sound.valueOf(Settings.mention_sound_name), Settings.mention_sound_volume, Settings.mention_sound_pitch);
+					Utils.sendColorMessage(p, Settings.mention_receive);
+				}	
 			}
-			
 		}
-		
-	}
-
-	@EventHandler
-	public void chatDataLog(AsyncPlayerChatEvent e) {
-		ChatDataFile chatDataFile = plugin.getChatDataFile();
-		FileConfiguration config = chatDataFile.getConfig();
-		Player j = e.getPlayer();
-
-		String date = Utils.getDate(System.currentTimeMillis());
-		String time = Utils.getTime(System.currentTimeMillis());
-
-		config.set("Players." + j.getName() + ".Log." + date + ".Chat." + time, Utils.colorless(e.getMessage()));
-		chatDataFile.saveConfig();
-
-	}
-
-	@EventHandler
-	public void chatLog(AsyncPlayerChatEvent e) {
-		ChatLogFile chatLogFile = plugin.getChatLogFile();
-		FileConfiguration config = chatLogFile.getConfig();
-		Player j = e.getPlayer();
-
-		String date = Utils.getDate(System.currentTimeMillis());
-		String time = Utils.getTime(System.currentTimeMillis());
-
-		config.set("Players." + j.getName() + ".Chat." + date + "." + time, Utils.colorless(e.getMessage()));
-		chatLogFile.saveConfig();
 	}
 	
 	private String formatColor(String msg, Player player) {
@@ -284,32 +253,32 @@ public class ChatListener implements Listener {
 
 		boolean canReset = false;
 
-		if (!player.hasPermission("AdvancedChat.Format.Color")) {
+		if (!player.hasPermission("AdvancedChat.Chat.Color")) {
 			msg = COLOR_REGEX.matcher(msg).replaceAll("\u00A7$1");
 			canReset = true;
 		}
 
-		if (!player.hasPermission("AdvancedChat.Format.Magic")) {
+		if (!player.hasPermission("AdvancedChat.Chat.Magic")) {
 			msg = MAGIC_REGEN.matcher(msg).replaceAll("\u00A7$1");
 			canReset = true;
 		}
 
-		if (!player.hasPermission("AdvancedChat.Format.Bold")) {
+		if (!player.hasPermission("AdvancedChat.Chat.Bold")) {
 			msg = BOLD_REGEX.matcher(msg).replaceAll("\u00A7$1");
 			canReset = true;
 		}
 
-		if (!player.hasPermission("AdvancedChat.Format.Strikethrough")) {
+		if (!player.hasPermission("AdvancedChat.Chat.Strikethrough")) {
 			msg = STRIKETHROUGH_REGEX.matcher(msg).replaceAll("\u00A7$1");
 			canReset = true;
 		}
 
-		if (!player.hasPermission("AdvancedChat.Format.Underline")) {
+		if (!player.hasPermission("AdvancedChat.Chat.Underline")) {
 			msg = UNDERLINE_REGEX.matcher(msg).replaceAll("\u00A7$1");
 			canReset = true;
 		}
 
-		if (!player.hasPermission("AdvancedChat.Format.italic")) {
+		if (!player.hasPermission("AdvancedChat.Chat.italic")) {
 			msg = ITALIC_REGEX.matcher(msg).replaceAll("\u00A7$1");
 			canReset = true;
 		}

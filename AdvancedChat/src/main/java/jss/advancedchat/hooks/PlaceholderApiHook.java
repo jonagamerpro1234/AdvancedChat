@@ -1,7 +1,6 @@
 package jss.advancedchat.hooks;
 
 import org.bukkit.Bukkit;
-
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
@@ -57,7 +56,7 @@ public class PlaceholderApiHook implements IHook{
 		public boolean canRegister() {
 			return true;
 		}
-		
+				
 		public boolean persist() {
 			return true;
 		}
@@ -76,7 +75,7 @@ public class PlaceholderApiHook implements IHook{
 		
 		public String onPlaceholderRequest(Player player, String args) {
 			PlayerManager playerManager = new PlayerManager(player);
-			if(args.equals("mute_state")) {
+			if(args.equals("is_mute")) {
 				if(Settings.mysql_use) {
 					if(MySQL.isMute(plugin, player.getUniqueId().toString())) {
 						return "true";
@@ -84,14 +83,47 @@ public class PlaceholderApiHook implements IHook{
 						return "false";
 					}
 				}else {
-					if(playerManager.isMute(player)){
+					if(playerManager.isMute()){
 						return "true";
 					}else {
 						return "false";
 					}
 				}
 			}
-			return null;
+			
+			if(args.equals("color")) {
+				if(Settings.mysql_use) {
+					return MySQL.getColor(plugin, player.getUniqueId().toString());
+				}else {
+					return playerManager.getColor();
+				}
+			}
+			
+			if(args.equals("gradient_first")) {
+				if(Settings.mysql_use) {
+					return MySQL.getFirstGradient(plugin, player.getUniqueId().toString());
+				}else {
+					return playerManager.getFirstGradient();
+				}
+			}
+			if(args.equals("gradient_second")) {
+				if(Settings.mysql_use) {
+					return MySQL.getSecondGradient(plugin, player.getUniqueId().toString());
+				}else {
+					return playerManager.getSecondGradient();
+				}
+			}
+			
+			if(args.startsWith("channel")) {
+				
+				if(Settings.mysql_use) {
+					return MySQL.getColor(plugin, player.getUniqueId().toString());
+				}else {
+					return playerManager.getChannel();
+				}
+			}
+			
+			return "N/A";
 		}
 		
 	}

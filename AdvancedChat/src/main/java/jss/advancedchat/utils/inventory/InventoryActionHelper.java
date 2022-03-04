@@ -69,6 +69,7 @@ public class InventoryActionHelper {
 	}
 	
 	public void setOpenInventoryAction(String playerName, InventoryType inventoryType) {
+		player.closeInventory();
 		switch (inventoryType) {
 		case Player:
 			GuiPlayer guiPlayer = new GuiPlayer();

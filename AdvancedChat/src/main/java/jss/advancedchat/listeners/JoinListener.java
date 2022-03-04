@@ -6,8 +6,12 @@ import jss.advancedchat.config.ChatDataFile;
 import jss.advancedchat.config.ChatLogFile;
 import jss.advancedchat.config.CommandLogFile;
 import jss.advancedchat.config.player.PlayerFile;
+import jss.advancedchat.hooks.LuckPermsHook;
+import jss.advancedchat.hooks.VaultHook;
+import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQL;
+import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
@@ -39,13 +43,28 @@ public class JoinListener implements Listener {
         FileConfiguration chatlog = chatLogFile.getConfig();
         CommandLogFile commandLogFile = plugin.getCommandLogFile();
         FileConfiguration command = commandLogFile.getConfig();
+		VaultHook vaultHook = HookManager.get().getVaultHook();
+		LuckPermsHook luckPermsHook = HookManager.get().getLuckPermsHook();
         
         Player j = e.getPlayer();
+        
+		String group = "";
+		
+		if (luckPermsHook.isEnabled() || vaultHook.isEnabled()) {
+			Logger.error("&cThe Vault or LuckPerms could not be found to activate the group system");
+			Logger.warning("&eplease check that luckperms is active or inside your plugins folder");
+		}
+
+		if (Settings.hook_luckperms_use_group) {
+			group = LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup();
+		} else if (Settings.hook_luckperms_use_group) {
+			group = VaultHook.getVaultHook().getChat().getPrimaryGroup(j);
+		}
         
         PlayerFile playerFile = new PlayerFile(plugin, j.getName());
         playerFile.create();
         PlayerManager playerManager = new PlayerManager(j);
-        playerManager.create(j);
+        playerManager.create(j,group);
         
         if (Settings.mysql_use) if(!MySQL.existsPlayer(plugin, null)) MySQL.createPlayer(plugin, j.getName(), j.getUniqueId().toString(), Settings.default_color, "FFFFFF", "FFFFFF", false);
 
@@ -66,8 +85,6 @@ public class JoinListener implements Listener {
             command.set("Players." + j.getName() + ".Command", "[]");
             commandLogFile.saveConfig();
         }
-        
-
     }
 
 

@@ -1,8 +1,10 @@
 package jss.advancedchat.utils;
 
 import com.cryptomorin.xseries.XMaterial;
+
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
@@ -13,14 +15,13 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import jss.advancedchat.AdvancedChat;
+
 import jss.advancedchat.common.update.UpdateSettings;
 import jss.advancedchat.common.utils.IridiumColorAPI;
-import jss.advancedchat.manager.PlayerManager;
+
 import me.clip.placeholderapi.PlaceholderAPI;
+
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -28,20 +29,19 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.HoverEvent.Action;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
 
-@SuppressWarnings({ "deprecation", "unused" })
+
 public class Utils {
 	
    private static final String prefix = getPrefix();
-   private static AdvancedChat plugin = AdvancedChat.get();
 
    public static String getCustomLine(String arg, String color) {
       return color(color + "-=-=-=-=-=-=-=-=-=-=-=" + arg + "=-=-=-=-=-=-=-=-=-=-=-");
@@ -97,19 +97,22 @@ public class Utils {
       CommandSender c = Bukkit.getConsoleSender();
       sendColorMessage(c, message);
    }
-
+   
+   @SuppressWarnings("deprecation")
    public static void sendTextComponentHover(Player j, String action, String message, String submessage, String color) {
       TextComponent msg = new TextComponent(color(message));
       msg.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(action)), (new ComponentBuilder(submessage)).color(ChatColor.of(color)).create()));
       j.spigot().sendMessage(msg);
    }
-
+   
+   @SuppressWarnings("deprecation")
    public static void sendHoverEvent(Player j, String action, String message, String submessage) {
       TextComponent msg = new TextComponent(color(message));
       msg.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(action)), (new ComponentBuilder(color(submessage))).create()));
       j.spigot().sendMessage(msg);
    }
-
+   
+   @SuppressWarnings("deprecation")
    public static void sendAllHoverEvent(String action, String message, String submessage) {
       TextComponent msg = new TextComponent(color(message));
       msg.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(action)), (new ComponentBuilder(color(submessage))).create()));
@@ -121,7 +124,8 @@ public class Utils {
       msg.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.valueOf(getActionClickType(action)), arg0));
       j.spigot().sendMessage(msg);
    }
-
+   
+   @SuppressWarnings("deprecation")
    public static void sendDoubleTextComponent(Player player, String text, String subtext, String hoverAction, String clickAction, String action) {
       TextComponent component = new TextComponent(color(text));
       component.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(hoverAction)), (new ComponentBuilder(color(subtext))).create()));
@@ -147,7 +151,10 @@ public class Utils {
          Player p = (Player)var3.next();
          p.spigot().sendMessage(new BaseComponent[]{component, component2});
       }
-
+   }
+   
+   public static void sendAllBaseComponent(BaseComponent... component) {
+	   Bukkit.getOnlinePlayers().forEach( (player) -> player.spigot().sendMessage(component));
    }
    
    public static void sendBaseComponent(BaseComponent component, BaseComponent component2) {
@@ -294,7 +301,8 @@ public class Utils {
       text = text.replace("<Online>", "" + playersOnline);
       return text;
    }
-
+   
+   @SuppressWarnings("deprecation")
    public static ItemStack getPlayerHead(String player) {
       boolean isNewVersion = ((List<?>)Arrays.stream(Material.values()).map(Enum::name).collect(Collectors.toList())).contains("PLAYER_HEAD");
       Material type = Material.matchMaterial(isNewVersion ? "PLAYER_HEAD" : "SKULL_ITEM");
@@ -370,14 +378,21 @@ public class Utils {
 
    public static List<String> setLimitTab(List<String> list, String inic) {
       List<String> returned = new ArrayList<String>();
-      Iterator<String> v = list.iterator();
-
-      while(v.hasNext()) {
+      //Iterator<String> v = list.iterator();
+      
+      list.forEach( (s) -> {
+    	  if(s != null && s.toLowerCase().startsWith(inic.toLowerCase())) {
+    		  returned.add(s);
+    	  }
+      });
+      
+      
+      /*while(v.hasNext()) {
          String s = (String)v.next();
          if (s != null && s.toLowerCase().startsWith(inic.toLowerCase())) {
             returned.add(s);
          }
-      }
+      }*/
       return returned;
    }
    

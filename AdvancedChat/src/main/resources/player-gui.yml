@@ -41,9 +41,15 @@ Items:
     Is-Skull: true
     Texture: '[channel]'
     Slot: 22
-#  Gradient:
-#    Name: '&bGradient'
-#    Item: stone
-#    Is-Skull: true
-#    Texture: '[gradient]'
-#    Slot: -1
+  Gradient:
+    Name: '&bGradient'
+    Item: stone
+    Is-Skull: true
+    Texture: '[gradient]'
+    Slot: 38
+  SpecialCodes:
+    Name: '&bSpecial Codes'
+    Item: stone
+    Is-Skull: true
+    Texture: '[special_codes]'
+    Slot: 38 
