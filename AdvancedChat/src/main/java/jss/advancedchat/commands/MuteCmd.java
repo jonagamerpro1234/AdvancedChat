@@ -50,7 +50,7 @@ public class MuteCmd implements CommandExecutor {
                     if(Settings.mysql_use) {
                     	MySQL.setMute(plugin, target.getUniqueId().toString(), true);
                     } else {
-                    playerManager.setMute(target, true);
+                    playerManager.setMute(true);
                     }
                 }
                 
@@ -78,7 +78,7 @@ public class MuteCmd implements CommandExecutor {
                     if(Settings.mysql_use) {
                     	MySQL.setMute(plugin, target.getUniqueId().toString(), true);
                     } else {
-                    	playerManager.setMute(target, true);
+                    	playerManager.setMute(true);
                     }
                 }
                 

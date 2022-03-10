@@ -58,8 +58,24 @@ public class PlayerInventoryListener implements Listener {
 			PlayerManager playerManager = new PlayerManager(target);
 			InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
 			
-			if(slot == 24) {
+			if(slot == Settings.player_inv_slot_mute) {
 				setChangeItemsState(playerManager, target, j.getInventory());
+			}
+			
+			if(slot == Settings.player_inv_slot_channels) {
+				actionHelper.setOpenInventoryAction(playerName, InventoryType.Channel);
+			}
+			
+			if(slot == Settings.player_inv_slot_colors) {
+				actionHelper.setOpenInventoryAction(playerName, InventoryType.Color);
+			}
+			
+			if(slot == Settings.player_inv_slot_gradients) {
+				actionHelper.setOpenInventoryAction(playerName, InventoryType.Gradient);
+			}
+			
+			if(slot == Settings.player_inv_slot_settings) {
+				actionHelper.setOpenInventoryAction(playerName, InventoryType.Settings);
 			}
 			
 			if(slot == Settings.player_inv_slot_next) {
@@ -101,11 +117,11 @@ public class PlayerInventoryListener implements Listener {
 		}else {
 			if (playerManager.isMute()) {
 				it = XMaterial.GRAY_DYE.parseItem();
-				playerManager.setMute(p, false);
+				playerManager.setMute(false);
 				Logger.debug("Mute off");
 			} else {
 				it = XMaterial.GREEN_DYE.parseItem();
-				playerManager.setMute(p, true);
+				playerManager.setMute(true);
 				Logger.debug("Mute on");
 			}
 		}

@@ -41,13 +41,13 @@ public class InventoryActionHelper {
 				if(Settings.mysql_use) {
 					MySQL.setGradientFirst(plugin, target, left);
 				}else {
-					playerManager.setFirstGradient(target, left);
+					playerManager.setFirstGradient(left);
 				}
 			}else if(inventoryClickEvent.getClick().isRightClick()) {
 				if(Settings.mysql_use) {
 					MySQL.setGradientSecond(plugin, target, right);
 				}else {
-					playerManager.setSecondGradient(target, right);
+					playerManager.setSecondGradient(right);
 				}
 				
 			}
@@ -61,7 +61,7 @@ public class InventoryActionHelper {
 			if(Settings.mysql_use) {
 				MySQL.setColor(plugin, target, action);
 			}else {
-				playerManager.setColor(target, action);
+				playerManager.setColor(action);
 			}
 		}else {
 			Utils.sendHoverEvent(player, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);

@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.GroupHelper;
 import jss.advancedchat.manager.GroupManager;
+import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Utils;
 
@@ -26,6 +27,7 @@ public class TestCommand implements CommandExecutor{
 		String gg = args[0];
 		GroupManager g = GroupManager.get();
 		GroupHelper gh = GroupHelper.get().setGroup(gg);
+		PlayerManager playerManager = new PlayerManager(j);
 		
 		if( gg == null) Logger.error("Select group");
 		
@@ -37,6 +39,8 @@ public class TestCommand implements CommandExecutor{
 		Utils.sendColorMessage(j, "&b" + g.isHover(gg) + "");
 		Utils.sendColorMessage(j, "&c" + g.getClickMode(gg) + "");
 		Utils.sendColorMessage(j, "&b" + g.getHover(gg) + "");
+		
+		Utils.sendColorMessage(j, playerManager.getGroup() + "");
 		
 		gh.sendGroup(j, "test group helper method");
 		return true;

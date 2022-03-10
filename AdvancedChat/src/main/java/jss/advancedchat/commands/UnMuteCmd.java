@@ -41,7 +41,7 @@ public class UnMuteCmd implements CommandExecutor {
                 if(Settings.mysql_use) {
                 	MySQL.setMute(plugin, target.getUniqueId().toString(), false);
                 } else {
-                	playerManager.setMute(target, false);
+                	playerManager.setMute(false);
                 }
                 Utils.sendColorMessage(sender, prefixserver + " " + Utils.getVar(target, Settings.message_UnMute_Player));
                 return true;
@@ -63,7 +63,7 @@ public class UnMuteCmd implements CommandExecutor {
                 if(Settings.mysql_use) {
                 	MySQL.setMute(plugin, target.getUniqueId().toString(), false);
                 } else {
-                	playerManager.setMute(target, false);
+                	playerManager.setMute(false);
                 }
                 Utils.sendColorMessage(j, prefix + " " + Utils.getVar(j, Settings.message_UnMute_Player));
                 return true;

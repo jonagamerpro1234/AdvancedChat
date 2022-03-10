@@ -17,6 +17,8 @@ import jss.advancedchat.inventory.GuiGradient;
 import jss.advancedchat.inventory.GuiPlayer;
 import jss.advancedchat.inventory.GuiSettings;
 import jss.advancedchat.inventory.GuiTest;
+import jss.advancedchat.manager.ColorManager;
+import jss.advancedchat.manager.GroupManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.utils.EventUtils;
@@ -68,7 +70,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 		}
 
 		Player j = (Player) sender;
-		PlayerManager playerManager = new PlayerManager(j);
 		if ((j.isOp()) || (j.hasPermission("AdvancedChat.Admin"))) {
 			if (args.length >= 1) {
 				
@@ -101,7 +102,9 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 							Player target = Bukkit.getPlayer(playername);
 							
 							if (target == null) Utils.sendColorMessage(j, Settings.message_No_Online_Player);
-
+							
+							PlayerManager playerManager = new PlayerManager(target);
+							
 							if (args.length >= 3) {
 								if (args[2].equalsIgnoreCase("set")) {
 
@@ -112,7 +115,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 									if (Settings.mysql_use) {
 										MySQL.setColor(plugin, target, color);
 									} else {
-										playerManager.setColor(target, color);
+										playerManager.setColor(color);
 									}
 								}
 								return true;
@@ -141,6 +144,8 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 							
 							if (target == null) Utils.sendColorMessage(j, Settings.message_No_Online_Player);
 							
+							PlayerManager playerManager = new PlayerManager(target);
+							
 							if(args.length >= 3) {
 								
 								if(args[2].equalsIgnoreCase("set")) {
@@ -154,7 +159,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 											if(Settings.mysql_use) {
 												MySQL.setGradientFirst(plugin, target, hex);
 											}else {
-												playerManager.setFirstGradient(target, hex);
+												playerManager.setFirstGradient(ColorManager.get().convertHexColor(hex));
 											}
 											return true;
 										}
@@ -162,7 +167,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 											if(Settings.mysql_use) {
 												MySQL.setGradientSecond(plugin, target, hex);
 											}else {
-												playerManager.setSecondGradient(target, hex);
+												playerManager.setSecondGradient(ColorManager.get().convertHexColor(hex));
 											}
 											return true;
 										}
@@ -336,16 +341,12 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				break;
 			case 2:
 				if (args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("player") || args[0].equalsIgnoreCase("channel") || args[0].equalsIgnoreCase("gradient")) {
-					
 					Bukkit.getOnlinePlayers().forEach( (p) -> listOptions.add(p.getName()));
-					
-					/*for (Player p : Bukkit.getOnlinePlayers()) {
-						listOptions.add(p.getName());
-					}*/
 				}
 				if(args[0].equalsIgnoreCase("settings")) {
 					listOptions.add("low-mode");
-					listOptions.add("test");
+					listOptions.add("group");
+										
 				}
 				break;
 			case 3:
@@ -353,6 +354,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					listOptions.add("set");
 				}
 				if(args[0].equalsIgnoreCase("settings")) {
+					listOptions.add("set");
 					listOptions.add("true");
 					listOptions.add("false");
 				}
@@ -399,6 +401,11 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					listOptions.add("dark_blue");
 					listOptions.add("red");
 					listOptions.add("dark_red");
+				}
+				if(args[0].equalsIgnoreCase("settings")) {
+					for(String group : GroupManager.get().getGroupList()) {
+						listOptions.add(group);
+					}
 				}
 				break;
 			case 5:

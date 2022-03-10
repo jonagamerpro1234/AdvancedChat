@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import jss.advancedchat.api.AdvancedChatApi;
 import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.commands.MsgCmd;
@@ -52,7 +53,6 @@ import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.file.FileManager;
 
-
 public class AdvancedChat extends AdvancedChatPlugin {
 	
 	private static AdvancedChat instance;
@@ -88,6 +88,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public static boolean debug = true;
 	public String latestversion;
 	public String nmsversion;
+	public AdvancedChatApi advancedChatApi;
 	
 	public void onLoad() {
 		Utils.setTitle(version);
@@ -129,6 +130,9 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	}
 	
 	public void onEnable() {
+		
+		
+		
 		Utils.setEnabled(version);
 		//!!modify!!
 		nmsversion = Bukkit.getServer().getClass().getPackage().getName();
@@ -154,6 +158,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		createAllFiles();
 		preConfigLoad.loadGradientInv();
 		preConfigLoad.loadColorInv();
+		preConfigLoad.loadPlayerInv();
 		HookManager.load();
 		HookManager.loadProtocol();
 		
@@ -189,6 +194,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	}
 	
 	public void onDisable() {
+		
 		Utils.setDisabled(version);
 		metrics = null;
 		uselegacyversion = false;
