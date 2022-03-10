@@ -61,7 +61,7 @@
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>1.18.1-R0.1-SNAPSHOT</version>
+			<version>1.18.2-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
@@ -156,6 +156,12 @@
 			<artifactId>discordsrv</artifactId>
 			<version>1.24.0</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>net.kyori</groupId>
+					<artifactId>adventure-platform-bukkit</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 
