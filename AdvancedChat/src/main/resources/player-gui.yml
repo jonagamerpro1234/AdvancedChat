@@ -17,12 +17,12 @@ Items:
     Texture: '[next]'
     Is-Skull: true
     Slot: 5
-  Last:
-    Name: '&e&lLast Menu'
-    Item: stone
-    Texture: '[last]'
-    Is-Skull: true
-    Slot: 3
+#  Last:
+#    Name: '&e&lLast Menu'
+#    Item: stone
+#    Texture: '[last]'
+#    Is-Skull: true
+#    Slot: 3
   Exit:
     Name: '&c&lExit'
     Item: stone
@@ -39,7 +39,7 @@ Items:
     Name: '&bChannel'
     Item: stone
     Is-Skull: true
-    Texture: '[channel]'
+    Texture: '[channels]'
     Slot: 22
   Gradient:
     Name: '&bGradient'

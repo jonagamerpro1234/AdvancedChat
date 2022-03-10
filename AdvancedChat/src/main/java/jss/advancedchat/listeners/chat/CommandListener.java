@@ -25,7 +25,7 @@ public class CommandListener implements Listener {
 		PlayerManager playerManager = new PlayerManager(j);
 		
 		if ((j.isOp()) || (j.hasPermission("AdvancedChat.CommandBlocker.Bypass"))) return;
-
+		
 		if (Settings.boolean_command_blocker) {
 			if (Settings.boolean_command_blocker_disable_command) {
 				for (String a : Settings.list_command_blocker_no_use) {
@@ -36,8 +36,8 @@ public class CommandListener implements Listener {
 					}
 				}
 			}
-			if (Settings.boolean_command_blocker_disable_command_mute) {
-				if (playerManager.isMute()) {
+			
+			if (Settings.boolean_command_blocker_disable_command_mute && playerManager.isMute()) {
 					for (String a : Settings.list_command_blocker_no_use_mute) {
 						if (e.getMessage().toLowerCase().contains(a)) {
 							e.setCancelled(true);
@@ -45,7 +45,6 @@ public class CommandListener implements Listener {
 							break;
 						}
 					}
-				}
 			}
 		}
 	}

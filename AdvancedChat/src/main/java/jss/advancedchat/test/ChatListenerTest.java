@@ -64,10 +64,9 @@ public class ChatListenerTest implements Listener {
 		Logger.debug(msg);
 		
 		if (Settings.mysql_use) {
-			message = " &r"
-					+ colorManager.convertColor(j, MySQL.getColor(plugin, j.getUniqueId().toString()), msg);
+			message = " &r" + colorManager.convertColor(j, MySQL.getColor(plugin, j.getUniqueId().toString()), msg);
 		} else {
-			message = " &r" + colorManager.convertColor(j, playerManager.getColor(), msg);
+			message = " &r" + colorManager.convertColor(j, playerManager.getColor(), colorManager.converSpecialColor(playerManager.getSpecialColor(), msg));
 		}
 
 		format = Utils.getVar(j, format);
@@ -121,11 +120,11 @@ public class ChatListenerTest implements Listener {
 
 			if (hover) {
 				if (click) {
-					if (click_mode.equals("command")) {
+					if (click_mode.equalsIgnoreCase("command")) {
 						json.setHover(hovertext).setExecuteCommand(cmd_action).sendDoubleToAll();
-					} else if (click_mode.equals("url")) {
+					} else if (click_mode.equalsIgnoreCase("url")) {
 						json.setHover(hovertext).setOpenURL(url_action).sendDoubleToAll();
-					} else if (click_mode.equals("suggest")) {
+					} else if (click_mode.equalsIgnoreCase("suggest")) {
 						json.setHover(hovertext).setSuggestCommand(suggest_action).sendDoubleToAll();
 					}
 				} else {
@@ -133,11 +132,11 @@ public class ChatListenerTest implements Listener {
 				}
 			} else {
 				if (click) {
-					if (click_mode.equals("command")) {
+					if (click_mode.equalsIgnoreCase("command")) {
 						json.setExecuteCommand(cmd_action).sendDoubleToAll();
-					} else if (click_mode.equals("url")) {
+					} else if (click_mode.equalsIgnoreCase("url")) {
 						json.setOpenURL(url_action).sendDoubleToAll();
-					} else if (click_mode.equals("suggest")) {
+					} else if (click_mode.equalsIgnoreCase("suggest")) {
 						json.setSuggestCommand(suggest_action).sendDoubleToAll();
 					}
 				} else {
@@ -148,6 +147,7 @@ public class ChatListenerTest implements Listener {
 		} else if (isGroup) {
 			e.setCancelled(true);
 			
+			@SuppressWarnings("unused")
 			String group = "";
 			
 			if (luckPermsHook.isEnabled() || vaultHook.isEnabled()) {
@@ -161,8 +161,8 @@ public class ChatListenerTest implements Listener {
 			} else if (Settings.hook_luckperms_use_group) {
 				group = VaultHook.getVaultHook().getChat().getPrimaryGroup(j);
 			}
-			
-			GroupHelper groupHelper = GroupHelper.get().setGroup(group);
+						
+			GroupHelper groupHelper = GroupHelper.get().setGroup(playerManager.getGroup());
 			groupHelper.sendGroup(j, message);
 		}
 	}

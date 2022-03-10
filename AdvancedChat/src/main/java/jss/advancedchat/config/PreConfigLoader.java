@@ -132,6 +132,12 @@ public class PreConfigLoader {
     	
     	FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
     	Settings.player_inv_slot_colors = config.getInt("Items.Colors.Slot");
+    	Settings.player_inv_slot_channels = config.getInt("Items.Channel.Slot");
+    	Settings.player_inv_slot_gradients = config.getInt("Items.Gradient.Slot");
+    	Settings.player_inv_slot_rainbow = config.getInt("Items.Rainbow.Slot");
+    	Settings.player_inv_slot_settings = config.getInt("Items.Settings.Slot");
+    	Settings.player_inv_slot_special_codes = config.getInt("Items.SpecialCodes.Slot");
+    	Settings.player_inv_slot_mute = config.getInt("Especial-Items.Mute.Slot");
     	Settings.player_inv_slot_last = config.getInt("Items.Last.Slot");
     	Settings.player_inv_slot_next = config.getInt("Items.Next.Slot");
     	Settings.player_inv_slot_exit = config.getInt("Items.Exit.Slot");

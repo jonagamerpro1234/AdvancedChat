@@ -54,6 +54,8 @@ public class Settings {
     public static int player_inv_slot_settings;
     public static int player_inv_slot_gradients;
     public static int player_inv_slot_channels;
+    public static int player_inv_slot_rainbow;
+    public static int player_inv_slot_special_codes;
     public static int player_inv_slot_mute;
     public static int player_inv_slot_colors;
     public static int player_inv_slot_last;

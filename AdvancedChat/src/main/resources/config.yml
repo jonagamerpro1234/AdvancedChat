@@ -4,7 +4,7 @@
 #  / ___ / /___    Version 1.7.0
 # /_/  |_\____/    Thanks for using AdvancedChat <3
 #  
-# ● a simple plugin that helps you customize your server chat to make it look better also provides a customizable chat system by group or rank
+# ● AdvancedChat is an easy to use plugin that will help you customize the chat on your server to make it look its best. It will also have a customization system by groups and among other functions more...
 #  
 # ● Spigot: https://www.spigotmc.org/resources/advancedchat-1-7-x-1-17-x.83889/
 # ● Songoda: https://songoda.com/marketplace/product/advancedchat-chat-related.542
@@ -120,7 +120,15 @@ ChatFormat:
   
   # |Format| Here you define the chat format for all players.
   Format: '&b<name> &8>'
+  
+  # |Channels|
+  Channels:
     
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: false
+    
+    Default-Channel: 'all'
+  
   # |HoverEvent| This section allows you to modify the hover events in the chat
   HoverEvent:
     
@@ -158,10 +166,10 @@ ChatFormat:
   Private-Message:
     
     # |Send-Format| 
-    Send-Format: ''
+    Send-Format: '&e[S] &8-> &a<send_name>&7:'
     
     # |Receive-Format|
-    Receive-Format: ''
+    Receive-Format: '&a[R] &8-> <receive_name>&7:'
   
   # |Debug-Format| It is a chat that will be activated when the configuration contains an error
   Debug-Format: '&b[&cError in Config&b] &f<&f<player>&f> &f<message>'

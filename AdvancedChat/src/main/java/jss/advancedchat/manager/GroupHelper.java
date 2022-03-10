@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.chat.Json;
+import jss.advancedchat.utils.Utils;
 
 public class GroupHelper {
 	
@@ -31,7 +32,7 @@ public class GroupHelper {
 	
 	public void sendGroup(Player player, String message) {
 		this.getGroupOptions(group);
-		json = new Json(player, format, message);
+		json = new Json(player, Utils.getVar(player, format), message);
 		this.buildMessage();
 	}
 	

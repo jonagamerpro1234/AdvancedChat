@@ -1,15 +1,15 @@
 [advancedchat]: https://i.imgur.com/FRwd5wz.png/
 [spigot]: https://www.spigotmc.org/resources/83889/
 [releases]: https://github.com/jonagamerpro1234/AdvancedChat/releases/latest
-[releasesImg]: https://img.shields.io/github/v/release/jonagamerpro1234/AdvancedChat.svg?include_prereleases&label=git-releases&style=flat-square/
+[releasesImg]: https://img.shields.io/github/v/release/jonagamerpro1234/AdvancedChat.svg?include_prereleases&label=git-releases&style=for-the-badge
 [license]: https://github.com/jonagamerpro1234/AdvancedChat/blob/master/LICENSE
-[licenseImg]: https://img.shields.io/github/license/jonagamerpro1234/AdvancedChat.svg?style=flat-square/
-[spigotreleases]: https://img.shields.io/spiget/version/83889?color=green&label=spigot-releases&style=flat-square/
-[issues]: https://img.shields.io/github/issues/jonagamerpro1234/AdvancedChat.svg?color=yellow&style=flat-square/
+[licenseImg]: https://img.shields.io/github/license/jonagamerpro1234/AdvancedChat.svg?style=for-the-badge
+[spigotreleases]: https://img.shields.io/spiget/version/83889?color=green&label=spigot-releases&style=for-the-badge
+[issues]: https://img.shields.io/github/issues/jonagamerpro1234/AdvancedChat.svg?color=yellow&style=for-the-badge
 [issueslink]: https://github.com/jonagamerpro1234/AdvancedChat/issues/
-[sgdr]: https://img.shields.io/badge/songoda--release-v1.5.9-9cf?style=flat-square/
+[sgdr]: https://img.shields.io/badge/songoda--release-v1.6.0-9cf?style=flat-square
 [songoda]: https://songoda.com/marketplace/product/advancedchat-chat-related.542
-[javaversion]: https://img.shields.io/badge/Java-8%2B-red?style=flat-square/
+[javaversion]: https://img.shields.io/badge/Java-8%2B-red?style=for-the-badge
  
 <!-- The stuff above isn't visible in the readme --> 
  
@@ -18,7 +18,7 @@
 [![releasesImg]][releases] [![licenseImg]][license] [![spigotreleases]][spigot] ![javaversion] [![issues]][issueslink] [![sgdr]][songoda]
 
 ## Description
-a simple plugin that helps you customize your server chat to make it look better also brings a customizable chat system by group or rank
+AdvancedChat is an easy to use plugin that will help you customize the chat on your server to make it look its best. It will also have a customization system by groups and among other functions more...
 
 ## Installation
 * download the plugin

@@ -4,15 +4,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.common.api.ApiPlayerData;
 import jss.advancedchat.config.player.PlayerFile;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 
 public class PlayerManager  {
 	
-	@SuppressWarnings("unused")
-	private static ApiPlayerData api = ApiPlayerData.api;
 	private final PlayerFile playerFile = AdvancedChat.get().getPlayerFile();
 	private FileConfiguration config = null;
 	
@@ -26,6 +23,10 @@ public class PlayerManager  {
     
     public String getColor() {
     	if(existsPlayer("Message-Color")) return config.getString("Message-Color"); return null;
+    }
+    
+    public String getSpecialColor() {
+    	if(existsPlayer("Message-Special-Color")) return config.getString("Message-Special-Color"); return null;
     }
 
     public String getChannel() {
@@ -48,19 +49,27 @@ public class PlayerManager  {
     	if(existsPlayer("UUID")) return config.getString("UUID"); return null;
     }
     
-    public void setColor(Player player, String color) {
+    public String getGroup() {  	
+    	if(existsPlayer("Group")) return config.getString("Group"); return null;
+    }
+    
+    public void setColor(String color) {
         if(existsPlayer("Message-Color")) config.set("Message-Color", color); save();
     }
     
-    public void setChannel(Player player, String channel) {
+    public void setSpecialColor(String color) {
+        if(existsPlayer("Message-Special-Color")) config.set("Message-Special-Color", color); save();
+    }
+    
+    public void setChannel(String channel) {
         if(existsPlayer("Channel")) config.set("Channel", channel); save();
     }
     
-    public void setMute(Player player, boolean value) {        
+    public void setMute(boolean value) {        
         if(config.contains("Is-Mute")) config.set("Is-Mute", value); save();
     }
     
-    public void setRange(Player player, int range) {
+    public void setRange(int range) {
         if(existsPlayer("Chat-Range")) config.set("Chat-Range", range); save();
     }
     
@@ -68,14 +77,18 @@ public class PlayerManager  {
         if(existsPlayer("UUID")) config.set("UUID", player.getUniqueId().toString()); save();
     }
     
-    public void setFirstGradient(Player player, String hex) {
+    public void setFirstGradient(String hex) {
         if(existsPlayer("First-Gradient")) config.set("First-Gradient", hex); save();
     }
     
-    public void setSecondGradient(Player player, String hex) {
+    public void setSecondGradient(String hex) {
         if(existsPlayer("Second-Gradient")) config.set("Second-Gradient", hex); save();
     }
-        
+    
+    public void setGroup(String group) {
+        if(existsPlayer("Group")) config.set("Group", group); save();
+    }
+    
     public void create(Player player, String group) {
     	if(!existsPlayer("Name")) {
 			config.set("Name", player.getName());
@@ -90,10 +103,11 @@ public class PlayerManager  {
 			} else {
 				config.set("Message-Color", Settings.default_color);
 			}
-
+			config.set("Message-Special-Color", "none");
 			config.set("First-Gradient", "FFFFFF");
 			config.set("Second-Gradient", "FFFFFF");
 			config.set("Is-Mute", false);
+			config.set("Group", "default");
 			config.set("Channel", "all");
 			config.set("Range-Chat", 10);
             save();
