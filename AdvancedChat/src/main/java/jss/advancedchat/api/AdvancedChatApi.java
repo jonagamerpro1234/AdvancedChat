@@ -5,6 +5,11 @@ import org.bukkit.entity.Player;
 import jss.advancedchat.manager.GroupManager;
 import jss.advancedchat.manager.PlayerManager;
 
+/**
+ * Here are the available methods to use the advancedchat api
+ * @author jonagamerpro1234
+ * @version 1.0
+ */
 public class AdvancedChatApi {
 	
 	/**
