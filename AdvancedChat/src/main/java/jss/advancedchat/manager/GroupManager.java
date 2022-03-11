@@ -8,7 +8,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 
 public class GroupManager{
