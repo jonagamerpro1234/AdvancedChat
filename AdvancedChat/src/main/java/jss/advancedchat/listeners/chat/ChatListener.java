@@ -16,8 +16,6 @@ import github.scarsz.discordsrv.util.DiscordUtil;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.chat.Json;
 import jss.advancedchat.hooks.DiscordSRVHook;
-import jss.advancedchat.hooks.LuckPermsHook;
-import jss.advancedchat.hooks.VaultHook;
 import jss.advancedchat.manager.ColorManager;
 import jss.advancedchat.manager.GroupHelper;
 import jss.advancedchat.manager.GroupManager;
@@ -69,9 +67,7 @@ public class ChatListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onChat(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfigFile().getConfig();
-		VaultHook vaultHook = HookManager.get().getVaultHook();
 		DiscordSRVHook discordSRVHook = HookManager.get().getDiscordSRVHook();
-		LuckPermsHook luckPermsHook = HookManager.get().getLuckPermsHook();
 
 		Player j = e.getPlayer();
 		PlayerManager playerManager = new PlayerManager(j);
@@ -84,7 +80,7 @@ public class ChatListener implements Listener {
 		String format = config.getString("ChatFormat.Format");
 		String message = "";
 		
-		String msg = formatColor(e.getMessage(), j);
+		String msg = formatColor(j, e.getMessage());
 		
 		Logger.debug(msg);
 		
@@ -172,21 +168,6 @@ public class ChatListener implements Listener {
 		} else if (isGroup) {
 			e.setCancelled(true);
 			
-			String group = "";
-			
-			if (luckPermsHook.isEnabled() || vaultHook.isEnabled()) {
-				Logger.error("&cThe Vault or LuckPerms could not be found to activate the group system");
-				Logger.warning("&eplease check that luckperms is active or inside your plugins folder");
-				return;
-			}
-
-			if (Settings.hook_luckperms_use_group) {
-				group = LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup();
-			} else if (Settings.hook_luckperms_use_group) {
-				group = VaultHook.getVaultHook().getChat().getPrimaryGroup(j);
-			}
-			
-			
 			GroupHelper groupHelper = GroupHelper.get().setGroup(GroupManager.get().getGroupPermission(j));
 			groupHelper.sendGroup(j, message);
 		}
@@ -211,7 +192,7 @@ public class ChatListener implements Listener {
 		}
 	}
 	
-	public String formatColor(String msg, Player player) {
+	public String formatColor(Player player, String msg) {
 		if (msg == null)
 			return "";
 

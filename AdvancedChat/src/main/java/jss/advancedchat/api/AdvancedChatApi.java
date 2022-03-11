@@ -1,7 +1,30 @@
 package jss.advancedchat.api;
 
-public interface AdvancedChatApi {
+import org.bukkit.entity.Player;
+
+import jss.advancedchat.manager.GroupManager;
+import jss.advancedchat.manager.PlayerManager;
+
+public class AdvancedChatApi {
 	
+	/**
+	 * With this method you can get different options of the player that are stored in a file with the name of the player
+	 * 
+	 * @param player the player required to access method options
+	 * @return PlayerManager
+	 * @since 1.0
+	 */
+	public PlayerManager getPlayerManager(Player player) {
+		return new PlayerManager(player);
+	}
 	
+	/**
+	 * With this method, different parameters of the group system can be obtained.
+	 * @return GroupManager
+	 * @since 1.0
+	 */
+	public GroupManager getGroupManager() {
+		return new GroupManager();
+	}
 	
 }
