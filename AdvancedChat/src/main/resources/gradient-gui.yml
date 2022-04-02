@@ -11,14 +11,17 @@ Items:
     Name: '&e&lLast Menu'
     Texture: '[last]'
     Slot: 3
+    Item: yellow_stained_glass_pane
   Exit:
     Name: '&c&lExit'
     Texture: '[exit]'
     Slot: 0
+    Item: red_stained_glass_pane
   Black:
     Name: '&0&lBlack'
     Texture: '[black]'
     Slot: 41
+    Item: paper
     Lore:
     - '&7Your chat would look like this: &e[&0Hello player&e]'
     - '&b&nClick to select this chat color'
@@ -26,6 +29,7 @@ Items:
     Name: '&9&lBlue'
     Texture: '[blue]'
     Slot: 22
+    Item: paper
     Lore:
     - '&7Your chat would look like this: &e[&9Hello player&e]'
     - '&b&nClick to select this chat color'
@@ -33,6 +37,7 @@ Items:
     Name: '&8&lDark Gray'
     Texture: '[dark_gray]'
     Slot: 34
+    Item: paper
     Lore:
     - '&7Your chat would look like this: &e[&8Hello player&e]'
     - '&b&nClick to select this chat color'
@@ -40,6 +45,7 @@ Items:
     Name: '&7&lGray'
     Texture: '[gray]'
     Slot: 33
+    Item: paper
     Lore:
     - '&7Your chat would look like this: &e[&7Hello player&e]'
     - '&b&nClick to select this chat color'
@@ -47,6 +53,7 @@ Items:
     Name: '&6&lGold'
     Texture: '[gold]'
     Slot: 28
+    Item: paper
     Lore:
     - '&7Your chat would look like this: &e[&6Hello player&e]'
     - '&b&nClick to select this chat color'
@@ -54,6 +61,7 @@ Items:
     Name: '&5&lDark Purple'
     Texture: '[dark_purple]'
     Slot: 32
+    Item: paper
     Lore:
     - '&7Your chat would look like this: &e[&5Hello player&e]'
     - '&b&nClick to select this chat color'
@@ -61,6 +69,7 @@ Items:
     Name: '&4&lDark Red'
     Texture: '[dark_red]'
     Slot: 19
+    Item: paper
     Lore:
     - '&7Your chat would look like this: &e[&4Hello player&e]'
     - '&b&nClick to select this chat color'
@@ -68,6 +77,7 @@ Items:
     Name: '&3&lDark Aqua'
     Texture: '[dark_aqua]'
     Slot: 29
+    Item: paper
     Lore:
     - '&7Your chat would look like this: &e[&3Hello player&e]'
     - '&b&nClick to select this chat color'
@@ -75,6 +85,7 @@ Items:
     Name: '&1&lDark Blue'
     Texture: '[dark_blue]'
     Slot: 21
+    Item: paper
     Lore:
     - '&7Your chat would look like this: &e[&1Hello player&e]'
     - '&b&nClick to select this chat color'
@@ -82,6 +93,7 @@ Items:
     Name: '&2&lDark Green'
     Texture: '[dark_green]'
     Slot: 23
+    Item: paper
     Lore:
     - '&7Your chat would look like this: &e[&2Hello player&e]'
     - '&b&nClick to select this chat color'
@@ -89,6 +101,7 @@ Items:
     Name: '&a&lGreen'
     Texture: '[green]'
     Slot: 24
+    Item: paper
     Lore:
     - '&7Your chat would look like this: &e[&aHello player&e]'
     - '&b&nClick to select this chat color'
@@ -96,6 +109,7 @@ Items:
     Name: '&b&lAqua'
     Texture: '[aqua]'
     Slot: 30
+    Item: paper
     Lore:
     - '&7Your chat would look like this: &e[&bHello player&e]'
     - '&b&nClick to select this chat color'
@@ -103,6 +117,7 @@ Items:
     Name: '&c&lRed'
     Texture: '[red]'
     Slot: 20
+    Item: paper
     Lore:
     - '&7Your chat would look like this: &e[&cHello player&e]'
     - '&b&nClick to select this chat color'
@@ -110,6 +125,7 @@ Items:
     Name: '&d&lLight Purple'
     Texture: '[light_purple]'
     Slot: 31
+    Item: paper
     Lore:
     - '&7Your chat would look like this: &e[&dHello player&e]'
     - '&b&nClick to select this chat color'
@@ -117,6 +133,7 @@ Items:
     Name: '&e&lYellow'
     Texture: '[yellow]'
     Slot: 25
+    Item: paper
     Lore:
     - '&7Your chat would look like this: &a[&eHello player&a]'
     - '&b&nClick to select this chat color'
@@ -124,6 +141,7 @@ Items:
     Name: '&f&lWhite'
     Texture: '[white]'
     Slot: 39
+    Item: paper
     Lore:
     - '&7Your chat would look like this: &e[&fHello player&e]'
     - '&b&nClick to select this chat color'

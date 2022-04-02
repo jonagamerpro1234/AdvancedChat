@@ -11,6 +11,7 @@ public class Settings {
 	public static List<String> list_command_blocker_no_use;
 	public static List<String> list_command_blocker_no_use_mute;
 	public static List<String> list_chatlogs_no_register_commands;;
+    public static List<String> list_tabcomplete_whitelist;
 	
 	public static String message_prefix_custom;
 	public static String message_ClearChat_Staff;
@@ -38,9 +39,12 @@ public class Settings {
     public static String message_protocol_state;
     public static String message_filter;
 	public static String message_depend_plugin;
+	
     public static String locale;
     public static String default_color;
     public static String inv_color_back;
+    public static boolean tabcomplete;
+    public static boolean tabcomplete_whitelist;
     
     public static String mysql_host;
     public static int mysql_port;

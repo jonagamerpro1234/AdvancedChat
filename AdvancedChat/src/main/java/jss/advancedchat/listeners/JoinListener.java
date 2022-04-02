@@ -7,7 +7,6 @@ import jss.advancedchat.config.ChatLogFile;
 import jss.advancedchat.config.CommandLogFile;
 import jss.advancedchat.config.player.PlayerFile;
 import jss.advancedchat.hooks.LuckPermsHook;
-import jss.advancedchat.hooks.VaultHook;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQL;
@@ -34,7 +33,7 @@ public class JoinListener implements Listener {
     public JoinListener(AdvancedChat plugin) {
         this.plugin = plugin;
     }
-
+    
     @EventHandler
     public void onJoinPlayer(PlayerJoinEvent e) {
         ChatDataFile chatDataFile = plugin.getChatDataFile();
@@ -43,30 +42,34 @@ public class JoinListener implements Listener {
         FileConfiguration chatlog = chatLogFile.getConfig();
         CommandLogFile commandLogFile = plugin.getCommandLogFile();
         FileConfiguration command = commandLogFile.getConfig();
-		VaultHook vaultHook = HookManager.get().getVaultHook();
 		LuckPermsHook luckPermsHook = HookManager.get().getLuckPermsHook();
         
         Player j = e.getPlayer();
         
 		String group = "";
 		
-		if (luckPermsHook.isEnabled() || vaultHook.isEnabled()) {
-			Logger.error("&cThe Vault or LuckPerms could not be found to activate the group system");
-			Logger.warning("&eplease check that luckperms is active or inside your plugins folder");
+		if (luckPermsHook.isEnabled()) {
+			Logger.error("&cThe LuckPerms could not be found to activate the group system");
+			Logger.warning("&eplease check that LuckPerms is active or inside your plugins folder");
 		}
 
 		if (Settings.hook_luckperms_use_group) {
 			group = LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup();
-		} else if (Settings.hook_luckperms_use_group) {
-			group = VaultHook.getVaultHook().getChat().getPrimaryGroup(j);
+		} else {
+			group = "default"; 
 		}
         
         PlayerFile playerFile = new PlayerFile(plugin, j.getName());
         playerFile.create();
-        PlayerManager playerManager = new PlayerManager(j);
-        playerManager.create(j,group);
         
-        if (Settings.mysql_use) if(!MySQL.existsPlayer(plugin, null)) MySQL.createPlayer(plugin, j.getName(), j.getUniqueId().toString(), Settings.default_color, "FFFFFF", "FFFFFF", false);
+        PlayerManager playerManager = new PlayerManager(j);
+        playerManager.create(j, group);
+        
+        if(!playerManager.getGroup().equalsIgnoreCase(LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup())) {
+        	playerManager.setGroup(LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup());
+        }
+        
+        if (Settings.mysql_use) if(!MySQL.existsPlayer(plugin, j.getUniqueId().toString())) MySQL.createPlayer(plugin, j.getName(), j.getUniqueId().toString(), Settings.default_color, "FFFFFF", "FFFFFF", false);
 
         if (!chat.contains("Players." + j.getName())) {
             chat.set("Players." + j.getName() + ".UUID", j.getUniqueId().toString());
@@ -98,7 +101,7 @@ public class JoinListener implements Listener {
             if (j.isOp() && j.hasPermission("AdvancedChat.Update.Notify")) {
                 new UpdateChecker(AdvancedChat.get(), 83889).getUpdateVersionSpigot(version -> {
                     if (!AdvancedChat.get().getDescription().getVersion().equalsIgnoreCase(version)) {
-                        TextComponent component = new TextComponent(Utils.color(Utils.getPrefixPlayer() + " &aThere is a new version available for download"));
+                        TextComponent component = new TextComponent(Utils.color(Utils.getPrefix(true) + " &aThere is a new version available for download"));
                         component.setClickEvent(new ClickEvent(Action.OPEN_URL, UpdateSettings.URL_PLUGIN[0]));
                         component.setHoverEvent(new HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Utils.color("&6Click on this message to copy the link")).create()));
                         j.spigot().sendMessage(component);

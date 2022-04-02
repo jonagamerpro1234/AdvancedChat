@@ -33,7 +33,7 @@ public class EventLoader {
                 }
             }, 6000L, tick);
 
-        } catch (NullPointerException ex) {
+        } catch (Exception ex) {
         	Logger.error(ex);
             ex.printStackTrace();
         }

@@ -16,10 +16,9 @@ import jss.advancedchat.utils.Utils;
 
 public class MsgCmd implements CommandExecutor, TabCompleter{
 	
-	private AdvancedChat plugin;
+	private AdvancedChat plugin = AdvancedChat.get();
 	
-	public MsgCmd(AdvancedChat plugin) {
-		this.plugin = plugin;
+	public MsgCmd() {
 		plugin.getCommand("Msg").setExecutor(this);
 		plugin.getCommand("Msg").setTabCompleter(this);
 	}
@@ -46,10 +45,10 @@ public class MsgCmd implements CommandExecutor, TabCompleter{
 					Utils.sendColorMessage(p,  "&a[&bServer&a] &e> &7"+ message);
 					return true;
 				}
-				Utils.sendColorMessage(sender, Utils.getPrefix() + Settings.message_msg_use);
+				Utils.sendColorMessage(sender, Utils.getPrefix(false) + Settings.message_msg_use);
 				return true;
 			}
-			Utils.sendColorMessage(sender, Utils.getPrefix() + Settings.message_msg_use);
+			Utils.sendColorMessage(sender, Utils.getPrefix(false) + Settings.message_msg_use);
 			return false;
 		}
 		
@@ -77,10 +76,10 @@ public class MsgCmd implements CommandExecutor, TabCompleter{
 				Utils.sendColorMessage(p,  "&8* &a[&b"+j.getName()+"&a] &e> &7"+ message);
 				return true;
 			}
-			Utils.sendColorMessage(j, Utils.getPrefixPlayer() + Settings.message_msg_use);
+			Utils.sendColorMessage(j, Utils.getPrefix(false) + Settings.message_msg_use);
 			return true;
 		}
-		Utils.sendColorMessage(j, Utils.getPrefixPlayer() + Settings.message_msg_use);
+		Utils.sendColorMessage(j, Utils.getPrefix(false) + Settings.message_msg_use);
 		return true;
 	}
 
@@ -102,16 +101,10 @@ public class MsgCmd implements CommandExecutor, TabCompleter{
 		switch (args.length) {
 		case 0:
 		case 1:
-			for (Player p : Bukkit.getOnlinePlayers()) {
-				list.add(p.getName());
-			}
+			Bukkit.getOnlinePlayers().forEach( (p) -> list.add(p.getName()));
 			break;
 		}
 		return Utils.setLimitTab(list, lastArgs);
 	}
-	
-	
-	public AdvancedChat getPlugin() {
-		return plugin;
-	}
+
 }

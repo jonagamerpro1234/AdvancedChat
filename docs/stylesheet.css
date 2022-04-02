@@ -1,12 +1,7 @@
-/* Javadoc style sheet */
-/*
-Overall document style
-*/
-
 @import url('resources/fonts/dejavu.css');
 
 body {
-    background-color:#ffffff;
+    background-color:#4D5656;
     color:#353833;
     font-family:'DejaVu Sans', Arial, Helvetica, sans-serif;
     font-size:14px;
@@ -14,11 +9,11 @@ body {
 }
 a:link, a:visited {
     text-decoration:none;
-    color:#4A6782;
+    color:#4a826b;
 }
 a:hover, a:focus {
     text-decoration:none;
-    color:#bb7a2a;
+    color:rgb(105, 149, 160);
 }
 a:active {
     text-decoration:none;
@@ -34,6 +29,7 @@ a[name]:hover {
 pre {
     font-family:'DejaVu Sans Mono', monospace;
     font-size:14px;
+    color: #FFFFFF;
 }
 h1 {
     font-size:20px;
@@ -63,6 +59,7 @@ code, tt {
     padding-top:4px;
     margin-top:8px;
     line-height:1.4em;
+    color: #FFFFFF;
 }
 dt code {
     font-family:'DejaVu Sans Mono', monospace;
@@ -101,7 +98,7 @@ Document title and Copyright styles
     text-decoration:none;
 }
 .bar a:hover, .bar a:focus {
-    color:#bb7a2a;
+    color:#2abb56;
 }
 .tab {
     background-color:#0066FF;
@@ -114,7 +111,7 @@ Document title and Copyright styles
 Navigation bar styles
 */
 .bar {
-    background-color:#4D7A97;
+    background-color:#4d977e;
     color:#FFFFFF;
     padding:.8em .5em .4em .8em;
     height:auto;/*height:1.8em;*/
@@ -122,7 +119,7 @@ Navigation bar styles
     margin:0;
 }
 .topNav {
-    background-color:#4D7A97;
+    background-color:#4d977e;
     color:#FFFFFF;
     float:left;
     padding:0;
@@ -135,7 +132,7 @@ Navigation bar styles
 }
 .bottomNav {
     margin-top:10px;
-    background-color:#4D7A97;
+    background-color:#4d977e;
     color:#FFFFFF;
     float:left;
     padding:0;
@@ -181,13 +178,22 @@ ul.subNavList li{
 }
 .topNav a:hover, .bottomNav a:hover {
     text-decoration:none;
-    color:#bb7a2a;
+    color:#ffffff;
     text-transform:uppercase;
+    background-color: #2abb56;
+    border-radius: 10px 26px;
 }
+
+frameset {
+    display: block;
+    border-color: #1df880;
+}
+
 .navBarCell1Rev {
-    background-color:#F8981D;
-    color:#253441;
+    background-color:#1df880;
+    color:#2b2a5c;
     margin: auto 5px;
+    border-radius: 10px 26px;
 }
 .skipNav {
     position:absolute;
@@ -214,7 +220,7 @@ Page header and footer styles
     font-size:13px;
 }
 .title {
-    color:#2c4557;
+    color:#ffffff;
     margin:10px 0;
 }
 .subTitle {
@@ -235,13 +241,14 @@ Page header and footer styles
 Heading styles
 */
 div.details ul.blockList ul.blockList ul.blockList li.blockList h4, div.details ul.blockList ul.blockList ul.blockListLast li.blockList h4 {
-    background-color:#dee3e9;
+    background-color:#727272;
     border:1px solid #d0d9e0;
     margin:0 0 6px -8px;
     padding:7px 5px;
+    color: #1df880;
 }
 ul.blockList ul.blockList ul.blockList li.blockList h3 {
-    background-color:#dee3e9;
+    background-color:#727272;
     border:1px solid #d0d9e0;
     margin:0 0 6px -8px;
     padding:7px 5px;
@@ -249,6 +256,7 @@ ul.blockList ul.blockList ul.blockList li.blockList h3 {
 ul.blockList ul.blockList li.blockList h3 {
     padding:0;
     margin:15px 0;
+    color: #ffffff;
 }
 ul.blockList li.blockList h2 {
     padding:0px 0 20px 0;
@@ -267,6 +275,7 @@ Page layout container styles
     font-size:12px;
 }
 .indexContainer h2 {
+    color: #a5a5a5;
     font-size:13px;
     padding:0 0 3px 0;
 }
@@ -288,6 +297,7 @@ Page layout container styles
     margin:5px 0 10px 0px;
     font-size:14px;
     font-family:'DejaVu Sans Mono',monospace;
+    color: #FFFFFF;
 }
 .serializedFormContainer dl.nameValue dt {
     margin-left:1px;
@@ -312,6 +322,7 @@ ul.inheritance {
     padding:0;
 }
 ul.inheritance li {
+    color: #FFFFFF;
     display:inline;
     list-style:none;
 }
@@ -331,12 +342,13 @@ ul.blockList li.blockList, ul.blockListLast li.blockList {
 }
 ul.blockList ul.blockList li.blockList, ul.blockList ul.blockListLast li.blockList {
     padding:0px 20px 5px 10px;
-    border:1px solid #ededed; 
-    background-color:#f8f8f8;
+    border:1px solid #616161;
+    border-radius: 10px; 
+    background-color:#424242;
 }
 ul.blockList ul.blockList ul.blockList li.blockList, ul.blockList ul.blockList ul.blockListLast li.blockList {
     padding:0 0 5px 8px;
-    background-color:#ffffff;
+    background-color:#4E4E4E;
     border:none;
 }
 ul.blockList ul.blockList ul.blockList ul.blockList li.blockList {
@@ -400,9 +412,10 @@ Table styles
     padding-bottom:7px;
     display:inline-block;
     float:left;
-    background-color:#F8981D;
+    background-color:#1df880;
     border: none;
     height:16px;
+    border-radius:10px 10px 0 0px;
 }
 .memberSummary caption span.activeTableTab span {
     white-space:nowrap;
@@ -412,7 +425,7 @@ Table styles
     margin-right:3px;
     display:inline-block;
     float:left;
-    background-color:#F8981D;
+    background-color:#1df880;
     height:16px;
 }
 .memberSummary caption span.tableTab span {
@@ -426,6 +439,19 @@ Table styles
     background-color:#4D7A97;
     height:16px;
 }
+
+.memberSummary caption span.tableTab span:hover {
+    white-space:nowrap;
+    padding-top:5px;
+    padding-left:12px;
+    padding-right:12px;
+    margin-right:3px;
+    display:inline-block;
+    float:left;
+    background-color:#4d977b;
+    height:16px;
+}
+
 .memberSummary caption span.tableTab, .memberSummary caption span.activeTableTab {
     padding-top:0px;
     padding-left:0px;
@@ -511,6 +537,7 @@ td.colOne a:link, td.colOne a:active, td.colOne a:visited, td.colOne a:hover, td
 Content styles
 */
 .description pre {
+    color: #FFFFFF;
     margin-top:0;
 }
 .deprecatedContent {
@@ -523,14 +550,17 @@ Content styles
 
 ul.blockList ul.blockList ul.blockList li.blockList h3 {
     font-style:normal;
+    color: #ffffff;
 }
 
 div.block {
+    color:#ffffff;
     font-size:14px;
     font-family:'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
 }
 
 td.colLast div {
+    color: #3a3a3a;
     padding-top:0px;
 }
 
@@ -558,6 +588,7 @@ h1.hidden {
 .deprecatedLabel, .descfrmTypeLabel, .memberNameLabel, .memberNameLink,
 .overrideSpecifyLabel, .packageHierarchyLabel, .paramLabel, .returnLabel,
 .seeLabel, .simpleTagLabel, .throwsLabel, .typeNameLabel, .typeNameLink {
+    color: #FFFFFF;
     font-weight:bold;
 }
 .deprecationComment, .emphasizedPhrase, .interfaceName {

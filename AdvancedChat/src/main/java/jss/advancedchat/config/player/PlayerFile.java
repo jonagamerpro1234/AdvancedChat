@@ -12,7 +12,7 @@ import jss.advancedchat.bungee.utils.LoggerBunge;
 import jss.advancedchat.utils.file.FileManager;
 
 public class PlayerFile extends FileManager {
-	
+
 	private AdvancedChat plugin;
 	private String pathFile;
 	private File file;
@@ -23,14 +23,14 @@ public class PlayerFile extends FileManager {
 		this.plugin = plugin;
 		this.pathFile = pathFile;
 	}
-	
+
 	public PlayerFile(AdvancedChat plugin) {
 		super(plugin);
 	}
-	
+
 	public void create() {
 		file = new File(getDataFolder() + File.separator + "Data" + File.separator + "Players", pathFile + ".yml");
-		if(!file.exists()) {
+		if (!file.exists()) {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
@@ -45,17 +45,17 @@ public class PlayerFile extends FileManager {
 			e.printStackTrace();
 		}
 	}
-	
-	public FileConfiguration getConfig(String name){
+
+	public FileConfiguration getConfig(String name) {
 		file = new File(getDataFolder() + File.separator + "Data" + File.separator + "Players", name + ".yml");
 		config = YamlConfiguration.loadConfiguration(file);
 
-		 if (config == null) {
-		        reload();
-		    }
+		if (config == null) {
+			reload();
+		}
 		return config;
 	}
-	
+
 	public void save() {
 		try {
 			config.save(file);
@@ -63,23 +63,23 @@ public class PlayerFile extends FileManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void reload() {
-	    if (config == null) {
-	    	file = new File(getDataFolder() + File.separator + "Data" + File.separator + "Players", pathFile);
-	    }
-	    config = YamlConfiguration.loadConfiguration(file);
+		if (config == null) {
+			file = new File(getDataFolder() + File.separator + "Data" + File.separator + "Players", pathFile);
+		}
+		config = YamlConfiguration.loadConfiguration(file);
 
 		if (file != null) {
-		    YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(file);
-		    config.setDefaults(defConfig);
-		}	    
+			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(file);
+			config.setDefaults(defConfig);
+		}
 	}
-	
+
 	public String getPath() {
 		return pathFile;
 	}
-	
+
 	public AdvancedChat getPlugin() {
 		return plugin;
 	}

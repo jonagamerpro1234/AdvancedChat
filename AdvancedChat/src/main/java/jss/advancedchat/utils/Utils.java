@@ -1,12 +1,13 @@
 package jss.advancedchat.utils;
 
 import com.cryptomorin.xseries.XMaterial;
-
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,18 +31,22 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.HoverEvent.Action;
 
+import org.apache.commons.io.IOUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.ParseException;
 
 
 
 public class Utils {
 	
-   private static final String prefix = getPrefix();
+   private static final String prefix = getPrefix(true);
 
    public static String getCustomLine(String arg, String color) {
       return color(color + "-=-=-=-=-=-=-=-=-=-=-=" + arg + "=-=-=-=-=-=-=-=-=-=-=-");
@@ -62,7 +67,6 @@ public class Utils {
    public static String getLine() {
       return "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-";
    }
-   
 
    public static String color(String text) {
       return IridiumColorAPI.process(text);
@@ -206,12 +210,18 @@ public class Utils {
 		sendEnable("&5<||================================================----");
 	}
 	
-	public static String getPrefix() {
-		return color("&e[&dAdvancedChat&e]&7 ");
-	}
-
-	public static String getPrefixPlayer() {
-		return color("&6[&dAdvancedChat&6]&7 ");
+	public static String getPrefix(boolean ignoreCustomPrefix) {	
+		String prefix;
+		if(ignoreCustomPrefix) {
+			prefix = color("&e[&dAdvancedChat&e]&7 ");
+		}else {
+			if(Settings.boolean_use_default_prefix) {
+				prefix = color("&e[&dAdvancedChat&e]&7 ");
+			}else {
+				prefix = color(Settings.message_prefix_custom + " ");
+			}
+		}
+		return prefix;
 	}
 
 	public static void setEnabled(String version) {
@@ -247,6 +257,7 @@ public class Utils {
       text = text.replaceAll("<world>", player.getWorld().getName());
       text = text.replaceAll("<World>", player.getWorld().getName());
       text = placeholderReplace(text, player);
+      text = Placeholders.placeholders(player, text);
       text = getOnlinePlayers(text);
       return text;
    }
@@ -378,22 +389,32 @@ public class Utils {
 
    public static List<String> setLimitTab(List<String> list, String inic) {
       List<String> returned = new ArrayList<String>();
-      //Iterator<String> v = list.iterator();
       
       list.forEach( (s) -> {
     	  if(s != null && s.toLowerCase().startsWith(inic.toLowerCase())) {
     		  returned.add(s);
     	  }
       });
-      
-      
-      /*while(v.hasNext()) {
-         String s = (String)v.next();
-         if (s != null && s.toLowerCase().startsWith(inic.toLowerCase())) {
-            returned.add(s);
-         }
-      }*/
       return returned;
+   }
+   
+   public static String getUuid(String name) {
+       String url = "https://api.mojang.com/users/profiles/minecraft/"+name;
+       try {
+           String UUIDJson = IOUtils.toString(new URL(url));           
+           if(UUIDJson.isEmpty()) return "invalid name";                       
+           JSONObject UUIDObject = (JSONObject) JSONValue.parseWithException(UUIDJson);
+           return UUIDObject.get("id").toString();
+       } catch (IOException | ParseException e) {
+           e.printStackTrace();
+       }
+      
+       return Bukkit.getPlayer(name).getUniqueId().toString();
+   }
+   
+   public static String replaceSpace(String text) {
+	   text = text.replace("_", " ");
+	   return text;
    }
    
    public static void getInfoPlugin(CommandSender sender, String name, String version, String latestversion) {

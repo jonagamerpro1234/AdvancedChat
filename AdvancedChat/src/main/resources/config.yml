@@ -18,8 +18,8 @@ Settings:
   # |Config-Version| I would not change anything
   Config-Version: 2
   
-  # |Locale| here you can select the language of the messages that are available in the Messages folder
-  Locale: en
+  # |Lang| here you can select the language of the messages that are available in the Messages folder
+  Lang: en-US
   
   # |Debug| This option should only be used if there is a problem with certain functions of the plugin, debug messages will be activated in the console
   Debug: true
@@ -56,8 +56,8 @@ Hooks:
     # |Enabled| Here you can enable or disable this feature
     Enabled: true
     
-    # |Use-Luckperms-In-Groups| When using this option, the groups are discovered with the LuckPerms system
-    Use-Luckperms-In-Groups: false
+    # |Auto-Detect-Group| When using this option, the groups are discovered with the LuckPerms system
+    Auto-Detect-Group: true
   
   # |Vault| Here you can configure everything related to Vault and or deactivate or activate functions
   Vault:
@@ -65,9 +65,6 @@ Hooks:
     # |Enabled| Here you can enable or disable this feature
     Enabled: true
     
-    # |Use-Vault-In-Groups| When using this option, the groups are discovered with the Vault system
-    Use-Vault-In-Groups: true
-  
   # |DiscordSRV| Here you can define the discord channel where the messages from minecraft to discord are seen
   # !This characteristic is in the experimental phase!
   DiscordSRV:
@@ -102,6 +99,10 @@ ClearChat:
   
   # |Tick| here you can define the time that the actions are automatically executed [Default | 24000], 24000 tick = 20 min
   Tick: 24000
+  
+  # |Default-Start-Tick| Here you can define the first ticks that are executed when starting the server
+  # Wiki: https://jonagamerpro1234.gitbook.io/advancedchat/configurations/tick
+  Default-Start-Tick: 6000 
   
   #blank lines to broadcast in chat
   LineClear: 100
@@ -261,21 +262,21 @@ ChatLogs:
 # |TabComplete|
 TabComplete:
   
-   # |Enabled| Here you can enable or disable this feature
+  # |Enabled| Here you can enable or disable this feature
   Enabled: false
-  
-  # |Disable-TabComplete| 
-  Disable-TabComplete: true
-  
-  # |Allow-Space|
-  Allow-Space: false
   
   # |WhiteList|
   WhiteList:
-    - 'Msg'
-    - 'Me'
-    - 'Say'
-    - 'List'
+    
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: true
+    
+    # |list|
+    List:
+      - 'Msg'
+      - 'Me'
+      - 'Say'
+      - 'List'
 #
 # |Filter Chat|
 # |here you can filter the unwanted words on your server and have a little more control over the chat
@@ -289,9 +290,6 @@ Filter-Chat:
 
   # |Message| here you can define a personalized message that will be sent to the player
   Message: '&eyou cannot use this word, it is blocked!'
-
-  # ![Disabled]! |Delay| It is the waiting time that the message will have before it is sent so that spam does not form in the player's chat [Defalt | 100 ]
-  Delay: 5 #[Not Implement]
 #
 # | Mention |
 Mention:

@@ -103,52 +103,52 @@ public class ColorManager {
     public String convertHexColor(String color) {
         String temp = color;
         if (temp.equalsIgnoreCase("dark_red")) {
-            return "&4";
+            return "AA0000";
         }
         if (temp.equalsIgnoreCase("red")) {
-            return "&c";
+            return "FF5555";
         }
         if (temp.equalsIgnoreCase("dark_blue")) {
-            return "&1";
+            return "0000AA";
         }
         if (temp.equalsIgnoreCase("blue")) {
-            return "&9";
+            return "5555FF";
         }
         if (temp.equalsIgnoreCase("dark_Green")) {
-            return "&2";
+            return "00AA00";
         }
         if (temp.equalsIgnoreCase("green")) {
-            return "&a";
+            return "55FF55";
         }
         if (temp.equalsIgnoreCase("yellow")) {
-            return "&e";
+            return "FFFF55";
         }
         if (temp.equalsIgnoreCase("gold")) {
-            return "&6";
+            return "FFAA00";
         }
         if (temp.equalsIgnoreCase("dark_aqua")) {
-            return "&3";
+            return "00AAAA";
         }
         if (temp.equalsIgnoreCase("aqua")) {
-            return "&b";
+            return "55FFFF";
         }
         if (temp.equalsIgnoreCase("light_purple")) {
-            return "&d";
+            return "FF55FF";
         }
         if (temp.equalsIgnoreCase("dark_purple")) {
-            return "&5";
+            return "AA00AA";
         }
         if (temp.equalsIgnoreCase("gray")) {
-            return "&7";
+            return "AAAAAA";
         }
         if (temp.equalsIgnoreCase("dark_gray")) {
-            return "&8";
+            return "555555";
         }
         if (temp.equalsIgnoreCase("white")) {
-            return "&f";
+            return "FFFFFF";
         }
         if (temp.equalsIgnoreCase("black")) {
-            return "&0";
+            return "000000";
         }
         return null;
     }

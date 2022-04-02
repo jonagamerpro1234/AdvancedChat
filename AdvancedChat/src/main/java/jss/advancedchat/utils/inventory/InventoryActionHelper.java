@@ -89,7 +89,7 @@ public class InventoryActionHelper {
 			break;
 		case Settings:
 			GuiSettings guiSettings = new GuiSettings();
-			guiSettings.open(player);
+			guiSettings.open(player, playerName);
 			break;
 		}
 	}

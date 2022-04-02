@@ -31,7 +31,7 @@ AdvancedChat:
     - '&5> &b/AdvancedChat &6info &7shows information about the plugin'
     - '&5> &b/AdvancedChat &6color &e<player name> &9set &a<color name> &7open color gui'
     - '&5> &b/AdvancedChat &6player &e<player name>&7 open the player settings'
-    - '&5> &b/AdvancedChat &6gradient &e<player name> &9set &a<color name> &d<first|second> &7open the gradient gui'
+    - '&5> &b/AdvancedChat &6gradient &e<player name> &9set &a<color|value> &d<first|second> &7open the gradient gui'
     - '&5> &b/Mgs &e<player name> &7send of private message '
     - '&5> &b/AdvancedChat &6settings &e<option> &9<true|false|value> &7open the settings gui'
     - '&5> &b/Mute &e<player name> &7mute the player'
