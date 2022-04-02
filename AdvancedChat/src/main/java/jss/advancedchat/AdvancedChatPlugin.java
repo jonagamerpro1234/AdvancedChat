@@ -52,5 +52,5 @@ public class AdvancedChatPlugin extends JavaPlugin {
             }
         }
     }
-	
+
 }

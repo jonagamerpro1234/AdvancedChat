@@ -55,13 +55,15 @@ public class GuiPlayer {
 		inv.setItem(4, Utils.getPlayerHead(target));
 
 		Set<String> section = config.getConfigurationSection("Items").getKeys(false);
-
+		
+		PlayerManager playerManager = new PlayerManager(Bukkit.getPlayer(target)	);
+		
 		section.forEach((key) -> {
 			int slot = config.getInt("Items." + key + ".Slot");
-			boolean isSkull = config.getBoolean("Items." + key + ".Is-Skull");
+			boolean isSkull = playerManager.isLowMode();
 			String name = config.getString("Items." + key + ".Name");
 
-			if (isSkull) {
+			if (!isSkull) {
 				String textures = config.getString("Items." + key + ".Texture");
 				textures = TSkullUtils.replace(textures);
 				item = Utils.createSkull(textures);

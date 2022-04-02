@@ -14,7 +14,7 @@ public abstract class Gui {
 	//experimental code
 	private UUID uuid;
 	private Inventory inventory;
-	private Map<Integer, IAction> actions;
+	private Map<Integer, GuiAction> actions;
 	
 	private static Map<UUID, Gui> inventoriesByUUID = new HashMap<>();
 	private static Map<UUID, UUID> openIventories = new HashMap<>();
@@ -26,7 +26,7 @@ public abstract class Gui {
 		inventoriesByUUID.put(getUuid(), this);
 	}
 	
-	public void setItem(int slot, ItemStack itemstack, IAction action) {
+	public void setItem(int slot, ItemStack itemstack, GuiAction action) {
 		inventory.setItem(slot, itemstack);
 		
 		if(action != null) {
@@ -55,7 +55,7 @@ public abstract class Gui {
 		return openIventories;
 	}
 	
-	public Map<Integer, IAction> getActions() {
+	public Map<Integer, GuiAction> getActions() {
 		return actions;
 	}
 	

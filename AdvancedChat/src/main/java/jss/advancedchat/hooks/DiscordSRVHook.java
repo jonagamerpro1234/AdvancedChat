@@ -31,7 +31,7 @@ public class DiscordSRVHook implements IHook{
 			return;
 		}
 		this.isEnabled = true;
-		Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix() + "&aLoading DiscordSRV features...");
+		Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix(true) + "&aLoading DiscordSRV features...");
 	}
 
 	public boolean isEnabled() {

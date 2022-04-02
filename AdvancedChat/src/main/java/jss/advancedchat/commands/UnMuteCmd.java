@@ -22,18 +22,6 @@ public class UnMuteCmd implements CommandExecutor {
     }
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        String prefix = "";
-        String prefixserver = "";
-        
-        if(Settings.boolean_use_default_prefix) {
-        	prefix = Utils.getPrefixPlayer();
-        	prefixserver = Utils.getPrefix();
-        }else {
-        	prefixserver = Settings.message_prefix_custom;
-        	prefix = Settings.message_prefix_custom;
-        }
-        
-
         if (!(sender instanceof Player)) {
             if (args.length >= 1) {
                 Player target = Bukkit.getPlayer(args[0]);
@@ -43,10 +31,10 @@ public class UnMuteCmd implements CommandExecutor {
                 } else {
                 	playerManager.setMute(false);
                 }
-                Utils.sendColorMessage(sender, prefixserver + " " + Utils.getVar(target, Settings.message_UnMute_Player));
+                Utils.sendColorMessage(sender, Utils.getPrefix(false) + Utils.getVar(target, Settings.message_UnMute_Player));
                 return true;
             }
-            Utils.sendColorMessage(sender, Utils.getPrefix() + Settings.message_Help_UnMute);
+            Utils.sendColorMessage(sender, Utils.getPrefix(false) + Settings.message_Help_UnMute);
             return false;
         }
         Player j = (Player) sender;
@@ -65,7 +53,7 @@ public class UnMuteCmd implements CommandExecutor {
                 } else {
                 	playerManager.setMute(false);
                 }
-                Utils.sendColorMessage(j, prefix + " " + Utils.getVar(j, Settings.message_UnMute_Player));
+                Utils.sendColorMessage(j, Utils.getPrefix(false) + Utils.getVar(j, Settings.message_UnMute_Player));
                 return true;
             }
         } else {
@@ -73,7 +61,7 @@ public class UnMuteCmd implements CommandExecutor {
         	return true;
         }
 
-        Utils.sendColorMessage(j, Utils.getPrefixPlayer() + Utils.getVar(j, Settings.message_Help_UnMute));
+        Utils.sendColorMessage(j, Utils.getPrefix(false) + Utils.getVar(j, Settings.message_Help_UnMute));
         return true;
     }
 

@@ -38,17 +38,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		String prefixServer;
-		String prefix;
-		
-		if(Settings.boolean_use_default_prefix) {
-			prefixServer = Utils.getPrefix();
-			prefix = Utils.getPrefixPlayer();
-		}else {
-			prefixServer = " " + Settings.message_prefix_custom;
-			prefix = " " + Settings.message_prefix_custom;
-		}
-			
 		if (!(sender instanceof Player)) {
 			if (args.length >= 1) {
 				if (args[0].equalsIgnoreCase("info")) {
@@ -59,13 +48,13 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					Utils.sendColorMessage(eventUtils.getConsoleSender(), "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 				} else if (args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")) {
 					plugin.reloadAllFiles();
-					Utils.sendColorMessage(sender, prefixServer + Settings.message_Reload);
+					Utils.sendColorMessage(sender, Utils.getPrefix(false) + Settings.message_Reload);
 				} else {
-					Utils.sendColorMessage(sender, prefixServer + Settings.message_Error_Args);
+					Utils.sendColorMessage(sender, Utils.getPrefix(false) + Settings.message_Error_Args);
 				}
 				return true;
 			}
-			Utils.sendColorMessage(sender, prefixServer + Settings.message_Help_Cmd);
+			Utils.sendColorMessage(sender, Utils.getPrefix(false) + Settings.message_Help_Cmd);
 			return false;
 		}
 
@@ -86,7 +75,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				if (args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")) {
 					if ((j.isOp()) || (j.hasPermission("AdvancedChat.Command.Reload"))) {
 						plugin.reloadAllFiles();
-						Utils.sendColorMessage(j, prefix + Settings.message_Reload);
+						Utils.sendColorMessage(j, Utils.getPrefix(false) + Settings.message_Reload);
 					} else {
 						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 					}
@@ -188,7 +177,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				if(args[0].equalsIgnoreCase("settings")) {
 					if((j.isOp()) || (j.hasPermission("AdvancedChat.Command.Settings"))) {
 						GuiSettings guiSettings = new GuiSettings();
-						guiSettings.open(j);
+						guiSettings.open(j, j.getName());
 					} else {
 						Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 					}
@@ -256,14 +245,14 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 					return true;
 				}
 				
-				Utils.sendColorMessage(j, prefix + Settings.message_Error_Args);
+				Utils.sendColorMessage(j, Utils.getPrefix(false) + Settings.message_Error_Args);
 				return true;
 			}
 		} else {
 			Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 			return true;
 		}
-		Utils.sendColorMessage(j, prefix + Settings.message_Help_Cmd);
+		Utils.sendColorMessage(j, Utils.getPrefix(false) + Settings.message_Help_Cmd);
 		return true;
 	}
 

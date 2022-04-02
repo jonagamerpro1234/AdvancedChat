@@ -34,20 +34,11 @@ public class EventUtils {
    }
 
    public void getServerMessage() {
-      if (Settings.boolean_use_default_prefix) {
-         Utils.sendColorMessage(Utils.getPrefix() + Settings.message_ClearChat_Server);
-      } else {
-         Utils.sendColorMessage(Settings.message_prefix_custom + " " + Settings.message_ClearChat_Server);
-      }
+	   Utils.sendColorMessage(Utils.getPrefix(false) + Settings.message_ClearChat_Server);
    }
 
    public void getPlayerMessage(Player player) {
-      if (Settings.boolean_use_default_prefix) {
-         Utils.sendColorMessage(Utils.getPrefixPlayer() + Utils.getVar(player, Settings.message_ClearChat_Player));
-      } else {
-         Utils.sendColorMessage(Settings.message_prefix_custom + " " + Utils.getVar(player, Settings.message_ClearChat_Player));
-      }
-
+	   Utils.sendColorMessage(Utils.getPrefix(false) + Utils.getVar(player, Settings.message_ClearChat_Player));
    }
 
    public void getClearChatAction(String type) {

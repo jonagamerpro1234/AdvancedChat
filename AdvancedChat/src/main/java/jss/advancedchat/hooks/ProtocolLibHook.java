@@ -17,9 +17,8 @@ public class ProtocolLibHook{
 	
 	public void initPacketListening() {
 		
-		if(Settings.boolean_antitabcompleted) {
+		if(Settings.tabcomplete) {
 			manager.addPacketListener(new PacketAdapter(AdvancedChat.get(), PacketType.Play.Client.TAB_COMPLETE) {
-				@Override
 				public void onPacketReceiving(PacketEvent e) {
 					Player j = e.getPlayer();
 					
@@ -27,6 +26,14 @@ public class ProtocolLibHook{
 					
 					String msg = e.getPacket().getStrings().read(0).trim();
 					
+					if(Settings.tabcomplete_whitelist) {
+						for(int i = 0; i < Settings.list_tabcomplete_whitelist.size() ; i++) {
+							if(msg.contains(Settings.list_tabcomplete_whitelist.get(i))) {
+								return;
+							}
+						}
+					}
+
 					if(!msg.startsWith("/")) {
 						return;
 					}
@@ -34,12 +41,12 @@ public class ProtocolLibHook{
 					if(msg.contains(" ")) {
 						return;
 					}
+					
 					if(msg.length() > 0) {
 						e.setCancelled(true);
 					}
 				}
 			});
-			//---->end<----//
 		}
 	}
 }

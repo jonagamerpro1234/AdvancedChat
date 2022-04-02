@@ -1,6 +1,7 @@
 package jss.advancedchat.hooks;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import jss.advancedchat.common.interfaces.IHook;
@@ -56,7 +57,7 @@ public class VaultHook implements IHook{
             economy = rspE.getProvider();
         }
 		
-		Utils.sendColorMessage(EventUtils.getStaticConsoleSender() , Utils.getPrefix() + "&aLoading Vault features...");
+		Utils.sendColorMessage(EventUtils.getStaticConsoleSender() , Utils.getPrefix(true) + "&aLoading Vault features...");
 	}
 	
 	public static VaultHook getVaultHook() {
@@ -82,6 +83,9 @@ public class VaultHook implements IHook{
 	public HookManager getHookManager() {
 		return hookManager;
 	}
-
+	
+	public void buyColor(Player player) {
+				
+	}
 	
 }

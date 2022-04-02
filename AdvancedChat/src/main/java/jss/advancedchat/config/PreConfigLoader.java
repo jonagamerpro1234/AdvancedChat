@@ -1,8 +1,13 @@
 package jss.advancedchat.config;
 
+import java.io.IOException;
+import java.util.HashMap;
+
 import org.bukkit.configuration.file.FileConfiguration;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.config.lang.FileListener;
+import jss.advancedchat.config.lang.Lang;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 
@@ -17,12 +22,15 @@ public class PreConfigLoader {
     public void loadConfig() {
         FileConfiguration config = plugin.getConfigFile().getConfig();
         try {
-        	Settings.locale = config.getString("Settings.Locale").toLowerCase();
+        	Settings.locale = config.getString("Settings.Lang").toLowerCase();
         	Settings.default_color = config.getString("Settings.Default-Color-Message");
         	Settings.message_prefix_custom = config.getString("Settings.Prefix");
+        	
         	Settings.hook_vault = config.getString("Hooks.Vault.Enabled").equals("true");
         	Settings.hook_discordsrv = config.getString("Hooks.DiscordSRV.Enabled").equals("true");
         	Settings.hook_luckperms = config.getString("Hooks.LuckPerms.Enabled").equals("true");        	
+        	Settings.hook_luckperms_use_group = config.getString("Hooks.LuckPerms.Auto-Detect-Group").equals("true");
+        	
         	Settings.boolean_use_default_prefix = config.getString("Settings.Use-Default-Prefix").equals("true");
         	Settings.boolean_chatclear_autoclear = config.getString("ClearChat.AutoClear").equals("true");
         	Settings.boolean_clearchat_bypass = config.getString("ClearChat.ByPass-Staff").equals("true");
@@ -40,6 +48,25 @@ public class PreConfigLoader {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public void loadLangs() {
+    	HashMap<String, Lang> langs = new HashMap<String, Lang>();
+    	FileListener fileListener = new FileListener();
+    
+    	try {
+    		int index = 1;
+    		fileListener.getList().forEach( (code) ->  langs.put(code, new Lang(code, index)));
+    	}catch(IOException ex) {
+    		Logger.warning("Could not add lang");
+    	}
+    	
+    	if(!langs.containsKey(Settings.locale)) {
+    		Logger.warning("&eFile: &9" + Settings.locale + ".yml &enot found in &b/lang folder&e. Using &b/lang/message_en-US.yml");
+    		Settings.locale = "en-US";
+    		langs.put(Settings.locale, new Lang(Settings.locale, 0));
+    	}
+    	plugin.setAvailableLangs(langs);
     }
     
     public void loadMessage() {

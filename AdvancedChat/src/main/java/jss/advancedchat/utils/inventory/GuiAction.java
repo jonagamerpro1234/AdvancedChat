@@ -2,8 +2,8 @@ package jss.advancedchat.utils.inventory;
 
 import org.bukkit.entity.Player;
 
-public interface IAction {
+public interface GuiAction {
 
-	public void onClick(Player player);
+	public void execute(Player player);
 	
 }

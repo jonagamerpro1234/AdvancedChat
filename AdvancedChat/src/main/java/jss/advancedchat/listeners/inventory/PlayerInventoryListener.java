@@ -127,7 +127,7 @@ public class PlayerInventoryListener implements Listener {
 		}
 
 		me = it.getItemMeta();
-		me.setDisplayName(Utils.color(name));
+		me.setDisplayName(Utils.color(Utils.getVar(p, name)));
 		it.setItemMeta(me);
 		inv.setItem(slotmute, it);
 	}

@@ -1,5 +1,6 @@
 package jss.advancedchat.test;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -36,6 +37,8 @@ public class ChatListenerTest implements Listener {
 	private final Pattern STRIKETHROUGH_REGEX = Pattern.compile("(?i)&([M])");
 	private final Pattern UNDERLINE_REGEX = Pattern.compile("(?i)&([N])");
 	private final Pattern ITALIC_REGEX = Pattern.compile("(?i)&([O])");
+	@SuppressWarnings("unused")
+	private HashMap<String, String> channel = new HashMap<>();
 
 	public ChatListenerTest(AdvancedChat plugin) {
 		this.plugin = plugin;
@@ -114,10 +117,10 @@ public class ChatListenerTest implements Listener {
 			String click_mode = config.getString("ChatFormat.ClickEvent.Mode");
 			String url_action = config.getString("ChatFormat.ClickEvent.Actions.Url");
 			String suggest_action = config.getString("ChatFormat.ClickEvent.Actions.Suggest-Command");
-
+						
 			cmd_action = Utils.getVar(j, cmd_action);
 			suggest_action = Utils.getVar(j, suggest_action);
-
+			
 			if (hover) {
 				if (click) {
 					if (click_mode.equalsIgnoreCase("command")) {
@@ -175,43 +178,36 @@ public class ChatListenerTest implements Listener {
 			if (!player.isOp() || !player.hasPermission("AdvancedChat.Chat.Color")) {
 				msg = Utils.color(msg);
 				canReset = true;
-				Logger.debug("Chat => Color: " + true);
 			}
 
 			if (!player.isOp() || !player.hasPermission("AdvancedChat.Chat.Magic")) {
 				msg = this.MAGIC_REGEN.matcher(msg).replaceAll("§$1");
 				canReset = true;
-				Logger.debug("Chat => Magic: " + true);
 			}
 
 			if (!player.isOp() || !player.hasPermission("AdvancedChat.Chat.Bold")) {
 				msg = this.BOLD_REGEX.matcher(msg).replaceAll("§$1");
 				canReset = true;
-				Logger.debug("Chat => Bold: " + true);
 			}
 
 			if (!player.isOp() || !player.hasPermission("AdvancedChat.Chat.Strikethrough")) {
 				msg = this.STRIKETHROUGH_REGEX.matcher(msg).replaceAll("§$1");
 				canReset = true;
-				Logger.debug("Chat => Strikethrough: " + true);
 			}
 
 			if (!player.isOp() || !player.hasPermission("AdvancedChat.Chat.Underline")) {
 				msg = this.UNDERLINE_REGEX.matcher(msg).replaceAll("§$1");
 				canReset = true;
-				Logger.debug("Chat => UnderLine: " + true);
 			}
 
 			if (!player.isOp() || !player.hasPermission("AdvancedChat.Chat.Italic")) {
 				msg = this.ITALIC_REGEX.matcher(msg).replaceAll("§$1");
-				Logger.debug("Chat => Italic: " + true);
 				canReset = true;
 			}
 
 			if (canReset) {
 				msg = Utils.colorless(msg);
 			}
-			Logger.debug("Chat => CanReset: " + canReset);
 			return msg;
 		}
 	}
