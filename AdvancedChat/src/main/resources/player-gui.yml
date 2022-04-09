@@ -47,6 +47,6 @@ Items:
     Slot: 40
   Settings:
     Name: '&bSettings'
-    Item: redstone_comparator
+    Item: comparator
     Texture: '[settings]'
     Slot: 42

@@ -3,6 +3,7 @@ package jss.advancedchat.listeners.chat;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
@@ -20,7 +21,7 @@ public class ChatLogListener implements Listener{
 		this.plugin = plugin;
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void chatDataLog(AsyncPlayerChatEvent e) {
 		ChatDataFile chatDataFile = plugin.getChatDataFile();
 		FileConfiguration config = chatDataFile.getConfig();
@@ -33,7 +34,7 @@ public class ChatLogListener implements Listener{
 		chatDataFile.saveConfig();
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void chatLog(AsyncPlayerChatEvent e) {
 		ChatLogFile chatLogFile = plugin.getChatLogFile();
 		FileConfiguration config = chatLogFile.getConfig();

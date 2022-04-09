@@ -1,14 +1,15 @@
 package jss.advancedchat.listeners.inventory;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Bukkit;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -18,10 +19,11 @@ import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.inventory.InventoryActionHelper;
+import jss.advancedchat.utils.inventory.InventoryUtils;
 import jss.advancedchat.utils.inventory.InventoryView;
 import jss.advancedchat.utils.inventory.InventoryActionHelper.InventoryType;
 
-public class SettingsInventoryListener implements Listener {
+public class RainbowInventoryListener implements Listener {
 	
 	private AdvancedChat plugin = AdvancedChat.get();
 	
@@ -31,7 +33,7 @@ public class SettingsInventoryListener implements Listener {
 		InventoryView inventoryView = plugin.getInventoryView(j);
 		
 		if(inventoryView == null) return;
-		if(!inventoryView.getInventoryName().contains("settingsGui")) return;
+		if(!inventoryView.getInventoryName().contains("rainbowGui")) return;
 		if(e.getCurrentItem() == null || e.getCurrentItem().getType().name().contains("AIR")) {
 			e.setCancelled(true);
 			return;
@@ -53,7 +55,7 @@ public class SettingsInventoryListener implements Listener {
 			InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
 			
 			if(slot == 19) {
-				isLowModeItem(playerManager, target, e.getInventory());
+
 			}
 			
 			if(slot == 3) {
@@ -64,27 +66,36 @@ public class SettingsInventoryListener implements Listener {
 			if(slot == 0) {
 				j.closeInventory();
 			}
+			
+			if(slot == 45) {
+				setRainbowItem(playerManager, e.getInventory());
+			}
 		}
 	}
 	
-	public void isLowModeItem(PlayerManager playerManager, Player player, Inventory inv) {
-		ItemStack item = XMaterial.REPEATER.parseItem();
-		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(Utils.color("&eLow Mode"));
+	private void setRainbowItem(PlayerManager playerManager, Inventory inv) {
+		ItemStack item;
+		ItemMeta meta;
 		
-		
-		if(!player.isOp() || !player.hasPermission("AdvancedChat.Gui.Settings.LowMode")) return;
-			
-		if(playerManager.isLowMode() ) {
-			playerManager.setLowMode(false);
-		}else{
-			playerManager.setLowMode(true);
-			meta.addEnchant(Enchantment.DURABILITY, 1, false);
+		if(playerManager.isRainbow()) {
+			item = XMaterial.GRAY_DYE.parseItem();
+			meta = item.getItemMeta();
+			meta.setDisplayName(Utils.color("&cDisable"));
+			List<String> lore = Arrays.asList("&7Click to &aenable");
+			meta.setLore(InventoryUtils.coloredLore(lore));
+			item.setItemMeta(meta);
+			inv.setItem(45, item);
+			playerManager.setGradient(false);
+		}else {
+			item = XMaterial.GREEN_DYE.parseItem();
+			meta = item.getItemMeta();
+			meta.setDisplayName(Utils.color("&aEnable"));
+			List<String> lore = Arrays.asList("&7Click to &cdisable");
+			meta.setLore(InventoryUtils.coloredLore(lore));
+			item.setItemMeta(meta);
+			inv.setItem(45, item);
+			playerManager.setGradient(true);
 		}
-		
-		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-		item.setItemMeta(meta);
-		inv.setItem(19, item);
 	}
 	
 	@EventHandler

@@ -1,6 +1,7 @@
 package jss.advancedchat.inventory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -78,6 +79,29 @@ public class GuiGradient {
 			inv.setItem(slot, item);
 			
 		});
+		
+		setCustomItem(playerManager);
+		
+	}
+	
+	private void setCustomItem(PlayerManager playerManager) {
+		if(playerManager.isGradient()) {
+			item = XMaterial.LIME_DYE.parseItem();
+			meta = item.getItemMeta();
+			meta.setDisplayName(Utils.color("&aEnable"));
+			List<String> lore = Arrays.asList("&7Click to &cdisable");
+			meta.setLore(coloredLore(lore));
+			item.setItemMeta(meta);
+			inv.setItem(45, item);
+		}else {
+			item = XMaterial.GRAY_DYE.parseItem();
+			meta = item.getItemMeta();
+			meta.setDisplayName(Utils.color("&cDisable"));
+			List<String> lore = Arrays.asList("&7Click to &aenable");
+			meta.setLore(coloredLore(lore));
+			item.setItemMeta(meta);
+			inv.setItem(45, item);
+		}
 	}
 	
 	private List<String> coloredLore(List<String> lore) {

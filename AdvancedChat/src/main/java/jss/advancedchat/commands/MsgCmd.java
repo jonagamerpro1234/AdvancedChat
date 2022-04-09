@@ -11,6 +11,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 
@@ -38,6 +39,13 @@ public class MsgCmd implements CommandExecutor, TabCompleter{
 					String message = args[1];
 					if(message == null) {
 						Utils.sendColorMessage(sender, Settings.message_msg_empty);
+						return true;
+					}
+					
+					PlayerManager playerManager = new PlayerManager(p);
+					
+					if(!playerManager.isMsg()) {
+						Utils.sendColorMessage(sender,  "&cEste jugador no puede recibir mensajes privados");
 						return true;
 					}
 					
@@ -69,6 +77,13 @@ public class MsgCmd implements CommandExecutor, TabCompleter{
 				
 				if(message == null) {
 					Utils.sendColorMessage(j, Settings.message_msg_empty);
+					return true;
+				}
+				
+				PlayerManager playerManager = new PlayerManager(p);
+				
+				if(!playerManager.isMsg()) {
+					Utils.sendColorMessage(j,  "&cEste jugador no puede recibir mensajes privados");
 					return true;
 				}
 				

@@ -25,11 +25,7 @@ import jss.advancedchat.utils.inventory.InventoryView;
 
 public class PlayerInventoryListener implements Listener {
 	
-	private AdvancedChat plugin;
-
-	public PlayerInventoryListener(AdvancedChat plugin) {
-		this.plugin = plugin;
-	}
+	private AdvancedChat plugin = AdvancedChat.get();
 	
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
@@ -63,7 +59,8 @@ public class PlayerInventoryListener implements Listener {
 			}
 			
 			if(slot == Settings.player_inv_slot_channels) {
-				actionHelper.setOpenInventoryAction(playerName, InventoryType.Channel);
+				//actionHelper.setOpenInventoryAction(playerName, InventoryType.Channel);
+				Logger.debug("&eThis inventory is temporarily disabled - [Working Progress]");
 			}
 			
 			if(slot == Settings.player_inv_slot_colors) {

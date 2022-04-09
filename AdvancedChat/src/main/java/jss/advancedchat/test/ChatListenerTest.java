@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,8 +17,6 @@ import github.scarsz.discordsrv.util.DiscordUtil;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.chat.Json;
 import jss.advancedchat.hooks.DiscordSRVHook;
-import jss.advancedchat.hooks.LuckPermsHook;
-import jss.advancedchat.hooks.VaultHook;
 import jss.advancedchat.manager.ColorManager;
 import jss.advancedchat.manager.GroupHelper;
 import jss.advancedchat.manager.HookManager;
@@ -47,9 +47,7 @@ public class ChatListenerTest implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onChat(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfigFile().getConfig();
-		VaultHook vaultHook = HookManager.get().getVaultHook();
 		DiscordSRVHook discordSRVHook = HookManager.get().getDiscordSRVHook();
-		LuckPermsHook luckPermsHook = HookManager.get().getLuckPermsHook();
 
 		Player j = e.getPlayer();
 		PlayerManager playerManager = new PlayerManager(j);
@@ -69,7 +67,7 @@ public class ChatListenerTest implements Listener {
 		if (Settings.mysql_use) {
 			message = " &r" + colorManager.convertColor(j, MySQL.getColor(plugin, j.getUniqueId().toString()), msg);
 		} else {
-			message = " &r" + colorManager.convertColor(j, playerManager.getColor(), colorManager.converSpecialColor(playerManager.getSpecialColor(), msg));
+			message = " &r" + colorManager.addFormat(j, msg);//colorManager.convertColor(j, playerManager.getColor(), colorManager.converSpecialColor(playerManager.getSpecialColor(), msg));
 		}
 
 		format = Utils.getVar(j, format);
@@ -92,7 +90,12 @@ public class ChatListenerTest implements Listener {
 			this.ismention = false;
 			return;
 		}
-
+		
+		if(!playerManager.isChat()) {
+			Utils.sendColorMessage(j, "&cyou must activate the chat to be able to send messages");
+			return;
+		}
+		
 		if (isDefault) {
 			return;
 		} else if (isNormal) {
@@ -150,26 +153,37 @@ public class ChatListenerTest implements Listener {
 		} else if (isGroup) {
 			e.setCancelled(true);
 			
-			@SuppressWarnings("unused")
-			String group = "";
-			
-			if (luckPermsHook.isEnabled() || vaultHook.isEnabled()) {
-				Logger.error("&cThe Vault or LuckPerms could not be found to activate the group system");
-				Logger.warning("&eplease check that luckperms is active or inside your plugins folder");
-				return;
-			}
-
-			if (Settings.hook_luckperms_use_group) {
-				group = LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup();
-			} else if (Settings.hook_luckperms_use_group) {
-				group = VaultHook.getVaultHook().getChat().getPrimaryGroup(j);
-			}
-						
 			GroupHelper groupHelper = GroupHelper.get().setGroup(playerManager.getGroup());
 			groupHelper.sendGroup(j, message);
 		}
 	}
 
+	@EventHandler 
+	public void chatMention(AsyncPlayerChatEvent e){
+		e.setCancelled(true);
+		Player j = e.getPlayer();
+		String message = e.getMessage();
+		
+		PlayerManager playerManager = new PlayerManager(j);
+		
+		if(message.contains(j.getName()) && !playerManager.isMention()) {
+			Utils.sendColorMessage(j, "this player has mentions disabled");
+			return;
+		}
+		
+		if(Settings.mention) {
+			Utils.sendColorMessage(j, Settings.mention_send);
+			if(message.contains(j.getName())) {
+				this.ismention = true;
+				
+				Bukkit.getOnlinePlayers().forEach( (p) -> {
+					p.playSound(p.getLocation(), Sound.valueOf(Settings.mention_sound_name), Settings.mention_sound_volume, Settings.mention_sound_pitch);
+					Utils.sendColorMessage(p, Settings.mention_receive);
+				});
+			}
+		}
+	}
+	
 	public String formatColor(String msg, Player player) {
 		if (msg == null) {
 			return "";
