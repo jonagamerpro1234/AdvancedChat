@@ -71,12 +71,7 @@ public class GuiSettings {
 		inv.setItem(3, item);
 		
 		isLowModeItem(playerManager, player);
-		
-		item = XMaterial.BEDROCK.parseItem();
-		meta.setDisplayName(Utils.color("&e?"));
-		item.setItemMeta(meta);
-		item.setAmount(1);
-		inv.setItem(21, item);
+		isChat(playerManager, player);
 		
 		item = XMaterial.BEDROCK.parseItem();
 		meta.setDisplayName(Utils.color("&e?"));
@@ -121,7 +116,7 @@ public class GuiSettings {
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(Utils.color("&eLow Mode"));
 		
-		if(playerManager.isLowMode() == true) {
+		if(playerManager.isLowMode()) {
 			meta.addEnchant(Enchantment.DURABILITY, 1, false);
 		}
 		
@@ -135,6 +130,24 @@ public class GuiSettings {
 		inv.setItem(19, item);
 	}
 	
+	public void isChat(PlayerManager playerManager, Player player) {
+		ItemStack item = XMaterial.REPEATER.parseItem();
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(Utils.color("&eChat"));
+		
+		if(playerManager.isChat()) {
+			meta.addEnchant(Enchantment.DURABILITY, 1, false);
+		}
+		
+		List<String> lore = Arrays.asList(Settings.message_NoPermission);
+		if(!player.isOp() || !player.hasPermission("AdvancedChat.Gui.Settings.Chat")) {
+			meta.setLore(coloredLore(lore));
+		}
+		
+		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		item.setItemMeta(meta);
+		inv.setItem(21, item);
+	}
 	
 	public List<String> coloredLore(List<String> lore) {
 		List<String> coloredlore = new ArrayList<>();

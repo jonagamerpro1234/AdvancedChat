@@ -21,10 +21,42 @@ public class PlayerManager  {
 		if(existsPlayer("Name")) return config.getString("Name"); return null;
 	}
 	
+    public boolean isColor() {
+    	if(existsPlayer("Chat-Format.Color")) return config.getBoolean("Chat-Format.Color"); return false;
+    }
+    
+    public boolean isRainbow() {
+    	if(existsPlayer("Chat-Format.Rainbow")) return config.getBoolean("Chat-Format.Rainbow"); return false;
+    }
+    
+    public boolean isRandom() {
+    	if(existsPlayer("Chat-Format.Random")) return config.getBoolean("Chat-Format.Random"); return false;
+    }
+    
+    public boolean isGradient() {
+    	if(existsPlayer("Chat-Format.Gradient")) return config.getBoolean("Chat-Format.Gradient"); return false;
+    }
+    
+    public boolean isSpecialCodes() {
+    	if(existsPlayer("Chat-Format.Special-Color-Codes")) return config.getBoolean("Chat-Format.Special-Color-Codes"); return false;
+    }
+    
     public boolean isLowMode() {
     	if(existsPlayer("Other-Settings.Low-Mode")) return config.getBoolean("Other-Settings.Low-Mode"); return false;
     }
+    
+    public boolean isMention() {
+    	if(existsPlayer("Other-Settings.Mention")) return config.getBoolean("Other-Settings.Mention"); return false;
+    }
 	
+    public boolean isMsg() {
+    	if(existsPlayer("Other-Settings.Msg")) return config.getBoolean("Other-Settings.Msg"); return false;
+    }
+    
+    public boolean isChat() {
+    	if(existsPlayer("Other-Settings.Chat")) return config.getBoolean("Other-Settings.Chat"); return false;
+    }
+    
     public boolean isMute() {
     	if(existsPlayer("Is-Mute")) return config.getBoolean("Is-Mute"); return false;
     }
@@ -65,16 +97,28 @@ public class PlayerManager  {
     	if(existsPlayer("Chat-Message.Rainbow")) return config.getString("Chat-Message.Rainbow"); return null;
     }
     
+    public void setMention(boolean value) {
+    	if(existsPlayer("Other-Settings.Mention")) config.set("Other-Settings.Mention", value); save();
+    }
+	
+    public void setMsg(boolean value) {
+    	if(existsPlayer("Other-Settings.Msg")) config.set("Other-Settings.Msg", value); save();
+    }
+    
+    public void setChat(boolean value) {
+    	if(existsPlayer("Other-Settings.Chat")) config.set("Other-Settings.Chat", value); save();
+    }
+    
     public void setRainbow(String rainbow) {
-    	if(existsPlayer("Chat-Message.Rainbow")) config.set("Chat-Message.Rainbow", rainbow);
+    	if(existsPlayer("Chat-Message.Rainbow")) config.set("Chat-Message.Rainbow", rainbow); save();
     }
     
     public void setColor(String color) {
-        if(existsPlayer("Message-Color")) config.set("Message-Color", color); save();
+        if(existsPlayer("Chat-Message.Color")) config.set("Chat-Message.Color", color); save();
     }
     
     public void setSpecialColor(String color) {
-        if(existsPlayer("Message-Special-Color")) config.set("Message-Special-Color", color); save();
+        if(existsPlayer("Chat-Message.Special-Color")) config.set("Chat-Message.Special-Color-Coders", color); save();
     }
     
     public void setChannel(String channel) {
@@ -109,10 +153,29 @@ public class PlayerManager  {
         if(existsPlayer("Group")) config.set("Group", group); save();
     }
     
+    public void setColor(boolean value) {
+    	if(existsPlayer("Chat-Format.Color")) config.set("Chat-Format.Color", value); save();
+    }
+    
+    public void setRainbow(boolean value) {
+    	if(existsPlayer("Chat-Format.Rainbow"))  config.set("Chat-Format.Rainbow", value); save();
+    }
+    
+    public void setRandom(boolean value) {
+    	if(existsPlayer("Chat-Format.Random")) config.set("Chat-Format.Random", value); save();
+    }
+    
+    public void setGradient(boolean value) {
+    	if(existsPlayer("Chat-Format.Gradient")) config.set("Chat-Format.Gradient", value); save();
+    }
+    
+    public void setSpecialCodes(boolean value) {
+    	if(existsPlayer("Chat-Format.Special-Color-Codes")) config.set("Chat-Format.Special-Color-Codes", value); save();
+    }
+    
     public void create(Player player, String group) {
     	if(!existsPlayer("Name")) {
 			config.set("Name", player.getName());
-			
 			config.set("UUID", player.getUniqueId().toString());
 			config.set("Chat-Message.Color", Settings.default_color);
 			config.set("Chat-Message.Rainbow", "rainbow_1");
@@ -123,12 +186,15 @@ public class PlayerManager  {
 			config.set("Chat-Format.Rainbow", false);
 			config.set("Chat-Format.Special-Color-Codes", false);
 			config.set("Chat-Format.Gradient", false);
+			config.set("Chat-Format.Random", false);
 			config.set("Is-Mute", false);
 			config.set("Group", group);
 			config.set("Channel", "all");
 			config.set("Range-Chat", 10);
 			config.set("Other-Settings.Low-Mode", false);
 			config.set("Other-Settings.Chat", true);
+			config.set("Other-Settings.Msg", true);
+			config.set("Other-Settings.Mention", true);
             save();
             if(AdvancedChat.get().isDebug())
             	Logger.debug("&9folder &7-> &e[Data] &7-> &d[Players] &7-> &efile &b[" + player.getName() + ".yml] &7-> &aAdded " + player.getName());

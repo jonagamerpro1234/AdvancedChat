@@ -4,6 +4,7 @@ import java.util.Random;
 
 import org.bukkit.entity.Player;
 
+import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Utils;
 
 public class ColorManager {
@@ -13,6 +14,32 @@ public class ColorManager {
 		
 	public static ColorManager get() {
 		return new ColorManager();
+	}
+	
+	public String addFormat(Player player, String text) {
+		PlayerManager playerManager = new PlayerManager(player);
+		
+		if(playerManager.isColor() && !playerManager.isRainbow() && !playerManager.isGradient() && !playerManager.isRandom()) {
+			Logger.debug("Color enable");
+			return convertColor(player, playerManager.getColor(), converSpecialColor(playerManager.getSpecialColor(), text));
+		}
+		
+		if(playerManager.isGradient() && !playerManager.isRainbow() &&  !playerManager.isColor() && !playerManager.isRandom() && !playerManager.isSpecialCodes()) {
+			Logger.debug("Gradient enable");
+			return setGradient(player, text);			
+		}
+		
+		if(playerManager.isRandom() && !playerManager.isRainbow() &&  !playerManager.isColor() && !playerManager.isGradient() && !playerManager.isSpecialCodes()) {
+			Logger.debug("Random enable");
+			return convertRandomColor(text);
+		}
+		
+		if(playerManager.isRainbow() &&  !playerManager.isColor() && !playerManager.isGradient() && !playerManager.isRandom() && !playerManager.isSpecialCodes()) {
+			Logger.debug("Rainbow enable");
+			return setRainbow(playerManager.getRainbow(), text);
+		}
+		
+		return text;	
 	}
 	
     public String convertColor(Player player, String color, String text) {
@@ -65,38 +92,49 @@ public class ColorManager {
         if (temp.equalsIgnoreCase("black")) {
             return "&0" + text;
         }
-        if (temp.equalsIgnoreCase("random")) {
+        return null;
+    }
+    
+    public String convertRandomColor(String text) {
             StringBuffer stringBuffer = new StringBuffer();
 
             for (char c : text.toCharArray()) {
                 stringBuffer.append(setColorRandom() + c);
             }
             return stringBuffer.toString();
-        }
-        
-        if(temp.equalsIgnoreCase("rainbow1")) {
+    }
+    
+    public String setRainbow(String temp, String text) {
+        if(temp.equalsIgnoreCase("rainbow_1")) {
         	return Utils.color("<RAINBOW:1>" + text + "</RAINBOW>");
         }
-        
-        if(temp.equalsIgnoreCase("rainbow2")) {
+        if(temp.equalsIgnoreCase("rainbow_2")) {
         	return Utils.color("<RAINBOW:5>" + text + "</RAINBOW>");
         }
         
-        if(temp.equalsIgnoreCase("rainbow3")) {
+        if(temp.equalsIgnoreCase("rainbow_3")) {
         	return Utils.color("<RAINBOW:10>" + text + "</RAINBOW>");
         }
         
-        if(temp.equalsIgnoreCase("rainbow4")) {
+        if(temp.equalsIgnoreCase("rainbow_4")) {
         	return Utils.color("<RAINBOW:15>" + text + "</RAINBOW>");
         }
         
-        if(temp.equalsIgnoreCase("rainbow5")) {
+        if(temp.equalsIgnoreCase("rainbow_5")) {
         	return Utils.color("<RAINBOW:20>" + text + "</RAINBOW>");
         }
-        
-        if(temp.equalsIgnoreCase("gradient")) {
-        	return setGradient(player, text);
+        if(temp.equalsIgnoreCase("rainbow_6")) {
+        	return Utils.color("<RAINBOW:25>" + text + "</RAINBOW>");
         }
+        
+        if(temp.equalsIgnoreCase("rainbow_7")) {
+        	return Utils.color("<RAINBOW:30>" + text + "</RAINBOW>");
+        }
+        
+        if(temp.equalsIgnoreCase("rainbow_8")) {
+        	return Utils.color("<RAINBOW:35>" + text + "</RAINBOW>");
+        }
+
         return null;
     }
     
@@ -167,8 +205,34 @@ public class ColorManager {
         if (temp.equalsIgnoreCase("italic")) {
             return "&o" + text;
         }
+        if (temp.equalsIgnoreCase("magic")) {
+            return "&k" + text;
+        }
         if (temp.equalsIgnoreCase("none")) {
             return "" + text;
+        }
+        return null;
+    }
+    
+    public String converSpecialColor(String specialcolor) {
+    	String temp = specialcolor;
+    	if (temp.equalsIgnoreCase("bold")) {
+            return "&l";
+        }
+        if (temp.equalsIgnoreCase("strikethrough")) {
+            return "&m";
+        }
+        if (temp.equalsIgnoreCase("underline")) {
+            return "&n";
+        }
+        if (temp.equalsIgnoreCase("italic")) {
+            return "&o";
+        }
+        if (temp.equalsIgnoreCase("magic")) {
+            return "&k";
+        }
+        if (temp.equalsIgnoreCase("none")) {
+            return "";
         }
         return null;
     }

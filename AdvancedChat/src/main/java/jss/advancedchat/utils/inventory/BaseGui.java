@@ -1,32 +1,43 @@
 package jss.advancedchat.utils.inventory;
 
 import java.util.HashMap;
+
 import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
-public abstract class Gui {
+/**
+ * experimental gui
+ */
+@SuppressWarnings("unused")
+public abstract class BaseGui implements InventoryHolder {
 	
-	//experimental code
-	private UUID uuid;
+	private UUID uuid = UUID.randomUUID();
 	private Inventory inventory;
-	private Map<Integer, GuiAction> actions;
+	private Map<Integer, GuiAction<?>> actions;
 	
-	private static Map<UUID, Gui> inventoriesByUUID = new HashMap<>();
+	private GuiAction<InventoryClickEvent> slotAction;
+	private GuiAction<InventoryCloseEvent> closeAction;
+	private GuiAction<InventoryOpenEvent> openAction; 
+	
+	private static Map<UUID, BaseGui> inventoriesByUUID = new HashMap<>();
 	private static Map<UUID, UUID> openIventories = new HashMap<>();
 	
-	public Gui(int size, String name) {
-		uuid = UUID.randomUUID();
+	public BaseGui(int size, String name) {
 		inventory = Bukkit.createInventory(null, size, name);
 		actions = new HashMap<>();
 		inventoriesByUUID.put(getUuid(), this);
 	}
 	
-	public void setItem(int slot, ItemStack itemstack, GuiAction action) {
+	public void setItem(int slot, ItemStack itemstack, GuiAction<?> action) {
 		inventory.setItem(slot, itemstack);
 		
 		if(action != null) {
@@ -47,7 +58,7 @@ public abstract class Gui {
 		return uuid;
 	}
 	
-	public static Map<UUID, Gui> getInventoriesByUUID() {
+	public static Map<UUID, BaseGui> getInventoriesByUUID() {
 		return inventoriesByUUID;
 	}
 
@@ -55,11 +66,13 @@ public abstract class Gui {
 		return openIventories;
 	}
 	
-	public Map<Integer, GuiAction> getActions() {
+	public Map<Integer, GuiAction<?>> getActions() {
 		return actions;
 	}
 	
 	public Inventory getInventory() {
 		return inventory;
 	}
+	
+	
 }

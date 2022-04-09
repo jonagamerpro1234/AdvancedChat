@@ -1,12 +1,11 @@
-	<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>jss.advancedchat</groupId>
 	<artifactId>advancedchat</artifactId>
-	<version>1.7.0-b16.4</version>
-
+	<version>1.7.0-b18</version>
+	<packaging>jar</packaging>
+	
 	<name>AdvancedChat</name>
 	<description>a simple plugin that helps you customize your server chat to make it look better also brings a customizable chat system by group or rank and more....</description>
 	<url>https://github.com/jonagamerpro1234/AdvancedChat</url>
@@ -91,7 +90,7 @@
 		<dependency>
 			<groupId>com.github.cryptomorin</groupId>
 			<artifactId>XSeries</artifactId>
-			<version>8.5.0.1</version>
+			<version>8.7.1</version>
 		</dependency>
 
 		<!-- Mojang -->
@@ -142,14 +141,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Holographic Displays -->
-		<dependency>
-			<groupId>com.gmail.filoghost.holographicdisplays</groupId>
-			<artifactId>holographicdisplays-api</artifactId>
-			<version>2.4.0</version>
-			<scope>provided</scope>
-		</dependency>
-
 		<!-- DiscordSRV -->
 		<dependency>
 			<groupId>com.discordsrv</groupId>
@@ -162,7 +153,8 @@
 					<artifactId>adventure-platform-bukkit</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+		</dependency>		
+		
 	</dependencies>
 
 	<repositories>
@@ -203,6 +195,7 @@
 			<id>codemc-repo</id>
 			<url>https://repo.codemc.io/repository/maven-public/</url>
 		</repository>
+    
 	</repositories>
 
 	<build>
@@ -224,6 +217,7 @@
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.2.3</version>
 				<configuration>
+					<minimizeJar>true</minimizeJar>
 					<createDependencyReducedPom>false</createDependencyReducedPom>
 					<relocations>
 						<relocation>
@@ -241,7 +235,6 @@
 							</excludes>
 						</filter>
 					</filters>
-					<minimizeJar>true</minimizeJar>
 				</configuration>
 				<executions>
 					<execution>
@@ -275,7 +268,7 @@
 				<artifactId>maven-deploy-plugin</artifactId>
 				<version>3.0.0-M2</version>
 				<configuration>
-					<retryFailedDeploymentCount>3</retryFailedDeploymentCount>
+					<retryFailedDeploymentCount>4</retryFailedDeploymentCount>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -288,7 +281,5 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
-
-
 	</build>
 </project>

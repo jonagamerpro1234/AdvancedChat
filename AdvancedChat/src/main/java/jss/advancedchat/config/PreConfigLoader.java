@@ -1,13 +1,8 @@
 package jss.advancedchat.config;
 
-import java.io.IOException;
-import java.util.HashMap;
-
 import org.bukkit.configuration.file.FileConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.lang.FileListener;
-import jss.advancedchat.config.lang.Lang;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 
@@ -22,7 +17,7 @@ public class PreConfigLoader {
     public void loadConfig() {
         FileConfiguration config = plugin.getConfigFile().getConfig();
         try {
-        	Settings.locale = config.getString("Settings.Lang").toLowerCase();
+        	//Settings.locale = config.getString("Settings.Lang").toLowerCase();
         	Settings.default_color = config.getString("Settings.Default-Color-Message");
         	Settings.message_prefix_custom = config.getString("Settings.Prefix");
         	
@@ -45,56 +40,40 @@ public class PreConfigLoader {
         	Settings.mysql_username = config.getString("MySQL.Username");
         	Settings.mysql_password = config.getString("MySQL.Password");
         	Settings.mysql_database = config.getString("MySQL.Database");
+        	Settings.chatlogs_log_chat = config.getString("ChatLogs.Messages-in-the-logger").equals("true");
+        	Settings.chatlogs_log_command = config.getString("ChatLogs.Commands-in-the-logger").equals("true");
+        	Settings.chatlogs_list_command = config.getString("ChatLogs.Commands-List.Enabled").equals("true");
+        	Settings.list_chatlogs_no_register_commands = config.getStringList("ChatLogs.Commands-List.List");
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    
-    public void loadLangs() {
-    	HashMap<String, Lang> langs = new HashMap<String, Lang>();
-    	FileListener fileListener = new FileListener();
-    
-    	try {
-    		int index = 1;
-    		fileListener.getList().forEach( (code) ->  langs.put(code, new Lang(code, index)));
-    	}catch(IOException ex) {
-    		Logger.warning("Could not add lang");
-    	}
-    	
-    	if(!langs.containsKey(Settings.locale)) {
-    		Logger.warning("&eFile: &9" + Settings.locale + ".yml &enot found in &b/lang folder&e. Using &b/lang/message_en-US.yml");
-    		Settings.locale = "en-US";
-    		langs.put(Settings.locale, new Lang(Settings.locale, 0));
-    	}
-    	plugin.setAvailableLangs(langs);
-    }
+    }    
     
     public void loadMessage() {
-    	Logger.debug("Load Config File");
     	try {
-        	FileConfiguration config = plugin.getMessageFile().get();
-        	Settings.message_mute_bypass = config.getString("AdvancedChat.Mute-Bypass");
-        	Settings.message_depend_plugin = config.getString("AdvancedChat.Depend-Plugin");
-        	Settings.message_error_mysql = config.getString("AdvancedChat.Error-MySql");
-            Settings.message_NoPermission = config.getString("AdvancedChat.No-Permission");
-            Settings.message_NoPermission_Label = config.getString("AdvancedChat.No-Permission-Label");
-            Settings.message_ClearChat_Server = config.getString("AdvancedChat.ClearChat-Server");
-            Settings.message_ClearChat_Player = config.getString("AdvancedChat.ClearChat-Player");
-            Settings.message_ClearChat_Staff = config.getString("AdvancedChat.ClearChat-Staff");
-            Settings.message_Error_Args = config.getString("AdvancedChat.Error-Args");
-            Settings.message_Reload = config.getString("AdvancedChat.Reload");
-            Settings.message_Help_Mute = config.getString("AdvancedChat.Help-Mute");
-            Settings.message_Help_UnMute = config.getString("AdvancedChat.Help-UnMute");
-            Settings.message_Help_Cmd = config.getString("AdvancedChat.Help-Use-Cmd");
-            Settings.list_message_help = config.getStringList("AdvancedChat.Help-Msg");
-            Settings.message_Mute_Player = config.getString("AdvancedChat.Mute-Player");
-            Settings.message_UnMute_Player = config.getString("AdvancedChat.UnMute-Player");
-            Settings.message_No_Online_Player = config.getString("AdvancedChat.No-Online-Player");
-            Settings.message_No_Use_Command = config.getString("AdvancedChat.No-Use-Command");
-            Settings.message_No_Use_Command_Mute = config.getString("AdvancedChat.No-Use-Command-Mute");
-        	Settings.message_msg_empty = config.getString("AdvancedChat.Empty.Msg");
-        	Settings.message_msg_use = config.getString("AdvancedChat.Help-Msg-Use");
-        	Settings.message_Alert_Mute = config.getString("AdvancedChat.Alert-Mute");
+        	FileConfiguration messages = plugin.getMessageFile().get();
+        	Settings.message_mute_bypass = messages.getString("AdvancedChat.Mute-Bypass");
+        	Settings.message_depend_plugin = messages.getString("AdvancedChat.Depend-Plugin");
+        	Settings.message_error_mysql = messages.getString("AdvancedChat.Error-MySql");
+            Settings.message_NoPermission = messages.getString("AdvancedChat.No-Permission");
+            Settings.message_NoPermission_Label = messages.getString("AdvancedChat.No-Permission-Label");
+            Settings.message_ClearChat_Server = messages.getString("AdvancedChat.ClearChat-Server");
+            Settings.message_ClearChat_Player = messages.getString("AdvancedChat.ClearChat-Player");
+            Settings.message_ClearChat_Staff = messages.getString("AdvancedChat.ClearChat-Staff");
+            Settings.message_Error_Args = messages.getString("AdvancedChat.Error-Args");
+            Settings.message_Reload = messages.getString("AdvancedChat.Reload");
+            Settings.message_Help_Mute = messages.getString("AdvancedChat.Help-Mute");
+            Settings.message_Help_UnMute = messages.getString("AdvancedChat.Help-UnMute");
+            Settings.message_Help_Cmd = messages.getString("AdvancedChat.Help-Use-Cmd");
+            Settings.list_message_help = messages.getStringList("AdvancedChat.Help-Msg");
+            Settings.message_Mute_Player = messages.getString("AdvancedChat.Mute-Player");
+            Settings.message_UnMute_Player = messages.getString("AdvancedChat.UnMute-Player");
+            Settings.message_No_Online_Player = messages.getString("AdvancedChat.No-Online-Player");
+            Settings.message_No_Use_Command = messages.getString("AdvancedChat.No-Use-Command");
+            Settings.message_No_Use_Command_Mute = messages.getString("AdvancedChat.No-Use-Command-Mute");
+        	Settings.message_msg_empty = messages.getString("AdvancedChat.Empty.Msg");
+        	Settings.message_msg_use = messages.getString("AdvancedChat.Help-Msg-Use");
+        	Settings.message_Alert_Mute = messages.getString("AdvancedChat.Alert-Mute");
     	}catch(Exception e) {
     		Logger.error(e.getMessage());
     		e.printStackTrace();
@@ -102,7 +81,6 @@ public class PreConfigLoader {
     }
 
     public void loadGradientInv() {
-    	Logger.debug("Load Gradient Inventory File");
     	try {
     		FileConfiguration config = plugin.getGradientColorFile().getConfig();
     		Settings.gradient_inv_slot_exit = config.getInt("Items.Exit.Slot");
@@ -129,7 +107,6 @@ public class PreConfigLoader {
     }
     
     public void loadColorInv() {
-    	Logger.debug("Load Color Inventory File");
     	FileConfiguration config = plugin.getColorFile().getConfig();
     	Settings.color_inv_slot_exit = config.getInt("Items.Exit.Slot");
     	Settings.color_inv_slot_last = config.getInt("Items.Last.Slot");
@@ -151,12 +128,9 @@ public class PreConfigLoader {
     	Settings.color_inv_slot_darkgray = config.getInt("Items.Dark-Gray.Slot");
     	Settings.color_inv_slot_gray = config.getInt("Items.Gray.Slot");
     	Settings.color_inv_slot_rainbow = config.getInt("Items.Rainbow.Slot");
-    	//Settings.color_inv_slot_exit = config.getInt("Items");
     }
     
     public void loadPlayerInv() {
-    	Logger.debug("Load Player Inventory File");
-    	
     	FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
     	Settings.player_inv_slot_colors = config.getInt("Items.Colors.Slot");
     	Settings.player_inv_slot_channels = config.getInt("Items.Channel.Slot");

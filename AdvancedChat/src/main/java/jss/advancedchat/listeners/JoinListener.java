@@ -69,7 +69,11 @@ public class JoinListener implements Listener {
         	playerManager.setGroup(LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup());
         }
         
-        if (Settings.mysql_use) if(!MySQL.existsPlayer(plugin, j.getUniqueId().toString())) MySQL.createPlayer(plugin, j.getName(), j.getUniqueId().toString(), Settings.default_color, "FFFFFF", "FFFFFF", false);
+        if (Settings.mysql_use) {
+        	if(!MySQL.existsPlayer(plugin, j.getUniqueId().toString())) {
+        		MySQL.createPlayer(plugin, j.getName(), j.getUniqueId().toString(), Settings.default_color, "FFFFFF", "FFFFFF", false);
+        	}
+        }
 
         if (!chat.contains("Players." + j.getName())) {
             chat.set("Players." + j.getName() + ".UUID", j.getUniqueId().toString());
@@ -110,5 +114,5 @@ public class JoinListener implements Listener {
             }
         }
     }
-    
+ 
 }

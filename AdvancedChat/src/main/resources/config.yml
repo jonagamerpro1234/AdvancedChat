@@ -18,9 +18,6 @@ Settings:
   # |Config-Version| I would not change anything
   Config-Version: 2
   
-  # |Lang| here you can select the language of the messages that are available in the Messages folder
-  Lang: en-US
-  
   # |Debug| This option should only be used if there is a problem with certain functions of the plugin, debug messages will be activated in the console
   Debug: true
   

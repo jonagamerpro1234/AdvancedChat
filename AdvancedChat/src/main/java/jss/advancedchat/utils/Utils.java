@@ -42,8 +42,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
-
-
 public class Utils {
 	
    private static final String prefix = getPrefix(true);
@@ -249,7 +247,6 @@ public class Utils {
 	}
 
    public static String getVar(Player player, String text) {
-      //new PlayerManager(plugin);
       text = text.replace("<name>", player.getName());
       text = text.replace("<displayname>", player.getDisplayName());
       text = text.replace("<Name>", player.getName());
@@ -303,10 +300,7 @@ public class Utils {
          } else {
             playersOnline = ((Player[])Bukkit.class.getMethod("getOnlinePlayers").invoke((Object)null)).length;
          }
-      } catch (NoSuchMethodException var3) {
-      } catch (InvocationTargetException var4) {
-      } catch (IllegalAccessException var5) {
-      }
+      } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {}
 
       text = text.replace("<online>", "" + playersOnline);
       text = text.replace("<Online>", "" + playersOnline);
@@ -399,7 +393,7 @@ public class Utils {
    }
    
    public static String getUuid(String name) {
-       String url = "https://api.mojang.com/users/profiles/minecraft/"+name;
+       String url = "https://api.mojang.com/users/profiles/minecraft/" + name;
        try {
            String UUIDJson = IOUtils.toString(new URL(url));           
            if(UUIDJson.isEmpty()) return "invalid name";                       
@@ -410,11 +404,6 @@ public class Utils {
        }
       
        return Bukkit.getPlayer(name).getUniqueId().toString();
-   }
-   
-   public static String replaceSpace(String text) {
-	   text = text.replace("_", " ");
-	   return text;
    }
    
    public static void getInfoPlugin(CommandSender sender, String name, String version, String latestversion) {

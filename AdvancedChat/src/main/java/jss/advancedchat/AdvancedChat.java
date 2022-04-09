@@ -3,8 +3,6 @@ package jss.advancedchat;
 import java.io.File;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -31,16 +29,17 @@ import jss.advancedchat.config.gui.ChannelGuiFile;
 import jss.advancedchat.config.gui.ColorFile;
 import jss.advancedchat.config.gui.GradientColorFile;
 import jss.advancedchat.config.gui.PlayerGuiFile;
-import jss.advancedchat.config.lang.Lang;
 import jss.advancedchat.config.player.PlayerDataFile;
 import jss.advancedchat.config.player.PlayerFile;
 import jss.advancedchat.config.player.PlayerManagerFile;
 import jss.advancedchat.listeners.EventLoader;
 import jss.advancedchat.listeners.JoinListener;
+import jss.advancedchat.listeners.chat.ChatLogListener;
 import jss.advancedchat.listeners.chat.CommandListener;
 import jss.advancedchat.listeners.inventory.ColorInventoryListener;
 import jss.advancedchat.listeners.inventory.GradientInventoryListener;
 import jss.advancedchat.listeners.inventory.PlayerInventoryListener;
+import jss.advancedchat.listeners.inventory.RainbowInventoryListener;
 import jss.advancedchat.listeners.inventory.SettingsInventoryListener;
 import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.manager.HookManager;
@@ -67,7 +66,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public FileManager fileManager = new FileManager(this);
 	public ArrayList<InventoryView> inventoryView;
 	public ArrayList<ChatManager> chatManagers;
-	private Map<String, Lang> availableLangs = new HashMap<>(); 
 	private MessageFile messageFile = new MessageFile(this, "messages.yml");
 	private ConfigFile configFile = new ConfigFile(this, "config.yml");
 	private GroupFile groupFile = new GroupFile(this, "groups.yml");
@@ -92,8 +90,12 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public String latestversion;
 	public String nmsversion;
 	public AdvancedChatApi advancedChatApi;
+
 	
 	public void onLoad() {
+		
+		instance = this;
+		
 		Utils.setTitle(version);
 		Utils.setLoad(version);
 		if (!getDataFolder().exists()) {
@@ -118,18 +120,18 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		getMessageFile().saveDefault();
 		getMessageFile().createFile();
 		Utils.setLineLoad("&eLoad Message.yml");
-		preConfigLoad.loadConfig();
-		preConfigLoad.loadMessage();
-		preConfigLoad.loadLangs();
-		Utils.setLineLoad("&eLoad PreConfig");
-		createVoidFolder("Gui");
-		Utils.setLineLoad("&eLoad Gui Folder");
 		createVoidFolder("Data");
 		createVoidFolder("Data" + File.separator + "Players");
 		Utils.setLineLoad("&eLoad Data Folder");
+		createVoidFolder("Gui");
+		Utils.setLineLoad("&eLoad Gui Folder");
 		createVoidFolder("Log");
 		Utils.setLineLoad("&eLoad Log Folder");
+		preConfigLoad.loadConfig();
+		preConfigLoad.loadMessage();
+		Utils.setLineLoad("&eLoad PreConfig");
 		Utils.setEndLoad();
+
 	}
 	
 	public void onEnable() {
@@ -146,8 +148,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 			uselatestversion = true;
 			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix(true) + "&5<|| &c* &7Use " + nmsversion + " &aenabled &7method");
 		}
-		
-		instance = this;
 		
 		checkBungeeMode();
 		
@@ -212,10 +212,12 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		new ChatListenerTest(this),
 		//new ChatListener(this),
 		new CommandListener(this),
-		new ColorInventoryListener(this),
-		new GradientInventoryListener(this),
-		new PlayerInventoryListener(this),
-		new SettingsInventoryListener(this));
+		new ChatLogListener(this),
+		new ColorInventoryListener(),
+		new GradientInventoryListener(),
+		new PlayerInventoryListener(),
+		new SettingsInventoryListener(),
+		new RainbowInventoryListener());
 		EventLoader e = new EventLoader(this);
 		e.runClearChat();
 	}
@@ -223,7 +225,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public void reloadAllFiles() {
 		this.preConfigLoad.loadConfig();
 		this.preConfigLoad.loadMessage();
-		this.preConfigLoad.loadLangs();
 		this.getConfigFile().reloadConfig();
 		this.getChatDataFile().reloadConfig();
 		this.getChatLogFile().reloadConfig();
@@ -396,17 +397,5 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public CommandFile getCommandFile() {
 		return commandFile;
 	}
-	
-	public Lang getLang() {
-		return availableLangs.get(Settings.locale);
-	}
 
-	public Map<String, Lang> getAvailableLangs() {
-		return availableLangs;
-	}
-
-	public void setAvailableLangs(Map<String, Lang> availableLangs) {
-		this.availableLangs = availableLangs;
-	}
-	
 }

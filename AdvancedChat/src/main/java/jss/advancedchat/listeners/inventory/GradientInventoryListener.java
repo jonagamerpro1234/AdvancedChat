@@ -1,27 +1,32 @@
 package jss.advancedchat.listeners.inventory;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.inventory.InventoryActionHelper;
+import jss.advancedchat.utils.inventory.InventoryUtils;
 import jss.advancedchat.utils.inventory.InventoryView;
 import jss.advancedchat.utils.inventory.InventoryActionHelper.InventoryType;
 
 public class GradientInventoryListener implements Listener{
 	
-	private AdvancedChat plugin;
-
-	public GradientInventoryListener(AdvancedChat plugin) {
-		this.plugin = plugin;
-	}
+	private AdvancedChat plugin = AdvancedChat.get();
 	
 	@EventHandler 
 	public void onClick(InventoryClickEvent e) {
@@ -122,6 +127,35 @@ public class GradientInventoryListener implements Listener{
 			if(slot == Settings.gradient_inv_slot_exit) {
 				j.closeInventory();
 			}
+			
+			if(slot == 45) {
+				setGradientItem(playerManager, e.getInventory());
+			}
+		}
+	}
+	
+	private void setGradientItem(PlayerManager playerManager, Inventory inv) {
+		ItemStack item;
+		ItemMeta meta;
+		
+		if(playerManager.isGradient()) {
+			item = XMaterial.GRAY_DYE.parseItem();
+			meta = item.getItemMeta();
+			meta.setDisplayName(Utils.color("&cDisable"));
+			List<String> lore = Arrays.asList("&7Click to &aenable");
+			meta.setLore(InventoryUtils.coloredLore(lore));
+			item.setItemMeta(meta);
+			inv.setItem(45, item);
+			playerManager.setGradient(false);
+		}else {
+			item = XMaterial.GREEN_DYE.parseItem();
+			meta = item.getItemMeta();
+			meta.setDisplayName(Utils.color("&aEnable"));
+			List<String> lore = Arrays.asList("&7Click to &cdisable");
+			meta.setLore(InventoryUtils.coloredLore(lore));
+			item.setItemMeta(meta);
+			inv.setItem(45, item);
+			playerManager.setGradient(true);
 		}
 	}
 	

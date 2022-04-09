@@ -6,8 +6,10 @@ import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import com.cryptomorin.xseries.XMaterial;
@@ -56,14 +58,14 @@ public class GuiPlayer {
 
 		Set<String> section = config.getConfigurationSection("Items").getKeys(false);
 		
-		PlayerManager playerManager = new PlayerManager(Bukkit.getPlayer(target)	);
+		PlayerManager playerManager = new PlayerManager(Bukkit.getPlayer(target));
 		
-		section.forEach((key) -> {
+		
+		for(String key : section) {
 			int slot = config.getInt("Items." + key + ".Slot");
-			boolean isSkull = playerManager.isLowMode();
 			String name = config.getString("Items." + key + ".Name");
 
-			if (!isSkull) {
+			if (!playerManager.isLowMode()) {
 				String textures = config.getString("Items." + key + ".Texture");
 				textures = TSkullUtils.replace(textures);
 				item = Utils.createSkull(textures);
@@ -71,6 +73,7 @@ public class GuiPlayer {
 				String mat = config.getString("Items." + key + ".Item").toUpperCase();
 				item = XMaterial.valueOf(mat).parseItem();
 			}
+			
 			meta = item.getItemMeta();
 			meta.setDisplayName(Utils.color(name));
 
@@ -78,7 +81,7 @@ public class GuiPlayer {
 			item.setAmount(amount);
 
 			inv.setItem(slot, item);
-		});
+		}
 
 		int slotmute = config.getInt("Especial-Items.Mute.Slot");
 		String name = config.getString("Especial-Items.Mute.Name");
@@ -88,14 +91,16 @@ public class GuiPlayer {
 		if (player.isOp() || player.hasPermission("AdvancedChat.Gui.Player.Mute")) {
 			item = getMuteItem(player);
 			meta = item.getItemMeta();
-			meta.setDisplayName(Utils.color(name));
+			meta.setDisplayName(Utils.color("&eThe player has bypass"));
+			meta.setLore(InventoryUtils.coloredLore(lore));
+			meta.addEnchant(Enchantment.DURABILITY, 1, false);
+			meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 			item.setItemMeta(meta);
 			inv.setItem(slotmute, item);
 		} else {
 			item = getMuteItem(player);
 			meta = item.getItemMeta();
-			meta.setDisplayName(Utils.color(name));
-			meta.setLore(InventoryUtils.coloredLore(lore));
+			meta.setDisplayName(Utils.color(Utils.getVar(player, name)));
 			item.setItemMeta(meta);
 			inv.setItem(slotmute, item);
 		}
@@ -119,13 +124,21 @@ public class GuiPlayer {
 	public ItemStack getMuteItem(Player player) {
 		PlayerManager playerManager = new PlayerManager(player);
 		if (playerManager.existsPlayer("Name")) {
-			if (player.hasPermission("AdvancedChat.Mute.Bypass")) {
+			if (player.isOp() || player.hasPermission("AdvancedChat.Mute.Bypass")) {
 				return item = XMaterial.BARRIER.parseItem();
 			} else {
-				if (playerManager.isMute() || MySQL.isMute(plugin, player.getUniqueId().toString())) {
-					return item = XMaterial.GREEN_DYE.parseItem();
-				} else {
-					return item = XMaterial.GRAY_DYE.parseItem();
+				if(Settings.mysql_use) {
+					if(MySQL.isMute(plugin, player.getUniqueId().toString())) {
+						return item = XMaterial.GREEN_DYE.parseItem();
+					} else {
+						return item = XMaterial.GRAY_DYE.parseItem();
+					}
+				}else{
+					if (playerManager.isMute()) {
+						return item = XMaterial.GREEN_DYE.parseItem();
+					} else {
+						return item = XMaterial.GRAY_DYE.parseItem();
+					}
 				}
 			}
 		}

@@ -1,9 +1,9 @@
 package jss.advancedchat.utils.inventory;
 
-import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 
-public interface GuiAction {
+public interface GuiAction<T extends Event> {
 
-	public void execute(Player player);
+	public void execute(final T event);
 	
 }

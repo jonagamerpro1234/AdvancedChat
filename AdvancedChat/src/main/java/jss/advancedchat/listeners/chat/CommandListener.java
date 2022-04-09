@@ -57,7 +57,7 @@ public class CommandListener implements Listener {
 		String date = Utils.getDate(System.currentTimeMillis());
 		String time = Utils.getTime(System.currentTimeMillis());
 
-		config.set(j.getName() + ".Log." + date + ".Command." + time, Utils.colorless(e.getMessage()));
+		config.set("Players." + j.getName() + ".Log." + date + ".Command." + time, Utils.colorless(e.getMessage()));
 		plugin.getChatDataFile().saveConfig();
 	}
 
