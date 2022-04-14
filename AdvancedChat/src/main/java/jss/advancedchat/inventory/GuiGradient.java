@@ -17,6 +17,7 @@ import com.cryptomorin.xseries.XMaterial;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.inventory.InventoryUtils;
 import jss.advancedchat.utils.inventory.TSkullUtils;
 
 public class GuiGradient {
@@ -29,7 +30,7 @@ public class GuiGradient {
 	public void open(Player player, String target) {
 		plugin.addInventoryView(player, "gradientGui");
 		this.create();
-		this.addItems(player, target);
+		this.addItems(target);
 		player.openInventory(inv);
 	}
 	
@@ -40,14 +41,11 @@ public class GuiGradient {
 		inv = Bukkit.createInventory(null, 54, Utils.color(title));
 	}
 	
-	private void addItems(Player player, String target) {
+	private void addItems(String target) {
 		FileConfiguration config = plugin.getGradientColorFile().getConfig();
-		FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
 		
-		int amont = invData.getInt("Amount-Items");
-		String colorglass = invData.getString("Color-Glass.Color");
-
-		setDecoration(inv, colorglass);
+		int amont = 1;
+		setDecoration();
 
 		item = Utils.getPlayerHead(target);
 		inv.setItem(4, item);
@@ -56,10 +54,8 @@ public class GuiGradient {
 		
 		Set<String> section = config.getConfigurationSection("Items").getKeys(false);
 		
-		section.forEach( key -> {
-			
+		for(String key : section) {
 			String name = config.getString("Items." + key + ".Name");
-			
 			int slot = config.getInt("Items." + key + ".Slot");
 			List<String> lore = key.contains("Lore") ? new ArrayList<>() : config.getStringList("Items." + key + ".Lore");
 			
@@ -77,13 +73,12 @@ public class GuiGradient {
 			item.setItemMeta(meta);
 			item.setAmount(amont);
 			inv.setItem(slot, item);
-			
-		});
+		}
 		
-		setCustomItem(playerManager);
-		
+		InventoryUtils.setItemChecker(inv, 45, playerManager.isGradient());
 	}
 	
+	@SuppressWarnings("unused")
 	private void setCustomItem(PlayerManager playerManager) {
 		if(playerManager.isGradient()) {
 			item = XMaterial.LIME_DYE.parseItem();
@@ -113,9 +108,9 @@ public class GuiGradient {
 		return coloredlore;
 	}
 
-	private void setDecoration(Inventory inv, String path) {
+	private void setDecoration() {
 		for (int i = 0; i < 54; i++) {
-			item = XMaterial.valueOf(path).parseItem();
+			item = XMaterial.BLACK_STAINED_GLASS_PANE.parseItem();
 			meta = item.getItemMeta();
 			meta.setDisplayName(Utils.color(" "));
 			item.setItemMeta(meta);

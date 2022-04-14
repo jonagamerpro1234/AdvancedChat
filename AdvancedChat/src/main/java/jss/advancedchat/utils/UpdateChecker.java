@@ -9,11 +9,10 @@ import java.util.function.Consumer;
 import org.bukkit.Bukkit;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.common.interfaces.IUpdate;
 import jss.advancedchat.common.update.UpdateSettings;
 
 
-public class UpdateChecker implements IUpdate {
+public class UpdateChecker {
 
     private AdvancedChat plugin;
     private int ID;

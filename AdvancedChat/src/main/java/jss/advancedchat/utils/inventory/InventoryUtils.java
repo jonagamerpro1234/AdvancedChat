@@ -1,6 +1,7 @@
 package jss.advancedchat.utils.inventory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.inventory.Inventory;
@@ -10,7 +11,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.utils.Utils;
-
 
 public class InventoryUtils {
 
@@ -23,12 +23,34 @@ public class InventoryUtils {
 		return coloredlore;
 	}
 	
+	public static void setItemChecker(Inventory inv, int slot, boolean value) {
+		if(value) {
+			ItemStack item = XMaterial.LIME_DYE.parseItem();
+			ItemMeta meta = item.getItemMeta();
+			meta.setDisplayName(Utils.color("&aEnable"));
+			List<String> lore = Arrays.asList("&7Click to &cdisable");
+			meta.setLore(coloredLore(lore));
+			item.setItemMeta(meta);
+			inv.setItem(slot, item);
+		}else {
+			ItemStack item = XMaterial.GRAY_DYE.parseItem();
+			ItemMeta meta = item.getItemMeta();
+			meta.setDisplayName(Utils.color("&cDisable"));
+			List<String> lore = Arrays.asList("&7Click to &aenable");
+			meta.setLore(coloredLore(lore));
+			item.setItemMeta(meta);
+			inv.setItem(slot, item);
+		}
+	}
+	
 	public static void setRowGlass(Inventory inventory, ItemStack item, ItemMeta meta, int row) {
-		if(row < 6 && row != -1 && row != 0) return;
-		
-		int temp = row * 9;
-		
-		for (int i = 0; i < temp; i++) {
+		int finalrow = row;
+		if (!(row >= 1 && row <= 6))
+			finalrow = 1;
+		row = finalrow;
+		int invSize = row * 9;
+
+		for (int i = 0; i < invSize; i++) {
 			item = XMaterial.BLACK_STAINED_GLASS_PANE.parseItem();
 			meta = item.getItemMeta();
 			meta.setDisplayName(" ");
@@ -36,10 +58,10 @@ public class InventoryUtils {
 			item.setAmount(1);
 			inventory.setItem(i, item);
 
-			if (i == temp) {
+			if (i == invSize) {
 				break;
 			}
-		}	
+		}
 	}
 
 }

@@ -148,7 +148,7 @@ public class GradientInventoryListener implements Listener{
 			inv.setItem(45, item);
 			playerManager.setGradient(false);
 		}else {
-			item = XMaterial.GREEN_DYE.parseItem();
+			item = XMaterial.LIME_DYE.parseItem();
 			meta = item.getItemMeta();
 			meta.setDisplayName(Utils.color("&aEnable"));
 			List<String> lore = Arrays.asList("&7Click to &cdisable");

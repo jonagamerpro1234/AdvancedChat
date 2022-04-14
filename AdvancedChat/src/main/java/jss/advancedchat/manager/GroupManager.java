@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Settings;
@@ -30,22 +29,6 @@ public class GroupManager{
 	public Set<String> getGroupList() {
 		Set<String> sections = config.getKeys(false);
 		return sections;
-	}
-	
-	public String getGroupPermission(Player player) {
-		while(getGroupList().iterator().hasNext()) {
-			String g = (String) getGroupList().iterator().next();
-			if(player.hasPermission("advancedchat.group." + g)) {
-				return g;
-			}
-		}
-		/*for(String group : getGroupList()) {
-			if(player.hasPermission("AdvancedChat.Group." + group)) {
-				Logger.debug("AdvancedChat.Group." + group);
-				return group;	
-			}
-		}*/
-		return "";
 	}
 	
 	public boolean existsGroup(String group) {

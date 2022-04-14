@@ -25,11 +25,7 @@ public class EventUtils {
       return Bukkit.getPluginManager();
    }
 
-   public ConsoleCommandSender getConsoleSender() {
-      return Bukkit.getConsoleSender();
-   }
-
-   public static ConsoleCommandSender getStaticConsoleSender() {
+   public static ConsoleCommandSender getConsoleSender() {
       return Bukkit.getConsoleSender();
    }
 
@@ -41,13 +37,8 @@ public class EventUtils {
 	   Utils.sendColorMessage(Utils.getPrefix(false) + Utils.getVar(player, Settings.message_ClearChat_Player));
    }
 
-   public void getClearChatAction(String type) {
-      if (type.equalsIgnoreCase("player")) {
-         this.loopVoidChat(Settings.int_clearchat_lines);
-      } else if (type.equalsIgnoreCase("server")) {
-         this.loopVoidChat(Settings.int_clearchat_lines);
-      }
-
+   public void getClearChatAction() {
+	   this.loopVoidChat(Settings.int_clearchat_lines);
    }
 
    public void loopVoidChat(int value) {
@@ -61,6 +52,6 @@ public class EventUtils {
       } catch (NullPointerException var3) {
          var3.printStackTrace();
       }
-
    }
+   
 }

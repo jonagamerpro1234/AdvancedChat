@@ -65,6 +65,11 @@ public class ItemBuilder {
 		return this;
 	}
 	
+	public ItemBuilder meta() {
+		meta = item.getItemMeta();
+		return this;
+	}
+	
 	public ItemBuilder enchantment(Enchantment ench) {
 		enchantment(ench, 1, false);
 		return this;

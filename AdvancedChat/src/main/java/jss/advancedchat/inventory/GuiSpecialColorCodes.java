@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -20,20 +22,22 @@ public class GuiSpecialColorCodes {
 	private ItemMeta meta;
 	private Inventory inv;
 	
-	public void open() {
-		
+	public void open(Player player, String target) {
+		create();
 	}
 	
-	public void create() {
-		inv = Bukkit.createInventory(null, 56, "&b&lMenu &8&l> &e&lSpecial Codes");
+	private void create() {
+		inv = Bukkit.createInventory(null, 54, "&b&lMenu &8&l> &e&lSpecial Codes");
+		
 	}
 	
 	public void setItems() {
-		
+		FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
+		setDecoration(invData.getString("Color-Glass.Color"));
 	}
 	
 	
-	private List<String> coloredLore(List<String> lore) {
+	public List<String> coloredLore(List<String> lore) {
 		List<String> coloredlore = new ArrayList<>();
 		lore.forEach((line) -> {
 			String lineColored = Utils.color(line);
@@ -42,7 +46,7 @@ public class GuiSpecialColorCodes {
 		return coloredlore;
 	}
 
-	private void setDecoration(Inventory inv, String path) {
+	private void setDecoration(String path) {
 		for (int i = 0; i < 54; i++) {
 			item = XMaterial.valueOf(path).parseItem();
 			meta = item.getItemMeta();

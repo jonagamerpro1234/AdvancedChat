@@ -56,9 +56,17 @@ public class SettingsInventoryListener implements Listener {
 				isLowModeItem(playerManager, target, e.getInventory());
 			}
 			
+			if(slot == 21) {
+				isChatItem(playerManager, target, e.getInventory());
+			}
+			
 			if(slot == 3) {
 				plugin.removeInvetoryView(j);
 				actionHelper.setOpenInventoryAction(playerName, InventoryType.Player);
+			}
+			
+			if(slot == 45) {
+				j.updateInventory();
 			}
 			
 			if(slot == 0) {
@@ -86,6 +94,27 @@ public class SettingsInventoryListener implements Listener {
 		item.setItemMeta(meta);
 		inv.setItem(19, item);
 	}
+	
+	public void isChatItem(PlayerManager playerManager, Player player, Inventory inv) {
+		ItemStack item = XMaterial.REPEATER.parseItem();
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(Utils.color("&eChat"));
+		
+		
+		if(!player.isOp() || !player.hasPermission("AdvancedChat.Gui.Settings.Chat")) return;
+			
+		if(playerManager.isChat() ) {
+			playerManager.setChat(false);
+		}else{
+			playerManager.setChat(true);
+			meta.addEnchant(Enchantment.DURABILITY, 1, false);
+		}
+		
+		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		item.setItemMeta(meta);
+		inv.setItem(21, item);
+	}
+	
 	
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {

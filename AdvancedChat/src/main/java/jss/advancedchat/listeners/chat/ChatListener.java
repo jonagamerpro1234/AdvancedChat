@@ -168,8 +168,6 @@ public class ChatListener implements Listener {
 		} else if (isGroup) {
 			e.setCancelled(true);
 			
-			GroupHelper groupHelper = GroupHelper.get().setGroup(GroupManager.get().getGroupPermission(j));
-			groupHelper.sendGroup(j, message);
 		}
 	}
 	

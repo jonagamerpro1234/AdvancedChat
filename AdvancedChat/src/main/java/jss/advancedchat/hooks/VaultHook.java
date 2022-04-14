@@ -57,7 +57,7 @@ public class VaultHook implements IHook{
             economy = rspE.getProvider();
         }
 		
-		Utils.sendColorMessage(EventUtils.getStaticConsoleSender() , Utils.getPrefix(true) + "&aLoading Vault features...");
+		Utils.sendColorMessage(EventUtils.getConsoleSender() , Utils.getPrefix(true) + "&aLoading Vault features...");
 	}
 	
 	public static VaultHook getVaultHook() {
