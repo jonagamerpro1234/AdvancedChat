@@ -22,7 +22,7 @@ public class ClearChatCmd implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            eventUtils.getClearChatAction("server");
+            eventUtils.getClearChatAction();
             eventUtils.getServerMessage();
             return false;
         }
@@ -35,10 +35,10 @@ public class ClearChatCmd implements CommandExecutor {
             		Utils.sendColorMessage(j, Utils.getPrefix(false) + Utils.getVar(j, Settings.message_ClearChat_Staff));
             		return true;
             	}else {
-            		eventUtils.getClearChatAction("player");
+            		eventUtils.getClearChatAction();
             	}
         	}else {
-        		eventUtils.getClearChatAction("player");
+        		eventUtils.getClearChatAction();
         	}
             eventUtils.getPlayerMessage(j);
         } else {

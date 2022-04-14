@@ -34,7 +34,7 @@ public class PlaceholderApiHook implements IHook{
 		
 		this.isEnabled = true;
 		new AdvancedChatExtend(plugin).register();
-		Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix(true) + "&aLoading PlaceHolderAPI features...");
+		Utils.sendColorMessage(EventUtils.getConsoleSender(), Utils.getPrefix(true) + "&aLoading PlaceHolderAPI features...");
 	}
 	
 	public boolean isEnabled() {

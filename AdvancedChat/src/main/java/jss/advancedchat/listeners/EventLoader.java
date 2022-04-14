@@ -25,7 +25,7 @@ public class EventLoader {
             taskId = scheduler.scheduleSyncRepeatingTask(plugin, new Runnable() {
                 public void run() {
                     if (Settings.boolean_chatclear_autoclear) {
-                        eventsUtils.getClearChatAction("server");
+                        eventsUtils.getClearChatAction();
                         eventsUtils.getServerMessage();
                     } else {
                         scheduler.cancelTask(taskId);

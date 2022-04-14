@@ -154,7 +154,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>		
-		
+
 	</dependencies>
 
 	<repositories>

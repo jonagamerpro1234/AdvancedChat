@@ -1,4 +1,4 @@
-package jss.advancedchat;
+package jss.advancedchat.common;
 
 import java.io.File;
 

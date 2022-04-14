@@ -72,18 +72,8 @@ public class GuiSettings {
 		
 		isLowModeItem(playerManager, player);
 		isChat(playerManager, player);
-		
-		item = XMaterial.BEDROCK.parseItem();
-		meta.setDisplayName(Utils.color("&e?"));
-		item.setItemMeta(meta);
-		item.setAmount(1);
-		inv.setItem(23, item);
-		
-		item = XMaterial.BEDROCK.parseItem();
-		meta.setDisplayName(Utils.color("&e?"));
-		item.setItemMeta(meta);
-		item.setAmount(1);
-		inv.setItem(25, item);
+		isMention(playerManager, player);
+		isMsg(playerManager, player);
 		
 		item = XMaterial.BEDROCK.parseItem();
 		meta.setDisplayName(Utils.color("&e?"));
@@ -108,6 +98,11 @@ public class GuiSettings {
 		item.setItemMeta(meta);
 		item.setAmount(1);
 		inv.setItem(43, item);
+		
+		item = XMaterial.EMERALD.parseItem();
+		meta.setDisplayName(Utils.color("&eUpdate Inventories"));
+		item.setItemMeta(meta);
+		inv.setItem(45, item);
 	}
 	
 	
@@ -147,6 +142,44 @@ public class GuiSettings {
 		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		item.setItemMeta(meta);
 		inv.setItem(21, item);
+	}
+	
+	public void isMention(PlayerManager playerManager, Player player) {
+		ItemStack item = XMaterial.REPEATER.parseItem();
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(Utils.color("&eMention"));
+		
+		if(playerManager.isMention()) {
+			meta.addEnchant(Enchantment.DURABILITY, 1, false);
+		}
+		
+		List<String> lore = Arrays.asList(Settings.message_NoPermission);
+		if(!player.isOp() || !player.hasPermission("AdvancedChat.Gui.Settings.Mention")) {
+			meta.setLore(coloredLore(lore));
+		}
+		
+		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		item.setItemMeta(meta);
+		inv.setItem(23, item);
+	}
+	
+	public void isMsg(PlayerManager playerManager, Player player) {
+		ItemStack item = XMaterial.REPEATER.parseItem();
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(Utils.color("&eMsg"));
+		
+		if(playerManager.isMention()) {
+			meta.addEnchant(Enchantment.DURABILITY, 1, false);
+		}
+		
+		List<String> lore = Arrays.asList(Settings.message_NoPermission);
+		if(!player.isOp() || !player.hasPermission("AdvancedChat.Gui.Settings.Msg")) {
+			meta.setLore(coloredLore(lore));
+		}
+		
+		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		item.setItemMeta(meta);
+		inv.setItem(25, item);
 	}
 	
 	public List<String> coloredLore(List<String> lore) {

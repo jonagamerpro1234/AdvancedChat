@@ -35,7 +35,7 @@ public class LuckPermsHook implements IHook {
 		}
 						
 		this.isEnabled = true;
-		Utils.sendColorMessage(EventUtils.getStaticConsoleSender() , Utils.getPrefix(true) + "&aLoading LuckPerms features...");
+		Utils.sendColorMessage(EventUtils.getConsoleSender() , Utils.getPrefix(true) + "&aLoading LuckPerms features...");
 	}
 	
 	public boolean isEnabled() {

@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
  * experimental gui
  */
 @SuppressWarnings("unused")
-public abstract class BaseGui implements InventoryHolder {
+public abstract class BaseGui extends InventoryUtils implements InventoryHolder {
 	
 	private UUID uuid = UUID.randomUUID();
 	private Inventory inventory;

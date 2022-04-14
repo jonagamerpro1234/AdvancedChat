@@ -21,8 +21,9 @@ public class Placeholders {
 	public static String placeholders(Player player, String str) {
 		PlayerManager playerManager = new PlayerManager(player);
 
-		if (str == null)
+		if (str == null) {
 			return "N/A";
+		}
 
 		str = str.replace("<range>", getRange());
 		str = str.replace("<name>", player.getName());

@@ -17,6 +17,7 @@ import com.cryptomorin.xseries.XMaterial;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.inventory.InventoryUtils;
 import jss.advancedchat.utils.inventory.TSkullUtils;
 
 public class GuiColor {
@@ -29,7 +30,7 @@ public class GuiColor {
 	public void open(Player player, String target) {
 		plugin.addInventoryView(player, "colorGui");
 		create();
-		setItems(player, target);
+		setItems(target);
 		player.openInventory(inv);
 	}
 	
@@ -40,8 +41,7 @@ public class GuiColor {
 		inv = Bukkit.createInventory(null, 54, Utils.color(title));
 	}
 	
-	
-	private void setItems(Player player, String target) {
+	private void setItems(String target) {
 		FileConfiguration config = plugin.getColorFile().getConfig();
 		FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
 
@@ -58,7 +58,6 @@ public class GuiColor {
 		Set<String> section = config.getConfigurationSection("Items").getKeys(false);
 		
 		for(String key : section) {
-			
 			String name = config.getString("Items." + key + ".Name");
 			int slot = config.getInt("Items." + key + ".Slot");
 			List<String> lore = key.contains("Lore") ? new ArrayList<>() : config.getStringList("Items." + key + ".Lore");
@@ -79,16 +78,15 @@ public class GuiColor {
 			inv.setItem(slot, item);
 		}
 		
-		setCustomItem(playerManager);
-		
+		InventoryUtils.setItemChecker(inv, 45, playerManager.isColor());
 	}
 	
+	@SuppressWarnings("unused")
 	private void setCustomItem(PlayerManager playerManager) {
-		
 		if(playerManager.isColor()) {
 			item = XMaterial.LIME_DYE.parseItem();
 			meta = item.getItemMeta();
-			meta.setDisplayName("&aEnable");
+			meta.setDisplayName(Utils.color("&aEnable"));
 			List<String> lore = Arrays.asList("&7Click to &cdisable");
 			meta.setLore(coloredLore(lore));
 			item.setItemMeta(meta);
@@ -96,7 +94,7 @@ public class GuiColor {
 		}else {
 			item = XMaterial.GRAY_DYE.parseItem();
 			meta = item.getItemMeta();
-			meta.setDisplayName("&cDisable");
+			meta.setDisplayName(Utils.color("&cDisable"));
 			List<String> lore = Arrays.asList("&7Click to &aenable");
 			meta.setLore(coloredLore(lore));
 			item.setItemMeta(meta);
@@ -129,4 +127,4 @@ public class GuiColor {
 	}
 	
 
-}
+} 

@@ -1,7 +1,7 @@
 package jss.advancedchat.manager;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.HookLoader;
+import jss.advancedchat.common.HookLoader;
 import jss.advancedchat.hooks.DiscordSRVHook;
 import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.hooks.PlaceholderApiHook;

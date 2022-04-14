@@ -34,7 +34,7 @@ AdvancedChat is an easy to use plugin that will help you customize the chat on y
 * [Spigot Page][spigot]
 * [Songoda Page][songoda]
 * [Plugin Statistics](https://bstats.org/plugin/bukkit/AdvancedChat/8826)
-* [Wiki](https://jonagamerpro1234.gitbook.io/advancedchat/)
+* [Wiki](https://jonagamerpro1234.gitbook.io/advacedchatwiki/)
 
 
 

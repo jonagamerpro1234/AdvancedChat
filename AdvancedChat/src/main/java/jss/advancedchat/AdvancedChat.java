@@ -14,6 +14,7 @@ import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.commands.MsgCmd;
 import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
+import jss.advancedchat.common.AdvancedChatPlugin;
 import jss.advancedchat.common.update.UpdateSettings;
 import jss.advancedchat.config.BadWordFile;
 import jss.advancedchat.config.ChatDataFile;
@@ -37,6 +38,7 @@ import jss.advancedchat.listeners.JoinListener;
 import jss.advancedchat.listeners.chat.ChatLogListener;
 import jss.advancedchat.listeners.chat.CommandListener;
 import jss.advancedchat.listeners.inventory.ColorInventoryListener;
+import jss.advancedchat.listeners.inventory.ErrorInventoryListener;
 import jss.advancedchat.listeners.inventory.GradientInventoryListener;
 import jss.advancedchat.listeners.inventory.PlayerInventoryListener;
 import jss.advancedchat.listeners.inventory.RainbowInventoryListener;
@@ -45,7 +47,6 @@ import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.storage.MySQLConnection;
 import jss.advancedchat.test.ChatListenerTest;
-import jss.advancedchat.test.TestCommand;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
@@ -142,11 +143,11 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		if (nmsversion.equalsIgnoreCase("v1_8_R3")) {
 			uselegacyversion = true;
 			if (uselegacyversion) {
-				Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix(true) + "&5<|| &c* &7Use " + nmsversion + " &cdisabled &7method &b1.16 &3- &b1.18");
+				Utils.sendColorMessage(EventUtils.getConsoleSender(), Utils.getPrefix(true) + "&5<|| &c* &7Use " + nmsversion + " &cdisabled &7method &b1.16 &3- &b1.18");
 			}
 		} else if (nmsversion.startsWith("v1_16_") || nmsversion.startsWith("v1_17_") || nmsversion.startsWith("v1_18_")) {
 			uselatestversion = true;
-			Utils.sendColorMessage(eventUtils.getConsoleSender(), Utils.getPrefix(true) + "&5<|| &c* &7Use " + nmsversion + " &aenabled &7method");
+			Utils.sendColorMessage(EventUtils.getConsoleSender(), Utils.getPrefix(true) + "&5<|| &c* &7Use " + nmsversion + " &aenabled &7method");
 		}
 		
 		checkBungeeMode();
@@ -203,7 +204,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		new MuteCmd(this);
 		new UnMuteCmd(this);
 		new MsgCmd();
-		new TestCommand();
 	}
 		
 	public void loadEvents() {
@@ -218,6 +218,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		new PlayerInventoryListener(),
 		new SettingsInventoryListener(),
 		new RainbowInventoryListener());
+		new ErrorInventoryListener();
 		EventLoader e = new EventLoader(this);
 		e.runClearChat();
 	}

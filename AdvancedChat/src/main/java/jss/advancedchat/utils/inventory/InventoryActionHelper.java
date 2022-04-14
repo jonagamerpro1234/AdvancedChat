@@ -6,9 +6,12 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.inventory.GuiChannel;
 import jss.advancedchat.inventory.GuiColor;
+import jss.advancedchat.inventory.GuiError;
 import jss.advancedchat.inventory.GuiGradient;
 import jss.advancedchat.inventory.GuiPlayer;
+import jss.advancedchat.inventory.GuiRainbow;
 import jss.advancedchat.inventory.GuiSettings;
+import jss.advancedchat.inventory.GuiSpecialColorCodes;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.utils.Settings;
@@ -23,7 +26,7 @@ public class InventoryActionHelper {
 	private InventoryClickEvent inventoryClickEvent;
 	
 	public enum InventoryType{
-		Player,Settings,Color,Gradient,Channel;
+		Player,Settings,Color,Gradient,Channel,Rainbow,SpecialCodes;
 	}
 	
 	public InventoryActionHelper(Player player, Player target, PlayerManager playerManager, InventoryClickEvent inventoryClickEvent) {
@@ -90,6 +93,18 @@ public class InventoryActionHelper {
 		case Settings:
 			GuiSettings guiSettings = new GuiSettings();
 			guiSettings.open(player, playerName);
+			break;
+		case Rainbow:
+			GuiRainbow guiRainbow = new GuiRainbow();
+			guiRainbow.open(player, playerName);
+			break;
+		case SpecialCodes:
+			GuiSpecialColorCodes guiSpecialColorCodes = new GuiSpecialColorCodes();
+			guiSpecialColorCodes.open(player, playerName);
+			break;
+		default:
+			GuiError guiError = new GuiError();
+			guiError.open(player);
 			break;
 		}
 	}
