@@ -17,8 +17,6 @@ import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.chat.Json;
 import jss.advancedchat.hooks.DiscordSRVHook;
 import jss.advancedchat.manager.ColorManager;
-import jss.advancedchat.manager.GroupHelper;
-import jss.advancedchat.manager.GroupManager;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQL;
@@ -28,7 +26,7 @@ import jss.advancedchat.utils.Settings;
 
 public class ChatListener implements Listener {
 
-	private AdvancedChat plugin;
+	private AdvancedChat plugin = AdvancedChat.get();
 	private ColorManager colorManager;
 	private boolean badword;
 	private boolean ismention;
@@ -39,10 +37,6 @@ public class ChatListener implements Listener {
 	private final Pattern UNDERLINE_REGEX = Pattern.compile("(?i)&([N])");
 	private final Pattern ITALIC_REGEX = Pattern.compile("(?i)&([O])");
 	private final Pattern RESET_REGEX = Pattern.compile("(?i)&([R])");
-	
-	public ChatListener(AdvancedChat plugin) {
-		this.plugin = plugin;
-	}
 	
 	@EventHandler(priority = EventPriority.HIGH)
 	public void chatMute(AsyncPlayerChatEvent e) {

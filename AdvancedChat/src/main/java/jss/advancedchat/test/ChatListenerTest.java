@@ -28,7 +28,7 @@ import jss.advancedchat.utils.Utils;
 
 public class ChatListenerTest implements Listener {
 
-	private AdvancedChat plugin;
+	private AdvancedChat plugin = AdvancedChat.get();
 	private ColorManager colorManager = new ColorManager();
 	private boolean badword;
 	private boolean ismention;
@@ -39,10 +39,6 @@ public class ChatListenerTest implements Listener {
 	private final Pattern ITALIC_REGEX = Pattern.compile("(?i)&([O])");
 	@SuppressWarnings("unused")
 	private HashMap<String, String> channel = new HashMap<>();
-
-	public ChatListenerTest(AdvancedChat plugin) {
-		this.plugin = plugin;
-	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onChat(AsyncPlayerChatEvent e) {
@@ -92,7 +88,7 @@ public class ChatListenerTest implements Listener {
 		}
 		
 		if(!playerManager.isChat()) {
-			Utils.sendColorMessage(j, "&cyou must activate the chat to be able to send messages");
+			Utils.sendColorMessage(j, "");
 			return;
 		}
 		

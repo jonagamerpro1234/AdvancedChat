@@ -8,12 +8,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.common.interfaces.IFileHelper;
-import jss.advancedchat.common.interfaces.IFileLoader;
 import jss.advancedchat.utils.file.FileManager;
 
 
-public class BadWordFile extends FileManager implements IFileHelper, IFileLoader {
+public class BadWordFile extends FileManager{
 
     private AdvancedChat plugin;
     private File file;

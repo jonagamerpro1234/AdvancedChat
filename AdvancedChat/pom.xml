@@ -5,7 +5,7 @@
 	<artifactId>advancedchat</artifactId>
 	<version>1.7.0-b18</version>
 	<packaging>jar</packaging>
-	
+
 	<name>AdvancedChat</name>
 	<description>a simple plugin that helps you customize your server chat to make it look better also brings a customizable chat system by group or rank and more....</description>
 	<url>https://github.com/jonagamerpro1234/AdvancedChat</url>
@@ -18,10 +18,15 @@
 
 	<distributionManagement>
 		<repository>
-			<id>github</id>
-			<name>GitHub jonagamerpro1234 Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com/jonagamerpro1234/advancedchat</url>
+			<id>central</id>
+			<name>a0huriv5zx05z-artifactory-primary-0-releases</name>
+			<url>https://srjss.jfrog.io/artifactory/advancedchat-libs-release</url>
 		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>a0huriv5zx05z-artifactory-primary-0-snapshots</name>
+			<url>https://srjss.jfrog.io/artifactory/advancedchat-libs-snapshot</url>
+		</snapshotRepository>
 	</distributionManagement>
 
 	<issueManagement>
@@ -153,7 +158,7 @@
 					<artifactId>adventure-platform-bukkit</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>		
+		</dependency>
 
 	</dependencies>
 
@@ -195,7 +200,7 @@
 			<id>codemc-repo</id>
 			<url>https://repo.codemc.io/repository/maven-public/</url>
 		</repository>
-    
+
 	</repositories>
 
 	<build>

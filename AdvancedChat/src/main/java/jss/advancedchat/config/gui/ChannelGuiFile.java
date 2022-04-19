@@ -12,11 +12,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.common.interfaces.IFileHelper;
-import jss.advancedchat.common.interfaces.IFolderHelper;
 import jss.advancedchat.utils.file.FileManager;
 
-public class ChannelGuiFile extends FileManager implements IFileHelper, IFolderHelper {
+public class ChannelGuiFile extends FileManager {
 
     private AdvancedChat plugin;
     private File file;

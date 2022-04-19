@@ -30,9 +30,7 @@ import jss.advancedchat.config.gui.ChannelGuiFile;
 import jss.advancedchat.config.gui.ColorFile;
 import jss.advancedchat.config.gui.GradientColorFile;
 import jss.advancedchat.config.gui.PlayerGuiFile;
-import jss.advancedchat.config.player.PlayerDataFile;
 import jss.advancedchat.config.player.PlayerFile;
-import jss.advancedchat.config.player.PlayerManagerFile;
 import jss.advancedchat.listeners.EventLoader;
 import jss.advancedchat.listeners.JoinListener;
 import jss.advancedchat.listeners.chat.ChatLogListener;
@@ -79,9 +77,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private ChatLogFile chatLogFile = new ChatLogFile(this, "chat.yml", "Log");
 	private CommandLogFile commandLogFile = new CommandLogFile(this, "command.yml", "Log");
 	private ChatDataFile chatDataFile = new ChatDataFile(this, "chat-log.data", "Data");
-	private PlayerDataFile playerDataFile = new PlayerDataFile(this, "players.data", "Data");
 	private InventoryDataFile inventoryDataFile = new InventoryDataFile(this, "inventory.data", "Data");
-	private PlayerManagerFile playerManagerFile = new PlayerManagerFile(this);
 	private PlayerFile playerFile = new PlayerFile(this);
 	public boolean BungeeMode;
 	public boolean uselegacyversion = false;
@@ -208,18 +204,18 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		
 	public void loadEvents() {
 		eventUtils.initEvent(
-		new JoinListener(this),
-		new ChatListenerTest(this),
-		//new ChatListener(this),
-		new CommandListener(this),
-		new ChatLogListener(this),
+		new JoinListener(),
+		new ChatListenerTest(),
+		//new ChatListener(),
+		new CommandListener(),
+		new ChatLogListener(),
 		new ColorInventoryListener(),
 		new GradientInventoryListener(),
 		new PlayerInventoryListener(),
 		new SettingsInventoryListener(),
 		new RainbowInventoryListener());
 		new ErrorInventoryListener();
-		EventLoader e = new EventLoader(this);
+		EventLoader e = new EventLoader();
 		e.runClearChat();
 	}
 	
@@ -302,9 +298,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		return playerFile;
 	}
 	
-	public PlayerManagerFile getPlayerManagerFile() {
-		return playerManagerFile;
-	}
+
 	
 	public HookManager getHookManager() {
 		return HookManager;
@@ -360,12 +354,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	
 	public InventoryDataFile getInventoryDataFile() {
 		return this.inventoryDataFile;
-	}
-	
-	@Deprecated
-	public PlayerDataFile getPlayerDataFile() {
-		return this.playerDataFile;
-	}
+	}	
 
 	public ConfigFile getConfigFile() {
 		return configFile;

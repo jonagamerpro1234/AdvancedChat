@@ -10,14 +10,10 @@ import jss.advancedchat.utils.Settings;
 
 public class EventLoader {
 
-    private AdvancedChat plugin;
+    private AdvancedChat plugin = AdvancedChat.get();
     private int taskId;
     private EventUtils eventsUtils = new EventUtils(plugin);
 
-    public EventLoader(AdvancedChat plugin) {
-        this.plugin = plugin;
-    }
-    
     public void runClearChat() {
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         try {
