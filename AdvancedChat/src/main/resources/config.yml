@@ -119,12 +119,13 @@ ChatFormat:
   # |Format| Here you define the chat format for all players.
   Format: '&b<name> &8>'
   
-  # |Channels|
-  Channels:
+  # |Channels| temporarily disabled
+  Channels: 
     
-    # |Enabled| Here you can enable or disable this feature
+    # [temporarily disabled] |Enabled| Here you can enable or disable this feature
     Enabled: false
     
+    # temporarily disabled
     Default-Channel: 'all'
   
   # |HoverEvent| This section allows you to modify the hover events in the chat

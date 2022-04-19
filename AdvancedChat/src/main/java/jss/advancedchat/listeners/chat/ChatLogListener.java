@@ -15,11 +15,7 @@ import jss.advancedchat.utils.Utils;
 
 public class ChatLogListener implements Listener{
 	
-	private AdvancedChat plugin;
-	
-	public ChatLogListener(AdvancedChat plugin) {
-		this.plugin = plugin;
-	}
+	private AdvancedChat plugin = AdvancedChat.get();
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void chatDataLog(AsyncPlayerChatEvent e) {

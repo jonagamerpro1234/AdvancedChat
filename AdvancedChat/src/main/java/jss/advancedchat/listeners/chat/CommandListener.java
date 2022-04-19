@@ -13,11 +13,7 @@ import jss.advancedchat.utils.Utils;
 
 public class CommandListener implements Listener {
 
-	private AdvancedChat plugin;
-
-	public CommandListener(AdvancedChat plugin) {
-		this.plugin = plugin;
-	}
+	private AdvancedChat plugin = AdvancedChat.get();
 
 	@EventHandler
 	public void onCommandChat(PlayerCommandPreprocessEvent e) {

@@ -48,8 +48,8 @@ AdvancedChat:
   No-Use-Command-Mute: '&e[&b!&e]You cannot use that command while it is muted! &b[&c<cmd>&b]'
   Empty-Msg: '&c[!] &7write a message to send it'
   Help-Msg-Use: '&7Use &b/Msg &6<player> &e<message> &7To send a private message to another player'
-  Is-Chat: '&cyou must activate the chat to be able to send messages'
-  Is-Mention: '&cthis player has mentions disabled'
+  Alert-Chat: '&cyou must activate the chat to be able to send messages'
+  Alert-Mention: '&cthis player has mentions disabled'
 #
 # This is the end of the file ... [-_-] more things to come
 # 
