@@ -29,6 +29,31 @@ AdvancedChat is an easy to use plugin that will help you customize the chat on y
 * drag the plugin into the plugins folder of your server
 * you turn on the server and it would be ready
 
+## AdvancedChat API
+
+How to include the API with Maven: 
+```xml
+<repository>
+   <id>jitpack.io</id>
+   <url>https://jitpack.io</url>
+</repository>
+
+<dependency>
+   <groupId>com.github.jonagamerpro1234</groupId>
+   <artifactId>AdvancedChat</artifactId>
+   <version>Version</version>
+</dependency>
+```
+### How to include the API with Gradle:
+```groovy
+repositories {
+  maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+  implementation 'com.github.jonagamerpro1234:AdvancedChat:Version'
+}
+```
 ## Support
 * [Issue Tracker](https://github.com/jonagamerpro1234/AdvancedChat/issues)
 * [Discord](https://discord.gg/c5GhQDQCK5)
