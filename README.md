@@ -10,6 +10,8 @@
 [sgdr]: https://img.shields.io/badge/songoda--release-v1.6.0-9cf?style=flat-square
 [songoda]: https://songoda.com/marketplace/product/advancedchat-chat-related.542
 [javaversion]: https://img.shields.io/badge/Java-8%2B-red?style=for-the-badge
+[jitpack]: https://jitpack.io/v/jonagamerpro1234/AdvancedChat.svg?style=flat-square
+
  
 <!-- The stuff above isn't visible in the readme --> 
  
@@ -26,6 +28,9 @@ AdvancedChat is an easy to use plugin that will help you customize the chat on y
 * drag the plugin into the plugins folder of your server
 * you turn on the server and it would be ready
 
+## API
+ ![jitpack]
+
 ## Support
 * [Issue Tracker](https://github.com/jonagamerpro1234/AdvancedChat/issues)
 * [Discord](https://discord.gg/c5GhQDQCK5)
@@ -35,6 +40,3 @@ AdvancedChat is an easy to use plugin that will help you customize the chat on y
 * [Songoda Page][songoda]
 * [Plugin Statistics](https://bstats.org/plugin/bukkit/AdvancedChat/8826)
 * [Wiki](https://jonagamerpro1234.gitbook.io/advacedchatwiki/)
-
-
-

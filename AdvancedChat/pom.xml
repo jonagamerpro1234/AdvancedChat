@@ -3,7 +3,7 @@
 
 	<groupId>jss.advancedchat</groupId>
 	<artifactId>advancedchat</artifactId>
-	<version>1.7.0-b18</version>
+	<version>1.7.0-b18.2</version>
 	<packaging>jar</packaging>
 
 	<name>AdvancedChat</name>
@@ -15,19 +15,6 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
-
-	<distributionManagement>
-		<repository>
-			<id>central</id>
-			<name>a0huriv5zx05z-artifactory-primary-0-releases</name>
-			<url>https://srjss.jfrog.io/artifactory/advancedchat-libs-release</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>a0huriv5zx05z-artifactory-primary-0-snapshots</name>
-			<url>https://srjss.jfrog.io/artifactory/advancedchat-libs-snapshot</url>
-		</snapshotRepository>
-	</distributionManagement>
 
 	<issueManagement>
 		<system>GitHub</system>
@@ -220,8 +207,8 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.2.3</version>
-				<configuration>
+				<version>3.2.0</version>
+				<configuration>	
 					<minimizeJar>true</minimizeJar>
 					<createDependencyReducedPom>false</createDependencyReducedPom>
 					<relocations>
