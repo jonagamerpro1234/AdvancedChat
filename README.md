@@ -7,17 +7,18 @@
 [spigotreleases]: https://img.shields.io/spiget/version/83889?color=green&label=spigot-releases&style=for-the-badge
 [issues]: https://img.shields.io/github/issues/jonagamerpro1234/AdvancedChat.svg?color=yellow&style=for-the-badge
 [issueslink]: https://github.com/jonagamerpro1234/AdvancedChat/issues/
-[sgdr]: https://img.shields.io/badge/songoda--release-v1.6.0-9cf?style=flat-square
+[sgdr]: https://img.shields.io/badge/songoda--release-v1.6.0-9cf?style=for-the-badge
 [songoda]: https://songoda.com/marketplace/product/advancedchat-chat-related.542
 [javaversion]: https://img.shields.io/badge/Java-8%2B-red?style=for-the-badge
-[jitpack]: https://jitpack.io/v/jonagamerpro1234/AdvancedChat.svg?style=flat-square
+[jitpack]: https://img.shields.io/jitpack/v/github/jonagamerpro1234/AdvancedChat?color=g&style=for-the-badge
+[jiturl]: https://jitpack.io/#jonagamerpro1234/AdvancedChat
 
  
 <!-- The stuff above isn't visible in the readme --> 
  
 [![advancedchat]][spigot]
 
-[![releasesImg]][releases] [![licenseImg]][license] [![spigotreleases]][spigot] ![javaversion] [![issues]][issueslink] [![sgdr]][songoda]
+[![releasesImg]][releases] [![licenseImg]][license] [![spigotreleases]][spigot] ![javaversion] [![issues]][issueslink] [![sgdr]][songoda]  [![jitpack]][jiturl]
 
 ## Description
 AdvancedChat is an easy to use plugin that will help you customize the chat on your server to make it look its best. It will also have a customization system by groups and among other functions more...
@@ -27,9 +28,6 @@ AdvancedChat is an easy to use plugin that will help you customize the chat on y
 * you turn off your server so that no error occurs
 * drag the plugin into the plugins folder of your server
 * you turn on the server and it would be ready
-
-## API
- ![jitpack]
 
 ## Support
 * [Issue Tracker](https://github.com/jonagamerpro1234/AdvancedChat/issues)
