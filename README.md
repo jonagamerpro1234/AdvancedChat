@@ -31,7 +31,7 @@ AdvancedChat is an easy to use plugin that will help you customize the chat on y
 
 ## AdvancedChat API
 
-How to include the API with Maven: 
+**How to include the API with Maven:**
 ```xml
 <repository>
    <id>jitpack.io</id>
@@ -44,7 +44,7 @@ How to include the API with Maven:
    <version>Version</version>
 </dependency>
 ```
-### How to include the API with Gradle:
+**How to include the API with Gradle:**
 ```groovy
 repositories {
   maven { url 'https://jitpack.io' }
