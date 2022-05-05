@@ -37,7 +37,7 @@ AdvancedChat:
     - '&5> &b/Mute &e<player name> &7mute the player'
     - '&5> &b/UnMute &e<player name> &7demute the player'
     - '&5> &b/ClearChat &8| &9/Cc &7clean the chat when it is very full or necessary'
-  Mute-Bypass: '&eThis player cannot be muted because he is bypassed.'
+  Mute-Bypass: '&eThis player cannot be muted because he is bypassed'
   Mute-Player: '&e[&b<name>&e] &cis now muted!'
   UnMute-Player: '&e[&b<name>&e] &ais now unmuted!'
   Player-Is-Not-Mute: '&cThis player is not muted'
@@ -48,8 +48,10 @@ AdvancedChat:
   No-Use-Command-Mute: '&e[&b!&e]You cannot use that command while it is muted! &b[&c<cmd>&b]'
   Empty-Msg: '&c[!] &7write a message to send it'
   Help-Msg-Use: '&7Use &b/Msg &6<player> &e<message> &7To send a private message to another player'
-  Alert-Chat: '&cyou must activate the chat to be able to send messages'
-  Alert-Mention: '&cthis player has mentions disabled'
+  Alert-Disable-Chat: '&cyou must activate the chat to be able to send messages'
+  Alert-Disable-Mention: '&cthis player has mentions disabled'
+  Alert-Disable-Msg: '&cThis player cannot receive private messages'
+  
 #
 # This is the end of the file ... [-_-] more things to come
 # 

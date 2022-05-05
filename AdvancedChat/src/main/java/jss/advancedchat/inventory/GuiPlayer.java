@@ -127,8 +127,8 @@ public class GuiPlayer {
 			if (player.isOp() || player.hasPermission("AdvancedChat.Mute.Bypass")) {
 				return item = XMaterial.BARRIER.parseItem();
 			} else {
-				if(Settings.mysql_use) {
-					if(MySQL.isMute(plugin, player.getUniqueId().toString())) {
+				if(Settings.mysql) {
+					if(MySQL.get().isMute(player.getUniqueId().toString())) {
 						return item = XMaterial.GREEN_DYE.parseItem();
 					} else {
 						return item = XMaterial.GRAY_DYE.parseItem();

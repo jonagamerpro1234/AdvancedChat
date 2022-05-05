@@ -11,6 +11,7 @@ import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.Perms;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.UpdateChecker;
 import jss.advancedchat.utils.Utils;
@@ -65,15 +66,17 @@ public class JoinListener implements Listener {
         	playerManager.setGroup(LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup());
         }
         
-        if (Settings.mysql_use) {
-        	if(!MySQL.existsPlayer(plugin, j.getUniqueId().toString())) {
-        		MySQL.createPlayer(plugin, j.getName(), j.getUniqueId().toString(), Settings.default_color, "FFFFFF", "FFFFFF", false);
+        if (Settings.mysql) {
+        	if(!MySQL.get().existsPlayer(j.getUniqueId().toString())) {
+        		MySQL.get().createDataPlayer(j, group, Settings.default_color, "FFFFFF", "FFFFFF", "rainbow_1", "none");
+        		MySQL.get().createFormatPlayer(j, true, false, false, false);
+        		MySQL.get().createSettingsPlayer(j, false, false, true, true, true);
         	}
         }
 
         if (!chat.contains("Players." + j.getName())) {
             chat.set("Players." + j.getName() + ".UUID", j.getUniqueId().toString());
-            chat.set("Players." + j.getName() + ".Log", null);
+            chat.set("Players." + j.getName() + ".Log", "[]");
             chatDataFile.saveConfig();
         }
 
@@ -98,7 +101,7 @@ public class JoinListener implements Listener {
         Player j = e.getPlayer();
 
         if (config.getString("Settings.Update").equals("true")) {
-            if (j.isOp() && j.hasPermission("AdvancedChat.Update.Notify")) {
+            if (j.isOp() && j.hasPermission(Perms.ac_update)) {
                 new UpdateChecker(AdvancedChat.get(), 83889).getUpdateVersionSpigot(version -> {
                     if (!AdvancedChat.get().getDescription().getVersion().equalsIgnoreCase(version)) {
                         TextComponent component = new TextComponent(Utils.color(Utils.getPrefix(true) + " &aThere is a new version available for download"));

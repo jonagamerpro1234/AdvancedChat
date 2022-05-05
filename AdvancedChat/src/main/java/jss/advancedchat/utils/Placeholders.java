@@ -3,7 +3,6 @@ package jss.advancedchat.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
@@ -11,9 +10,7 @@ import jss.advancedchat.storage.MySQL;
 import me.clip.placeholderapi.PlaceholderAPI;
 
 public class Placeholders {
-
-	private static AdvancedChat plugin = AdvancedChat.get();
-
+	
 	private static String getRange() {
 		return Settings.int_range_chat + "";
 	}
@@ -45,8 +42,8 @@ public class Placeholders {
 	private static String getMute(Player player, String str) {
 		String temp = str;
 
-		if (Settings.mysql_use) {
-			if (MySQL.isMute(plugin, player.getUniqueId().toString())) {
+		if (Settings.mysql) {
+			if (MySQL.get().isMute(player.getUniqueId().toString())) {
 				temp = "&atrue";
 			} else {
 				temp = "&cfalse";
@@ -77,8 +74,8 @@ public class Placeholders {
 	private static String getInvertStateMute(Player player, String str) {
 		String temp = str;
 
-		if (Settings.mysql_use) {
-			if (MySQL.isMute(plugin, player.getUniqueId().toString())) {
+		if (Settings.mysql) {
+			if (MySQL.get().isMute(player.getUniqueId().toString())) {
 				temp = "&cfalse";
 			} else {
 				temp = "&atrue";

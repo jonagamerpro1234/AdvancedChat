@@ -128,10 +128,11 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		preConfigLoad.loadMessage();
 		Utils.setLineLoad("&eLoad PreConfig");
 		Utils.setEndLoad();
-
+		this.connection = new MySQLConnection();
 	}
 	
 	public void onEnable() {
+		
 		Utils.setEnabled(version);
 
 		nmsversion = Bukkit.getServer().getClass().getPackage().getName();
@@ -152,6 +153,10 @@ public class AdvancedChat extends AdvancedChatPlugin {
 			Logger.warning("&e!Please update your config.yml!");
 		}
 		
+		if(Settings.mysql) {
+			
+			connection.setup();
+		}
 		createAllFiles();
 		preConfigLoad.loadGradientInv();
 		preConfigLoad.loadColorInv();
@@ -189,6 +194,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	
 	public void onDisable() {
 		Utils.setDisabled(version);
+		this.connection.getSource().getDataSource().close();
 		metrics = null;
 		uselegacyversion = false;
 		uselatestConfig = false;

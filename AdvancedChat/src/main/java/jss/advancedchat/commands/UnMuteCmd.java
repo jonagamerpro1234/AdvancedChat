@@ -14,10 +14,9 @@ import jss.advancedchat.utils.Utils;
 
 public class UnMuteCmd implements CommandExecutor {
 
-    private AdvancedChat plugin;
-
+    private MySQL mySQL = MySQL.get();
+    
     public UnMuteCmd(AdvancedChat plugin) {
-        this.plugin = plugin;
         plugin.getCommand("UnMute").setExecutor(this);
     }
 
@@ -26,8 +25,8 @@ public class UnMuteCmd implements CommandExecutor {
             if (args.length >= 1) {
                 Player target = Bukkit.getPlayer(args[0]);
                 PlayerManager playerManager = new PlayerManager(target);
-                if(Settings.mysql_use) {
-                	MySQL.setMute(plugin, target.getUniqueId().toString(), false);
+                if(Settings.mysql) {
+                	mySQL.setMute(target.getUniqueId().toString(), false);
                 } else {
                 	playerManager.setMute(false);
                 }
@@ -48,8 +47,8 @@ public class UnMuteCmd implements CommandExecutor {
                 	return true;
                 }
                 
-                if(Settings.mysql_use) {
-                	MySQL.setMute(plugin, target.getUniqueId().toString(), false);
+                if(Settings.mysql) {
+                	mySQL.setMute(target.getUniqueId().toString(), false);
                 } else {
                 	playerManager.setMute(false);
                 }

@@ -8,7 +8,7 @@ import jss.advancedchat.manager.PlayerManager;
 /**
  * Here are the available methods to use the advancedchat api
  * @author jonagamerpro1234
- * @version 1.0
+ * @version 1.7.0
  */
 public class AdvancedChatApi {
 	

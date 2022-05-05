@@ -83,7 +83,7 @@ public class MsgCmd implements CommandExecutor, TabCompleter{
 				PlayerManager playerManager = new PlayerManager(p);
 				
 				if(!playerManager.isMsg()) {
-					Utils.sendColorMessage(j,  "&cEste jugador no puede recibir mensajes privados");
+					Utils.sendColorMessage(j,  Settings.message_alert_disable_msg);
 					return true;
 				}
 				
@@ -116,7 +116,9 @@ public class MsgCmd implements CommandExecutor, TabCompleter{
 		switch (args.length) {
 		case 0:
 		case 1:
-			Bukkit.getOnlinePlayers().forEach( (p) -> list.add(p.getName()));
+			for (Player p : Bukkit.getOnlinePlayers()) {
+				list.add(p.getName());
+			}
 			break;
 		}
 		return Utils.setLimitTab(list, lastArgs);

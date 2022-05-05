@@ -9,15 +9,15 @@ import org.bukkit.entity.Player;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQL;
+import jss.advancedchat.utils.Perms;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 
 public class MuteCmd implements CommandExecutor {
 
-    private AdvancedChat plugin;
-
+    private MySQL mySQL = MySQL.get();
+    
     public MuteCmd(AdvancedChat plugin) {
-        this.plugin = plugin;
         plugin.getCommand("Mute").setExecutor(this);
     }
 
@@ -31,13 +31,13 @@ public class MuteCmd implements CommandExecutor {
                 	Utils.sendColorMessage(sender, Settings.message_No_Online_Player);
                 	return true;
                 }else {
-                    if(target.isOp() || target.hasPermission("AdvancedChat.Mute.Bypass")) {
+                    if(target.isOp() || target.hasPermission(Perms.ac_mute_bypass)) {
                     	Utils.sendColorMessage(sender, Settings.message_mute_bypass);
                         return true;
                     }
                     
-                    if(Settings.mysql_use) {
-                    	MySQL.setMute(plugin, target.getUniqueId().toString(), true);
+                    if(Settings.mysql) {
+                    	mySQL.setMute(target.getUniqueId().toString(), true);
                     } else {
                     playerManager.setMute(true);
                     }
@@ -51,7 +51,7 @@ public class MuteCmd implements CommandExecutor {
         }
         Player j = (Player) sender;
         
-        if (j.isOp() || j.hasPermission("AdvancedChat.Mute")) {
+        if (j.isOp() || j.hasPermission(Perms.ac_cmd_mute)) {
             if (args.length >= 1) {
                 Player target = Bukkit.getPlayer(args[0]);
                 PlayerManager playerManager = new PlayerManager(target);
@@ -59,13 +59,13 @@ public class MuteCmd implements CommandExecutor {
                 	Utils.sendColorMessage(j, Settings.message_No_Online_Player);
                 	return true;
                 }else {
-                    if(target.isOp() || target.hasPermission("AdvancedChat.Mute.Bypass")) {
+                    if(target.isOp() || target.hasPermission(Perms.ac_mute_bypass)) {
                     	Utils.sendColorMessage(j, Settings.message_mute_bypass);
                         return true;
                     }
                     
-                    if(Settings.mysql_use) {
-                    	MySQL.setMute(plugin, target.getUniqueId().toString(), true);
+                    if(Settings.mysql) {
+                    	mySQL.setMute(target.getUniqueId().toString(), true);
                     } else {
                     	playerManager.setMute(true);
                     }

@@ -23,9 +23,9 @@ import jss.advancedchat.utils.inventory.TSkullUtils;
 public class GuiColor {
 
 	private AdvancedChat plugin = AdvancedChat.get();
+	private Inventory inv;
 	private ItemStack item;
 	private ItemMeta meta;
-	private Inventory inv;
 	
 	public void open(Player player, String target) {
 		plugin.addInventoryView(player, "colorGui");
@@ -71,6 +71,8 @@ public class GuiColor {
 				item = XMaterial.valueOf(mat).parseItem();
 			}
 			
+			
+			meta = item.getItemMeta();
 			meta.setDisplayName(Utils.color(name));
 			meta.setLore(coloredLore(lore));
 			item.setItemMeta(meta);

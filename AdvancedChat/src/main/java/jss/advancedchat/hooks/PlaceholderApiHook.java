@@ -76,12 +76,12 @@ public class PlaceholderApiHook implements IHook{
 		public String onPlaceholderRequest(Player player, String args) {
 			PlayerManager playerManager = new PlayerManager(player);
 			if(args.equals("is_mute")) {
-				if(Settings.mysql_use) {
-					if(MySQL.isMute(plugin, player.getUniqueId().toString())) {
+				if(Settings.mysql) {
+					/*if(MySQL.get().isMute(player)) {
 						return "true";
 					}else {
 						return "false";
-					}
+					}*/
 				}else {
 					if(playerManager.isMute()){
 						return "true";
@@ -92,32 +92,32 @@ public class PlaceholderApiHook implements IHook{
 			}
 			
 			if(args.equals("color")) {
-				if(Settings.mysql_use) {
-					return MySQL.getColor(plugin, player.getUniqueId().toString());
+				if(Settings.mysql) {
+					return MySQL.get().getColor(player);
 				}else {
 					return playerManager.getColor();
 				}
 			}
 			
-			if(args.equals("gradient_first")) {
-				if(Settings.mysql_use) {
-					return MySQL.getFirstGradient(plugin, player.getUniqueId().toString());
+			/*if(args.equals("gradient_first")) {
+				if(Settings.mysql) {
+					return MySQL.get().getFirstGradient(player);
 				}else {
 					return playerManager.getFirstGradient();
 				}
 			}
 			if(args.equals("gradient_second")) {
-				if(Settings.mysql_use) {
-					return MySQL.getSecondGradient(plugin, player.getUniqueId().toString());
+				if(Settings.mysql) {
+					return MySQL.get().getSecondGradient(player);
 				}else {
 					return playerManager.getSecondGradient();
 				}
-			}
+			}*/
 			
 			if(args.startsWith("channel")) {
 				
-				if(Settings.mysql_use) {
-					return MySQL.getColor(plugin, player.getUniqueId().toString());
+				if(Settings.mysql) {
+					return MySQL.get().getColor(player);
 				}else {
 					return playerManager.getChannel();
 				}

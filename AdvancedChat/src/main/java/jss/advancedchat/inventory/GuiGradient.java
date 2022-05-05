@@ -68,6 +68,7 @@ public class GuiGradient {
 				item = XMaterial.valueOf(mat).parseItem();
 			}
 			
+			meta = item.getItemMeta();
 			meta.setDisplayName(Utils.color(name));
 			meta.setLore(coloredLore(lore));
 			item.setItemMeta(meta);

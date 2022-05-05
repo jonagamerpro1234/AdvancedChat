@@ -2,7 +2,6 @@ package jss.advancedchat.storage;
 
 import java.sql.Connection;
 
-import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 
@@ -14,8 +13,9 @@ public class MySQLConnection {
 	private String username;
 	private String password;
 	private int port;
+	private MySQL mySQL = new MySQL();
 	
-	public void setup(AdvancedChat plugin) {
+	public void setup() {
 		try {
 			host = Settings.mysql_host;
 			port = Settings.mysql_port;
@@ -24,9 +24,12 @@ public class MySQLConnection {
 			password = Settings.mysql_password;
 			source = new DataSource(host, port, database, username, password);
 			source.getDataSource().getConnection();
-			MySQL.createTable(plugin);
+			mySQL.createTable();
+			mySQL.createFormatsTable();
+			mySQL.createSettingsTable();
 			Logger.success("&aSuccessfully connected to the database");
 		} catch (Exception e) {
+			source.disconnect();
 			Logger.warning("&cCould not connect to the database");
 		}
 	}
@@ -45,6 +48,10 @@ public class MySQLConnection {
 
 	public String getDatabase() {
 		return database;
+	}
+	
+	public DataSource getSource() {
+		return source;
 	}
 	
 	public Connection getConnetion() {
