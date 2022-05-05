@@ -3,7 +3,7 @@
 
 	<groupId>jss.advancedchat</groupId>
 	<artifactId>advancedchat</artifactId>
-	<version>1.7.0-b18.2</version>
+	<version>1.7.0-b18.3</version>
 	<packaging>jar</packaging>
 
 	<name>AdvancedChat</name>
@@ -38,9 +38,9 @@
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
-			<version>3.1.0</version>
+			<version>4.0.3</version>
 		</dependency>
-
+		
 		<!-- MySQL -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -91,6 +91,20 @@
 			<artifactId>authlib</artifactId>
 			<version>1.5.25</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.code.findbugs</groupId>
+					<artifactId>jsr305</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.code.gson</groupId>
+					<artifactId>gson</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- ProtocolLib -->
@@ -107,6 +121,20 @@
 			<artifactId>VaultAPI</artifactId>
 			<version>1.7</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.code.gson</groupId>
+					<artifactId>gson</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.yaml</groupId>
+					<artifactId>snakeyaml</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- BungeeCord -->
@@ -116,6 +144,20 @@
 			<version>1.18-R0.1-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.code.gson</groupId>
+					<artifactId>gson</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.yaml</groupId>
+					<artifactId>snakeyaml</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>net.md-5</groupId>
@@ -129,7 +171,7 @@
 		<dependency>
 			<groupId>net.luckperms</groupId>
 			<artifactId>api</artifactId>
-			<version>5.3</version>
+			<version>5.4</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -144,8 +186,33 @@
 					<groupId>net.kyori</groupId>
 					<artifactId>adventure-platform-bukkit</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-jdk14</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.code.findbugs</groupId>
+					<artifactId>jsr305</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.code.gson</groupId>
+					<artifactId>gson</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.yaml</groupId>
+					<artifactId>snakeyaml</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
+
 
 	</dependencies>
 
@@ -191,6 +258,9 @@
 	</repositories>
 
 	<build>
+
+		<defaultGoal>clear install</defaultGoal>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -208,13 +278,21 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.2.0</version>
-				<configuration>	
+				<configuration>
 					<minimizeJar>true</minimizeJar>
 					<createDependencyReducedPom>false</createDependencyReducedPom>
 					<relocations>
 						<relocation>
 							<pattern>com.cryptomorin.xseries</pattern>
 							<shadedPattern>jss.advancedchat.utils</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>com.zaxxer</pattern>
+							<shadedPattern>jss.advancedchat.hikari</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>org.slf4j</pattern>
+							<shadedPattern>jss.advancedchat.slf4j</shadedPattern>
 						</relocation>
 					</relocations>
 					<filters>
@@ -253,14 +331,6 @@
 						</manifestEntries>
 					</archive>
 					<outputDirectory>C:\Users\Alumno\Desktop\LocalHost\Server\1.8\plugins</outputDirectory>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>3.0.0-M2</version>
-				<configuration>
-					<retryFailedDeploymentCount>4</retryFailedDeploymentCount>
 				</configuration>
 			</plugin>
 		</plugins>

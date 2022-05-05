@@ -60,8 +60,8 @@ public class ChatListenerTest implements Listener {
 		
 		Logger.debug(msg);
 		
-		if (Settings.mysql_use) {
-			message = " &r" + colorManager.convertColor(j, MySQL.getColor(plugin, j.getUniqueId().toString()), msg);
+		if (Settings.mysql) {
+			message = " &r" + colorManager.convertColor(j, MySQL.get().getColor0(j.getUniqueId().toString()), msg);
 		} else {
 			message = " &r" + colorManager.addFormat(j, msg);//colorManager.convertColor(j, playerManager.getColor(), colorManager.converSpecialColor(playerManager.getSpecialColor(), msg));
 		}
@@ -71,8 +71,8 @@ public class ChatListenerTest implements Listener {
 		
 		boolean isMute;
 		
-        if(Settings.mysql_use) {
-        	isMute = MySQL.isMute(plugin, j.getUniqueId().toString());
+        if(Settings.mysql) {
+        	isMute = MySQL.get().isMute(j.getUniqueId().toString());
         } else {
         	isMute = playerManager.isMute();
         }

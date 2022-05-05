@@ -28,7 +28,8 @@ import jss.advancedchat.utils.Utils;
 public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 
 	private AdvancedChat plugin;
-
+	private MySQL mySQL = MySQL.get();
+	
 	public AdvancedChatCmd(AdvancedChat plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("AdvancedChat").setExecutor(this);
@@ -64,8 +65,9 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				sendHelp(j);
 				return true;
 			}
+			
 			if (args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")) {
-				if ((j.isOp()) || (j.hasPermission("AdvancedChat.Command.Reload"))) {
+				if ((j.isOp()) || (j.hasPermission(Perms.ac_cmd_reload))) {
 					plugin.reloadAllFiles();
 					Utils.sendColorMessage(j, Utils.getPrefix(false) + Settings.message_Reload);
 				} else {
@@ -95,8 +97,8 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 								if (color == null)
 									Utils.sendColorMessage(j, "&6Please select a color");
 
-								if (Settings.mysql_use) {
-									MySQL.setColor(plugin, target, color);
+								if (Settings.mysql) {
+									mySQL.setColor(target, color);
 								} else {
 									playerManager.setColor(color);
 								}
@@ -147,16 +149,16 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 
 								if (args.length >= 3) {
 									if (args[4].equalsIgnoreCase("first")) {
-										if (Settings.mysql_use) {
-											MySQL.setGradientFirst(plugin, target, hex);
+										if (Settings.mysql) {
+											mySQL.setGradientFirst(target, hex);
 										} else {
 											playerManager.setFirstGradient(ColorManager.get().convertHexColor(hex));
 										}
 										return true;
 									}
 									if (args[4].equalsIgnoreCase("second")) {
-										if (Settings.mysql_use) {
-											MySQL.setGradientSecond(plugin, target, hex);
+										if (Settings.mysql) {
+											mySQL.setGradientSecond(target, hex);
 										} else {
 											playerManager.setSecondGradient(ColorManager.get().convertHexColor(hex));
 										}
@@ -299,7 +301,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 			final Player j = (Player) sender;
 
 			if (!j.isOp() || !j.hasPermission(Perms.ac_cmd_tabcomplete))
-				return null;
+				return new ArrayList<>();
 
 			switch (args.length) {
 			case 0:

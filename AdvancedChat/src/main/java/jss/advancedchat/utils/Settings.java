@@ -39,6 +39,10 @@ public class Settings {
     public static String message_protocol_state;
     public static String message_filter;
 	public static String message_depend_plugin;
+	public static String message_alert_disable_chat;
+	public static String message_alert_disable_mention;
+	public static String message_alert_disable_msg;
+	public static String message_alert_disable_;
 	
     public static String locale;
     public static String default_color;
@@ -52,7 +56,7 @@ public class Settings {
     public static String mysql_table;
     public static String mysql_password;
     public static String mysql_database;
-    public static boolean mysql_use;
+    public static boolean mysql;
 
     public static int player_inv_slot_;
     public static int player_inv_slot_settings;

@@ -59,7 +59,6 @@ public class PlayerInventoryListener implements Listener {
 			}
 			
 			if(slot == Settings.player_inv_slot_channels) {
-				//actionHelper.setOpenInventoryAction(playerName, InventoryType.Channel);
 				Logger.debug("&eThis inventory is temporarily disabled - [Working Progress]");
 			}
 			
@@ -101,14 +100,14 @@ public class PlayerInventoryListener implements Listener {
 		
 		if(p.isOp() || p.hasPermission("AdvancedChat.Mute.ByPass")) return;
 		
-		if(Settings.mysql_use) {
-			if (MySQL.isMute(plugin, p.getUniqueId().toString())) {
+		if(Settings.mysql) {
+			if (MySQL.get().isMute(p.getUniqueId().toString())) {
 				it = XMaterial.GRAY_DYE.parseItem();
-				MySQL.setMute(plugin, p.getUniqueId().toString(), false);
+				MySQL.get().setMute(p.getUniqueId().toString(), false);
 				Logger.debug("Mute off");
 			} else {
 				it = XMaterial.GREEN_DYE.parseItem();
-				MySQL.setMute(plugin, p.getUniqueId().toString(), true);
+				MySQL.get().setMute(p.getUniqueId().toString(), true);
 				Logger.debug("Mute on");
 			}
 		}else {

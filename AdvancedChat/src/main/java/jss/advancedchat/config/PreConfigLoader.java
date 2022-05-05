@@ -17,7 +17,6 @@ public class PreConfigLoader {
     public void loadConfig() {
         FileConfiguration config = plugin.getConfigFile().getConfig();
         try {
-        	//Settings.locale = config.getString("Settings.Lang").toLowerCase();
         	Settings.default_color = config.getString("Settings.Default-Color-Message");
         	Settings.message_prefix_custom = config.getString("Settings.Prefix");
         	
@@ -28,18 +27,19 @@ public class PreConfigLoader {
         	
         	Settings.boolean_use_default_prefix = config.getString("Settings.Use-Default-Prefix").equals("true");
         	Settings.boolean_chatclear_autoclear = config.getString("ClearChat.AutoClear").equals("true");
-        	Settings.boolean_clearchat_bypass = config.getString("ClearChat.ByPass-Staff").equals("true");
+        	Settings.boolean_clearchat_bypass = config.getString("ClearChat.ByPass-Staff"). equals("true");
         	Settings.int_clearchat_tick = config.getInt("ClearChat.Tick");
         	Settings.int_clearchat_lines = config.getInt("ClearChat.LineClear");
         	
         	Settings.chatformat_chattype = config.getString("ChatFormat.Chat-Type");
         	
-        	Settings.mysql_use = config.getString("Settings.Use-Database").equals("true");
+        	Settings.mysql = config.getString("Settings.Use-Database").equals("true");
         	Settings.mysql_host = config.getString("MySQL.Host");
         	Settings.mysql_port = Integer.valueOf(config.getString("MySQL.Port"));
         	Settings.mysql_username = config.getString("MySQL.Username");
         	Settings.mysql_password = config.getString("MySQL.Password");
         	Settings.mysql_database = config.getString("MySQL.Database");
+        	Settings.mysql_table = config.getString("MySQL.Table");
         	Settings.chatlogs_log_chat = config.getString("ChatLogs.Messages-in-the-logger").equals("true");
         	Settings.chatlogs_log_command = config.getString("ChatLogs.Commands-in-the-logger").equals("true");
         	Settings.chatlogs_list_command = config.getString("ChatLogs.Commands-List.Enabled").equals("true");

@@ -43,9 +43,9 @@ public class ChatListener implements Listener {
 		Player j = e.getPlayer();
 		PlayerManager playerManager = new PlayerManager(j);
 		
-		if (Settings.mysql_use) {
+		if (Settings.mysql) {
 			if (j.isOp() || j.hasPermission("AdvancedChat.Mute.Bypass")) return;
-				if (MySQL.isMute(plugin, j.getUniqueId().toString())) {
+				if (MySQL.get().isMute(j.getUniqueId().toString())) {
 					Utils.sendColorMessage(j, Utils.getVar(j, Settings.message_Alert_Mute));
 					e.setCancelled(true);
 				}
@@ -78,8 +78,8 @@ public class ChatListener implements Listener {
 		
 		Logger.debug(msg);
 		
-		if (Settings.mysql_use) {
-			message = " &r" + colorManager.convertColor(j, MySQL.getColor(plugin, j.getUniqueId().toString()), msg);
+		if (Settings.mysql) {
+			message = " &r" + colorManager.convertColor(j, MySQL.get().getColor0(j.getUniqueId().toString()), msg);
 		} else {
 			message = " &r" + colorManager.convertColor(j, playerManager.getColor(), msg);
 		}
@@ -89,8 +89,8 @@ public class ChatListener implements Listener {
 		
 		boolean isMute;
 		
-        if(Settings.mysql_use) {
-        	isMute = MySQL.isMute(plugin, j.getUniqueId().toString());
+        if(Settings.mysql) {
+        	isMute = MySQL.get().isMute(j.getUniqueId().toString());
         } else {
         	isMute = playerManager.isMute();
         }
