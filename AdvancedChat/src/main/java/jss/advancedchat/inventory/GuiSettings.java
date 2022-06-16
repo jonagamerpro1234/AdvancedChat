@@ -17,7 +17,7 @@ import com.cryptomorin.xseries.XMaterial;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Settings;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.inventory.TSkullUtils;
 
 public class GuiSettings {
@@ -35,37 +35,37 @@ public class GuiSettings {
 	}
 	
 	private void create() {
-		inv = Bukkit.createInventory(null, 54, Utils.color("&b&lMenu &8&l> &e&lSettings"));
+		inv = Bukkit.createInventory(null, 54, Util.color("&b&lMenu &8&l> &e&lSettings"));
 	}
 
 	private void addItems(Player player ,String target) {
 		this.setDecoration();
 		
-		item = Utils.getPlayerHead(target);
+		item = Util.getPlayerHead(target);
 		inv.setItem(4, item);
 		
 		PlayerManager playerManager = new PlayerManager(Bukkit.getPlayer(target));
 		
 		if(!playerManager.isLowMode()) {
-			item  = Utils.createSkull(TSkullUtils.replace("[exit]"));
+			item  = Util.createSkull(TSkullUtils.replace("[exit]"));
 		}else {
 			item  = XMaterial.RED_STAINED_GLASS_PANE.parseItem();
 		}
 		
 		meta = item.getItemMeta();
-		meta.setDisplayName(Utils.color("&c&lExit"));
+		meta.setDisplayName(Util.color("&c&lExit"));
 		item.setItemMeta(meta);
 		item.setAmount(1);
 		inv.setItem(0, item);
 		
 		if(!playerManager.isLowMode()) {
-			item  = Utils.createSkull(TSkullUtils.replace("[last]"));
+			item  = Util.createSkull(TSkullUtils.replace("[last]"));
 		}else {
 			item  = XMaterial.YELLOW_STAINED_GLASS_PANE.parseItem();
 		}
 		
 		meta = item.getItemMeta();
-		meta.setDisplayName(Utils.color("&e&lLast Menu"));
+		meta.setDisplayName(Util.color("&e&lLast Menu"));
 		item.setItemMeta(meta);
 		item.setAmount(1);
 		inv.setItem(3, item);
@@ -76,31 +76,31 @@ public class GuiSettings {
 		isMsg(playerManager, player);
 		
 		item = XMaterial.BEDROCK.parseItem();
-		meta.setDisplayName(Utils.color("&e?"));
+		meta.setDisplayName(Util.color("&e?"));
 		item.setItemMeta(meta);
 		item.setAmount(1);
 		inv.setItem(37, item);
 		
 		item = XMaterial.BEDROCK.parseItem();
-		meta.setDisplayName(Utils.color("&e?"));
+		meta.setDisplayName(Util.color("&e?"));
 		item.setItemMeta(meta);
 		item.setAmount(1);
 		inv.setItem(39, item);
 		
 		item = XMaterial.BEDROCK.parseItem();
-		meta.setDisplayName(Utils.color("&e?"));
+		meta.setDisplayName(Util.color("&e?"));
 		item.setItemMeta(meta);
 		item.setAmount(1);
 		inv.setItem(41, item);
 		
 		item = XMaterial.BEDROCK.parseItem();
-		meta.setDisplayName(Utils.color("&e?"));
+		meta.setDisplayName(Util.color("&e?"));
 		item.setItemMeta(meta);
 		item.setAmount(1);
 		inv.setItem(43, item);
 		
 		item = XMaterial.EMERALD.parseItem();
-		meta.setDisplayName(Utils.color("&eUpdate Inventories"));
+		meta.setDisplayName(Util.color("&eUpdate Inventories"));
 		item.setItemMeta(meta);
 		inv.setItem(45, item);
 	}
@@ -109,7 +109,7 @@ public class GuiSettings {
 	public void isLowModeItem(PlayerManager playerManager, Player player) {
 		ItemStack item = XMaterial.REPEATER.parseItem();
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(Utils.color("&eLow Mode"));
+		meta.setDisplayName(Util.color("&eLow Mode"));
 		
 		if(playerManager.isLowMode()) {
 			meta.addEnchant(Enchantment.DURABILITY, 1, false);
@@ -128,7 +128,7 @@ public class GuiSettings {
 	public void isChat(PlayerManager playerManager, Player player) {
 		ItemStack item = XMaterial.REPEATER.parseItem();
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(Utils.color("&eChat"));
+		meta.setDisplayName(Util.color("&eChat"));
 		
 		if(playerManager.isChat()) {
 			meta.addEnchant(Enchantment.DURABILITY, 1, false);
@@ -147,7 +147,7 @@ public class GuiSettings {
 	public void isMention(PlayerManager playerManager, Player player) {
 		ItemStack item = XMaterial.REPEATER.parseItem();
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(Utils.color("&eMention"));
+		meta.setDisplayName(Util.color("&eMention"));
 		
 		if(playerManager.isMention()) {
 			meta.addEnchant(Enchantment.DURABILITY, 1, false);
@@ -166,7 +166,7 @@ public class GuiSettings {
 	public void isMsg(PlayerManager playerManager, Player player) {
 		ItemStack item = XMaterial.REPEATER.parseItem();
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(Utils.color("&eMsg"));
+		meta.setDisplayName(Util.color("&eMsg"));
 		
 		if(playerManager.isMention()) {
 			meta.addEnchant(Enchantment.DURABILITY, 1, false);
@@ -185,7 +185,7 @@ public class GuiSettings {
 	public List<String> coloredLore(List<String> lore) {
 		List<String> coloredlore = new ArrayList<>();
 		lore.forEach((line) -> {
-			String lineColored = Utils.color(line);
+			String lineColored = Util.color(line);
 			coloredlore.add(lineColored);
 		});
 		return coloredlore;
@@ -195,7 +195,7 @@ public class GuiSettings {
 		for (int i = 0; i < 54; i++) {
 			item = XMaterial.BLACK_STAINED_GLASS_PANE.parseItem();
 			meta = item.getItemMeta();
-			meta.setDisplayName(Utils.color(" "));
+			meta.setDisplayName(Util.color(" "));
 			item.setItemMeta(meta);
 			item.setAmount(1);
 			inv.setItem(i, item);

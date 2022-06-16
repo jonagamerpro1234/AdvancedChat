@@ -14,7 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 
 public class GuiChannel {
 	
@@ -35,13 +35,13 @@ public class GuiChannel {
 		int amount = invData.getInt("Amount-Items");
 		String colorglass = invData.getString("Color-Glass.Channel");
 		
-		title = Utils.color(title);
+		title = Util.color(title);
 		
 		Inventory inv = Bukkit.createInventory(null, 4 * 9, title);
 		
 		setDecoration(inv, colorglass);
 		
-		item = Utils.getPlayerHead(target);
+		item = Util.getPlayerHead(target);
 		inv.setItem(4, item);
 		
 		section.forEach( (key) -> {
@@ -63,7 +63,7 @@ public class GuiChannel {
 	private List<String> coloredLore(List<String> lore) {
 		List<String> coloredlore = new ArrayList<>();
 		lore.forEach((line) -> {
-			String lineColored = Utils.color(line);
+			String lineColored = Util.color(line);
 			coloredlore.add(lineColored);
 		});
 		return coloredlore;
@@ -73,7 +73,7 @@ public class GuiChannel {
 		for (int i = 0; i < 36; i++) {
 			item = XMaterial.valueOf(path).parseItem();
 			meta = item.getItemMeta();
-			meta.setDisplayName(Utils.color(" "));
+			meta.setDisplayName(Util.color(" "));
 			item.setItemMeta(meta);
 			item.setAmount(1);
 			inv.setItem(i, item);

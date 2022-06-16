@@ -30,11 +30,11 @@ public class EventUtils {
    }
 
    public void getServerMessage() {
-	   Utils.sendColorMessage(Utils.getPrefix(false) + Settings.message_ClearChat_Server);
+	   Util.sendColorMessage(Util.getPrefix(false) + Settings.message_ClearChat_Server);
    }
 
    public void getPlayerMessage(Player player) {
-	   Utils.sendColorMessage(Utils.getPrefix(false) + Utils.getVar(player, Settings.message_ClearChat_Player));
+	   Util.sendColorMessage(Util.getPrefix(false) + Util.getVar(player, Settings.message_ClearChat_Player));
    }
 
    public void getClearChatAction() {

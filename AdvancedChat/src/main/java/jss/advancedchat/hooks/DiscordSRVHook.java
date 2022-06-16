@@ -7,7 +7,7 @@ import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 
 public class DiscordSRVHook implements IHook{
 	
@@ -31,7 +31,7 @@ public class DiscordSRVHook implements IHook{
 			return;
 		}
 		this.isEnabled = true;
-		Utils.sendColorMessage(EventUtils.getConsoleSender(), Utils.getPrefix(true) + "&aLoading DiscordSRV features...");
+		Util.sendColorMessage(EventUtils.getConsoleSender(), Util.getPrefix(true) + "&aLoading DiscordSRV features...");
 	}
 
 	public boolean isEnabled() {

@@ -13,9 +13,8 @@ import jss.advancedchat.inventory.GuiRainbow;
 import jss.advancedchat.inventory.GuiSettings;
 import jss.advancedchat.inventory.GuiSpecialColorCodes;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.utils.Settings;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 
 public class InventoryActionHelper {
 	
@@ -42,32 +41,32 @@ public class InventoryActionHelper {
 			if(inventoryClickEvent.getClick().isLeftClick()) {
 				
 				if(Settings.mysql) {
-					MySQL.get().setGradientFirst(target, left);
+				//	plugin.getMySQL().setGradientFirst(target, left);
 				}else {
 					playerManager.setFirstGradient(left);
 				}
 			}else if(inventoryClickEvent.getClick().isRightClick()) {
 				if(Settings.mysql) {
-					MySQL.get().setGradientSecond(target, right);
+				//	plugin.getMySQL().setGradientSecond(target, right);
 				}else {
 					playerManager.setSecondGradient(right);
 				}
 				
 			}
 		}else {
-			Utils.sendHoverEvent(player, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+			Util.sendHoverEvent(player, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 		}
 	}
 	
 	public void setActionColor(String permission, String action) {
 		if(player.isOp() || player.hasPermission(permission)) {
 			if(Settings.mysql) {
-				MySQL.get().setColor(target, action);
+			//	plugin.getMySQL().setColor(target, action);
 			}else {
 				playerManager.setColor(action);
 			}
 		}else {
-			Utils.sendHoverEvent(player, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+			Util.sendHoverEvent(player, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 		}
 	}
 	

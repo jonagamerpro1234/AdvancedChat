@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 
 public class ItemBuilder {
 	
@@ -22,7 +22,7 @@ public class ItemBuilder {
 	private int slot;
 	
 	public ItemBuilder name(String name) {
-		meta.setDisplayName(Utils.color(name));
+		meta.setDisplayName(Util.color(name));
 		return this;
 	}
 	
@@ -51,7 +51,7 @@ public class ItemBuilder {
 	}
 	
 	public ItemBuilder skull() {
-		item = Utils.createSkull(texture);
+		item = Util.createSkull(texture);
 		return this;
 	}
 	

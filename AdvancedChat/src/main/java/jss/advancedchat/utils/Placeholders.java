@@ -3,6 +3,7 @@ package jss.advancedchat.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
@@ -29,7 +30,7 @@ public class Placeholders {
 		str = str.replace("<is_lowmode>", getLowMode(player, str));
 		str = str.replace("<is_mute>", getMute(player, str));
 		str = str.replace("<mute_state_invert>", getInvertStateMute(player, str));
-		str = Utils.getOnlinePlayers(str);
+		str = Util.getOnlinePlayers(str);
 		str = placeholderReplace(str, player);
 
 		if (HookManager.getInstance().getLuckPermsHook().isEnabled()) {
@@ -43,11 +44,11 @@ public class Placeholders {
 		String temp = str;
 
 		if (Settings.mysql) {
-			if (MySQL.get().isMute(player.getUniqueId().toString())) {
+			/*if (AdvancedChat.get().getMySQL().isMute(player.getUniqueId().toString())) {
 				temp = "&atrue";
 			} else {
 				temp = "&cfalse";
-			}
+			}*/
 		} else {
 			PlayerManager playerManager = new PlayerManager(player);
 			if (playerManager.isMute()) {
@@ -75,11 +76,11 @@ public class Placeholders {
 		String temp = str;
 
 		if (Settings.mysql) {
-			if (MySQL.get().isMute(player.getUniqueId().toString())) {
+			/*if (/*AdvancedChat.get().getMySQL().isMute(player.getUniqueId().toString())) {
 				temp = "&cfalse";
 			} else {
 				temp = "&atrue";
-			}
+			}*/
 		} else {
 			PlayerManager playerManager = new PlayerManager(player);
 			if (playerManager.isMute()) {

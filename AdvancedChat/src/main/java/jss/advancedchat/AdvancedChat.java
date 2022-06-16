@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.api.AdvancedChatApi;
@@ -15,6 +14,7 @@ import jss.advancedchat.commands.MsgCmd;
 import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
 import jss.advancedchat.common.AdvancedChatPlugin;
+import jss.advancedchat.common.api.AdvancedChatApiProvider;
 import jss.advancedchat.common.update.UpdateSettings;
 import jss.advancedchat.config.BadWordFile;
 import jss.advancedchat.config.ChatDataFile;
@@ -43,6 +43,7 @@ import jss.advancedchat.listeners.inventory.RainbowInventoryListener;
 import jss.advancedchat.listeners.inventory.SettingsInventoryListener;
 import jss.advancedchat.manager.ChatManager;
 import jss.advancedchat.manager.HookManager;
+import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.storage.MySQLConnection;
 import jss.advancedchat.test.ChatListenerTest;
 import jss.advancedchat.utils.EventUtils;
@@ -50,7 +51,7 @@ import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.inventory.InventoryView;
 import jss.advancedchat.utils.UpdateChecker;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.file.FileManager;
 
 public class AdvancedChat extends AdvancedChatPlugin {
@@ -58,7 +59,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private static AdvancedChat instance;
 	private PreConfigLoader preConfigLoad;
 	public Logger logger = new Logger();
-	public MySQLConnection connection;
+	private MySQL mySQL ;
+	public MySQLConnection connection = new MySQLConnection();
 	public EventUtils eventUtils;
 	public Metrics metrics;
 	public HookManager HookManager;
@@ -79,7 +81,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private ChatDataFile chatDataFile = new ChatDataFile(this, "chat-log.data", "Data");
 	private InventoryDataFile inventoryDataFile = new InventoryDataFile(this, "inventory.data", "Data");
 	private PlayerFile playerFile = new PlayerFile(this);
-	public boolean BungeeMode;
 	public boolean uselegacyversion = false;
 	public boolean uselatestversion = false;
 	public boolean uselatestConfig = false;
@@ -87,82 +88,65 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public String latestversion;
 	public String nmsversion;
 	public AdvancedChatApi advancedChatApi;
+	private AdvancedChatApiProvider apiProvider;
 
-	
 	public void onLoad() {
-		
 		instance = this;
-		
-		Utils.setTitle(version);
-		Utils.setLoad(version);
+		Util.setTitle(version);
 		if (!getDataFolder().exists()) {
 			getDataFolder().mkdirs();
 		}
-		Utils.setLineLoad("&eCheck DataFolder Exist!");	
 		this.eventUtils = new EventUtils(this);
-		Utils.setLineLoad("&eLoading EventUtils");
 		inventoryView = new ArrayList<>();
-		Utils.setLineLoad("&eLoading InventoryView");
 		preConfigLoad = new PreConfigLoader(this);
-		Utils.setLineLoad("&eLoading PreConfigLoader");
 		HookManager = new HookManager(this);
-		Utils.setLineLoad("&eLoading HookManager");
-		Utils.setTitleLoad("&bLoading Files");
 		getConfigFile().saveDefaultConfig();
 		getConfigFile().create();
 		if(!getConfigFile().getConfig().getString("Settings.Config-Version").equals("2")) {
 			uselatestConfig = true;
 		}
-		Utils.setLineLoad("&eLoad Config.yml");
 		getMessageFile().saveDefault();
 		getMessageFile().createFile();
-		Utils.setLineLoad("&eLoad Message.yml");
-		createVoidFolder("Data");
-		createVoidFolder("Data" + File.separator + "Players");
-		Utils.setLineLoad("&eLoad Data Folder");
-		createVoidFolder("Gui");
-		Utils.setLineLoad("&eLoad Gui Folder");
-		createVoidFolder("Log");
-		Utils.setLineLoad("&eLoad Log Folder");
+		createFolder("Data");
+		createFolder("Data" + File.separator + "Players");
+		createFolder("Gui");
+		createFolder("Log");
 		preConfigLoad.loadConfig();
 		preConfigLoad.loadMessage();
-		Utils.setLineLoad("&eLoad PreConfig");
-		Utils.setEndLoad();
-		this.connection = new MySQLConnection();
+		Util.setEndLoad();
+		//Logger.debug("Load Conection ");
+		///this.connection = new MySQLConnection();
 	}
 	
 	public void onEnable() {
-		
-		Utils.setEnabled(version);
+		this.getMetric();
+		Util.setEnabled(version);
 
 		nmsversion = Bukkit.getServer().getClass().getPackage().getName();
 		nmsversion = nmsversion.substring(nmsversion.lastIndexOf(".") + 1);
 		if (nmsversion.equalsIgnoreCase("v1_8_R3")) {
 			uselegacyversion = true;
 			if (uselegacyversion) {
-				Utils.sendColorMessage(EventUtils.getConsoleSender(), Utils.getPrefix(true) + "&5<|| &c* &7Use " + nmsversion + " &cdisabled &7method &b1.16 &3- &b1.18");
+				Util.sendColorMessage(EventUtils.getConsoleSender(), Util.getPrefix(true) + "&5<|| &c* &7Use " + nmsversion + " &cdisabled &7method &b1.16 &3- &b1.18");
 			}
 		} else if (nmsversion.startsWith("v1_16_") || nmsversion.startsWith("v1_17_") || nmsversion.startsWith("v1_18_")) {
 			uselatestversion = true;
-			Utils.sendColorMessage(EventUtils.getConsoleSender(), Utils.getPrefix(true) + "&5<|| &c* &7Use " + nmsversion + " &aenabled &7method");
+			Util.sendColorMessage(EventUtils.getConsoleSender(), Util.getPrefix(true) + "&5<|| &c* &7Use " + nmsversion + " &aenabled &7method");
 		}
-		
-		checkBungeeMode();
-		
+				
 		if(uselatestConfig) {
 			Logger.warning("&e!Please update your config.yml!");
 		}
-		
-		if(Settings.mysql) {
-			
-			connection.setup();
-		}
+
 		createAllFiles();
 		preConfigLoad.loadGradientInv();
 		preConfigLoad.loadColorInv();
 		preConfigLoad.loadPlayerInv();
 		HookManager.load();
 		HookManager.loadProtocol();
+		
+		onCommands();
+		onListeners();
 		
 		if (Settings.boolean_protocollib) {
 			if (HookManager.isLoadProtocolLib()) {
@@ -171,36 +155,39 @@ public class AdvancedChat extends AdvancedChatPlugin {
 				Logger.warning(Settings.message_depend_plugin+ " " + "&e[&bProtocolLib&e]");
 			}
 		}		
-		this.getMetric();
-		loadCommands();
-		loadEvents();
 		
 		new UpdateChecker(this, 83889).getUpdateVersionSpigot(version -> {
 			latestversion = version;
 			if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
 				Logger.success("&a" + this.name + " is up to date!");
 			} else {
-				Logger.outline("&5<||" + Utils.getLine("&5"));
+				Logger.outline("&5<||" + Util.getLine("&5"));
 				Logger.warning("&5<||" + "&b" + this.name + " is outdated!");
 				Logger.warning("&5<||" + "&bNewest version: &a" + version);
 				Logger.warning("&5<||" + "&bYour version: &d" + this.version);
 				Logger.warning("&5<||" + "&bUpdate Here on Spigot: &e" + UpdateSettings.URL_PLUGIN[0]);
 				Logger.warning("&5<||" + "&bUpdate Here on Songoda: &e" + UpdateSettings.URL_PLUGIN[1]);
 				Logger.warning("&5<||" + "&bUpdate Here on GitHub: &e" + UpdateSettings.URL_PLUGIN[2]);
-				Logger.outline("&5<||" + Utils.getLine("&5"));
+				Logger.outline("&5<||" + Util.getLine("&5"));
 			}
 		});
+		
+		this.apiProvider = new AdvancedChatApiProvider(this);
+		apiProvider.ensureApiWasLoadedByPlugin();
+		ApiRegistrationUtil.regsiterProvider(apiProvider);
+		
 	}
 	
 	public void onDisable() {
-		Utils.setDisabled(version);
-		this.connection.getSource().getDataSource().close();
+		Util.setDisabled(version);
 		metrics = null;
 		uselegacyversion = false;
 		uselatestConfig = false;
+		
+		ApiRegistrationUtil.unregsiterProvider();
 	}
 	
-	public void loadCommands() {
+	public void onCommands() {
 		new AdvancedChatCmd(this);
 		new ClearChatCmd(this);
 		new MuteCmd(this);
@@ -208,8 +195,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		new MsgCmd();
 	}
 		
-	public void loadEvents() {
-		eventUtils.initEvent(
+	public void onListeners() {
+		registerListeners(
 		new JoinListener(),
 		new ChatListenerTest(),
 		//new ChatListener(),
@@ -221,8 +208,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		new SettingsInventoryListener(),
 		new RainbowInventoryListener());
 		new ErrorInventoryListener();
-		EventLoader e = new EventLoader();
-		e.runClearChat();
+		EventLoader ev = new EventLoader();
+		ev.runClearChat();
 	}
 	
 	public void reloadAllFiles() {
@@ -259,24 +246,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		metrics = new Metrics(this, 8826);
 	}
 	
-	private void checkBungeeMode() {
-		BungeeMode = false;
-		try {
-			
-			try {
-				BungeeMode = getServer().spigot().getConfig().getBoolean("settings.bungeecord");
-			}catch(NoSuchMethodError e) {
-				Logger.warning("Check the spigot.yml file");
-				e.printStackTrace();
-			}
-			
-            if (!BungeeMode && new File("spigot.yml").exists()) {
-                BungeeMode = YamlConfiguration.loadConfiguration(new File("spigot.yml")).getBoolean("settings.bungeecord");
-            }
-			
-		}catch(Exception e) {}
-	}
-
 	public void addInventoryView(Player player, String inventoryname) {
 		if (this.getInventoryView(player) == null) {
 			this.inventoryView.add(new InventoryView(player, inventoryname));
@@ -310,10 +279,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		return HookManager;
 	}
 
-	public Connection getConnection() {
-		return this.connection.getConnetion();
-	}
-
 	public boolean isDebug() {
 		return true;
 	}
@@ -333,11 +298,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public EventUtils getEventUtils() {
 		return this.eventUtils;
 	}
-
-	public boolean isBungeeMode() {
-		return this.BungeeMode;
-	}
-
+	
 	public PreConfigLoader getPreConfigLoader() {
 		return this.preConfigLoad;
 	}
@@ -393,5 +354,13 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public CommandFile getCommandFile() {
 		return commandFile;
 	}
-
+	
+	public MySQL getMySQL() {
+		return mySQL;
+	}
+	
+	public Connection getConnection() {
+		return connection.getConnetion();
+	}
+	
 }

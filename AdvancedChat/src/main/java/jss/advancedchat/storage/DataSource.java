@@ -21,7 +21,7 @@ public class DataSource {
 	}
 	
 	public HikariDataSource getDataSource() {
-		return dataSource;
+		return this.dataSource;
 	}
 	
 	public void disconnect() {

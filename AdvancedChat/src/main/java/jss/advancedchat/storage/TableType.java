@@ -1,7 +1,7 @@
 package jss.advancedchat.storage;
 
 public enum TableType {
-	Data("advancedchat_user_data"),Format("advancedchat_user_formats"),Settings("advancedchat_user_settings");
+	Data("advancedchat_user_data"),Settings("advancedchat_user_settings");
 	
 	private String type;
 
