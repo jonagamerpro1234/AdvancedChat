@@ -9,7 +9,7 @@ import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Perms;
 import jss.advancedchat.utils.Settings;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 
 public class ClearChatCmd implements CommandExecutor {
 
@@ -32,13 +32,13 @@ public class ClearChatCmd implements CommandExecutor {
 
 		if (j.isOp() || j.hasPermission(Perms.ac_cmd_clearchat)) {
 			if (Settings.boolean_clearchat_bypass && j.isOp() || j.hasPermission(Perms.ac_clearchat_bypass)) {
-				Utils.sendColorMessage(j, Utils.getPrefix(false) + Utils.getVar(j, Settings.message_ClearChat_Staff));
+				Util.sendColorMessage(j, Util.getPrefix(false) + Util.getVar(j, Settings.message_ClearChat_Staff));
 			} else {
 				eventUtils.getClearChatAction();
 			}
 			eventUtils.getPlayerMessage(j);
 		} else {
-			Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+			Util.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 		}
 		return true;
 	}

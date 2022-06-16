@@ -45,7 +45,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
-public class Utils {
+public class Util {
 	
    private static final String prefix = getPrefix(true);
 
@@ -70,7 +70,7 @@ public class Utils {
    }
 
    public static String color(String text) {
-      return IridiumColorAPI.process(text);
+      return text != null && text.isEmpty() ? IridiumColorAPI.process(text) : "";
    }
 
    public static String colorless(String text) {
@@ -308,6 +308,11 @@ public class Utils {
       text = text.replace("<online>", "" + playersOnline);
       text = text.replace("<Online>", "" + playersOnline);
       return text;
+   }
+   
+   public static String getPrefixVar(String str) {
+	   str = str.replace("{default}", getPrefix(true));
+	   return str;
    }
    
    @SuppressWarnings("deprecation")

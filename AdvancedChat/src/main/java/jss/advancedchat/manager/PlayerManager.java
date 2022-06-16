@@ -177,6 +177,7 @@ public class PlayerManager  {
     	if(!existsPlayer("Name")) {
 			config.set("Name", player.getName());
 			config.set("UUID", player.getUniqueId().toString());
+			config.set("Chat.Hover", "[]");
 			config.set("Chat-Message.Color", Settings.default_color);
 			config.set("Chat-Message.Rainbow", "rainbow_1");
 			config.set("Chat-Message.Special-Color-Codes", "none");
@@ -184,7 +185,6 @@ public class PlayerManager  {
 			config.set("Chat-Message.Second-Gradient", "FFFFFF");
 			config.set("Chat-Format.Color", true);
 			config.set("Chat-Format.Rainbow", false);
-			config.set("Chat-Format.Special-Color-Codes", false);
 			config.set("Chat-Format.Gradient", false);
 			config.set("Chat-Format.Random", false);
 			config.set("Is-Mute", false);

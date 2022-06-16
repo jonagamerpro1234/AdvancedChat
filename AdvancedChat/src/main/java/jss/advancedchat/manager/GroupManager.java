@@ -18,7 +18,7 @@ public class GroupManager{
 		return new GroupManager();
 	}
 	
-	public boolean isGroup() {
+	public boolean isGroupType() {
 		boolean isgroup = false;
 		if(Settings.chatformat_chattype.equalsIgnoreCase("group")) {
 			isgroup = true;

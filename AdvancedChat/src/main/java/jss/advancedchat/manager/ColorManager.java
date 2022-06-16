@@ -5,7 +5,7 @@ import java.util.Random;
 import org.bukkit.entity.Player;
 
 import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 
 public class ColorManager {
 	
@@ -106,33 +106,33 @@ public class ColorManager {
     
     public String setRainbow(String temp, String text) {
         if(temp.equalsIgnoreCase("rainbow_1")) {
-        	return Utils.color("<RAINBOW:1>" + text + "</RAINBOW>");
+        	return Util.color("<RAINBOW:1>" + text + "</RAINBOW>");
         }
         if(temp.equalsIgnoreCase("rainbow_2")) {
-        	return Utils.color("<RAINBOW:5>" + text + "</RAINBOW>");
+        	return Util.color("<RAINBOW:5>" + text + "</RAINBOW>");
         }
         
         if(temp.equalsIgnoreCase("rainbow_3")) {
-        	return Utils.color("<RAINBOW:10>" + text + "</RAINBOW>");
+        	return Util.color("<RAINBOW:10>" + text + "</RAINBOW>");
         }
         
         if(temp.equalsIgnoreCase("rainbow_4")) {
-        	return Utils.color("<RAINBOW:15>" + text + "</RAINBOW>");
+        	return Util.color("<RAINBOW:15>" + text + "</RAINBOW>");
         }
         
         if(temp.equalsIgnoreCase("rainbow_5")) {
-        	return Utils.color("<RAINBOW:20>" + text + "</RAINBOW>");
+        	return Util.color("<RAINBOW:20>" + text + "</RAINBOW>");
         }
         if(temp.equalsIgnoreCase("rainbow_6")) {
-        	return Utils.color("<RAINBOW:25>" + text + "</RAINBOW>");
+        	return Util.color("<RAINBOW:25>" + text + "</RAINBOW>");
         }
         
         if(temp.equalsIgnoreCase("rainbow_7")) {
-        	return Utils.color("<RAINBOW:30>" + text + "</RAINBOW>");
+        	return Util.color("<RAINBOW:30>" + text + "</RAINBOW>");
         }
         
         if(temp.equalsIgnoreCase("rainbow_8")) {
-        	return Utils.color("<RAINBOW:35>" + text + "</RAINBOW>");
+        	return Util.color("<RAINBOW:35>" + text + "</RAINBOW>");
         }
 
         return null;
@@ -239,7 +239,7 @@ public class ColorManager {
     
     public String setGradient(Player player, String text){
     	PlayerManager playerManager = new PlayerManager(player);
-    	return Utils.color("<GRADIENT:" + playerManager.getFirstGradient() + ">" + text + "</GRADIENT:" + playerManager.getSecondGradient() + ">");
+    	return Util.color("<GRADIENT:" + playerManager.getFirstGradient() + ">" + text + "</GRADIENT:" + playerManager.getSecondGradient() + ">");
     }
     
     public String setColorRandom() {

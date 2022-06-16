@@ -14,7 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.inventory.InventoryUtils;
 
 public class GuiError {
@@ -31,12 +31,12 @@ public class GuiError {
 	}
 	
 	private void create() {
-		inv = Bukkit.createInventory(null, 9, Utils.color("&b&lMenu &8&l> &c&lError"));
+		inv = Bukkit.createInventory(null, 9, Util.color("&b&lMenu &8&l> &c&lError"));
 		setDecoration();
 		
 		item = XMaterial.OAK_SIGN.parseItem();
 		meta = item.getItemMeta();
-		meta.setDisplayName(Utils.color("&cError loading inventory"));
+		meta.setDisplayName(Util.color("&cError loading inventory"));
 		meta.addEnchant(Enchantment.DURABILITY, 1, false);
 		List<String> lore = Arrays.asList("&eIf this error persists please report it","&eon discord or github");
 		meta.setLore(InventoryUtils.coloredLore(lore));
@@ -50,7 +50,7 @@ public class GuiError {
 		for (int i = 0; i < 9; i++) {
 			item = XMaterial.BLACK_STAINED_GLASS_PANE.parseItem();
 			meta = item.getItemMeta();
-			meta.setDisplayName(Utils.color(" "));
+			meta.setDisplayName(Util.color(" "));
 			item.setItemMeta(meta);
 			item.setAmount(1);
 			inv.setItem(i, item);

@@ -8,7 +8,7 @@ import jss.advancedchat.hooks.PlaceholderApiHook;
 import jss.advancedchat.hooks.ProtocolLibHook;
 import jss.advancedchat.hooks.VaultHook;
 import jss.advancedchat.utils.Settings;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 
 public class HookManager extends HookLoader{
 	
@@ -26,7 +26,7 @@ public class HookManager extends HookLoader{
 	}	
 	
 	public void loadProtocol() {
-		if(Utils.doesPluginExist("ProtocolLib", "Loading ProtocolLib Features", Settings.boolean_protocollib)) {
+		if(Util.doesPluginExist("ProtocolLib", "Loading ProtocolLib Features", Settings.boolean_protocollib)) {
 			protocolLib = new ProtocolLibHook();
 		}
 	}

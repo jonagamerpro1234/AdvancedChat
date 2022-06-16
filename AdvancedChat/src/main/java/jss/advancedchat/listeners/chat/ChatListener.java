@@ -19,9 +19,9 @@ import jss.advancedchat.hooks.DiscordSRVHook;
 import jss.advancedchat.manager.ColorManager;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.storage.MySQL;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.Perms;
 import jss.advancedchat.utils.Settings;
 
 public class ChatListener implements Listener {
@@ -44,15 +44,15 @@ public class ChatListener implements Listener {
 		PlayerManager playerManager = new PlayerManager(j);
 		
 		if (Settings.mysql) {
-			if (j.isOp() || j.hasPermission("AdvancedChat.Mute.Bypass")) return;
-				if (MySQL.get().isMute(j.getUniqueId().toString())) {
-					Utils.sendColorMessage(j, Utils.getVar(j, Settings.message_Alert_Mute));
-					e.setCancelled(true);
-				}
+			if (j.isOp() || Util.hasPerm(j, Perms.ac_mute_bypass)) return;
+//				if (plugin.getMySQL().isMute(j.getUniqueId().toString())) {
+//					Utils.sendColorMessage(j, Utils.getVar(j, Settings.message_Alert_Mute));
+//					e.setCancelled(true);
+//				}
 		} else {
-			if (j.isOp() || j.hasPermission("AdvancedChat.Mute.Bypass")) return;
+			if (j.isOp() || Util.hasPerm(j, Perms.ac_mute_bypass)) return;
 				if (playerManager.isMute()) {
-					Utils.sendColorMessage(j, Utils.getVar(j, Settings.message_Alert_Mute));
+					Util.sendColorMessage(j, Util.getVar(j, Settings.message_Alert_Mute));
 					e.setCancelled(true);
 				}
 		}
@@ -79,18 +79,18 @@ public class ChatListener implements Listener {
 		Logger.debug(msg);
 		
 		if (Settings.mysql) {
-			message = " &r" + colorManager.convertColor(j, MySQL.get().getColor0(j.getUniqueId().toString()), msg);
+			//message = " &r" + colorManager.convertColor(j, plugin.getMySQL().getColor0(j.getUniqueId().toString()), msg);
 		} else {
 			message = " &r" + colorManager.convertColor(j, playerManager.getColor(), msg);
 		}
 
-		format = Utils.getVar(j, format);
-		message = Utils.getVar(j, message);
+		format = Util.getVar(j, format);
+		message = Util.getVar(j, message);
 		
-		boolean isMute;
+		boolean isMute = false;
 		
         if(Settings.mysql) {
-        	isMute = MySQL.get().isMute(j.getUniqueId().toString());
+        	//isMute = plugin.getMySQL().isMute(j.getUniqueId().toString());
         } else {
         	isMute = playerManager.isMute();
         }
@@ -130,8 +130,8 @@ public class ChatListener implements Listener {
 			String url_action = config.getString("ChatFormat.ClickEvent.Actions.Url");
 			String suggest_action = config.getString("ChatFormat.ClickEvent.Actions.Suggest-Command");
 
-			cmd_action = Utils.getVar(j, cmd_action);
-			suggest_action = Utils.getVar(j, suggest_action);
+			cmd_action = Util.getVar(j, cmd_action);
+			suggest_action = Util.getVar(j, suggest_action);
 
 			if (hover) {
 				if (click) {
@@ -172,13 +172,13 @@ public class ChatListener implements Listener {
 		String message = e.getMessage();
 		
 		if(Settings.mention) {
-			Utils.sendColorMessage(j, Settings.mention_send);
+			Util.sendColorMessage(j, Settings.mention_send);
 			if(message.contains(j.getName())) {
 				this.ismention = true;
 				
 				Bukkit.getOnlinePlayers().forEach( (p) -> {
 					p.playSound(p.getLocation(), Sound.valueOf(Settings.mention_sound_name), Settings.mention_sound_volume, Settings.mention_sound_pitch);
-					Utils.sendColorMessage(p, Settings.mention_receive);
+					Util.sendColorMessage(p, Settings.mention_receive);
 				});
 			}
 		}

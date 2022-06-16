@@ -1,7 +1,7 @@
 package jss.advancedchat.chat;
 
 import java.util.List;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -61,9 +61,9 @@ public class Json {
 		for (int i = 0; i < hover.size(); ++i) {
 			TextComponent component = new TextComponent();
 			if (i == hover.size() - 1) {
-				component.setText(Utils.color(Utils.getVar(this.player, (String) hover.get(i))));
+				component.setText(Util.color(Util.getVar(this.player, (String) hover.get(i))));
 			} else {
-				component.setText(Utils.color(Utils.getVar(this.player, (String) hover.get(i)) + "\n"));
+				component.setText(Util.color(Util.getVar(this.player, (String) hover.get(i)) + "\n"));
 			}
 
 			this.hoverText[i] = component;
@@ -87,7 +87,7 @@ public class Json {
 	}
 
 	public String getFormat() {
-		return Utils.color(Utils.getVar(player, this.text + this.extraText));
+		return Util.color(Util.getVar(player, this.text + this.extraText));
 	}
 	
 	public void send() {
@@ -133,12 +133,12 @@ public class Json {
 			component.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.OPEN_URL, this.openURL));
 		}
 
-		Utils.sendAllPlayerBaseComponent(component);
+		Util.sendAllPlayerBaseComponent(component);
 	}
 
 	public void sendDouble() {
-		TextComponent component = new TextComponent(TextComponent.fromLegacyText(Utils.color(this.getText())));
-		TextComponent component2 = new TextComponent(TextComponent.fromLegacyText(Utils.color(this.getExtraText())));
+		TextComponent component = new TextComponent(TextComponent.fromLegacyText(Util.color(this.getText())));
+		TextComponent component2 = new TextComponent(TextComponent.fromLegacyText(Util.color(this.getExtraText())));
 		if (this.hoverText != null) {
 			component.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, this.hoverText));
 		}
@@ -161,8 +161,8 @@ public class Json {
 	}
 
 	public void sendDoubleToAll() {
-		TextComponent component = new TextComponent(TextComponent.fromLegacyText(Utils.color(this.getText())));
-		TextComponent component2 = new TextComponent(TextComponent.fromLegacyText(Utils.color(this.getExtraText())));
+		TextComponent component = new TextComponent(TextComponent.fromLegacyText(Util.color(this.getText())));
+		TextComponent component2 = new TextComponent(TextComponent.fromLegacyText(Util.color(this.getExtraText())));
 		if (this.hoverText != null) {
 			component.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, this.hoverText));
 		}
@@ -181,6 +181,6 @@ public class Json {
 			component.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.OPEN_URL, this.openURL));
 		}
 
-		Utils.sendAllBaseComponent(component, component2);
+		Util.sendAllBaseComponent(component, component2);
 	}
 }

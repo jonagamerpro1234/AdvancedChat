@@ -16,7 +16,7 @@ import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.inventory.InventoryActionHelper;
 import jss.advancedchat.utils.inventory.InventoryView;
 import jss.advancedchat.utils.inventory.InventoryActionHelper.InventoryType;
@@ -47,7 +47,7 @@ public class SettingsInventoryListener implements Listener {
 			int slot = e.getSlot();
 			e.setCancelled(true);
 			
-			String playerName = Utils.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
+			String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
 			Player target = Bukkit.getPlayer(playerName);
 			PlayerManager playerManager = new PlayerManager(target);
 			InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
@@ -78,7 +78,7 @@ public class SettingsInventoryListener implements Listener {
 	public void isLowModeItem(PlayerManager playerManager, Player player, Inventory inv) {
 		ItemStack item = XMaterial.REPEATER.parseItem();
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(Utils.color("&eLow Mode"));
+		meta.setDisplayName(Util.color("&eLow Mode"));
 		
 		
 		if(!player.isOp() || !player.hasPermission("AdvancedChat.Gui.Settings.LowMode")) return;
@@ -98,7 +98,7 @@ public class SettingsInventoryListener implements Listener {
 	public void isChatItem(PlayerManager playerManager, Player player, Inventory inv) {
 		ItemStack item = XMaterial.REPEATER.parseItem();
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(Utils.color("&eChat"));
+		meta.setDisplayName(Util.color("&eChat"));
 		
 		
 		if(!player.isOp() || !player.hasPermission("AdvancedChat.Gui.Settings.Chat")) return;

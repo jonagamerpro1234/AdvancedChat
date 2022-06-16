@@ -8,14 +8,12 @@ import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.utils.Perms;
 import jss.advancedchat.utils.Settings;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 
 public class MuteCmd implements CommandExecutor {
 
-    private MySQL mySQL = MySQL.get();
     
     public MuteCmd(AdvancedChat plugin) {
         plugin.getCommand("Mute").setExecutor(this);
@@ -28,25 +26,25 @@ public class MuteCmd implements CommandExecutor {
                 Player target = Bukkit.getPlayer(args[0]);
                 PlayerManager playerManager = new PlayerManager(target);
                 if(target == null) {
-                	Utils.sendColorMessage(sender, Settings.message_No_Online_Player);
+                	Util.sendColorMessage(sender, Settings.message_No_Online_Player);
                 	return true;
                 }else {
                     if(target.isOp() || target.hasPermission(Perms.ac_mute_bypass)) {
-                    	Utils.sendColorMessage(sender, Settings.message_mute_bypass);
+                    	Util.sendColorMessage(sender, Settings.message_mute_bypass);
                         return true;
                     }
                     
                     if(Settings.mysql) {
-                    	mySQL.setMute(target.getUniqueId().toString(), true);
+                    //	mySQL.setMute(target.getUniqueId().toString(), true);
                     } else {
                     playerManager.setMute(true);
                     }
                 }
                 
-                Utils.sendColorMessage(sender, Utils.getPrefix(false) + Utils.getVar(target, Settings.message_Mute_Player));
+                Util.sendColorMessage(sender, Util.getPrefix(false) + Util.getVar(target, Settings.message_Mute_Player));
                 return true;
             }
-            Utils.sendColorMessage(sender, Utils.getPrefix(false) + Settings.message_Help_Mute);
+            Util.sendColorMessage(sender, Util.getPrefix(false) + Settings.message_Help_Mute);
             return false;
         }
         Player j = (Player) sender;
@@ -56,29 +54,29 @@ public class MuteCmd implements CommandExecutor {
                 Player target = Bukkit.getPlayer(args[0]);
                 PlayerManager playerManager = new PlayerManager(target);
                 if(target == null) {
-                	Utils.sendColorMessage(j, Settings.message_No_Online_Player);
+                	Util.sendColorMessage(j, Settings.message_No_Online_Player);
                 	return true;
                 }else {
                     if(target.isOp() || target.hasPermission(Perms.ac_mute_bypass)) {
-                    	Utils.sendColorMessage(j, Settings.message_mute_bypass);
+                    	Util.sendColorMessage(j, Settings.message_mute_bypass);
                         return true;
                     }
                     
                     if(Settings.mysql) {
-                    	mySQL.setMute(target.getUniqueId().toString(), true);
+                    	//mySQL.setMute(target.getUniqueId().toString(), true);
                     } else {
                     	playerManager.setMute(true);
                     }
                 }
                 
-                Utils.sendColorMessage(j, Utils.getPrefix(false) + Utils.getVar(target, Settings.message_Mute_Player));
+                Util.sendColorMessage(j, Util.getPrefix(false) + Util.getVar(target, Settings.message_Mute_Player));
                 return true;
             }
         } else {
-        	Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+        	Util.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
         	return true;
         }
-        Utils.sendColorMessage(j, Utils.getPrefix(false) + Utils.getVar(j, Settings.message_Help_Mute));
+        Util.sendColorMessage(j, Util.getPrefix(false) + Util.getVar(j, Settings.message_Help_Mute));
         return true;
     }
 }

@@ -8,22 +8,32 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import jss.advancedchat.utils.Logger;
+
 public class AdvancedChatPlugin extends JavaPlugin {
 	
-	private PluginDescriptionFile jss = getDescription();
-	public String name = this.jss.getName();
-	public String version = this.jss.getVersion();
-	
-	public void registerEvent(Listener listener) {
-		this.getPluginManager().registerEvents(listener, this);
-	}
+	private PluginDescriptionFile pluginDescriptionFile = getDescription();
+	private PluginManager pluginManager = Bukkit.getPluginManager();
+	public String name = pluginDescriptionFile.getName();
+	public String version = pluginDescriptionFile.getVersion();
 	
 	public PluginManager getPluginManager() {
-		return Bukkit.getPluginManager();
+		return pluginManager;
 	}
 	
-    public void createVoidFolder(String name) {
-        File folder = new File(getDataFolder(), name);
+	public void registerListeners(Listener... listeners) {
+		for(Listener listener : listeners) {
+			getPluginManager().registerEvents(listener, this);
+		}
+	}
+	
+	public void createFolder(String foldername) {
+		if(foldername.isEmpty()) {
+			Logger.error("");
+			return;
+		}
+		
+		File folder = new File(getDataFolder(), foldername);
         if (!folder.exists()) {
             try {
                 folder.mkdir();
@@ -31,26 +41,6 @@ public class AdvancedChatPlugin extends JavaPlugin {
             	e.printStackTrace();
             }
         }
-    }
-
-    public void createFolderAndFile(String namefolder, String namefile) {
-        File folder = new File(getDataFolder(), namefolder);
-        if (!folder.exists()) {
-            try {
-                folder.mkdir();
-            } catch (Exception e) {
-            	e.printStackTrace();
-            }
-        }
-
-        File file = new File(folder, namefile);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+	}
     
 }

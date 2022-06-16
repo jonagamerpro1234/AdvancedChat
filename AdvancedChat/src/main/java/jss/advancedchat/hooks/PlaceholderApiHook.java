@@ -9,9 +9,8 @@ import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.Settings;
-import jss.advancedchat.storage.MySQL;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
@@ -34,7 +33,7 @@ public class PlaceholderApiHook implements IHook{
 		
 		this.isEnabled = true;
 		new AdvancedChatExtend(plugin).register();
-		Utils.sendColorMessage(EventUtils.getConsoleSender(), Utils.getPrefix(true) + "&aLoading PlaceHolderAPI features...");
+		Util.sendColorMessage(EventUtils.getConsoleSender(), Util.getPrefix(true) + "&aLoading PlaceHolderAPI features...");
 	}
 	
 	public boolean isEnabled() {
@@ -93,7 +92,7 @@ public class PlaceholderApiHook implements IHook{
 			
 			if(args.equals("color")) {
 				if(Settings.mysql) {
-					return MySQL.get().getColor(player);
+					//return plugin.getMySQL().getColor(player);
 				}else {
 					return playerManager.getColor();
 				}
@@ -117,7 +116,7 @@ public class PlaceholderApiHook implements IHook{
 			if(args.startsWith("channel")) {
 				
 				if(Settings.mysql) {
-					return MySQL.get().getColor(player);
+				//	return plugin.getMySQL().getColor(player);
 				}else {
 					return playerManager.getChannel();
 				}

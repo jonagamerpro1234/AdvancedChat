@@ -1,7 +1,6 @@
 package jss.advancedchat.listeners;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.common.update.UpdateSettings;
 import jss.advancedchat.config.ChatDataFile;
 import jss.advancedchat.config.ChatLogFile;
 import jss.advancedchat.config.CommandLogFile;
@@ -10,16 +9,12 @@ import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQL;
+import jss.advancedchat.storage.TableType;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Perms;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.UpdateChecker;
-import jss.advancedchat.utils.Utils;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ClickEvent.Action;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
+import jss.advancedchat.utils.Util;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -57,22 +52,20 @@ public class JoinListener implements Listener {
 		}
         
         PlayerFile playerFile = new PlayerFile(plugin, j.getName());
-        playerFile.create();
-        
         PlayerManager playerManager = new PlayerManager(j);
+        playerFile.create();
         playerManager.create(j, group);
         
         if(!playerManager.getGroup().equalsIgnoreCase(LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup())) {
         	playerManager.setGroup(LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup());
         }
         
-        if (Settings.mysql) {
-        	if(!MySQL.get().existsPlayer(j.getUniqueId().toString())) {
-        		MySQL.get().createDataPlayer(j, group, Settings.default_color, "FFFFFF", "FFFFFF", "rainbow_1", "none");
-        		MySQL.get().createFormatPlayer(j, true, false, false, false);
-        		MySQL.get().createSettingsPlayer(j, false, false, true, true, true);
-        	}
-        }
+//        if (Settings.mysql) {
+//        	if(!plugin.getMySQL().existsPlayer(TableType.Data,j.getUniqueId().toString())) {
+//        		plugin.getMySQL().createDataPlayer(j, group, Settings.default_color, "FFFFFF", "FFFFFF", "rainbow_1", "none");
+//        		plugin.getMySQL().createSettingsPlayer(j, false, false, true, true, true);
+//        	}
+//        }*/
 
         if (!chat.contains("Players." + j.getName())) {
             chat.set("Players." + j.getName() + ".UUID", j.getUniqueId().toString());
@@ -94,23 +87,16 @@ public class JoinListener implements Listener {
     }
 
 
-    @SuppressWarnings("deprecation")
     @EventHandler
     public void onUpdatePlayer(PlayerJoinEvent e) {
-        FileConfiguration config = plugin.getConfigFile().getConfig();
         Player j = e.getPlayer();
 
-        if (config.getString("Settings.Update").equals("true")) {
-            if (j.isOp() && j.hasPermission(Perms.ac_update)) {
+        if (Settings.update && j.isOp() && j.hasPermission(Perms.ac_update)) {
                 new UpdateChecker(AdvancedChat.get(), 83889).getUpdateVersionSpigot(version -> {
                     if (!AdvancedChat.get().getDescription().getVersion().equalsIgnoreCase(version)) {
-                        TextComponent component = new TextComponent(Utils.color(Utils.getPrefix(true) + " &aThere is a new version available for download"));
-                        component.setClickEvent(new ClickEvent(Action.OPEN_URL, UpdateSettings.URL_PLUGIN[0]));
-                        component.setHoverEvent(new HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Utils.color("&6Click on this message to copy the link")).create()));
-                        j.spigot().sendMessage(component);
+                        Util.sendHoverEvent(j, "text", Util.getPrefix(true) + Settings.update_alert, Settings.update_alert_hover);
                     }
                 });
-            }
         }
     }
  

@@ -10,14 +10,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import com.cryptomorin.xseries.XMaterial;
 
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 
 public class InventoryUtils {
 
 	public static List<String> coloredLore(List<String> lore) {
 		List<String> coloredlore = new ArrayList<>();
 		lore.forEach((line) -> {
-			String lineColored = Utils.color(line);
+			String lineColored = Util.color(line);
 			coloredlore.add(lineColored);
 		});
 		return coloredlore;
@@ -27,7 +27,7 @@ public class InventoryUtils {
 		if(value) {
 			ItemStack item = XMaterial.LIME_DYE.parseItem();
 			ItemMeta meta = item.getItemMeta();
-			meta.setDisplayName(Utils.color("&aEnable"));
+			meta.setDisplayName(Util.color("&aEnable"));
 			List<String> lore = Arrays.asList("&7Click to &cdisable");
 			meta.setLore(coloredLore(lore));
 			item.setItemMeta(meta);
@@ -35,7 +35,7 @@ public class InventoryUtils {
 		}else {
 			ItemStack item = XMaterial.GRAY_DYE.parseItem();
 			ItemMeta meta = item.getItemMeta();
-			meta.setDisplayName(Utils.color("&cDisable"));
+			meta.setDisplayName(Util.color("&cDisable"));
 			List<String> lore = Arrays.asList("&7Click to &aenable");
 			meta.setLore(coloredLore(lore));
 			item.setItemMeta(meta);

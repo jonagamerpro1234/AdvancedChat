@@ -2,25 +2,28 @@ package jss.advancedchat.storage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import org.bukkit.entity.Player;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.storage.type.PlayerData;
-import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Settings;
 
 public class MySQL {
 	
-	private AdvancedChat plugin = AdvancedChat.get();
-	private Connection connection = plugin.getConnection();
-	private PreparedStatement statement;
-
-	public static MySQL get() {
-		return new MySQL();
+	private static AdvancedChat plugin = AdvancedChat.get();
+	private static Connection connection = plugin.getConnection();
+	private PreparedStatement statement; 
+	
+	public void getPlayerFromStorage(String name) {
+		
 	}
+	
+	
+	/*
+	
+	public MySQL(AdvancedChat plugin) {
+		this.plugin = plugin;
+	}
+	
+	private Connection connection = plugin.getConnection();
+	private  statement;
 	
 	public PlayerData getPlayerData(Player player) {
 		return new PlayerData(connection, player);
@@ -169,16 +172,7 @@ public class MySQL {
 			e.printStackTrace();
 		}
 	}
-	
-	public void createFormatsTable() {
-		try{
-			statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `" + "advancedchat_user_formats" + "` (`UUID` VARCHAR(200), `PLAYER_NAME` VARCHAR(100), `IS_COLOR` BOOLEAN, `IS_GRADIENT` BOOLEAN, `IS_RAINBOW` BOOLEAN, `IS_RANDOM` BOOLEAN)");
-			statement.executeUpdate();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
+		
 	public void createSettingsTable() {
 		try{
 			statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `" + "advancedchat_user_settings" + "` (`UUID` VARCHAR(200), `PLAYER_NAME` VARCHAR(100), `IS_MUTE` BOOLEAN, `IS_LOW_MODE` BOOLEAN , `IS_CHAT` BOOLEAN, `IS_MENTION` BOOLEAN, `IS_MSG` BOOLEAN)");
@@ -190,7 +184,7 @@ public class MySQL {
 	
 	public void createDataPlayer(Player player, String group, String color, String first_gradient, String second_gradient, String rainbow, String specialcodes) {
 		try {
-			if(!existsPlayer(player.getName())) {
+			if(!existsPlayer(TableType.Data,player.getName())) {
 				statement = connection.prepareStatement("INSERT INTO `" + Settings.mysql_table + "` VALUE (?,?,?,?,?,?,?,?)");
 				statement.setString(1, player.getUniqueId().toString());
 				statement.setString(2, player.getName());
@@ -209,7 +203,7 @@ public class MySQL {
 	
 	public void createSettingsPlayer(Player player, boolean ismute, boolean islowmode, boolean ischat, boolean ismention, boolean ismsg) {
 		try {
-			if(!existsPlayer(player.getName())) {
+			if(!existsPlayer(TableType.Settings,player.getName())) {
 				statement = connection.prepareStatement("INSERT INTO `" + Settings.mysql_table + "` VALUE (?,?,?,?,?,?,?)");
 				statement.setString(1, player.getUniqueId().toString());
 				statement.setString(2, player.getName());
@@ -225,26 +219,9 @@ public class MySQL {
 		}
 	}
 	
-	public void createFormatPlayer(Player player, boolean color, boolean gradient, boolean rainbow, boolean random) {
+	public boolean existsPlayer(TableType type ,String uuid) {
 		try {
-			if(!existsPlayer(player.getName())) {
-				statement = connection.prepareStatement("INSERT INTO `" + Settings.mysql_table + "` VALUE (?,?,?,?,?,?)");
-				statement.setString(1, player.getUniqueId().toString());
-				statement.setString(2, player.getName());
-				statement.setBoolean(3, color);
-				statement.setBoolean(4, gradient);
-				statement.setBoolean(5, rainbow);
-				statement.setBoolean(6,  random);
-				statement.executeUpdate();
-			}
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public boolean existsPlayer(String uuid) {
-		try {
-			statement = plugin.getConnection().prepareStatement("SELECT * FROM `" + Settings.mysql_table + "` WHERE (UUID=?)");
+			statement = plugin.getConnection().prepareStatement("SELECT * FROM `" + type + "` WHERE (UUID=?)");
 			statement.setString(1, uuid);
 			
 			ResultSet resultSet = statement.executeQuery();
@@ -256,5 +233,5 @@ public class MySQL {
 			Logger.debug("&eNo exists player in database");	
 		}
 		return false;
-	}
+	}*/
 }

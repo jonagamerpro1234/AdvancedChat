@@ -1,7 +1,7 @@
 #     ___   ______
 #    /   | / ____/ 
 #   / /| |/ /      By jonagamerpro1234
-#  / ___ / /___    Version 1.7.0
+#  / ___ / /___    Version 1.7.0-b20
 # /_/  |_\____/    Thanks for using AdvancedChat <3
 #  
 # ● AdvancedChat is an easy to use plugin that will help you customize the chat on your server to make it look its best. It will also have a customization system by groups and among other functions more...
@@ -31,6 +31,7 @@ Settings:
   Update: true
   
   # |Use-Default-Prefix| if it is true it will use the prefix of the plugin itself, but if it is false it will use the prefix that you define in [Prefix: 'my server']
+  # if you want to use a custom prefix, this function should be set to [false]
   Use-Default-Prefix: true
   
   # |Prefix| here you can define a custom prefix
@@ -53,8 +54,14 @@ Hooks:
     # |Enabled| Here you can enable or disable this feature
     Enabled: true
     
-    # |Auto-Detect-Group| When using this option, the groups are discovered with the LuckPerms system
-    Auto-Detect-Group: true
+    # |AutoUpdateGroup| This function allows the plugin to detect if the player has changed rank in a period of time defined in the [Tick] section
+    AutoUpdateGroup: 
+      
+      # |Enabled| Here you can enable or disable this feature
+      Enabled: true
+      
+      # |Tick| here you can define the time that the actions are automatically executed [Default = 600], 600 tick = 30 sec
+      Tick: 600
   
   # |Vault| Here you can configure everything related to Vault and or deactivate or activate functions
   Vault:
@@ -165,15 +172,18 @@ ChatFormat:
   Private-Message:
     
     # |Send-Format| 
-    Send-Format: '&e[S] &8-> &a<send_name>&7:'
+    Send-Format: '&e[S] &8-> &a<send_name>&8: &7<msg>'
     
     # |Receive-Format|
-    Receive-Format: '&a[R] &8-> <receive_name>&7:'
+    Receive-Format: '&a[R] &8-> <receive_name>&8: &7<msg>'
+    
+    # |Receive-Server-Format|
+    Receive-Server-Format: '&6[&bServer&6] &a[R] &8-> <receive_name>&8: &7<msg>'
   
   # |Debug-Format| It is a chat that will be activated when the configuration contains an error
   Debug-Format: '&b[&cError in Config&b] &f<&f<player>&f> &f<message>'
 #
-# | MySQL|
+# | MySQL| [temporarily disabled]
 # |MySql is a database where you can save plugin data remotely and it can be synchronized with other servers if you are using BungeeCord
 MySQL:
   
@@ -257,7 +267,7 @@ ChatLogs:
       - '/log'
       - '/reg'
 #
-# |TabComplete|
+# |TabComplete| ![Experimental]!
 TabComplete:
   
   # |Enabled| Here you can enable or disable this feature

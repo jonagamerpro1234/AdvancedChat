@@ -11,7 +11,7 @@ import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.config.ChatDataFile;
 import jss.advancedchat.config.ChatLogFile;
 import jss.advancedchat.utils.Settings;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 
 public class ChatLogListener implements Listener{
 	
@@ -23,10 +23,10 @@ public class ChatLogListener implements Listener{
 		FileConfiguration config = chatDataFile.getConfig();
 		Player j = e.getPlayer();
 
-		String date = Utils.getDate(System.currentTimeMillis());
-		String time = Utils.getTime(System.currentTimeMillis());
+		String date = Util.getDate(System.currentTimeMillis());
+		String time = Util.getTime(System.currentTimeMillis());
 
-		config.set("Players." + j.getName() + ".Log." + date + ".Chat." + time, Utils.colorless(e.getMessage()));
+		config.set("Players." + j.getName() + ".Log." + date + ".Chat." + time, Util.colorless(e.getMessage()));
 		chatDataFile.saveConfig();
 	}
 
@@ -36,11 +36,11 @@ public class ChatLogListener implements Listener{
 		FileConfiguration config = chatLogFile.getConfig();
 		Player j = e.getPlayer();
 
-		String date = Utils.getDate(System.currentTimeMillis());
-		String time = Utils.getTime(System.currentTimeMillis());
+		String date = Util.getDate(System.currentTimeMillis());
+		String time = Util.getTime(System.currentTimeMillis());
 		
 		if(Settings.chatlogs_log_chat) {
-			config.set("Players." + j.getName() + ".Chat." + date + "." + time, Utils.colorless(e.getMessage()));
+			config.set("Players." + j.getName() + ".Chat." + date + "." + time, Util.colorless(e.getMessage()));
 			chatLogFile.saveConfig();
 		}
 	}

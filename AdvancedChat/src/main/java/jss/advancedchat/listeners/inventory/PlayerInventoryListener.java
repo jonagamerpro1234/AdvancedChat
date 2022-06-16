@@ -18,7 +18,7 @@ import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.inventory.InventoryActionHelper;
 import jss.advancedchat.utils.inventory.InventoryActionHelper.InventoryType;
 import jss.advancedchat.utils.inventory.InventoryView;
@@ -49,7 +49,7 @@ public class PlayerInventoryListener implements Listener {
 			int slot = e.getSlot();
 			e.setCancelled(true);
 			
-			String playerName = Utils.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
+			String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
 			Player target = Bukkit.getPlayer(playerName);
 			PlayerManager playerManager = new PlayerManager(target);
 			InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
@@ -95,21 +95,21 @@ public class PlayerInventoryListener implements Listener {
 		
 		int slotmute = config.getInt("Items.Mute.Slot");
 		String name = config.getString("Items.Mute.Name");
-		ItemStack it;
+		ItemStack it = null;
 		ItemMeta me;
 		
 		if(p.isOp() || p.hasPermission("AdvancedChat.Mute.ByPass")) return;
 		
 		if(Settings.mysql) {
-			if (MySQL.get().isMute(p.getUniqueId().toString())) {
-				it = XMaterial.GRAY_DYE.parseItem();
-				MySQL.get().setMute(p.getUniqueId().toString(), false);
-				Logger.debug("Mute off");
-			} else {
-				it = XMaterial.GREEN_DYE.parseItem();
-				MySQL.get().setMute(p.getUniqueId().toString(), true);
-				Logger.debug("Mute on");
-			}
+//			if (plugin.getMySQL().isMute(p.getUniqueId().toString())) {
+//				it = XMaterial.GRAY_DYE.parseItem();
+//				plugin.getMySQL().setMute(p.getUniqueId().toString(), false);
+//				Logger.debug("Mute off");
+//			} else {
+//				it = XMaterial.GREEN_DYE.parseItem();
+//				plugin.getMySQL().setMute(p.getUniqueId().toString(), true);
+//				Logger.debug("Mute on");
+//			}
 		}else {
 			if (playerManager.isMute()) {
 				it = XMaterial.GRAY_DYE.parseItem();
@@ -123,7 +123,7 @@ public class PlayerInventoryListener implements Listener {
 		}
 
 		me = it.getItemMeta();
-		me.setDisplayName(Utils.color(Utils.getVar(p, name)));
+		me.setDisplayName(Util.color(Util.getVar(p, name)));
 		it.setItemMeta(me);
 		inv.setItem(slotmute, it);
 	}

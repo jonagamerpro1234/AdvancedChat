@@ -18,7 +18,7 @@ import com.cryptomorin.xseries.XMaterial;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Settings;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.inventory.InventoryActionHelper;
 import jss.advancedchat.utils.inventory.InventoryActionHelper.InventoryType;
 import jss.advancedchat.utils.inventory.InventoryUtils;
@@ -49,7 +49,7 @@ public class ColorInventoryListener implements Listener {
 			int slot = e.getSlot();
 			e.setCancelled(true);
 			
-			String playerName = Utils.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
+			String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
 			Player target = Bukkit.getPlayer(playerName);
 			PlayerManager playerManager = new PlayerManager(target);
 			InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
@@ -149,7 +149,7 @@ public class ColorInventoryListener implements Listener {
 		if(playerManager.isColor()) {
 			item = XMaterial.GRAY_DYE.parseItem();
 			meta = item.getItemMeta();
-			meta.setDisplayName(Utils.color("&cDisable"));
+			meta.setDisplayName(Util.color("&cDisable"));
 			List<String> lore = Arrays.asList("&7Click to &aenable");
 			meta.setLore(InventoryUtils.coloredLore(lore));
 			item.setItemMeta(meta);
@@ -158,7 +158,7 @@ public class ColorInventoryListener implements Listener {
 		}else {
 			item = XMaterial.LIME_DYE.parseItem();
 			meta = item.getItemMeta();
-			meta.setDisplayName(Utils.color("&aEnable"));
+			meta.setDisplayName(Util.color("&aEnable"));
 			List<String> lore = Arrays.asList("&7Click to &cdisable");
 			meta.setLore(InventoryUtils.coloredLore(lore));
 			item.setItemMeta(meta);

@@ -9,7 +9,7 @@ import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
@@ -57,7 +57,7 @@ public class VaultHook implements IHook{
             economy = rspE.getProvider();
         }
 		
-		Utils.sendColorMessage(EventUtils.getConsoleSender() , Utils.getPrefix(true) + "&aLoading Vault features...");
+		Util.sendColorMessage(EventUtils.getConsoleSender() , Util.getPrefix(true) + "&aLoading Vault features...");
 	}
 	
 	public static VaultHook getVaultHook() {

@@ -13,7 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.cryptomorin.xseries.XMaterial;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 
 public class GuiSpecialColorCodes {
 	
@@ -40,7 +40,7 @@ public class GuiSpecialColorCodes {
 	public List<String> coloredLore(List<String> lore) {
 		List<String> coloredlore = new ArrayList<>();
 		lore.forEach((line) -> {
-			String lineColored = Utils.color(line);
+			String lineColored = Util.color(line);
 			coloredlore.add(lineColored);
 		});
 		return coloredlore;
@@ -50,7 +50,7 @@ public class GuiSpecialColorCodes {
 		for (int i = 0; i < 54; i++) {
 			item = XMaterial.valueOf(path).parseItem();
 			meta = item.getItemMeta();
-			meta.setDisplayName(Utils.color(" "));
+			meta.setDisplayName(Util.color(" "));
 			item.setItemMeta(meta);
 			item.setAmount(1);
 			inv.setItem(i, item);

@@ -8,7 +8,7 @@ import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
-import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.Util;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 
@@ -35,7 +35,7 @@ public class EssentialsDiscord implements IHook{
 		}
 						
 		this.isEnabled = true;
-		Utils.sendColorMessage(EventUtils.getConsoleSender() , Utils.getPrefix(true) + "&aLoading LuckPerms features...");
+		Util.sendColorMessage(EventUtils.getConsoleSender() , Util.getPrefix(true) + "&aLoading LuckPerms features...");
 	}
 	
 	public boolean isEnabled() {

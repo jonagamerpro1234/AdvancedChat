@@ -3,8 +3,7 @@
 
 	<groupId>jss.advancedchat</groupId>
 	<artifactId>advancedchat</artifactId>
-	<version>1.7.0-b18.3</version>
-	<packaging>jar</packaging>
+	<version>1.7.0-b20</version>
 
 	<name>AdvancedChat</name>
 	<description>a simple plugin that helps you customize your server chat to make it look better also brings a customizable chat system by group or rank and more....</description>
@@ -52,7 +51,7 @@
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>1.18.2-R0.1-SNAPSHOT</version>
+			<version>1.19-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
@@ -344,4 +343,5 @@
 			</resource>
 		</resources>
 	</build>
+	
 </project>

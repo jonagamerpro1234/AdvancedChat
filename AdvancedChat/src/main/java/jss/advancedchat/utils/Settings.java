@@ -4,6 +4,10 @@ import java.util.List;
 
 public class Settings {
 	
+	public static boolean update;
+	public static String update_alert;
+	public static String update_alert_hover;
+	
 	public static String chatformat_chattype;
 	
 	public static List<String> list_message_help;
@@ -43,6 +47,10 @@ public class Settings {
 	public static String message_alert_disable_mention;
 	public static String message_alert_disable_msg;
 	public static String message_alert_disable_;
+	
+	public static String msg_format_send;
+	public static String msg_format_recive;
+	public static String msg_server_format_recive;
 	
     public static String locale;
     public static String default_color;
@@ -121,8 +129,9 @@ public class Settings {
     public static boolean hook_vault_use_group;
     public static boolean hook_luckperms;
     public static boolean hook_luckperms_use_group;
+    public static boolean hook_luckperms_autoupdate_group;
     public static boolean hook_discordsrv;
-    public static String hook_discordsrv_channelid;
+    public static String hook_discordsrv_channelid;	
     public static String hook_discordsrv_custom_format;
     public static String hook_discordsrv_group_format;
     
@@ -145,6 +154,14 @@ public class Settings {
 	public static boolean chatlogs_log_command;
 	public static boolean chatlogs_list_command;
     
+	public static String logger_prefix_chat;
+	public static String logger_prefix_info;
+	public static String logger_prefix_error;
+	public static String logger_prefix_warning;
+	public static String logger_prefix_debug;
+	public static String logger_prefix_outline;
+	public static String logger_prefix_success;
+	
 	public static boolean mention;
 	public static String mention_send;
 	public static String mention_receive;

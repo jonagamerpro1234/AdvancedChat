@@ -1,4 +1,4 @@
-package jss.advancedchat.storage;
+	package jss.advancedchat.storage;
 
 import java.sql.Connection;
 
@@ -13,7 +13,6 @@ public class MySQLConnection {
 	private String username;
 	private String password;
 	private int port;
-	private MySQL mySQL = new MySQL();
 	
 	public void setup() {
 		try {
@@ -24,12 +23,8 @@ public class MySQLConnection {
 			password = Settings.mysql_password;
 			source = new DataSource(host, port, database, username, password);
 			source.getDataSource().getConnection();
-			mySQL.createTable();
-			mySQL.createFormatsTable();
-			mySQL.createSettingsTable();
 			Logger.success("&aSuccessfully connected to the database");
 		} catch (Exception e) {
-			source.disconnect();
 			Logger.warning("&cCould not connect to the database");
 		}
 	}
