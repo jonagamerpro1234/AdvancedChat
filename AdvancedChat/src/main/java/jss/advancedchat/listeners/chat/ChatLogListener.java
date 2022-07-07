@@ -17,7 +17,7 @@ public class ChatLogListener implements Listener{
 	
 	private AdvancedChat plugin = AdvancedChat.get();
 
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void chatDataLog(AsyncPlayerChatEvent e) {
 		ChatDataFile chatDataFile = plugin.getChatDataFile();
 		FileConfiguration config = chatDataFile.getConfig();
@@ -30,7 +30,7 @@ public class ChatLogListener implements Listener{
 		chatDataFile.saveConfig();
 	}
 
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void chatLog(AsyncPlayerChatEvent e) {
 		ChatLogFile chatLogFile = plugin.getChatLogFile();
 		FileConfiguration config = chatLogFile.getConfig();

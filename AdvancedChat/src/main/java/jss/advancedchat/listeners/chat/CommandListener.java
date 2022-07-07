@@ -15,7 +15,7 @@ public class CommandListener implements Listener {
 
 	private AdvancedChat plugin = AdvancedChat.get();
 
-	@EventHandler
+    @EventHandler(ignoreCancelled = true)
 	public void onCommandChat(PlayerCommandPreprocessEvent e) {
 		Player j = e.getPlayer();
 		PlayerManager playerManager = new PlayerManager(j);
@@ -45,7 +45,7 @@ public class CommandListener implements Listener {
 		}
 	}
 
-	@EventHandler
+    @EventHandler(ignoreCancelled = true)
 	public void onCommandDataLog(PlayerCommandPreprocessEvent e) {
 		FileConfiguration config = plugin.getChatDataFile().getConfig();
 		Player j = e.getPlayer();
@@ -57,7 +57,7 @@ public class CommandListener implements Listener {
 		plugin.getChatDataFile().saveConfig();
 	}
 
-	@EventHandler
+    @EventHandler(ignoreCancelled = true)
 	public void onCommandLog(PlayerCommandPreprocessEvent e) {
 		FileConfiguration config = plugin.getCommandLogFile().getConfig();
 		Player j = e.getPlayer();
