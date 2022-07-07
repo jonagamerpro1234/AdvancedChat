@@ -38,7 +38,7 @@ public class ChatListener implements Listener {
 	private final Pattern ITALIC_REGEX = Pattern.compile("(?i)&([O])");
 	private final Pattern RESET_REGEX = Pattern.compile("(?i)&([R])");
 	
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void chatMute(AsyncPlayerChatEvent e) {
 		Player j = e.getPlayer();
 		PlayerManager playerManager = new PlayerManager(j);
@@ -58,7 +58,7 @@ public class ChatListener implements Listener {
 		}
 	}
 	
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onChat(AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfigFile().getConfig();
 		DiscordSRVHook discordSRVHook = HookManager.get().getDiscordSRVHook();
@@ -165,7 +165,7 @@ public class ChatListener implements Listener {
 		}
 	}
 	
-	@EventHandler 
+    @EventHandler(ignoreCancelled = true)
 	public void chatMention(AsyncPlayerChatEvent e){
 		e.setCancelled(true);
 		Player j = e.getPlayer();
