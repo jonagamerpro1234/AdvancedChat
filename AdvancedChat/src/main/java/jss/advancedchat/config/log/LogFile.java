@@ -1,4 +1,4 @@
-package jss.advancedchat.config.player;
+package jss.advancedchat.config.log;
 
 import java.io.File;
 
@@ -10,25 +10,21 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.Util;
 
-public class PlayerFile {
+public class LogFile {
 
 	private AdvancedChat plugin;
-	private String pathFile;
+	private String pathFile = Util.getDate();
 	private File file;
 	private FileConfiguration config;
 
-	public PlayerFile(AdvancedChat plugin, String pathFile) {
-		this.plugin = plugin;
-		this.pathFile = pathFile;
-	}
-	
-	public PlayerFile(AdvancedChat plugin) {
+	public LogFile(AdvancedChat plugin) {
 		this.plugin = plugin;
 	}
 
 	public void create() {
-		file = new File(plugin.getDataFolder() + File.separator + "Players", pathFile + ".yml");
+		file = new File(plugin.getDataFolder() + File.separator + "Log", pathFile + ".yml");
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
@@ -46,7 +42,7 @@ public class PlayerFile {
 	}
 
 	public FileConfiguration getConfig(String name) {
-		file = new File(plugin.getDataFolder() + File.separator + "Players", name + ".yml");
+		file = new File(plugin.getDataFolder() + File.separator + "Log", name + ".yml");
 		config = YamlConfiguration.loadConfiguration(file);
 
 		if (config == null) {
@@ -65,7 +61,7 @@ public class PlayerFile {
 
 	public void reload() {
 		if (config == null) {
-			file = new File(plugin.getDataFolder() + File.separator + "Players", pathFile);
+			file = new File(plugin.getDataFolder() + File.separator + "Log", pathFile);
 		}
 		config = YamlConfiguration.loadConfiguration(file);
 

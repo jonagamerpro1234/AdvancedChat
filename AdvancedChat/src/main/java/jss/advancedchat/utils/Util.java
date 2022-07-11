@@ -12,6 +12,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -19,11 +20,10 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import jss.advancedchat.common.update.UpdateSettings;
-import jss.advancedchat.common.utils.IridiumColorAPI;
-
+import jss.advancedchat.lib.iridium.IridiumColorAPI;
+import jss.advancedchat.update.UpdateSettings;
 import me.clip.placeholderapi.PlaceholderAPI;
-
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -70,15 +70,11 @@ public class Util {
    }
 
    public static String color(String text) {
-      return text != null && text.isEmpty() ? IridiumColorAPI.process(text) : "";
+      return IridiumColorAPI.process(text);
    }
-
+   
    public static String colorless(String text) {
       return ChatColor.stripColor(text);
-   }
-
-   public static void sendColorMessage(Player player, String text) {
-      player.sendMessage(color(text));
    }
 
    public static void sendColorMessage(CommandSender sender, String text) {
@@ -257,7 +253,6 @@ public class Util {
       text = text.replaceAll("<world>", player.getWorld().getName());
       text = text.replaceAll("<World>", player.getWorld().getName());
       text = placeholderReplace(text, player);
-      text = Placeholders.placeholders(player, text);
       text = getOnlinePlayers(text);
       return text;
    }
@@ -389,6 +384,20 @@ public class Util {
       return hour;
    }
 
+   public static String getDate() {
+	   Calendar calendar = Calendar.getInstance();
+	   SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	   String temp = dateFormat.format(calendar.getTime());
+	   return temp;
+   }
+
+   public static String getTime() {
+	   Calendar calendar = Calendar.getInstance();
+	   SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+	   String temp = dateFormat.format(calendar.getTime());
+	   return temp;
+   }
+   
    public static List<String> setLimitTab(List<String> list, String inic) {
       List<String> returned = new ArrayList<String>();
       

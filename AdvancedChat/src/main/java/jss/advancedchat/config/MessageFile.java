@@ -1,6 +1,7 @@
 package jss.advancedchat.config;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -9,23 +10,23 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.file.FileManager;
 
-public class MessageFile extends FileManager{
+public class MessageFile{
 	
+	private AdvancedChat plugin;
 	private String path;
 	private File file;
 	private FileConfiguration config;
 	
 	public MessageFile(AdvancedChat plugin, String path) {
-		super(plugin);
+		this.plugin = plugin;
 		this.path = path;
 		this.file = null;
 		this.config = null;
 	}
 	
 	public void createFile() {
-		file = new File(getDataFolder(), path);
+		file = new File(plugin.getDataFolder(), path);
 		if(!file.exists()) {
 			get().options().copyDefaults(true);
 			save();
@@ -41,12 +42,12 @@ public class MessageFile extends FileManager{
 	
 	public void reload() {
 		if(config == null) {
-			file = new File(getDataFolder(), path);
+			file = new File(plugin.getDataFolder(), path);
 		}
 		config = YamlConfiguration.loadConfiguration(file);
 		Reader reader;
 		try {
-			reader = new InputStreamReader(getResources(path), "UTF8");
+			reader = new InputStreamReader(plugin.getResource(path), "UTF8");
 			BufferedReader bufferedReader = new BufferedReader(reader);
 			if(reader != null) {
 				YamlConfiguration configuration = YamlConfiguration.loadConfiguration(bufferedReader);
@@ -67,10 +68,10 @@ public class MessageFile extends FileManager{
 	
     public void saveDefault() {
         if (this.file == null) {
-            this.file = new File(getDataFolder(), this.path);
+            this.file = new File(plugin.getDataFolder(), this.path);
         }
         if (!this.file.exists()) {
-            saveResources(this.path, false);
+        	plugin.saveResource(this.path, false);
         }
     }
 }

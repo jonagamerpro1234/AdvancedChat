@@ -39,7 +39,7 @@
 			<artifactId>HikariCP</artifactId>
 			<version>4.0.3</version>
 		</dependency>
-		
+
 		<!-- MySQL -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -59,14 +59,6 @@
 					<artifactId>bungeecord-chat</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-
-		<!-- Lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.20</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<!-- PlaceholderAPI -->
@@ -112,28 +104,6 @@
 			<artifactId>ProtocolLib</artifactId>
 			<version>4.7.0</version>
 			<scope>provided</scope>
-		</dependency>
-
-		<!-- Vault -->
-		<dependency>
-			<groupId>com.github.MilkBowl</groupId>
-			<artifactId>VaultAPI</artifactId>
-			<version>1.7</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>com.google.code.gson</groupId>
-					<artifactId>gson</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.guava</groupId>
-					<artifactId>guava</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.yaml</groupId>
-					<artifactId>snakeyaml</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- BungeeCord -->
@@ -182,10 +152,6 @@
 			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
-					<groupId>net.kyori</groupId>
-					<artifactId>adventure-platform-bukkit</artifactId>
-				</exclusion>
-				<exclusion>
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-jdk14</artifactId>
 				</exclusion>
@@ -212,6 +178,23 @@
 			</exclusions>
 		</dependency>
 
+		<dependency>
+			<groupId>de.tr7zw</groupId>
+			<artifactId>item-nbt-api</artifactId>
+			<version>2.10.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.kyori</groupId>
+			<artifactId>adventure-api</artifactId>
+			<version>4.11.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.kyori</groupId>
+			<artifactId>adventure-platform-bukkit</artifactId>
+			<version>4.1.1</version>
+		</dependency>
 
 	</dependencies>
 
@@ -252,14 +235,16 @@
 		<repository>
 			<id>codemc-repo</id>
 			<url>https://repo.codemc.io/repository/maven-public/</url>
+			<layout>default</layout>
 		</repository>
-
+		<repository>
+			<id>sonatype-oss-snapshots1</id>
+			<url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
 	</repositories>
 
 	<build>
-
 		<defaultGoal>clear install</defaultGoal>
-
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -283,15 +268,19 @@
 					<relocations>
 						<relocation>
 							<pattern>com.cryptomorin.xseries</pattern>
-							<shadedPattern>jss.advancedchat.utils</shadedPattern>
+							<shadedPattern>jss.advancedchat.lib.xseries</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>de.tr7zw.nbtapi</pattern>
+							<shadedPattern>jss.advancedchat.lib.nbtapi</shadedPattern>
 						</relocation>
 						<relocation>
 							<pattern>com.zaxxer</pattern>
-							<shadedPattern>jss.advancedchat.hikari</shadedPattern>
+							<shadedPattern>jss.advancedchat.lib.hikari</shadedPattern>
 						</relocation>
 						<relocation>
 							<pattern>org.slf4j</pattern>
-							<shadedPattern>jss.advancedchat.slf4j</shadedPattern>
+							<shadedPattern>jss.advancedchat.lib.slf4j</shadedPattern>
 						</relocation>
 					</relocations>
 					<filters>
@@ -343,5 +332,5 @@
 			</resource>
 		</resources>
 	</build>
-	
+
 </project>

@@ -1,6 +1,7 @@
 package jss.advancedchat.config;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -9,9 +10,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.file.FileManager;
 
-public class InventoryDataFile extends FileManager {
+public class InventoryDataFile {
 
     private AdvancedChat plugin;
     private File file;
@@ -20,7 +20,6 @@ public class InventoryDataFile extends FileManager {
     private String folderpath;
 
     public InventoryDataFile(AdvancedChat plugin, String path, String folderpath) {
-        super(plugin);
         this.plugin = plugin;
         this.path = path;
         this.folderpath = folderpath;
@@ -33,7 +32,7 @@ public class InventoryDataFile extends FileManager {
     }
 
     public void create() {
-        this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
+        this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
         if (!this.file.exists()) {
             getConfig().options().copyDefaults(true);
             saveConfig();
@@ -57,12 +56,12 @@ public class InventoryDataFile extends FileManager {
 
     public void reloadConfig() {
         if (this.config == null) {
-            this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
+            this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
         }
         this.config = YamlConfiguration.loadConfiguration(this.file);
         Reader defaultConfigStream;
         try {
-            defaultConfigStream = new InputStreamReader(getResources(this.path), "UTF8");
+            defaultConfigStream = new InputStreamReader(plugin.getResource(this.path), "UTF8");
             if (defaultConfigStream != null) {
                 YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
                 config.setDefaults(defaultConfig);
@@ -83,24 +82,24 @@ public class InventoryDataFile extends FileManager {
 
     public void saveDefaultConfig() {
         if (this.file == null) {
-            this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
+            this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
         }
         if (!this.file.exists()) {
-            saveResources(this.path, false);
+        	plugin.saveResource(this.path, false);
         }
     }
 
     public void resetConfig() {
         if (this.file == null) {
-            this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
+            this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
         }
         if (!this.file.exists()) {
-            saveResources(this.path, true);
+        	plugin.saveResource(this.path, true);
         }
     }
 
     public boolean isFileExists() {
-        this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
+        this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
         return this.file.exists();
     }
 }
