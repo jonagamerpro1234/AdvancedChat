@@ -10,10 +10,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.common.interfaces.IFileLoader;
-import jss.advancedchat.utils.file.FileManager;
 
-public class ConfigFile extends FileManager implements IFileLoader {
+public class ConfigFile {
 
     private AdvancedChat plugin;
     private File file;
@@ -21,7 +19,6 @@ public class ConfigFile extends FileManager implements IFileLoader {
     private String path;
 
     public ConfigFile(AdvancedChat plugin, String path) {
-        super(plugin);
         this.plugin = plugin;
         this.file = null;
         this.config = null;
@@ -29,7 +26,7 @@ public class ConfigFile extends FileManager implements IFileLoader {
     }
 
     public void create() {
-        this.file = new File(getDataFolder(), this.path);
+        this.file = new File(plugin.getDataFolder(), this.path);
         if (!this.file.exists()) {
             getConfig().options().copyDefaults(true);
             saveConfig();
@@ -53,12 +50,12 @@ public class ConfigFile extends FileManager implements IFileLoader {
 
     public void reloadConfig() {
         if (this.config == null) {
-            this.file = new File(getDataFolder(), this.path);
+            this.file = new File(plugin.getDataFolder(), this.path);
         }
         this.config = YamlConfiguration.loadConfiguration(this.file);
         Reader defaultConfigStream;
         try {
-            defaultConfigStream = new InputStreamReader(getResources(this.path), "UTF8");
+            defaultConfigStream = new InputStreamReader(plugin.getResource(this.path), "UTF8");
             BufferedReader in = new BufferedReader(defaultConfigStream);
             if (defaultConfigStream != null) {
                 YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
@@ -79,24 +76,24 @@ public class ConfigFile extends FileManager implements IFileLoader {
 
     public void saveDefaultConfig() {
         if (this.file == null) {
-            this.file = new File(getDataFolder(), this.path);
+            this.file = new File(plugin.getDataFolder(), this.path);
         }
         if (!this.file.exists()) {
-            saveResources(this.path, false);
+        	plugin.saveResource(this.path, false);
         }
     }
 
     public void resetConfig() {
         if (this.file == null) {
-            this.file = new File(getDataFolder(), this.path);
+            this.file = new File(plugin.getDataFolder(), this.path);
         }
         if (!this.file.exists()) {
-            saveResources(this.path, true);
+            plugin.saveResource(this.path, true);
         }
     }
 
     public boolean isFileExists() {
-    	this.file = new File(getDataFolder(), this.path);
+    	this.file = new File(plugin.getDataFolder(), this.path);
     	return this.file.exists();
     }
 

@@ -47,19 +47,19 @@ public class CommandListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
 	public void onCommandDataLog(PlayerCommandPreprocessEvent e) {
-		FileConfiguration config = plugin.getChatDataFile().getConfig();
+		/*FileConfiguration config = plugin.getChatDataFile().getConfig();
 		Player j = e.getPlayer();
 
 		String date = Util.getDate(System.currentTimeMillis());
 		String time = Util.getTime(System.currentTimeMillis());
 
 		config.set("Players." + j.getName() + ".Log." + date + ".Command." + time, Util.colorless(e.getMessage()));
-		plugin.getChatDataFile().saveConfig();
+		plugin.getChatDataFile().saveConfig();*/
 	}
 
     @EventHandler(ignoreCancelled = true)
 	public void onCommandLog(PlayerCommandPreprocessEvent e) {
-		FileConfiguration config = plugin.getCommandLogFile().getConfig();
+		/*FileConfiguration config = plugin.getCommandLogFile().getConfig();
 		Player j = e.getPlayer();
 
 		String date = Util.getDate(System.currentTimeMillis());
@@ -76,7 +76,7 @@ public class CommandListener implements Listener {
 		if(Settings.chatlogs_log_command) {
 			config.set("Players." + j.getName() + ".Command." + date + "." + time, Util.colorless(e.getMessage()));
 			plugin.getCommandLogFile().saveConfig();
-		}
+		}*/
 	}
 
 }

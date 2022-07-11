@@ -75,6 +75,11 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				return true;
 			}
 			
+			if (args[0].equalsIgnoreCase("test")) {
+				jss.advancedchat.v2.Util.sendMessage(j, "&6Test adventure api");
+				return true;
+			}
+			
 			if (args[0].equalsIgnoreCase("color")) {
 				if ((j.isOp()) || (j.hasPermission(Perms.ac_cmd_color))) {
 					GuiColor guiColor = new GuiColor();
