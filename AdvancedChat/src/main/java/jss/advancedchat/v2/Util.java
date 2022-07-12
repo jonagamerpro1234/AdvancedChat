@@ -9,8 +9,8 @@ import net.kyori.adventure.text.TextComponent;
 
 public class Util {
 	
-	private static AdvancedChat plugin = AdvancedChat.get(); 
-	
+	private static final AdvancedChat plugin = AdvancedChat.get();
+	@SuppressWarnings("unused")
 	public static void sendMessage(CommandSender sender , String text) {
 		TextComponent component = Component.text(text);
 		plugin.getAdventure().sender(sender).sendMessage(component);

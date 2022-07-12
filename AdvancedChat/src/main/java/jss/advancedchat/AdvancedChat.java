@@ -1,23 +1,7 @@
 package jss.advancedchat;
 
-import java.sql.Connection;
-import java.util.ArrayList;
-
-import javax.annotation.Nonnull;
-
-import org.bukkit.entity.Player;
-
-import jss.advancedchat.commands.AdvancedChatCmd;
-import jss.advancedchat.commands.ClearChatCmd;
-import jss.advancedchat.commands.MsgCmd;
-import jss.advancedchat.commands.MuteCmd;
-import jss.advancedchat.commands.UnMuteCmd;
-import jss.advancedchat.config.BadWordFile;
-import jss.advancedchat.config.ConfigFile;
-import jss.advancedchat.config.GroupFile;
-import jss.advancedchat.config.InventoryDataFile;
-import jss.advancedchat.config.MessageFile;
-import jss.advancedchat.config.PreConfigLoader;
+import jss.advancedchat.commands.*;
+import jss.advancedchat.config.*;
 import jss.advancedchat.config.gui.ChannelGuiFile;
 import jss.advancedchat.config.gui.ColorFile;
 import jss.advancedchat.config.gui.GradientColorFile;
@@ -28,12 +12,7 @@ import jss.advancedchat.listeners.EventLoader;
 import jss.advancedchat.listeners.JoinListener;
 import jss.advancedchat.listeners.chat.ChatLogListener;
 import jss.advancedchat.listeners.chat.CommandListener;
-import jss.advancedchat.listeners.inventory.ColorInventoryListener;
-import jss.advancedchat.listeners.inventory.ErrorInventoryListener;
-import jss.advancedchat.listeners.inventory.GradientInventoryListener;
-import jss.advancedchat.listeners.inventory.PlayerInventoryListener;
-import jss.advancedchat.listeners.inventory.RainbowInventoryListener;
-import jss.advancedchat.listeners.inventory.SettingsInventoryListener;
+import jss.advancedchat.listeners.inventory.*;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.storage.MySQL;
 import jss.advancedchat.storage.MySQLConnection;
@@ -43,39 +22,41 @@ import jss.advancedchat.update.UpdateSettings;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
+import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.inventory.InventoryView;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import jss.advancedchat.utils.Util;
+import org.bukkit.entity.Player;
 
+import java.sql.Connection;
+import java.util.ArrayList;
+
+@SuppressWarnings("unused")
 public class AdvancedChat extends AdvancedChatPlugin {
 	
 	private static AdvancedChat instance;
 	private PreConfigLoader preConfigLoad;
-	public Logger logger = new Logger();
 	private MySQL mySQL;
 	public MySQLConnection connection = new MySQLConnection();
 	public EventUtils eventUtils;
 	public Metrics metrics;
 	public HookManager HookManager;
 	public ArrayList<InventoryView> inventoryView;
-	private MessageFile messageFile = new MessageFile(this, "messages.yml");
-	private ConfigFile configFile = new ConfigFile(this, "config.yml");
-	private GroupFile groupFile = new GroupFile(this, "groups.yml");
-	private BadWordFile badWordFile = new BadWordFile(this, "badword.yml");
-	private ColorFile colorFile = new ColorFile(this, "color-gui.yml", "Gui");
-	private PlayerGuiFile playerGuiFile = new PlayerGuiFile(this, "player-gui.yml", "Gui");
-	private ChannelGuiFile channelGuiFile = new ChannelGuiFile(this, "channel-gui.yml", "Gui");
-	private GradientColorFile gradientColorFile = new GradientColorFile(this, "gradient-gui.yml", "Gui");
-	private InventoryDataFile inventoryDataFile = new InventoryDataFile(this, "inventory.data", "Data");
-	private PlayerFile playerFile = new PlayerFile(this);
-	public boolean uselegacyversion = false;
-	public boolean uselatestversion = false;
-	public boolean uselatestConfig = false;
+	private final MessageFile messageFile = new MessageFile(this, "messages.yml");
+	private final ConfigFile configFile = new ConfigFile(this, "config.yml");
+	private final GroupFile groupFile = new GroupFile(this, "groups.yml");
+	private final BadWordFile badWordFile = new BadWordFile(this, "badword.yml");
+	private final ColorFile colorFile = new ColorFile(this, "color-gui.yml", "Gui");
+	private final PlayerGuiFile playerGuiFile = new PlayerGuiFile(this, "player-gui.yml", "Gui");
+	private final ChannelGuiFile channelGuiFile = new ChannelGuiFile(this, "channel-gui.yml", "Gui");
+	private final GradientColorFile gradientColorFile = new GradientColorFile(this, "gradient-gui.yml", "Gui");
+	private final InventoryDataFile inventoryDataFile = new InventoryDataFile(this, "inventory.data", "Data");
+	private final PlayerFile playerFile = new PlayerFile(this);
+	public boolean isLegacyConfig = false;
 	public static boolean debug = true;
 	public String latestversion;
 
 	private BukkitAudiences adventure;
-	
+
 	public BukkitAudiences getAdventure() {
 		if(this.adventure == null) {
 			throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
@@ -86,17 +67,14 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public void onLoad() {
 		instance = this;
 		Util.setTitle(version);
-		if (!getDataFolder().exists()) {
-			getDataFolder().mkdirs();
-		}
 		this.eventUtils = new EventUtils(this);
 		inventoryView = new ArrayList<>();
 		preConfigLoad = new PreConfigLoader(this);
 		HookManager = new HookManager(this);
 		getConfigFile().saveDefaultConfig();
 		getConfigFile().create();
-		if(!getConfigFile().getConfig().getString("Settings.Config-Version").equals("2")) {
-			uselatestConfig = true;
+		if(!(getConfigFile().getConfig().getInt("Settings.Config-Version") <= 2)) {
+			isLegacyConfig = true;
 		}
 		getMessageFile().saveDefault();
 		getMessageFile().createFile();
@@ -116,7 +94,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		this.getMetric();
 		Util.setEnabled(version);
 				
-		if(uselatestConfig) {
+		if(isLegacyConfig) {
 			Logger.warning("&e!Please update your config.yml!");
 		}
 		
@@ -168,8 +146,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		}
 		
 		metrics = null;
-		uselegacyversion = false;
-		uselatestConfig = false;
+		isLegacyConfig = false;
 	}
 	
 	public void onCommands() {
@@ -225,24 +202,24 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		metrics = new Metrics(this, 8826);
 	}
 	
-	public void addInventoryView(Player player, String inventoryname) {
+	public void addInventoryView(Player player, String inventoryName) {
 		if (this.getInventoryView(player) == null) {
-			this.inventoryView.add(new InventoryView(player, inventoryname));
+			this.inventoryView.add(new InventoryView(player, inventoryName));
 		}
 	}
 
-	public void removeInvetoryView(Player player) {
+	public void removeInventoryView(Player player) {
 		for (int i = 0; i < inventoryView.size(); i++) {
-			if (((InventoryView) this.inventoryView.get(i)).getPlayer().getName().equals(player.getName())) {
-				this.inventoryView.remove(i);
+			if (this.inventoryView.get(i).getPlayer().getName().equals(player.getName())) {
+				inventoryView.remove(i);
 			}
 		}
 	}
 
 	public InventoryView getInventoryView(Player player) {
-		for (int i = 0; i < inventoryView.size(); i++) {
-			if (((InventoryView) this.inventoryView.get(i)).getPlayer().getName().equals(player.getName())) {
-				return (InventoryView) this.inventoryView.get(i);
+		for (InventoryView view : inventoryView) {
+			if (view.getPlayer().getName().equals(player.getName())) {
+				return view;
 			}
 		}
 		return null;
