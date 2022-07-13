@@ -23,19 +23,17 @@ import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Perms;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Util;
+import org.jetbrains.annotations.NotNull;
 
 public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
-
-	private AdvancedChat plugin;
-	//private MySQL mySQL = new MySQL(plugin);
-	
+	private final AdvancedChat plugin;
+	@SuppressWarnings("ConstantConditions")
 	public AdvancedChatCmd(AdvancedChat plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("AdvancedChat").setExecutor(this);
 		plugin.getCommand("AdvancedChat").setTabCompleter(this);
 	}
-
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 		if (!(sender instanceof Player)) {
 			if (args.length >= 1) {
 				if (args[0].equalsIgnoreCase("info")) {
@@ -75,7 +73,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				return true;
 			}
 			
-			if (args[0].equalsIgnoreCase("test")) {
+			if (args[0].equalsIgnoreCase("test1")) {
 				jss.advancedchat.v2.Util.sendMessage(j, "&6Test adventure api");
 				return true;
 			}
@@ -90,7 +88,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 						Player target = Bukkit.getPlayer(playername);
 
 						if (target == null) Util.sendColorMessage(j, Settings.message_No_Online_Player);
-
 						PlayerManager playerManager = new PlayerManager(target);
 
 						if (args.length >= 3) {
@@ -289,7 +286,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 		return true;
 	}
 
-	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 		List<String> listOptions = new ArrayList<>();
 		String lastArgs = args.length != 0 ? args[args.length - 1] : "";
 		if (!(sender instanceof Player)) {
