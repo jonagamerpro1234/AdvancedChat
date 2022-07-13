@@ -123,12 +123,12 @@ public class ColorInventoryListener implements Listener {
 			}
 			
 			if(slot == Settings.color_inv_slot_last) {
-				plugin.removeInvetoryView(j);
+				plugin.removeInventoryView(j);
 				actionHelper.setOpenInventoryAction(playerName, InventoryType.Player);
 			}
 			
 			if(slot == Settings.color_inv_slot_next) {
-				plugin.removeInvetoryView(j);
+				plugin.removeInventoryView(j);
 				actionHelper.setOpenInventoryAction(playerName, InventoryType.Gradient);
 			}
 			
@@ -170,7 +170,7 @@ public class ColorInventoryListener implements Listener {
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
 		Player j = (Player) e.getPlayer();
-		plugin.removeInvetoryView(j);
+		plugin.removeInventoryView(j);
 	}
 	
 }
