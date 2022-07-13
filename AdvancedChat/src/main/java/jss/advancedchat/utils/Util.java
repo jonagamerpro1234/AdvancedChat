@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 import jss.advancedchat.lib.iridium.IridiumColorAPI;
 import jss.advancedchat.update.UpdateSettings;
 import me.clip.placeholderapi.PlaceholderAPI;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -41,6 +40,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
@@ -191,19 +191,12 @@ public class Util {
 		sendEnable("&d/_/  |_\\____/   &eThanks for using AdvancedChat &c<3");
 	}
 	
-	public static void setLoad(String version) {
+	@SuppressWarnings("unused")
+    public static void setLoad(String version) {
 		sendEnable("&5<||======================&e[&bLoading &dAdvancedChat&e]&5======================----");
 	}
 
-	public static void setTitleLoad(String title) {
-		sendEnable("&5<||=====================&e[" + title + "&e]&5======================----");
-	}
-
-	public static void setLineLoad(String message) {
-		sendEnable("&5<|| &c* " + message);
-	}
-
-	public static void setEndLoad() {
+    public static void setEndLoad() {
 		sendEnable("&5<||================================================----");
 	}
 	
@@ -232,20 +225,15 @@ public class Util {
 	}
 
 	public static void setDisabled(String version) {
-		sendEnable(prefix, "&5<||============================================----");
-		sendEnable(prefix, "&5<|| &c* &bThe plugin is &d[&cSuccessfully disabled&d]");
-		sendEnable(prefix, "&5<|| &c* &bVersion: &e[&a" + version + "&e]");
-		sendEnable(prefix, "&5<|| &c* &bBy: &e[&bjonagamerpro1234&e]");
-		sendEnable(prefix, "&5<|| &c* &bTested Versions &3|&a1.8.x &3- &a1.18.x&3| &eComing Soon -> &c1.19");
-		sendEnable(prefix, "&5<|| &a* &eThanks for using &bAdvancedChat &c<3");
-		sendEnable(prefix, "&5<||============================================----");
-	}
-
-	public static void sendLile() {
-		sendEnable(prefix, "&5<||============================================----");
-	}
-
-   public static String getVar(Player player, String text) {
+        sendEnable(prefix, "&5<||============================================----");
+        sendEnable(prefix, "&5<|| &c* &bThe plugin is &d[&cSuccessfully disabled&d]");
+        sendEnable(prefix, "&5<|| &c* &bVersion: &e[&a" + version + "&e]");
+        sendEnable(prefix, "&5<|| &c* &bBy: &e[&bjonagamerpro1234&e]");
+        sendEnable(prefix, "&5<|| &c* &bTested Versions &3|&a1.8.x &3- &a1.18.x&3| &eComing Soon -> &c1.19");
+        sendEnable(prefix, "&5<|| &a* &eThanks for using &bAdvancedChat &c<3");
+        sendEnable(prefix, "&5<||============================================----");
+    }
+   public static @NotNull String getVar(Player player, String text) {
       text = text.replace("<name>", player.getName());
       text = text.replace("<displayname>", player.getDisplayName());
       text = text.replace("<Name>", player.getName());
@@ -261,15 +249,12 @@ public class Util {
       return Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") ? PlaceholderAPI.setPlaceholders(player, text) : text;
    }
 
+   @SuppressWarnings("unused")
    public static boolean doesPluginExist(String plugin) {
       return doesPluginExist(plugin, "");
    }
 
-   public static boolean doesPluginExist(String plugin, boolean s) {
-      return doesPluginExist(plugin, "", s);
-   }
-
-   public static boolean doesPluginExist(String plugin, String msg, boolean s) {
+    public static boolean doesPluginExist(String plugin, String msg, boolean s) {
       boolean hooked = Bukkit.getPluginManager().getPlugin(plugin) != null;
       if (hooked) {
     	  if (s) {
@@ -298,7 +283,7 @@ public class Util {
          } else {
             playersOnline = ((Player[])Bukkit.class.getMethod("getOnlinePlayers").invoke((Object)null)).length;
          }
-      } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {}
+      } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ignored) {}
 
       text = text.replace("<online>", "" + playersOnline);
       text = text.replace("<Online>", "" + playersOnline);
@@ -380,29 +365,26 @@ public class Util {
    public static String getTime(long millis) {
       Date date = new Date(millis);
       SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-      String hour = formatter.format(date);
-      return hour;
+       return formatter.format(date);
    }
 
    public static String getDate() {
 	   Calendar calendar = Calendar.getInstance();
 	   SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	   String temp = dateFormat.format(calendar.getTime());
-	   return temp;
+       return dateFormat.format(calendar.getTime());
    }
 
    public static String getTime() {
 	   Calendar calendar = Calendar.getInstance();
 	   SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-	   String temp = dateFormat.format(calendar.getTime());
-	   return temp;
+       return dateFormat.format(calendar.getTime());
    }
    
-   public static List<String> setLimitTab(List<String> list, String inic) {
+   public static List<String> setLimitTab(List<String> list, String init) {
       List<String> returned = new ArrayList<String>();
       
       list.forEach( (s) -> {
-    	  if(s != null && s.toLowerCase().startsWith(inic.toLowerCase())) {
+    	  if(s != null && s.toLowerCase().startsWith(init.toLowerCase())) {
     		  returned.add(s);
     	  }
       });
