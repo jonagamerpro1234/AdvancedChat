@@ -9,7 +9,7 @@ import org.bukkit.plugin.PluginManager;
 
 public class EventUtils {
 	
-   private AdvancedChat plugin;
+   private final AdvancedChat plugin;
 
    public EventUtils(AdvancedChat plugin) {
       this.plugin = plugin;
@@ -45,9 +45,6 @@ public class EventUtils {
       try {
          for(int i = 0; i < value; ++i) {
             Bukkit.broadcastMessage(" ");
-            if (i == value) {
-               break;
-            }
          }
       } catch (NullPointerException var3) {
          var3.printStackTrace();

@@ -22,7 +22,7 @@ import jss.advancedchat.utils.inventory.TSkullUtils;
 
 public class GuiSettings {
 	
-	private AdvancedChat plugin = AdvancedChat.get();
+	private final AdvancedChat plugin = AdvancedChat.get();
 	private Inventory inv;
 	private ItemStack item;
 	private ItemMeta meta;
@@ -200,9 +200,6 @@ public class GuiSettings {
 			item.setAmount(1);
 			inv.setItem(i, item);
 
-			if (i == 54) {
-				break;
-			}
 		}
 	}
 	

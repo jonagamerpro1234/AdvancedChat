@@ -13,11 +13,11 @@ import jss.advancedchat.AdvancedChat;
 
 public class InventoryDataFile {
 
-    private AdvancedChat plugin;
+    private final AdvancedChat plugin;
     private File file;
     private FileConfiguration config;
-    private String path;
-    private String folderpath;
+    private final String path;
+    private final String folderpath;
 
     public InventoryDataFile(AdvancedChat plugin, String path, String folderpath) {
         this.plugin = plugin;
@@ -62,10 +62,8 @@ public class InventoryDataFile {
         Reader defaultConfigStream;
         try {
             defaultConfigStream = new InputStreamReader(plugin.getResource(this.path), "UTF8");
-            if (defaultConfigStream != null) {
-                YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
-                config.setDefaults(defaultConfig);
-            }
+            YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
+            config.setDefaults(defaultConfig);
         }catch(Exception e) {
         	e.printStackTrace();
         }

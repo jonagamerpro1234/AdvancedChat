@@ -14,8 +14,8 @@ import jss.advancedchat.utils.Util;
 
 public class LogFile {
 
-	private AdvancedChat plugin;
-	private String pathFile = Util.getDate();
+	private final AdvancedChat plugin;
+	private final String pathFile = Util.getDate();
 	private File file;
 	private FileConfiguration config;
 
@@ -45,9 +45,6 @@ public class LogFile {
 		file = new File(plugin.getDataFolder() + File.separator + "Log", name + ".yml");
 		config = YamlConfiguration.loadConfiguration(file);
 
-		if (config == null) {
-			reload();
-		}
 		return config;
 	}
 

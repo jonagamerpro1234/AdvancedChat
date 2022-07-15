@@ -12,7 +12,7 @@ import jss.advancedchat.AdvancedChat;
 
 public class ChatLogListener implements Listener{
 	
-	private AdvancedChat plugin = AdvancedChat.get();
+	private final AdvancedChat plugin = AdvancedChat.get();
 	
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onChat(AsyncPlayerChatEvent e) {

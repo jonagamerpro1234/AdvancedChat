@@ -18,28 +18,24 @@ import jss.advancedchat.utils.Util;
 
 public class GuiChannel {
 	
-	private AdvancedChat plugin;
+	private final AdvancedChat plugin;
 	private ItemStack item;
-	private ItemMeta meta;
-	
+
 	public GuiChannel(AdvancedChat plugin) {
 		this.plugin = plugin;
 	}
 	
 	public void open(Player player, String target) {
 		FileConfiguration config = plugin.getChannelGuiFile().getConfig();
-		FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
 		
 		String title = config.getString("Title");
 		Set<String> section = config.getConfigurationSection("Items").getKeys(false);
-		int amount = invData.getInt("Amount-Items");
-		String colorglass = invData.getString("Color-Glass.Channel");
 		
 		title = Util.color(title);
 		
 		Inventory inv = Bukkit.createInventory(null, 4 * 9, title);
 		
-		setDecoration(inv, colorglass);
+		setDecoration(inv, XMaterial.BLACK_STAINED_GLASS_PANE.toString());
 		
 		item = Util.getPlayerHead(target);
 		inv.setItem(4, item);
@@ -51,7 +47,7 @@ public class GuiChannel {
 			
 			item = XMaterial.valueOf(mat.toUpperCase()).parseItem();
 			
-			item.setAmount(amount);
+			item.setAmount(1);
 			inv.setItem(slot, item);
 		});
 		
@@ -72,15 +68,12 @@ public class GuiChannel {
 	private void setDecoration(Inventory inv, String path) {
 		for (int i = 0; i < 36; i++) {
 			item = XMaterial.valueOf(path).parseItem();
-			meta = item.getItemMeta();
+			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName(Util.color(" "));
 			item.setItemMeta(meta);
 			item.setAmount(1);
 			inv.setItem(i, item);
 
-			if (i == 36) {
-				break;
-			}
 		}
 	}
 }

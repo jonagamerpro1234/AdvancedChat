@@ -11,11 +11,11 @@ import jss.advancedchat.utils.Util;
 
 public class HookManager extends HookLoader{
 	
-	private AdvancedChat plugin;
+	private final AdvancedChat plugin;
 	private static ProtocolLibHook protocolLib;
-	private DiscordSRVHook discordSRVHook = new DiscordSRVHook(this);
-	private LuckPermsHook luckPermsHook = new LuckPermsHook(this);
-	private PlaceholderApiHook placeholderApiHook = new PlaceholderApiHook(this);
+	private final DiscordSRVHook discordSRVHook = new DiscordSRVHook(this);
+	private final LuckPermsHook luckPermsHook = new LuckPermsHook(this);
+	private final PlaceholderApiHook placeholderApiHook = new PlaceholderApiHook(this);
 	private static HookManager hookManager;
 	
 	public HookManager(AdvancedChat plugin) {

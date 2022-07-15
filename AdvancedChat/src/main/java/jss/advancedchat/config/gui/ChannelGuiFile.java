@@ -15,11 +15,11 @@ import jss.advancedchat.AdvancedChat;
 
 public class ChannelGuiFile {
 
-    private AdvancedChat plugin;
+    private final AdvancedChat plugin;
     private File file;
     private FileConfiguration config;
-    private String path;
-    private String folderpath;
+    private final String path;
+    private final String folderpath;
 
     public ChannelGuiFile(AdvancedChat plugin, String path, String folderpath) {
         this.plugin = plugin;
@@ -65,10 +65,8 @@ public class ChannelGuiFile {
         try {
             defaultConfigStream = new InputStreamReader(plugin.getResource(this.path), "UTF8");
             BufferedReader in = new BufferedReader(defaultConfigStream);
-            if (defaultConfigStream != null) {
-                YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
-                config.setDefaults(defaultConfig);
-            }
+            YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
+            config.setDefaults(defaultConfig);
         }catch(UnsupportedEncodingException | NullPointerException | IllegalArgumentException e) {
         	e.printStackTrace();
         }

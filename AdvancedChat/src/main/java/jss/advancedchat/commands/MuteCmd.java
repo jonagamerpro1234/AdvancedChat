@@ -25,22 +25,17 @@ public class MuteCmd implements CommandExecutor {
             if (args.length >= 1) {
                 Player target = Bukkit.getPlayer(args[0]);
                 PlayerManager playerManager = new PlayerManager(target);
-                if(target == null) {
-                	Util.sendColorMessage(sender, Settings.message_No_Online_Player);
-                	return true;
-                }else {
-                    if(target.isOp() || target.hasPermission(Perms.ac_mute_bypass)) {
-                    	Util.sendColorMessage(sender, Settings.message_mute_bypass);
-                        return true;
-                    }
-                    
-                    if(Settings.mysql) {
-                    //	mySQL.setMute(target.getUniqueId().toString(), true);
-                    } else {
-                    playerManager.setMute(true);
-                    }
+                if(target.isOp() || target.hasPermission(Perms.ac_mute_bypass)) {
+                    Util.sendColorMessage(sender, Settings.message_mute_bypass);
+                    return true;
                 }
-                
+
+                if(Settings.mysql) {
+                //	mySQL.setMute(target.getUniqueId().toString(), true);
+                } else {
+                playerManager.setMute(true);
+                }
+
                 Util.sendColorMessage(sender, Util.getPrefix(false) + Util.getVar(target, Settings.message_Mute_Player));
                 return true;
             }
@@ -53,22 +48,17 @@ public class MuteCmd implements CommandExecutor {
             if (args.length >= 1) {
                 Player target = Bukkit.getPlayer(args[0]);
                 PlayerManager playerManager = new PlayerManager(target);
-                if(target == null) {
-                	Util.sendColorMessage(j, Settings.message_No_Online_Player);
-                	return true;
-                }else {
-                    if(target.isOp() || target.hasPermission(Perms.ac_mute_bypass)) {
-                    	Util.sendColorMessage(j, Settings.message_mute_bypass);
-                        return true;
-                    }
-                    
-                    if(Settings.mysql) {
-                    	//mySQL.setMute(target.getUniqueId().toString(), true);
-                    } else {
-                    	playerManager.setMute(true);
-                    }
+                if(target.isOp() || target.hasPermission(Perms.ac_mute_bypass)) {
+                    Util.sendColorMessage(j, Settings.message_mute_bypass);
+                    return true;
                 }
-                
+
+                if(Settings.mysql) {
+                    //mySQL.setMute(target.getUniqueId().toString(), true);
+                } else {
+                    playerManager.setMute(true);
+                }
+
                 Util.sendColorMessage(j, Util.getPrefix(false) + Util.getVar(target, Settings.message_Mute_Player));
                 return true;
             }

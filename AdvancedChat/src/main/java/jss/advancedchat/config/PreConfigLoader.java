@@ -23,7 +23,7 @@ public class PreConfigLoader {
 			Settings.hook_vault = config.getString("Hooks.Vault.Enabled").equals("true");
 			Settings.hook_discordsrv = config.getString("Hooks.DiscordSRV.Enabled").equals("true");
 			Settings.hook_luckperms = config.getString("Hooks.LuckPerms.Enabled").equals("true");
-			Settings.hook_luckperms_use_group = config.getString("Hooks.LuckPerms.Auto-Detect-Group").equals("true");
+			//Settings.hook_luckperms_use_group = config.getString("Hooks.LuckPerms.AutoDetectGroup").equals("true");
 			Settings.boolean_use_default_prefix = config.getString("Settings.Use-Default-Prefix").equals("true");
 			Settings.boolean_chatclear_autoclear = config.getString("ClearChat.AutoClear").equals("true");
 			Settings.boolean_clearchat_bypass = config.getString("ClearChat.ByPass-Staff").equals("true");

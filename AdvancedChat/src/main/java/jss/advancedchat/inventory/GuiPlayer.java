@@ -22,7 +22,7 @@ import jss.advancedchat.utils.inventory.TSkullUtils;
 
 public class GuiPlayer {
 
-	private AdvancedChat plugin = AdvancedChat.get();
+	private final AdvancedChat plugin = AdvancedChat.get();
 	private Inventory inv;
 	private ItemStack item;
 	private ItemMeta meta;
@@ -36,21 +36,16 @@ public class GuiPlayer {
 	
 	private void create() {
 		FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
-		FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
 
 		String title = config.getString("Title");
-		String colorglass = invData.getString("Color-Glass.Player");
 
 		inv = Bukkit.createInventory(null, 54, Util.color(title));
 
-		setGlass(inv, colorglass);
+		setGlass(inv, XMaterial.BLACK_STAINED_GLASS_PANE.toString());
 	}
 
 	public void setItems(Player player, String target) {
 		FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
-		FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
-
-		int amount = invData.getInt("Amount-Items");
 		
 		inv.setItem(4, Util.getPlayerHead(target));		
 		PlayerManager playerManager = new PlayerManager(Bukkit.getPlayer(target));
@@ -72,7 +67,7 @@ public class GuiPlayer {
 			meta.setDisplayName(Util.color(name));
 
 			item.setItemMeta(meta);
-			item.setAmount(amount);
+			item.setAmount(1);
 
 			inv.setItem(slot, item);
 		}
@@ -109,9 +104,6 @@ public class GuiPlayer {
 			item.setAmount(1);
 			inv.setItem(i, item);
 
-			if (i == 54) {
-				break;
-			}
 		}
 	}
 
@@ -122,11 +114,6 @@ public class GuiPlayer {
 				return item = XMaterial.BARRIER.parseItem();
 			} else {
 				if(Settings.mysql) {
-					/*if(plugin.getMySQL().isMute(player.getUniqueId().toString())) {
-						return item = XMaterial.GREEN_DYE.parseItem();
-					} else {
-						return item = XMaterial.GRAY_DYE.parseItem();
-					}*/
 				}else{
 					if (playerManager.isMute()) {
 						return item = XMaterial.GREEN_DYE.parseItem();

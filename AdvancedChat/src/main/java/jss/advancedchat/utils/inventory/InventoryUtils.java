@@ -43,7 +43,7 @@ public class InventoryUtils {
 		}
 	}
 	
-	public static void setRowGlass(Inventory inventory, ItemStack item, ItemMeta meta, int row) {
+	public static void setRowGlass(Inventory inventory, ItemStack item, int row) {
 		int finalrow = row;
 		if (!(row >= 1 && row <= 6))
 			finalrow = 1;
@@ -52,15 +52,12 @@ public class InventoryUtils {
 
 		for (int i = 0; i < invSize; i++) {
 			item = XMaterial.BLACK_STAINED_GLASS_PANE.parseItem();
-			meta = item.getItemMeta();
+			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName(" ");
 			item.setItemMeta(meta);
 			item.setAmount(1);
 			inventory.setItem(i, item);
 
-			if (i == invSize) {
-				break;
-			}
 		}
 	}
 

@@ -148,23 +148,21 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 								if (hex == null)
 									Logger.debug("&6Please select a hex color");
 
-								if (args.length >= 3) {
-									if (args[4].equalsIgnoreCase("first")) {
-										if (Settings.mysql) {
-										//	mySQL.setGradientFirst(target, hex);
-										} else {
-											playerManager.setFirstGradient(ColorManager.get().convertHexColor(hex));
-										}
-										return true;
+								if (args[4].equalsIgnoreCase("first")) {
+									if (Settings.mysql) {
+									//	mySQL.setGradientFirst(target, hex);
+									} else {
+										playerManager.setFirstGradient(ColorManager.get().convertHexColor(hex));
 									}
-									if (args[4].equalsIgnoreCase("second")) {
-										if (Settings.mysql) {
-											//mySQL.setGradientSecond(target, hex);
-										} else {
-											playerManager.setSecondGradient(ColorManager.get().convertHexColor(hex));
-										}
-										return true;
+									return true;
+								}
+								if (args[4].equalsIgnoreCase("second")) {
+									if (Settings.mysql) {
+										//mySQL.setGradientSecond(target, hex);
+									} else {
+										playerManager.setSecondGradient(ColorManager.get().convertHexColor(hex));
 									}
+									return true;
 								}
 							}
 							return true;

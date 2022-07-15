@@ -41,11 +41,9 @@ public class ProtocolLibHook{
 					if(msg.contains(" ")) {
 						return;
 					}
-					
-					if(msg.length() > 0) {
-						e.setCancelled(true);
-					}
-				}
+
+                    e.setCancelled(true);
+                }
 			});
 		}
 	}

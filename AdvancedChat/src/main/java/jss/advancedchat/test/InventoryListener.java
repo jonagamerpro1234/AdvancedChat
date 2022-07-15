@@ -11,7 +11,7 @@ import jss.advancedchat.utils.inventory.InventoryView;
 
 public class InventoryListener implements Listener {
 
-    private AdvancedChat plugin = AdvancedChat.get();
+    private final AdvancedChat plugin = AdvancedChat.get();
 
 	@EventHandler
     public void onInvetoryTest(InventoryClickEvent e) {
@@ -22,7 +22,11 @@ public class InventoryListener implements Listener {
         if (!inventoryPlayer.getInventoryName().contains("test")) return;
         if (e.getCurrentItem() == null) return;
         if (e.getClickedInventory() == null || !e.getClickedInventory().equals(p.getOpenInventory().getTopInventory())) return;
-        if (e.getCurrentItem().getType() == Material.AIR || e.getSlotType() == null) return;
+        if (e.getCurrentItem().getType() == Material.AIR) {
+            return;
+        } else {
+            e.getSlotType();
+        }
         if (e.getSlot() != 0) return;
      
         e.setCancelled(true);

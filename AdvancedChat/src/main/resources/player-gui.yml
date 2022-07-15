@@ -23,7 +23,7 @@ Items:
   Colors:
     Name: '&bColors'
     Item: paper
-    Texture: '[choosecolor]'
+    Texture: '[choose-color]'
     Slot: 19
   Channel:
     Name: '&bChannel &e[Working Progress]'
@@ -38,7 +38,7 @@ Items:
   Rainbow:
     Name: '&bRainbow'
     Item: paper
-    Texture: '[rainbowcube]'
+    Texture: '[rainbow-cube]'
     Slot: 25
   SpecialCodes:
     Name: '&bSpecial Codes'

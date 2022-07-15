@@ -39,11 +39,6 @@ public class UnMuteCmd implements CommandExecutor {
                 Player target = Bukkit.getPlayer(args[0]);
                 PlayerManager playerManager = new PlayerManager(target);
 
-                if(target == null) {
-                	Util.sendColorMessage(j, Settings.message_No_Online_Player);
-                	return true;
-                }
-                
                 if(Settings.mysql) {
                 	//mySQL.setMute(target.getUniqueId().toString(), false);
                 } else {

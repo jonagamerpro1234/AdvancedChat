@@ -4,6 +4,6 @@ import org.bukkit.event.Event;
 
 public interface GuiAction<T extends Event> {
 
-	public void execute(final T event);
+	void execute(final T event);
 	
 }

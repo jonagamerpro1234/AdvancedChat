@@ -7,13 +7,14 @@ import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.config.player.PlayerFile;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
+import org.jetbrains.annotations.NotNull;
 
 public class PlayerManager  {
 	
 	private final PlayerFile playerFile = AdvancedChat.get().getPlayerFile();
-	private FileConfiguration config = null;
+	private final FileConfiguration config;
 	
-	public PlayerManager(Player player) {
+	public PlayerManager(@NotNull Player player) {
 		config = playerFile.getConfig(player.getName());
 	}
 	
@@ -205,7 +206,7 @@ public class PlayerManager  {
     }
     
     public boolean existsPlayer(String section) {
-    	if(config.contains(section)) return true; return false;
+        return config.contains(section);
     }
     
     private void save() {

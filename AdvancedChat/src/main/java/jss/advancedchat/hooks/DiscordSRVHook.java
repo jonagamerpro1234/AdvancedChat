@@ -11,7 +11,7 @@ import jss.advancedchat.utils.interfaces.IHook;
 
 public class DiscordSRVHook implements IHook{
 	
-	private HookManager hookManager;
+	private final HookManager hookManager;
 	private boolean isEnabled;
 	
 	public DiscordSRVHook(HookManager hookManager) {

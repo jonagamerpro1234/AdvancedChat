@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class JoinListener implements Listener {
 
-    private AdvancedChat plugin = AdvancedChat.get();
+    private final AdvancedChat plugin = AdvancedChat.get();
     
     @EventHandler
     public void onJoinPlayer(PlayerJoinEvent e) {

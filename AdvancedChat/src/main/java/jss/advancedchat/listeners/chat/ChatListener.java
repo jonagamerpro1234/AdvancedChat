@@ -26,17 +26,17 @@ import jss.advancedchat.utils.Settings;
 
 public class ChatListener implements Listener {
 
-	private AdvancedChat plugin = AdvancedChat.get();
+	private final AdvancedChat plugin = AdvancedChat.get();
 	private ColorManager colorManager;
 	private boolean badword;
 	private boolean ismention;
-	private final Pattern COLOR_REGEX = Pattern.compile("(?i)&([0-9A-F])");
-	private final Pattern MAGIC_REGEN = Pattern.compile("(?i)&([K])");
-	private final Pattern BOLD_REGEX = Pattern.compile("(?i)&([L])");
-	private final Pattern STRIKETHROUGH_REGEX = Pattern.compile("(?i)&([M])");
-	private final Pattern UNDERLINE_REGEX = Pattern.compile("(?i)&([N])");
-	private final Pattern ITALIC_REGEX = Pattern.compile("(?i)&([O])");
-	private final Pattern RESET_REGEX = Pattern.compile("(?i)&([R])");
+	private final Pattern COLOR_REGEX = Pattern.compile("(?i)&([\\dA-F])");
+	private final Pattern MAGIC_REGEN = Pattern.compile("(?i)&(K)");
+	private final Pattern BOLD_REGEX = Pattern.compile("(?i)&(L)");
+	private final Pattern STRIKETHROUGH_REGEX = Pattern.compile("(?i)&(M)");
+	private final Pattern UNDERLINE_REGEX = Pattern.compile("(?i)&(N)");
+	private final Pattern ITALIC_REGEX = Pattern.compile("(?i)&(O)");
+	private final Pattern RESET_REGEX = Pattern.compile("(?i)&(R)");
 	
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void chatMute(AsyncPlayerChatEvent e) {
@@ -45,10 +45,6 @@ public class ChatListener implements Listener {
 		
 		if (Settings.mysql) {
 			if (j.isOp() || Util.hasPerm(j, Perms.ac_mute_bypass)) return;
-//				if (plugin.getMySQL().isMute(j.getUniqueId().toString())) {
-//					Utils.sendColorMessage(j, Utils.getVar(j, Settings.message_Alert_Mute));
-//					e.setCancelled(true);
-//				}
 		} else {
 			if (j.isOp() || Util.hasPerm(j, Perms.ac_mute_bypass)) return;
 				if (playerManager.isMute()) {

@@ -17,9 +17,8 @@ import jss.advancedchat.utils.Util;
 
 public class MsgCmd implements CommandExecutor, TabCompleter {
 
-	private AdvancedChat plugin = AdvancedChat.get();
-
 	public MsgCmd() {
+		AdvancedChat plugin = AdvancedChat.get();
 		plugin.getCommand("Msg").setExecutor(this);
 		plugin.getCommand("Msg").setTabCompleter(this);
 	}

@@ -11,20 +11,13 @@ import org.bukkit.entity.Player;
 
 @SuppressWarnings("deprecation")
 public class Json {
-
-	private Player player;
+	private final Player player;
 	private String text;
 	private BaseComponent[] hoverText;
 	private String suggestCommand;
 	private String executeCommand;
 	private String openURL;
-	private String extraText;
-
-	public Json(Player player, String text) {
-		this.player = player;
-		this.text = text;
-		this.hoverText = null;
-	}
+	private final String extraText;
 
 	public Json(Player player, String text, String textEx) {
 		this.player = player;
@@ -36,22 +29,15 @@ public class Json {
 	public Player getPlayer() {
 		return this.player;
 	}
-
 	public String getText() {
 		return this.text;
 	}
-
 	public Json setText(String text) {
 		this.text = text;
 		return this;
 	}
 
-	public Json setExtraText(String textEx) {
-		this.extraText = textEx;
-		return this;
-	}
-
-	public String getExtraText() {
+    public String getExtraText() {
 		return this.extraText;
 	}
 
