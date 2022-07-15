@@ -3,7 +3,7 @@
 
 	<groupId>jss.advancedchat</groupId>
 	<artifactId>advancedchat</artifactId>
-	<version>1.7.0-b20</version>
+	<version>1.7.0-b21</version>
 
 	<name>AdvancedChat</name>
 	<description>a simple plugin that helps you customize your server chat to make it look better also brings a customizable chat system by group or rank and more....</description>
@@ -37,14 +37,16 @@
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
-			<version>4.0.3</version>
+			<version>5.0.1</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<!-- MySQL -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.28</version>
+			<version>8.0.29</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<!-- Spigot -->
@@ -73,7 +75,8 @@
 		<dependency>
 			<groupId>com.github.cryptomorin</groupId>
 			<artifactId>XSeries</artifactId>
-			<version>8.7.1</version>
+			<version>8.8.0</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<!-- Mojang -->
@@ -126,6 +129,10 @@
 					<groupId>org.yaml</groupId>
 					<artifactId>snakeyaml</artifactId>
 				</exclusion>
+				<exclusion>
+					<artifactId>adventure-platform-bukkit</artifactId>
+					<groupId>net.kyori</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -175,6 +182,10 @@
 					<groupId>org.yaml</groupId>
 					<artifactId>snakeyaml</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>net.kyori</groupId>
+					<artifactId>adventure-platform-bukkit</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
@@ -182,18 +193,21 @@
 			<groupId>de.tr7zw</groupId>
 			<artifactId>item-nbt-api</artifactId>
 			<version>2.10.0</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>net.kyori</groupId>
 			<artifactId>adventure-api</artifactId>
 			<version>4.11.0</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>net.kyori</groupId>
 			<artifactId>adventure-platform-bukkit</artifactId>
 			<version>4.1.1</version>
+			<scope>compile</scope>
 		</dependency>
 
 	</dependencies>
@@ -244,7 +258,6 @@
 	</repositories>
 
 	<build>
-		<defaultGoal>clear install</defaultGoal>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -261,7 +274,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.2.0</version>
+				<version>3.2.4</version>
 				<configuration>
 					<minimizeJar>true</minimizeJar>
 					<createDependencyReducedPom>false</createDependencyReducedPom>
@@ -281,6 +294,10 @@
 						<relocation>
 							<pattern>org.slf4j</pattern>
 							<shadedPattern>jss.advancedchat.lib.slf4j</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>net.kyori</pattern>
+							<shadedPattern>jss.advancedchat.lib.kyori</shadedPattern>
 						</relocation>
 					</relocations>
 					<filters>
@@ -318,7 +335,7 @@
 							<Version>${project.version}</Version>
 						</manifestEntries>
 					</archive>
-					<outputDirectory>C:\Users\Alumno\Desktop\LocalHost\Server\1.8\plugins</outputDirectory>
+					<outputDirectory>C:\Users\Alumno\Desktop\LocalHost\Server\IntelliJ\plugins</outputDirectory>
 				</configuration>
 			</plugin>
 		</plugins>

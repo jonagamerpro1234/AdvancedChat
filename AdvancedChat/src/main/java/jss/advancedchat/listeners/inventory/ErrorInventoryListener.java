@@ -10,7 +10,7 @@ import jss.advancedchat.utils.inventory.InventoryView;
 
 public class ErrorInventoryListener implements Listener {
 	
-	private AdvancedChat plugin = AdvancedChat.get();
+	private final AdvancedChat plugin = AdvancedChat.get();
 	
 	@EventHandler 
 	public void onClick(InventoryClickEvent e) {
@@ -23,21 +23,17 @@ public class ErrorInventoryListener implements Listener {
 			e.setCancelled(true);
 			return;
 		}
-		
-		if((e.getSlotType() == null)) {
-			e.setCancelled(true);
-			return;
-		}else {
-			if(!e.getClickedInventory().equals(j.getOpenInventory().getTopInventory())) return;
-			e.getSlot();
-			e.setCancelled(true);
-		}
+
+		e.getSlotType();
+		if(!e.getClickedInventory().equals(j.getOpenInventory().getTopInventory())) return;
+		e.getSlot();
+		e.setCancelled(true);
 	}
 	
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
 		Player j = (Player) e.getPlayer();
-		plugin.removeInvetoryView(j);
+		plugin.removeInventoryView(j);
 	}
 	
 }

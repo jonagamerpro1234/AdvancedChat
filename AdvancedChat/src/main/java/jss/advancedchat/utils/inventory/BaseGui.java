@@ -20,16 +20,16 @@ import org.bukkit.inventory.ItemStack;
 @SuppressWarnings("unused")
 public abstract class BaseGui extends InventoryUtils implements InventoryHolder {
 	
-	private UUID uuid = UUID.randomUUID();
-	private Inventory inventory;
-	private Map<Integer, GuiAction<?>> actions;
+	private final UUID uuid = UUID.randomUUID();
+	private final Inventory inventory;
+	private final Map<Integer, GuiAction<?>> actions;
 	
 	private GuiAction<InventoryClickEvent> slotAction;
 	private GuiAction<InventoryCloseEvent> closeAction;
 	private GuiAction<InventoryOpenEvent> openAction; 
 	
-	private static Map<UUID, BaseGui> inventoriesByUUID = new HashMap<>();
-	private static Map<UUID, UUID> openIventories = new HashMap<>();
+	private static final Map<UUID, BaseGui> inventoriesByUUID = new HashMap<>();
+	private static final Map<UUID, UUID> openIventories = new HashMap<>();
 	
 	public BaseGui(int size, String name) {
 		inventory = Bukkit.createInventory(null, size, name);

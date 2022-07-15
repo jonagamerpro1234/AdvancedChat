@@ -18,20 +18,18 @@ import jss.advancedchat.utils.Util;
 
 public class InventoryActionHelper {
 	
-	private AdvancedChat plugin = AdvancedChat.get();
-	private PlayerManager playerManager;
-	private Player player;
-	private Player target;
-	private InventoryClickEvent inventoryClickEvent;
+	private final AdvancedChat plugin = AdvancedChat.get();
+	private final PlayerManager playerManager;
+	private final Player player;
+	private final InventoryClickEvent inventoryClickEvent;
 	
 	public enum InventoryType{
-		Player,Settings,Color,Gradient,Channel,Rainbow,SpecialCodes;
+		Player,Settings,Color,Gradient,Channel,Rainbow,SpecialCodes
 	}
 	
 	public InventoryActionHelper(Player player, Player target, PlayerManager playerManager, InventoryClickEvent inventoryClickEvent) {
 		this.player = player;
 		this.playerManager = playerManager;
-		this.target = target;
 		this.inventoryClickEvent = inventoryClickEvent;
 	}
 	
@@ -39,19 +37,9 @@ public class InventoryActionHelper {
 		if(player.isOp() || player.hasPermission(permission)) {
 			
 			if(inventoryClickEvent.getClick().isLeftClick()) {
-				
-				if(Settings.mysql) {
-				//	plugin.getMySQL().setGradientFirst(target, left);
-				}else {
-					playerManager.setFirstGradient(left);
-				}
+				playerManager.setFirstGradient(left);
 			}else if(inventoryClickEvent.getClick().isRightClick()) {
-				if(Settings.mysql) {
-				//	plugin.getMySQL().setGradientSecond(target, right);
-				}else {
-					playerManager.setSecondGradient(right);
-				}
-				
+				playerManager.setSecondGradient(right);
 			}
 		}else {
 			Util.sendHoverEvent(player, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
@@ -60,11 +48,7 @@ public class InventoryActionHelper {
 	
 	public void setActionColor(String permission, String action) {
 		if(player.isOp() || player.hasPermission(permission)) {
-			if(Settings.mysql) {
-			//	plugin.getMySQL().setColor(target, action);
-			}else {
-				playerManager.setColor(action);
-			}
+			playerManager.setColor(action);
 		}else {
 			Util.sendHoverEvent(player, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 		}

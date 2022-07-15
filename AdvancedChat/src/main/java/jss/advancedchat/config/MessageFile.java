@@ -13,8 +13,8 @@ import jss.advancedchat.AdvancedChat;
 
 public class MessageFile{
 	
-	private AdvancedChat plugin;
-	private String path;
+	private final AdvancedChat plugin;
+	private final String path;
 	private File file;
 	private FileConfiguration config;
 	
@@ -49,10 +49,8 @@ public class MessageFile{
 		try {
 			reader = new InputStreamReader(plugin.getResource(path), "UTF8");
 			BufferedReader bufferedReader = new BufferedReader(reader);
-			if(reader != null) {
-				YamlConfiguration configuration = YamlConfiguration.loadConfiguration(bufferedReader);
-				config.setDefaults(configuration);
-			}
+			YamlConfiguration configuration = YamlConfiguration.loadConfiguration(bufferedReader);
+			config.setDefaults(configuration);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

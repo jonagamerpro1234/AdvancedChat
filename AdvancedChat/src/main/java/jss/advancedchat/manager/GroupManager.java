@@ -11,24 +11,19 @@ import jss.advancedchat.utils.Settings;
 
 public class GroupManager{
 
-	private AdvancedChat plugin = AdvancedChat.get();
-	private FileConfiguration config = plugin.getGroupFile().getConfig();
+	private final AdvancedChat plugin = AdvancedChat.get();
+	private final FileConfiguration config = plugin.getGroupFile().getConfig();
 	
 	public static GroupManager get() {
 		return new GroupManager();
 	}
 	
 	public boolean isGroupType() {
-		boolean isgroup = false;
-		if(Settings.chatformat_chattype.equalsIgnoreCase("group")) {
-			isgroup = true;
-		}
-		return isgroup;
+		return Settings.chatformat_chattype.equalsIgnoreCase("group");
 	}
 	
 	public Set<String> getGroupList() {
-		Set<String> sections = config.getKeys(false);
-		return sections;
+		return config.getKeys(false);
 	}
 	
 	public boolean existsGroup(String group) {

@@ -8,9 +8,9 @@ import jss.advancedchat.utils.Logger;
 
 public class ChatLogManager {
 	
-	private List<String> blacklist = Arrays.asList("/login","/log","/register","/reg");
-	private List<String> ignore = new ArrayList<String>();
-	private List<String> check = new ArrayList<String>();
+	private final List<String> blacklist = Arrays.asList("/login","/log","/register","/reg");
+	private final List<String> ignore = new ArrayList<String>();
+	private final List<String> check = new ArrayList<String>();
 	
 	public List<String> getBlacklist() {
 		return blacklist;

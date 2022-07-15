@@ -54,11 +54,12 @@ AdvancedChat:
   Alert-Disable-Mention: '&cthis player has mentions disabled'
   Alert-Disable-Msg: '&cThis player cannot receive private messages'
   Logger:
-    Info: '{default}-> '
-    Error: '{default}-> '
-    Success: '{default}-> '
-    Warning: '{default}-> '
-    Debug: '{default}-> '
+    OutLine: '{default}-> &e[&bOUTLINE&e]&7'
+    Info: '{default}-> &e[&9INFO&e]&7'
+    Error: '{default}-> &e[&cERROR&e]&7'
+    Success: '{default}-> &e[&aSUCCESS&e]&7'
+    Warning: '{default}-> &e[&cWARNING&e]&7'
+    Debug: '{default}-> &e[&dDEBUG&e]&7'
     Chat: '{default}-> &e[&aCHAT&e]&7'
 #
 # This is the end of the file ... [-_-] more things to come

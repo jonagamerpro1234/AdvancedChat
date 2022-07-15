@@ -22,7 +22,7 @@ import jss.advancedchat.utils.inventory.TSkullUtils;
 
 public class GuiGradient {
 
-	private AdvancedChat plugin = AdvancedChat.get();
+	private final AdvancedChat plugin = AdvancedChat.get();
 	private ItemStack item;
 	private ItemMeta meta;
 	private Inventory inv;
@@ -118,9 +118,6 @@ public class GuiGradient {
 			item.setAmount(1);
 			inv.setItem(i, item);
 
-			if (i == 54) {
-				break;
-			}
 		}
 	}
 	

@@ -7,7 +7,7 @@ import jss.advancedchat.lib.iridium.IridiumColorAPI;
 
 public class RainbowPattern implements IPattern {
 
-	Pattern pattern = Pattern.compile("<RAINBOW:([0-9]{1,3})>(.*?)</RAINBOW>");
+	final Pattern pattern = Pattern.compile("<RAINBOW:(\\d{1,3})>(.*?)</RAINBOW>");
 
     public String process(String string) {
         Matcher matcher = pattern.matcher(string);

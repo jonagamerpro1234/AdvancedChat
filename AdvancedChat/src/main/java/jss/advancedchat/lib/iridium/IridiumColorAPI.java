@@ -90,7 +90,7 @@ public class IridiumColorAPI {
 
     @Nonnull
     public static String stripColorFormatting(@Nonnull String string) {
-        return string.replaceAll("<#[0-9A-F]{6}>|[&§][a-f0-9lnokm]|<[/]?[A-Z]{5,8}(:[0-9A-F]{6})?[0-9]*>", "");
+        return string.replaceAll("<#[\\dA-F]{6}>|[&§][a-f\\dlnokm]|</?[A-Z]{5,8}(:[\\dA-F]{6})?\\d*>", "");
     }
 
     @Nonnull

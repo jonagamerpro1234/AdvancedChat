@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -11,10 +13,10 @@ import jss.advancedchat.AdvancedChat;
 
 public class BadWordFile{
 
-    private AdvancedChat plugin;
+    private final AdvancedChat plugin;
     private File file;
     private FileConfiguration config;
-    private String path;
+    private final String path;
 
     public BadWordFile(AdvancedChat plugin, String path) {
         this.plugin = plugin;
@@ -54,12 +56,10 @@ public class BadWordFile{
         this.config = YamlConfiguration.loadConfiguration(this.file);
         Reader defaultConfigStream;
         try {
-            defaultConfigStream = new InputStreamReader(plugin.getResource(this.path), "UTF8");
+            defaultConfigStream = new InputStreamReader(plugin.getResource(this.path), StandardCharsets.UTF_8);
             BufferedReader in = new BufferedReader(defaultConfigStream);
-            if (defaultConfigStream != null) {
-                YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
-                config.setDefaults(defaultConfig);
-            }
+            YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
+            config.setDefaults(defaultConfig);
         }catch(Exception e){
         	e.printStackTrace();
         }

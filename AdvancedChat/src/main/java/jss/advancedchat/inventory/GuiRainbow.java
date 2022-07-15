@@ -17,9 +17,8 @@ import jss.advancedchat.utils.Util;
 public class GuiRainbow {
 
 	@SuppressWarnings("unused")
-	private AdvancedChat plugin = AdvancedChat.get();
+	private final AdvancedChat plugin = AdvancedChat.get();
 	private ItemStack item;
-	private ItemMeta meta;
 	private Inventory inv;
 	
 	public void open(Player player, String target) {
@@ -52,15 +51,12 @@ public class GuiRainbow {
 	public void setDecoration() {
 		for (int i = 0; i < 54; i++) {
 			item = XMaterial.BLACK_STAINED_GLASS_PANE.parseItem();
-			meta = item.getItemMeta();
+			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName(Util.color(" "));
 			item.setItemMeta(meta);
 			item.setAmount(1);
 			inv.setItem(i, item);
 
-			if (i == 54) {
-				break;
-			}
 		}
 	}
 	

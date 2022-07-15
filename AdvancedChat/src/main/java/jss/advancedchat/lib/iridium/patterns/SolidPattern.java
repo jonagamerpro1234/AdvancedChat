@@ -7,7 +7,7 @@ import jss.advancedchat.lib.iridium.IridiumColorAPI;
 
 public class SolidPattern implements IPattern {
 
-    Pattern pattern = Pattern.compile("<#([0-9A-Fa-f]{6})>");
+    final Pattern pattern = Pattern.compile("<#([\\dA-Fa-f]{6})>");
 
     public String process(String string) {
         Matcher matcher = pattern.matcher(string);

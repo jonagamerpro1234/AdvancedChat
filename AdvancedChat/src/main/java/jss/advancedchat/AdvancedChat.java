@@ -14,8 +14,6 @@ import jss.advancedchat.listeners.chat.ChatLogListener;
 import jss.advancedchat.listeners.chat.CommandListener;
 import jss.advancedchat.listeners.inventory.*;
 import jss.advancedchat.manager.HookManager;
-import jss.advancedchat.storage.MySQL;
-import jss.advancedchat.storage.MySQLConnection;
 import jss.advancedchat.test.ChatListenerTest;
 import jss.advancedchat.update.UpdateChecker;
 import jss.advancedchat.update.UpdateSettings;
@@ -35,8 +33,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	
 	private static AdvancedChat instance;
 	private PreConfigLoader preConfigLoad;
-	private MySQL mySQL;
-	public MySQLConnection connection = new MySQLConnection();
 	public EventUtils eventUtils;
 	public Metrics metrics;
 	public HookManager HookManager;
@@ -49,20 +45,12 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private final PlayerGuiFile playerGuiFile = new PlayerGuiFile(this, "player-gui.yml", "Gui");
 	private final ChannelGuiFile channelGuiFile = new ChannelGuiFile(this, "channel-gui.yml", "Gui");
 	private final GradientColorFile gradientColorFile = new GradientColorFile(this, "gradient-gui.yml", "Gui");
-	private final InventoryDataFile inventoryDataFile = new InventoryDataFile(this, "inventory.data", "Data");
 	private final PlayerFile playerFile = new PlayerFile(this);
 	public boolean isLegacyConfig = false;
 	public static boolean debug = true;
 	public String latestversion;
 
 	private BukkitAudiences adventure;
-
-	public BukkitAudiences getAdventure() {
-		if(this.adventure == null) {
-			throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
-		}
-		return this.adventure;
-	}
 	
 	public void onLoad() {
 		instance = this;
@@ -88,9 +76,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	}
 	
 	public void onEnable() {	
-		
-		this.adventure = BukkitAudiences.create(this);
-		
+
 		this.getMetric();
 		Util.setEnabled(version);
 				
@@ -135,9 +121,17 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		LogFile logFile = new LogFile(this);
 		logFile.create();
 
+		this.adventure = BukkitAudiences.create(this);
 		
 	}
-	
+
+	public BukkitAudiences getAdventure() {
+		if(this.adventure == null) {
+			throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
+		}
+		return this.adventure;
+	}
+
 	public void onDisable() {
 		Util.setDisabled(version);
 		if(this.adventure != null) {
@@ -182,14 +176,12 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		this.getColorFile().reloadConfig();
 		this.getGradientColorFile().reloadConfig();
 		this.getChannelGuiFile().reloadConfig();
-		this.getInventoryDataFile().reloadConfig();
 		this.getGroupFile().reloadConfig();
 		this.getBadWordFile().reloadConfig();
 		this.getMessageFile().reload();
 	}
 	
 	public void createAllFiles() {
-		inventoryDataFile.create();
 		groupFile.saveDefault();
 		groupFile.create();
 		colorFile.create();
@@ -267,10 +259,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public GradientColorFile getGradientColorFile() {
 		return gradientColorFile;
 	}
-	
-	public InventoryDataFile getInventoryDataFile() {
-		return this.inventoryDataFile;
-	}	
 
 	public ConfigFile getConfigFile() {
 		return configFile;
@@ -288,12 +276,4 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		return channelGuiFile;
 	}
 
-	public MySQL getMySQL() {
-		return mySQL;
-	}
-	
-	public Connection getConnection() {
-		return connection.getConnetion();
-	}
-	
 }

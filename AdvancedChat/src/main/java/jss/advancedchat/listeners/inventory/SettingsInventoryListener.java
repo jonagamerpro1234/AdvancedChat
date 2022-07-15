@@ -23,7 +23,7 @@ import jss.advancedchat.utils.inventory.InventoryActionHelper.InventoryType;
 
 public class SettingsInventoryListener implements Listener {
 	
-	private AdvancedChat plugin = AdvancedChat.get();
+	private final AdvancedChat plugin = AdvancedChat.get();
 	
 	@EventHandler 
 	public void onClick(InventoryClickEvent e) {
@@ -36,42 +36,38 @@ public class SettingsInventoryListener implements Listener {
 			e.setCancelled(true);
 			return;
 		}
-		
-		if((e.getSlotType() == null)) {
-			e.setCancelled(true);
-			return;
-		}else {
-			
-			if(!e.getClickedInventory().equals(j.getOpenInventory().getTopInventory())) return;
-			
-			int slot = e.getSlot();
-			e.setCancelled(true);
-			
-			String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
-			Player target = Bukkit.getPlayer(playerName);
-			PlayerManager playerManager = new PlayerManager(target);
-			InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
-			
-			if(slot == 19) {
-				isLowModeItem(playerManager, target, e.getInventory());
-			}
-			
-			if(slot == 21) {
-				isChatItem(playerManager, target, e.getInventory());
-			}
-			
-			if(slot == 3) {
-				plugin.removeInvetoryView(j);
-				actionHelper.setOpenInventoryAction(playerName, InventoryType.Player);
-			}
-			
-			if(slot == 45) {
-				j.updateInventory();
-			}
-			
-			if(slot == 0) {
-				j.closeInventory();
-			}
+
+		e.getSlotType();
+
+		if(!e.getClickedInventory().equals(j.getOpenInventory().getTopInventory())) return;
+
+		int slot = e.getSlot();
+		e.setCancelled(true);
+
+		String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
+		Player target = Bukkit.getPlayer(playerName);
+		PlayerManager playerManager = new PlayerManager(target);
+		InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
+
+		if(slot == 19) {
+			isLowModeItem(playerManager, target, e.getInventory());
+		}
+
+		if(slot == 21) {
+			isChatItem(playerManager, target, e.getInventory());
+		}
+
+		if(slot == 3) {
+			plugin.removeInventoryView(j);
+			actionHelper.setOpenInventoryAction(playerName, InventoryType.Player);
+		}
+
+		if(slot == 45) {
+			j.updateInventory();
+		}
+
+		if(slot == 0) {
+			j.closeInventory();
 		}
 	}
 	
@@ -119,7 +115,7 @@ public class SettingsInventoryListener implements Listener {
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
 		Player j = (Player) e.getPlayer();
-		plugin.removeInvetoryView(j);
+		plugin.removeInventoryView(j);
 	}
 	
 }

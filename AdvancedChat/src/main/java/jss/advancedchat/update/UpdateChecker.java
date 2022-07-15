@@ -14,8 +14,8 @@ import jss.advancedchat.utils.Logger;
 
 public class UpdateChecker {
 
-    private AdvancedChat plugin;
-    private int ID;
+    private final AdvancedChat plugin;
+    private final int ID;
 
     public UpdateChecker(AdvancedChat plugin, int ID) {
         this.plugin = plugin;

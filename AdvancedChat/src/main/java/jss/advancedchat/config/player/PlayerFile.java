@@ -13,7 +13,7 @@ import jss.advancedchat.utils.Logger;
 
 public class PlayerFile {
 
-	private AdvancedChat plugin;
+	private final AdvancedChat plugin;
 	private String pathFile;
 	private File file;
 	private FileConfiguration config;
@@ -49,9 +49,6 @@ public class PlayerFile {
 		file = new File(plugin.getDataFolder() + File.separator + "Players", name + ".yml");
 		config = YamlConfiguration.loadConfiguration(file);
 
-		if (config == null) {
-			reload();
-		}
 		return config;
 	}
 

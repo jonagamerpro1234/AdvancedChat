@@ -9,7 +9,7 @@ import jss.advancedchat.utils.Util;
 
 public class GroupHelper {
 	
-	private GroupManager groupManager = new GroupManager();
+	private final GroupManager groupManager = new GroupManager();
 	private String group = "";
 	private String format;
 	private boolean click;

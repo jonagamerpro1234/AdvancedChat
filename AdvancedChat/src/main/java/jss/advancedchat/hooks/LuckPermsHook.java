@@ -14,7 +14,7 @@ import net.luckperms.api.LuckPermsProvider;
 
 public class LuckPermsHook implements IHook {
 	
-	private HookManager hooksManager;
+	private final HookManager hooksManager;
 	private boolean isEnabled;
 		
 	public LuckPermsHook(HookManager hooksManager) {
@@ -53,7 +53,7 @@ public class LuckPermsHook implements IHook {
 	public boolean isGroup(Player player, String name){
 		LuckPerms api = LuckPermsProvider.get();
 		String group = api.getUserManager().getUser(player.getName()).getPrimaryGroup();
-		return 	name.equals(group) ? true : false;
+		return name.equals(group);
 	}
 
 	public String getGroup(Player player){

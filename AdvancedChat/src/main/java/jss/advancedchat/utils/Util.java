@@ -313,11 +313,9 @@ public class Util {
 
    public static ItemStack createSkull(String url) {
       ItemStack head = XMaterial.PLAYER_HEAD.parseItem();
-      if (url.isEmpty()) {
-         return head;
-      } else {
-         SkullMeta headMeta = (SkullMeta)head.getItemMeta();
-         GameProfile profile = new GameProfile(UUID.randomUUID(), (String)null);
+      if (!url.isEmpty()) {
+         SkullMeta headMeta = (SkullMeta) head.getItemMeta();
+         GameProfile profile = new GameProfile(UUID.randomUUID(), (String) null);
          profile.getProperties().put("textures", new Property("textures", url));
 
          try {
@@ -329,17 +327,15 @@ public class Util {
          }
 
          head.setItemMeta(headMeta);
-         return head;
       }
+      return head;
    }
 
    public static ItemStack createSkull(String url, List<String> lore) {
       ItemStack head = XMaterial.PLAYER_HEAD.parseItem();
-      if (url.isEmpty()) {
-         return head;
-      } else {
-         SkullMeta headMeta = (SkullMeta)head.getItemMeta();
-         GameProfile profile = new GameProfile(UUID.randomUUID(), (String)null);
+      if (!url.isEmpty()) {
+         SkullMeta headMeta = (SkullMeta) head.getItemMeta();
+         GameProfile profile = new GameProfile(UUID.randomUUID(), (String) null);
          profile.getProperties().put("textures", new Property("textures", url));
 
          try {
@@ -351,8 +347,8 @@ public class Util {
          }
 
          head.setItemMeta(headMeta);
-         return head;
       }
+      return head;
    }
 
    public static String getDate(long millis) {

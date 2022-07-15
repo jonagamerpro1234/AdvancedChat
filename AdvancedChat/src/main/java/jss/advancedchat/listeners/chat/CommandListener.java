@@ -13,7 +13,7 @@ import jss.advancedchat.utils.Util;
 
 public class CommandListener implements Listener {
 
-	private AdvancedChat plugin = AdvancedChat.get();
+	private final AdvancedChat plugin = AdvancedChat.get();
 
     @EventHandler(ignoreCancelled = true)
 	public void onCommandChat(PlayerCommandPreprocessEvent e) {
@@ -47,36 +47,10 @@ public class CommandListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
 	public void onCommandDataLog(PlayerCommandPreprocessEvent e) {
-		/*FileConfiguration config = plugin.getChatDataFile().getConfig();
-		Player j = e.getPlayer();
-
-		String date = Util.getDate(System.currentTimeMillis());
-		String time = Util.getTime(System.currentTimeMillis());
-
-		config.set("Players." + j.getName() + ".Log." + date + ".Command." + time, Util.colorless(e.getMessage()));
-		plugin.getChatDataFile().saveConfig();*/
 	}
 
     @EventHandler(ignoreCancelled = true)
 	public void onCommandLog(PlayerCommandPreprocessEvent e) {
-		/*FileConfiguration config = plugin.getCommandLogFile().getConfig();
-		Player j = e.getPlayer();
-
-		String date = Util.getDate(System.currentTimeMillis());
-		String time = Util.getTime(System.currentTimeMillis());
-		
-		if(Settings.chatlogs_list_command) {
-			for(int i = 0 ; i < Settings.list_chatlogs_no_register_commands.size(); i++) {
-				if(e.getMessage().contains(Settings.list_chatlogs_no_register_commands.get(i))) {
-					return;
-				}
-			}
-		}
-
-		if(Settings.chatlogs_log_command) {
-			config.set("Players." + j.getName() + ".Command." + date + "." + time, Util.colorless(e.getMessage()));
-			plugin.getCommandLogFile().saveConfig();
-		}*/
 	}
 
 }

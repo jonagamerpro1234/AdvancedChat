@@ -19,7 +19,7 @@ import jss.advancedchat.utils.inventory.InventoryUtils;
 
 public class GuiError {
 	
-	private AdvancedChat plugin = AdvancedChat.get();
+	private final AdvancedChat plugin = AdvancedChat.get();
 	private Inventory inv;
 	private ItemStack item;
 	private ItemMeta meta;
@@ -55,9 +55,6 @@ public class GuiError {
 			item.setAmount(1);
 			inv.setItem(i, item);
 
-			if (i == 54) {
-				break;
-			}
 		}
 	}
 }

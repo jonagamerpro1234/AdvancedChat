@@ -16,8 +16,8 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
 public class PlaceholderApiHook implements IHook{
 	
-	private AdvancedChat plugin = AdvancedChat.get();
-	private HookManager hooksManager;
+	private final AdvancedChat plugin = AdvancedChat.get();
+	private final HookManager hooksManager;
 	private boolean isEnabled;
 	
 	public PlaceholderApiHook(HookManager hooksManager) {
@@ -46,7 +46,7 @@ public class PlaceholderApiHook implements IHook{
 	
 	public class AdvancedChatExtend extends PlaceholderExpansion{
 
-		private AdvancedChat plugin;
+		private final AdvancedChat plugin;
 		
 		public AdvancedChatExtend(AdvancedChat plugin) {
 			this.plugin = plugin;
@@ -76,11 +76,6 @@ public class PlaceholderApiHook implements IHook{
 			PlayerManager playerManager = new PlayerManager(player);
 			if(args.equals("is_mute")) {
 				if(Settings.mysql) {
-					/*if(MySQL.get().isMute(player)) {
-						return "true";
-					}else {
-						return "false";
-					}*/
 				}else {
 					if(playerManager.isMute()){
 						return "true";
@@ -97,22 +92,7 @@ public class PlaceholderApiHook implements IHook{
 					return playerManager.getColor();
 				}
 			}
-			
-			/*if(args.equals("gradient_first")) {
-				if(Settings.mysql) {
-					return MySQL.get().getFirstGradient(player);
-				}else {
-					return playerManager.getFirstGradient();
-				}
-			}
-			if(args.equals("gradient_second")) {
-				if(Settings.mysql) {
-					return MySQL.get().getSecondGradient(player);
-				}else {
-					return playerManager.getSecondGradient();
-				}
-			}*/
-			
+
 			if(args.startsWith("channel")) {
 				
 				if(Settings.mysql) {

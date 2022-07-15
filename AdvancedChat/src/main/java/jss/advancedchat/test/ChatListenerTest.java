@@ -27,17 +27,17 @@ import jss.advancedchat.utils.Util;
 
 public class ChatListenerTest implements Listener {
 
-	private AdvancedChat plugin = AdvancedChat.get();
-	private ColorManager colorManager = new ColorManager();
+	private final AdvancedChat plugin = AdvancedChat.get();
+	private final ColorManager colorManager = new ColorManager();
 	private boolean badword;
 	private boolean ismention;
-	private final Pattern MAGIC_REGEN = Pattern.compile("(?i)&([K])");
-	private final Pattern BOLD_REGEX = Pattern.compile("(?i)&([L])");
-	private final Pattern STRIKETHROUGH_REGEX = Pattern.compile("(?i)&([M])");
-	private final Pattern UNDERLINE_REGEX = Pattern.compile("(?i)&([N])");
-	private final Pattern ITALIC_REGEX = Pattern.compile("(?i)&([O])");
+	private final Pattern MAGIC_REGEN = Pattern.compile("(?i)&(K)");
+	private final Pattern BOLD_REGEX = Pattern.compile("(?i)&(L)");
+	private final Pattern STRIKETHROUGH_REGEX = Pattern.compile("(?i)&(M)");
+	private final Pattern UNDERLINE_REGEX = Pattern.compile("(?i)&(N)");
+	private final Pattern ITALIC_REGEX = Pattern.compile("(?i)&(O)");
 	@SuppressWarnings("unused")
-	private HashMap<String, String> channel = new HashMap<>();
+	private final HashMap<String, String> channel = new HashMap<>();
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onChat(AsyncPlayerChatEvent e) {

@@ -12,10 +12,10 @@ import jss.advancedchat.utils.Logger;
 
 public class AdvancedChatPlugin extends JavaPlugin {
 	
-	private PluginDescriptionFile pluginDescriptionFile = getDescription();
-	private PluginManager pluginManager = Bukkit.getPluginManager();
-	public String name = pluginDescriptionFile.getName();
-	public String version = pluginDescriptionFile.getVersion();
+	private final PluginDescriptionFile pluginDescriptionFile = getDescription();
+	private final PluginManager pluginManager = Bukkit.getPluginManager();
+	public final String name = pluginDescriptionFile.getName();
+	public final String version = pluginDescriptionFile.getVersion();
 	
 	public PluginManager getPluginManager() {
 		return pluginManager;

@@ -22,7 +22,7 @@ import jss.advancedchat.utils.inventory.TSkullUtils;
 
 public class GuiColor {
 
-	private AdvancedChat plugin = AdvancedChat.get();
+	private final AdvancedChat plugin = AdvancedChat.get();
 	private Inventory inv;
 	private ItemStack item;
 	private ItemMeta meta;
@@ -43,12 +43,8 @@ public class GuiColor {
 	
 	private void setItems(String target) {
 		FileConfiguration config = plugin.getColorFile().getConfig();
-		FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
 
-		int amont = invData.getInt("Amount-Items");
-		String colorglass = invData.getString("Color-Glass.Color");
-
-		setDecoration(inv, colorglass);
+		setDecoration(inv, XMaterial.BLACK_STAINED_GLASS_PANE.toString());
 
 		item = Util.getPlayerHead(target);
 		inv.setItem(4, item);
@@ -76,7 +72,7 @@ public class GuiColor {
 			meta.setDisplayName(Util.color(name));
 			meta.setLore(coloredLore(lore));
 			item.setItemMeta(meta);
-			item.setAmount(amont);
+			item.setAmount(1);
 			inv.setItem(slot, item);
 		}
 		
@@ -122,9 +118,6 @@ public class GuiColor {
 			item.setAmount(1);
 			inv.setItem(i, item);
 
-			if (i == 54) {
-				break;
-			}
 		}
 	}
 	

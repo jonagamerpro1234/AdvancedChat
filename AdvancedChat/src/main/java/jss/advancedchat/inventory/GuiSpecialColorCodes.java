@@ -17,9 +17,7 @@ import jss.advancedchat.utils.Util;
 
 public class GuiSpecialColorCodes {
 	
-	private AdvancedChat plugin = AdvancedChat.get();
-	private ItemStack item;
-	private ItemMeta meta;
+	private final AdvancedChat plugin = AdvancedChat.get();
 	private Inventory inv;
 	
 	public void open(Player player, String target) {
@@ -32,8 +30,7 @@ public class GuiSpecialColorCodes {
 	}
 	
 	public void setItems() {
-		FileConfiguration invData = plugin.getInventoryDataFile().getConfig();
-		setDecoration(invData.getString("Color-Glass.Color"));
+		setDecoration(XMaterial.BLACK_STAINED_GLASS_PANE.toString());
 	}
 	
 	
@@ -48,16 +45,13 @@ public class GuiSpecialColorCodes {
 
 	private void setDecoration(String path) {
 		for (int i = 0; i < 54; i++) {
-			item = XMaterial.valueOf(path).parseItem();
-			meta = item.getItemMeta();
+			ItemStack item = XMaterial.valueOf(path).parseItem();
+			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName(Util.color(" "));
 			item.setItemMeta(meta);
 			item.setAmount(1);
 			inv.setItem(i, item);
 
-			if (i == 54) {
-				break;
-			}
 		}
 	}
 }
