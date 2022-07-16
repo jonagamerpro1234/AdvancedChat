@@ -10,7 +10,6 @@ import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Perms;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Util;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -33,11 +32,7 @@ public class JoinListener implements Listener {
 			Logger.warning("&eplease check that LuckPerms is active or inside your plugins folder");
 		}
 
-		if (Settings.hook_luckperms_use_group) {
-			group = LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup();
-		} else {
-			group = "default"; 
-		}
+        group = LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup();
         
         PlayerFile playerFile = new PlayerFile(plugin, j.getName());
         PlayerManager playerManager = new PlayerManager(j);

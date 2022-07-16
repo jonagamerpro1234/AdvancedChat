@@ -8,45 +8,36 @@ Title: '&b&lMenu &8&l> &e&lPlayer'
 Especial-Items:
   Mute:
     Name: '&bPlayer is &6[<is_mute>&6]'
-    Slot: 23
 Items:
   Next:
     Name: '&a&lNext Menu'
     Item: green_stained_glass_pane
     Texture: '[next]'
-    Slot: 5
   Exit:
     Name: '&c&lExit'
     Item: red_stained_glass_pane
     Texture: '[exit]'
-    Slot: 0
   Colors:
     Name: '&bColors'
     Item: paper
     Texture: '[choose-color]'
-    Slot: 19
   Channel:
     Name: '&bChannel &e[Working Progress]'
     Item: paper
     Texture: '[channels]'
-    Slot: 21
   Gradient:
     Name: '&bGradient'
     Item: paper
     Texture: '[gradient]'
-    Slot: 38
   Rainbow:
     Name: '&bRainbow'
     Item: paper
     Texture: '[rainbow-cube]'
-    Slot: 25
   SpecialCodes:
     Name: '&bSpecial Codes'
     Item: paper
     Texture: '[special_codes]'
-    Slot: 40
   Settings:
     Name: '&bSettings'
     Item: comparator
     Texture: '[settings]'
-    Slot: 42

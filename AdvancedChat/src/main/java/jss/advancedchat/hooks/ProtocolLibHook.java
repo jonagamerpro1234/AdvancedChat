@@ -1,15 +1,13 @@
 package jss.advancedchat.hooks;
 
-import org.bukkit.entity.Player;
-
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
-
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Settings;
+import org.bukkit.entity.Player;
 
 public class ProtocolLibHook{
 	

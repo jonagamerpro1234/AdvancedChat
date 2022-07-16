@@ -1,10 +1,11 @@
 package jss.advancedchat.inventory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-
+import com.cryptomorin.xseries.XMaterial;
+import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.manager.PlayerManager;
+import jss.advancedchat.utils.Util;
+import jss.advancedchat.utils.inventory.InventoryUtils;
+import jss.advancedchat.utils.inventory.TSkullUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -12,13 +13,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.cryptomorin.xseries.XMaterial;
-
-import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.utils.Util;
-import jss.advancedchat.utils.inventory.InventoryUtils;
-import jss.advancedchat.utils.inventory.TSkullUtils;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 public class GuiColor {
 

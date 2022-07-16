@@ -1,13 +1,12 @@
 package jss.advancedchat.hooks;
 
-import org.bukkit.Bukkit;
-
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.interfaces.IHook;
+import org.bukkit.Bukkit;
 
 public class DiscordSRVHook implements IHook{
 	

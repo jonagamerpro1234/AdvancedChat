@@ -16,7 +16,7 @@
 Settings:
   
   # |Config-Version| I would not change anything
-  Config-Version: 2
+  File-Version: 2
   
   # |Debug| This option should only be used if there is a problem with certain functions of the plugin, debug messages will be activated in the console
   Debug: true
@@ -118,7 +118,8 @@ ChatFormat:
   Enabled: true
   
   # |Chat-Type|
-    # [default] use default chat by minecraft 
+    # [none] use default chat by minecraft
+    # [default]
     # [normal] use the chat defined in [ChatFormat] 
     # [group] use the chat defined in the group found inside the [groups.yml] file
   Chat-Type: normal

@@ -1,11 +1,10 @@
 package jss.advancedchat.v2;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import jss.advancedchat.AdvancedChat;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class Util {
 	

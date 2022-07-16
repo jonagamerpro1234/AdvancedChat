@@ -1,8 +1,9 @@
 package jss.advancedchat.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.manager.PlayerManager;
+import jss.advancedchat.utils.Settings;
+import jss.advancedchat.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,10 +11,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.utils.Settings;
-import jss.advancedchat.utils.Util;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MsgCmd implements CommandExecutor, TabCompleter {
 

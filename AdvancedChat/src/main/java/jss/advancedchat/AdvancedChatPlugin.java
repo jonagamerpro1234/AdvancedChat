@@ -1,14 +1,14 @@
 package jss.advancedchat;
 
-import java.io.File;
-
+import jss.advancedchat.utils.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
-import jss.advancedchat.utils.Logger;
+import java.io.File;
 
 public class AdvancedChatPlugin extends JavaPlugin {
 	
@@ -21,15 +21,16 @@ public class AdvancedChatPlugin extends JavaPlugin {
 		return pluginManager;
 	}
 	
-	public void registerListeners(Listener... listeners) {
+	public void registerListeners(@NotNull Listener... listeners) {
 		for(Listener listener : listeners) {
 			getPluginManager().registerEvents(listener, this);
 		}
 	}
 	
-	public void createFolder(String foldername) {
+	@SuppressWarnings("ResultOfMethodCallIgnored")
+	public void createFolder(@NotNull String foldername) {
 		if(foldername.isEmpty()) {
-			Logger.error("");
+			Logger.warning("");
 			return;
 		}
 		

@@ -1,20 +1,12 @@
 package jss.advancedchat.utils.inventory;
 
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.inventory.GuiChannel;
-import jss.advancedchat.inventory.GuiColor;
-import jss.advancedchat.inventory.GuiError;
-import jss.advancedchat.inventory.GuiGradient;
-import jss.advancedchat.inventory.GuiPlayer;
-import jss.advancedchat.inventory.GuiRainbow;
-import jss.advancedchat.inventory.GuiSettings;
-import jss.advancedchat.inventory.GuiSpecialColorCodes;
+import jss.advancedchat.inventory.*;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Util;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
 public class InventoryActionHelper {
 	

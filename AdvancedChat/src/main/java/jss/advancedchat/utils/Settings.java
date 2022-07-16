@@ -51,8 +51,7 @@ public class Settings {
 	public static String msg_format_send;
 	public static String msg_format_recive;
 	public static String msg_server_format_recive;
-	
-    public static String locale;
+
     public static String default_color;
     public static String inv_color_back;
     public static boolean tabcomplete;
@@ -128,7 +127,7 @@ public class Settings {
     public static boolean hook_vault;
     public static boolean hook_vault_use_group;
     public static boolean hook_luckperms;
-    public static boolean hook_luckperms_use_group;
+    public static int isHook_luckperms_autoupdate_group_time;
     public static boolean hook_luckperms_autoupdate_group;
     public static boolean hook_discordsrv;
     public static String hook_discordsrv_channelid;	

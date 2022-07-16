@@ -1,20 +1,21 @@
 package jss.advancedchat.test;
 
+import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.utils.inventory.InventoryView;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.inventory.InventoryView;
+import org.jetbrains.annotations.NotNull;
 
 public class InventoryListener implements Listener {
 
     private final AdvancedChat plugin = AdvancedChat.get();
 
 	@EventHandler
-    public void onInvetoryTest(InventoryClickEvent e) {
+    public void onInvetoryTest(@NotNull InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         InventoryView inventoryPlayer = plugin.getInventoryView(p);
     	

@@ -1,8 +1,5 @@
 package jss.advancedchat.hooks;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
@@ -11,6 +8,8 @@ import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.interfaces.IHook;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class EssentialsDiscord implements IHook{
 	

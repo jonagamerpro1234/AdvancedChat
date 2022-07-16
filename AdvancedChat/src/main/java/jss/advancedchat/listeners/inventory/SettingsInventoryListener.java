@@ -1,5 +1,12 @@
 package jss.advancedchat.listeners.inventory;
 
+import com.cryptomorin.xseries.XMaterial;
+import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.manager.PlayerManager;
+import jss.advancedchat.utils.Util;
+import jss.advancedchat.utils.inventory.InventoryActionHelper;
+import jss.advancedchat.utils.inventory.InventoryActionHelper.InventoryType;
+import jss.advancedchat.utils.inventory.InventoryView;
 import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -11,15 +18,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import com.cryptomorin.xseries.XMaterial;
-
-import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.utils.Util;
-import jss.advancedchat.utils.inventory.InventoryActionHelper;
-import jss.advancedchat.utils.inventory.InventoryView;
-import jss.advancedchat.utils.inventory.InventoryActionHelper.InventoryType;
 
 public class SettingsInventoryListener implements Listener {
 	

@@ -1,18 +1,5 @@
 package jss.advancedchat.test;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.regex.Pattern;
-
-import org.bukkit.Bukkit;
-import org.bukkit.Sound;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-
 import github.scarsz.discordsrv.util.DiscordUtil;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.chat.Json;
@@ -24,6 +11,19 @@ import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Util;
+import org.bukkit.Bukkit;
+import org.bukkit.Sound;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class ChatListenerTest implements Listener {
 
@@ -40,7 +40,7 @@ public class ChatListenerTest implements Listener {
 	private final HashMap<String, String> channel = new HashMap<>();
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onChat(AsyncPlayerChatEvent e) {
+	public void onChat(@NotNull AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfigFile().getConfig();
 		DiscordSRVHook discordSRVHook = HookManager.get().getDiscordSRVHook();
 
@@ -121,6 +121,7 @@ public class ChatListenerTest implements Listener {
 			
 			if (hover) {
 				if (click) {
+					assert click_mode != null;
 					if (click_mode.equalsIgnoreCase("command")) {
 						json.setHover(hovertext).setExecuteCommand(cmd_action).sendDoubleToAll();
 					} else if (click_mode.equalsIgnoreCase("url")) {
@@ -144,7 +145,6 @@ public class ChatListenerTest implements Listener {
 					json.sendDoubleToAll();
 				}
 			}
-			return;
 		} else if (isGroup) {
 			e.setCancelled(true);
 			
@@ -154,7 +154,7 @@ public class ChatListenerTest implements Listener {
 	}
 
 	@EventHandler 
-	public void chatMention(AsyncPlayerChatEvent e){
+	public void chatMention(@NotNull AsyncPlayerChatEvent e){
 		e.setCancelled(true);
 		Player j = e.getPlayer();
 		String message = e.getMessage();

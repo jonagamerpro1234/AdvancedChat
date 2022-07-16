@@ -1,16 +1,14 @@
 package jss.advancedchat.utils.inventory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import com.cryptomorin.xseries.XMaterial;
+import jss.advancedchat.utils.Util;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.cryptomorin.xseries.XMaterial;
-
-import jss.advancedchat.utils.Util;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class InventoryUtils {
 

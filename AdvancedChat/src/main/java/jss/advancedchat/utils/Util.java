@@ -1,49 +1,33 @@
 package jss.advancedchat.utils;
 
 import com.cryptomorin.xseries.XMaterial;
-
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
 import jss.advancedchat.lib.iridium.IridiumColorAPI;
 import jss.advancedchat.update.UpdateSettings;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.*;
 import net.md_5.bungee.api.chat.HoverEvent.Action;
-
 import org.apache.commons.io.IOUtils;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-
 import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Util {
 	
@@ -189,6 +173,7 @@ public class Util {
 		sendEnable("&d  / /| |/ /      &bBy jonagamerpro1234");
 		sendEnable("&d / ___ / /___    &bVersion&7: &3" + version);
 		sendEnable("&d/_/  |_\\____/   &eThanks for using AdvancedChat &c<3");
+        sendEnable("  ");
 	}
 	
 	@SuppressWarnings("unused")
@@ -314,11 +299,13 @@ public class Util {
    public static ItemStack createSkull(String url) {
       ItemStack head = XMaterial.PLAYER_HEAD.parseItem();
       if (!url.isEmpty()) {
+         assert head != null;
          SkullMeta headMeta = (SkullMeta) head.getItemMeta();
          GameProfile profile = new GameProfile(UUID.randomUUID(), (String) null);
          profile.getProperties().put("textures", new Property("textures", url));
 
          try {
+            assert headMeta != null;
             Field profileField = headMeta.getClass().getDeclaredField("profile");
             profileField.setAccessible(true);
             profileField.set(headMeta, profile);
