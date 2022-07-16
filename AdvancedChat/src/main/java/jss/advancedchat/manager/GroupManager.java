@@ -1,13 +1,12 @@
 package jss.advancedchat.manager;
 
+import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.utils.Settings;
+import org.bukkit.configuration.file.FileConfiguration;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import org.bukkit.configuration.file.FileConfiguration;
-
-import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.Settings;
 
 public class GroupManager{
 

@@ -1,14 +1,13 @@
 package jss.advancedchat.listeners.chat;
 
-import java.util.List;
-
+import jss.advancedchat.AdvancedChat;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
-import jss.advancedchat.AdvancedChat;
+import java.util.List;
 
 public class ChatLogListener implements Listener{
 	

@@ -1,15 +1,13 @@
 package jss.advancedchat.config.gui;
 
-import java.io.File;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-
+import jss.advancedchat.AdvancedChat;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import jss.advancedchat.AdvancedChat;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 public class GradientColorFile {
 

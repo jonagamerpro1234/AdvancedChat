@@ -1,12 +1,11 @@
 package jss.advancedchat.manager;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
-
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.config.player.PlayerFile;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class PlayerManager  {

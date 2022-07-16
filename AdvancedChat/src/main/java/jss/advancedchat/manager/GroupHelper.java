@@ -1,11 +1,10 @@
 package jss.advancedchat.manager;
 
-import java.util.List;
-
-import org.bukkit.entity.Player;
-
 import jss.advancedchat.chat.Json;
 import jss.advancedchat.utils.Util;
+import org.bukkit.entity.Player;
+
+import java.util.List;
 
 public class GroupHelper {
 	

@@ -9,14 +9,12 @@ Items:
   Global:
     Name: '&bGlobal'
     Item: Paper
-    Slot: 10
     Lore:
       - '&7By selecting this channel you can talk to all the players who are on the same channel as you'
       - '&e&nclick to select'
   World:
     Name: '&bWorld'
     Item: STONE
-    Slot: 12
     Lore:
       - '&7By selecting this channel you can talk to world the players who are on the same channel as you'
       - '&e&nclick to select'
@@ -31,7 +29,6 @@ Items:
   Staff:
     Name: '&bStaff'
     Item: STONE
-    Slot: 16
     Lore:
       No_Perm:
         - '&7This channel is dedicated to the server staff and only those who have the corresponding permission will be able to select it.'

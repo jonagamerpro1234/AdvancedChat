@@ -1,15 +1,14 @@
 package jss.advancedchat.config;
 
-import java.io.BufferedReader;
-
-import java.io.File;
-import java.io.InputStreamReader;
-import java.io.Reader;
-
+import jss.advancedchat.AdvancedChat;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import jss.advancedchat.AdvancedChat;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 
 public class MessageFile{
 	
@@ -47,7 +46,7 @@ public class MessageFile{
 		config = YamlConfiguration.loadConfiguration(file);
 		Reader reader;
 		try {
-			reader = new InputStreamReader(plugin.getResource(path), "UTF8");
+			reader = new InputStreamReader(plugin.getResource(path), StandardCharsets.UTF_8);
 			BufferedReader bufferedReader = new BufferedReader(reader);
 			YamlConfiguration configuration = YamlConfiguration.loadConfiguration(bufferedReader);
 			config.setDefaults(configuration);

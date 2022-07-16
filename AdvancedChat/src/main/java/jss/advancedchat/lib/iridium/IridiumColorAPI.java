@@ -1,24 +1,17 @@
 package jss.advancedchat.lib.iridium;
 
-import java.awt.Color;
+import com.google.common.collect.ImmutableMap;
+import jss.advancedchat.lib.iridium.patterns.*;
+import net.md_5.bungee.api.ChatColor;
+import org.apache.commons.lang3.Validate;
+import org.bukkit.Bukkit;
+
+import javax.annotation.Nonnull;
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import javax.annotation.Nonnull;
-
-import org.apache.commons.lang3.Validate;
-import org.bukkit.Bukkit;
-
-import com.google.common.collect.ImmutableMap;
-
-import jss.advancedchat.lib.iridium.patterns.GradientPattern;
-import jss.advancedchat.lib.iridium.patterns.IPattern;
-import jss.advancedchat.lib.iridium.patterns.PadPattern;
-import jss.advancedchat.lib.iridium.patterns.RainbowPattern;
-import jss.advancedchat.lib.iridium.patterns.SolidPattern;
-import net.md_5.bungee.api.ChatColor;
 
 public class IridiumColorAPI {
 

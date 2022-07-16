@@ -1,10 +1,10 @@
 package jss.advancedchat.manager;
 
+import jss.advancedchat.utils.Logger;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import jss.advancedchat.utils.Logger;
 
 public class ChatLogManager {
 	

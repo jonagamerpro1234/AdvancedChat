@@ -25,10 +25,8 @@ import jss.advancedchat.utils.inventory.InventoryView;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.entity.Player;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 
-@SuppressWarnings("unused")
 public class AdvancedChat extends AdvancedChatPlugin {
 	
 	private static AdvancedChat instance;
@@ -47,9 +45,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private final GradientColorFile gradientColorFile = new GradientColorFile(this, "gradient-gui.yml", "Gui");
 	private final PlayerFile playerFile = new PlayerFile(this);
 	public boolean isLegacyConfig = false;
-	public static boolean debug = true;
 	public String latestversion;
-
+	private boolean debug;
 	private BukkitAudiences adventure;
 	
 	public void onLoad() {
@@ -72,7 +69,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		createFolder("Log");
 		preConfigLoad.loadConfig();
 		preConfigLoad.loadMessage();
-		Util.setEndLoad();
+		debug = getConfigFile().getConfig().getBoolean("Settings.Debug");
 	}
 	
 	public void onEnable() {	
@@ -85,9 +82,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		}
 		
 		createAllFiles();
-		preConfigLoad.loadGradientInv();
-		preConfigLoad.loadColorInv();
-		preConfigLoad.loadPlayerInv();
 		HookManager.load();
 		HookManager.loadProtocol();
 		
@@ -200,6 +194,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		}
 	}
 
+	@SuppressWarnings("SuspiciousListRemoveInLoop")
 	public void removeInventoryView(Player player) {
 		for (int i = 0; i < inventoryView.size(); i++) {
 			if (this.inventoryView.get(i).getPlayer().getName().equals(player.getName())) {
@@ -220,30 +215,15 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public PlayerFile getPlayerFile() {
 		return playerFile;
 	}
-	
-
-	
-	public HookManager getHookManager() {
-		return HookManager;
-	}
 
 	public boolean isDebug() {
-		return true;
+		return this.debug;
 	}
 	
 	public static AdvancedChat get() {
 		return instance;
 	}
-	
 
-	public EventUtils getEventUtils() {
-		return this.eventUtils;
-	}
-	
-	public PreConfigLoader getPreConfigLoader() {
-		return this.preConfigLoad;
-	}
-	
 	public MessageFile getMessageFile() {
 		return messageFile;
 	}

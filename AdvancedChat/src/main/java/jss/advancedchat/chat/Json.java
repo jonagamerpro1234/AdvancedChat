@@ -1,13 +1,14 @@
 package jss.advancedchat.chat;
 
-import java.util.List;
 import jss.advancedchat.utils.Util;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.HoverEvent.Action;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
+
+import java.util.List;
 
 @SuppressWarnings("deprecation")
 public class Json {

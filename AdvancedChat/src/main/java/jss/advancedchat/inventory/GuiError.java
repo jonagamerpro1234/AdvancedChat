@@ -1,8 +1,9 @@
 package jss.advancedchat.inventory;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.cryptomorin.xseries.XMaterial;
+import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.utils.Util;
+import jss.advancedchat.utils.inventory.InventoryUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -11,11 +12,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.cryptomorin.xseries.XMaterial;
-
-import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.Util;
-import jss.advancedchat.utils.inventory.InventoryUtils;
+import java.util.Arrays;
+import java.util.List;
 
 public class GuiError {
 	

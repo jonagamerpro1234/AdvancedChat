@@ -1,9 +1,9 @@
 package jss.advancedchat.lib.iridium.patterns;
 
+import jss.advancedchat.lib.iridium.IridiumColorAPI;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import jss.advancedchat.lib.iridium.IridiumColorAPI;
 
 public class SolidPattern implements IPattern {
 

@@ -1,16 +1,14 @@
 package jss.advancedchat.config.log;
 
-import java.io.File;
-
-import java.io.IOException;
-
+import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.Util;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Util;
+import java.io.File;
+import java.io.IOException;
 
 public class LogFile {
 

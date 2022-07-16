@@ -1,8 +1,16 @@
 package jss.advancedchat.listeners.chat;
 
-import java.util.List;
-import java.util.regex.Pattern;
-
+import github.scarsz.discordsrv.util.DiscordUtil;
+import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.chat.Json;
+import jss.advancedchat.hooks.DiscordSRVHook;
+import jss.advancedchat.manager.ColorManager;
+import jss.advancedchat.manager.HookManager;
+import jss.advancedchat.manager.PlayerManager;
+import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.Perms;
+import jss.advancedchat.utils.Settings;
+import jss.advancedchat.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -12,17 +20,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import github.scarsz.discordsrv.util.DiscordUtil;
-import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.chat.Json;
-import jss.advancedchat.hooks.DiscordSRVHook;
-import jss.advancedchat.manager.ColorManager;
-import jss.advancedchat.manager.HookManager;
-import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.utils.Util;
-import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Perms;
-import jss.advancedchat.utils.Settings;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class ChatListener implements Listener {
 

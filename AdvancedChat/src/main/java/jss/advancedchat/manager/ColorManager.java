@@ -1,11 +1,10 @@
 package jss.advancedchat.manager;
 
-import java.util.Random;
-
-import org.bukkit.entity.Player;
-
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Util;
+import org.bukkit.entity.Player;
+
+import java.util.Random;
 
 public class ColorManager {
 	

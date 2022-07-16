@@ -1,8 +1,8 @@
 package jss.advancedchat;
 
-import java.util.HashMap;
-
 import jss.advancedchat.utils.interfaces.IHook;
+
+import java.util.HashMap;
 @SuppressWarnings("ALL")
 public abstract class HookLoader {
 

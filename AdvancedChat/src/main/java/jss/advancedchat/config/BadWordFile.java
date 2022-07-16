@@ -1,15 +1,14 @@
 package jss.advancedchat.config;
 
+import jss.advancedchat.AdvancedChat;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
-
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-
-import jss.advancedchat.AdvancedChat;
 
 public class BadWordFile{
 

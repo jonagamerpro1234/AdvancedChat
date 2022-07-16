@@ -8,7 +8,7 @@ prefix: AdvancedChat
 website: https://github.com/jonagamerpro1234/AdvancedChat/
 softdepend: [
   PlaceholderAPI, Vault, DiscordSRV, LuckPerms,
-  EssentialsDiscord, Authme
+  EssentialsDiscord
 ]
 
 commands:

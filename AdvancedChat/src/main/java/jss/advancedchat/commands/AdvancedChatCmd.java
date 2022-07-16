@@ -1,29 +1,24 @@
 package jss.advancedchat.commands;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
-
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.inventory.GuiColor;
-import jss.advancedchat.inventory.GuiError;
-import jss.advancedchat.inventory.GuiGradient;
-import jss.advancedchat.inventory.GuiPlayer;
-import jss.advancedchat.inventory.GuiSettings;
+import jss.advancedchat.inventory.*;
 import jss.advancedchat.manager.ColorManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Perms;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Util;
+import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 	private final AdvancedChat plugin;
