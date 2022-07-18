@@ -2,6 +2,7 @@ package jss.advancedchat.commands;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.inventory.*;
+import jss.advancedchat.inventory.GuiColor;
 import jss.advancedchat.manager.ColorManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Logger;
@@ -23,7 +24,7 @@ import java.util.List;
 public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 	private final AdvancedChat plugin;
 	@SuppressWarnings("ConstantConditions")
-	public AdvancedChatCmd(AdvancedChat plugin) {
+	public AdvancedChatCmd(@NotNull AdvancedChat plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("AdvancedChat").setExecutor(this);
 		plugin.getCommand("AdvancedChat").setTabCompleter(this);
@@ -68,11 +69,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				return true;
 			}
 			
-			if (args[0].equalsIgnoreCase("test1")) {
-				jss.advancedchat.v2.Util.sendMessage(j, "&6Test adventure api");
-				return true;
-			}
-			
 			if (args[0].equalsIgnoreCase("color")) {
 				if ((j.isOp()) || (j.hasPermission(Perms.ac_cmd_color))) {
 					GuiColor guiColor = new GuiColor();
@@ -108,11 +104,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				} else {
 					Util.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
 				}
-				return true;
-			}
-
-			if (args[0].equalsIgnoreCase("test")) {
-				sendTest(j);
 				return true;
 			}
 
@@ -342,7 +333,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 				break;
 			}
 		}
-
 		return Util.setLimitTab(listOptions, lastArgs);
 	}
 
@@ -352,11 +342,6 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 			Util.sendColorMessage(sender, msg);
 		}
 		Util.sendColorMessage(sender, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-	}
-
-	private void sendTest(Player j) {
-		GuiError guiError = new GuiError();
-		guiError.open(j);
 	}
 
 }

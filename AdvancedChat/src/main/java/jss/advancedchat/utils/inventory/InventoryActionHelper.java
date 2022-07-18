@@ -2,7 +2,9 @@ package jss.advancedchat.utils.inventory;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.inventory.*;
+import jss.advancedchat.inventory.GuiColor;
 import jss.advancedchat.manager.PlayerManager;
+import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Util;
 import org.bukkit.entity.Player;
@@ -78,8 +80,9 @@ public class InventoryActionHelper {
 			guiSpecialColorCodes.open(player, playerName);
 			break;
 		default:
-			GuiError guiError = new GuiError();
-			guiError.open(player);
+			Logger.error("&cThe inventory could not be loaded, if the error persists, report it to:");
+			Logger.warning("&eIssue Tracker: https://github.com/jonagamerpro1234/AdvancedChat/issues");
+			Logger.error("&9Discord: https://discord.gg/c5GhQDQCK5");
 			break;
 		}
 	}

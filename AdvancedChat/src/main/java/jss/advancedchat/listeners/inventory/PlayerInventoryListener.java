@@ -48,33 +48,6 @@ public class PlayerInventoryListener implements Listener {
 		PlayerManager playerManager = new PlayerManager(target);
 		InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
 
-		if(slot == Settings.player_inv_slot_mute) {
-			setChangeItemsState(playerManager, target, j.getInventory());
-		}
-
-		if(slot == Settings.player_inv_slot_channels) {
-			Logger.debug("&eThis inventory is temporarily disabled - [Working Progress]");
-		}
-
-		if(slot == Settings.player_inv_slot_colors) {
-			actionHelper.setOpenInventoryAction(playerName, InventoryType.Color);
-		}
-
-		if(slot == Settings.player_inv_slot_gradients) {
-			actionHelper.setOpenInventoryAction(playerName, InventoryType.Gradient);
-		}
-
-		if(slot == Settings.player_inv_slot_settings) {
-			actionHelper.setOpenInventoryAction(playerName, InventoryType.Settings);
-		}
-
-		if(slot == Settings.player_inv_slot_next) {
-			actionHelper.setOpenInventoryAction(playerName, InventoryType.Color);
-		}
-
-		if(slot == Settings.player_inv_slot_exit) {
-			j.closeInventory();
-		}
 	}
 	
 	@EventHandler
