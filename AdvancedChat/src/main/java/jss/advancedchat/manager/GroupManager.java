@@ -46,7 +46,7 @@ public class GroupManager{
 	public boolean isHover(String group) {
 		boolean isHover = false;
 		if(existsGroup(group)) {
-			isHover = config.getString(group + ".HoverEvent.Enabled").equals("true");
+			isHover = config.getBoolean(group + ".HoverEvent.Enabled");
 		}
 		return isHover;
 	}
@@ -55,13 +55,13 @@ public class GroupManager{
 		if(existsGroup(group)) {
 			return config.getStringList(group + ".HoverEvent.Hover");
 		}
-		return new ArrayList<String>();
+		return new ArrayList<>();
 	}
 	
 	public boolean isClick(String group) {
 		boolean isclick = false;
 		if(existsGroup(group)) {
-			isclick = config.getString(group + ".ClickEvent.Enabled").equals("true");
+			isclick = config.getBoolean(group + ".ClickEvent.Enabled");
 		}
 		return isclick;
 	}

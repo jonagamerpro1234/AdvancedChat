@@ -2,6 +2,7 @@ package jss.advancedchat.inventory;
 
 import com.cryptomorin.xseries.XMaterial;
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.inventory.items.ItemColorBase;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.inventory.InventoryUtils;
@@ -12,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,57 +50,56 @@ public class GuiColor {
 		inv.setItem(4, item);
 		
 		PlayerManager playerManager = new PlayerManager(Bukkit.getPlayer(target));
-		
-		Set<String> section = config.getConfigurationSection("Items").getKeys(false);
-		
-		for(String key : section) {
-			String name = config.getString("Items." + key + ".Name");
-			int slot = config.getInt("Items." + key + ".Slot");
-			List<String> lore = key.contains("Lore") ? new ArrayList<>() : config.getStringList("Items." + key + ".Lore");
-			
-			if(!playerManager.isLowMode()) {
-				String textures = config.getString("Items." + key + ".Texture");
-				textures = TSkullUtils.replace(textures);
-				item = Util.createSkull(textures);
-			}else {
-				String mat = config.getString("Items." + key + ".Item").toUpperCase();
-				item = XMaterial.valueOf(mat).parseItem();
-			}
-			
-			
-			meta = item.getItemMeta();
-			meta.setDisplayName(Util.color(name));
-			meta.setLore(coloredLore(lore));
-			item.setItemMeta(meta);
-			item.setAmount(1);
-			inv.setItem(slot, item);
-		}
+
+		ItemColorBase itemColorBase = new ItemColorBase(playerManager,config);
+
+		item = itemColorBase.getItemColor("Dark-Red","color_gui_dark_red","dark_red");
+		inv.setItem(19, item);
+
+		item = itemColorBase.getItemColor("Red","color_gui_red","red");
+		inv.setItem(20, item);
+
+		item = itemColorBase.getItemColor("Dark-Blue","color_gui_dark_blue","dark_blue");
+		inv.setItem(21, item);
+
+		item = itemColorBase.getItemColor("Blue","color_gui_blue","blue");
+		inv.setItem(22, item);
+
+		item = itemColorBase.getItemColor("Dark-Green","color_gui_dark_green","dark_green");
+		inv.setItem(23, item);
+
+		item = itemColorBase.getItemColor("Green","color_gui_green","green");
+		inv.setItem(24, item);
+
+		item = itemColorBase.getItemColor("Dark-","color_gui_dark_","dark_");
+		inv.setItem(20, item);
+
+		item = itemColorBase.getItemColor("Yellow","color_gui_yellow","yellow");
+		inv.setItem(20, item);
+
+		item = itemColorBase.getItemColor("Gold","color_gui_gold","gold");
+		inv.setItem(20, item);
+
+		item = itemColorBase.getItemColor("","color_gui_","");
+		inv.setItem(20, item);
+
+		item = itemColorBase.getItemColor("Dark-","color_gui_dark_","dark_");
+		inv.setItem(20, item);
+
+		item = itemColorBase.getItemColor("","color_gui_","");
+		inv.setItem(20, item);
+
+		item = itemColorBase.getItemColor("Dark-","color_gui_dark_","dark_");
+		inv.setItem(20, item);
+
+		item = itemColorBase.getItemColor("","color_gui_","");
+		inv.setItem(20, item);
+
 		
 		InventoryUtils.setItemChecker(inv, 45, playerManager.isColor());
 	}
 	
-	@SuppressWarnings("unused")
-	private void setCustomItem(PlayerManager playerManager) {
-		if(playerManager.isColor()) {
-			item = XMaterial.LIME_DYE.parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(Util.color("&aEnable"));
-			List<String> lore = Arrays.asList("&7Click to &cdisable");
-			meta.setLore(coloredLore(lore));
-			item.setItemMeta(meta);
-			inv.setItem(45, item);
-		}else {
-			item = XMaterial.GRAY_DYE.parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(Util.color("&cDisable"));
-			List<String> lore = Arrays.asList("&7Click to &aenable");
-			meta.setLore(coloredLore(lore));
-			item.setItemMeta(meta);
-			inv.setItem(45, item);
-		}
-	}
-	
-	private List<String> coloredLore(List<String> lore) {
+	private @NotNull List<String> coloredLore(@NotNull List<String> lore) {
 		List<String> coloredlore = new ArrayList<>();
 		lore.forEach((line) -> {
 			String lineColored = Util.color(line);

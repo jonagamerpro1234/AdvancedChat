@@ -19,6 +19,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -38,7 +39,7 @@ public class ChatListener implements Listener {
 	private final Pattern RESET_REGEX = Pattern.compile("(?i)&(R)");
 	
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	public void chatMute(AsyncPlayerChatEvent e) {
+	public void chatMute(@NotNull AsyncPlayerChatEvent e) {
 		Player j = e.getPlayer();
 		PlayerManager playerManager = new PlayerManager(j);
 		
@@ -54,7 +55,7 @@ public class ChatListener implements Listener {
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-	public void onChat(AsyncPlayerChatEvent e) {
+	public void onChat(@NotNull AsyncPlayerChatEvent e) {
 		FileConfiguration config = plugin.getConfigFile().getConfig();
 		DiscordSRVHook discordSRVHook = HookManager.get().getDiscordSRVHook();
 
@@ -83,7 +84,7 @@ public class ChatListener implements Listener {
 		message = Util.getVar(j, message);
 		
 		boolean isMute = false;
-		
+
         if(Settings.mysql) {
         	//isMute = plugin.getMySQL().isMute(j.getUniqueId().toString());
         } else {
@@ -112,7 +113,6 @@ public class ChatListener implements Listener {
 			
 			if(discordSRVHook.isEnabled()) {
 				if(Settings.hook_discordsrv_channelid.equalsIgnoreCase("none")) return;
-				
 				DiscordUtil.sendMessage(DiscordUtil.getTextChannelById(Settings.hook_discordsrv_channelid), json.getFormat());
 			}
 			
@@ -153,7 +153,6 @@ public class ChatListener implements Listener {
 					json.sendDoubleToAll();
 				}
 			}
-			return;
 		} else if (isGroup) {
 			e.setCancelled(true);
 			
@@ -161,7 +160,7 @@ public class ChatListener implements Listener {
 	}
 	
     @EventHandler(ignoreCancelled = true)
-	public void chatMention(AsyncPlayerChatEvent e){
+	public void chatMention(@NotNull AsyncPlayerChatEvent e){
 		e.setCancelled(true);
 		Player j = e.getPlayer();
 		String message = e.getMessage();
@@ -170,11 +169,10 @@ public class ChatListener implements Listener {
 			Util.sendColorMessage(j, Settings.mention_send);
 			if(message.contains(j.getName())) {
 				this.ismention = true;
-				
-				Bukkit.getOnlinePlayers().forEach( (p) -> {
+				for(Player p : Bukkit.getOnlinePlayers()){
 					p.playSound(p.getLocation(), Sound.valueOf(Settings.mention_sound_name), Settings.mention_sound_volume, Settings.mention_sound_pitch);
 					Util.sendColorMessage(p, Settings.mention_receive);
-				});
+				}
 			}
 		}
 	}
