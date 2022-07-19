@@ -11,9 +11,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class UnMuteCmd implements CommandExecutor {
-    
-    public UnMuteCmd(AdvancedChat plugin) {
-        plugin.getCommand("UnMute").setExecutor(this);
+
+    private final AdvancedChat plugin = AdvancedChat.get();
+    public UnMuteCmd() {
+        plugin.getCommand("AdUnMute").setExecutor(this);
     }
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

@@ -185,7 +185,7 @@ public class Util {
 		sendEnable("&5<||================================================----");
 	}
 	
-	public static String getPrefix(boolean ignoreCustomPrefix) {	
+	public static @NotNull String getPrefix(boolean ignoreCustomPrefix) {
 		String prefix;
 		if(ignoreCustomPrefix) {
 			prefix = color("&e[&dAdvancedChat&e]&7 ");
@@ -218,7 +218,7 @@ public class Util {
         sendEnable(prefix, "&5<|| &a* &eThanks for using &bAdvancedChat &c<3");
         sendEnable(prefix, "&5<||============================================----");
     }
-   public static @NotNull String getVar(Player player, String text) {
+   public static @NotNull String getVar(@NotNull Player player, String text) {
       text = text.replace("<name>", player.getName());
       text = text.replace("<displayname>", player.getDisplayName());
       text = text.replace("<Name>", player.getName());
@@ -248,7 +248,7 @@ public class Util {
             Logger.defaultMessage("&5<|| &c* &b[&c" + plugin + "&b> " + (msg != null ? "&7(Not " + msg + ")" : ""));
          }
       }
-      return hooked;
+      return hooked; 
    }
 
    public static boolean doesPluginExist(String plugin, String msg) {

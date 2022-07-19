@@ -13,9 +13,9 @@ import org.bukkit.entity.Player;
 
 public class MuteCmd implements CommandExecutor {
 
-    
-    public MuteCmd(AdvancedChat plugin) {
-        plugin.getCommand("Mute").setExecutor(this);
+    private final AdvancedChat plugin = AdvancedChat.get();
+    public MuteCmd() {
+        plugin.getCommand("AdMute").setExecutor(this);
     }
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {        

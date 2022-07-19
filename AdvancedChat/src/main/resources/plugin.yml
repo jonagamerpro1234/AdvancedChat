@@ -33,9 +33,10 @@ commands:
     description: This command will allow you to unmute a player and they will be able to send messages in chat again
     aliases:
       - unmute
-  Msg:
+  AdMsg:
     description: ---
     aliases:
+      - msg
       - to
       - r
 permissions:

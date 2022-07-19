@@ -18,8 +18,8 @@ public class MsgCmd implements CommandExecutor, TabCompleter {
 
 	public MsgCmd() {
 		AdvancedChat plugin = AdvancedChat.get();
-		plugin.getCommand("Msg").setExecutor(this);
-		plugin.getCommand("Msg").setTabCompleter(this);
+		plugin.getCommand("AdMsg").setExecutor(this);
+		plugin.getCommand("AdMsg").setTabCompleter(this);
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

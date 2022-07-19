@@ -71,29 +71,18 @@ public class GuiColor {
 		item = itemColorBase.getItemColor("Green","color_gui_green","green");
 		inv.setItem(24, item);
 
-		item = itemColorBase.getItemColor("Dark-","color_gui_dark_","dark_");
-		inv.setItem(20, item);
-
 		item = itemColorBase.getItemColor("Yellow","color_gui_yellow","yellow");
-		inv.setItem(20, item);
+		inv.setItem(25, item);
 
 		item = itemColorBase.getItemColor("Gold","color_gui_gold","gold");
-		inv.setItem(20, item);
+		inv.setItem(28, item);
 
-		item = itemColorBase.getItemColor("","color_gui_","");
-		inv.setItem(20, item);
-
-		item = itemColorBase.getItemColor("Dark-","color_gui_dark_","dark_");
-		inv.setItem(20, item);
-
-		item = itemColorBase.getItemColor("","color_gui_","");
+		item = itemColorBase.getItemColor("Aqua","color_gui_aqua","");
 		inv.setItem(20, item);
 
 		item = itemColorBase.getItemColor("Dark-","color_gui_dark_","dark_");
 		inv.setItem(20, item);
 
-		item = itemColorBase.getItemColor("","color_gui_","");
-		inv.setItem(20, item);
 
 		
 		InventoryUtils.setItemChecker(inv, 45, playerManager.isColor());
