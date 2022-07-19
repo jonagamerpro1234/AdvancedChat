@@ -9,15 +9,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class ClearChatCmd implements CommandExecutor {
 
-	private AdvancedChat plugin;
+	private AdvancedChat plugin = AdvancedChat.get();
 	private EventUtils eventUtils = new EventUtils(plugin);
 
-	public ClearChatCmd(AdvancedChat plugin) {
-		this.plugin = plugin;
-		plugin.getCommand("ClearChat").setExecutor(this);
+	public ClearChatCmd() {
+		plugin.getCommand("AdClearChat").setExecutor(this);
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

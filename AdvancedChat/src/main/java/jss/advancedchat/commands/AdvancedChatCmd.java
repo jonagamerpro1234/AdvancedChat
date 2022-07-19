@@ -22,10 +22,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
-	private final AdvancedChat plugin;
+	private final AdvancedChat plugin = AdvancedChat.get();
 	@SuppressWarnings("ConstantConditions")
-	public AdvancedChatCmd(@NotNull AdvancedChat plugin) {
-		this.plugin = plugin;
+	public AdvancedChatCmd() {
 		plugin.getCommand("AdvancedChat").setExecutor(this);
 		plugin.getCommand("AdvancedChat").setTabCompleter(this);
 	}

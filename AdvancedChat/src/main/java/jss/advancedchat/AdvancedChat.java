@@ -8,12 +8,13 @@ import jss.advancedchat.config.gui.GradientColorFile;
 import jss.advancedchat.config.gui.PlayerGuiFile;
 import jss.advancedchat.config.log.LogFile;
 import jss.advancedchat.config.player.PlayerFile;
-import jss.advancedchat.listeners.EventLoader;
 import jss.advancedchat.listeners.JoinListener;
+import jss.advancedchat.listeners.TaskLoader;
 import jss.advancedchat.listeners.chat.ChatLogListener;
 import jss.advancedchat.listeners.chat.CommandListener;
 import jss.advancedchat.listeners.inventory.*;
 import jss.advancedchat.manager.HookManager;
+import jss.advancedchat.storage.mysql.MySqlConnection;
 import jss.advancedchat.test.ChatListenerTest;
 import jss.advancedchat.update.UpdateChecker;
 import jss.advancedchat.update.UpdateSettings;
@@ -25,6 +26,7 @@ import jss.advancedchat.utils.inventory.InventoryView;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.entity.Player;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
 public class AdvancedChat extends AdvancedChatPlugin {
@@ -34,7 +36,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	public EventUtils eventUtils;
 	public Metrics metrics;
 	public HookManager HookManager;
-	public ArrayList<InventoryView> inventoryView;
 	private final MessageFile messageFile = new MessageFile(this, "messages.yml");
 	private final ConfigFile configFile = new ConfigFile(this, "config.yml");
 	private final GroupFile groupFile = new GroupFile(this, "groups.yml");
@@ -44,10 +45,12 @@ public class AdvancedChat extends AdvancedChatPlugin {
 	private final ChannelGuiFile channelGuiFile = new ChannelGuiFile(this, "channel-gui.yml", "Gui");
 	private final GradientColorFile gradientColorFile = new GradientColorFile(this, "gradient-gui.yml", "Gui");
 	private final PlayerFile playerFile = new PlayerFile(this);
+	private BukkitAudiences adventure;
+	private MySqlConnection mySqlConnection;
+	public ArrayList<InventoryView> inventoryView;
 	public boolean isLegacyConfig = false;
 	public String latestversion;
 	private boolean debug;
-	private BukkitAudiences adventure;
 	
 	public void onLoad() {
 		instance = this;
@@ -84,39 +87,29 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		createAllFiles();
 		HookManager.load();
 		HookManager.loadProtocol();
-		
+
+		if (Settings.mysql) {
+			mySqlConnection = new MySqlConnection();
+			mySqlConnection.setup();
+		}
+
 		onCommands();
 		onListeners();
-		
+
 		if (Settings.boolean_protocollib) {
 			if (HookManager.isLoadProtocolLib()) {
 				HookManager.InitPacketListening();
 			} else {
 				Logger.warning(Settings.message_depend_plugin+ " " + "&e[&bProtocolLib&e]");
 			}
-		}		
-		
-		new UpdateChecker(this, 83889).getUpdateVersionSpigot(version -> {
-			latestversion = version;
-			if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
-				Logger.success("&a" + this.name + " is up to date!");
-			} else {
-				Logger.outline("&5<||" + Util.getLine("&5"));
-				Logger.warning("&5<||" + "&b" + this.name + " is outdated!");
-				Logger.warning("&5<||" + "&bNewest version: &a" + version);
-				Logger.warning("&5<||" + "&bYour version: &d" + this.version);
-				Logger.warning("&5<||" + "&bUpdate Here on Spigot: &e" + UpdateSettings.URL_PLUGIN[0]);
-				Logger.warning("&5<||" + "&bUpdate Here on Songoda: &e" + UpdateSettings.URL_PLUGIN[1]);
-				Logger.warning("&5<||" + "&bUpdate Here on GitHub: &e" + UpdateSettings.URL_PLUGIN[2]);
-				Logger.outline("&5<||" + Util.getLine("&5"));
-			}
-		});
+		}
 
 		LogFile logFile = new LogFile(this);
 		logFile.create();
 
 		this.adventure = BukkitAudiences.create(this);
-		
+
+		this.onUpdate();
 	}
 
 	public BukkitAudiences getAdventure() {
@@ -132,16 +125,15 @@ public class AdvancedChat extends AdvancedChatPlugin {
 			this.adventure.close();
 			this.adventure = null;
 		}
-		
 		metrics = null;
 		isLegacyConfig = false;
 	}
 	
 	public void onCommands() {
-		new AdvancedChatCmd(this);
-		new ClearChatCmd(this);
-		new MuteCmd(this);
-		new UnMuteCmd(this);
+		new AdvancedChatCmd();
+		new ClearChatCmd();
+		new MuteCmd();
+		new UnMuteCmd();
 		new MsgCmd();
 	}
 		
@@ -157,9 +149,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		new PlayerInventoryListener(),
 		new SettingsInventoryListener(),
 		new RainbowInventoryListener());
-		new ErrorInventoryListener();
-		EventLoader ev = new EventLoader();
-		ev.runClearChat();
+		new TaskLoader();
 	}
 	
 	public void reloadAllFiles() {
@@ -183,11 +173,29 @@ public class AdvancedChat extends AdvancedChatPlugin {
 		playerGuiFile.create();
 		channelGuiFile.create();
 	}
+
+	private void onUpdate(){
+		new UpdateChecker(this, 83889).getUpdateVersionSpigot(version -> {
+			latestversion = version;
+			if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+				Logger.success("&a" + this.name + " is up to date!");
+			} else {
+				Logger.outline("&5<||" + Util.getLine("&5"));
+				Logger.warning("&5<||" + "&b" + this.name + " is outdated!");
+				Logger.warning("&5<||" + "&bNewest version: &a" + version);
+				Logger.warning("&5<||" + "&bYour version: &d" + this.version);
+				Logger.warning("&5<||" + "&bUpdate Here on Spigot: &e" + UpdateSettings.URL_PLUGIN[0]);
+				Logger.warning("&5<||" + "&bUpdate Here on Songoda: &e" + UpdateSettings.URL_PLUGIN[1]);
+				Logger.warning("&5<||" + "&bUpdate Here on GitHub: &e" + UpdateSettings.URL_PLUGIN[2]);
+				Logger.outline("&5<||" + Util.getLine("&5"));
+			}
+		});
+	}
 	
 	public void getMetric() {
 		metrics = new Metrics(this, 8826);
 	}
-	
+
 	public void addInventoryView(Player player, String inventoryName) {
 		if (this.getInventoryView(player) == null) {
 			this.inventoryView.add(new InventoryView(player, inventoryName));
@@ -254,6 +262,10 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
 	public ChannelGuiFile getChannelGuiFile() {
 		return channelGuiFile;
+	}
+
+	public Connection getConnection(){
+		return mySqlConnection.getConnection();
 	}
 
 }
