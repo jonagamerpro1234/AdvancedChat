@@ -39,10 +39,10 @@ Settings:
 
   # |Show-Chat-In-Console| here you can enable or disable the chat to be seen in the console
   Show-Chat-In-Console: false
-  
-  # |Default-Color-Message| Here you can define the chat color that is assigned by default to players
+
+    # |Default-Color-Message| Here you can define the chat color that is assigned by default to players
     # The color system does not work with (&) but uses a simpler system that is by color names, here below you have the list of available colors
-    # Color List: https://jonagamerpro1234.gitbook.io/advancedchat/color-list
+  # Color List: https://jonagamerpro1234.gitbook.io/advancedchat/color-list
   Default-Color-Message: 'white'
 #
 # | Hooks | Here are all the configurations of the plugin implementations and more
@@ -55,7 +55,7 @@ Hooks:
     Enabled: true
     
     # |AutoUpdateGroup| This function allows the plugin to detect if the player has changed rank in a period of time defined in the [Tick] section
-    AutoUpdateGroup: 
+    AutoUpdateGroup:
       
       # |Enabled| Here you can enable or disable this feature
       Enabled: true
@@ -68,17 +68,17 @@ Hooks:
     
     # |Enabled| Here you can enable or disable this feature
     Enabled: true
-    
+
   # |DiscordSRV| Here you can define the discord channel where the messages from minecraft to discord are seen
   # !This characteristic is in the experimental phase!
   DiscordSRV:
 
     # |Enabled| Here you can enable or disable this feature
     Enabled: true
-  
+
     # |Channel-ID| Here is the id of the channel that is used for the chat
     Channel-ID: 'none'
-    
+
   # |EssentialsDiscord| Here you can define the discord channel where the messages from minecraft to discord are seen
   # !This characteristic is in the experimental phase!    
   EssentialsDiscord:
@@ -106,7 +106,7 @@ ClearChat:
   
   # |Default-Start-Tick| Here you can define the first ticks that are executed when starting the server
   # Wiki: https://jonagamerpro1234.gitbook.io/advancedchat/configurations/tick
-  Default-Start-Tick: 6000 
+  Default-Start-Tick: 6000
   
   #blank lines to broadcast in chat
   LineClear: 100
@@ -116,19 +116,19 @@ ChatFormat:
 
   # |Enabled| Here you can enable or disable this feature
   Enabled: true
-  
-  # |Chat-Type|
+
+    # |Chat-Type|
     # [none] use default chat by minecraft
     # [default]
     # [normal] use the chat defined in [ChatFormat] 
-    # [group] use the chat defined in the group found inside the [groups.yml] file
+  # [group] use the chat defined in the group found inside the [groups.yml] file
   Chat-Type: normal
   
   # |Format| Here you define the chat format for all players.
   Format: '&b<name> &8>'
   
   # |Channels| temporarily disabled
-  Channels: 
+  Channels:
     
     # [temporarily disabled] |Enabled| Here you can enable or disable this feature
     Enabled: false
@@ -141,16 +141,16 @@ ChatFormat:
     
     # |Enabled| Here you can enable or disable this feature
     Enabled: true
-  
+
     # |Hover| This section allows you to define the hover text
     Hover:
       - '&6> &aHello &b<name>'
       - '&6> &e%player_exp_to_level%'
       - '&6> &dadd more lines like these'
-      
+
   # |ClickEvent| This section allows you to modify chat click events
   ClickEvent:
-     
+
     # |Enabled| Here you can enable or disable this feature
     Enabled: true
     
@@ -167,7 +167,7 @@ ChatFormat:
       Url: 'https://jonagamerpro1234.gitbook.io/advancedchat/'
       
       # |Suggest-Command| Clicking on the chat suggests a command that you define in the config
-      Suggest-Command: '/msg <name>'  
+      Suggest-Command: '/msg <name>'
 
   # |Private-Message|
   Private-Message:
@@ -200,7 +200,7 @@ MySQL:
   
   # |Database| this is where you should put the name of the database
   Database: 'advancedchatDB'
-    
+
   # |User| this is where you should put the database user name
   Username: 'root'
   
@@ -294,7 +294,7 @@ TabComplete:
 # 
 Filter-Chat:
 
-   # |Enabled| Here you can enable or disable this feature
+  # |Enabled| Here you can enable or disable this feature
   Enabled: true
 
   # |Message| here you can define a personalized message that will be sent to the player
@@ -303,7 +303,7 @@ Filter-Chat:
 # | Mention |
 Mention:
   
-   # |Enabled| Here you can enable or disable this feature
+  # |Enabled| Here you can enable or disable this feature
   Enabled: true
   
   # |Send-Format|
@@ -311,7 +311,7 @@ Mention:
   
   # |Receive-Format|
   Receive-Format: '&b[&eR&b]&8: &e[&a<name>&e] &9-> &d<name>'
-   
+
   # |Sound| In this section you can configure the sound of the mentions
   Sound:
     

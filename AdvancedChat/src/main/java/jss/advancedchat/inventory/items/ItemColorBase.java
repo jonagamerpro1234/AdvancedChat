@@ -19,20 +19,20 @@ public class ItemColorBase {
     private FileConfiguration config;
     private PlayerManager playerManager;
 
-    public ItemColorBase(PlayerManager playerManager, FileConfiguration config){
+    public ItemColorBase(PlayerManager playerManager, FileConfiguration config) {
         this.playerManager = playerManager;
         this.config = config;
     }
 
-    public ItemStack getItemColor(@NotNull String color, String key, String value){
+    public ItemStack getItemColor(@NotNull String color, String key, String value) {
         String name = config.getString(color + ".Name");
         List<String> lore = color.contains("Lore") ? new ArrayList<>() : config.getStringList(color + ".Lore");
 
-        if(!playerManager.isLowMode()) {
+        if (!playerManager.isLowMode()) {
             String textures = config.getString(color + ".Texture");
             textures = TSkullUtils.replace(textures);
             item = Util.createSkull(textures);
-        }else {
+        } else {
             String mat = config.getString(color + ".Item").toUpperCase();
             item = XMaterial.valueOf(mat).parseItem();
         }
@@ -42,9 +42,9 @@ public class ItemColorBase {
         meta.setLore(jss.advancedchat.v2.Util.coloredLore(lore));
         item.setItemMeta(meta);
 
-        jss.advancedchat.v2.Util.setStringItemNbt(item,"","");
-        
+        jss.advancedchat.v2.Util.setStringItemNbt(item, "", "");
+
         return item;
     }
-    
+
 }

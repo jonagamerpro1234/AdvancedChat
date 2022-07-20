@@ -3,7 +3,7 @@ name: AdvancedChat
 version: ${version}
 author: jonagamerpro1234
 api-version: 1.13
-description: AdvancedChat is an easy to use plugin that will help you customize the chat on your server to make it look its best. It will also have a customization system by groups and among other functions more...  
+description: AdvancedChat is an easy to use plugin that will help you customize the chat on your server to make it look its best. It will also have a customization system by groups and among other functions more...
 prefix: AdvancedChat
 website: https://github.com/jonagamerpro1234/AdvancedChat/
 softdepend: [
@@ -130,49 +130,49 @@ permissions:
     default: op
   advancedchat.gui.color.white:
     description: ---
-    default: op 
+    default: op
   advancedchat.gui.color.darkgray:
     description: ---
-    default: op 
+    default: op
   advancedchat.gui.color.gray:
     description: ---
-    default: op  
+    default: op
   advancedchat.gui.color.darkpurple:
     description: ---
-    default: op  
+    default: op
   advancedchat.gui.color.lightpurple:
     description: ---
-    default: op  
+    default: op
   advancedchat.gui.color.aqua:
     description: ---
-    default: op  
+    default: op
   advancedchat.gui.color.darkaqua:
     description: ---
-    default: op  
+    default: op
   advancedchat.gui.color.gold:
     description: ---
-    default: op  
+    default: op
   advancedchat.gui.color.yellow:
     description: ---
-    default: op  
+    default: op
   advancedchat.gui.color.green:
     description: ---
-    default: op  
+    default: op
   advancedchat.gui.color.darkgreen:
     description: ---
-    default: op  
+    default: op
   advancedchat.gui.color.blue:
     description: ---
-    default: op  
+    default: op
   advancedchat.gui.color.darkblue:
     description: ---
-    default: op  
+    default: op
   advancedchat.gui.color.red:
     description: ---
-    default: op  
+    default: op
   advancedchat.gui.color.darkred:
     description: ---
-    default: op  
+    default: op
   advancedchat.gui.color.random:
     description: ---
     default: op

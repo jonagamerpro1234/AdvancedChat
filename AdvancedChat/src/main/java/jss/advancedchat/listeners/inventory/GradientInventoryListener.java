@@ -21,66 +21,66 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.List;
 
-public class GradientInventoryListener implements Listener{
-	
-	private final AdvancedChat plugin = AdvancedChat.get();
-	
-	@EventHandler 
-	public void onClick(@NotNull InventoryClickEvent e) {
-		Player j = (Player) e.getWhoClicked();
-		InventoryView inventoryView = plugin.getInventoryView(j);
-		
-		if(inventoryView == null) return;
-		if(!inventoryView.getInventoryName().contains("gradientGui")) return;
-		if(e.getCurrentItem() == null || e.getCurrentItem().getType().name().contains("AIR")) {
-			e.setCancelled(true);
-			return;
-		}
+public class GradientInventoryListener implements Listener {
 
-		if(!e.getClickedInventory().equals(j.getOpenInventory().getTopInventory())) return;
+    private final AdvancedChat plugin = AdvancedChat.get();
 
-		int slot = e.getSlot();
-		e.setCancelled(true);
+    @EventHandler
+    public void onClick(@NotNull InventoryClickEvent e) {
+        Player j = (Player) e.getWhoClicked();
+        InventoryView inventoryView = plugin.getInventoryView(j);
 
-		String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
-		Player target = Bukkit.getPlayer(playerName);
-		PlayerManager playerManager = new PlayerManager(target);
-		InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
+        if (inventoryView == null) return;
+        if (!inventoryView.getInventoryName().contains("gradientGui")) return;
+        if (e.getCurrentItem() == null || e.getCurrentItem().getType().name().contains("AIR")) {
+            e.setCancelled(true);
+            return;
+        }
 
-		if(slot == 45) {
-			setGradientItem(playerManager, e.getInventory());
-		}
-	}
-	
-	private void setGradientItem(PlayerManager playerManager, Inventory inv) {
-		ItemStack item;
-		ItemMeta meta;
-		
-		if(playerManager.isGradient()) {
-			item = XMaterial.GRAY_DYE.parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(Util.color("&cDisable"));
-			List<String> lore = Arrays.asList("&7Click to &aenable");
-			meta.setLore(InventoryUtils.coloredLore(lore));
-			item.setItemMeta(meta);
-			inv.setItem(45, item);
-			playerManager.setGradient(false);
-		}else {
-			item = XMaterial.LIME_DYE.parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(Util.color("&aEnable"));
-			List<String> lore = Arrays.asList("&7Click to &cdisable");
-			meta.setLore(InventoryUtils.coloredLore(lore));
-			item.setItemMeta(meta);
-			inv.setItem(45, item);
-			playerManager.setGradient(true);
-		}
-	}
+        if (!e.getClickedInventory().equals(j.getOpenInventory().getTopInventory())) return;
 
-	@EventHandler
-	public void onInventoryClose(@NotNull InventoryCloseEvent e) {
-		Player j = (Player) e.getPlayer();
-		plugin.removeInventoryView(j);
-	}
-	
+        int slot = e.getSlot();
+        e.setCancelled(true);
+
+        String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
+        Player target = Bukkit.getPlayer(playerName);
+        PlayerManager playerManager = new PlayerManager(target);
+        InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
+
+        if (slot == 45) {
+            setGradientItem(playerManager, e.getInventory());
+        }
+    }
+
+    private void setGradientItem(PlayerManager playerManager, Inventory inv) {
+        ItemStack item;
+        ItemMeta meta;
+
+        if (playerManager.isGradient()) {
+            item = XMaterial.GRAY_DYE.parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(Util.color("&cDisable"));
+            List<String> lore = Arrays.asList("&7Click to &aenable");
+            meta.setLore(InventoryUtils.coloredLore(lore));
+            item.setItemMeta(meta);
+            inv.setItem(45, item);
+            playerManager.setGradient(false);
+        } else {
+            item = XMaterial.LIME_DYE.parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(Util.color("&aEnable"));
+            List<String> lore = Arrays.asList("&7Click to &cdisable");
+            meta.setLore(InventoryUtils.coloredLore(lore));
+            item.setItemMeta(meta);
+            inv.setItem(45, item);
+            playerManager.setGradient(true);
+        }
+    }
+
+    @EventHandler
+    public void onInventoryClose(@NotNull InventoryCloseEvent e) {
+        Player j = (Player) e.getPlayer();
+        plugin.removeInventoryView(j);
+    }
+
 }

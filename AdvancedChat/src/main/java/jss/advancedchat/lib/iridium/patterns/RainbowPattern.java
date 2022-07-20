@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class RainbowPattern implements IPattern {
 
-	final Pattern pattern = Pattern.compile("<RAINBOW:(\\d{1,3})>(.*?)</RAINBOW>");
+    final Pattern pattern = Pattern.compile("<RAINBOW:(\\d{1,3})>(.*?)</RAINBOW>");
 
     public String process(String string) {
         Matcher matcher = pattern.matcher(string);

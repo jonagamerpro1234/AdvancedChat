@@ -8,47 +8,47 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 
 public class EventUtils {
-	
-   private final AdvancedChat plugin;
 
-   public EventUtils(AdvancedChat plugin) {
-      this.plugin = plugin;
-   }
+    private final AdvancedChat plugin;
 
-   public void initEvent(Listener... listeners) {
-		for(Listener listener : listeners) {
-			getEventManager().registerEvents(listener, plugin);
-		}
-	}
+    public EventUtils(AdvancedChat plugin) {
+        this.plugin = plugin;
+    }
 
-   public PluginManager getEventManager() {
-      return Bukkit.getPluginManager();
-   }
+    public static ConsoleCommandSender getConsoleSender() {
+        return Bukkit.getConsoleSender();
+    }
 
-   public static ConsoleCommandSender getConsoleSender() {
-      return Bukkit.getConsoleSender();
-   }
+    public void initEvent(Listener... listeners) {
+        for (Listener listener : listeners) {
+            getEventManager().registerEvents(listener, plugin);
+        }
+    }
 
-   public void getServerMessage() {
-	   Util.sendColorMessage(Util.getPrefix(false) + Settings.message_ClearChat_Server);
-   }
+    public PluginManager getEventManager() {
+        return Bukkit.getPluginManager();
+    }
 
-   public void getPlayerMessage(Player player) {
-	   Util.sendColorMessage(Util.getPrefix(false) + Util.getVar(player, Settings.message_ClearChat_Player));
-   }
+    public void getServerMessage() {
+        Util.sendColorMessage(Util.getPrefix(false) + Settings.message_ClearChat_Server);
+    }
 
-   public void getClearChatAction() {
-	   this.loopVoidChat(Settings.int_clearchat_lines);
-   }
+    public void getPlayerMessage(Player player) {
+        Util.sendColorMessage(Util.getPrefix(false) + Util.getVar(player, Settings.message_ClearChat_Player));
+    }
 
-   public void loopVoidChat(int value) {
-      try {
-         for(int i = 0; i < value; ++i) {
-            Bukkit.broadcastMessage(" ");
-         }
-      } catch (NullPointerException var3) {
-         var3.printStackTrace();
-      }
-   }
-   
+    public void getClearChatAction() {
+        this.loopVoidChat(Settings.int_clearchat_lines);
+    }
+
+    public void loopVoidChat(int value) {
+        try {
+            for (int i = 0; i < value; ++i) {
+                Bukkit.broadcastMessage(" ");
+            }
+        } catch (NullPointerException var3) {
+            var3.printStackTrace();
+        }
+    }
+
 }

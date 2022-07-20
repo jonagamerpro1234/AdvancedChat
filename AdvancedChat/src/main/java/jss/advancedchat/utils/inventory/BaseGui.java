@@ -18,60 +18,58 @@ import java.util.UUID;
  */
 @SuppressWarnings("unused")
 public abstract class BaseGui extends InventoryUtils implements InventoryHolder {
-	
-	private final UUID uuid = UUID.randomUUID();
-	private final Inventory inventory;
-	private final Map<Integer, GuiAction<?>> actions;
-	
-	private GuiAction<InventoryClickEvent> slotAction;
-	private GuiAction<InventoryCloseEvent> closeAction;
-	private GuiAction<InventoryOpenEvent> openAction; 
-	
-	private static final Map<UUID, BaseGui> inventoriesByUUID = new HashMap<>();
-	private static final Map<UUID, UUID> openIventories = new HashMap<>();
-	
-	public BaseGui(int size, String name) {
-		inventory = Bukkit.createInventory(null, size, name);
-		actions = new HashMap<>();
-		inventoriesByUUID.put(getUuid(), this);
-	}
-	
-	public void setItem(int slot, ItemStack itemstack, GuiAction<?> action) {
-		inventory.setItem(slot, itemstack);
-		
-		if(action != null) {
-			actions.put(slot, action);
-		}
-	}
-	
-	public void setItem(int slot, ItemStack itemStack) {
-		setItem(slot, itemStack, null);
-	}
-	
-	public void open(Player player) {
-		openIventories.put(player.getUniqueId(), getUuid());
-		player.openInventory(inventory);
-	}
-	
-	public UUID getUuid() {
-		return uuid;
-	}
-	
-	public static Map<UUID, BaseGui> getInventoriesByUUID() {
-		return inventoriesByUUID;
-	}
 
-	public static Map<UUID, UUID> getOpenIventories() {
-		return openIventories;
-	}
-	
-	public Map<Integer, GuiAction<?>> getActions() {
-		return actions;
-	}
-	
-	public Inventory getInventory() {
-		return inventory;
-	}
-	
-	
+    private static final Map<UUID, BaseGui> inventoriesByUUID = new HashMap<>();
+    private static final Map<UUID, UUID> openIventories = new HashMap<>();
+    private final UUID uuid = UUID.randomUUID();
+    private final Inventory inventory;
+    private final Map<Integer, GuiAction<?>> actions;
+    private GuiAction<InventoryClickEvent> slotAction;
+    private GuiAction<InventoryCloseEvent> closeAction;
+    private GuiAction<InventoryOpenEvent> openAction;
+
+    public BaseGui(int size, String name) {
+        inventory = Bukkit.createInventory(null, size, name);
+        actions = new HashMap<>();
+        inventoriesByUUID.put(getUuid(), this);
+    }
+
+    public static Map<UUID, BaseGui> getInventoriesByUUID() {
+        return inventoriesByUUID;
+    }
+
+    public static Map<UUID, UUID> getOpenIventories() {
+        return openIventories;
+    }
+
+    public void setItem(int slot, ItemStack itemstack, GuiAction<?> action) {
+        inventory.setItem(slot, itemstack);
+
+        if (action != null) {
+            actions.put(slot, action);
+        }
+    }
+
+    public void setItem(int slot, ItemStack itemStack) {
+        setItem(slot, itemStack, null);
+    }
+
+    public void open(Player player) {
+        openIventories.put(player.getUniqueId(), getUuid());
+        player.openInventory(inventory);
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public Map<Integer, GuiAction<?>> getActions() {
+        return actions;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+
 }

@@ -7,7 +7,7 @@ public class DataSources {
 
     private HikariDataSource hikariDataSource;
 
-    public DataSources(String ip, int port, String database, String username, String password){
+    public DataSources(String ip, int port, String database, String username, String password) {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl("jdbc:mysql://" + ip + ":" + port + "/" + database);
         config.setUsername(username);
@@ -20,11 +20,11 @@ public class DataSources {
         hikariDataSource = new HikariDataSource(config);
     }
 
-    public HikariDataSource getHikariDataSource(){
+    public HikariDataSource getHikariDataSource() {
         return this.hikariDataSource;
     }
 
-    public void disable(){
+    public void disable() {
         if (hikariDataSource != null) {
             hikariDataSource.close();
         }

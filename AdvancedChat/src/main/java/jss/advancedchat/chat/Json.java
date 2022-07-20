@@ -12,162 +12,164 @@ import java.util.List;
 
 @SuppressWarnings("deprecation")
 public class Json {
-	private final Player player;
-	private String text;
-	private BaseComponent[] hoverText;
-	private String suggestCommand;
-	private String executeCommand;
-	private String openURL;
-	private final String extraText;
+    private final Player player;
+    private final String extraText;
+    private String text;
+    private BaseComponent[] hoverText;
+    private String suggestCommand;
+    private String executeCommand;
+    private String openURL;
 
-	public Json(Player player, String text, String textEx) {
-		this.player = player;
-		this.text = text;
-		this.extraText = textEx;
-		this.hoverText = null;
-	}
+    public Json(Player player, String text, String textEx) {
+        this.player = player;
+        this.text = text;
+        this.extraText = textEx;
+        this.hoverText = null;
+    }
 
-	public Player getPlayer() {
-		return this.player;
-	}
-	public String getText() {
-		return this.text;
-	}
-	public Json setText(String text) {
-		this.text = text;
-		return this;
-	}
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    public String getText() {
+        return this.text;
+    }
+
+    public Json setText(String text) {
+        this.text = text;
+        return this;
+    }
 
     public String getExtraText() {
-		return this.extraText;
-	}
+        return this.extraText;
+    }
 
-	public Json setHover(List<String> hover) {
-		this.hoverText = new BaseComponent[hover.size()];
+    public Json setHover(List<String> hover) {
+        this.hoverText = new BaseComponent[hover.size()];
 
-		for (int i = 0; i < hover.size(); ++i) {
-			TextComponent component = new TextComponent();
-			if (i == hover.size() - 1) {
-				component.setText(Util.color(Util.getVar(this.player, (String) hover.get(i))));
-			} else {
-				component.setText(Util.color(Util.getVar(this.player, (String) hover.get(i)) + "\n"));
-			}
+        for (int i = 0; i < hover.size(); ++i) {
+            TextComponent component = new TextComponent();
+            if (i == hover.size() - 1) {
+                component.setText(Util.color(Util.getVar(this.player, (String) hover.get(i))));
+            } else {
+                component.setText(Util.color(Util.getVar(this.player, (String) hover.get(i)) + "\n"));
+            }
 
-			this.hoverText[i] = component;
-		}
-		return this;
-	}
+            this.hoverText[i] = component;
+        }
+        return this;
+    }
 
-	public Json setSuggestCommand(String suggestCommand) {
-		this.suggestCommand = suggestCommand;
-		return this;
-	}
+    public Json setSuggestCommand(String suggestCommand) {
+        this.suggestCommand = suggestCommand;
+        return this;
+    }
 
-	public Json setExecuteCommand(String executeCommand) {
-		this.executeCommand = executeCommand;
-		return this;
-	}
+    public Json setExecuteCommand(String executeCommand) {
+        this.executeCommand = executeCommand;
+        return this;
+    }
 
-	public Json setOpenURL(String url) {
-		this.openURL = url;
-		return this;
-	}
+    public Json setOpenURL(String url) {
+        this.openURL = url;
+        return this;
+    }
 
-	public String getFormat() {
-		return Util.color(Util.getVar(player, this.text + this.extraText));
-	}
-	
-	public void send() {
-		TextComponent component = new TextComponent(TextComponent.fromLegacyText(this.getText()));
-		if (this.hoverText != null) {
-			component.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, this.hoverText));
-		}
+    public String getFormat() {
+        return Util.color(Util.getVar(player, this.text + this.extraText));
+    }
 
-		if (this.executeCommand != null) {
-			component.setClickEvent(
-					new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.RUN_COMMAND, this.executeCommand));
-		}
+    public void send() {
+        TextComponent component = new TextComponent(TextComponent.fromLegacyText(this.getText()));
+        if (this.hoverText != null) {
+            component.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, this.hoverText));
+        }
 
-		if (this.suggestCommand != null) {
-			component.setClickEvent(
-					new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.SUGGEST_COMMAND, this.suggestCommand));
-		}
+        if (this.executeCommand != null) {
+            component.setClickEvent(
+                    new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.RUN_COMMAND, this.executeCommand));
+        }
 
-		if (this.openURL != null) {
-			component.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.OPEN_URL, this.openURL));
-		}
+        if (this.suggestCommand != null) {
+            component.setClickEvent(
+                    new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.SUGGEST_COMMAND, this.suggestCommand));
+        }
 
-		this.player.spigot().sendMessage(component);
-	}
+        if (this.openURL != null) {
+            component.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.OPEN_URL, this.openURL));
+        }
 
-	public void sendToAll() {
-		TextComponent component = new TextComponent(TextComponent.fromLegacyText(this.getText()));
-		if (this.hoverText != null) {
-			component.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, this.hoverText));
-		}
+        this.player.spigot().sendMessage(component);
+    }
 
-		if (this.executeCommand != null) {
-			component.setClickEvent(
-					new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.RUN_COMMAND, this.executeCommand));
-		}
+    public void sendToAll() {
+        TextComponent component = new TextComponent(TextComponent.fromLegacyText(this.getText()));
+        if (this.hoverText != null) {
+            component.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, this.hoverText));
+        }
 
-		if (this.suggestCommand != null) {
-			component.setClickEvent(
-					new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.SUGGEST_COMMAND, this.suggestCommand));
-		}
+        if (this.executeCommand != null) {
+            component.setClickEvent(
+                    new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.RUN_COMMAND, this.executeCommand));
+        }
 
-		if (this.openURL != null) {
-			component.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.OPEN_URL, this.openURL));
-		}
+        if (this.suggestCommand != null) {
+            component.setClickEvent(
+                    new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.SUGGEST_COMMAND, this.suggestCommand));
+        }
 
-		Util.sendAllPlayerBaseComponent(component);
-	}
+        if (this.openURL != null) {
+            component.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.OPEN_URL, this.openURL));
+        }
 
-	public void sendDouble() {
-		TextComponent component = new TextComponent(TextComponent.fromLegacyText(Util.color(this.getText())));
-		TextComponent component2 = new TextComponent(TextComponent.fromLegacyText(Util.color(this.getExtraText())));
-		if (this.hoverText != null) {
-			component.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, this.hoverText));
-		}
+        Util.sendAllPlayerBaseComponent(component);
+    }
 
-		if (this.executeCommand != null) {
-			component.setClickEvent(
-					new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.RUN_COMMAND, this.executeCommand));
-		}
+    public void sendDouble() {
+        TextComponent component = new TextComponent(TextComponent.fromLegacyText(Util.color(this.getText())));
+        TextComponent component2 = new TextComponent(TextComponent.fromLegacyText(Util.color(this.getExtraText())));
+        if (this.hoverText != null) {
+            component.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, this.hoverText));
+        }
 
-		if (this.suggestCommand != null) {
-			component.setClickEvent(
-					new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.SUGGEST_COMMAND, this.suggestCommand));
-		}
+        if (this.executeCommand != null) {
+            component.setClickEvent(
+                    new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.RUN_COMMAND, this.executeCommand));
+        }
 
-		if (this.openURL != null) {
-			component.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.OPEN_URL, this.openURL));
-		}
+        if (this.suggestCommand != null) {
+            component.setClickEvent(
+                    new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.SUGGEST_COMMAND, this.suggestCommand));
+        }
 
-		this.player.spigot().sendMessage(new BaseComponent[] { component, component2 });
-	}
+        if (this.openURL != null) {
+            component.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.OPEN_URL, this.openURL));
+        }
 
-	public void sendDoubleToAll() {
-		TextComponent component = new TextComponent(TextComponent.fromLegacyText(Util.color(this.getText())));
-		TextComponent component2 = new TextComponent(TextComponent.fromLegacyText(Util.color(this.getExtraText())));
-		if (this.hoverText != null) {
-			component.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, this.hoverText));
-		}
+        this.player.spigot().sendMessage(new BaseComponent[]{component, component2});
+    }
 
-		if (this.executeCommand != null) {
-			component.setClickEvent(
-					new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.RUN_COMMAND, this.executeCommand));
-		}
+    public void sendDoubleToAll() {
+        TextComponent component = new TextComponent(TextComponent.fromLegacyText(Util.color(this.getText())));
+        TextComponent component2 = new TextComponent(TextComponent.fromLegacyText(Util.color(this.getExtraText())));
+        if (this.hoverText != null) {
+            component.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, this.hoverText));
+        }
 
-		if (this.suggestCommand != null) {
-			component.setClickEvent(
-					new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.SUGGEST_COMMAND, this.suggestCommand));
-		}
+        if (this.executeCommand != null) {
+            component.setClickEvent(
+                    new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.RUN_COMMAND, this.executeCommand));
+        }
 
-		if (this.openURL != null) {
-			component.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.OPEN_URL, this.openURL));
-		}
+        if (this.suggestCommand != null) {
+            component.setClickEvent(
+                    new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.SUGGEST_COMMAND, this.suggestCommand));
+        }
 
-		Util.sendAllBaseComponent(component, component2);
-	}
+        if (this.openURL != null) {
+            component.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.OPEN_URL, this.openURL));
+        }
+
+        Util.sendAllBaseComponent(component, component2);
+    }
 }

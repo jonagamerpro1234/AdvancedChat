@@ -38,7 +38,7 @@ public class IridiumColorAPI {
             .put(new Color(16777215), ChatColor.getByChar('f')).build();
 
     private static final List<IPattern> PATTERNS = Arrays.asList(new GradientPattern(), new SolidPattern(), new RainbowPattern(), new PadPattern());
-    
+
     @Nonnull
     public static String process(@Nonnull String string) {
         for (IPattern pattern : PATTERNS) {
@@ -62,7 +62,7 @@ public class IridiumColorAPI {
     @Nonnull
     public static String color(@Nonnull String string, @Nonnull Color start, @Nonnull Color end) {
         String originalString = string;
-        
+
         ChatColor[] colors = createGradient(start, end, withoutSpecialChar(string).length());
         return apply(originalString, colors);
     }
@@ -108,7 +108,7 @@ public class IridiumColorAPI {
                 stringBuilder.append(colors[outIndex++]).append(specialColors).append(characters[i]);
         }
         return stringBuilder.toString();
-    }	
+    }
 
     @Nonnull
     private static String withoutSpecialChar(@Nonnull String source) {
@@ -144,7 +144,7 @@ public class IridiumColorAPI {
         int stepR = Math.abs(start.getRed() - end.getRed()) / (step - 1);
         int stepG = Math.abs(start.getGreen() - end.getGreen()) / (step - 1);
         int stepB = Math.abs(start.getBlue() - end.getBlue()) / (step - 1);
-        int[] direction = new int[] {
+        int[] direction = new int[]{
                 start.getRed() < end.getRed() ? +1 : -1,
                 start.getGreen() < end.getGreen() ? +1 : -1,
                 start.getBlue() < end.getBlue() ? +1 : -1
@@ -188,7 +188,7 @@ public class IridiumColorAPI {
             index = version.indexOf('-');
             version = version.substring(0, index);
         }
-        
+
         int lastDot = version.lastIndexOf('.');
         if (version.indexOf('.') != lastDot) version = version.substring(0, lastDot);
 

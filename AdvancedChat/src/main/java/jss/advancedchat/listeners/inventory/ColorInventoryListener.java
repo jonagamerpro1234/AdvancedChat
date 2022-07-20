@@ -3,10 +3,8 @@ package jss.advancedchat.listeners.inventory;
 import com.cryptomorin.xseries.XMaterial;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.inventory.InventoryActionHelper;
-import jss.advancedchat.utils.inventory.InventoryActionHelper.InventoryType;
 import jss.advancedchat.utils.inventory.InventoryUtils;
 import jss.advancedchat.utils.inventory.InventoryView;
 import org.bukkit.Bukkit;
@@ -23,67 +21,67 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ColorInventoryListener implements Listener {
-	
-	private final AdvancedChat plugin = AdvancedChat.get();
-	
-	@EventHandler
-	public void onInventoryClick(InventoryClickEvent e) {
-		Player j = (Player) e.getWhoClicked();
-		InventoryView inventoryView = plugin.getInventoryView(j);
-		
-		if(inventoryView == null) return;
-		if(!inventoryView.getInventoryName().contains("colorGui")) return;
-		if(e.getCurrentItem() == null || e.getCurrentItem().getType().name().contains("AIR")) {
-			e.setCancelled(true);
-			return;
-		}
-		e.getSlotType();
 
-		if(!e.getClickedInventory().equals(j.getOpenInventory().getTopInventory())) return;
+    private final AdvancedChat plugin = AdvancedChat.get();
 
-		int slot = e.getSlot();
-		e.setCancelled(true);
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent e) {
+        Player j = (Player) e.getWhoClicked();
+        InventoryView inventoryView = plugin.getInventoryView(j);
 
-		String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
-		Player target = Bukkit.getPlayer(playerName);
-		PlayerManager playerManager = new PlayerManager(target);
-		InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
+        if (inventoryView == null) return;
+        if (!inventoryView.getInventoryName().contains("colorGui")) return;
+        if (e.getCurrentItem() == null || e.getCurrentItem().getType().name().contains("AIR")) {
+            e.setCancelled(true);
+            return;
+        }
+        e.getSlotType();
+
+        if (!e.getClickedInventory().equals(j.getOpenInventory().getTopInventory())) return;
+
+        int slot = e.getSlot();
+        e.setCancelled(true);
+
+        String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
+        Player target = Bukkit.getPlayer(playerName);
+        PlayerManager playerManager = new PlayerManager(target);
+        InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
 
 
-		if(slot == 45) {
-			setCustomItem(playerManager, e.getInventory());
-		}
-	}
-	
-	private void setCustomItem(PlayerManager playerManager, Inventory inv) {
-		ItemStack item;
-		ItemMeta meta;
-		
-		if(playerManager.isColor()) {
-			item = XMaterial.GRAY_DYE.parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(Util.color("&cDisable"));
-			List<String> lore = Arrays.asList("&7Click to &aenable");
-			meta.setLore(InventoryUtils.coloredLore(lore));
-			item.setItemMeta(meta);
-			inv.setItem(45, item);
-			playerManager.setColor(false);
-		}else {
-			item = XMaterial.LIME_DYE.parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(Util.color("&aEnable"));
-			List<String> lore = Arrays.asList("&7Click to &cdisable");
-			meta.setLore(InventoryUtils.coloredLore(lore));
-			item.setItemMeta(meta);
-			inv.setItem(45, item);
-			playerManager.setColor(true);
-		}
-	}
-	
-	@EventHandler
-	public void onInventoryClose(InventoryCloseEvent e) {
-		Player j = (Player) e.getPlayer();
-		plugin.removeInventoryView(j);
-	}
-	
+        if (slot == 45) {
+            setCustomItem(playerManager, e.getInventory());
+        }
+    }
+
+    private void setCustomItem(PlayerManager playerManager, Inventory inv) {
+        ItemStack item;
+        ItemMeta meta;
+
+        if (playerManager.isColor()) {
+            item = XMaterial.GRAY_DYE.parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(Util.color("&cDisable"));
+            List<String> lore = Arrays.asList("&7Click to &aenable");
+            meta.setLore(InventoryUtils.coloredLore(lore));
+            item.setItemMeta(meta);
+            inv.setItem(45, item);
+            playerManager.setColor(false);
+        } else {
+            item = XMaterial.LIME_DYE.parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(Util.color("&aEnable"));
+            List<String> lore = Arrays.asList("&7Click to &cdisable");
+            meta.setLore(InventoryUtils.coloredLore(lore));
+            item.setItemMeta(meta);
+            inv.setItem(45, item);
+            playerManager.setColor(true);
+        }
+    }
+
+    @EventHandler
+    public void onInventoryClose(InventoryCloseEvent e) {
+        Player j = (Player) e.getPlayer();
+        plugin.removeInventoryView(j);
+    }
+
 }

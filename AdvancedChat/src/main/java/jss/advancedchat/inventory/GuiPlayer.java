@@ -21,109 +21,109 @@ import java.util.List;
 
 public class GuiPlayer {
 
-	private final AdvancedChat plugin = AdvancedChat.get();
-	private Inventory inv;
-	private ItemStack item;
-	private ItemMeta meta;
-	
-	public void open(Player player, String target) {
-		plugin.addInventoryView(player, "playerGui");
-		create();
-		setItems(player, target);
-		player.openInventory(inv);
-	}
-	
-	private void create() {
-		FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
+    private final AdvancedChat plugin = AdvancedChat.get();
+    private Inventory inv;
+    private ItemStack item;
+    private ItemMeta meta;
 
-		String title = config.getString("Title");
+    public void open(Player player, String target) {
+        plugin.addInventoryView(player, "playerGui");
+        create();
+        setItems(player, target);
+        player.openInventory(inv);
+    }
 
-		inv = Bukkit.createInventory(null, 54, Util.color(title));
+    private void create() {
+        FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
 
-		setGlass(inv, XMaterial.BLACK_STAINED_GLASS_PANE.toString());
-	}
+        String title = config.getString("Title");
 
-	public void setItems(Player player, String target) {
-		FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
-		
-		inv.setItem(4, Util.getPlayerHead(target));		
-		PlayerManager playerManager = new PlayerManager(Bukkit.getPlayer(target));
-				
-		for(String key : config.getConfigurationSection("Items").getKeys(false)) {
-			int slot = config.getInt("Items." + key + ".Slot");
-			String name = config.getString("Items." + key + ".Name");
+        inv = Bukkit.createInventory(null, 54, Util.color(title));
 
-			if (!playerManager.isLowMode()) {
-				String textures = config.getString("Items." + key + ".Texture");
-				textures = TSkullUtils.replace(textures);
-				item = Util.createSkull(textures);
-			} else {
-				String mat = config.getString("Items." + key + ".Item").toUpperCase();
-				item = XMaterial.valueOf(mat).parseItem();
-			}
-			
-			meta = item.getItemMeta();
-			meta.setDisplayName(Util.color(name));
+        setGlass(inv, XMaterial.BLACK_STAINED_GLASS_PANE.toString());
+    }
 
-			item.setItemMeta(meta);
-			item.setAmount(1);
+    public void setItems(Player player, String target) {
+        FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
 
-			inv.setItem(slot, item);
-		}
+        inv.setItem(4, Util.getPlayerHead(target));
+        PlayerManager playerManager = new PlayerManager(Bukkit.getPlayer(target));
 
-		int slotmute = config.getInt("Especial-Items.Mute.Slot");
-		String name = config.getString("Especial-Items.Mute.Name");
-		
-		List<String> lore = Arrays.asList(Settings.message_NoPermission);
-		
-		if (player.isOp() || player.hasPermission("AdvancedChat.Gui.Player.Mute")) {
-			item = getMuteItem(player);
-			meta = item.getItemMeta();
-			meta.setDisplayName(Util.color("&eThe player has bypass"));
-			meta.setLore(InventoryUtils.coloredLore(lore));
-			meta.addEnchant(Enchantment.DURABILITY, 1, false);
-			meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-			item.setItemMeta(meta);
-			inv.setItem(slotmute, item);
-		} else {
-			item = getMuteItem(player);
-			meta = item.getItemMeta();
-			meta.setDisplayName(Util.color(Util.getVar(player, name)));
-			item.setItemMeta(meta);
-			inv.setItem(slotmute, item);
-		}
-	}
+        for (String key : config.getConfigurationSection("Items").getKeys(false)) {
+            int slot = config.getInt("Items." + key + ".Slot");
+            String name = config.getString("Items." + key + ".Name");
 
-	private void setGlass(Inventory inv, String path) {
-		for (int i = 0; i < 54; i++) {
-			item = XMaterial.valueOf(path.toUpperCase()).parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(" ");
-			item.setItemMeta(meta);
-			item.setAmount(1);
-			inv.setItem(i, item);
+            if (!playerManager.isLowMode()) {
+                String textures = config.getString("Items." + key + ".Texture");
+                textures = TSkullUtils.replace(textures);
+                item = Util.createSkull(textures);
+            } else {
+                String mat = config.getString("Items." + key + ".Item").toUpperCase();
+                item = XMaterial.valueOf(mat).parseItem();
+            }
 
-		}
-	}
+            meta = item.getItemMeta();
+            meta.setDisplayName(Util.color(name));
 
-	public ItemStack getMuteItem(Player player) {
-		PlayerManager playerManager = new PlayerManager(player);
-		if (playerManager.existsPlayer("Name")) {
-			if (player.isOp() || player.hasPermission("AdvancedChat.Mute.Bypass")) {
-				return item = XMaterial.BARRIER.parseItem();
-			} else {
-				if(Settings.mysql) {
-				}else{
-					if (playerManager.isMute()) {
-						return item = XMaterial.GREEN_DYE.parseItem();
-					} else {
-						return item = XMaterial.GRAY_DYE.parseItem();
-					}
-				}
-			}
-		}
-		return null;
-	}
-	
+            item.setItemMeta(meta);
+            item.setAmount(1);
+
+            inv.setItem(slot, item);
+        }
+
+        int slotmute = config.getInt("Especial-Items.Mute.Slot");
+        String name = config.getString("Especial-Items.Mute.Name");
+
+        List<String> lore = Arrays.asList(Settings.message_NoPermission);
+
+        if (player.isOp() || player.hasPermission("AdvancedChat.Gui.Player.Mute")) {
+            item = getMuteItem(player);
+            meta = item.getItemMeta();
+            meta.setDisplayName(Util.color("&eThe player has bypass"));
+            meta.setLore(InventoryUtils.coloredLore(lore));
+            meta.addEnchant(Enchantment.DURABILITY, 1, false);
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            item.setItemMeta(meta);
+            inv.setItem(slotmute, item);
+        } else {
+            item = getMuteItem(player);
+            meta = item.getItemMeta();
+            meta.setDisplayName(Util.color(Util.getVar(player, name)));
+            item.setItemMeta(meta);
+            inv.setItem(slotmute, item);
+        }
+    }
+
+    private void setGlass(Inventory inv, String path) {
+        for (int i = 0; i < 54; i++) {
+            item = XMaterial.valueOf(path.toUpperCase()).parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(" ");
+            item.setItemMeta(meta);
+            item.setAmount(1);
+            inv.setItem(i, item);
+
+        }
+    }
+
+    public ItemStack getMuteItem(Player player) {
+        PlayerManager playerManager = new PlayerManager(player);
+        if (playerManager.existsPlayer("Name")) {
+            if (player.isOp() || player.hasPermission("AdvancedChat.Mute.Bypass")) {
+                return item = XMaterial.BARRIER.parseItem();
+            } else {
+                if (Settings.mysql) {
+                } else {
+                    if (playerManager.isMute()) {
+                        return item = XMaterial.GREEN_DYE.parseItem();
+                    } else {
+                        return item = XMaterial.GRAY_DYE.parseItem();
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
 
 }

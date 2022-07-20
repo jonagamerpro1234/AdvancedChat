@@ -3,6 +3,7 @@ package jss.advancedchat.listeners;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.manager.PlayerManager;
+import jss.advancedchat.storage.mysql.MySql;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
@@ -16,26 +17,27 @@ public class TaskLoader {
     private EventUtils eventUtils = new EventUtils(plugin);
     private int chatTaskID;
     private int groupTaskID;
-    public TaskLoader(){
+
+    public TaskLoader() {
         this.onClearChat();
         this.onUpdateGroup();
     }
 
-    private void onClearChat(){
+    private void onClearChat() {
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         chatTaskID = scheduler.scheduleSyncRepeatingTask(plugin, new Runnable() {
             public void run() {
                 if (Settings.boolean_chatclear_autoclear) {
                     eventUtils.getClearChatAction();
                     eventUtils.getServerMessage();
-                }else{
+                } else {
                     scheduler.cancelTask(chatTaskID);
                 }
             }
         }, Settings.long_clearchat_start_tick, Settings.long_clearchat_tick);
     }
 
-    private void onUpdateGroup(){
+    private void onUpdateGroup() {
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         for (Player p : Bukkit.getOnlinePlayers()) {
             PlayerManager playerManager = new PlayerManager(p);
@@ -44,17 +46,24 @@ public class TaskLoader {
                 public void run() {
                     if (Settings.hook_luckperms_autoupdate_group) {
                         String group = LuckPermsHook.getApi().getUserManager().getUser(p.getName()).getPrimaryGroup();
-                        if(!playerManager.getGroup().equalsIgnoreCase(group)){
-                            playerManager.setGroup(group);
-                        }else{
-                            if(plugin.isDebug()) return;
-                            Logger.debug("&eThe player already has the same group!");
+
+                        if (Settings.mysql) {
+                            if (MySql.existsInPlayerDataBase(p)) {
+                                MySql.setGroup(p, group);
+                            }
+                        } else {
+                            if (!playerManager.getGroup().equalsIgnoreCase(group)) {
+                                playerManager.setGroup(group);
+                            } else {
+                                if (plugin.isDebug()) return;
+                                Logger.debug("&eThe player already has the same group!");
+                            }
                         }
-                    }else{
+                    } else {
                         scheduler.cancelTask(groupTaskID);
                     }
                 }
-            },0,600L);
+            }, 0, 600L);
 
         }
     }
