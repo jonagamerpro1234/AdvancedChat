@@ -11,70 +11,70 @@ import java.io.IOException;
 
 public class PlayerFile {
 
-	private final AdvancedChat plugin;
-	private String pathFile;
-	private File file;
-	private FileConfiguration config;
+    private final AdvancedChat plugin;
+    private String pathFile;
+    private File file;
+    private FileConfiguration config;
 
-	public PlayerFile(AdvancedChat plugin, String pathFile) {
-		this.plugin = plugin;
-		this.pathFile = pathFile;
-	}
-	
-	public PlayerFile(AdvancedChat plugin) {
-		this.plugin = plugin;
-	}
+    public PlayerFile(AdvancedChat plugin, String pathFile) {
+        this.plugin = plugin;
+        this.pathFile = pathFile;
+    }
 
-	public void create() {
-		file = new File(plugin.getDataFolder() + File.separator + "Players", pathFile + ".yml");
-		if (!file.exists()) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		config = new YamlConfiguration();
-		try {
-			config.load(file);
-		} catch (IOException | InvalidConfigurationException e) {
-			Logger.error("The file could not be loaded");
-			e.printStackTrace();
-		}
-	}
+    public PlayerFile(AdvancedChat plugin) {
+        this.plugin = plugin;
+    }
 
-	public FileConfiguration getConfig(String name) {
-		file = new File(plugin.getDataFolder() + File.separator + "Players", name + ".yml");
-		config = YamlConfiguration.loadConfiguration(file);
+    public void create() {
+        file = new File(plugin.getDataFolder() + File.separator + "Players", pathFile + ".yml");
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        config = new YamlConfiguration();
+        try {
+            config.load(file);
+        } catch (IOException | InvalidConfigurationException e) {
+            Logger.error("The file could not be loaded");
+            e.printStackTrace();
+        }
+    }
 
-		return config;
-	}
+    public FileConfiguration getConfig(String name) {
+        file = new File(plugin.getDataFolder() + File.separator + "Players", name + ".yml");
+        config = YamlConfiguration.loadConfiguration(file);
 
-	public void save() {
-		try {
-			config.save(file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+        return config;
+    }
 
-	public void reload() {
-		if (config == null) {
-			file = new File(plugin.getDataFolder() + File.separator + "Players", pathFile);
-		}
-		config = YamlConfiguration.loadConfiguration(file);
+    public void save() {
+        try {
+            config.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-		if (file != null) {
-			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(file);
-			config.setDefaults(defConfig);
-		}
-	}
+    public void reload() {
+        if (config == null) {
+            file = new File(plugin.getDataFolder() + File.separator + "Players", pathFile);
+        }
+        config = YamlConfiguration.loadConfiguration(file);
 
-	public String getPath() {
-		return pathFile;
-	}
+        if (file != null) {
+            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(file);
+            config.setDefaults(defConfig);
+        }
+    }
 
-	public AdvancedChat getPlugin() {
-		return plugin;
-	}
+    public String getPath() {
+        return pathFile;
+    }
+
+    public AdvancedChat getPlugin() {
+        return plugin;
+    }
 }

@@ -9,9 +9,9 @@ import java.io.*;
 public class GroupFile {
 
     private final AdvancedChat plugin;
+    private final String path;
     private File file;
     private FileConfiguration config;
-    private final String path;
 
     public GroupFile(AdvancedChat plugin, String path) {
         this.plugin = plugin;
@@ -39,7 +39,7 @@ public class GroupFile {
         try {
             this.config.save(this.file);
         } catch (IOException e) {
-        	e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -54,8 +54,8 @@ public class GroupFile {
             BufferedReader in = new BufferedReader(defaultConfigStream);
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
             config.setDefaults(defaultConfig);
-        }catch(Exception e) {
-        	e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -73,7 +73,7 @@ public class GroupFile {
             this.file = new File(plugin.getDataFolder(), this.path);
         }
         if (!this.file.exists()) {
-        	plugin.saveResource(this.path, false);
+            plugin.saveResource(this.path, false);
         }
     }
 
@@ -82,13 +82,13 @@ public class GroupFile {
             this.file = new File(plugin.getDataFolder(), this.path);
         }
         if (!this.file.exists()) {
-        	plugin.saveResource(this.path, true);
+            plugin.saveResource(this.path, true);
         }
     }
 
     public boolean isFileExists() {
-    	this.file = new File(plugin.getDataFolder(), this.path);
-    	return this.file.exists();
+        this.file = new File(plugin.getDataFolder(), this.path);
+        return this.file.exists();
     }
 
 }

@@ -9,10 +9,10 @@ import java.io.*;
 public class ChannelGuiFile {
 
     private final AdvancedChat plugin;
-    private File file;
-    private FileConfiguration config;
     private final String path;
     private final String folderpath;
+    private File file;
+    private FileConfiguration config;
 
     public ChannelGuiFile(AdvancedChat plugin, String path, String folderpath) {
         this.plugin = plugin;
@@ -60,8 +60,8 @@ public class ChannelGuiFile {
             BufferedReader in = new BufferedReader(defaultConfigStream);
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
             config.setDefaults(defaultConfig);
-        }catch(UnsupportedEncodingException | NullPointerException | IllegalArgumentException e) {
-        	e.printStackTrace();
+        } catch (UnsupportedEncodingException | NullPointerException | IllegalArgumentException e) {
+            e.printStackTrace();
         }
 
     }

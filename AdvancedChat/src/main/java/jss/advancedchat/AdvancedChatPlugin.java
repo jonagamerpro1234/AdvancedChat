@@ -11,37 +11,37 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 
 public class AdvancedChatPlugin extends JavaPlugin {
-	
-	private final PluginDescriptionFile pluginDescriptionFile = getDescription();
-	private final PluginManager pluginManager = Bukkit.getPluginManager();
-	public final String name = pluginDescriptionFile.getName();
-	public final String version = pluginDescriptionFile.getVersion();
-	
-	public PluginManager getPluginManager() {
-		return pluginManager;
-	}
-	
-	public void registerListeners(@NotNull Listener... listeners) {
-		for(Listener listener : listeners) {
-			getPluginManager().registerEvents(listener, this);
-		}
-	}
-	
-	@SuppressWarnings("ResultOfMethodCallIgnored")
-	public void createFolder(@NotNull String foldername) {
-		if(foldername.isEmpty()) {
-			Logger.warning("");
-			return;
-		}
-		
-		File folder = new File(getDataFolder(), foldername);
+
+    private final PluginDescriptionFile pluginDescriptionFile = getDescription();
+    public final String name = pluginDescriptionFile.getName();
+    public final String version = pluginDescriptionFile.getVersion();
+    private final PluginManager pluginManager = Bukkit.getPluginManager();
+
+    public PluginManager getPluginManager() {
+        return pluginManager;
+    }
+
+    public void registerListeners(@NotNull Listener... listeners) {
+        for (Listener listener : listeners) {
+            getPluginManager().registerEvents(listener, this);
+        }
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public void createFolder(@NotNull String foldername) {
+        if (foldername.isEmpty()) {
+            Logger.warning("");
+            return;
+        }
+
+        File folder = new File(getDataFolder(), foldername);
         if (!folder.exists()) {
             try {
                 folder.mkdir();
             } catch (Exception e) {
-            	e.printStackTrace();
+                e.printStackTrace();
             }
         }
-	}
-    
+    }
+
 }

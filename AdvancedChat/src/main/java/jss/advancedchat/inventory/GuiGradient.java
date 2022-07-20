@@ -20,103 +20,103 @@ import java.util.Set;
 
 public class GuiGradient {
 
-	private final AdvancedChat plugin = AdvancedChat.get();
-	private ItemStack item;
-	private ItemMeta meta;
-	private Inventory inv;
-	
-	public void open(Player player, String target) {
-		plugin.addInventoryView(player, "gradientGui");
-		this.create();
-		this.addItems(target);
-		player.openInventory(inv);
-	}
-	
-	private void create() {
-		FileConfiguration config = plugin.getGradientColorFile().getConfig();
-		String title = config.getString("Title");
+    private final AdvancedChat plugin = AdvancedChat.get();
+    private ItemStack item;
+    private ItemMeta meta;
+    private Inventory inv;
 
-		inv = Bukkit.createInventory(null, 54, Util.color(title));
-	}
-	
-	private void addItems(String target) {
-		FileConfiguration config = plugin.getGradientColorFile().getConfig();
-		
-		int amont = 1;
-		setDecoration();
+    public void open(Player player, String target) {
+        plugin.addInventoryView(player, "gradientGui");
+        this.create();
+        this.addItems(target);
+        player.openInventory(inv);
+    }
 
-		item = Util.getPlayerHead(target);
-		inv.setItem(4, item);
+    private void create() {
+        FileConfiguration config = plugin.getGradientColorFile().getConfig();
+        String title = config.getString("Title");
 
-		PlayerManager playerManager = new PlayerManager(Bukkit.getPlayer(target));
-		
-		Set<String> section = config.getConfigurationSection("Items").getKeys(false);
-		
-		for(String key : section) {
-			String name = config.getString("Items." + key + ".Name");
-			int slot = config.getInt("Items." + key + ".Slot");
-			List<String> lore = key.contains("Lore") ? new ArrayList<>() : config.getStringList("Items." + key + ".Lore");
-			
-			if(!playerManager.isLowMode()) {
-				String textures = config.getString("Items." + key + ".Texture");
-				textures = TSkullUtils.replace(textures);
-				item = Util.createSkull(textures);
-			}else {
-				String mat = config.getString("Items." + key + ".Item").toUpperCase();
-				item = XMaterial.valueOf(mat).parseItem();
-			}
-			
-			meta = item.getItemMeta();
-			meta.setDisplayName(Util.color(name));
-			meta.setLore(coloredLore(lore));
-			item.setItemMeta(meta);
-			item.setAmount(amont);
-			inv.setItem(slot, item);
-		}
-		
-		InventoryUtils.setItemChecker(inv, 45, playerManager.isGradient());
-	}
-	
-	@SuppressWarnings("unused")
-	private void setCustomItem(PlayerManager playerManager) {
-		if(playerManager.isGradient()) {
-			item = XMaterial.LIME_DYE.parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(Util.color("&aEnable"));
-			List<String> lore = Arrays.asList("&7Click to &cdisable");
-			meta.setLore(coloredLore(lore));
-			item.setItemMeta(meta);
-			inv.setItem(45, item);
-		}else {
-			item = XMaterial.GRAY_DYE.parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(Util.color("&cDisable"));
-			List<String> lore = Arrays.asList("&7Click to &aenable");
-			meta.setLore(coloredLore(lore));
-			item.setItemMeta(meta);
-			inv.setItem(45, item);
-		}
-	}
-	
-	private List<String> coloredLore(List<String> lore) {
-		List<String> coloredlore = new ArrayList<>();
-		lore.forEach((line) -> {
-			String lineColored = Util.color(line);
-			coloredlore.add(lineColored);
-		});
-		return coloredlore;
-	}
+        inv = Bukkit.createInventory(null, 54, Util.color(title));
+    }
 
-	private void setDecoration() {
-		for (int i = 0; i < 54; i++) {
-			item = XMaterial.BLACK_STAINED_GLASS_PANE.parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(Util.color(" "));
-			item.setItemMeta(meta);
-			item.setAmount(1);
-			inv.setItem(i, item);
+    private void addItems(String target) {
+        FileConfiguration config = plugin.getGradientColorFile().getConfig();
 
-		}
-	}
-	
+        int amont = 1;
+        setDecoration();
+
+        item = Util.getPlayerHead(target);
+        inv.setItem(4, item);
+
+        PlayerManager playerManager = new PlayerManager(Bukkit.getPlayer(target));
+
+        Set<String> section = config.getConfigurationSection("Items").getKeys(false);
+
+        for (String key : section) {
+            String name = config.getString("Items." + key + ".Name");
+            int slot = config.getInt("Items." + key + ".Slot");
+            List<String> lore = key.contains("Lore") ? new ArrayList<>() : config.getStringList("Items." + key + ".Lore");
+
+            if (!playerManager.isLowMode()) {
+                String textures = config.getString("Items." + key + ".Texture");
+                textures = TSkullUtils.replace(textures);
+                item = Util.createSkull(textures);
+            } else {
+                String mat = config.getString("Items." + key + ".Item").toUpperCase();
+                item = XMaterial.valueOf(mat).parseItem();
+            }
+
+            meta = item.getItemMeta();
+            meta.setDisplayName(Util.color(name));
+            meta.setLore(coloredLore(lore));
+            item.setItemMeta(meta);
+            item.setAmount(amont);
+            inv.setItem(slot, item);
+        }
+
+        InventoryUtils.setItemChecker(inv, 45, playerManager.isGradient());
+    }
+
+    @SuppressWarnings("unused")
+    private void setCustomItem(PlayerManager playerManager) {
+        if (playerManager.isGradient()) {
+            item = XMaterial.LIME_DYE.parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(Util.color("&aEnable"));
+            List<String> lore = Arrays.asList("&7Click to &cdisable");
+            meta.setLore(coloredLore(lore));
+            item.setItemMeta(meta);
+            inv.setItem(45, item);
+        } else {
+            item = XMaterial.GRAY_DYE.parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(Util.color("&cDisable"));
+            List<String> lore = Arrays.asList("&7Click to &aenable");
+            meta.setLore(coloredLore(lore));
+            item.setItemMeta(meta);
+            inv.setItem(45, item);
+        }
+    }
+
+    private List<String> coloredLore(List<String> lore) {
+        List<String> coloredlore = new ArrayList<>();
+        lore.forEach((line) -> {
+            String lineColored = Util.color(line);
+            coloredlore.add(lineColored);
+        });
+        return coloredlore;
+    }
+
+    private void setDecoration() {
+        for (int i = 0; i < 54; i++) {
+            item = XMaterial.BLACK_STAINED_GLASS_PANE.parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(Util.color(" "));
+            item.setItemMeta(meta);
+            item.setAmount(1);
+            inv.setItem(i, item);
+
+        }
+    }
+
 }

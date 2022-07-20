@@ -9,9 +9,9 @@ import java.io.*;
 public class ConfigFile {
 
     private final AdvancedChat plugin;
+    private final String path;
     private File file;
     private FileConfiguration config;
-    private final String path;
 
     public ConfigFile(AdvancedChat plugin, String path) {
         this.plugin = plugin;
@@ -39,7 +39,7 @@ public class ConfigFile {
         try {
             this.config.save(this.file);
         } catch (IOException e) {
-        	e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -54,8 +54,8 @@ public class ConfigFile {
             BufferedReader in = new BufferedReader(defaultConfigStream);
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
             config.setDefaults(defaultConfig);
-        }catch(Exception e) {
-        	e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -72,7 +72,7 @@ public class ConfigFile {
             this.file = new File(plugin.getDataFolder(), this.path);
         }
         if (!this.file.exists()) {
-        	plugin.saveResource(this.path, false);
+            plugin.saveResource(this.path, false);
         }
     }
 
@@ -86,8 +86,8 @@ public class ConfigFile {
     }
 
     public boolean isFileExists() {
-    	this.file = new File(plugin.getDataFolder(), this.path);
-    	return this.file.exists();
+        this.file = new File(plugin.getDataFolder(), this.path);
+        return this.file.exists();
     }
 
 }

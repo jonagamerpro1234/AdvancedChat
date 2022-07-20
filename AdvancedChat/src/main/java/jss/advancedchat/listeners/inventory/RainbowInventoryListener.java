@@ -22,80 +22,80 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RainbowInventoryListener implements Listener {
-	
-	private final AdvancedChat plugin = AdvancedChat.get();
-	
-	@EventHandler 
-	public void onClick(InventoryClickEvent e) {
-		Player j = (Player) e.getWhoClicked();
-		InventoryView inventoryView = plugin.getInventoryView(j);
-		
-		if(inventoryView == null) return;
-		if(!inventoryView.getInventoryName().contains("rainbowGui")) return;
-		if(e.getCurrentItem() == null || e.getCurrentItem().getType().name().contains("AIR")) {
-			e.setCancelled(true);
-			return;
-		}
 
-		e.getSlotType();
+    private final AdvancedChat plugin = AdvancedChat.get();
 
-		if(!e.getClickedInventory().equals(j.getOpenInventory().getTopInventory())) return;
+    @EventHandler
+    public void onClick(InventoryClickEvent e) {
+        Player j = (Player) e.getWhoClicked();
+        InventoryView inventoryView = plugin.getInventoryView(j);
 
-		int slot = e.getSlot();
-		e.setCancelled(true);
+        if (inventoryView == null) return;
+        if (!inventoryView.getInventoryName().contains("rainbowGui")) return;
+        if (e.getCurrentItem() == null || e.getCurrentItem().getType().name().contains("AIR")) {
+            e.setCancelled(true);
+            return;
+        }
 
-		String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
-		Player target = Bukkit.getPlayer(playerName);
-		PlayerManager playerManager = new PlayerManager(target);
-		InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
+        e.getSlotType();
 
-		if(slot == 19) {
+        if (!e.getClickedInventory().equals(j.getOpenInventory().getTopInventory())) return;
 
-		}
+        int slot = e.getSlot();
+        e.setCancelled(true);
 
-		if(slot == 3) {
-			plugin.removeInventoryView(j);
-			actionHelper.setOpenInventoryAction(playerName, InventoryType.Player);
-		}
+        String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
+        Player target = Bukkit.getPlayer(playerName);
+        PlayerManager playerManager = new PlayerManager(target);
+        InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
 
-		if(slot == 0) {
-			j.closeInventory();
-		}
+        if (slot == 19) {
 
-		if(slot == 45) {
-			setRainbowItem(playerManager, e.getInventory());
-		}
-	}
-	
-	private void setRainbowItem(PlayerManager playerManager, Inventory inv) {
-		ItemStack item;
-		ItemMeta meta;
-		
-		if(playerManager.isRainbow()) {
-			item = XMaterial.GRAY_DYE.parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(Util.color("&cDisable"));
-			List<String> lore = Arrays.asList("&7Click to &aenable");
-			meta.setLore(InventoryUtils.coloredLore(lore));
-			item.setItemMeta(meta);
-			inv.setItem(45, item);
-			playerManager.setGradient(false);
-		}else {
-			item = XMaterial.GREEN_DYE.parseItem();
-			meta = item.getItemMeta();
-			meta.setDisplayName(Util.color("&aEnable"));
-			List<String> lore = Arrays.asList("&7Click to &cdisable");
-			meta.setLore(InventoryUtils.coloredLore(lore));
-			item.setItemMeta(meta);
-			inv.setItem(45, item);
-			playerManager.setGradient(true);
-		}
-	}
-	
-	@EventHandler
-	public void onInventoryClose(InventoryCloseEvent e) {
-		Player j = (Player) e.getPlayer();
-		plugin.removeInventoryView(j);
-	}
-	
+        }
+
+        if (slot == 3) {
+            plugin.removeInventoryView(j);
+            actionHelper.setOpenInventoryAction(playerName, InventoryType.Player);
+        }
+
+        if (slot == 0) {
+            j.closeInventory();
+        }
+
+        if (slot == 45) {
+            setRainbowItem(playerManager, e.getInventory());
+        }
+    }
+
+    private void setRainbowItem(PlayerManager playerManager, Inventory inv) {
+        ItemStack item;
+        ItemMeta meta;
+
+        if (playerManager.isRainbow()) {
+            item = XMaterial.GRAY_DYE.parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(Util.color("&cDisable"));
+            List<String> lore = Arrays.asList("&7Click to &aenable");
+            meta.setLore(InventoryUtils.coloredLore(lore));
+            item.setItemMeta(meta);
+            inv.setItem(45, item);
+            playerManager.setGradient(false);
+        } else {
+            item = XMaterial.GREEN_DYE.parseItem();
+            meta = item.getItemMeta();
+            meta.setDisplayName(Util.color("&aEnable"));
+            List<String> lore = Arrays.asList("&7Click to &cdisable");
+            meta.setLore(InventoryUtils.coloredLore(lore));
+            item.setItemMeta(meta);
+            inv.setItem(45, item);
+            playerManager.setGradient(true);
+        }
+    }
+
+    @EventHandler
+    public void onInventoryClose(InventoryCloseEvent e) {
+        Player j = (Player) e.getPlayer();
+        plugin.removeInventoryView(j);
+    }
+
 }

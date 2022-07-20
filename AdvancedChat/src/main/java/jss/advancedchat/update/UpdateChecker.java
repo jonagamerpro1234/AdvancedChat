@@ -20,8 +20,8 @@ public class UpdateChecker {
         this.plugin = plugin;
         this.ID = ID;
     }
-    
-	public void getUpdateVersionSpigot(Consumer<String> consumer) {
+
+    public void getUpdateVersionSpigot(Consumer<String> consumer) {
         Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
             try (InputStream inputStream = new URL(UpdateSettings.SPIGOT_UPDATE_API + this.ID).openStream(); Scanner scanner = new Scanner(inputStream)) {
                 if (scanner.hasNext()) {
@@ -32,5 +32,5 @@ public class UpdateChecker {
             }
         });
     }
-   
+
 }
