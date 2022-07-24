@@ -5,7 +5,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 public class DataSources {
 
-    private HikariDataSource hikariDataSource;
+    private final HikariDataSource hikariDataSource;
 
     public DataSources(String ip, int port, String database, String username, String password) {
         HikariConfig config = new HikariConfig();
@@ -24,6 +24,7 @@ public class DataSources {
         return this.hikariDataSource;
     }
 
+    @SuppressWarnings("unused")
     public void disable() {
         if (hikariDataSource != null) {
             hikariDataSource.close();

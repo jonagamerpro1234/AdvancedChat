@@ -9,21 +9,27 @@
 # ● The group name has to be the same as the range name or the group customization will not work
 # ● For more information you can visit the AdvancedChat Wiki
 # 
-# ● Wiki [Working Progress]: https://jonagamerpro1234.gitbook.io/advancedchat/
+# ● Wiki: https://jonagamerpro1234.gitbook.io/advancedchat/
 #
 default:
-  
+
   # |Default-Color-Message| Here you can define the chat color that is assigned by default to players
   # The color system does not work with (&) but uses a simpler system that is by color names, here below you have the list of available colors
   # Color List: https://jonagamerpro1234.gitbook.io/advancedchat/color-list
   Default-Color-Message: 'white'
-  
+
   # |Format| Here you define the chat format for the group
   Format: '&a[default] &b<name> &8&l>'
-  
+
+  # |Chat-Type|
+    # [default] It will use the plugin's color customization but the HoverEvent and ClickEvent cannot be used
+    # For more information see the advancedchat wiki: https://jonagamerpro1234.gitbook.io/advancedchat/
+    # [normal] use the chat defined in [Chat]
+  Chat-Type:
+
   # |HoverEvent| This section allows you to modify the hover events in the chat
   HoverEvent:
-    
+
     # |Enabled| Here you can enable or disable this feature
     Enabled: true
 
@@ -32,24 +38,24 @@ default:
       - '&6> &aHello &b<name>'
       - '&6> &e%player_exp_to_level%'
       - '&6> &dadd more lines like these'
-  
+
   # |ClickEvent| This section allows you to modify chat click events
   ClickEvent:
 
     # |Enabled| Here you can enable or disable this feature
     Enabled: true
-    
+
     # |Mode| there are three different modes which are [ command | suggest | url ]
     Mode: command
-    
+
     # |Actions| This is where are the available events that you can use
     Actions:
-      
+
       # |Command| Clicking on the chat will execute the command defined in the config
       Command: '/say <name> hello server'
-      
+
       # |Url| Clicking on the chat opens a link
       Url: 'https://jonagamerpro1234.gitbook.io/advancedchat/'
-      
+
       # |Suggest-Command| Clicking on the chat suggests a command that you define in the config
       Suggest-Command: '/msg <name>'

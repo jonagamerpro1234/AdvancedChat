@@ -21,6 +21,7 @@ public class JoinListener implements Listener {
 
     private final AdvancedChat plugin = AdvancedChat.get();
 
+    @SuppressWarnings("ConstantConditions")
     @EventHandler
     public void onJoinPlayer(@NotNull PlayerJoinEvent e) {
         LuckPermsHook luckPermsHook = HookManager.get().getLuckPermsHook();
@@ -61,7 +62,7 @@ public class JoinListener implements Listener {
         if (Settings.update && j.isOp() && j.hasPermission(Perms.ac_update)) {
             new UpdateChecker(AdvancedChat.get(), 83889).getUpdateVersionSpigot(version -> {
                 if (!AdvancedChat.get().getDescription().getVersion().equalsIgnoreCase(version)) {
-                    Util.sendHoverEvent(j, "text", Util.getPrefix(true) + Settings.update_alert, Settings.update_alert_hover);
+                    Util.sendHover(j, "text", Util.getPrefix(true) + Settings.update_alert, Settings.update_alert_hover);
                 }
             });
         }

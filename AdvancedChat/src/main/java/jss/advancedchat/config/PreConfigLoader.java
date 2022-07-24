@@ -39,7 +39,6 @@ public class PreConfigLoader {
             Settings.mysql_table = config.getString("MySQL.Table");
             Settings.chatlogs_log_chat = config.getString("ChatLogs.Messages-in-the-logger").equals("true");
             Settings.chatlogs_log_command = config.getString("ChatLogs.Commands-in-the-logger").equals("true");
-            Settings.chatlogs_list_command = config.getString("ChatLogs.Commands-List.Enabled").equals("true");
             Settings.list_chatlogs_no_register_commands = config.getStringList("ChatLogs.Commands-List.List");
             Settings.msg_format_recive = config.getString("ChatFormat.Private-Message.Receive-Format");
             Settings.msg_format_send = config.getString("ChatFormat.Private-Message.Send-Format");

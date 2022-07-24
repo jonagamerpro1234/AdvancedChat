@@ -36,7 +36,7 @@ public class ClearChatCmd implements CommandExecutor {
             }
             eventUtils.getPlayerMessage(j);
         } else {
-            Util.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+            Util.sendHover(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
         }
         return true;
     }

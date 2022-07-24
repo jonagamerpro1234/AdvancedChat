@@ -7,6 +7,7 @@ import jss.advancedchat.hooks.DiscordSRVHook;
 import jss.advancedchat.manager.ColorManager;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
+import jss.advancedchat.storage.mysql.MySql;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Perms;
 import jss.advancedchat.utils.Settings;
@@ -34,7 +35,7 @@ public class ChatListener implements Listener {
     private final Pattern UNDERLINE_REGEX = Pattern.compile("(?i)&(N)");
     private final Pattern ITALIC_REGEX = Pattern.compile("(?i)&(O)");
     private final Pattern RESET_REGEX = Pattern.compile("(?i)&(R)");
-    private ColorManager colorManager;
+    private final ColorManager colorManager = new ColorManager();
     private boolean badword;
     private boolean ismention;
 
@@ -43,10 +44,14 @@ public class ChatListener implements Listener {
         Player j = e.getPlayer();
         PlayerManager playerManager = new PlayerManager(j);
 
+        if (j.isOp() || Util.hasPerm(j, Perms.ac_mute_bypass)) return;
+
         if (Settings.mysql) {
-            if (j.isOp() || Util.hasPerm(j, Perms.ac_mute_bypass)) return;
+            if(MySql.isMute(j)){
+                Util.sendColorMessage(j, Util.getVar(j, Settings.message_Alert_Mute));
+                e.setCancelled(true);
+            }
         } else {
-            if (j.isOp() || Util.hasPerm(j, Perms.ac_mute_bypass)) return;
             if (playerManager.isMute()) {
                 Util.sendColorMessage(j, Util.getVar(j, Settings.message_Alert_Mute));
                 e.setCancelled(true);
@@ -54,6 +59,7 @@ public class ChatListener implements Listener {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onChat(@NotNull AsyncPlayerChatEvent e) {
         FileConfiguration config = plugin.getConfigFile().getConfig();
@@ -63,19 +69,20 @@ public class ChatListener implements Listener {
         PlayerManager playerManager = new PlayerManager(j);
         String path = Settings.chatformat_chattype;
 
+        boolean isCustomChatFormat = config.getString("ChatFormat.Enabled").equals("true");
         boolean isDefault = path.equalsIgnoreCase("default");
         boolean isNormal = path.equalsIgnoreCase("normal");
         boolean isGroup = path.equalsIgnoreCase("group");
 
         String format = config.getString("ChatFormat.Format");
-        String message = "";
+        String message;
 
         String msg = formatColor(j, e.getMessage());
 
         Logger.debug(msg);
 
         if (Settings.mysql) {
-            //message = " &r" + colorManager.convertColor(j, plugin.getMySQL().getColor0(j.getUniqueId().toString()), msg);
+            message = " &r" + colorManager.convertColor(j, MySql.getColor(j), msg);
         } else {
             message = " &r" + colorManager.convertColor(j, playerManager.getColor(), msg);
         }
@@ -83,79 +90,97 @@ public class ChatListener implements Listener {
         format = Util.getVar(j, format);
         message = Util.getVar(j, message);
 
-        boolean isMute = false;
+        boolean isMute;
 
         if (Settings.mysql) {
-            //isMute = plugin.getMySQL().isMute(j.getUniqueId().toString());
+            isMute = MySql.isMute(j);
+            e.setCancelled(true);
         } else {
             isMute = playerManager.isMute();
+            e.setCancelled(true);
         }
 
         if (isMute || this.badword) {
             this.badword = false;
+            e.setCancelled(true);
             return;
         }
 
         if (this.ismention) {
             this.ismention = false;
+            e.setCancelled(true);
             return;
         }
 
-        if (isDefault) {
-            return;
-        } else if (isNormal) {
-            e.setCancelled(true);
-            Json json = new Json(j, format, message);
-
-            if (config.getString("Settings.Show-Chat-In-Console").equals("true")) {
-                Logger.info(json.getText() + json.getExtraText());
+        if (Settings.mysql) {
+            if(!MySql.isChat(j)){
+                Util.sendColorMessage(j, Settings.message_alert_disable_chat);
+                return;
             }
-
-            if (discordSRVHook.isEnabled()) {
-                if (Settings.hook_discordsrv_channelid.equalsIgnoreCase("none")) return;
-                DiscordUtil.sendMessage(DiscordUtil.getTextChannelById(Settings.hook_discordsrv_channelid), json.getFormat());
+        }else{
+            if (!playerManager.isChat()) {
+                Util.sendColorMessage(j, Settings.message_alert_disable_chat);
+                return;
             }
+        }
 
-            boolean hover = config.getString("ChatFormat.HoverEvent.Enabled").equals("true");
-            List<String> hovertext = config.getStringList("ChatFormat.HoverEvent.Hover");
 
-            boolean click = config.getString("ChatFormat.ClickEvent.Enabled").equals("true");
-            String cmd_action = config.getString("ChatFormat.ClickEvent.Actions.Command");
-            String click_mode = config.getString("ChatFormat.ClickEvent.Mode");
-            String url_action = config.getString("ChatFormat.ClickEvent.Actions.Url");
-            String suggest_action = config.getString("ChatFormat.ClickEvent.Actions.Suggest-Command");
+        if(isCustomChatFormat){
+            if (isDefault) {
+                e.setFormat(format + message);
+            } else if (isNormal) {
+                e.setCancelled(true);
+                Json json = new Json(j, format, message);
 
-            cmd_action = Util.getVar(j, cmd_action);
-            suggest_action = Util.getVar(j, suggest_action);
+                if (config.getString("Settings.Show-Chat-In-Console").equals("true")) {
+                    Logger.info(json.getText() + json.getExtraText());
+                }
 
-            if (hover) {
-                if (click) {
-                    if (click_mode.equalsIgnoreCase("command")) {
-                        json.setHover(hovertext).setExecuteCommand(cmd_action).sendDoubleToAll();
-                    } else if (click_mode.equalsIgnoreCase("url")) {
-                        json.setHover(hovertext).setOpenURL(url_action).sendDoubleToAll();
-                    } else if (click_mode.equalsIgnoreCase("suggest")) {
-                        json.setHover(hovertext).setSuggestCommand(suggest_action).sendDoubleToAll();
+                if (discordSRVHook.isEnabled()) {
+                    if (Settings.hook_discordsrv_channelid.equalsIgnoreCase("none")) return;
+                    DiscordUtil.sendMessage(DiscordUtil.getTextChannelById(Settings.hook_discordsrv_channelid), json.getFormat());
+                }
+
+                boolean hover = config.getString("ChatFormat.HoverEvent.Enabled").equals("true");
+                List<String> hovertext = config.getStringList("ChatFormat.HoverEvent.Hover");
+
+                boolean click = config.getString("ChatFormat.ClickEvent.Enabled").equals("true");
+                String cmd_action = config.getString("ChatFormat.ClickEvent.Actions.Command");
+                String click_mode = config.getString("ChatFormat.ClickEvent.Mode");
+                String url_action = config.getString("ChatFormat.ClickEvent.Actions.Url");
+                String suggest_action = config.getString("ChatFormat.ClickEvent.Actions.Suggest-Command");
+
+                cmd_action = Util.getVar(j, cmd_action);
+                suggest_action = Util.getVar(j, suggest_action);
+
+                if (hover) {
+                    if (click) {
+                        if (click_mode.equalsIgnoreCase("command")) {
+                            json.setHover(hovertext).setExecuteCommand(cmd_action).sendDoubleToAll();
+                        } else if (click_mode.equalsIgnoreCase("url")) {
+                            json.setHover(hovertext).setOpenURL(url_action).sendDoubleToAll();
+                        } else if (click_mode.equalsIgnoreCase("suggest")) {
+                            json.setHover(hovertext).setSuggestCommand(suggest_action).sendDoubleToAll();
+                        }
+                    } else {
+                        json.setHover(hovertext).sendDoubleToAll();
                     }
                 } else {
-                    json.setHover(hovertext).sendDoubleToAll();
-                }
-            } else {
-                if (click) {
-                    if (click_mode.equalsIgnoreCase("command")) {
-                        json.setExecuteCommand(cmd_action).sendDoubleToAll();
-                    } else if (click_mode.equalsIgnoreCase("url")) {
-                        json.setOpenURL(url_action).sendDoubleToAll();
-                    } else if (click_mode.equalsIgnoreCase("suggest")) {
-                        json.setSuggestCommand(suggest_action).sendDoubleToAll();
+                    if (click) {
+                        if (click_mode.equalsIgnoreCase("command")) {
+                            json.setExecuteCommand(cmd_action).sendDoubleToAll();
+                        } else if (click_mode.equalsIgnoreCase("url")) {
+                            json.setOpenURL(url_action).sendDoubleToAll();
+                        } else if (click_mode.equalsIgnoreCase("suggest")) {
+                            json.setSuggestCommand(suggest_action).sendDoubleToAll();
+                        }
+                    } else {
+                        json.sendDoubleToAll();
                     }
-                } else {
-                    json.sendDoubleToAll();
                 }
+            } else if (isGroup) {
+                e.setCancelled(true);
             }
-        } else if (isGroup) {
-            e.setCancelled(true);
-
         }
     }
 
@@ -183,32 +208,32 @@ public class ChatListener implements Listener {
 
         boolean canReset = false;
 
-        if (!player.hasPermission("AdvancedChat.Chat.Color")) {
+        if (!player.hasPermission("advancedchat.chat.color")) {
             msg = COLOR_REGEX.matcher(msg).replaceAll("\u00A7$1");
             canReset = true;
         }
 
-        if (!player.hasPermission("AdvancedChat.Chat.Magic")) {
+        if (!player.hasPermission("advancedchat.chat.magic")) {
             msg = MAGIC_REGEN.matcher(msg).replaceAll("\u00A7$1");
             canReset = true;
         }
 
-        if (!player.hasPermission("AdvancedChat.Chat.Bold")) {
+        if (!player.hasPermission("advancedchat.chat.bold")) {
             msg = BOLD_REGEX.matcher(msg).replaceAll("\u00A7$1");
             canReset = true;
         }
 
-        if (!player.hasPermission("AdvancedChat.Chat.Strikethrough")) {
+        if (!player.hasPermission("advancedchat.chat.strikethrough")) {
             msg = STRIKETHROUGH_REGEX.matcher(msg).replaceAll("\u00A7$1");
             canReset = true;
         }
 
-        if (!player.hasPermission("AdvancedChat.Chat.Underline")) {
+        if (!player.hasPermission("advancedchat.chat.underline")) {
             msg = UNDERLINE_REGEX.matcher(msg).replaceAll("\u00A7$1");
             canReset = true;
         }
 
-        if (!player.hasPermission("AdvancedChat.Chat.Italic")) {
+        if (!player.hasPermission("advancedchat.chat.Italic")) {
             msg = ITALIC_REGEX.matcher(msg).replaceAll("\u00A7$1");
             canReset = true;
         }
