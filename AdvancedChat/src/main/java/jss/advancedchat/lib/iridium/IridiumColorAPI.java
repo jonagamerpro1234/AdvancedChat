@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("unused")
 public class IridiumColorAPI {
 
     private static final int VERSION = getVersion();
@@ -61,18 +62,14 @@ public class IridiumColorAPI {
 
     @Nonnull
     public static String color(@Nonnull String string, @Nonnull Color start, @Nonnull Color end) {
-        String originalString = string;
-
         ChatColor[] colors = createGradient(start, end, withoutSpecialChar(string).length());
-        return apply(originalString, colors);
+        return apply(string, colors);
     }
 
     @Nonnull
     public static String rainbow(@Nonnull String string, float saturation) {
-        String originalString = string;
-
         ChatColor[] colors = createRainbow(withoutSpecialChar(string).length(), saturation);
-        return apply(originalString, colors);
+        return apply(string, colors);
     }
 
     @Nonnull

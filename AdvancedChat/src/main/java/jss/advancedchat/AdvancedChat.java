@@ -41,6 +41,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
     private final ChannelGuiFile channelGuiFile = new ChannelGuiFile(this, "channel-gui.yml", "Gui");
     private final GradientColorFile gradientColorFile = new GradientColorFile(this, "gradient-gui.yml", "Gui");
     private final PlayerFile playerFile = new PlayerFile(this);
+    private final LogFile logFile = new LogFile(this);
     public EventUtils eventUtils;
     public Metrics metrics;
     public HookManager HookManager;
@@ -108,7 +109,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
             }
         }
 
-        LogFile logFile = new LogFile(this);
         logFile.create();
 
         this.adventure = BukkitAudiences.create(this);
@@ -175,7 +175,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
         colorFile.create();
         gradientColorFile.create();
         playerGuiFile.create();
-        channelGuiFile.create();
+        //channelGuiFile.create();
     }
 
     private void onUpdate() {
@@ -258,6 +258,10 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
     public PlayerGuiFile getPlayerGuiFile() {
         return playerGuiFile;
+    }
+
+    public LogFile getLogFile(){
+        return logFile;
     }
 
     public ChannelGuiFile getChannelGuiFile() {

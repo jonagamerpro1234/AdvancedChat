@@ -7,9 +7,11 @@ import jss.advancedchat.lib.iridium.IridiumColorAPI;
 import jss.advancedchat.update.UpdateSettings;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.*;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.HoverEvent.Action;
-import org.apache.commons.io.IOUtils;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -17,14 +19,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import org.json.simple.parser.ParseException;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -33,27 +30,15 @@ public class Util {
 
     private static final String prefix = getPrefix(true);
 
-    public static String getCustomLine(String arg, String color) {
-        return color(color + "-=-=-=-=-=-=-=-=-=-=-=" + arg + "=-=-=-=-=-=-=-=-=-=-=-");
-    }
-
-    public static boolean hasPerm(Player player, String perm) {
+    public static boolean hasPerm(@NotNull Player player, String perm) {
         return player.hasPermission(perm);
     }
 
-    public static String getVoidLine(String color) {
-        return color(color + "                                             ");
-    }
-
-    public static String getLine(String color) {
+    public static @NotNull String getLine(String color) {
         return color(color + "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
     }
 
-    public static String getLine() {
-        return "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-";
-    }
-
-    public static String color(String text) {
+    public static @NotNull String color(String text) {
         return IridiumColorAPI.process(text);
     }
 
@@ -61,7 +46,7 @@ public class Util {
         return ChatColor.stripColor(text);
     }
 
-    public static void sendColorMessage(CommandSender sender, String text) {
+    public static void sendColorMessage(@NotNull CommandSender sender, String text) {
         sender.sendMessage(color(text));
     }
 
@@ -84,67 +69,26 @@ public class Util {
     }
 
     @SuppressWarnings("deprecation")
-    public static void sendTextComponentHover(Player j, String action, String message, String submessage, String color) {
-        TextComponent msg = new TextComponent(color(message));
-        msg.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(action)), (new ComponentBuilder(submessage)).color(ChatColor.of(color)).create()));
-        j.spigot().sendMessage(msg);
-    }
-
-    @SuppressWarnings("deprecation")
-    public static void sendHoverEvent(Player j, String action, String message, String submessage) {
+    public static void sendHover(@NotNull Player j, String action, String message, String submessage) {
         TextComponent msg = new TextComponent(color(message));
         msg.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(action)), (new ComponentBuilder(color(submessage))).create()));
         j.spigot().sendMessage(msg);
     }
-
-    @SuppressWarnings("deprecation")
-    public static void sendAllHoverEvent(String action, String message, String submessage) {
-        TextComponent msg = new TextComponent(color(message));
-        msg.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(action)), (new ComponentBuilder(color(submessage))).create()));
-        sendAllPlayerBaseComponent(msg);
-    }
-
-    public static void sendClickEvent(Player j, String action, String message, String arg0) {
-        TextComponent msg = new TextComponent(color(message));
-        msg.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.valueOf(getActionClickType(action)), arg0));
-        j.spigot().sendMessage(msg);
-    }
-
-    @SuppressWarnings("deprecation")
-    public static void sendDoubleTextComponent(Player player, String text, String subtext, String hoverAction, String clickAction, String action) {
-        TextComponent component = new TextComponent(color(text));
-        component.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(hoverAction)), (new ComponentBuilder(color(subtext))).create()));
-        component.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.valueOf(getActionClickType(clickAction)), action));
-        player.spigot().sendMessage(component);
-    }
-
 
     public static void sendAllPlayerBaseComponent(BaseComponent component) {
-        Iterator<?> var2 = Bukkit.getOnlinePlayers().iterator();
-
-        while (var2.hasNext()) {
-            Player p = (Player) var2.next();
+        for (Player p : Bukkit.getOnlinePlayers()) {
             p.spigot().sendMessage(component);
         }
-
     }
 
     public static void sendAllPlayerBaseComponent(BaseComponent component, BaseComponent component2) {
-        Iterator<?> var3 = Bukkit.getOnlinePlayers().iterator();
-
-        while (var3.hasNext()) {
-            Player p = (Player) var3.next();
-            p.spigot().sendMessage(new BaseComponent[]{component, component2});
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            p.spigot().sendMessage(component, component2);
         }
     }
 
     public static void sendAllBaseComponent(BaseComponent... component) {
         Bukkit.getOnlinePlayers().forEach((player) -> player.spigot().sendMessage(component));
-    }
-
-    public static void sendBaseComponent(BaseComponent component, BaseComponent component2) {
-        CommandSender sender = Bukkit.getConsoleSender();
-        sender.spigot().sendMessage(component, component2);
     }
 
     public static String getActionHoverType(String arg) {
@@ -154,16 +98,6 @@ public class Util {
             return "SHOW_ITEM";
         } else {
             return arg.equalsIgnoreCase("entity") ? "SHOW_ENTITY" : null;
-        }
-    }
-
-    public static String getActionClickType(String arg) {
-        if (arg.equalsIgnoreCase("url")) {
-            return "OPER_URL";
-        } else if (arg.equalsIgnoreCase("cmd")) {
-            return "RUN_COMMAND";
-        } else {
-            return arg.equalsIgnoreCase("suggest_cmd") ? "SUGGEST_COMMAND" : null;
         }
     }
 
@@ -179,10 +113,6 @@ public class Util {
     @SuppressWarnings("unused")
     public static void setLoad(String version) {
         sendEnable("&5<||======================&e[&bLoading &dAdvancedChat&e]&5======================----");
-    }
-
-    public static void setEndLoad() {
-        sendEnable("&5<||================================================----");
     }
 
     public static @NotNull String getPrefix(boolean ignoreCustomPrefix) {
@@ -260,7 +190,7 @@ public class Util {
         return hooked;
     }
 
-    public static String getOnlinePlayers(String text) {
+    public static @NotNull String getOnlinePlayers(String text) {
         int playersOnline = 0;
 
         try {
@@ -277,14 +207,14 @@ public class Util {
         return text;
     }
 
-    public static String getPrefixVar(String str) {
+    public static @NotNull String getPrefixVar(String str) {
         str = str.replace("{default}", getPrefix(true));
         return str;
     }
 
     @SuppressWarnings("deprecation")
-    public static ItemStack getPlayerHead(String player) {
-        boolean isNewVersion = ((List<?>) Arrays.stream(Material.values()).map(Enum::name).collect(Collectors.toList())).contains("PLAYER_HEAD");
+    public static @NotNull ItemStack getPlayerHead(String player) {
+        boolean isNewVersion = Arrays.stream(Material.values()).map(Enum::name).collect(Collectors.toList()).contains("PLAYER_HEAD");
         Material type = Material.matchMaterial(isNewVersion ? "PLAYER_HEAD" : "SKULL_ITEM");
         ItemStack item = new ItemStack(type, 1);
         if (!isNewVersion) {
@@ -303,7 +233,7 @@ public class Util {
         if (!url.isEmpty()) {
             assert head != null;
             SkullMeta headMeta = (SkullMeta) head.getItemMeta();
-            GameProfile profile = new GameProfile(UUID.randomUUID(), (String) null);
+            GameProfile profile = new GameProfile(UUID.randomUUID(), null);
             profile.getProperties().put("textures", new Property("textures", url));
 
             try {
@@ -320,7 +250,7 @@ public class Util {
         return head;
     }
 
-    public static ItemStack createSkull(String url, List<String> lore) {
+    public static ItemStack createSkull(@NotNull String url, List<String> lore) {
         ItemStack head = XMaterial.PLAYER_HEAD.parseItem();
         if (!url.isEmpty()) {
             SkullMeta headMeta = (SkullMeta) head.getItemMeta();
@@ -340,33 +270,32 @@ public class Util {
         return head;
     }
 
-    public static String getDate(long millis) {
+    public static @NotNull String getDate(long millis) {
         Date date = new Date(millis);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String fecha = formatter.format(date);
-        return fecha;
+        return formatter.format(date);
     }
 
-    public static String getTime(long millis) {
+    public static @NotNull String getTime(long millis) {
         Date date = new Date(millis);
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
         return formatter.format(date);
     }
 
-    public static String getDate() {
+    public static @NotNull String getDate() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(calendar.getTime());
     }
 
-    public static String getTime() {
+    public static @NotNull String getTime() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
         return dateFormat.format(calendar.getTime());
     }
 
-    public static List<String> setLimitTab(List<String> list, String init) {
-        List<String> returned = new ArrayList<String>();
+    public static @NotNull List<String> setLimitTab(@NotNull List<String> list, String init) {
+        List<String> returned = new ArrayList<>();
 
         list.forEach((s) -> {
             if (s != null && s.toLowerCase().startsWith(init.toLowerCase())) {
@@ -374,20 +303,6 @@ public class Util {
             }
         });
         return returned;
-    }
-
-    public static String getUuid(String name) {
-        String url = "https://api.mojang.com/users/profiles/minecraft/" + name;
-        try {
-            String UUIDJson = IOUtils.toString(new URL(url));
-            if (UUIDJson.isEmpty()) return "invalid name";
-            JSONObject UUIDObject = (JSONObject) JSONValue.parseWithException(UUIDJson);
-            return UUIDObject.get("id").toString();
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
-
-        return Bukkit.getPlayer(name).getUniqueId().toString();
     }
 
     public static void getInfoPlugin(CommandSender sender, String name, String version, String latestversion) {

@@ -4,6 +4,7 @@ import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Settings;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +13,7 @@ import java.sql.SQLException;
 
 public class MySql {
 
-    private static AdvancedChat plugin = AdvancedChat.get();
+    private static final AdvancedChat plugin = AdvancedChat.get();
 
     public static void createTable() {
         try (Connection connection = plugin.getConnection()) {
@@ -211,5 +212,182 @@ public class MySql {
         }
     }
 
+    public static @Nullable String getChatType(Player player) {
+        try (Connection connection = plugin.getConnection()) {
+            if (!existsInPlayerDataBase(player)) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM `advancedchat_data` WHERE (PLAYER_NAME=?)");
+                statement.setString(1, player.getName());
+
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()){
+                    return resultSet.getString("CHAT_TYPE");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static @Nullable String getGroup(Player player) {
+        try (Connection connection = plugin.getConnection()) {
+            if (!existsInPlayerDataBase(player)) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM `advancedchat_data` WHERE (PLAYER_NAME=?)");
+                statement.setString(1, player.getName());
+
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()){
+                    return resultSet.getString("GROUP_NAME");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static @Nullable String getColor(Player player) {
+        try (Connection connection = plugin.getConnection()) {
+            if (!existsInPlayerDataBase(player)) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM `advancedchat_data` WHERE (PLAYER_NAME=?)");
+                statement.setString(1, player.getName());
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()){
+                    return resultSet.getString("COLOR_NAME");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static @Nullable String getFirstGradient(Player player) {
+        try (Connection connection = plugin.getConnection()) {
+            if (!existsInPlayerDataBase(player)) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM `advancedchat_data` WHERE (PLAYER_NAME=?)");
+                statement.setString(1, player.getName());
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()){
+                    return resultSet.getString("FIRST_GRADIENT");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getSecondGradient(Player player) {
+        try (Connection connection = plugin.getConnection()) {
+            if (!existsInPlayerDataBase(player)) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM `advancedchat_data` WHERE (PLAYER_NAME=?)");
+                statement.setString(1, player.getName());
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()){
+                    return resultSet.getString("SECOND_GRADIENT");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getSpecialCodes(Player player) {
+        try (Connection connection = plugin.getConnection()) {
+            if (!existsInPlayerDataBase(player)) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM `advancedchat_data` WHERE (PLAYER_NAME=?)");
+                statement.setString(1, player.getName());
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()){
+                    return resultSet.getString("SPECIAL_CODES");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getRainbow(Player player) {
+        try (Connection connection = plugin.getConnection()) {
+            if (!existsInPlayerDataBase(player)) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM `advancedchat_data` WHERE (PLAYER_NAME=?)");
+                statement.setString(1, player.getName());
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()){
+                    return resultSet.getString("RAINBOW");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static boolean isMute(Player player) {
+        try (Connection connection = plugin.getConnection()) {
+            if (!existsInPlayerDataBase(player)) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM `advancedchat_data` WHERE (PLAYER_NAME=?)");
+                statement.setString(1, player.getName());
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()){
+                    return resultSet.getInt("IS_MUTE") == 1;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean isLowMode(Player player) {
+        try (Connection connection = plugin.getConnection()) {
+            if (!existsInPlayerDataBase(player)) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM `advancedchat_data` WHERE (PLAYER_NAME=?)");
+                statement.setString(1, player.getName());
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()){
+                    return resultSet.getInt("LOWMODE") == 1;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean isMsg(Player player) {
+        try (Connection connection = plugin.getConnection()) {
+            if (!existsInPlayerDataBase(player)) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM `advancedchat_data` WHERE (PLAYER_NAME=?)");
+                statement.setString(1, player.getName());
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()){
+                    return resultSet.getInt("IS_MSG") == 1;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean isChat(Player player) {
+        try (Connection connection = plugin.getConnection()) {
+            if (!existsInPlayerDataBase(player)) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM `advancedchat_data` WHERE (PLAYER_NAME=?)");
+                statement.setString(1, player.getName());
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()){
+                    return resultSet.getInt("IS_CHAT") == 1;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 }

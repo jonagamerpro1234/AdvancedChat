@@ -31,7 +31,7 @@ public class InventoryActionHelper {
                 playerManager.setSecondGradient(right);
             }
         } else {
-            Util.sendHoverEvent(player, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+            Util.sendHover(player, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
         }
     }
 
@@ -39,7 +39,7 @@ public class InventoryActionHelper {
         if (player.isOp() || player.hasPermission(permission)) {
             playerManager.setColor(action);
         } else {
-            Util.sendHoverEvent(player, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+            Util.sendHover(player, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
         }
     }
 

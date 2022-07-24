@@ -49,7 +49,7 @@ public class UnMuteCmd implements CommandExecutor {
                 return true;
             }
         } else {
-            Util.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+            Util.sendHover(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
             return true;
         }
 

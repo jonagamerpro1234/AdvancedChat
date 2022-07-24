@@ -63,7 +63,7 @@ public class MuteCmd implements CommandExecutor {
                 return true;
             }
         } else {
-            Util.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+            Util.sendHover(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
             return true;
         }
         Util.sendColorMessage(j, Util.getPrefix(false) + Util.getVar(j, Settings.message_Help_Mute));

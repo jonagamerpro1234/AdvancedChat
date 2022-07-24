@@ -117,24 +117,15 @@ ChatFormat:
   # |Enabled| Here you can enable or disable this feature
   Enabled: true
 
-    # |Chat-Type|
-    # [none] use default chat by minecraft
-    # [default]
-    # [normal] use the chat defined in [ChatFormat] 
-  # [group] use the chat defined in the group found inside the [groups.yml] file
+  # |Chat-Type|
+    # [default] It will use the plugin's color customization but the HoverEvent and ClickEvent cannot be used
+    # For more information see the advancedchat wiki: https://jonagamerpro1234.gitbook.io/advancedchat/
+    # [normal] use the chat defined in [Chat]
+    # [group] use the chat defined in the group found inside the [groups.yml] file
   Chat-Type: normal
   
   # |Format| Here you define the chat format for all players.
   Format: '&b<name> &8>'
-  
-  # |Channels| temporarily disabled
-  Channels:
-    
-    # [temporarily disabled] |Enabled| Here you can enable or disable this feature
-    Enabled: false
-    
-    # temporarily disabled
-    Default-Channel: 'all'
   
   # |HoverEvent| This section allows you to modify the hover events in the chat
   HoverEvent:
@@ -249,19 +240,16 @@ Command-Blocker:
 # |ChatLogs|
 ChatLogs:
   
-  # |Commands-in-the-logger| the command is recorded in the file command.yml if this function is active
+  # |Commands-in-the-logger| the command is recorded in the log file if this function is active
   Commands-in-the-logger: true
   
-  # |Messages-in-the-logger| the message is recorded in the file chat.yml if this function is active
+  # |Messages-in-the-logger| the message is recorded in the log file if this function is active
   Messages-in-the-logger: true
   
   # |Commands-List| 
   Commands-List:
     
-    # |Enabled| Here you can enable or disable this feature
-    Enabled: true
-    
-    # |List| Here you can configure the commands that will not be logged.
+    # |List| Here you can configure the commands that will not be logged
     List:
       - '/login'
       - '/register'
