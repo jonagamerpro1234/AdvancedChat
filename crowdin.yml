@@ -1,0 +1,3 @@
+files:
+  - source: /Bukkit/src/main/resources/langs/messages.yml
+    translation: /Bukkit/src/main/resources/langs/%locale_with_underscore%.yml
