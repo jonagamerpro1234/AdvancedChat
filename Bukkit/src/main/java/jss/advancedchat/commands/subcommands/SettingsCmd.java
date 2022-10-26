@@ -1,6 +1,5 @@
 package jss.advancedchat.commands.subcommands;
 
-import jss.advancedchat.commands.utils.SubCommand;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;

@@ -4,18 +4,12 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public interface SubCommand {
+public abstract class SubCommand {
 
-    String getName();
+    public abstract String name();
 
-    String getDescription();
+    public abstract boolean perform(CommandSender sender, String[] args);
 
-    String getSyntax();
-
-    String getPermission();
-
-    List<String> getTabCompletion(int index, String[] args);
-
-    void perform(CommandSender sender, String[] args);
+    public abstract List<String> tabComplete(CommandSender sender, String[] args);
 
 }

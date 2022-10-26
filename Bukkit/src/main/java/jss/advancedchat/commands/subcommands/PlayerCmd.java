@@ -1,11 +1,9 @@
 package jss.advancedchat.commands.subcommands;
 
-import jss.advancedchat.commands.utils.SubCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.HumanEntity;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 

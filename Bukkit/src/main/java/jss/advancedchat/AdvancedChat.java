@@ -1,7 +1,6 @@
 package jss.advancedchat;
 
 import jss.advancedchat.commands.utils.CommandManager;
-import jss.advancedchat.commands.utils.CommandUtils;
 import jss.advancedchat.utils.Utils;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.PluginDescriptionFile;

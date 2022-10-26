@@ -1,6 +1,6 @@
 package jss.advancedchat.commands.subcommands;
 
-import jss.advancedchat.commands.SubCommand;
+import jss.advancedchat.commands.utils.SubCommand;
 import jss.advancedchat.utils.Utils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

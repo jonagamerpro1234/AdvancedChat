@@ -1,5 +1,6 @@
 package jss.advancedchat.commands;
 
+import jss.advancedchat.commands.utils.SubCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
