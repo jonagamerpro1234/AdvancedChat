@@ -2,11 +2,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>jss.advancedchat</groupId>
-    <artifactId>advancedchat</artifactId>
+    <parent>
+        <artifactId>Advancedchat-Parent</artifactId>
+        <groupId>jss.advancedchat</groupId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>advancedchatold</artifactId>
     <version>1.7.0-b21</version>
 
-    <name>AdvancedChat</name>
+    <name>AdvancedChatOld</name>
     <description>a simple plugin that helps you customize your server chat to make it look better also brings a
         customizable chat system by group or rank and more....
     </description>

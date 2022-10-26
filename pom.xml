@@ -12,6 +12,7 @@
     <modules>
         <module>Bukkit</module>
         <module>Bungee</module>
+        <module>AdvancedChatOld</module>
     </modules>
 
 </project>
