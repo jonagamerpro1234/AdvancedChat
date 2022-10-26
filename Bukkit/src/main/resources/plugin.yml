@@ -1,0 +1,13 @@
+name: AdvancedChat
+version: '${project.version}'
+main: jss.advancedchat.AdvancedChat
+author: jonagamerpro1234
+api-version: 1.16
+prefix: AdvancedChat
+softdepend: [ PlaceholderAPI, Essentials, Luckperms ]
+
+commands:
+  AdvancedChat:
+    description: main command
+    aliases:
+      - ac

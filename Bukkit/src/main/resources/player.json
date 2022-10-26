@@ -1,0 +1,25 @@
+{
+  "Name": "jonagamerpro1234",
+  "Group": "default",
+  "ChatType": "color",
+  "Channel": "global",
+  "Range": 10,
+  "Color": "red",
+  "Gradient": {
+    "First": "#ffffff",
+    "Second": "#ffffff"
+  },
+  "SpecialCodes": "none",
+  "Mute":{
+    "Enabled": false,
+    "IsTemp": false,
+    "Time": 0
+  },
+  "Inventory": {
+    "LowMode": false
+  },
+  "Settings": {
+    "Enabled-Chat": true,
+    "Enable-Private-Messages": true
+  }
+}
