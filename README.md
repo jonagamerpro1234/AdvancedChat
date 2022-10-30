@@ -1,4 +1,4 @@
-[advancedchat]: https://i.imgur.com/FRwd5wz.png/
+[advancedchat]: https://imgur.com/Jvr5Gfp.png/
 [spigot]: https://www.spigotmc.org/resources/83889/
 [releases]: https://github.com/jonagamerpro1234/AdvancedChat/releases/latest
 [releasesImg]: https://img.shields.io/github/v/release/jonagamerpro1234/AdvancedChat.svg?include_prereleases&label=git-releases&style=for-the-badge
