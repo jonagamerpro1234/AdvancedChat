@@ -1,4 +1,4 @@
-package jss.advancedchat.utils;
+package jss.advancedchat.v2.utils;
 
 import java.util.List;
 

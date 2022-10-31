@@ -1,33 +1,23 @@
 package jss.advancedchat.commands.subcommands;
 
+import jss.advancedchat.commands.utils.SubCommand;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class HelpCmd implements SubCommand {
+public class HelpCmd extends SubCommand {
 
-    public String getName() {
+    public String name() {
         return "help";
     }
 
-    public String getDescription() {
-        return "muestra todo la informacion del los comandos del plugin";
-    }
-
-    public String getSyntax() {
-        return "/Ac help";
-    }
-
-    public String getPermission() {
-        return "advancedchat.command.help";
-    }
-
-    public List<String> getTabCompletion(int index, String[] args) {
-        return null;
-    }
-
-    public void perform(@NotNull CommandSender sender, String[] args) {
+    public boolean perform(@NotNull CommandSender sender, String[] args) {
         sender.sendMessage("test help sub command");
+        return false;
+    }
+
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        return null;
     }
 }

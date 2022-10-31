@@ -1,4 +1,4 @@
-package jss.advancedchat.api;
+package jss.advancedchat.v2.api;
 
 public class AdvancedChatApi {
 

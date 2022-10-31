@@ -1,32 +1,24 @@
 package jss.advancedchat.commands.subcommands;
 
+import jss.advancedchat.commands.utils.SubCommand;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public class SettingsCmd implements SubCommand {
+public class SettingsCmd extends SubCommand {
 
-    public String getName() {
+    @Override
+    public String name() {
         return "settings";
     }
 
-    public String getDescription() {
-        return null;
+    public boolean perform(CommandSender sender, String[] args) {
+
+        return false;
     }
 
-    public String getSyntax() {
+    @Override
+    public List<String> tabComplete(CommandSender sender, String[] args) {
         return null;
-    }
-
-    public String getPermission() {
-        return null;
-    }
-
-    public List<String> getTabCompletion(int index, String[] args) {
-        return null;
-    }
-
-    public void perform(CommandSender sender, String[] args) {
-
     }
 }

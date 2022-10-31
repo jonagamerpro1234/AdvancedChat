@@ -1,4 +1,4 @@
-package jss.advancedchat.hooks;
+package jss.advancedchat.v2.hooks;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;

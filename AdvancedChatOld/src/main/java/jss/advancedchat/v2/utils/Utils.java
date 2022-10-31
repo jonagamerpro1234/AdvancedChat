@@ -1,6 +1,6 @@
-package jss.advancedchat.utils;
+package jss.advancedchat.v2.utils;
 
-import com.iridium.iridiumcolorapi.IridiumColorAPI;
+import jss.advancedchat.lib.iridium.IridiumColorAPI;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;

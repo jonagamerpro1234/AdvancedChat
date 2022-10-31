@@ -1,8 +1,8 @@
-package jss.advancedchat.file;
+package jss.advancedchat.v2.file;
 
-import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.file.utils.FileCreator;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.v2.AdvancedChat;
+import jss.advancedchat.v2.file.utils.FileCreator;
+import jss.advancedchat.v2.utils.Settings;
 import org.jetbrains.annotations.NotNull;
 
 public class MessagesFile extends FileCreator {

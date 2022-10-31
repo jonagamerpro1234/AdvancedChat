@@ -1,4 +1,4 @@
-package jss.advancedchat.file;
+package jss.advancedchat.v2.file;
 
 import jss.advancedchat.AdvancedChat;
 import org.bukkit.configuration.InvalidConfigurationException;

@@ -1,13 +1,17 @@
 package jss.advancedchat.commands;
 
+import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.commands.subcommands.*;
 import jss.advancedchat.commands.utils.SubCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CommandHandler implements TabExecutor {
@@ -15,7 +19,12 @@ public class CommandHandler implements TabExecutor {
     private final ArrayList<SubCommand> subCommands = new ArrayList<>();
 
     public CommandHandler(){
-
+        AdvancedChat plugin = AdvancedChat.get();
+        PluginCommand pluginCommand = plugin.getCommand("AdvancedChat");
+        assert pluginCommand != null;
+        pluginCommand.setExecutor(this);
+        pluginCommand.setTabCompleter(this);
+        subCommands.addAll(Arrays.asList(new ReloadCmd(), new HelpCmd(), new ColorCmd(), new PlayerCmd(), new SettingsCmd()));
     }
 
     public ArrayList<SubCommand> getSubCommands() {

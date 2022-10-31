@@ -1,4 +1,4 @@
-package jss.advancedchat.listeners.chat;
+package jss.advancedchat.v2.listeners.chat;
 
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;

@@ -1,8 +1,8 @@
-package jss.advancedchat;
+package jss.advancedchat.v2;
 
-import jss.advancedchat.api.AdvancedChatApi;
-import jss.advancedchat.file.MessagesFile;
-import jss.advancedchat.file.SettingsFile;
+import jss.advancedchat.v2.api.AdvancedChatApi;
+import jss.advancedchat.v2.file.MessagesFile;
+import jss.advancedchat.v2.file.SettingsFile;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
