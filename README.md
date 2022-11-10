@@ -23,11 +23,26 @@
 ## Description
 AdvancedChat is an easy to use plugin that will help you customize the chat on your server to make it look its best. It will also have a customization system by groups and among other functions more...
 
+
 ## Installation
 * download the plugin
 * you turn off your server so that no error occurs
 * drag the plugin into the plugins folder of your server
 * you turn on the server and it would be ready
+
+
+## Supported Version
+Version maintenance is prioritized, newer versions will receive more support than older versions
+
+| Mc Version     | Priority  |
+|:---------------|:----------|
+| 1.19.x         |    ✅    | 
+| 1.18.x         |    ✅    |
+| 1.17.x         |    ✅    |
+| 1.16.x         |    ⚠️    |
+| 1.13.x - 1.15.x|    ⚠️    |
+| 1.8.8 - 1.12.x |    ⚠️    |
+| legacy version |    🛑    |
 
 ## AdvancedChat API
 
