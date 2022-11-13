@@ -88,18 +88,25 @@ public class Utils {
         sendMessage("  ");
     }
 
-    public static void sendEneble() {
+    public static void sendEnable() {
         sendMessage(prefix + "&5<||============================================----");
         sendMessage(prefix + "&5<|| &c* &bThe plugin is &d[&aSuccessfully activated&d]");
         sendMessage(prefix + "&5<|| &c* &bVersion: &e[&a" + plugin.version + "&e]");
         sendMessage(prefix + "&5<|| &c* &bBy: &e[&bjonagamerpro1234&e]");
-        sendMessage(prefix + "&5<|| &c* &bTested Versions &3|&a1.8.x &3- &a1.18.x&3| &eComing Soon -> &c1.19");
+        sendMessage(prefix + "&5<|| &c* &bTested Versions &3|&a1.16.x &3- &a1.19.x&3| &eComing Soon -> &c1.20");
+        sendMessage(prefix + "&5<|| &c* &bSupported Versions &3|&a1.8.x - 1.15.x (Legacy) &3- &a1.19.x&3|");
         sendMessage(prefix + "&5<|| &a* &eThanks for using &bAdvancedChat &c<3");
         sendMessage(prefix + "&5<||============================================----");
     }
 
     public static void sendDisable() {
-
+        sendMessage(prefix + "&5<||============================================----");
+        sendMessage(prefix + "&5<|| &c* &bThe plugin is &d[&aSuccessfully activated&d]");
+        sendMessage(prefix + "&5<|| &c* &bVersion: &e[&a" + plugin.version + "&e]");
+        sendMessage(prefix + "&5<|| &c* &bBy: &e[&bjonagamerpro1234&e]");
+        sendMessage(prefix + "&5<|| &c* &bTested Versions &3|&a1.16.x &3- &a1.19.x&3| &eComing Soon -> &c1.20");
+        sendMessage(prefix + "&5<|| &a* &eThanks for using &bAdvancedChat &c<3");
+        sendMessage(prefix + "&5<||============================================----");
     }
 
 }

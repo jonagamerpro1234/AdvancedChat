@@ -2,22 +2,16 @@ package jss.advancedchat.commands.subcommands;
 
 import jss.advancedchat.commands.utils.SubCommand;
 import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class HelpCmd extends SubCommand {
+public class InfoCmd extends SubCommand {
 
     public String name() {
-        return "help";
+        return "info";
     }
 
-    public boolean perform(@NotNull CommandSender sender, String[] args) {
-
-
-
-
-        sender.sendMessage("test help sub command");
+    public boolean perform(CommandSender sender, String[] args) {
         return false;
     }
 

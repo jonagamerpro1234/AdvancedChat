@@ -3,6 +3,7 @@ package jss.advancedchat.commands;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.commands.subcommands.*;
 import jss.advancedchat.commands.utils.SubCommand;
+import jss.advancedchat.utils.Utils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
@@ -24,7 +25,7 @@ public class CommandHandler implements TabExecutor {
         assert pluginCommand != null;
         pluginCommand.setExecutor(this);
         pluginCommand.setTabCompleter(this);
-        subCommands.addAll(Arrays.asList(new ReloadCmd(), new HelpCmd(), new ColorCmd(), new PlayerCmd(), new SettingsCmd()));
+        subCommands.addAll(Arrays.asList(new ReloadCmd(), new HelpCmd(), new InfoCmd(), new ColorCmd(), new PlayerCmd(), new SettingsCmd()));
     }
 
     public ArrayList<SubCommand> getSubCommands() {
@@ -40,10 +41,11 @@ public class CommandHandler implements TabExecutor {
                     return true;
                 }
             }
-            //error syntax or unknown arguments
+            Utils.sendColorMessage(sender, "");
             return true;
         }
         //send usage of message of the main command
+        Utils.sendColorMessage(sender, "");
         return true;
     }
 

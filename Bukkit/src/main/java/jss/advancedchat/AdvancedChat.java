@@ -21,7 +21,7 @@ public final class AdvancedChat extends JavaPlugin {
         metrics = new Metrics(this,8826);
 
         //message
-        Utils.sendEneble();
+        Utils.sendEnable();
 
         registerCommandAndListeners();
     }

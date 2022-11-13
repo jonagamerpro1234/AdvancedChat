@@ -1,2 +1,14 @@
-package jss.advancedchat.commands;public class ClearChatCmd {
+package jss.advancedchat.commands;
+
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
+
+public class ClearChatCmd implements CommandExecutor {
+
+
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        return false;
+    }
 }
