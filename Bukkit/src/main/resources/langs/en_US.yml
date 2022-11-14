@@ -8,7 +8,7 @@ UpdateAlert:
   Console:
     - "======================================-"
     - " || The {version} is out of date"
-    - " || - Newest version: {newversion}"
+    - " || - The Newest version: {newversion}"
     - " || - Your version: {version}"
     - " || - Update here on Spigot: {spigot}"
     - " || - Update here on GitHub: {github}"
