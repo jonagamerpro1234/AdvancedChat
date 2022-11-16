@@ -1,6 +1,7 @@
 package jss.advancedchat.utils;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.files.utils.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -50,11 +51,7 @@ public class Utils {
         if(ignore){
             finalPrefix = "&e[&d" + plugin.name + "&e] &7";
         }else{
-            if(Settings.use_default_prefix){
-                finalPrefix = "&e[&d" + plugin.name + "&e] &7";
-            }else{
-                finalPrefix = Settings.custom_prefix + " ";
-            }
+            finalPrefix = Settings.messages_prefix + " &7";
         }
         return colorized(finalPrefix);
     }

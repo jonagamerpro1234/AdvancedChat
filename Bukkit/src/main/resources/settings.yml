@@ -1,0 +1,330 @@
+#     ___   ______
+#    /   | / ____/
+#   / /| |/ /      By jonagamerpro1234
+#  / ___ / /___    Version 1.7.0
+# /_/  |_\____/    Thanks for using AdvancedChat <3
+#
+# ● AdvancedChat is an easy to use plugin that will help you customize the chat on your server to make it look its best. It will also have a customization system by groups and among other functions more...
+#
+# ● Spigot: https://www.spigotmc.org/resources/advancedchat-1-7-x-1-17-x.83889/
+# ● Songoda: https://songoda.com/marketplace/product/advancedchat-chat-related.542
+# ● Wiki [Working Progress]: https://jonagamerpro1234.gitbook.io/advancedchat/
+# ● Discord: https://discord.gg/c5GhQDQCK5
+# ● Issue Tracker: https://github.com/jonagamerpro1234/AdvancedChat/issues
+# ● Bstast: https://bstats.org/plugin/bukkit/AdvancedChat/8826
+#
+#
+Settings:
+
+  # |Config-Version| I would not change anything
+  File-Version: 2
+
+  # | Lang |
+  Lang: en-US
+
+  # |Debug| This option should only be used if there is a problem with certain functions of the plugin, debug messages will be activated in the console
+  Debug: true
+
+  # |Use-Database| You can save the data saved by the plugin in the .data files in a database and they can be synchronized with various servers
+  Use-Database: false
+
+  # ![Disabled]! |BungeeMode| this function allows you to synchronize all your servers that have the advancedchat plugin
+  #BungeeMode: false #[Not implemented]
+
+  # |Update| This function lets you know if there is a plugin update [Does not disable console messages]
+  Update: true
+
+  # |Use-Default-Prefix| if it is true it will use the prefix of the plugin itself, but if it is false it will use the prefix that you define in [Prefix: 'my server']
+  # if you want to use a custom prefix, this function should be set to [false]
+  Use-Default-Prefix: true
+
+  # |Prefix| here you can define a custom prefix
+  Prefix: '&6[&bMy Server&6]&7'
+
+  # |Show-Chat-In-Console| here you can enable or disable the chat to be seen in the console
+  Show-Chat-In-Console: false
+
+#
+# | MySQL| [temporarily disabled]
+# |MySql is a database where you can save plugin data remotely and it can be synchronized with other servers if you are using BungeeCord
+MySQL:
+
+  # |Table| this is where you will find the name of the table that will be created or used to obtain the data
+  # [Note]: it is not recommended to change this
+  Table: 'advancedchat_data'
+
+  # |Host| this is where you should put the database host
+  Host: 'localhost'
+
+  # |Port| this is where you should put the database port
+  Port: '3306'
+
+  # |Database| this is where you should put the name of the database
+  Database: 'advancedchatDB'
+
+  # |User| this is where you should put the database user name
+  Username: 'root'
+
+  # |Password| this is where you should put the database password
+  Password: '123456'
+
+#
+# | Hooks | Here are all the configurations of the plugin implementations and more
+Hooks:
+
+  # |LuckPerms| Here you can configure everything related to LuckPerms and or deactivate or activate functions
+  LuckPerms:
+
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: true
+
+    # |AutoUpdateGroup| This function allows the plugin to detect if the player has changed rank in a period of time defined in the [Tick] section
+    AutoUpdateGroup:
+
+      # |Enabled| Here you can enable or disable this feature
+      Enabled: true
+
+      # |Tick| here you can define the time that the actions are automatically executed [Default = 600], 600 tick = 30 sec
+      Tick: 600
+
+  # |Vault| Here you can configure everything related to Vault and or deactivate or activate functions
+  Vault:
+
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: true
+
+  # |DiscordSRV| Here you can define the discord channel where the messages from minecraft to discord are seen
+  # !This characteristic is in the experimental phase!
+  DiscordSRV:
+
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: true
+
+    # |Channel-ID| Here is the id of the channel that is used for the chat
+    Channel-ID: 'none'
+
+  # |EssentialsDiscord| Here you can define the discord channel where the messages from minecraft to discord are seen
+  # !This characteristic is in the experimental phase!
+  EssentialsDiscord:
+
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: true
+
+    # |Channel-ID| Here is the id of the channel that is used for the chat
+    Channel-ID: 'none'
+
+#
+# | ChatFormat |
+ChatFormat:
+
+  # |Enabled| Here you can enable or disable this feature
+  Enabled: true
+
+    # |Chat-Type|
+    # [default] It will use the plugin's color customization but the HoverEvent and ClickEvent cannot be used
+    # For more information see the advancedchat wiki: https://jonagamerpro1234.gitbook.io/advancedchat/
+    # [normal] use the chat defined in [Chat]
+  # [group] use the chat defined in the group found inside the [groups.yml] file
+  Chat-Type: normal
+
+  # |Format| Here you define the chat format for all players.
+  Format: '&b<name> &8>'
+
+  # |HoverEvent| This section allows you to modify the hover events in the chat
+  HoverEvent:
+
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: true
+
+    # |Hover| This section allows you to define the hover text
+    Hover:
+      - '&6> &aHello &b<name>'
+      - '&6> &e%player_exp_to_level%'
+      - '&6> &dadd more lines like these'
+
+  # |ClickEvent| This section allows you to modify chat click events
+  ClickEvent:
+
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: true
+
+    # |Mode| there are three different modes which are [ command | suggest | url ]
+    Mode: command
+
+    # |Actions| This is where are the available events that you can use
+    Actions:
+
+      # |Command| Clicking on the chat will execute the command defined in the config
+      Command: '/say <name> hello server'
+
+      # |Url| Clicking on the chat opens a link
+      Url: 'https://jonagamerpro1234.gitbook.io/advancedchat/'
+
+      # |Suggest-Command| Clicking on the chat suggests a command that you define in the config
+      Suggest-Command: '/msg <name>'
+
+  # |Private-Message|
+  Private-Message:
+
+    # |Send-Format|
+    Send-Format: '&e[S] &8-> &a<send_name>&8: &7<msg>'
+
+    # |Receive-Format|
+    Receive-Format: '&a[R] &8-> <receive_name>&8: &7<msg>'
+
+    # |Receive-Server-Format|
+    Receive-Server-Format: '&6[&bServer&6] &a[R] &8-> <receive_name>&8: &7<msg>'
+
+  # |Debug-Format| It is a chat that will be activated when the configuration contains an error
+  Debug-Format: '&b[&cError in Config&b] &f<&f<player>&f> &f<message>'
+
+#
+# | ClearChat |
+ClearChat:
+
+  # |Broadcast| is the message that will be sent when cleaning the chat [this does not affect the command for the player only the message from the server]
+  Broadcast: true
+
+  # |AutoClear| you can activate the automatic cleaning of the chat according to the number of ticks [Default: true]
+  AutoClear: true
+
+  # |ByPass-Staff| With this function you can make the staff is not affected by the clearchat [AdvancedChat.ClearChat.Bypass]
+  ByPass-Staff: false
+
+  # |Tick| here you can define the time that the actions are automatically executed [Default | 24000], 24000 tick = 20 min
+  Tick: 24000
+
+  # |Default-Start-Tick| Here you can define the first ticks that are executed when starting the server
+  # Wiki: https://jonagamerpro1234.gitbook.io/advancedchat/configurations/tick
+  Default-Start-Tick: 6000
+
+  #blank lines to broadcast in chat
+  LineClear: 100
+
+#
+# | Command Blocker |
+# |here you can block the commands that you do not want to be used on the server at the moment it does not have the function of [antitabcomplete]
+Command-Blocker:
+
+  # |Enabled| Here you can enable or disable this feature
+  Enabled: true
+
+  # |Chat| here you will find all the command block functions for chat
+  Chat:
+
+    # |Disable-Commands| By disabling this feature, muted players will be able to use the listed commands [Default: true]
+    Disable-Commands: true
+
+    # |Command-List| In this list you can define which commands cannot be used by players in general including your server staff
+    Command-List:
+      - '/plugins'
+      - '/pl'
+      - '/?'
+      - '/ver'
+      - '/version'
+      - '/bukkit:version'
+      - '/bukkit:pl'
+      - '/bukkit:plugins'
+      - '/bukkit:ver'
+      - '/bukkit:?'
+
+  # |Mute| here you will find all the command block functions for muted players
+  Mute:
+
+    # |Disable-Commands| By disabling this feature, muted players will be able to use the listed commands [Default: true]
+    Disable-Commands: true
+
+    # |Command-List| In this list you can define which commands the silenced players cannot use
+    Command-List:
+      - '/tell'
+      - '/me'
+      - '/say'
+      - '/msg'
+
+#
+# | TabComplete |
+TabComplete:
+
+  # |Enabled| Here you can enable or disable this feature
+  Enabled: false
+
+  # |WhiteList|
+  WhiteList:
+
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: true
+
+    # |list|
+    List:
+      - 'Msg'
+      - 'Me'
+      - 'Say'
+      - 'List'
+
+#
+# |Filter Chat|
+# |here you can filter the unwanted words on your server and have a little more control over the chat
+#
+# [!] The chat filter function is in development at a may contain error or problems
+#
+Filter-Chat:
+
+  # |Enabled| Here you can enable or disable this feature
+  Enabled: true
+
+  # |Message| here you can define a personalized message that will be sent to the player
+  Message: '&eyou cannot use this word, it is blocked!'
+#
+# | Mention |
+Mention:
+
+  # |Enabled| Here you can enable or disable this feature
+  Enabled: true
+
+  # |Send-Format|
+  Send-Format: '&b[&aS&b]&8: &e<name> &9-> &e[&d<name>&e]'
+
+  # |Receive-Format|
+  Receive-Format: '&b[&eR&b]&8: &e[&a<name>&e] &9-> &d<name>'
+
+  # |Sound| In this section you can configure the sound of the mentions
+  Sound:
+
+    # |Name| This is the name of the sound you will hear when it is mentioned to you in chat.
+    Name: BLOCK_NOTE_BLOCK_PLING
+
+    # |Pitch| This is the pitch of the sound that you will hear when mentioned in the chat
+    Pitch: 0.5
+
+    # |Vol| This is the volume of the sound that you will hear when the chat mentions it
+    Volume: 10
+
+#
+# | PlayerSettings |
+PlayerSettings:
+
+  DefaultColorMessage: "white"
+
+  DefaultGroup: "default"
+
+#
+#  | ChatLog |
+ChatLog:
+
+  Chat:
+
+    Enabled: true
+
+  Commands:
+
+    Enabled: true
+
+    #add ignore command add in the log file
+    BlackList:
+      - "/?"
+#
+# This is the end of the configuration ... [-_-] more things coming soon
+#
+# ● Config File
+# ● Version 1.7.0
+#
