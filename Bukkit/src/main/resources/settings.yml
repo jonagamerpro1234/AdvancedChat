@@ -1,7 +1,7 @@
 #     ___   ______
 #    /   | / ____/
 #   / /| |/ /      By jonagamerpro1234
-#  / ___ / /___    Version 1.7.0
+#  / ___ / /___    Version 1.8.0
 # /_/  |_\____/    Thanks for using AdvancedChat <3
 #
 # ● AdvancedChat is an easy to use plugin that will help you customize the chat on your server to make it look its best. It will also have a customization system by groups and among other functions more...
@@ -13,19 +13,19 @@
 # ● Issue Tracker: https://github.com/jonagamerpro1234/AdvancedChat/issues
 # ● Bstast: https://bstats.org/plugin/bukkit/AdvancedChat/8826
 #
-#
 Settings:
 
   # |Config-Version| I would not change anything
   File-Version: 2
 
-  # | Lang |
+  # | Lang | You can change the language of the plugin messages, if you want to help in the translation of the plugin you can visit the page
+    # Crowdin: https://crowdin.com/project/advancedchat
   Lang: en-US
 
   # |Debug| This option should only be used if there is a problem with certain functions of the plugin, debug messages will be activated in the console
   Debug: true
 
-  # |Use-Database| You can save the data saved by the plugin in the .data files in a database and they can be synchronized with various servers
+  # |Use-Database| You can save the data saved by the plugin in the .data files in a database, and they can be synchronized with various servers
   Use-Database: false
 
   # ![Disabled]! |BungeeMode| this function allows you to synchronize all your servers that have the advancedchat plugin
@@ -46,7 +46,7 @@ Settings:
 
 #
 # | MySQL| [temporarily disabled]
-# |MySql is a database where you can save plugin data remotely and it can be synchronized with other servers if you are using BungeeCord
+# |MySql is a database where you can save plugin data remotely, and it can be synchronized with other servers if you are using BungeeCord
 MySQL:
 
   # |Table| this is where you will find the name of the table that will be created or used to obtain the data
@@ -62,7 +62,7 @@ MySQL:
   # |Database| this is where you should put the name of the database
   Database: 'advancedchatDB'
 
-  # |User| this is where you should put the database user name
+  # |User| this is where you should put the database username
   Username: 'root'
 
   # |Password| this is where you should put the database password
@@ -120,15 +120,20 @@ ChatFormat:
   # |Enabled| Here you can enable or disable this feature
   Enabled: true
 
-    # |Chat-Type|
+  # |Chat-Type|
     # [default] It will use the plugin's color customization but the HoverEvent and ClickEvent cannot be used
     # For more information see the advancedchat wiki: https://jonagamerpro1234.gitbook.io/advancedchat/
     # [normal] use the chat defined in [Chat]
-  # [group] use the chat defined in the group found inside the [groups.yml] file
+    # [group] use the chat defined in the group found inside the [groups.yml] file
   Chat-Type: normal
 
+  # | Format-Type |
+    # [normal] It is the normal format to use the plugin, and it will use the plugin's own method to send the message, it is possible that the plugin is incompatible with other plugins
+    # [json] The json format will allow a better customization of the chat and will use another method to send the messages. It is not recommended to use this format if you don't know how to use json!
+  Format-Type: normal
+
   # |Format| Here you define the chat format for all players.
-  Format: '&b<name> &8>'
+  Format: '&b{player_name} &8> {message_chat}'
 
   # |HoverEvent| This section allows you to modify the hover events in the chat
   HoverEvent:
@@ -326,5 +331,5 @@ ChatLog:
 # This is the end of the configuration ... [-_-] more things coming soon
 #
 # ● Config File
-# ● Version 1.7.0
+# ● Version 1.8.0
 #

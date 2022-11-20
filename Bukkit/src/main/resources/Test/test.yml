@@ -1,0 +1,23 @@
+#     ___   ______
+#    /   | / ____/
+#   / /| |/ /      By jonagamerpro1234
+#  / ___ / /___    Version 1.8.0
+# /_/  |_\____/    Thanks for using AdvancedChat <3
+#
+# ● AdvancedChat is an easy to use plugin that will help you customize the chat on your server to make it look its best. It will also have a customization system by groups and among other functions more...
+#
+# ● Spigot: https://www.spigotmc.org/resources/advancedchat-1-7-x-1-17-x.83889/
+# ● Songoda: https://songoda.com/marketplace/product/advancedchat-chat-related.542
+# ● Wiki [Working Progress]: https://jonagamerpro1234.gitbook.io/advancedchat/
+# ● Discord: https://discord.gg/c5GhQDQCK5
+# ● Issue Tracker: https://github.com/jonagamerpro1234/AdvancedChat/issues
+# ● Bstast: https://bstats.org/plugin/bukkit/AdvancedChat/8826
+#
+# test UTF-8 in file
+Settings: true
+
+# test
+Test: 2
+
+# test space and coments
+testOptions: "test"
