@@ -3,11 +3,9 @@ package jss.advancedchat.files;
 import jss.advancedchat.AdvancedChat;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 
 public class FileCreator {
 
@@ -24,14 +22,17 @@ public class FileCreator {
         if(inFolder){
             dir = plugin.getDataFolder() + File.separator + folder;
         }else{
-            dir = plugin.getDataFolder().getName();
+            dir = plugin.getDataFolder().getPath();
         }
 
+        System.out.println("[AdvancedChat] - [INFO]: Get Base Dir [" + dir + "]");
 
         this.file = new File(dir, name + ".yml");
+        System.out.println("[AdvancedChat] - [INFO]: Get File Dir [" + name + ".yml]");
+
         if (!this.file.exists()) {
-            getConfig(folder,name,inFolder).options().copyDefaults(true);
-            saveConfig(folder,name,inFolder);
+            getConfig(dir,name,inFolder).options().copyDefaults(true);
+            saveConfig(dir,name,inFolder);
         }
     }
 
@@ -99,7 +100,7 @@ public class FileCreator {
         }else{
             dir = plugin.getDataFolder().getName();
         }
-        this.file = new File(this.plugin.getDataFolder(), name + ".yml");
+        this.file = new File(dir, name + ".yml");
         return this.file;
     }
 

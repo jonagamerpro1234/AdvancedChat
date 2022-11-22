@@ -136,6 +136,12 @@
             <version>3.0.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.spongepowered</groupId>
+            <artifactId>configurate-yaml</artifactId>
+            <version>4.1.2</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

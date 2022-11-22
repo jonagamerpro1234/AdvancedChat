@@ -2,6 +2,7 @@ package jss.advancedchat.utils;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.files.utils.Settings;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -18,7 +19,7 @@ public class Utils {
     private static final String prefix = getPrefix(true);
 
     public static String colorized(String text){
-        return text;
+        return ChatColor.translateAlternateColorCodes('&', text);
     }
 
     public static String unColorized(String text) {
