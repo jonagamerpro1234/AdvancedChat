@@ -9,9 +9,10 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.util.Locale;
 
+@SuppressWarnings("all")
 public class LangFile {
 
-    private AdvancedChat plugin = AdvancedChat.get();
+    private final AdvancedChat plugin = AdvancedChat.get();
     private FileConfiguration config;
     private File file;
     private final Locale localeObj;
@@ -25,7 +26,6 @@ public class LangFile {
         loadMessages();
         localeObj = new Locale(localeName.substring(0,2),localeName.substring(3,5));
     }
-
 
     public FileConfiguration getConfig(final String name) {
         if(config == null){

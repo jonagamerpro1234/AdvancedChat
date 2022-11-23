@@ -20,7 +20,6 @@ public final class AdvancedChat extends JavaPlugin {
     public Metrics metrics;
     public final String name = jss.getName();
     public final String version = jss.getVersion();
-    private final Map<String, LangFile> langFileMap = new HashMap<>();
     private final PreConfigLoader preConfigLoader = new PreConfigLoader();
 
     public void onLoad(){

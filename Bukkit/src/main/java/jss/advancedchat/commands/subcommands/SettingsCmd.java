@@ -7,7 +7,6 @@ import java.util.List;
 
 public class SettingsCmd extends SubCommand {
 
-    @Override
     public String name() {
         return "settings";
     }
@@ -17,7 +16,6 @@ public class SettingsCmd extends SubCommand {
         return false;
     }
 
-    @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
         return null;
     }
