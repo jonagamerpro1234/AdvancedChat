@@ -1,10 +1,9 @@
 package jss.advancedchat;
 
 import jss.advancedchat.commands.CommandHandler;
-import jss.advancedchat.files.FileCreator;
-import jss.advancedchat.files.FileCreator2;
 import jss.advancedchat.files.LangFile;
 import jss.advancedchat.files.utils.PreConfigLoader;
+import jss.advancedchat.listeners.TaskLoader;
 import jss.advancedchat.utils.Utils;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -21,9 +20,8 @@ public final class AdvancedChat extends JavaPlugin {
     public Metrics metrics;
     public final String name = jss.getName();
     public final String version = jss.getVersion();
-    public FileCreator2 fileCreator2 = new FileCreator2(this);
-    private Map<String, LangFile> langFileMap = new HashMap<>();
-    private PreConfigLoader preConfigLoader = new PreConfigLoader();
+    private final Map<String, LangFile> langFileMap = new HashMap<>();
+    private final PreConfigLoader preConfigLoader = new PreConfigLoader();
 
     public void onLoad(){
         instance = this;
@@ -32,13 +30,9 @@ public final class AdvancedChat extends JavaPlugin {
     public void onEnable() {
         metrics = new Metrics(this,8826);
 
-
-        fileCreator2.create("Test/test");
-        fileCreator2.create("none/settings");
-
+        //preConfigLoader.loadSettings();
         if(!preConfigLoader.loadLangs()){
             Bukkit.getPluginManager().disablePlugin(this);
-
         }
 
         //message
@@ -55,6 +49,7 @@ public final class AdvancedChat extends JavaPlugin {
 
     public void registerCommandAndListeners(){
         new CommandHandler();
+        new TaskLoader();
     }
 
     public static AdvancedChat get(){

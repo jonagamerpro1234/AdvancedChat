@@ -1,4 +1,4 @@
 package jss.advancedchat.storage;
 
-public class MySql {
+public class PlayerStorageData {
 }

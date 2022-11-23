@@ -14,14 +14,13 @@ import java.util.stream.Collectors;
 
 public class ColorCmd extends SubCommand {
 
-
     public String name() {
         return "color";
     }
 
     public boolean perform(CommandSender sender, String[] args) {
         if(!(sender instanceof Player)){
-            Utils.sendColorMessage(sender, "Este comando no se puede usar en la consola por el momento");
+            Utils.sendColorMessage(sender, "This command cannot be used in the console por el momento");
             return false;
         }
 

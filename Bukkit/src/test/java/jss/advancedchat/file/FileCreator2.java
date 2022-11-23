@@ -1,4 +1,4 @@
-package jss.advancedchat.files;
+package jss.advancedchat.file;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Logger;
