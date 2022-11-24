@@ -46,6 +46,8 @@ Version maintenance is prioritized, newer versions will receive more support tha
 
 ## AdvancedChat API
 
+The documentation of the api to a is not available
+
 **How to include the API with Maven:**
 ```xml
 <repository>

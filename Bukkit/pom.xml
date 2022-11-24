@@ -16,8 +16,8 @@
 
     <properties>
         <java.version>11</java.version>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -64,11 +64,6 @@
                                     <shadedPattern>jss.advancedchat.utils.metrics</shadedPattern>
                                 </relocation>
                             </relocations>
-                            <artifactSet>
-                                <includes>
-                                    <include>org.bstats:bstats-bukkit</include>
-                                </includes>
-                            </artifactSet>
                         </configuration>
                     </execution>
                 </executions>
@@ -85,6 +80,7 @@
                             <Project-Version>${project.version}</Project-Version>
                         </manifestEntries>
                     </archive>
+                    <outputDirectory>C:\Users\Alumno\Documents\Server\1.8\plugins\</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
@@ -113,7 +109,7 @@
         <dependency>
             <groupId>com.github.seeseemelk</groupId>
             <artifactId>MockBukkit-v1.19</artifactId>
-            <version>2.126.0</version>
+            <version>2.133.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -138,6 +134,12 @@
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
             <version>3.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spongepowered</groupId>
+            <artifactId>configurate-yaml</artifactId>
+            <version>4.1.2</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

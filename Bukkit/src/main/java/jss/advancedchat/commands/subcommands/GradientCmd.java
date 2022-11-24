@@ -5,14 +5,13 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public class SettingsCmd extends SubCommand {
+public class GradientCmd extends SubCommand {
 
     public String name() {
-        return "settings";
+        return "gradient";
     }
 
     public boolean perform(CommandSender sender, String[] args) {
-
         return false;
     }
 
