@@ -1,22 +1,14 @@
 package jss.advancedchat.manager;
 
 
-import jss.advancedchat.files.utils.Settings;
+import jss.advancedchat.storage.PlayerStorageData;
+import org.bukkit.entity.Player;
 
-public class PlayerManager  {
+public class PlayerManager {
 
-    public PlayerManager() {
+    public PlayerManager(Player player) {
+
     }
 
-    public String getName(){
-
-        if(Settings.settings_mysql_enabled){
-
-        }else{
-
-        }
-
-        return "";
-    }
 
 }

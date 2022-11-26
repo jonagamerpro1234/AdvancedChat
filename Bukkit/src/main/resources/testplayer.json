@@ -12,7 +12,6 @@
   "SpecialCodes": "none",
   "Mute":{
     "Enabled": false,
-    "IsTemp": false,
     "Time": 0
   },
   "Inventory": {

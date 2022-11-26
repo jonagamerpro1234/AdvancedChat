@@ -6,6 +6,9 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
@@ -18,7 +21,8 @@ public class Utils {
     private static final AdvancedChat plugin = AdvancedChat.get();
     private static final String prefix = getPrefix(true);
 
-    public static String colorized(String text){
+    @Contract("_ -> new")
+    public static @NotNull String colorized(String text){
         return ChatColor.translateAlternateColorCodes('&', text);
     }
 
