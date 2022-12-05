@@ -1,0 +1,30 @@
+#     ___   ______
+#    /   | / ____/ 
+#   / /| |/ /      By jonagamerpro1234
+#  / ___ / /___    Version 1.6.0
+# /_/  |_\____/    Thanks for using AdvancedChat <3
+#  
+#
+Player-Gui:
+  Title: '&b&lMenu &8&l> &e&lPlayer'
+  Decoration:
+    Glass-Color:
+      Item: BLACK_STAINED_GLASS_PANE
+  Back:
+    Name: '&c&lBack'
+    Item: RED_STAINED_GLASS_PANE
+  Items:
+    Mute:
+      Item:
+        Enabled:
+        Disabled:
+      Lore:
+        Enabled: ''
+        Disabled: ''
+    Color:
+      Name: '&6&lColors'
+      Item: PLAYER_HEAD
+      Use-Custom-Skull: true
+      Texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5ZTNlNmU1YjJiOTJmMGJlYjM2OGI3MzhiOTkzZDdiYTIyNWJmOWJiMjc1OGJmYzlmYzJkYWJhNGE1YTdkIn19fQ==
+    
+  

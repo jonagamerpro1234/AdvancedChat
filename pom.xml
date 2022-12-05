@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>AdvancedChat 1.6.x Bug Fix</module>
         <module>Bukkit</module>
         <module>Bungee</module>
         <module>AdvancedChatOld</module>

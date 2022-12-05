@@ -1,0 +1,318 @@
+#     ___   ______
+#    /   | / ____/ 
+#   / /| |/ /      By jonagamerpro1234
+#  / ___ / /___    Version 1.6.0
+# /_/  |_\____/    Thanks for using AdvancedChat <3
+#  
+# ● a simple plugin that helps you customize your server chat to make it look better also provides a customizable chat system by group or rank
+#  
+# ● Spigot: https://www.spigotmc.org/resources/advancedchat-1-7-x-1-17-x.83889/
+# ● Songoda: https://songoda.com/marketplace/product/advancedchat-chat-related.542
+# ● Wiki [Working Progress]: https://jonagamerpro1234.gitbook.io/advancedchat/
+# ● Discord: https://discord.gg/c5GhQDQCK5
+# ● Issue Tracker: https://github.com/jonagamerpro1234/AdvancedChat/issues
+# ● Plugin Statistics: https://bstats.org/plugin/bukkit/AdvancedChat/8826
+#
+Settings:
+  
+  # |Config-Version| I would not change anything
+  Config-Version: 1
+  
+  # |Update| This function lets you know if there is a plugin update [Does not disable console messages]
+  Update: true
+  
+  # |Use-Default-Prefix| if it is true it will use the prefix of the plugin itself, but if it is false it will use the prefix that you define in [Prefix: 'my server']
+  Use-Default-Prefix: true
+  
+  # |Prefix| here you can define a custom prefix
+  Prefix: '&6[&bMy Server&6]&7'
+
+    # |ChatFormat Type|
+    # [default] use default chat by minecraft 
+    # [custom] use the chat defined in [Custom-Format] 
+  # [group] use the chat defined in [Group.<name>] but you need to add the permission that you defined for the group
+  ChatFormat-Type: custom
+  
+  # |Show-Chat-In-Console| here you can enable or disable the chat to be seen in the console
+  Show-Chat-In-Console: false
+    
+    # |Default-Color-Message| Here you can define the chat color that is assigned by default to players
+    # The color system does not work with (&) but uses a simpler system that is by color names, here below you have the list of available colors
+  # Color List: https://jonagamerpro1234.gitbook.io/advancedchat/color-list
+  Default-Color-Message: 'white'
+#    
+# | ClearChat |
+ClearChat:
+  
+  # |AutoClear| you can activate the automatic cleaning of the chat according to the number of ticks 
+  AutoClear:
+    
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: true
+
+  # |Default-Start-Tick| Here you can define the first ticks that are executed when starting the server
+  # Wiki: https://jonagamerpro1234.gitbook.io/advancedchat/configurations/tick
+  Default-Start-Tick: 100
+
+  # |Ticks| here you can define the time that the actions are automatically executed [Default | 24000], 24000 tick = 20 min
+  # Wiki: https://jonagamerpro1234.gitbook.io/advancedchat/configurations/tick
+  Tick: 24000
+#
+# | Hooks | Here are all the configurations of the plugin implementations and more
+Hooks:
+  
+  # |LuckPerms| Here you can configure everything related to LuckPerms and or deactivate or activate functions
+  LuckPerms:
+    
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: true
+    
+    # |Use-Luckperms-In-Groups| When using this option, the groups are discovered with the LuckPerms system
+    Use-Luckperms-In-Groups: false
+  
+  # |Vault| Here you can configure everything related to Vault and or deactivate or activate functions
+  Vault:
+    
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: true
+    
+    # |Use-Vault-In-Groups| When using this option, the groups are discovered with the Vault system
+    Use-Vault-In-Groups: true
+  
+  # |DiscordSRV| Here you can define the discord channel where the messages from minecraft to discord are seen
+  # !This characteristic is in the experimental phase!
+  DiscordSRV:
+
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: true
+
+    # |Channel-ID| Here is the id of the channel that is used for the chat
+    Channel-ID: 'none'
+#
+# |Command Blocker|
+# |here you can block the commands that you do not want to be used on the server at the moment it does not have the function of [antitabcomplete]
+Command-Blocker:
+
+  # |Enabled| Here you can enable or disable this feature
+  Enabled: true
+  
+  # |Mute-BlackList| In this list you can define which commands the silenced players cannot use
+  Mute-BlackList:
+    - '/tell'
+    - '/me'
+    - '/say'
+    - '/msg'
+    - '/minecraft:me'
+    - '/minecraft:tell'
+
+  # |BlackList| In this list you can define which commands cannot be used by players in general including your server staff [this function may change in future updates]
+  BlackList:
+    - '/plugins'
+    - '/pl'
+    - '/?'
+    - '/ver'
+    - '/version'
+    - '/bukkit:version'
+    - '/bukkit:pl'
+    - '/bukkit:plugins'
+    - '/bukkit:ver'
+    - '/bukkit:?'
+    - '/icanhasbukkit'
+    - '/about'
+#
+# | Default Format |
+# | This section serves as an emergency backup in case any of the other functions do not work properly. |
+Default-Format: '<&f<name>&f> &f<msg>'
+#
+# | Custom Format |
+# | here you can customize the chat in a general way that affects both ranks, groups, and has all players |
+#
+# Permission: AdvancedChat.Chat.Color.<value>
+# Permission: AdvancedChat.Chat.Color.*
+Custom-Format:
+  
+  # |Format| Here you define the chat format for all players.
+  Format: '%luckperms_prefix% &b<name> &8&l>'
+  
+  # Not Implement
+  Discord-Format: ''
+  
+  # |Type| Here you can find two types that are [ normal | modify ]
+  Type: normal
+  
+  # |HoverEvent| This section allows you to modify the hover events in the chat
+  HoverEvent:
+    
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: true
+
+    # |Hover| This section allows you to define the hover text
+    Hover:
+      - '&6> &aHello &b<name>'
+      - '&6> &e%player_exp_to_level%'
+      - '&6> &dadd more lines like these'
+  
+  # |ClickEvent| This section allows you to modify chat click events
+  ClickEvent:
+
+    # |Enabled| Here you can enable or disable this feature
+    Enabled: true
+    
+    # |Mode| there are three different modes which are [ command | suggest | url ]
+    Mode: command
+    
+    # |Actions| This is where are the available events that you can use
+    Actions:
+      
+      # |Command| Clicking on the chat will execute the command defined in the config
+      Command: '/say <name> hello server'
+      
+      # |Url| Clicking on the chat opens a link
+      Url: 'https://jonagamerpro1234.gitbook.io/advancedchat/'
+      
+      # |Suggest-Command| Clicking on the chat suggests a command that you define in the config
+      Suggest-Command: '/msg <name>'
+#
+# | Groups | !This feature is disabled!
+# | here you can customize the chat of different groups or ranks in a more specific way 
+# | with this format you can add more groups
+# | [!] Groups to work need Vault, the name of the range must be the same as in the permissions plugin
+# 
+# Permission: AdvancedChat.Chat.Color.<value>
+# Permission: AdvancedChat.Chat.Color.*
+Groups:
+  default:
+    
+    # |Format| Here you define the chat format for all players.
+    Format: '&b<name> &8&l>'
+
+    # |Type| Here you can find two types that are [ normal | modify ]
+    Type: normal
+
+    # |HoverEvent| This section allows you to modify the hover events in the chat
+    HoverEvent:
+
+      # |Enabled| Here you can enable or disable this feature
+      Enabled: true
+
+      # |Hover| This section allows you to define the hover text
+      Hover:
+        - '&6> &aHello &b<name>'
+        - '&6> &e%player_exp_to_level%'
+        - '&6> &dadd more lines like these'
+
+    # |ClickEvent| This section allows you to modify chat click events
+    ClickEvent:
+
+      # |Enabled| Here you can enable or disable this feature
+      Enabled: true
+
+      # |Mode| there are three different modes which are [ command | suggest | url ]
+      Mode: command
+
+      # |Actions| This is where are the available events that you can use
+      Actions:
+
+        # |Command| Clicking on the chat will execute the command defined in the config
+        Command: '/say <name> hello server'
+
+        # |Url| Clicking on the chat opens a link
+        Url: 'https://jonagamerpro1234.gitbook.io/advancedchat/'
+
+        # |Suggest-Command| Clicking on the chat suggests a command that you define in the config
+        Suggest-Command: '/msg <name>'
+  admin:
+    
+    # |Format| Here you define the chat format for all players.
+    Format: '&c[Admin] &b<name> &8&l>'
+
+    # |Type| Here you can find two types that are [ normal | modify ]
+    Type: normal
+
+    # |HoverEvent| This section allows you to modify the hover events in the chat
+    HoverEvent:
+
+      # |Enabled| Here you can enable or disable this feature
+      Enabled: true
+
+      # |Hover| This section allows you to define the hover text
+      Hover:
+        - '&6> &aHello &b<name>'
+        - '&6> &e%player_exp_to_level%'
+        - '&6> &dadd more lines like these'
+
+    # |ClickEvent| This section allows you to modify chat click events
+    ClickEvent:
+
+      # |Enabled| Here you can enable or disable this feature
+      Enabled: true
+
+      # |Mode| there are three different modes which are [ command | suggest | url ]
+      Mode: command
+
+      # |Actions| This is where are the available events that you can use
+      Actions:
+
+        # |Command| Clicking on the chat will execute the command defined in the config
+        Command: '/say <name> hello server'
+
+        # |Url| Clicking on the chat opens a link
+        Url: 'https://jonagamerpro1234.gitbook.io/advancedchat/'
+
+        # |Suggest-Command| Clicking on the chat suggests a command that you define in the config
+        Suggest-Command: '/msg <name>'
+#
+# |Filter Chat| 
+# |here you can filter the unwanted words on your server and have a little more control over the chat
+Filter-Chat:
+  
+  # |Enabled| Here you can enable or disable this feature
+  Enabled: true
+  
+  # |Message| here you can define a personalized message that will be sent to the player
+  Message: '&e[!] you cannot use this word, it is &nblocked!'
+
+  # |BadWords| The format is very simple, you just have to add the word you want to censor to the list
+  BadWords:
+    - 'noob'
+    - 'stupid'
+    - 'fuck'
+#
+# |Translation of messages from AdvancedChat|
+# |Version: 1.6.0|
+#
+AdvancedChat:
+  ClearChat-Server: '&7The chat has been cleaned'
+  ClearChat-Player: '&7The chat has been cleaned by &b[&e<name>&b]'
+  No-Permission: '&cYou dont have permission to do that!'
+  No-Permission-Label: 'Ask the server owner or an administrator for help for more information.'
+  Error-Args: '&cUnknown Arguments'
+  Reload: '&aReload Completed'
+  Help-Mute: '&7Use &b/Mute &e<player> &7'
+  Help-UnMute: '&7Use &b/UnMute &e<player> &7'
+  Help-Cmd: '&7Use &b/AdvanceChat &8| &9/Ac &6Help &7 show more information of plugin'
+  Help-Msg:
+    - '&5> &b/AdvancedChat &8| &9/Ac &7these are the variants of the main plugin command'
+    - '&5> &b/AdvancedChat &6help &7show this same message'
+    - '&5> &b/AdvancedChat &6reload &7reload the plugin files'
+    - '&5> &b/AdvancedChat &6info &7shows information about the plugin'
+    - '&5> &b/AdvancedChat &6color &7 open color gui'
+    - '&5> &b/AdvancedChat &6player &e<player name> &7open the player settings'
+    - '&5> &b/Mute &e<player name> &7mute the player'
+    - '&5> &b/UnMute &e<player name> &7demute the player'
+    - '&5> &b/ClearChat &8| &9/Cc &7clean the chat when it is very full or necessary'
+  Mute-Bypass: '&eThis player cannot be muted because This player cannot be muted because he is bypassed'
+  Mute-Player: '&b<name> &cis now muted!'
+  UnMute-Player: '<name> &ais now unmuted!'
+  Player-Is-Not-Mute: '&e[!] &cThe player is not muted'
+  Player-Is-Mute: '&e[!] &cThe player is already muted'
+  Alert-Mute: '&e[!] &cright now you are muted'
+  No-Online-Player: '&cThis player does not exist or is not connected!'
+  No-Use-Command: '&e[&b!&e] &cYou can t use that command! &b[&c<cmd>&b]'
+  No-Use-Command-Mute: '&cYou cannot use that command while it is muted! &b[&c<cmd>&b]'
+#
+# This is the end of the configuration ... [-_-] more things coming soon
+# 
+# | Config File
+# | Version 1.6.0
+#
