@@ -1,63 +1,62 @@
 package jss.advancedchat.listeners;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.ChatDataFile;
-import jss.advancedchat.config.CommandLogFile;
+import jss.advancedchat.files.ChatDataFile;
+import jss.advancedchat.files.CommandLogFile;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class CommandListener implements Listener {
-  private AdvancedChat plugin;
+  private final AdvancedChat plugin = AdvancedChat.get();
 
-  private final EventUtils eventsUtils = new EventUtils(this.plugin);
-
-  public CommandListener(AdvancedChat plugin) {
-    this.plugin = plugin;
-    this.eventsUtils.getEventManager().registerEvents(this, plugin);
+  public CommandListener() {
+    Bukkit.getPluginManager().registerEvents(this, plugin);
   }
 
   @EventHandler
-  public void onCommandChat(PlayerCommandPreprocessEvent e) {
+  public void onCommandChat(@NotNull PlayerCommandPreprocessEvent e) {
     FileConfiguration config = this.plugin.getConfigFile().getConfig();
     PlayerManager manager = new PlayerManager(this.plugin);
     Player j = e.getPlayer();
     List<String> list = config.getStringList("Command-Blocker.BlackList");
-    List<String> mutelist = config.getStringList("Command-Blocker.Mute-BlackList");
+    List<String> muteList = config.getStringList("Command-Blocker.Mute-BlackList");
     String message = e.getMessage();
-    String nousecommand = config.getString("AdvancedChat.No-Use-Command");
-    String nousecommandmute = config.getString("AdvancedChat.No-Use-Command-Mute");
+    String noUseCommand = config.getString("AdvancedChat.No-Use-Command");
+    String noUseCommandMute = config.getString("AdvancedChat.No-Use-Command-Mute");
     String path = "Command-Blocker.Enabled";
     if (j.isOp() || j.hasPermission("AdvancedChat.Chat.Bypass"))
       return;
-    if (config.getString(path).equals("true"))
+    if (config.getBoolean(path))
       for (String a : list) {
         if (message.toLowerCase().contains(a)) {
           e.setCancelled(true);
-          Utils.sendColorMessage(j, Utils.getVar(j, nousecommand.replace("<cmd>", a)));
+          assert noUseCommand != null;
+          Utils.sendColorMessage(j, Utils.getVar(j, noUseCommand.replace("<cmd>", a)));
           break;
         }
       }
     if (manager.isMute(j))
-      for (String a : mutelist) {
+      for (String a : muteList) {
         if (message.toLowerCase().contains(a)) {
           e.setCancelled(true);
-          Utils.sendColorMessage(j, Utils.getVar(j, nousecommandmute.replace("<cmd>", a)));
+          assert noUseCommandMute != null;
+          Utils.sendColorMessage(j, Utils.getVar(j, noUseCommandMute.replace("<cmd>", a)));
           break;
         }
       }
   }
 
   @EventHandler
-  public void onCommandDataLog(PlayerCommandPreprocessEvent e) {
+  public void onCommandDataLog(@NotNull PlayerCommandPreprocessEvent e) {
     ChatDataFile chatDataFile = this.plugin.getChatDataFile();
     FileConfiguration config = chatDataFile.getConfig();
     Player j = e.getPlayer();
@@ -68,7 +67,7 @@ public class CommandListener implements Listener {
   }
 
   @EventHandler
-  public void onCommandLog(PlayerCommandPreprocessEvent e) {
+  public void onCommandLog(@NotNull PlayerCommandPreprocessEvent e) {
     CommandLogFile commandLogFile = this.plugin.getCommandLogFile();
     FileConfiguration config = commandLogFile.getConfig();
     Player j = e.getPlayer();
@@ -77,4 +76,5 @@ public class CommandListener implements Listener {
     config.set("Players." + j.getName() + ".Command." + date + "." + time, Utils.colorless(e.getMessage()));
     commandLogFile.saveConfig();
   }
+
 }

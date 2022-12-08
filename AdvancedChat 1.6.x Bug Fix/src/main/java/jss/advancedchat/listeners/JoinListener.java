@@ -1,12 +1,15 @@
 package jss.advancedchat.listeners;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.ChatDataFile;
-import jss.advancedchat.config.ChatLogFile;
-import jss.advancedchat.config.CommandLogFile;
-import jss.advancedchat.config.PlayerDataFile;
-import jss.advancedchat.utils.*;
-import net.md_5.bungee.api.chat.BaseComponent;
+import jss.advancedchat.files.ChatDataFile;
+import jss.advancedchat.files.ChatLogFile;
+import jss.advancedchat.files.CommandLogFile;
+import jss.advancedchat.files.PlayerDataFile;
+import jss.advancedchat.files.utils.Settings;
+import jss.advancedchat.listeners.utils.EventUtils;
+import jss.advancedchat.utils.Utils;
+import jss.advancedchat.utils.update.UpdateChecker;
+import jss.advancedchat.utils.update.UpdateSettings;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -14,7 +17,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.Plugin;
 
 public class JoinListener implements Listener {
   private AdvancedChat plugin;

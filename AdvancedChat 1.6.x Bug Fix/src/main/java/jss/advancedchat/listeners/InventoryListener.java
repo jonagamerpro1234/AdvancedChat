@@ -1,19 +1,22 @@
 package jss.advancedchat.listeners;
 
+import com.cryptomorin.xseries.XMaterial;
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.gui.GuiColor;
 import jss.advancedchat.gui.GuiPlayer;
+import jss.advancedchat.listeners.utils.EventUtils;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.utils.*;
+import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.inventory.InventoryView;
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,7 +26,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 
 public class InventoryListener implements Listener {
   private AdvancedChat plugin;
@@ -46,8 +48,7 @@ public class InventoryListener implements Listener {
       if (e.getCurrentItem() == null)
         return;
       if (e.getClickedInventory() != null && e.getClickedInventory().equals(p.getOpenInventory().getTopInventory())) {
-        if (e.getCurrentItem().getType() == Material.AIR || e.getSlotType() == null)
-          return;
+        if (e.getCurrentItem().getType() == Material.AIR || e.getSlotType() == null) return;
         e.setCancelled(true);
         int slot = e.getSlot();
         String namecolor = e.getClickedInventory().getItem(10).getItemMeta().getDisplayName();
@@ -67,7 +68,7 @@ public class InventoryListener implements Listener {
               item = XMaterial.PAPER.parseItem();
               meta = item.getItemMeta();
               item.setAmount(1);
-              meta.addEnchant(XEnchantment.DURABILITY.parseEnchantment(), 1, false);
+              meta.addEnchant(Enchantment.DURABILITY, 1, false);
               meta.setDisplayName(Utils.color("&6&lMute Player"));
               meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
               item.setItemMeta(meta);

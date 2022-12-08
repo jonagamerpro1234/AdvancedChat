@@ -1,7 +1,7 @@
 package jss.advancedchat.manager;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.player.PlayerFile;
+import jss.advancedchat.files.player.PlayerFile;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Settings;
 import org.bukkit.configuration.file.FileConfiguration;

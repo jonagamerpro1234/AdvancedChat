@@ -1,16 +1,15 @@
 package jss.advancedchat.hooks;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.files.utils.Settings;
+import jss.advancedchat.listeners.utils.EventUtils;
 import jss.advancedchat.manager.HookManager;
-import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.interfaces.Hook;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 public class LuckPermsHook implements Hook {
@@ -52,10 +51,4 @@ public class LuckPermsHook implements Hook {
     return this.isEnabled;
   }
 
-  public HookManager getHooksManager() {
-    return this.hooksManager;
-  }
-
-  public void getGroup(Player player, String name) {
-  }
 }

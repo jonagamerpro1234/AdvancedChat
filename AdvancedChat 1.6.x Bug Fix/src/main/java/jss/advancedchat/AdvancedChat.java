@@ -1,11 +1,15 @@
 package jss.advancedchat;
 
-import jss.advancedchat.config.*;
+import jss.advancedchat.files.*;
+import jss.advancedchat.files.utils.PreConfigLoader;
 import jss.advancedchat.listeners.EventLoader;
-import jss.advancedchat.manager.ChatManager;
+import jss.advancedchat.listeners.utils.EventUtils;
 import jss.advancedchat.manager.HookManager;
-import jss.advancedchat.utils.*;
+import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.inventory.InventoryView;
+import jss.advancedchat.utils.update.UpdateChecker;
+import jss.advancedchat.utils.update.UpdateSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -16,8 +20,7 @@ import java.util.ArrayList;
 public class AdvancedChat extends AdvancedChatPlugin {
   private static AdvancedChat plugin;
   private final CommandSender c = Bukkit.getConsoleSender();
-  public final FileManager filemanager = new FileManager(this);
-  private final PlayerDataFile playerdata = new PlayerDataFile(this, "players.data", "Data");
+  private final PlayerDataFile playerData = new PlayerDataFile(this, "players.data", "Data");
   private final ConfigFile configfile = new ConfigFile(this, "config.yml");
   private final ColorFile colorFile = new ColorFile(this, "color-gui.yml", "Gui");
   private final PlayerGuiFile playerGuiFile = new PlayerGuiFile(this, "player-gui.yml", "Gui");
@@ -31,13 +34,12 @@ public class AdvancedChat extends AdvancedChatPlugin {
   public String latestversion;
   public String nmsVersion;
 
-  public boolean uselegacyVersion = false;
+  public boolean isLegacyVersion = false;
   PluginDescriptionFile jss = getDescription();
   public String name = this.jss.getName();
   public String version = this.jss.getVersion();
   private boolean debug = false;
   private ArrayList<InventoryView> InventoryView;
-  public ArrayList<ChatManager> chatManagers;
   public EventUtils eventUtils;
 
   public static AdvancedChat getInstance() {
@@ -74,7 +76,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
     this.nmsVersion = this.nmsVersion.substring(this.nmsVersion.lastIndexOf(".") + 1);
     Utils.setEnabled(this.version);
     if (this.nmsVersion.equalsIgnoreCase("v1_8_R3") || this.nmsVersion.equalsIgnoreCase("v1_7_R4")) {
-      this.uselegacyVersion = true;
+      this.isLegacyVersion = true;
       Utils.sendColorMessage(this.c, Utils.getPrefix() + "&5<|| &c* &7Use " + this.nmsVersion + " &cdisabled &7method &b1.16 &7and &b1.17");
     } else if (this.nmsVersion.equalsIgnoreCase("v1_16_R1") || this.nmsVersion.equalsIgnoreCase("v1_16_R2") || this.nmsVersion.equalsIgnoreCase("v1_16_R3")) {
       Utils.sendColorMessage(this.c, Utils.getPrefix() + "&5<|| &c* &7Use " + this.nmsVersion + " &aenabled &7method &b1.16");
@@ -84,7 +86,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
       Utils.sendColorMessage(this.c, Utils.getPrefix() + "&5<|| &c* &7Use " + this.nmsVersion + " &aenabled &7method &b1.17");
     }
     plugin = this;
-    this.playerdata.create();
+    this.playerData.create();
     this.colorFile.create();
     this.playerGuiFile.create();
     this.chatDataFile.create();
@@ -92,7 +94,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
     this.commandLogFile.create();
     this.metrics = new Metrics(this, 8826);
     this.InventoryView = new ArrayList<>();
-    this.chatManagers = new ArrayList<>();
     setupCommands();
     setupEvents();
     this.hookManager.load();
@@ -116,7 +117,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
   public void onDisable() {
     Utils.setDisabled(this.version);
     this.metrics = null;
-    this.uselegacyVersion = false;
+    this.isLegacyVersion = false;
   }
 
   public void setupCommands() {
@@ -139,7 +140,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
   }
 
   public PlayerDataFile getPlayerDataFile() {
-    return this.playerdata;
+    return this.playerData;
   }
 
   public ConfigFile getConfigFile() {

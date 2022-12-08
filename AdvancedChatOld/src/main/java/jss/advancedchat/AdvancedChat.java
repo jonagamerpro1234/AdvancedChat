@@ -1,13 +1,13 @@
 package jss.advancedchat;
 
 import jss.advancedchat.commands.*;
-import jss.advancedchat.config.*;
-import jss.advancedchat.config.gui.ChannelGuiFile;
-import jss.advancedchat.config.gui.ColorFile;
-import jss.advancedchat.config.gui.GradientColorFile;
-import jss.advancedchat.config.gui.PlayerGuiFile;
-import jss.advancedchat.config.log.LogFile;
-import jss.advancedchat.config.player.PlayerFile;
+import jss.advancedchat.files.*;
+import jss.advancedchat.files.gui.ChannelGuiFile;
+import jss.advancedchat.files.gui.ColorFile;
+import jss.advancedchat.files.gui.GradientColorFile;
+import jss.advancedchat.files.gui.PlayerGuiFile;
+import jss.advancedchat.files.log.LogFile;
+import jss.advancedchat.files.player.PlayerFile;
 import jss.advancedchat.listeners.JoinListener;
 import jss.advancedchat.listeners.TaskLoader;
 import jss.advancedchat.listeners.chat.ChatLogListener;

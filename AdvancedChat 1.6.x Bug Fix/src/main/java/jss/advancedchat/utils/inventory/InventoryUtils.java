@@ -10,7 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class InventoryUtils implements InventoryHelper {
     private int size;
 
-    private int defaultsize;
+    private int defaultSize;
 
     private int row;
 
@@ -22,7 +22,7 @@ public class InventoryUtils implements InventoryHelper {
 
     public InventoryUtils(Player player, int size, String title) {
         this.size = 0;
-        this.defaultsize = 9;
+        this.defaultSize = 9;
         this.row = 1;
         this.title = title;
         this.id = null;
@@ -60,11 +60,11 @@ public class InventoryUtils implements InventoryHelper {
     }
 
     public int getDefaultSize() {
-        return this.defaultsize;
+        return this.defaultSize;
     }
 
     public void setDefaultSize(int defaultsize) {
-        this.defaultsize = defaultsize;
+        this.defaultSize = defaultsize;
     }
 
     public void setLegacyItemRow(Inventory inventory, Material material, int data, int amount, int slot0, int slot1, String name) {

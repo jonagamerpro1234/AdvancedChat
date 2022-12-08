@@ -1,9 +1,9 @@
 package jss.advancedchat.hooks;
 
+import jss.advancedchat.files.utils.Settings;
+import jss.advancedchat.listeners.utils.EventUtils;
 import jss.advancedchat.manager.HookManager;
-import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.interfaces.Hook;
 import net.milkbowl.vault.chat.Chat;
@@ -57,19 +57,8 @@ public class VaultHook implements Hook {
     return this.isEnabled;
   }
 
-  public Permission getPermissions() {
-    return this.permission;
-  }
-
   public Chat getChat() {
     return this.chat;
   }
 
-  public Economy getEconomy() {
-    return this.economy;
-  }
-
-  public HookManager getHookManager() {
-    return this.hookManager;
-  }
 }

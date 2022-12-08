@@ -1,11 +1,10 @@
 package jss.advancedchat.listeners;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.EventUtils;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.files.utils.Settings;
+import jss.advancedchat.listeners.utils.EventUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
 public class EventLoader {

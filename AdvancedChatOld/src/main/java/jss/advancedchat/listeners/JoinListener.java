@@ -1,7 +1,7 @@
 package jss.advancedchat.listeners;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.player.PlayerFile;
+import jss.advancedchat.files.player.PlayerFile;
 import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;

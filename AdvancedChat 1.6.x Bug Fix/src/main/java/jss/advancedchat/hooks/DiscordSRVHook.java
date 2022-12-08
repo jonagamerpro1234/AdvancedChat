@@ -1,21 +1,15 @@
 package jss.advancedchat.hooks;
 
-import jss.advancedchat.manager.HookManager;
-import jss.advancedchat.utils.EventUtils;
+import jss.advancedchat.files.utils.Settings;
+import jss.advancedchat.listeners.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.interfaces.Hook;
 import org.bukkit.Bukkit;
 
 public class DiscordSRVHook implements Hook {
-    private final HookManager hookManager;
 
     private boolean isEnabled;
-
-    public DiscordSRVHook(HookManager hookManager) {
-        this.hookManager = hookManager;
-    }
 
     public void setup() {
         if (!Bukkit.getPluginManager().isPluginEnabled("DiscordSRV")) {
@@ -36,7 +30,4 @@ public class DiscordSRVHook implements Hook {
         return this.isEnabled;
     }
 
-    public HookManager getHookManager() {
-        return this.hookManager;
-    }
 }

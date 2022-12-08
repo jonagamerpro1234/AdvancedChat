@@ -1,6 +1,7 @@
 package jss.advancedchat.utils;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.listeners.utils.EventUtils;
 
 public class Logger {
   private final AdvancedChat plugin = AdvancedChat.get();

@@ -6,16 +6,13 @@ import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.hooks.PlaceholderApiHook;
 import jss.advancedchat.hooks.VaultHook;
 import jss.advancedchat.utils.interfaces.Hook;
+import org.jetbrains.annotations.NotNull;
 
 public class HookManager {
   private static HookManager hookManager;
   private final AdvancedChat plugin;
-  private final PlaceholderApiHook placeholderApi = new PlaceholderApiHook(this);
-
-  private final DiscordSRVHook discordSRV = new DiscordSRVHook(this);
-
+  private final DiscordSRVHook discordSRV = new DiscordSRVHook();
   private final LuckPermsHook luckPermsHook = new LuckPermsHook(this);
-
   private final VaultHook vaultHook = new VaultHook(this);
 
   public HookManager(AdvancedChat plugin) {
@@ -28,10 +25,10 @@ public class HookManager {
   }
 
   public void load() {
-    initHooks(new PlaceholderApiHook(this), new DiscordSRVHook(this), new LuckPermsHook(this), new VaultHook(this));
+    initHooks(new PlaceholderApiHook(this), new DiscordSRVHook(), new LuckPermsHook(this), new VaultHook(this));
   }
 
-  private void initHooks(Hook... hooks) {
+  private void initHooks(Hook @NotNull ... hooks) {
     for (Hook hook : hooks)
       hook.setup();
   }
@@ -42,10 +39,6 @@ public class HookManager {
 
   public LuckPermsHook getLuckPermsHook() {
     return this.luckPermsHook;
-  }
-
-  public PlaceholderApiHook getPlaceholderApi() {
-    return this.placeholderApi;
   }
 
   public DiscordSRVHook getDiscordSRV() {

@@ -1,16 +1,13 @@
 package jss.advancedchat.commands;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.gui.GuiColor;
 import jss.advancedchat.gui.GuiPlayer;
-import jss.advancedchat.utils.EventUtils;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.listeners.utils.EventUtils;
 import jss.advancedchat.utils.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
+import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,16 +15,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
-  private AdvancedChat plugin;
+  private final AdvancedChat plugin = AdvancedChat.get();
 
   private final EventUtils eventUtils = new EventUtils(this.plugin);
 
-  public AdvancedChatCmd(@NotNull AdvancedChat plugin) {
-    this.plugin = plugin;
-    plugin.getCommand("AdvancedChat").setExecutor(this);
+  public AdvancedChatCmd() {
+    PluginCommand command = plugin.getCommand("AdvancedChat");
+    assert command != null;
+    command.setExecutor(this);
+    command.setTabCompleter(this);
   }
 
-  public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+  public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
     if (!(sender instanceof Player)) {
       if (args.length >= 1) {
         if (args[0].equalsIgnoreCase("info") || args[0].equalsIgnoreCase("?")) {
@@ -45,8 +44,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
         } else if (args[0].equalsIgnoreCase("help")) {
           List<String> help = Settings.message_Help_List;
           Utils.sendColorMessage(this.eventUtils.getConsoleSender(), "&5-=-=-=-=-=-=-=-=-=-=-=&6[&d" + this.plugin.name + "&6]&5=-=-=-=-=-=-=-=-=-=-=-");
-          for (int i = 0; i < help.size(); i++) {
-            String text = help.get(i);
+          for (String text : help) {
             Utils.sendColorMessage(this.eventUtils.getConsoleSender(), text);
           }
           Utils.sendColorMessage(this.eventUtils.getConsoleSender(), "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
@@ -91,8 +89,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
         if (j.isOp() || j.hasPermission("AdvancedChat.Help")) {
           List<String> help = Settings.message_Help_List;
           Utils.sendColorMessage(j, "&5-=-=-=-=-=-=-=-=-=-=-=&6[&d" + this.plugin.name + "&6]&5=-=-=-=-=-=-=-=-=-=-=-");
-          for (int i = 0; i < help.size(); i++) {
-            String text = help.get(i);
+          for (String text : help) {
             Utils.sendColorMessage(j, text);
           }
           Utils.sendColorMessage(j, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
@@ -130,7 +127,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
             return true;
           }
         } else {
-          Utils.sendHover Event(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+          Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
         }
         return true;
       }
@@ -169,7 +166,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
     return true;
   }
 
-  public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+  public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String @NotNull [] args) {
     List<String> listOptions = new ArrayList<>();
     String lastArgs = (args.length != 0) ? args[args.length - 1] : "";
     if (!(sender instanceof Player)) {
@@ -184,8 +181,9 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
       return Utils.setLimitTab(listOptions, lastArgs);
     }
     Player j = (Player) sender;
-    if (j.isOp() || j.hasPermission("AdvancedChat.Tab"))
-      switch (args.length) {
+    if (j.isOp() || j.hasPermission("AdvancedChat.Tab")) return new ArrayList<>();
+
+    switch (args.length) {
         case 0:
         case 1:
           listOptions.add("help");
@@ -199,7 +197,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
             for (Player p : Bukkit.getOnlinePlayers())
               listOptions.add(p.getName());
           break;
-      }
+    }
     return Utils.setLimitTab(listOptions, lastArgs);
   }
 }

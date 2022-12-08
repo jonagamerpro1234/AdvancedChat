@@ -1,20 +1,17 @@
 package jss.advancedchat.hooks;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.listeners.utils.EventUtils;
 import jss.advancedchat.manager.HookManager;
-import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.interfaces.Hook;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 
 public class PlaceholderApiHook implements Hook {
   private final AdvancedChat plugin = AdvancedChat.getInstance();
 
   private final HookManager hooksManager;
-
-  private final Logger logger = new Logger(this.plugin);
 
   private final EventUtils eventUtils = new EventUtils(this.plugin);
 
@@ -27,7 +24,7 @@ public class PlaceholderApiHook implements Hook {
   public void setup() {
     if (!Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
       this.isEnabled = false;
-      this.logger.Log(Logger.Level.WARNING, "&ePlaceholderAPI not enabled! - Disable Features...");
+      Logger.warning("&ePlaceholderAPI not enabled! - Disable Features...");
       return;
     }
     this.isEnabled = true;
