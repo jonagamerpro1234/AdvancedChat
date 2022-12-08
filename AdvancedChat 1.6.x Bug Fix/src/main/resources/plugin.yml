@@ -1,7 +1,7 @@
 main: jss.advancedchat.AdvancedChat
 name: AdvancedChat
 version: 1.6.0
-author: [ jonagamerpro1234 ]
+author: jonagamerpro1234
 api-version: 1.13
 description: Its main function is to modify the chat so that it can be personalized and add different options
 prefix: AdvancedChat
@@ -27,7 +27,7 @@ commands:
     description: ---
 permissions:
   AdvancedChat.*:
-    descriprion: ---
+    description: ---
     children:
       AdvancedChat.Update.Notify: true
       AdvancedChat.Reload: true
