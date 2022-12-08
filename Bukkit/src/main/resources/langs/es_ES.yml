@@ -1,6 +1,6 @@
 Prefix: "&e[&dAdvancedChat&e]"
 NoPermission: "&cNo tienes permisos!"
-NoUseInConsole: "&cThis command cannot be used in the console"
+NoUseInConsole: "&cEste comando no puede usarse en la consola"
 UsageMainCommand: "&7Usa &9/Ac &ehelp &7para más información"
 UnknownArguments: "&cArgumento desconocido!"
 ReloadCommand: "&aSe han recargado todos los archivos del plugin"
@@ -37,4 +37,4 @@ HelpCommand:
     - " &6&l* &9/Ac &eplayer &d<player> &7Open the player menu"
     - " &6&l* &9/Ac &esettings &7open the player settings menu directly"
     - " &6&l* &9/Ac &edisplay &7shows a preview of the chat before being configured in the file"
-    - " &6&l* &9/ClearChat &7clean the chat"
+    - " &6&l* &9/Clear Chat &7limpia el chat"
