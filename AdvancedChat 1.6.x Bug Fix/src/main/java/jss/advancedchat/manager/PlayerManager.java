@@ -1,149 +1,187 @@
 package jss.advancedchat.manager;
 
-import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.ConfigManager;
-import jss.advancedchat.listeners.utils.EventUtils;
+import jss.advancedchat.files.PlayerFile;
+import jss.advancedchat.files.utils.Settings;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-
-import java.util.UUID;
+import org.jetbrains.annotations.NotNull;
 
 public class PlayerManager {
-    public UUID uuid;
-    public String name;
-    private AdvancedChat plugin;
-    private final EventUtils eventUtils = new EventUtils(this.plugin);
-    private float range;
 
-    private int spam;
+    private final PlayerFile playerFile = ConfigManager.getPlayerFile();
+    private final FileConfiguration config;
+    private final Player player;
 
-    private boolean badword;
-
-    public PlayerManager(AdvancedChat plugin) {
-        this.plugin = plugin;
-        this.uuid = null;
-        this.name = null;
-        this.range = 0.0F;
-        this.spam = 0;
-        this.badword = false;
+    public PlayerManager(@NotNull Player player){
+        this.config = playerFile.config(player.getName());
+        this.player = player;
     }
 
-    public boolean isBadword() {
-        return this.badword;
+    public String getName(){
+        if(existsPlayer("Name")) return config.getString("Name");
+        return "N/A";
     }
 
-    public void setBadword(boolean badword) {
-        this.badword = badword;
+    public void setName(String name){
+        if(existsPlayer("Name")) config.set("Name", name);
+        save();
     }
 
-    public int getSpam() {
-        return this.spam;
+
+    public String getGroup(){
+        if(existsPlayer("Group")) return config.getString("Group");
+        return "default";
     }
 
-    public void setSpam(int spam) {
-        this.spam = spam;
+    public void setGroup(String group){
+        if(existsPlayer("Group")) config.set("Group", group);
+        save();
     }
 
-    public float getRange() {
-        return this.range;
+    public String getChatType(){
+        if(existsPlayer("ChatType")) return config.getString("ChatType");
+        return "color";
     }
 
-    public void setRange(float range) {
-        this.range = range;
+    public void setChatType(String channel){
+        if(existsPlayer("Channel")) config.set("Channel", channel);
+        save();
     }
 
-    public UUID getUuid() {
-        return this.uuid;
+    public String getColor(){
+        if(existsPlayer("Color")) return config.getString("Color");
+        return "white";
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setColor(String color){
+        if(existsPlayer("Color")) config.set("Color", color);
+        save();
     }
 
-    public String getName() {
-        return this.name;
+    public String getChannel(){
+        if(existsPlayer("Channel")) return config.getString("Channel");
+        return "main";
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setChannel(String channel){
+        if(existsPlayer("Channel")) config.set("Channel", channel);
+        save();
     }
 
-    public boolean isMute(Player player) {
-        FileConfiguration config = ConfigManager.
-        boolean value = false;
-        for (String key : config.getConfigurationSection("Players").getKeys(false)) {
-            if (key.contains(player.getName()))
-                value = config.getString("Players." + key + ".Mute").equals("true");
-        }
-        return value;
+    public int getRange(){
+        if(existsPlayer("Range")) return config.getInt("Range");
+        return 10;
     }
 
-    public String getStateMute(Player player) {
-        FileConfiguration config = this.plugin.getPlayerDataFile().getConfig();
-        for (String key : config.getConfigurationSection("Players").getKeys(false)) {
-            if (key.contains(player.getName())) {
-                String w = config.getString("Players." + key + ".Mute");
-                return w;
-            }
-        }
-        return null;
+    public void setRange(int range){
+        if(existsPlayer("Range")) config.set("Range", range);
+        save();
     }
 
-    public void setMute(Player player, boolean mute) {
-        FileConfiguration config = this.plugin.getPlayerDataFile().getConfig();
-        if (config.contains("Players." + player.getName() + ".Mute")) {
-            config.set("Players." + player.getName() + ".Mute", Boolean.valueOf(mute));
-            this.plugin.getPlayerDataFile().saveConfig();
-        }
+    public String getFirstGradient(){
+        if(existsPlayer("Gradient.First")) return config.getString("Gradient.First");
+        return "ffffff";
     }
 
-    public String getColor(Player player) {
-        FileConfiguration config = this.plugin.getPlayerDataFile().getConfig();
-        for (String key : config.getConfigurationSection("Players").getKeys(false)) {
-            if (key.contains(player.getName())) {
-                String color = config.getString("Players." + key + ".Color");
-                return color;
-            }
-        }
-        return null;
+    public void setFirstGradient(String gradient){
+        if(existsPlayer("Gradient.First")) config.set("Gradient.First", gradient);
+        save();
     }
 
-    public String getColorPlayer(Player player, FileConfiguration config) {
-        for (String key : config.getConfigurationSection("Players").getKeys(false)) {
-            if (key.contains(player.getName())) {
-                String color = config.getString("Players." + key + ".Color");
-                return color;
-            }
-        }
-        return null;
+    public String getSecondGradient(){
+        if(existsPlayer("Gradient.Second")) return config.getString("Gradient.Second");
+        return "ffffff";
     }
 
-    public void setColor(Player player, String color) {
-        FileConfiguration config = this.plugin.getPlayerDataFile().getConfig();
-        if (config.contains("Players." + player.getName() + ".Color")) {
-            config.set("Players." + player.getName() + ".Color", color);
-            this.plugin.getPlayerDataFile().saveConfig();
-        }
+    public void setSecondGradient(String gradient){
+        if(existsPlayer("Gradient.Second")) config.set("Gradient.Second", gradient);
+        save();
     }
 
-    public boolean checkPlayerList(Player player) {
-        FileConfiguration config = this.plugin.getPlayerDataFile().getConfig();
-        for (String key : config.getConfigurationSection("Players").getKeys(false)) {
-            if (key.contains(player.getName()))
-                return true;
-        }
+    public String getSpecialCodes(){
+        if(existsPlayer("SpecialCodes")) return config.getString("SpecialCodes");
+        return "none";
+    }
+
+    public void setSpecialCodes(String specialCodes){
+        if(existsPlayer("SpecialCodes")) config.set("SpecialCodes", specialCodes);
+        save();
+    }
+
+    public boolean isMute(){
+        if(existsPlayer("Mute.Enabled")) return config.getBoolean("Mute.Enabled");
         return false;
     }
 
-    public boolean removePlayerlist(Player player) {
-        FileConfiguration config = this.plugin.getPlayerDataFile().getConfig();
-        for (String key : config.getConfigurationSection("Players").getKeys(false)) {
-            if (key.contains(player.getName())) {
-                config.set("Players." + key, null);
-                this.plugin.getPlayerDataFile().saveConfig();
-                return true;
-            }
-        }
+    public void setMute(boolean value){
+        if(existsPlayer("Mute.Enabled")) config.set("Mute.Enabled", value);
+        save();
+    }
+
+    public int getMutedTime(){
+        if(existsPlayer("Mute.Time")) return config.getInt("Mute.Time");
+        return -1;
+    }
+
+    public void setMutedTime(int time){
+        if(existsPlayer("Mute.Time")) config.set("Mute.Time", time);
+        save();
+    }
+
+    public boolean isLowMode(){
+        if(existsPlayer("Inventory.LowMode")) return config.getBoolean("Inventory.LowMode");
         return false;
     }
+
+    public void setLowMode(boolean value){
+        if(existsPlayer("Inventory.LowMode")) config.set("Inventory.LowMode", value);
+        save();
+    }
+
+    public boolean isChat(){
+        if(existsPlayer("Settings.Chat")) return config.getBoolean("Settings.Chat");
+        return false;
+    }
+
+    public void setChat(boolean value){
+        if(existsPlayer("Settings.Chat")) config.set("Settings.Chat", value);
+        save();
+    }
+
+    public boolean isPrivateMessage(){
+        if(existsPlayer("Settings.PrivateMessage")) return config.getBoolean("Settings.PrivateMessage");
+        return false;
+    }
+
+    public void setPrivateMessage(boolean value){
+        if(existsPlayer("Settings.PrivateMessage")) config.set("Settings.PrivateMessage", value);
+        save();
+    }
+
+    public void create(String group){
+        config.set("Name",player.getName());
+        config.set("Group",group);
+        config.set("ChatType","color");
+        config.set("Color", Settings.default_color);
+        config.set("Channel","main");
+        config.set("Range",10);
+        config.set("Gradient.First","#AAFFAA");
+        config.set("Gradient.Second","#AAAAAA");
+        config.set("SpecialCodes","none");
+        config.set("Mute.Enabled",false);
+        config.set("Mute.Time",0);
+        config.set("Inventory.LowMode",false);
+        config.set("Settings.Chat",true);
+        config.set("Settings.PrivateMessage",true);
+        save();
+    }
+
+    public boolean existsPlayer(String section) {
+        return config.contains(section);
+    }
+
+    public void save(){
+        playerFile.save();
+    }
+
 }

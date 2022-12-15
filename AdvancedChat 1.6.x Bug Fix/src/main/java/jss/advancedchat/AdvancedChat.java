@@ -4,7 +4,7 @@ import jss.advancedchat.commands.AdvancedChatCmd;
 import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
-import jss.advancedchat.config.ConfigManager;
+import jss.advancedchat.manager.ConfigManager;
 import jss.advancedchat.files.utils.PreConfigLoader;
 import jss.advancedchat.listeners.ChatListener;
 import jss.advancedchat.listeners.EventLoader;
@@ -46,13 +46,12 @@ public class AdvancedChat extends AdvancedChatPlugin {
         Utils.setLineLoad("&eLoad Config.yml");
         ConfigManager.createAllFiles();
         this.preConfigLoader.load();
-        Utils.setLineLoad("&eLoad Pre Config");
+        Utils.setLineLoad("&eLoad PreConfig");
+        createVoidFolder("Player");
         createVoidFolder("Gui");
-        Utils.setLineLoad("&eLoad Gui Folder");
         createVoidFolder("Data");
-        Utils.setLineLoad("&eLoad Data Folder");
         createVoidFolder("Log");
-        Utils.setLineLoad("&eLoad Log Folder");
+        Utils.setLineLoad("&eLoad Folders");
         Utils.setEndLoad();
     }
 

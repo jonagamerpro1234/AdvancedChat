@@ -3,7 +3,7 @@ package jss.advancedchat.listeners;
 import github.scarsz.discordsrv.util.DiscordUtil;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.chat.MessageBuilder;
-import jss.advancedchat.config.ConfigManager;
+import jss.advancedchat.manager.ConfigManager;
 import jss.advancedchat.files.ChatLogFile;
 import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.hooks.DiscordSRVHook;

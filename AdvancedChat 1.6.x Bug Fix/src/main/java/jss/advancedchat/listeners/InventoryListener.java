@@ -2,7 +2,7 @@ package jss.advancedchat.listeners;
 
 import com.cryptomorin.xseries.XMaterial;
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.ConfigManager;
+import jss.advancedchat.manager.ConfigManager;
 import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.gui.GuiColor;
 import jss.advancedchat.gui.GuiPlayer;

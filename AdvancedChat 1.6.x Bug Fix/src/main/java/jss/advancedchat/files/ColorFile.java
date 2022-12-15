@@ -2,7 +2,6 @@ package jss.advancedchat.files;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.files.utils.FileManager;
-import jss.advancedchat.utils.interfaces.FileHelper;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 

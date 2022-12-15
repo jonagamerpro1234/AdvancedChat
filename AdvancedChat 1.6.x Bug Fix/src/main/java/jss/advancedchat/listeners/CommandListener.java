@@ -1,7 +1,7 @@
 package jss.advancedchat.listeners;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.ConfigManager;
+import jss.advancedchat.manager.ConfigManager;
 import jss.advancedchat.files.CommandLogFile;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Utils;

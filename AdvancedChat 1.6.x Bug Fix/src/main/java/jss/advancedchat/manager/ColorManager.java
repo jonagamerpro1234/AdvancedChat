@@ -58,14 +58,14 @@ public class ColorManager {
     }
 
     public String setGradient(String text) {
-        FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
+        /*FileConfiguration config = AdvancedChat.getInstance().getPlayerDataFile().getConfig();
         String gradient1 = "";
         String gradient2 = "";
         for (String key : Objects.requireNonNull(config.getConfigurationSection("Player")).getKeys(false)) {
             gradient1 = config.getString("Player." + key + ".Gradient.Color-1");
             gradient2 = config.getString("Player." + key + ".Gradient.Color-2");
-        }
-        return Utils.color("<GRADIENT:" + gradient1 + ">" + text + "</GRADIENT:" + gradient2 + ">");
+        }*/
+        return ""; //Utils.color("<GRADIENT:" + gradient1 + ">" + text + "</GRADIENT:" + gradient2 + ">");
     }
 
     public String setColorRandom() {

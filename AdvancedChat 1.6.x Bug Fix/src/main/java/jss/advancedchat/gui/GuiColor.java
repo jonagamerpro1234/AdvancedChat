@@ -2,8 +2,7 @@ package jss.advancedchat.gui;
 
 import com.cryptomorin.xseries.XMaterial;
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.ConfigManager;
-import jss.advancedchat.files.ColorFile;
+import jss.advancedchat.manager.ConfigManager;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.inventory.TSkullUtils;
 import org.bukkit.Bukkit;

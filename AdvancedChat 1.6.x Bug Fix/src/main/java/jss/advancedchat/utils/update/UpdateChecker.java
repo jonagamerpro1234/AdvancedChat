@@ -30,13 +30,13 @@ public class UpdateChecker {
     public void getUpdateVersion(Consumer<String> consumer) {
         Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
             try {
-                InputStream inputStream = (new URL(UpdateSettings.SPIGOT_UPDATE_API + this.ID)).openStream();
+                InputStream inputStream = new URL(UpdateSettings.SPIGOT_UPDATE_API + this.ID).openStream();
                 try {
                     Scanner scanner = new Scanner(inputStream);
                     try {
                         if (scanner.hasNext())
                             consumer.accept(scanner.next());
-                        scanner.close();
+                            scanner.close();
                     } catch (Throwable throwable) {
                         try {
                             scanner.close();
@@ -61,9 +61,12 @@ public class UpdateChecker {
         });
     }
 
-    /*public void getUpdateVersion() {
+   /* public void getUpdateVersion() {
         String version = getJson("https://songoda.com/api/v2/products/advancedchat-chat-related/");
-        if (!version.trim().equalsIgnoreCase(this.plugin.version)) ;
+        if (!version.trim().equalsIgnoreCase(this.plugin.version)){
+
+
+        }
     }*/
 
     public String getJson(String arg) {

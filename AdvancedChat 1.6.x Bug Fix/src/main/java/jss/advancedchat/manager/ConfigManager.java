@@ -1,9 +1,10 @@
-package jss.advancedchat.config;
+package jss.advancedchat.manager;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.files.*;
 import org.bukkit.configuration.file.FileConfiguration;
 
+@SuppressWarnings("unused")
 public class ConfigManager {
 
     private final static AdvancedChat plugin = AdvancedChat.get();
@@ -12,7 +13,8 @@ public class ConfigManager {
     private final static PlayerGuiFile playerGuiFile = new PlayerGuiFile(plugin, "player-gui.yml", "Gui");
     private final static ChatLogFile chatLogFile = new ChatLogFile(plugin, "chat.yml", "Log");
     private final static CommandLogFile commandLogFile = new CommandLogFile(plugin, "command.yml", "Log");
-    
+    private final static PlayerFile playerFile = new PlayerFile(plugin);
+
     public static void createAllFiles(){
         configfile.saveDefault();
         configfile.create();
@@ -70,5 +72,8 @@ public class ConfigManager {
     public static CommandLogFile getCommandLogFile() {
         return commandLogFile;
     }
-    
+
+    public static PlayerFile getPlayerFile() {
+        return playerFile;
+    }
 }

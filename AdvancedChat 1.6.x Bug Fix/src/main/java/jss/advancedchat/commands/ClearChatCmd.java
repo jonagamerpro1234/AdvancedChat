@@ -1,7 +1,7 @@
 package jss.advancedchat.commands;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.config.ConfigManager;
+import jss.advancedchat.manager.ConfigManager;
 import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.listeners.utils.EventUtils;
 import jss.advancedchat.utils.Utils;
