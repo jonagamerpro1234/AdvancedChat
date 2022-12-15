@@ -24,30 +24,29 @@ public class MuteCmd implements CommandExecutor {
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         FileConfiguration config = ConfigManager.getConfig();
-        PlayerManager manager = new PlayerManager(this.plugin);
         String text = config.getString("AdvancedChat.Help-Mute");
-        String prefix = "";
-        if (Settings.boolean_use_default_prefix) {
-            prefix = Utils.getPrefix();
-        } else {
-            prefix = config.getString("Settings.Prefix") + " ";
-        }
+
         if (!(sender instanceof Player)) {
             if (args.length >= 1) {
                 Player target = Bukkit.getPlayer(args[0]);
+
                 if (target == null) {
                     Utils.sendColorMessage(sender, Settings.message_No_Online_Player);
                     return true;
                 }
+
+                PlayerManager manager = new PlayerManager(target);
+
                 if (target.isOp() || target.hasPermission("AdvancedChat.Mute.Bypass")) {
                     Utils.sendColorMessage(sender, Settings.message_mute_bypass);
                     return true;
                 }
-                if (!manager.isMute(target)) {
-                    manager.setMute(target, true);
-                    Utils.sendColorMessage(sender, Utils.getPrefix() + Utils.getVar(target, Settings.message_Mute_Player));
+
+                if (!manager.isMute()) {
+                    manager.setMute(true);
+                    Utils.sendColorMessage(sender, Utils.getPrefix(false) + Utils.getVar(target, Settings.message_Mute_Player));
                 } else {
-                    Utils.sendColorMessage(sender, Utils.getPrefix() + Utils.getVar(target, Settings.message_player_is_mute));
+                    Utils.sendColorMessage(sender, Utils.getPrefix(false) + Utils.getVar(target, Settings.message_player_is_mute));
                 }
                 return true;
             }
@@ -57,25 +56,28 @@ public class MuteCmd implements CommandExecutor {
         Player j = (Player) sender;
         if (j.isOp() || j.hasPermission("AdvancedChat.Mute")) {
             if (args.length >= 1) {
-                text = Utils.getVar(j, text);
                 Player target = Bukkit.getPlayer(args[0]);
+
                 if (target == null) {
                     Utils.sendColorMessage(j, Settings.message_No_Online_Player);
                     return true;
                 }
+
+                PlayerManager manager = new PlayerManager(target);
+
                 if (target.isOp() || target.hasPermission("AdvancedChat.Mute.Bypass")) {
                     Utils.sendColorMessage(j, Settings.message_mute_bypass);
                     return true;
                 }
-                manager.setMute(target, true);
-                Utils.sendColorMessage(j, prefix + Utils.getVar(target, Settings.message_Mute_Player));
+                manager.setMute(true);
+                Utils.sendColorMessage(j, Utils.getPrefix(false) + Utils.getVar(target, Settings.message_Mute_Player));
                 return true;
             }
         } else {
             Utils.sendHoverEvent(j, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
             return true;
         }
-        Utils.sendColorMessage(j, Utils.getPrefix() + text);
+        Utils.sendColorMessage(j, Utils.getPrefix(false) + text);
         return true;
     }
 }

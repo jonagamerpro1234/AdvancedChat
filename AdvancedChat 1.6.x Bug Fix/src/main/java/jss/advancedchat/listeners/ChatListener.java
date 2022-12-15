@@ -40,9 +40,9 @@ public class ChatListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onChat(@NotNull AsyncPlayerChatEvent e) {
-        PlayerManager manager = new PlayerManager(this.plugin);
         FileConfiguration config = ConfigManager.getConfig();
         Player j = e.getPlayer();
+        PlayerManager manager = new PlayerManager(j);
         String path = config.getString("Settings.ChatFormat-Type");
         DiscordSRVHook discordSRVHook = HookManager.getHookManager().getDiscordSRV();
         VaultHook vaultHook = HookManager.getHookManager().getVaultHook();
@@ -64,9 +64,9 @@ public class ChatListener implements Listener {
             e.setCancelled(true);
             String format = config.getString("Custom-Format.Format");
             String type = config.getString("Custom-Format.Type");
-            String color = manager.getColor(j);
+            String color = manager.getColor();
             format = Utils.color(Utils.getVar(j, format));
-            if (manager.isMute(j) || this.badWord || Settings.boolean_filter_use_msg) {
+            if (manager.isMute() || this.badWord || Settings.boolean_filter_use_msg) {
                 this.badWord = false;
                 return;
             }
@@ -135,7 +135,7 @@ public class ChatListener implements Listener {
             }
         } else if (path.equalsIgnoreCase("group")) {
             e.setCancelled(true);
-            String color = " &r" + manager.getColor(j);
+            String color = " &r" + manager.getColor();
 
             if (Settings.hook_vault_use_group) {
                 sendVaultGroups(vaultHook, discordSRVHook, manager, config, j, Utils.color(this.colorManager.convertColor(Utils.getVar(j, color), msg)));
@@ -202,7 +202,7 @@ public class ChatListener implements Listener {
                 Logger.info(json.getText() + json.getExtraText());
             assert type != null;
             if (type.equalsIgnoreCase("normal")) {
-                if (manager.isMute(j) || this.badWord || Settings.boolean_filter_use_msg) {
+                if (manager.isMute() || this.badWord || Settings.boolean_filter_use_msg) {
                     this.badWord = false;
                     return;
                 }
@@ -215,7 +215,7 @@ public class ChatListener implements Listener {
                 return;
             }
             if (type.equalsIgnoreCase("modify")) {
-                if (manager.isMute(j) || this.badWord || Settings.boolean_filter_use_msg) {
+                if (manager.isMute() || this.badWord || Settings.boolean_filter_use_msg) {
                     this.badWord = false;
                     return;
                 }
@@ -279,7 +279,7 @@ public class ChatListener implements Listener {
                 Logger.info(json.getText() + json.getExtraText());
             assert type != null;
             if (type.equalsIgnoreCase("normal")) {
-                if (manager.isMute(j) || this.badWord || Settings.boolean_filter_use_msg) {
+                if (manager.isMute() || this.badWord || Settings.boolean_filter_use_msg) {
                     this.badWord = false;
                     return;
                 }
@@ -292,7 +292,7 @@ public class ChatListener implements Listener {
                 return;
             }
             if (type.equalsIgnoreCase("modify")) {
-                if (manager.isMute(j) || this.badWord || Settings.boolean_filter_use_msg) {
+                if (manager.isMute() || this.badWord || Settings.boolean_filter_use_msg) {
                     this.badWord = false;
                     return;
                 }
