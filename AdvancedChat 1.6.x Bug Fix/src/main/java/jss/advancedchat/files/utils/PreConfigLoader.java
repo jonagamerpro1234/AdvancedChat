@@ -1,10 +1,12 @@
 package jss.advancedchat.files.utils;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.config.ConfigManager;
 import jss.advancedchat.utils.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class PreConfigLoader {
+
     private final AdvancedChat plugin;
 
     public PreConfigLoader(AdvancedChat plugin) {
@@ -12,7 +14,7 @@ public class PreConfigLoader {
     }
 
     public void load() {
-        FileConfiguration config = this.plugin.getConfigFile().getConfig();
+        FileConfiguration config = ConfigManager.getConfig();
         try {
             Settings.default_color = config.getString("Settings.Default-Color-Message");
             Settings.message_mute_bypass = config.getString("AdvancedChat.Mute-Bypass");

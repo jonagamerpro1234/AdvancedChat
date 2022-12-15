@@ -9,33 +9,33 @@ import jss.advancedchat.utils.interfaces.Hook;
 import org.bukkit.Bukkit;
 
 public class PlaceholderApiHook implements Hook {
-  private final AdvancedChat plugin = AdvancedChat.getInstance();
+    private final AdvancedChat plugin = AdvancedChat.getInstance();
 
-  private final HookManager hooksManager;
+    private final HookManager hooksManager;
 
-  private final EventUtils eventUtils = new EventUtils(this.plugin);
+    private final EventUtils eventUtils = new EventUtils(this.plugin);
 
-  private boolean isEnabled;
+    private boolean isEnabled;
 
-  public PlaceholderApiHook(HookManager hooksManager) {
-    this.hooksManager = hooksManager;
-  }
-
-  public void setup() {
-    if (!Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-      this.isEnabled = false;
-      Logger.warning("&ePlaceholderAPI not enabled! - Disable Features...");
-      return;
+    public PlaceholderApiHook(HookManager hooksManager) {
+        this.hooksManager = hooksManager;
     }
-    this.isEnabled = true;
-    Utils.sendColorMessage(this.eventUtils.getConsoleSender(), Utils.getPrefix() + "&aLoading PlaceholderAPI features...");
-  }
 
-  public boolean isEnabled() {
-    return this.isEnabled;
-  }
+    public void setup() {
+        if (!Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            this.isEnabled = false;
+            Logger.warning("&ePlaceholderAPI not enabled! - Disable Features...");
+            return;
+        }
+        this.isEnabled = true;
+        Utils.sendColorMessage(this.eventUtils.getConsoleSender(), Utils.getPrefix() + "&aLoading PlaceholderAPI features...");
+    }
 
-  public HookManager getHooksManager() {
-    return this.hooksManager;
-  }
+    public boolean isEnabled() {
+        return this.isEnabled;
+    }
+
+    public HookManager getHooksManager() {
+        return this.hooksManager;
+    }
 }

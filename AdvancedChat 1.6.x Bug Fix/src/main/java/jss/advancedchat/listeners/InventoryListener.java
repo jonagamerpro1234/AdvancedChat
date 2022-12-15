@@ -2,6 +2,7 @@ package jss.advancedchat.listeners;
 
 import com.cryptomorin.xseries.XMaterial;
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.config.ConfigManager;
 import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.gui.GuiColor;
 import jss.advancedchat.gui.GuiPlayer;
@@ -26,29 +27,29 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 public class InventoryListener implements Listener {
-  private AdvancedChat plugin;
+    private AdvancedChat plugin = AdvancedChat.get();
 
-  private final EventUtils eventUtils = new EventUtils(this.plugin);
+    private final EventUtils eventUtils = new EventUtils(plugin);
 
-  public InventoryListener(AdvancedChat plugin) {
-    this.plugin = plugin;
-    this.eventUtils.getEventManager().registerEvents(this, plugin);
-  }
+    public InventoryListener() {
+        this.eventUtils.getEventManager().registerEvents(this, plugin);
+    }
 
-  @EventHandler
-  public void onInventoryPlayer(InventoryClickEvent e) {
-    PlayerManager manager = new PlayerManager(this.plugin);
-    FileConfiguration config = this.plugin.getConfigFile().getConfig();
-    Player p = (Player) e.getWhoClicked();
-    InventoryView inventoryPlayer = this.plugin.getInventoryView(p);
-    if (inventoryPlayer != null &&
-            inventoryPlayer.getInventory().equals("player")) {
-      if (e.getCurrentItem() == null)
-        return;
-      if (e.getClickedInventory() != null && e.getClickedInventory().equals(p.getOpenInventory().getTopInventory())) {
-        if (e.getCurrentItem().getType() == Material.AIR || e.getSlotType() == null) return;
+    @EventHandler
+    public void onInventoryPlayer(@NotNull InventoryClickEvent e) {
+        PlayerManager manager = new PlayerManager(this.plugin);
+        FileConfiguration config = ConfigManager.getConfig();
+        Player p = (Player) e.getWhoClicked();
+        InventoryView inventoryPlayer = this.plugin.getInventoryView(p);
+        if (inventoryPlayer != null &&
+                inventoryPlayer.getInventory().equals("player")) {
+            if (e.getCurrentItem() == null)
+                return;
+            if (e.getClickedInventory() != null && e.getClickedInventory().equals(p.getOpenInventory().getTopInventory())) {
+                if (e.getCurrentItem().getType() == Material.AIR || e.getSlotType() == null) return;
         e.setCancelled(true);
         int slot = e.getSlot();
         String namecolor = e.getClickedInventory().getItem(10).getItemMeta().getDisplayName();
@@ -112,33 +113,33 @@ public class InventoryListener implements Listener {
     }
   }
 
-  @EventHandler
-  public void onInventoryColor(InventoryClickEvent e) {
-    PlayerManager playerManager = new PlayerManager(this.plugin);
-    FileConfiguration c = this.plugin.getColorFile().getConfig();
-    Player p = (Player) e.getWhoClicked();
-    InventoryView inventoryPlayer = this.plugin.getInventoryView(p);
-    if (inventoryPlayer != null)
-      if (inventoryPlayer.getInventory().contains("colorGui")) {
-        if (e.getCurrentItem() == null)
-          return;
-        if (e.getClickedInventory() != null && e.getClickedInventory().equals(p.getOpenInventory().getTopInventory())) {
-          if (e.getCurrentItem().getType() == Material.AIR || e.getSlotType() == null)
-            return;
-          e.setCancelled(true);
-          int slot = e.getSlot();
-          String namecolor = e.getClickedInventory().getItem(36).getItemMeta().getDisplayName();
-          String name = Utils.colorless(namecolor);
-          Player target = Bukkit.getPlayer(name);
-          if (slot == c.getInt("Items.Dark-Red.Slot"))
-            if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Red")) {
-              e.setCancelled(true);
-              playerManager.setColor(target, "dark_red");
-            } else {
-              Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-              return;
-            }
-          if (slot == c.getInt("Items.Red.Slot"))
+    @EventHandler
+    public void onInventoryColor(@NotNull InventoryClickEvent e) {
+        PlayerManager playerManager = new PlayerManager(this.plugin);
+        FileConfiguration c = ConfigManager.getColorGuiConfig();
+        Player p = (Player) e.getWhoClicked();
+        InventoryView inventoryPlayer = this.plugin.getInventoryView(p);
+        if (inventoryPlayer != null)
+            if (inventoryPlayer.getInventory().contains("colorGui")) {
+                if (e.getCurrentItem() == null)
+                    return;
+                if (e.getClickedInventory() != null && e.getClickedInventory().equals(p.getOpenInventory().getTopInventory())) {
+                    if (e.getCurrentItem().getType() == Material.AIR || e.getSlotType() == null)
+                        return;
+                    e.setCancelled(true);
+                    int slot = e.getSlot();
+                    String nameColor = e.getClickedInventory().getItem(36).getItemMeta().getDisplayName();
+                    String name = Utils.colorless(nameColor);
+                    Player target = Bukkit.getPlayer(name);
+                    if (slot == c.getInt("Items.Dark-Red.Slot"))
+                        if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Dark_Red")) {
+                            e.setCancelled(true);
+                            playerManager.setColor(target, "dark_red");
+                        } else {
+                            Utils.sendHoverEvent(p, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
+                            return;
+                        }
+                    if (slot == c.getInt("Items.Red.Slot"))
             if (p.isOp() || p.hasPermission("AdvancedChat.Gui.Color.Red")) {
               e.setCancelled(true);
               playerManager.setColor(target, "red");
@@ -280,15 +281,15 @@ public class InventoryListener implements Listener {
       }
   }
 
-  @EventHandler
-  public void onQuit(PlayerQuitEvent e) {
-    Player p = e.getPlayer();
-    this.plugin.removeInventoryView(p);
-  }
+    @EventHandler
+    public void onQuit(@NotNull PlayerQuitEvent e) {
+        Player p = e.getPlayer();
+        this.plugin.removeInventoryView(p);
+    }
 
-  @EventHandler
-  public void onInventoryCloseColor(InventoryCloseEvent e) {
-    Player p = (Player) e.getPlayer();
-    this.plugin.removeInventoryView(p);
-  }
+    @EventHandler
+    public void onInventoryCloseColor(@NotNull InventoryCloseEvent e) {
+        Player p = (Player) e.getPlayer();
+        this.plugin.removeInventoryView(p);
+    }
 }

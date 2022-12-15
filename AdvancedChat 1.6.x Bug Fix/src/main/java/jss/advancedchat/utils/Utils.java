@@ -3,10 +3,14 @@ package jss.advancedchat.utils;
 import com.cryptomorin.xseries.XMaterial;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.libs.iridium.IridiumColorAPI;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.*;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -103,23 +107,33 @@ public class Utils {
     sendEnable("&5<|| &c* " + message);
   }
 
-  public static void setEndLoad() {
-    sendEnable("&5<||================================================----");
-  }
+    public static void setEndLoad() {
+        sendEnable("&5<||================================================----");
+    }
 
-  public static @NotNull String getPrefix() {
-    return color("&e[&dAdvancedChat&e]&7 ");
-  }
+    public static @NotNull String getPrefix() {
+        return color("&e[&dAdvancedChat&e]&7 ");
+    }
 
-  public static @NotNull String getPrefixPlayer() {
-    return color("&6[&dAdvancedChat&6]&7 ");
-  }
+    public static @NotNull String getPrefix(boolean ignore) {
+        String prefix;
+        if (ignore) {
+            prefix = "&e[&dAdvancedChat&e] &7";
+        } else {
+            prefix = Settings.message_prefix_custom + "&7 ";
+        }
+        return color(prefix);
+    }
 
-  public static void setEnabled(String version) {
-    sendEnable(prefix + "&5<||============================================----");
-    sendEnable(prefix + "&5<|| &c* &bThe plugin is &d[&aSuccessfully activated&d]");
-    sendEnable(prefix + "&5<|| &c* &bVersion: &e[&a" + version + "&e]");
-    sendEnable(prefix + "&5<|| &c* &bBy: &e[&bjonagamerpro1234&e]");
+    public static @NotNull String getPrefixPlayer() {
+        return color("&6[&dAdvancedChat&6]&7 ");
+    }
+
+    public static void setEnabled(String version) {
+        sendEnable(prefix + "&5<||============================================----");
+        sendEnable(prefix + "&5<|| &c* &bThe plugin is &d[&aSuccessfully activated&d]");
+        sendEnable(prefix + "&5<|| &c* &bVersion: &e[&a" + version + "&e]");
+        sendEnable(prefix + "&5<|| &c* &bBy: &e[&bjonagamerpro1234&e]");
     sendEnable(prefix + "&5<|| &c* &bTested Versions &3|&a1.8.x &3- &a1.18.x&3| &eComing Soon -> &c1.19");
     sendEnable(prefix + "&5<|| &a* &eThanks for using &bAdvancedChat &c<3");
     sendEnable(prefix + "&5<||============================================----");

@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>AdvancedChat-BugFix</artifactId>
-    <version>1.6.0</version>
+    <version>1.6.1</version>
     <name>AdvancedChat-BugFix</name>
     <description>a simple plugin that helps you customize your server chat to make it look better also brings a
         customizable chat system by group or rank and more....

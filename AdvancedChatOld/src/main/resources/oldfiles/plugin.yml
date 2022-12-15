@@ -41,7 +41,7 @@ commands:
       - r
 permissions:
   advancedchat.admin:
-    descriprion: This permission gives you all plugin permissions
+    description: This permission gives you all plugin permissions
     children:
       advancedchat.update: true
       advancedchat.command.reload: true

@@ -2,17 +2,19 @@ package jss.advancedchat;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
 public class AdvancedChatPlugin extends JavaPlugin {
-    public void registerEvent(Listener listener) {
-        getPluginManager().registerEvents(listener, this);
+    public void registerEvent(Listener @NotNull ... listeners) {
+        for (Listener listener : listeners) {
+            getPluginManager().registerEvents(listener, this);
+        }
     }
 
     public PluginManager getPluginManager() {

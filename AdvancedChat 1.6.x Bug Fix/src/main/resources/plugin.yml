@@ -1,6 +1,6 @@
-main: jss.advancedchat.AdvancedChat
 name: AdvancedChat
-version: 1.6.0
+version: '${project.version}'
+main: jss.advancedchat.AdvancedChat
 author: jonagamerpro1234
 api-version: 1.13
 description: Its main function is to modify the chat so that it can be personalized and add different options
@@ -13,158 +13,162 @@ softdepend: [
 
 commands:
   AdvancedChat:
-    description: ---
+    description: This is the main command of the plugin and with it you will be able to access all the other commands for the most part
     aliases:
       - ac
-  ClearChat:
-    description: ---
+  AdClearChat:
+    description: This command will allow you to clear the chat
     aliases:
+      - clearchat
       - cc
-      - chatclear
-  Mute:
-    description: ---
-  UnMute:
-    description: ---
+  AdMute:
+    description: This command will allow you to mute a player and they will not be able to send messages in chat
+    aliases:
+      - mute
+  AdUnMute:
+    description: This command will allow you to unmute a player and they will be able to send messages in chat again
+    aliases:
+      - unmute
 permissions:
-  AdvancedChat.*:
+  advancedchat.admin:
+    description: This permission gives you all plugin permissions
+    children:
+      advancedchat.Update.Notify: true
+      advancedchat.Reload: true
+      advancedchat.Help: true
+      advancedchat.Tab: true
+      advancedchat.Chat.Color: true
+      advancedchat.Chat.Bypass: true
+      advancedchat.Gui.Color: true
+      advancedchat.ClearChat: true
+      advancedchat.Gui.Player: true
+      advancedchat.Gui.Player.Mute: true
+      advancedchat.Mute: true
+      advancedchat.UnMute: true
+      advancedchat.Chat.Color.*: true
+      advancedchat.Chat.Color.Black: true
+      advancedchat.Chat.Color.White: true
+      advancedchat.Chat.Color.Dark_Gray: true
+      advancedchat.Chat.Color.Gray: true
+      advancedchat.Chat.Color.Dark_Purple: true
+      advancedchat.Chat.Color.Light_Purple: true
+      advancedchat.Chat.Color.Aqua: true
+      advancedchat.Chat.Color.Dark_Aqua: true
+      advancedchat.Chat.Color.Gold: true
+      advancedchat.Chat.Color.Yellow: true
+      advancedchat.Chat.Color.Green: true
+      advancedchat.Chat.Color.Dark_Green: true
+      advancedchat.Chat.Color.Blue: true
+      advancedchat.Chat.Color.Dark_Blue: true
+      advancedchat.Chat.Color.Red: true
+      advancedchat.Chat.Color.Dark_Red: true
+      advancedchat.Chat.Color.RainBow: true
+    default: op
+  advancedchat.Chat.Color.*:
     description: ---
     children:
-      AdvancedChat.Update.Notify: true
-      AdvancedChat.Reload: true
-      AdvancedChat.Help: true
-      AdvancedChat.Tab: true
-      AdvancedChat.Chat.Color: true
-      AdvancedChat.Chat.Bypass: true
-      AdvancedChat.Gui.Color: true
-      AdvancedChat.ClearChat: true
-      AdvancedChat.Gui.Player: true
-      AdvancedChat.Gui.Player.Mute: true
-      AdvancedChat.Mute: true
-      AdvancedChat.UnMute: true
-      AdvancedChat.Chat.Color.*: true
-      AdvancedChat.Chat.Color.Black: true
-      AdvancedChat.Chat.Color.White: true
-      AdvancedChat.Chat.Color.Dark_Gray: true
-      AdvancedChat.Chat.Color.Gray: true
-      AdvancedChat.Chat.Color.Dark_Purple: true
-      AdvancedChat.Chat.Color.Light_Purple: true
-      AdvancedChat.Chat.Color.Aqua: true
-      AdvancedChat.Chat.Color.Dark_Aqua: true
-      AdvancedChat.Chat.Color.Gold: true
-      AdvancedChat.Chat.Color.Yellow: true
-      AdvancedChat.Chat.Color.Green: true
-      AdvancedChat.Chat.Color.Dark_Green: true
-      AdvancedChat.Chat.Color.Blue: true
-      AdvancedChat.Chat.Color.Dark_Blue: true
-      AdvancedChat.Chat.Color.Red: true
-      AdvancedChat.Chat.Color.Dark_Red: true
-      AdvancedChat.Chat.Color.RainBow: true
+      advancedchat.Chat.Color.Black: true
+      advancedchat.Chat.Color.White: true
+      advancedchat.Chat.Color.Dark_Gray: true
+      advancedchat.Chat.Color.Gray: true
+      advancedchat.Chat.Color.Dark_Purple: true
+      advancedchat.Chat.Color.Light_Purple: true
+      advancedchat.Chat.Color.Aqua: true
+      advancedchat.Chat.Color.Dark_Aqua: true
+      advancedchat.Chat.Color.Gold: true
+      advancedchat.Chat.Color.Yellow: true
+      advancedchat.Chat.Color.Green: true
+      advancedchat.Chat.Color.Dark_Green: true
+      advancedchat.Chat.Color.Blue: true
+      advancedchat.Chat.Color.Dark_Blue: true
+      advancedchat.Chat.Color.Red: true
+      advancedchat.Chat.Color.Dark_Red: true
+      advancedchat.Chat.Color.RainBow: true
     default: op
-  AdvancedChat.Chat.Color.*:
-    descriprion: ---
-    children:
-      AdvancedChat.Chat.Color.Black: true
-      AdvancedChat.Chat.Color.White: true
-      AdvancedChat.Chat.Color.Dark_Gray: true
-      AdvancedChat.Chat.Color.Gray: true
-      AdvancedChat.Chat.Color.Dark_Purple: true
-      AdvancedChat.Chat.Color.Light_Purple: true
-      AdvancedChat.Chat.Color.Aqua: true
-      AdvancedChat.Chat.Color.Dark_Aqua: true
-      AdvancedChat.Chat.Color.Gold: true
-      AdvancedChat.Chat.Color.Yellow: true
-      AdvancedChat.Chat.Color.Green: true
-      AdvancedChat.Chat.Color.Dark_Green: true
-      AdvancedChat.Chat.Color.Blue: true
-      AdvancedChat.Chat.Color.Dark_Blue: true
-      AdvancedChat.Chat.Color.Red: true
-      AdvancedChat.Chat.Color.Dark_Red: true
-      AdvancedChat.Chat.Color.RainBow: true
-    default: op
-  AdvancedChat.Gui.Player.Mute:
+  advancedchat.Gui.Player.Mute:
     description: ---
     default: op
-  AdvancedChat.Update.Notify:
+  advancedchat.Update.Notify:
     description: ---
     default: op
-  AdvancedChat.Reload:
+  advancedchat.Reload:
     description: ---
     default: op
-  AdvancedChat.Help:
+  advancedchat.Help:
     description: ---
     default: op
-  AdvancedChat.Tab:
+  advancedchat.Tab:
     description: ---
     default: op
-  AdvancedChat.ClearChat:
+  advancedchat.ClearChat:
     description: ---
     default: op
-  AdvancedChat.Chat.Color:
+  advancedchat.Chat.Color:
     description: ---
     default: op
-  AdvancedChat.Mute:
+  advancedchat.Mute:
     description: ---
     default: op
-  AdvancedChat.UnMute:
+  advancedchat.UnMute:
     description: ---
     default: op
-  AdvancedChat.Gui.Color:
+  advancedchat.Gui.Color:
     description: ---
     default: op
-  AdvancedChat.Gui.Player:
+  advancedchat.Gui.Player:
     description: ---
     default: op
-  AdvancedChat.Chat.Bypass:
+  advancedchat.Chat.Bypass:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.Black:
+  advancedchat.Chat.Color.Black:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.White:
+  advancedchat.Chat.Color.White:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.Dark_Gray:
+  advancedchat.Chat.Color.Dark_Gray:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.Gray:
+  advancedchat.Chat.Color.Gray:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.Dark_Purple:
+  advancedchat.Chat.Color.Dark_Purple:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.Light_Purple:
+  advancedchat.Chat.Color.Light_Purple:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.Aqua:
+  advancedchat.Chat.Color.Aqua:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.Dark_Aqua:
+  advancedchat.Chat.Color.Dark_Aqua:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.Gold:
+  advancedchat.Chat.Color.Gold:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.Yellow:
+  advancedchat.Chat.Color.Yellow:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.Green:
+  advancedchat.Chat.Color.Green:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.Dark_Green:
+  advancedchat.Chat.Color.Dark_Green:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.Blue:
+  advancedchat.Chat.Color.Blue:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.Dark_Blue:
+  advancedchat.Chat.Color.Dark_Blue:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.Red:
+  advancedchat.Chat.Color.Red:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.Dark_Red:
+  advancedchat.Chat.Color.Dark_Red:
     description: ---
     default: op
-  AdvancedChat.Chat.Color.RainBow:
+  advancedchat.Chat.Color.RainBow:
     description: ---
     default: op  

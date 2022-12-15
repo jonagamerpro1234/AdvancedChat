@@ -13,42 +13,42 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 public class LuckPermsHook implements Hook {
-  public boolean isEnabled;
-  public LuckPerms luckPerms;
-  private final HookManager hooksManager;
+    public boolean isEnabled;
+    public LuckPerms luckPerms;
+    private final HookManager hooksManager;
 
-  public LuckPermsHook(HookManager hooksManager) {
-    this.hooksManager = hooksManager;
-  }
-
-  public void setup() {
-    if (!Bukkit.getPluginManager().isPluginEnabled("LuckPerms")) {
-      this.isEnabled = false;
-      Logger.warning("&eLuckPerms not enabled! - Disable Features...");
-      return;
+    public LuckPermsHook(HookManager hooksManager) {
+        this.hooksManager = hooksManager;
     }
-    if (!Settings.hook_luckperms) {
-      this.isEnabled = false;
-      Logger.warning("&eLuckPerms not enabled! - Disable Features...");
-      return;
+
+    public void setup() {
+        if (!Bukkit.getPluginManager().isPluginEnabled("LuckPerms")) {
+            this.isEnabled = false;
+            Logger.warning("&eLuckPerms not enabled! - Disable Features...");
+            return;
+        }
+        if (!Settings.hook_luckperms) {
+            this.isEnabled = false;
+            Logger.warning("&eLuckPerms not enabled! - Disable Features...");
+            return;
+        }
+        RegisteredServiceProvider<LuckPerms> rsp = AdvancedChat.getInstance().getRegistration(LuckPerms.class);
+        if (rsp != null)
+            this.luckPerms = rsp.getProvider();
+        this.isEnabled = true;
+        Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix() + "&aLoading LuckPerms features...");
     }
-    RegisteredServiceProvider<LuckPerms> rsp = AdvancedChat.getInstance().getRegistration(LuckPerms.class);
-    if (rsp != null)
-      this.luckPerms = rsp.getProvider();
-    this.isEnabled = true;
-    Utils.sendColorMessage(EventUtils.getStaticConsoleSender(), Utils.getPrefix() + "&aLoading LuckPerms features...");
-  }
 
-  public LuckPerms getLuckPerms() {
-    return this.luckPerms;
-  }
+    public LuckPerms getLuckPerms() {
+        return this.luckPerms;
+    }
 
-  public LuckPerms getProvided() {
-    return this.luckPerms = LuckPermsProvider.get();
-  }
+    public LuckPerms getProvided() {
+        return this.luckPerms = LuckPermsProvider.get();
+    }
 
-  public boolean isEnabled() {
-    return this.isEnabled;
-  }
+    public boolean isEnabled() {
+        return this.isEnabled;
+    }
 
 }

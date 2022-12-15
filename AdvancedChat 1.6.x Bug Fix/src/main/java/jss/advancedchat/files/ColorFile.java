@@ -12,86 +12,70 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 
-public class ColorFile extends FileManager implements FileHelper {
-  private final AdvancedChat plugin;
+public class ColorFile extends FileManager {
+    private final AdvancedChat plugin;
 
-  private File file;
+    private File file;
 
-  private FileConfiguration config;
+    private FileConfiguration config;
 
-  private final String path;
+    private final String path;
 
-  private final String folderpath;
+    private final String folderpath;
 
-  public ColorFile(AdvancedChat plugin, String path, String folderpath) {
-    super(plugin);
-    this.plugin = plugin;
-    this.file = null;
-    this.config = null;
-    this.path = path;
-    this.folderpath = folderpath;
-  }
-
-  public String getFolderPath() {
-    return this.folderpath;
-  }
-
-  public void create() {
-    this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
-    if (!this.file.exists()) {
-      getConfig().options().copyDefaults(true);
-      saveConfig();
+    public ColorFile(AdvancedChat plugin, String path, String folderpath) {
+        super(plugin);
+        this.plugin = plugin;
+        this.file = null;
+        this.config = null;
+        this.path = path;
+        this.folderpath = folderpath;
     }
-  }
 
-  public FileConfiguration getConfig() {
-    if (this.config == null)
-      reloadConfig();
-    return this.config;
-  }
-
-  public void saveConfig() {
-    try {
-      this.config.save(this.file);
-    } catch (IOException ex) {
-      ex.printStackTrace();
+    public String getFolderPath() {
+        return this.folderpath;
     }
-  }
 
-  public void reloadConfig() {
-    if (this.config == null)
-      this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
-    this.config = YamlConfiguration.loadConfiguration(this.file);
-    try {
-      Reader defaultConfigStream = new InputStreamReader(getResources(this.path), StandardCharsets.UTF_8);
-      if (defaultConfigStream != null) {
-        YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
-        this.config.setDefaults(defaultConfig);
-      }
-    } catch (NullPointerException e) {
-      e.printStackTrace();
+    public void create() {
+        this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
+        if (!this.file.exists()) {
+            config().options().copyDefaults(true);
+            save();
+        }
     }
-  }
 
-  public String getPath() {
-    return this.path;
-  }
+    public FileConfiguration config() {
+        if (this.config == null)
+            reload();
+        return this.config;
+    }
 
-  public AdvancedChat getPlugin() {
-    return this.plugin;
-  }
+    public void save() {
+        try {
+            this.config.save(this.file);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
-  public void saveDefaultConfig() {
-    if (this.file == null)
-      this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
-    if (!this.file.exists())
-      saveResources(this.path, false);
-  }
+    public void reload() {
+        if (this.config == null)
+            this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
+        this.config = YamlConfiguration.loadConfiguration(this.file);
+        try {
+            Reader defaultConfigStream = new InputStreamReader(getResources(this.path), StandardCharsets.UTF_8);
+            YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
+            this.config.setDefaults(defaultConfig);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
 
-  public void resetConfig() {
-    if (this.file == null)
-      this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
-    if (!this.file.exists())
-      saveResources(this.path, true);
-  }
+    public void saveDefault() {
+        if (this.file == null)
+            this.file = new File(getDataFolder() + File.separator + this.folderpath, this.path);
+        if (!this.file.exists())
+            saveResources(this.path, false);
+    }
+
 }

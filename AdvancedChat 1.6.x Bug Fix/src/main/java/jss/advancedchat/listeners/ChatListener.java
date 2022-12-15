@@ -3,7 +3,7 @@ package jss.advancedchat.listeners;
 import github.scarsz.discordsrv.util.DiscordUtil;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.chat.MessageBuilder;
-import jss.advancedchat.files.ChatDataFile;
+import jss.advancedchat.config.ConfigManager;
 import jss.advancedchat.files.ChatLogFile;
 import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.hooks.DiscordSRVHook;
@@ -39,9 +39,9 @@ public class ChatListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onChat(AsyncPlayerChatEvent e) {
+    public void onChat(@NotNull AsyncPlayerChatEvent e) {
         PlayerManager manager = new PlayerManager(this.plugin);
-        FileConfiguration config = this.plugin.getConfigFile().getConfig();
+        FileConfiguration config = ConfigManager.getConfig();
         Player j = e.getPlayer();
         String path = config.getString("Settings.ChatFormat-Type");
         DiscordSRVHook discordSRVHook = HookManager.getHookManager().getDiscordSRV();
@@ -155,31 +155,19 @@ public class ChatListener implements Listener {
     }
 
     @EventHandler
-    public void onChatDataLog(@NotNull AsyncPlayerChatEvent e) {
-        ChatDataFile chatDataFile = this.plugin.getChatDataFile();
-        FileConfiguration config = chatDataFile.getConfig();
-        Player j = e.getPlayer();
-        String date = Utils.getDate(System.currentTimeMillis());
-        String time = Utils.getTime(System.currentTimeMillis());
-        config.set("Players." + j.getName() + ".Log." + date + ".Chat." + time, Utils.colorless(e.getMessage()));
-        chatDataFile.saveConfig();
-    }
-
-    @EventHandler
     public void onChatLog(@NotNull AsyncPlayerChatEvent e) {
-        ChatLogFile chatLogFile = this.plugin.getChatLogFile();
-        FileConfiguration config = chatLogFile.getConfig();
+        ChatLogFile chatLogFile = ConfigManager.getChatLogFile();
+        FileConfiguration config = chatLogFile.config();
         Player j = e.getPlayer();
         String date = Utils.getDate(System.currentTimeMillis());
         String time = Utils.getTime(System.currentTimeMillis());
         config.set("Players." + j.getName() + ".Chat." + date + "." + time, Utils.colorless(e.getMessage()));
-        chatLogFile.saveConfig();
+        chatLogFile.save();
     }
 
-    @SuppressWarnings("ConstantConditions")
     @EventHandler(priority = EventPriority.HIGH)
     public void onChatMute(@NotNull AsyncPlayerChatEvent e) {
-        FileConfiguration config = this.plugin.getPlayerDataFile().getConfig();
+        /*FileConfiguration config = this.plugin.getPlayerDataFile().getConfig();
         Player j = e.getPlayer();
         for (String key : config.getConfigurationSection("Players").getKeys(false)) {
             if (key.contains(j.getName())) {
@@ -197,7 +185,7 @@ public class ChatListener implements Listener {
                     Logger.debug("&eIs Muted Bypass");
                 return;
             }
-        }
+        }*/
     }
 
     private void sendVaultGroups(@NotNull VaultHook vaultHook, DiscordSRVHook discordSRVHook, PlayerManager manager, FileConfiguration config, Player j, String color) {

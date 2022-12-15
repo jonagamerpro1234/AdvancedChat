@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
@@ -28,7 +29,8 @@ public class Metrics {
 
   private final MetricsBase metricsBase;
 
-  public Metrics(JavaPlugin plugin, int serviceId) {
+  @SuppressWarnings("deprecation")
+  public Metrics(@NotNull JavaPlugin plugin, int serviceId) {
     this.plugin = plugin;
     File bStatsFolder = new File(plugin.getDataFolder().getParentFile(), "bStats");
     File configFile = new File(bStatsFolder, "config.yml");
@@ -46,7 +48,7 @@ public class Metrics {
               .copyDefaults(true);
       try {
         config.save(configFile);
-      } catch (IOException iOException) {
+      } catch (IOException ignored) {
       }
     }
     boolean enabled = config.getBoolean("enabled", true);
@@ -62,7 +64,7 @@ public class Metrics {
     this.metricsBase.addCustomChart(chart);
   }
 
-  private void appendPlatformData(JsonObjectBuilder builder) {
+  private void appendPlatformData(@NotNull JsonObjectBuilder builder) {
     builder.appendField("playerAmount", getPlayerAmount());
     builder.appendField("onlineMode", Bukkit.getOnlineMode() ? 1 : 0);
     builder.appendField("bukkitVersion", Bukkit.getVersion());
@@ -74,7 +76,7 @@ public class Metrics {
     builder.appendField("coreCount", Runtime.getRuntime().availableProcessors());
   }
 
-  private void appendServiceData(JsonObjectBuilder builder) {
+  private void appendServiceData(@NotNull JsonObjectBuilder builder) {
     builder.appendField("pluginVersion", this.plugin.getDescription().getVersion());
   }
 
@@ -82,7 +84,7 @@ public class Metrics {
     try {
       Method onlinePlayersMethod = Class.forName("org.bukkit.Server").getMethod("getOnlinePlayers");
       return onlinePlayersMethod.getReturnType().equals(Collection.class) ? (
-              (Collection) onlinePlayersMethod.invoke(Bukkit.getServer(), new Object[0])).size() : (
+              (Collection<?>) onlinePlayersMethod.invoke(Bukkit.getServer(), new Object[0])).size() : (
               (Player[]) onlinePlayersMethod.invoke(Bukkit.getServer(), new Object[0])).length;
     } catch (Exception e) {
       return Bukkit.getOnlinePlayers().size();
