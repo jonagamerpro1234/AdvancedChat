@@ -12,7 +12,6 @@ import java.util.List;
 
 public class MessageBuilder {
     private final Player player;
-
     private final String text;
     private final String extraText;
     private BaseComponent[] hoverText;

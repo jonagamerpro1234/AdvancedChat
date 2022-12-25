@@ -75,13 +75,6 @@ public class ChatListener implements Listener {
                 Logger.info(json.getText() + json.getExtraText());
             assert type != null;
 
-
-            switch (type){
-                case "normal":
-                case "group":
-                    break;
-            }
-
             if (type.equalsIgnoreCase("normal")) {
 
                 json.sendToAll();
@@ -92,7 +85,9 @@ public class ChatListener implements Listener {
                 }
                 return;
             }
+
             if (type.equalsIgnoreCase("modify")) {
+
                 boolean hover = config.getBoolean("Custom-Format.HoverEvent.Enabled");
                 List<String> hoverText = config.getStringList("Custom-Format.HoverEvent.Hover");
                 boolean click = config.getBoolean("Custom-Format.ClickEvent.Enabled");

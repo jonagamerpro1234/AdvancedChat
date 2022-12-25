@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 
 public class AdvancedChatPlugin extends JavaPlugin {
+
     public void registerEvent(Listener @NotNull ... listeners) {
         for (Listener listener : listeners) {
             getPluginManager().registerEvents(listener, this);
