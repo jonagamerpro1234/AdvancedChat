@@ -38,7 +38,7 @@ public class InventoryListener implements Listener {
         this.eventUtils.getEventManager().registerEvents(this, plugin);
     }
 
-    @EventHandler
+   /* @EventHandler
     public void onInventoryPlayer(@NotNull InventoryClickEvent e) {
         PlayerManager manager = new PlayerManager(this.plugin);
         FileConfiguration config = ConfigManager.getConfig();
@@ -279,7 +279,7 @@ public class InventoryListener implements Listener {
           }
         }
       }
-  }
+  }*/
 
     @EventHandler
     public void onQuit(@NotNull PlayerQuitEvent e) {

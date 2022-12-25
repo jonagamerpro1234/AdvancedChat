@@ -1,25 +1,18 @@
 package jss.advancedchat.utils.update;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Logger;
 import org.bukkit.Bukkit;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
 public class UpdateChecker {
+
     private final AdvancedChat plugin;
-
-    private final Logger logger = new Logger();
-
     private final int ID;
 
     public UpdateChecker(AdvancedChat plugin, int ID) {
@@ -34,9 +27,10 @@ public class UpdateChecker {
                 try {
                     Scanner scanner = new Scanner(inputStream);
                     try {
-                        if (scanner.hasNext())
+                        if (scanner.hasNext()){
                             consumer.accept(scanner.next());
                             scanner.close();
+                        }
                     } catch (Throwable throwable) {
                         try {
                             scanner.close();
@@ -56,32 +50,8 @@ public class UpdateChecker {
                     throw throwable;
                 }
             } catch (IOException e) {
-                this.logger.Log(Logger.Level.INFO, "Could not check for updates:&c" + e.getMessage());
+                Logger.info("Could not check for updates: &c" + e.getMessage());
             }
         });
-    }
-
-   /* public void getUpdateVersion() {
-        String version = getJson("https://songoda.com/api/v2/products/advancedchat-chat-related/");
-        if (!version.trim().equalsIgnoreCase(this.plugin.version)){
-
-
-        }
-    }*/
-
-    public String getJson(String arg) {
-        try {
-            URL url = new URL(arg);
-            URLConnection connection = url.openConnection();
-            BufferedReader buffered = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line;
-            if ((line = buffered.readLine()) != null) {
-                JsonElement jsonElement = JsonParser.parseString(line).getAsJsonObject().get("data").getAsJsonObject().get("versions").getAsJsonArray().get(0);
-                return jsonElement.getAsJsonObject().get("version").getAsString();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

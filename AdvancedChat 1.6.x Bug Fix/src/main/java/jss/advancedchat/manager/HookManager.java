@@ -20,7 +20,12 @@ public class HookManager {
         hookManager = this;
     }
 
+    @Deprecated
     public static HookManager getHookManager() {
+        return hookManager;
+    }
+
+    public static HookManager get() {
         return hookManager;
     }
 

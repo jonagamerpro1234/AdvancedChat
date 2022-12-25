@@ -6,7 +6,7 @@ import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.commands.UnMuteCmd;
 import jss.advancedchat.manager.ConfigManager;
 import jss.advancedchat.files.utils.PreConfigLoader;
-import jss.advancedchat.listeners.ChatListener;
+import jss.advancedchat.listeners.chat.ChatListener;
 import jss.advancedchat.listeners.EventLoader;
 import jss.advancedchat.listeners.JoinListener;
 import jss.advancedchat.listeners.utils.EventUtils;

@@ -1,4 +1,4 @@
-package jss.advancedchat.listeners;
+package jss.advancedchat.listeners.chat;
 
 import github.scarsz.discordsrv.util.DiscordUtil;
 import jss.advancedchat.AdvancedChat;
@@ -34,21 +34,22 @@ public class ChatListener implements Listener {
     private boolean badWord;
     private final ColorManager colorManager = new ColorManager();
 
-    public ChatListener() {
-        Bukkit.getPluginManager().registerEvents(this, this.plugin);
-    }
-
     @EventHandler(priority = EventPriority.HIGH)
     public void onChat(@NotNull AsyncPlayerChatEvent e) {
         FileConfiguration config = ConfigManager.getConfig();
         Player j = e.getPlayer();
         PlayerManager manager = new PlayerManager(j);
+
         String path = config.getString("Settings.ChatFormat-Type");
+
         DiscordSRVHook discordSRVHook = HookManager.getHookManager().getDiscordSRV();
         VaultHook vaultHook = HookManager.getHookManager().getVaultHook();
         LuckPermsHook luckPermsHook = HookManager.getHookManager().getLuckPermsHook();
+
+
         String msg = e.getMessage();
         String message = e.getMessage().toLowerCase();
+
         if (Settings.boolean_filter)
             for (int i = 0; i < Settings.list_filter_badword.size(); i++) {
                 if (message.contains(Settings.list_filter_badword.get(i))) {
@@ -57,7 +58,10 @@ public class ChatListener implements Listener {
                     e.setCancelled(true);
                 }
             }
-        assert path != null;
+
+
+
+
         if (path.equalsIgnoreCase("default")) {
             e.setFormat("<" + j.getName() + ">" + " " + e.getMessage());
         } else if (path.equals("custom")) {

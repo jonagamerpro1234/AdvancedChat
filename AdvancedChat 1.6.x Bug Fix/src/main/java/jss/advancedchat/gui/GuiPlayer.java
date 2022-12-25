@@ -62,7 +62,7 @@ public class GuiPlayer {
     }
 
     private void setMuteItem(Player player, Inventory inv, ItemStack item, ItemMeta meta) {
-        PlayerManager manager = new PlayerManager(this.plugin);
+       /* PlayerManager manager = new PlayerManager(this.plugin);
         if (manager.checkPlayerList(player)) {
             if (manager.isMute(player)) {
                 item = XMaterial.PAPER.parseItem();
@@ -101,7 +101,7 @@ public class GuiPlayer {
                 item.setItemMeta(meta);
                 inv.setItem(22, item);
             }
-        }
+        }*/
     }
 
     private void setDecoration(Inventory inv, String path) {

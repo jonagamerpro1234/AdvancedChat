@@ -1,4 +1,4 @@
-package jss.advancedchat.listeners;
+package jss.advancedchat.listeners.chat;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.ConfigManager;
@@ -25,15 +25,16 @@ public class CommandListener implements Listener {
     @EventHandler
     public void onCommandChat(@NotNull PlayerCommandPreprocessEvent e) {
         FileConfiguration config = ConfigManager.getConfig();
-        PlayerManager manager = new PlayerManager(this.plugin);
+
         Player j = e.getPlayer();
+        PlayerManager manager = new PlayerManager(j);
         List<String> list = config.getStringList("Command-Blocker.BlackList");
         List<String> muteList = config.getStringList("Command-Blocker.Mute-BlackList");
         String message = e.getMessage();
         String noUseCommand = config.getString("AdvancedChat.No-Use-Command");
         String noUseCommandMute = config.getString("AdvancedChat.No-Use-Command-Mute");
         String path = "Command-Blocker.Enabled";
-        if (j.isOp() || j.hasPermission("AdvancedChat.Chat.Bypass"))
+       /* if (j.isOp() || j.hasPermission("AdvancedChat.Chat.Bypass"))
             return;
         if (config.getBoolean(path))
             for (String a : list) {
@@ -52,7 +53,7 @@ public class CommandListener implements Listener {
                     Utils.sendColorMessage(j, Utils.getVar(j, noUseCommandMute.replace("<cmd>", a)));
                     break;
                 }
-            }
+            }*/
     }
 
     @EventHandler

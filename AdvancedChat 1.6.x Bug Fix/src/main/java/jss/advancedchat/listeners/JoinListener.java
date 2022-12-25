@@ -1,7 +1,13 @@
 package jss.advancedchat.listeners;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.files.PlayerFile;
+import jss.advancedchat.files.utils.Settings;
+import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.manager.ConfigManager;
+import jss.advancedchat.manager.HookManager;
+import jss.advancedchat.manager.PlayerManager;
+import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.update.UpdateChecker;
 import jss.advancedchat.utils.update.UpdateSettings;
@@ -15,39 +21,47 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class JoinListener implements Listener {
+
     private final AdvancedChat plugin = AdvancedChat.get();
 
     @EventHandler
-    public void onJoinPlayer(@NotNull PlayerJoinEvent e) {
-        FileConfiguration config = ConfigManager.getConfig();
-        Player j = e.getPlayer();
+    public void onJoin(@NotNull PlayerJoinEvent e) {
+        LuckPermsHook luckPermsHook = HookManager.get().getLuckPermsHook();
+        Player p = e.getPlayer();
 
-       /* if (!config.contains("Players." + j.getName())) {
-            config.set("Players." + j.getName() + ".UUID", j.getUniqueId().toString());
-            config.set("Players." + j.getName() + ".Color", Settings.default_color);
-            config.set("Players." + j.getName() + ".Mute", false);
-            config.set("Players." + j.getName() + ".Chat-Channel", "ALL");
-            dataFile.saveConfig();
+        String group;
+
+        if (luckPermsHook.isEnabled) {
+            group = luckPermsHook.getGroup(p);
+        }else{
+            group = "default";
         }
-        if (!chat.contains("Players." + j.getName())) {
-            chat.set("Players." + j.getName() + ".UUID", j.getUniqueId().toString());
-            chat.set("Players." + j.getName() + ".Log", null);
-            chatDataFile.saveConfig();
+
+        if(Settings.settings_debug){
+            Logger.debug(" &eLuckPermHook is: " + luckPermsHook.isEnabled());
         }
-        if (!chatLog.contains("Players." + j.getName())) {
-            chatLog.set("Players." + j.getName() + ".UUID", j.getUniqueId().toString());
-            chatLog.set("Players." + j.getName() + ".Chat", "[]");
-            chatLogFile.saveConfig();
+
+        PlayerFile playerFile = new PlayerFile(plugin, p.getName());
+        playerFile.create();
+
+        PlayerManager playerManager = new PlayerManager(p);
+        playerManager.create(group);
+
+        if(Settings.settings_chatformat_type.equalsIgnoreCase("group")){
+            if (luckPermsHook.isEnabled) {
+                if (!playerManager.getGroup().equalsIgnoreCase(luckPermsHook.getGroup(p))){
+                    playerManager.setGroup(luckPermsHook.getGroup(p));
+                }
+            } else {
+                Logger.error("&cThe LuckPerms could not be found to activate the group system");
+                Logger.warning("&eplease check that LuckPerms is active or inside your plugins folder");
+            }
         }
-        if (!command.contains("Players." + j.getName())) {
-            command.set("Players." + j.getName() + ".UUID", j.getUniqueId().toString());
-            command.set("Players." + j.getName() + ".Command", "[]");
-            commandLogFile.saveConfig();
-        }*/
+
     }
 
     @EventHandler
-    public void onUpdatePlayer(@NotNull PlayerJoinEvent e) {
+    public void onUpdate(@NotNull PlayerJoinEvent e) {
         FileConfiguration config = ConfigManager.getConfig();
         Player j = e.getPlayer();
         if (config.getBoolean("Settings.Update") && (j.isOp() || j.hasPermission("AdvancedChat.Update.Notify")))
@@ -67,4 +81,5 @@ public class JoinListener implements Listener {
                 }
             });
     }
+
 }
