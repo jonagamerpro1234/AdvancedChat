@@ -29,6 +29,10 @@ public class VaultHook implements Hook {
         return vaultHook;
     }
 
+    public String name() {
+        return "Vault";
+    }
+
     public void setup() {
         if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
             this.isEnabled = false;

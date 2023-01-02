@@ -24,6 +24,10 @@ public class LuckPermsHook implements Hook {
         this.hooksManager = hooksManager;
     }
 
+    public String name() {
+        return "LuckPerms";
+    }
+
     public void setup() {
         if (!Bukkit.getPluginManager().isPluginEnabled("LuckPerms")) {
             this.isEnabled = false;

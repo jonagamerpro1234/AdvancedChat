@@ -122,6 +122,7 @@ public class ChatListenerTest implements Listener {
             if (hover) {
                 if (click) {
                     assert click_mode != null;
+
                     if (click_mode.equalsIgnoreCase("command")) {
                         json.setHover(hovertext).setExecuteCommand(cmd_action).sendDoubleToAll();
                     } else if (click_mode.equalsIgnoreCase("url")) {
@@ -129,6 +130,7 @@ public class ChatListenerTest implements Listener {
                     } else if (click_mode.equalsIgnoreCase("suggest")) {
                         json.setHover(hovertext).setSuggestCommand(suggest_action).sendDoubleToAll();
                     }
+
                 } else {
                     json.setHover(hovertext).sendDoubleToAll();
                 }

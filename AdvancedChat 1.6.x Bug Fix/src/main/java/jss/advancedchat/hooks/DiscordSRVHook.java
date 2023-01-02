@@ -11,6 +11,10 @@ public class DiscordSRVHook implements Hook {
 
     private boolean isEnabled;
 
+    public String name() {
+        return "DiscordSRV";
+    }
+
     public void setup() {
         if (!Bukkit.getPluginManager().isPluginEnabled("DiscordSRV")) {
             Logger.warning("&eDiscordSRV not enabled! - Disable Features...");

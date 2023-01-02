@@ -1,6 +1,8 @@
 package jss.advancedchat.utils.interfaces;
 
-@FunctionalInterface
 public interface Hook {
+
+    String name();
     void setup();
+    boolean isEnabled();
 }

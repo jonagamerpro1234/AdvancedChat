@@ -1,6 +1,7 @@
 package jss.advancedchat.commands;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.gui.TestGui;
 import jss.advancedchat.manager.ConfigManager;
 import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.gui.GuiColor;
@@ -28,8 +29,11 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
     }
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
+
         if (!(sender instanceof Player)) {
+
             if (args.length >= 1) {
+
                 if (args[0].equalsIgnoreCase("info") || args[0].equalsIgnoreCase("?")) {
                     Utils.sendColorMessage(this.eventUtils.getConsoleSender(), "&5-=-=-=-=-=[&b" + this.plugin.name + "&5]=-=-=-=-=-=-");
                     Utils.sendColorMessage(this.eventUtils.getConsoleSender(), "&5> &3Name: &b" + this.plugin.name);
@@ -43,6 +47,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
                     Utils.sendColorMessage(this.eventUtils.getConsoleSender(), "&5> &3Wiki&c(Working Progress)&3: &6https://jonagamerpro1234.gitbook.io/advancedchat/");
                     Utils.sendColorMessage(this.eventUtils.getConsoleSender(), "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
                 } else if (args[0].equalsIgnoreCase("help")) {
+
                     List<String> help = Settings.message_Help_List;
                     Utils.sendColorMessage(this.eventUtils.getConsoleSender(), "&5-=-=-=-=-=-=-=-=-=-=-=&6[&d" + this.plugin.name + "&6]&5=-=-=-=-=-=-=-=-=-=-=-");
                     for (String text : help) {
@@ -132,6 +137,15 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
                 }
                 return true;
             }
+
+            if(args[0].equalsIgnoreCase("test")){
+                TestGui gui = new TestGui();
+
+                gui.create(j);
+
+                return  true;
+            }
+
             if (args[0].equalsIgnoreCase("player")) {
                 if (j.isOp() || j.hasPermission("AdvancedChat.Gui.Player")) {
                     GuiPlayer guiPlayer = new GuiPlayer(this.plugin);

@@ -3,13 +3,13 @@ package jss.advancedchat.listeners.chat;
 import github.scarsz.discordsrv.util.DiscordUtil;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.chat.MessageBuilder;
-import jss.advancedchat.manager.ConfigManager;
 import jss.advancedchat.files.ChatLogFile;
 import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.hooks.DiscordSRVHook;
 import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.hooks.VaultHook;
 import jss.advancedchat.manager.ColorManager;
+import jss.advancedchat.manager.ConfigManager;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Logger;
@@ -17,7 +17,6 @@ import jss.advancedchat.utils.Utils;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -42,13 +41,17 @@ public class ChatListener implements Listener {
 
         String path = config.getString("Settings.ChatFormat-Type");
 
-        DiscordSRVHook discordSRVHook = HookManager.getHookManager().getDiscordSRV();
-        VaultHook vaultHook = HookManager.getHookManager().getVaultHook();
-        LuckPermsHook luckPermsHook = HookManager.getHookManager().getLuckPermsHook();
-
+        DiscordSRVHook discordSRVHook = HookManager.get().getDiscordSRV();
+        VaultHook vaultHook = HookManager.get().getVaultHook();
+        LuckPermsHook luckPermsHook = HookManager.get().getLuckPermsHook();
 
         String msg = e.getMessage();
         String message = e.getMessage().toLowerCase();
+
+        boolean isCustomChatFormat = Settings.settings_chatformat_enabled;
+        boolean isDefault = Settings.settings_chatformat_type.equalsIgnoreCase("default");
+        boolean isNormal = Settings.settings_chatformat_type.equalsIgnoreCase("normal");
+        boolean isGroup = Settings.settings_chatformat_type.equalsIgnoreCase("group");
 
         if (Settings.boolean_filter)
             for (int i = 0; i < Settings.list_filter_badword.size(); i++) {
@@ -59,8 +62,19 @@ public class ChatListener implements Listener {
                 }
             }
 
+        if(isCustomChatFormat){
+
+            if(isDefault){
+                e.setFormat(Utils.color(""));
+            }else if (isNormal){
+                e.setCancelled(true);
 
 
+            } else if (isGroup) {
+                e.setCancelled(true);
+            }
+
+        }
 
         if (path.equalsIgnoreCase("default")) {
             e.setFormat("<" + j.getName() + ">" + " " + e.getMessage());

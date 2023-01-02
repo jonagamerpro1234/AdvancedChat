@@ -21,6 +21,10 @@ public class PlaceholderApiHook implements Hook {
         this.hooksManager = hooksManager;
     }
 
+    public String name() {
+        return "PlaceholderAPI";
+    }
+
     public void setup() {
         if (!Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             this.isEnabled = false;

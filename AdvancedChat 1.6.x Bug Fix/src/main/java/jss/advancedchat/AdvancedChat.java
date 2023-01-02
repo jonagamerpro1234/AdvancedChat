@@ -1,9 +1,7 @@
 package jss.advancedchat;
 
-import jss.advancedchat.commands.AdvancedChatCmd;
-import jss.advancedchat.commands.ClearChatCmd;
-import jss.advancedchat.commands.MuteCmd;
-import jss.advancedchat.commands.UnMuteCmd;
+import jss.advancedchat.commands.*;
+import jss.advancedchat.files.utils.FileManager;
 import jss.advancedchat.manager.ConfigManager;
 import jss.advancedchat.files.utils.PreConfigLoader;
 import jss.advancedchat.listeners.chat.ChatListener;
@@ -28,6 +26,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
     public final PreConfigLoader preConfigLoader = new PreConfigLoader(this);
     private final HookManager hookManager = new HookManager(this);
     private final PluginDescriptionFile jss = getDescription();
+
     public Metrics metrics;
     public String latestversion;
     public boolean isLegacyVersion = false;
@@ -35,12 +34,15 @@ public class AdvancedChat extends AdvancedChatPlugin {
     public String name = this.jss.getName();
     public String version = this.jss.getVersion();
     private ArrayList<InventoryView> InventoryView;
+    private FileManager fileManager;
 
     public void onLoad() {
+        plugin = this;
         Utils.setTitle(this.version);
         Utils.setLoad();
         this.eventUtils = new EventUtils(this);
         this.InventoryView = new ArrayList<>();
+        this.fileManager = new FileManager(this);
         Utils.setLineLoad("&eLoading EventUtils");
         Utils.setTitleLoad("&bLoading All Files");
         Utils.setLineLoad("&eLoad Config.yml");
@@ -56,7 +58,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
     }
 
     public void onEnable() {
-        plugin = this;
         this.metrics = new Metrics(this, 8826);
 
         Utils.setEnabled(this.version);
@@ -83,9 +84,10 @@ public class AdvancedChat extends AdvancedChatPlugin {
     }
 
     public void onDisable() {
-        Utils.setDisabled(this.version);
+        plugin = null;
         this.metrics = null;
         this.isLegacyVersion = false;
+        Utils.setDisabled(this.version);
     }
 
     private void setupCommandsAndEvents() {
@@ -93,15 +95,16 @@ public class AdvancedChat extends AdvancedChatPlugin {
                 new JoinListener(),
                 new ChatListener()
         );
-        EventLoader eventLoader = new EventLoader(this);
-        eventLoader.runClearChat();
+       /* EventLoader eventLoader = new EventLoader(this);
+        eventLoader.runClearChat();*/
 
         new AdvancedChatCmd();
         new ClearChatCmd();
         new MuteCmd();
         new UnMuteCmd();
-    }
 
+        //new CommandHandler();
+    }
 
     public boolean isDebug() {
         return true;
