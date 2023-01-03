@@ -90,7 +90,7 @@ public class ChatListener implements Listener {
             }
             MessageBuilder json = new MessageBuilder(j, format, Utils.color(this.colorManager.convertColor(Utils.getVar(j, color), msg)));
             if (config.getBoolean("Settings.Show-Chat-In-Console"))
-                Logger.info(json.getText() + json.getExtraText());
+                Logger.info(json.getMessage() + json.getExtraMessage());
             assert type != null;
 
             if (type.equalsIgnoreCase("normal")) {
@@ -212,7 +212,7 @@ public class ChatListener implements Listener {
             format = Utils.color(format);
             MessageBuilder json = new MessageBuilder(j, format, color);
             if (config.getBoolean("Settings.Show-Chat-In-Console"))
-                Logger.info(json.getText() + json.getExtraText());
+                Logger.info(json.getMessage() + json.getExtraMessage());
             assert type != null;
             if (type.equalsIgnoreCase("normal")) {
                 if (manager.isMute() || this.badWord || Settings.boolean_filter_use_msg) {
@@ -289,7 +289,7 @@ public class ChatListener implements Listener {
             format = Utils.color(Utils.getVar(j, format));
             MessageBuilder json = new MessageBuilder(j, format, color);
             if (config.getBoolean("Settings.Show-Chat-In-Console"))
-                Logger.info(json.getText() + json.getExtraText());
+                Logger.info(json.getMessage() + json.getExtraMessage());
             assert type != null;
             if (type.equalsIgnoreCase("normal")) {
                 if (manager.isMute() || this.badWord || Settings.boolean_filter_use_msg) {
