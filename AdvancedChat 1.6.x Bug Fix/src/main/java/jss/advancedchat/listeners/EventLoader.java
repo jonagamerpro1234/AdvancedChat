@@ -23,14 +23,12 @@ public class EventLoader {
         final FileConfiguration config = ConfigManager.getConfig();
         final BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         try {
-            this.taskId = scheduler.scheduleSyncRepeatingTask(this.plugin, new Runnable() {
-                public void run() {
-                    if (Settings.boolean_chatclear_autoclear) {
-                        EventLoader.this.eventsUtils.getClearChatAction("server");
-                        EventLoader.this.eventsUtils.getServerMessage(config);
-                    } else {
-                        scheduler.cancelTask(EventLoader.this.taskId);
-                    }
+            this.taskId = scheduler.scheduleSyncRepeatingTask(this.plugin, () -> {
+                if (Settings.boolean_chatclear_autoclear) {
+                    EventLoader.this.eventsUtils.getClearChatAction("server");
+                    EventLoader.this.eventsUtils.getServerMessage(config);
+                } else {
+                    scheduler.cancelTask(EventLoader.this.taskId);
                 }
             }, Settings.long_clearchat_start_tick, Settings.long_clearchat_tick);
         } catch (NullPointerException ex) {

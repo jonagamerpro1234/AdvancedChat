@@ -231,8 +231,7 @@ public class Utils {
     }
 
     public static @NotNull List<String> setLimitTab(@NotNull List<String> options, String lastArgs) {
-        List<String> returned = new ArrayList<>();
-
+        List<String> returned = new LinkedList<>();
         for (String s : options) {
 
             if (s == null) continue;

@@ -8,6 +8,7 @@ import jss.advancedchat.utils.Utils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HelpCmd extends SubCommand {
@@ -16,6 +17,11 @@ public class HelpCmd extends SubCommand {
 
     public String name() {
         return "help";
+    }
+
+    @Override
+    public String permission() {
+        return "advancedchat.command.help";
     }
 
     public boolean perform(CommandSender sender, String[] args) {
@@ -47,6 +53,39 @@ public class HelpCmd extends SubCommand {
     }
 
     public List<String> tabComplete(CommandSender sender, String[] args) {
-        return null;
+
+        List<String> list = new ArrayList<>();
+
+        switch (args.length){
+            //al ser el argumento 0 no devuelve nada
+            case 0:
+                //al ser el primer argumento obtiene la lista de opciones diponibles para el args[1]
+            case 1:
+
+                list.add("option1");
+                break;
+                //al ser el primer argumento obtiene la lista de opciones diponibles para el args[2]
+            case 2:
+
+                list.add("option2");
+                break;
+                //al ser el primer argumento obtiene la lista de opciones diponibles para el args[3]
+            case 3:
+                //solo se auto completara si el el argumento coincide
+                if(args[0].equalsIgnoreCase("option2")){
+                    list.add("option8");
+                }
+                list.add("option3");
+                list.add("option5");
+                break;
+                //al ser el primer argumento obtiene la lista de opciones diponibles para el args[4]
+            case 4:
+
+                list.add("option13");
+                list.add("option12");
+                break;
+        }
+
+        return list;
     }
 }

@@ -20,6 +20,7 @@ public class Utils {
 
     private static final AdvancedChat plugin = AdvancedChat.get();
     private static final String prefix = getPrefix(true);
+    private static final String PERMISSION_PREFIX = "advancedchat.";
 
     @Contract("_ -> new")
     public static @NotNull String colorized(String text){
@@ -62,7 +63,7 @@ public class Utils {
     }
 
     public static boolean setPerm(@NotNull Player player, String permName){
-        return player.hasPermission("advancedchat." + permName);
+        return player.hasPermission(PERMISSION_PREFIX + permName);
     }
 
     public static @NotNull List<String> setLimitTab(@NotNull List<String> options, String lastArgs){
