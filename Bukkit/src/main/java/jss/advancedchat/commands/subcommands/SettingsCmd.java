@@ -1,9 +1,7 @@
 package jss.advancedchat.commands.subcommands;
 
-import jss.advancedchat.commands.utils.SubCommand;
+import jss.commandapi.SubCommand;
 import org.bukkit.command.CommandSender;
-
-import java.util.List;
 
 public class SettingsCmd extends SubCommand {
 
@@ -11,12 +9,29 @@ public class SettingsCmd extends SubCommand {
         return "settings";
     }
 
-    public boolean perform(CommandSender sender, String[] args) {
+    public String permission() {
+        return "command.settings";
+    }
 
+    public boolean requiresPermission() {
+        return true;
+    }
+
+    public boolean onCommand(CommandSender commandSender, String[] strings) {
         return false;
     }
 
-    public List<String> tabComplete(CommandSender sender, String[] args) {
+    public boolean allowConsole() {
+        return true;
+    }
+
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public String disabledMessage() {
         return null;
     }
+
+
 }

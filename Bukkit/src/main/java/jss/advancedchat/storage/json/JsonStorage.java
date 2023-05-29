@@ -1,36 +1,30 @@
 package jss.advancedchat.storage.json;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.storage.utils.IPlayerConfigData;
-import jss.advancedchat.storage.utils.IPlayerData;
+import jss.advancedchat.storage.PlayerData;
+import jss.advancedchat.storage.utils.IStorage;
 import jss.advancedchat.utils.Logger;
-import net.md_5.bungee.api.ChatColor;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.TreeMap;
 
-@SuppressWarnings("all")
-public class JsonStorage {
+
+public class JsonStorage implements IStorage {
 
     private final AdvancedChat plugin;
-    private ArrayList<IPlayerData> iPlayerData = new ArrayList<>();
+    private ArrayList<PlayerData> iPlayerData = new ArrayList<>();
     private File file;
 
     public JsonStorage(AdvancedChat plugin) {
         this.plugin = plugin;
     }
 
-    public IPlayerData create(String name) {
-        IPlayerData playerData = new IPlayerData(name,"default","color","main",10,"white","FFFFFF",
+    public PlayerData create(String name) {
+        PlayerData playerData = new PlayerData(name,"default","color","main",10,"white","FFFFFF",
                 "FFFFFF","none",false,0,false,true,true);
         iPlayerData.add(playerData);
         return  playerData;
@@ -68,4 +62,11 @@ public class JsonStorage {
 
     }
 
+    public void savePlayerData(PlayerData playerData) {
+
+    }
+
+    public PlayerData loadPlayerData(String playerName) {
+        return null;
+    }
 }

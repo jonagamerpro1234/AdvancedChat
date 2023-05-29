@@ -1,24 +1,36 @@
 package jss.advancedchat.commands.subcommands;
 
-import jss.advancedchat.commands.utils.SubCommand;
+import jss.commandapi.SubCommand;
 import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class ReloadCmd extends SubCommand {
-
 
     public String name() {
         return "reload";
     }
 
-    public boolean perform(@NotNull CommandSender sender, String[] args) {
-        sender.sendMessage("test reload sub command");
+    public String permission() {
+        return "command.reload";
+    }
+
+    public boolean requiresPermission() {
+        return true;
+    }
+
+    public boolean onCommand(CommandSender commandSender, String[] strings) {
         return false;
     }
 
-    public List<String> tabComplete(CommandSender sender, String[] args) {
+    public boolean allowConsole() {
+        return true;
+    }
+
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public String disabledMessage() {
         return null;
     }
+
 }

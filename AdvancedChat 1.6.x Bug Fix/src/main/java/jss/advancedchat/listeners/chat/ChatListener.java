@@ -54,15 +54,15 @@ public class ChatListener implements Listener {
         boolean isGroup = Settings.settings_chatformat_type.equalsIgnoreCase("group");
 
         if (Settings.boolean_filter)
-            for (int i = 0; i < Settings.list_filter_badword.size(); i++) {
-                if (message.contains(Settings.list_filter_badword.get(i))) {
+            for (int i = 0; i < Settings.list_filter_badWord.size(); i++) {
+                if (message.contains(Settings.list_filter_badWord.get(i))) {
                     this.badWord = true;
                     Utils.sendColorMessage(j, Utils.getVar(j, Settings.message_filter));
                     e.setCancelled(true);
                 }
             }
 
-        if(isCustomChatFormat){
+        /*if(isCustomChatFormat){
 
             if(isDefault){
                 e.setFormat(Utils.color(""));
@@ -74,7 +74,7 @@ public class ChatListener implements Listener {
                 e.setCancelled(true);
             }
 
-        }
+        }*/
 
         if (path.equalsIgnoreCase("default")) {
             e.setFormat("<" + j.getName() + ">" + " " + e.getMessage());

@@ -1,8 +1,8 @@
 package jss.advancedchat.commands.subcommands;
 
-import jss.advancedchat.commands.utils.SubCommand;
 import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Utils;
+import jss.commandapi.SubCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,14 +17,22 @@ public class PlayerCmd extends SubCommand {
         return "player";
     }
 
-    public boolean perform(CommandSender sender, String[] args) {
+    public String permission() {
+        return "command.player";
+    }
+
+    public boolean requiresPermission() {
+        return true;
+    }
+
+    public boolean onCommand(CommandSender sender, String[] args) {
         if(!(sender instanceof Player)){
             return false;
         }
 
         Player player = (Player) sender;
 
-        if(!player.isOp() || !Utils.setPerm(player,"command.player")){
+        if(!player.isOp() || !Utils.hasPerm(player,"command.player")){
             Utils.sendColorMessage(player, Utils.getPrefix(false) + Settings.messages_noPermission);
             return true;
         }
@@ -50,4 +58,17 @@ public class PlayerCmd extends SubCommand {
 
         return Utils.setLimitTab(options, lastArgs);
     }
+
+    public boolean allowConsole() {
+        return true;
+    }
+
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public String disabledMessage() {
+        return null;
+    }
+
 }

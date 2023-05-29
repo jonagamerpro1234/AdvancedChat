@@ -16,6 +16,8 @@ public class PreConfigLoader {
     public void load() {
         FileConfiguration config = ConfigManager.getConfig();
         try {
+            Settings.settings_chatformat_enabled = config.getBoolean("ChatFormat.Enabled");
+            Settings.settings_chatformat_type = config.getString("ChatFormat.Chat-Type");
             Settings.default_color = config.getString("Settings.Default-Color-Message");
             Settings.message_mute_bypass = config.getString("AdvancedChat.Mute-Bypass");
             Settings.message_prefix_custom = config.getString("Settings.Prefix");
@@ -42,7 +44,7 @@ public class PreConfigLoader {
             Settings.message_filter = config.getString("Filter-Chat.Message");
             Settings.message_player_is_mute = config.getString("AdvancedChat.Player-Is-Mute");
             Settings.message_player_is_not_mute = config.getString("AdvancedChat.Player-Is-Not-Mute");
-            Settings.list_filter_badword = config.getStringList("Filter-Chat.BadWords");
+            Settings.list_filter_badWord = config.getStringList("Filter-Chat.BadWords");
             Settings.hook_discordsrv = config.getString("Hooks.DiscordSRV.Enabled").equals("true");
             Settings.hook_discordsrv_channelid = config.getString("Hooks.DiscordSRV.Channel-ID");
             Settings.hook_vault = config.getString("Hooks.Vault.Enabled").equals("true");

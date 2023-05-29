@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ChatListener implements Listener {
 
     @EventHandler
@@ -19,8 +18,9 @@ public class ChatListener implements Listener {
         Player player = e.getPlayer();
         String baseMessage = e.getMessage();
 
-
     }
+
+
 
     public List<Player> getNearbyPlayers(@NotNull Player target, double range){
         List<Player> nearbyPlayer = new ArrayList<>();

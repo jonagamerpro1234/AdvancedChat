@@ -62,7 +62,7 @@ public class Utils {
         return colorized(finalPrefix);
     }
 
-    public static boolean setPerm(@NotNull Player player, String permName){
+    public static boolean hasPerm(@NotNull Player player, String permName){
         return player.hasPermission(PERMISSION_PREFIX + permName);
     }
 

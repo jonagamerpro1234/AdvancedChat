@@ -30,6 +30,7 @@ public final class AdvancedChat extends JavaPlugin {
         instance = this;
         Utils.sendLoad();
     }
+
     public void onEnable() {
         metrics = new Metrics(this,8826);
 
@@ -37,7 +38,7 @@ public final class AdvancedChat extends JavaPlugin {
         if(!preConfigLoader.loadLangs()){
             Bukkit.getPluginManager().disablePlugin(this);
         }
-        yamlStorage.create("jonagamerpro1234");
+        //yamlStorage.create("jonagamerpro1234");
         jsonStorage.save("jonagamerpro1234");
         jsonStorage.create("jonagamerpro1234");
         jsonStorage.save("test_000");

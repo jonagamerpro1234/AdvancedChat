@@ -29,13 +29,7 @@ public class CommandHandler implements TabExecutor {
         pluginCommand.setTabCompleter(this);
 
         getSubCommands();
-
-        /*this.subCommands.addAll(Arrays.asList(
-                new HelpCmd()
-        ));*/
     }
-
-    //public ArrayList<SubCommand> getSubCommands() { return this.subCommands; }
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
 

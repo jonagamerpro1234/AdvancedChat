@@ -1,10 +1,10 @@
 package jss.advancedchat.commands.subcommands;
 
-import jss.advancedchat.commands.utils.SubCommand;
+import jss.advancedchat.inventories.ColorInventory;
+import jss.advancedchat.utils.Logger;
+import jss.commandapi.SubCommand;
 import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
+import org.bukkit.entity.Player;
 
 public class HelpCmd extends SubCommand {
 
@@ -12,16 +12,33 @@ public class HelpCmd extends SubCommand {
         return "help";
     }
 
-    public boolean perform(@NotNull CommandSender sender, String[] args) {
+    public String permission() {
+        return null;
+    }
 
-
-
-
-        sender.sendMessage("test help sub command");
+    public boolean requiresPermission() {
         return false;
     }
 
-    public List<String> tabComplete(CommandSender sender, String[] args) {
+    public boolean onCommand(CommandSender sender, String[] strings) {
+        Player p = (Player) sender;
+        ColorInventory colorInventory = new ColorInventory();
+        colorInventory.open(p);
+        Logger.debug("Open Inventory: Color");
+        return true;
+    }
+
+    public boolean allowConsole() {
+        return false;
+    }
+
+    public boolean isEnabled() {
+        return false;
+    }
+
+    public String disabledMessage() {
         return null;
     }
+
+
 }

@@ -6,6 +6,7 @@ public class Settings {
 
     //Settings section
     public static String settings_lang_name;
+    public static String settings_color_format;
     public static boolean settings_mysql_enabled;
     public static String settings_mysql_table;
     public static String settings_mysql_driver;

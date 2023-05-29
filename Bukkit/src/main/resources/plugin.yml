@@ -7,7 +7,34 @@ prefix: AdvancedChat
 softdepend: [ PlaceholderAPI, Essentials, Luckperms ]
 
 commands:
-  AdvancedChat:
+  advancedchat:
     description: main command
     aliases:
       - ac
+  admute:
+    description: ---
+    aliases:
+      - mute
+  adunmute:
+    description: ---
+    aliases:
+      - unmute
+  adclearchat:
+    description: ---
+    aliases:
+      - clearchat
+permissions:
+  advancedchat.admin:
+    description: ---
+    children:
+      - advancedchat.update
+      - advancedchat.command.help
+      - advancedchat.command.reload
+      - advancedchat.command.player
+      - advancedchat.command.color
+      - advancedchat.command.gradient
+      - advancedchat.command.settings
+      - advancedchat.command.mute
+      - advancedchat.command.unmute
+      - advancedchat.command.clearchat
+    default: op

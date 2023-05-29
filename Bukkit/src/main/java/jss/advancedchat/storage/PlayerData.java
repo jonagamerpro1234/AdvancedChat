@@ -1,6 +1,6 @@
-package jss.advancedchat.storage.utils;
+package jss.advancedchat.storage;
 
-public class IPlayerData {
+public class PlayerData {
 
     private final String name;
     private String group;
@@ -16,7 +16,7 @@ public class IPlayerData {
     private boolean chat;
     private boolean privateMessage;
 
-    public IPlayerData(String name, String group, String chatType, String channel, int range, String color, String firstGradient, String secondGradient, String specialCodes, boolean mute, int timeMuted, boolean lowMode, boolean chat, boolean privateMessage) {
+    public PlayerData(String name, String group, String chatType, String channel, int range, String color, String firstGradient, String secondGradient, String specialCodes, boolean mute, int timeMuted, boolean lowMode, boolean chat, boolean privateMessage) {
         this.name = name;
         this.group = group;
         this.chatType = chatType;

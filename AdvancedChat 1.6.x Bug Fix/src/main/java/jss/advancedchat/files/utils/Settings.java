@@ -13,7 +13,7 @@ public class Settings {
 
     public static List<String> message_Help_List;
 
-    public static List<String> list_filter_badword;
+    public static List<String> list_filter_badWord;
 
     public static String message_prefix_custom;
 

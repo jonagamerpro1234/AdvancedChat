@@ -1,10 +1,9 @@
 package jss.advancedchat.storage.yaml;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.storage.utils.IPlayerConfigData;
-import jss.advancedchat.storage.utils.IPlayerData;
+import jss.advancedchat.storage.PlayerData;
+import jss.advancedchat.storage.utils.IStorage;
 import jss.advancedchat.utils.Logger;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class YamlStorage implements IPlayerConfigData {
+public class YamlStorage implements IStorage {
 
     private final AdvancedChat plugin;
     private File file;
@@ -22,46 +21,6 @@ public class YamlStorage implements IPlayerConfigData {
 
     public YamlStorage(AdvancedChat plugin) {
         this.plugin = plugin;
-    }
-
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    public void create(String name) {
-        path = name;
-        file = new File(plugin.getDataFolder(), "/Players/" + name + ".yml");
-
-        if(!file.exists()){
-            try {
-                file.getParentFile().mkdir();
-                file.createNewFile();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        config = new YamlConfiguration();
-        try {
-            config.load(file);
-            setDefault();
-        } catch (IOException | InvalidConfigurationException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public FileConfiguration getConfig(String name) {
-        file = new File(plugin.getDataFolder(), "/Players/" + name + ".yml");
-        config = YamlConfiguration.loadConfiguration(file);
-        return config;
-    }
-
-    public void reload() {
-        if (config == null) {
-            file = new File(plugin.getDataFolder(),"/Players/" + path + ".yml");
-        }
-        config = YamlConfiguration.loadConfiguration(file);
-
-        if (file != null) {
-            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(file);
-            config.setDefaults(defConfig);
-        }
     }
 
     public void save() {
@@ -91,5 +50,13 @@ public class YamlStorage implements IPlayerConfigData {
         }else{
             Logger.debug("is exist player data file in yaml file: true");
         }
+    }
+
+    public void savePlayerData(PlayerData playerData) {
+
+    }
+
+    public PlayerData loadPlayerData(String playerName) {
+        return null;
     }
 }
