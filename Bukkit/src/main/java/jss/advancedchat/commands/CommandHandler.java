@@ -10,7 +10,6 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +37,6 @@ public class CommandHandler implements TabExecutor {
         ));
     }
 
-    @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String @NotNull [] args) {
         if(args.length >= 1){
             for(SubCommand s : getSubCommands()){
@@ -71,7 +69,6 @@ public class CommandHandler implements TabExecutor {
         return true;
     }
 
-    @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String alias, String @NotNull [] args) {
         List<String> listOptions = new ArrayList<>();
         String lastArgs = args.length != 0 ? args[args.length - 1] : "";

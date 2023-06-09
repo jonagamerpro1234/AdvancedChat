@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>AdvancedChat-Bukkit</artifactId>
-    <version>1.7.0-B.1</version>
+    <version>1.8.0-alpha.1</version>
     <name>AdvancedChat-Bukkit</name>
 
     <properties>
@@ -205,6 +205,12 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.1-jre</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

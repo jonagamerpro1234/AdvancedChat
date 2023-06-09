@@ -51,7 +51,7 @@ public class LangFile {
         }else{
 
             if(plugin.getResource("langs/" + name + ".yml") != null){
-                plugin.saveResource("langs" + name + ".yml", true);
+                plugin.saveResource("langs/" + name + ".yml", true);
                 file = new File(plugin.getDataFolder() + File.separator + "langs", name + ".yml");
                 config = YamlConfiguration.loadConfiguration(file);
             }

@@ -62,7 +62,7 @@ public final class AdvancedChat extends JavaPlugin {
                 new JoinListener(),
                 new ChatListener()
         );
-        new CommandHandler();
+        new CommandHandler().register();
         new TaskLoader();
     }
 

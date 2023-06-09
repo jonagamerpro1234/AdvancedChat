@@ -22,6 +22,7 @@ public class Utils {
     private static final String prefix = getPrefix(true);
     private static final String PERMISSION_PREFIX = "advancedchat.";
 
+    // add color of the text
     @Contract("_ -> new")
     public static @NotNull String colorized(String text){
         return ChatColor.translateAlternateColorCodes('&', text);
