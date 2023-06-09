@@ -1,8 +1,6 @@
 package jss.advancedchat.utils;
 
 import com.google.common.collect.ImmutableMap;
-import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -28,12 +26,23 @@ public class MessageUtils {
             .put("&f", "white")
             .build();
 
+    private static final ImmutableMap<String,String> specialColorMap = ImmutableMap.<String, String>builder()
+            .put("&l","bold")
+            .put("&m", "strikethrough")
+            .put("&n","underline")
+            .put("&o","italic")
+            .put("&k","obfuscated")
+            .put("&r", "reset")
+            .build();
+
     public static String convertColorToTag(@NotNull String colorCode){
         return colorMap.getOrDefault(colorCode, "");
     }
 
-    public static @NotNull TextComponent colorize(String msg){
-        return LegacyComponentSerializer.legacyAmpersand().deserialize(msg);
+    public static String convertSpecialColorToTag(@NotNull String specialColorCode){
+        return specialColorMap.getOrDefault(specialColorCode, "");
     }
+
+
 
 }
