@@ -8,6 +8,7 @@ import jss.advancedchat.listeners.chat.ChatListener;
 import jss.advancedchat.storage.json.JsonStorage;
 import jss.advancedchat.storage.yaml.YamlStorage;
 import jss.advancedchat.utils.Utils;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -25,6 +26,7 @@ public final class AdvancedChat extends JavaPlugin {
     private final PreConfigLoader preConfigLoader = new PreConfigLoader();
     private final JsonStorage jsonStorage = new JsonStorage(this);
     private final YamlStorage yamlStorage = new YamlStorage(this);
+    private BukkitAudiences adventure;
 
     public void onLoad(){
         instance = this;
@@ -33,6 +35,7 @@ public final class AdvancedChat extends JavaPlugin {
 
     public void onEnable() {
         metrics = new Metrics(this,8826);
+        this.adventure = BukkitAudiences.create(this);
 
         //preConfigLoader.loadSettings();
         if(!preConfigLoader.loadLangs()){
@@ -55,6 +58,10 @@ public final class AdvancedChat extends JavaPlugin {
         Utils.sendDisable();
         instance = null;
         metrics = null;
+        if(this.adventure != null) {
+            this.adventure.close();
+            this.adventure = null;
+        }
     }
 
     public void registerCommandAndListeners(){
@@ -65,6 +72,15 @@ public final class AdvancedChat extends JavaPlugin {
         new CommandHandler().register();
         new TaskLoader();
     }
+
+
+    public BukkitAudiences adventure() {
+        if(this.adventure == null) {
+            throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
+        }
+        return this.adventure;
+    }
+
 
     public static AdvancedChat get(){
         return instance;

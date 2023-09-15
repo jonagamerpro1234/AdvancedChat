@@ -25,7 +25,7 @@ public class ReloadCmd extends SubCommand {
     public boolean onCommand(CommandSender sender, String @NotNull [] args) {
 
         if(args.length >= 2){
-            Utils.sendColorMessage(sender, "Color Name: " + MessageUtils.convertColorToTag(args[1]));
+            MessageUtils.sendColorMessage(sender, args[1]);
             return true;
         }
         Utils.sendColorMessage(sender, "Test reload");
