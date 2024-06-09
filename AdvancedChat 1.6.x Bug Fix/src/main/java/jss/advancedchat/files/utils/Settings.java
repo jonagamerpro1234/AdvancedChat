@@ -4,8 +4,7 @@ import java.util.List;
 
 public class Settings {
 
-
-
+    public static String chatformat_mainFormat;
     public static boolean settings_debug;
 
     public static boolean settings_chatformat_enabled;

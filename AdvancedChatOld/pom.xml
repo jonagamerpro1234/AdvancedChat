@@ -343,7 +343,6 @@
                             <Version>${project.version}</Version>
                         </manifestEntries>
                     </archive>
-                    <outputDirectory>C:\Users\Alumno\Desktop\LocalHost\Server\IntelliJ\plugins</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>

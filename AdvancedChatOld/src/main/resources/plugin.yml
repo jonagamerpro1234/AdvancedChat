@@ -1,27 +1,182 @@
-name: AdvancedChat
-version: '${project.version}'
 main: jss.advancedchat.AdvancedChat
+name: AdvancedChat
+version: ${version}
+author: jonagamerpro1234
 api-version: 1.13
-softdepend: [
-  PlaceholderAPI, ProtocolLib
-]
+description: AdvancedChat is an easy to use plugin that will help you customize the chat on your server to make it look its best. It will also have a customization system by groups and among other functions more...
+prefix: AdvancedChat
 website: https://github.com/jonagamerpro1234/AdvancedChat/
+softdepend: [
+  PlaceholderAPI, Vault, DiscordSRV, LuckPerms,
+  EssentialsDiscord
+]
 
 commands:
   AdvancedChat:
-    description: main command
+    description: This is the main command of the plugin and with it you will be able to access all the other commands for the most part
     aliases:
       - ac
-  AdClearChat:
-    description: ---
+  AdvancedChatTest:
+    description: This is the main command of the plugin and with it you will be able to access all the other commands for the most part
     aliases:
-      - cc
+      - actest
+  AdClearChat:
+    description: This command will allow you to clear the chat
+    aliases:
       - clearchat
+      - cc
   AdMute:
-    description: ---
+    description: This command will allow you to mute a player and they will not be able to send messages in chat
     aliases:
       - mute
   AdUnMute:
-    description: ---
+    description: This command will allow you to unmute a player and they will be able to send messages in chat again
     aliases:
       - unmute
+  AdMsg:
+    description: ---
+    aliases:
+      - msg
+      - to
+      - r
+permissions:
+  advancedchat.admin:
+    description: This permission gives you all plugin permissions
+    children:
+      advancedchat.update: true
+      advancedchat.command.reload: true
+      advancedchat.command.help: true
+      advancedchat.command.mute: true
+      advancedchat.command.unmute: true
+      advancedchat.command.clearchat: true
+      advancedchat.command.player: true
+      advancedchat.command.color: true
+      advancedchat.command.tabcomplete: true
+      advancedchat.chat.color: true
+      advancedchat.chat.bypass: true
+      advancedchat.mute.bypass: true
+      advancedchat.gui.color.all: true
+      advancedchat.gui.player.mute: true
+    default: op
+  advancedchat.update:
+    description: This permission allows you to view plugin update notifications
+    default: op
+  advancedchat.command.reload:
+    description: This permission allows you to reload the plugin files
+    default: op
+  advancedchat.command.help:
+    description: This permission allows you to use the help command
+    default: op
+  advancedchat.command.clearchat:
+    description: ---
+    default: op
+  advancedchat.command.mute:
+    description: ---
+    default: op
+  advancedchat.command.unmute:
+    description: ---
+    default: op
+  advancedchat.command.color:
+    description: ---
+    default: op
+  advancedchat.command.player:
+    description: ---
+    default: op
+  advancedchat.command.tabcomplete:
+    description: This permission allows you to use the suggestions from the plugins tab
+    default: op
+  advancedchat.chat.color:
+    description: ---
+    default: op
+  advancedchat.chat.bypass:
+    description: ---
+    default: op
+  advancedchat.mute.bypass:
+    description: ---
+    default: op
+  advancedchat.gui.color:
+    description: ---
+    default: op
+  advancedchat.gui.player:
+    description: ---
+    default: op
+  advancedchat.gui.color.all:
+    descriprion: ---
+    children:
+      advancedchat.gui.color.black: true
+      advancedchat.gui.color.white: true
+      advancedchat.gui.color.darkgray: true
+      advancedchat.gui.color.gray: true
+      advancedchat.gui.color.darkpurple: true
+      advancedchat.gui.color.lightpurple: true
+      advancedchat.gui.color.aqua: true
+      advancedchat.gui.color.darkaqua: true
+      advancedchat.gui.color.gold: true
+      advancedchat.gui.color.yellow: true
+      advancedchat.gui.color.green: true
+      advancedchat.gui.color.darkgreen: true
+      advancedchat.gui.color.blue: true
+      advancedchat.gui.color.darkblue: true
+      advancedchat.gui.color.red: true
+      advancedchat.gui.color.darkred: true
+      advancedchat.gui.color.random: true
+      advancedchat.gui.color.rainbow: true
+    default: op
+  advancedchat.gui.player.mute:
+    description: ---
+    default: op
+  advancedchat.gui.color.black:
+    description: ---
+    default: op
+  advancedchat.gui.color.white:
+    description: ---
+    default: op
+  advancedchat.gui.color.darkgray:
+    description: ---
+    default: op
+  advancedchat.gui.color.gray:
+    description: ---
+    default: op
+  advancedchat.gui.color.darkpurple:
+    description: ---
+    default: op
+  advancedchat.gui.color.lightpurple:
+    description: ---
+    default: op
+  advancedchat.gui.color.aqua:
+    description: ---
+    default: op
+  advancedchat.gui.color.darkaqua:
+    description: ---
+    default: op
+  advancedchat.gui.color.gold:
+    description: ---
+    default: op
+  advancedchat.gui.color.yellow:
+    description: ---
+    default: op
+  advancedchat.gui.color.green:
+    description: ---
+    default: op
+  advancedchat.gui.color.darkgreen:
+    description: ---
+    default: op
+  advancedchat.gui.color.blue:
+    description: ---
+    default: op
+  advancedchat.gui.color.darkblue:
+    description: ---
+    default: op
+  advancedchat.gui.color.red:
+    description: ---
+    default: op
+  advancedchat.gui.color.darkred:
+    description: ---
+    default: op
+  advancedchat.gui.color.random:
+    description: ---
+    default: op
+  advancedchat.gui.color.rainbow:
+    description: ---
+    default: op  
+      

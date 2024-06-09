@@ -10,19 +10,21 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MsgCmd implements CommandExecutor, TabCompleter {
 
     public MsgCmd() {
         AdvancedChat plugin = AdvancedChat.get();
-        plugin.getCommand("AdMsg").setExecutor(this);
-        plugin.getCommand("AdMsg").setTabCompleter(this);
+        Objects.requireNonNull(plugin.getCommand("AdMsg")).setExecutor(this);
+        Objects.requireNonNull(plugin.getCommand("AdMsg")).setTabCompleter(this);
     }
 
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String   label, String[] args) {
         if (!(sender instanceof Player)) {
             if (args.length >= 1) {
 

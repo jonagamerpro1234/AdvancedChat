@@ -1,6 +1,7 @@
 package jss.advancedchat.listeners.utils;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -9,6 +10,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
+import org.jetbrains.annotations.NotNull;
 
 public class EventUtils {
     private final AdvancedChat plugin;
@@ -17,7 +19,7 @@ public class EventUtils {
         this.plugin = plugin;
     }
 
-    public static CommandSender getStaticConsoleSender() {
+    public static @NotNull CommandSender getStaticConsoleSender() {
         return Bukkit.getConsoleSender();
     }
 
@@ -33,30 +35,21 @@ public class EventUtils {
         return Bukkit.getConsoleSender();
     }
 
-    public void getServerMessage(FileConfiguration config) {
+    public void getServerMessage(@NotNull FileConfiguration config) {
         String path = "Settings.Use-Default-Prefix";
         String text = config.getString("AdvancedChat.ClearChat-Server");
-        String prefix = config.getString("Settings.Prefix");
-        if (config.getString(path).equals("true")) {
-            Utils.sendColorMessage(Utils.getPrefixPlayer() + text);
-        } else if (config.getString(path).equals("false")) {
-            Utils.sendColorMessage(prefix + " " + text);
-        }
+        Utils.sendColorMessage(Utils.getPrefixPlayer() + text);
     }
 
-    public void getPlayerMessage(Player player, FileConfiguration config) {
+    public void getPlayerMessage(Player player, @NotNull FileConfiguration config) {
         String path = "Settings.Use-Default-Prefix";
         String text = config.getString("AdvancedChat.ClearChat-Player");
         String prefix = config.getString("Settings.Prefix");
         text = Utils.getVar(player, text);
-        if (config.getString(path).equals("true")) {
-            Utils.sendColorMessage(Utils.getPrefixPlayer() + " " + text);
-        } else if (config.getString(path).equals("false")) {
-            Utils.sendColorMessage(prefix + " " + text);
-        }
+        Utils.sendColorMessage(player, Utils.getPrefixPlayer() + text);
     }
 
-    public void getClearChatAction(String type) {
+    public void getClearChatAction(@NotNull String type) {
         if (type.equalsIgnoreCase("player")) {
             loopVoidChat(100);
         } else if (type.equalsIgnoreCase("server")) {
@@ -68,11 +61,9 @@ public class EventUtils {
         try {
             for (int i = 0; i < value; i++) {
                 Bukkit.broadcastMessage(" ");
-                if (i == value)
-                    break;
             }
-        } catch (NullPointerException var3) {
-            var3.printStackTrace();
+        } catch (NullPointerException e) {
+            Logger.error(e.getMessage());
         }
     }
 }

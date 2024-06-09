@@ -36,7 +36,7 @@ public class GuiColor {
         Inventory inv = Bukkit.createInventory(null, 45, Utils.color(title));
         String materialGlass = config.getString("Decoration.Glass-Color.Item");
         setDecoration(inv, materialGlass);
-        this.item = Utils.getPlayerHead(player2);
+        this.item = Utils.createSkull(player2);
         inv.setItem(36, this.item);
         for (String key : Objects.requireNonNull(config.getConfigurationSection("Items")).getKeys(false)) {
             String name = config.getString("Items." + key + ".Name");

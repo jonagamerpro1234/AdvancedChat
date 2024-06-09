@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class AdvancedChat extends AdvancedChatPlugin {
     private static AdvancedChat plugin;
-
     private final Logger logger = new Logger();
     public final PreConfigLoader preConfigLoader = new PreConfigLoader(this);
     private final HookManager hookManager = new HookManager(this);
@@ -34,7 +33,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
     public String name = this.jss.getName();
     public String version = this.jss.getVersion();
     private ArrayList<InventoryView> InventoryView;
-    private FileManager fileManager;
+    public FileManager fileManager;
 
     public void onLoad() {
         plugin = this;

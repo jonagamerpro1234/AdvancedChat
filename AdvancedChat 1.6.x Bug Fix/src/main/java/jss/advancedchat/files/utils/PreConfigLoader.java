@@ -16,11 +16,16 @@ public class PreConfigLoader {
     public void load() {
         FileConfiguration config = ConfigManager.getConfig();
         try {
+
+            //ChatFormat section
             Settings.settings_chatformat_enabled = config.getBoolean("ChatFormat.Enabled");
             Settings.settings_chatformat_type = config.getString("ChatFormat.Chat-Type");
+            Settings.chatformat_mainFormat = config.getString("ChatFormat.Format");
+
+
             Settings.default_color = config.getString("Settings.Default-Color-Message");
             Settings.message_mute_bypass = config.getString("AdvancedChat.Mute-Bypass");
-            Settings.message_prefix_custom = config.getString("Settings.Prefix");
+            Settings.message_prefix_custom = "&d[&eAdvancedChat&d] &7";
             Settings.message_protocol_state = config.getString("ProtocolLib-Packet.Enabled");
             Settings.message_error_mysql = config.getString("AdvancedChat.Error-MySql");
             Settings.message_NoPermission = config.getString("AdvancedChat.No-Permission");
@@ -45,15 +50,16 @@ public class PreConfigLoader {
             Settings.message_player_is_mute = config.getString("AdvancedChat.Player-Is-Mute");
             Settings.message_player_is_not_mute = config.getString("AdvancedChat.Player-Is-Not-Mute");
             Settings.list_filter_badWord = config.getStringList("Filter-Chat.BadWords");
-            Settings.hook_discordsrv = config.getString("Hooks.DiscordSRV.Enabled").equals("true");
+            Settings.hook_discordsrv = config.getBoolean("Hooks.DiscordSRV.Enabled");
             Settings.hook_discordsrv_channelid = config.getString("Hooks.DiscordSRV.Channel-ID");
-            Settings.hook_vault = config.getString("Hooks.Vault.Enabled").equals("true");
-            Settings.hook_vault_use_group = config.getString("Hooks.Vault.Use-Vault-In-Groups").equals("true");
-            Settings.hook_luckperms = config.getString("Hooks.LuckPerms.Enabled").equals("true");
-            Settings.hook_luckperms_use_group = config.getString("Hooks.LuckPerms.Use-Luckperms-In-Groups").equals("true");
-            Settings.boolean_use_default_prefix = config.getString("Settings.Use-Default-Prefix").equals("true");
-            Settings.boolean_filter = config.getString("Filter-Chat.Enabled").equals("true");
-            Settings.boolean_chatclear_autoclear = config.getString("ClearChat.AutoClear.Enabled").equals("true");
+
+            Settings.hook_luckperms = config.getBoolean("Hooks.LuckPerms.Enabled");
+            Settings.hook_luckperms_use_group = config.getBoolean("Hooks.LuckPerms.Use-Luckperms-In-Groups");
+
+            //Settings.boolean_use_default_prefix = config.getString("Settings.Use-Default-Prefix").equals("true");
+
+            Settings.boolean_filter = config.getBoolean("Filter-Chat.Enabled");
+            Settings.boolean_chatclear_autoclear = config.getBoolean("ClearChat.AutoClear");
             Settings.long_clearchat_tick = config.getLong("ClearChat.Tick");
             Settings.long_clearchat_start_tick = config.getLong("ClearChat.Default-Start-Tick");
         } catch (Exception e) {

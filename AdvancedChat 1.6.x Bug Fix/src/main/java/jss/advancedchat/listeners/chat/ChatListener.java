@@ -80,8 +80,8 @@ public class ChatListener implements Listener {
             e.setFormat("<" + j.getName() + ">" + " " + e.getMessage());
         } else if (path.equals("custom")) {
             e.setCancelled(true);
-            String format = config.getString("Custom-Format.Format");
-            String type = config.getString("Custom-Format.Type");
+            String format = Settings.chatformat_mainFormat;
+            String type = Settings.settings_chatformat_type;
             String color = manager.getColor();
             format = Utils.color(Utils.getVar(j, format));
             if (manager.isMute() || this.badWord || Settings.boolean_filter_use_msg) {

@@ -19,16 +19,19 @@ public class PreConfigLoader {
             Settings.default_color = config.getString("Settings.Default-Color-Message");
             Settings.message_prefix_custom = config.getString("Settings.Prefix");
             Settings.update = config.getString("Settings.Update").equals("true");
+
             Settings.hook_vault = config.getString("Hooks.Vault.Enabled").equals("true");
             Settings.hook_discordsrv = config.getString("Hooks.DiscordSRV.Enabled").equals("true");
             Settings.hook_luckperms = config.getString("Hooks.LuckPerms.Enabled").equals("true");
-            Settings.hook_luckperms_autoupdate_group = config.getString("Hooks.LuckPerms.AutoDetectGroup.Enabled").equals("true");
+            Settings.hook_luckperms_autoupdate_group = config.getBoolean("Hooks.LuckPerms.AutoUpdateGroup.Enabled");
             Settings.isHook_luckperms_autoupdate_group_time = config.getInt("Hooks.LuckPerms.AutoDetectGroup.Tick");
+
             Settings.boolean_use_default_prefix = config.getString("Settings.Use-Default-Prefix").equals("true");
             Settings.boolean_chatclear_autoclear = config.getString("ClearChat.AutoClear").equals("true");
             Settings.boolean_clearchat_bypass = config.getString("ClearChat.ByPass-Staff").equals("true");
             Settings.int_clearchat_tick = config.getInt("ClearChat.Tick");
             Settings.int_clearchat_lines = config.getInt("ClearChat.LineClear");
+
             Settings.chatformat_chattype = config.getString("ChatFormat.Chat-Type");
             Settings.mysql = config.getString("Settings.Use-Database").equals("true");
             Settings.mysql_host = config.getString("MySQL.Host");
@@ -37,6 +40,7 @@ public class PreConfigLoader {
             Settings.mysql_password = config.getString("MySQL.Password");
             Settings.mysql_database = config.getString("MySQL.Database");
             Settings.mysql_table = config.getString("MySQL.Table");
+
             Settings.chatlogs_log_chat = config.getString("ChatLogs.Messages-in-the-logger").equals("true");
             Settings.chatlogs_log_command = config.getString("ChatLogs.Commands-in-the-logger").equals("true");
             Settings.list_chatlogs_no_register_commands = config.getStringList("ChatLogs.Commands-List.List");
@@ -44,6 +48,7 @@ public class PreConfigLoader {
             Settings.msg_format_send = config.getString("ChatFormat.Private-Message.Send-Format");
             Settings.msg_server_format_recive = config.getString("ChatFormat.Private-Message.Receive-Server-Format");
         } catch (Exception e) {
+            Logger.error(e.getMessage());
             e.printStackTrace();
         }
     }

@@ -5,6 +5,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class ConfigFile {
 
@@ -50,7 +52,7 @@ public class ConfigFile {
         this.config = YamlConfiguration.loadConfiguration(this.file);
         Reader defaultConfigStream;
         try {
-            defaultConfigStream = new InputStreamReader(plugin.getResource(this.path), "UTF8");
+            defaultConfigStream = new InputStreamReader(Objects.requireNonNull(plugin.getResource(this.path)), StandardCharsets.UTF_8);
             BufferedReader in = new BufferedReader(defaultConfigStream);
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
             config.setDefaults(defaultConfig);
