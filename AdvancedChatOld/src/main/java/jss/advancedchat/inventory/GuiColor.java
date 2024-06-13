@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GuiColor {
 
@@ -41,12 +42,12 @@ public class GuiColor {
     private void setItems(String target) {
         FileConfiguration config = plugin.getColorFile().getConfig();
 
-        setDecoration(inv, XMaterial.BLACK_STAINED_GLASS_PANE.toString());
+        setDecoration(inv);
 
         item = Util.getPlayerHead(target);
         inv.setItem(4, item);
 
-        PlayerManager playerManager = new PlayerManager(Bukkit.getPlayer(target));
+        PlayerManager playerManager = new PlayerManager(Objects.requireNonNull(Bukkit.getPlayer(target)));
 
         ItemColorBase itemColorBase = new ItemColorBase(playerManager, config);
 
@@ -77,7 +78,7 @@ public class GuiColor {
         item = itemColorBase.getItemColor("Aqua", "color_gui_aqua", "");
         inv.setItem(20, item);
 
-        item = itemColorBase.getItemColor("Dark-", "color_gui_dark_", "dark_");
+        item = itemColorBase.getItemColor("Dark-Aqua", "color_gui_dark_", "dark_");
         inv.setItem(20, item);
 
 
@@ -85,18 +86,20 @@ public class GuiColor {
     }
 
     private @NotNull List<String> coloredLore(@NotNull List<String> lore) {
-        List<String> coloredlore = new ArrayList<>();
+        List<String> colored = new ArrayList<>();
         lore.forEach((line) -> {
             String lineColored = Util.color(line);
-            coloredlore.add(lineColored);
+            colored.add(lineColored);
         });
-        return coloredlore;
+        return colored;
     }
 
-    private void setDecoration(Inventory inv, String path) {
+    private void setDecoration(Inventory inv) {
         for (int i = 0; i < 54; i++) {
-            item = XMaterial.valueOf(path).parseItem();
+            item = XMaterial.BLACK_STAINED_GLASS_PANE.parseItem();
+            assert item != null;
             meta = item.getItemMeta();
+            assert meta != null;
             meta.setDisplayName(Util.color(" "));
             item.setItemMeta(meta);
             item.setAmount(1);

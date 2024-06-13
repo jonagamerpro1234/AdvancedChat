@@ -101,7 +101,7 @@ permissions:
     description: ---
     default: op
   advancedchat.gui.color.all:
-    descriprion: ---
+    description: ---
     children:
       advancedchat.gui.color.black: true
       advancedchat.gui.color.white: true

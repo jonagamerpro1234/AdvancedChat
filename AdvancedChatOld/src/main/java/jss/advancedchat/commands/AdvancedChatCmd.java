@@ -12,6 +12,7 @@ import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Perms;
 import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Util;
+import jss.advancedchat.utils.inventory.TSkullUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,6 +21,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,10 +44,12 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
                 }
                 if (args[0].equalsIgnoreCase("help")) {
                     sendHelp(sender);
+                    return true;
                 }
                 if (args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")) {
                     plugin.reloadAllFiles();
                     Util.sendColorMessage(sender, Util.getPrefix(false) + Settings.message_Reload);
+                    return true;
                 }
                 Util.sendColorMessage(sender, Util.getPrefix(false) + Settings.message_Error_Args);
                 return true;
@@ -182,12 +186,14 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
                         if (playerName == null)
                             Logger.debug("&6Select the player for open inventory");
 
+                        assert playerName != null;
                         Player target = Bukkit.getPlayer(playerName);
 
                         if (target == null)
                             Util.sendColorMessage(j, Settings.message_No_Online_Player);
 
                         if (args.length >= 3) {
+                            assert target != null;
                             PlayerManager playerManager = new PlayerManager(target);
                             if (args[2].equalsIgnoreCase("low-mode")) {
                                 if (args.length >= 4) {
@@ -250,6 +256,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
                             Util.sendColorMessage(j, "please select the setting");
                             return true;
                         }
+                        assert target != null;
                         guiSettings.open(j, target.getName());
                         return true;
                     }
@@ -287,6 +294,17 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
                 return true;
             }
 
+            if(args[0].equalsIgnoreCase("dev")){
+                if(args.length >= 2){
+                    try {
+                        Util.sendColorMessage(j, "TestDecoderBase64: " + Util.getUrlFromBase64(TSkullUtils.replace(args[1])));
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    return true;
+                }
+            }
+
             if (args[0].equalsIgnoreCase("info")) {
                 Util.getInfoPlugin(j, plugin.name, plugin.version, plugin.latestversion);
                 return true;
@@ -312,8 +330,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
         } else {
             final Player j = (Player) sender;
 
-            if (!j.isOp() || !j.hasPermission(Perms.ac_cmd_tabcomplete))
-                return new ArrayList<>();
+            if (!j.isOp() || !j.hasPermission(Perms.ac_cmd_tabcomplete)) return new ArrayList<>();
 
             switch (args.length) {
                 case 0:

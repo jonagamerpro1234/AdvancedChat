@@ -33,7 +33,7 @@ public class PreConfigLoader {
             Settings.int_clearchat_lines = config.getInt("ClearChat.LineClear");
 
             Settings.chatformat_chattype = config.getString("ChatFormat.Chat-Type");
-            Settings.mysql = config.getString("Settings.Use-Database").equals("true");
+            Settings.mysql = config.getBoolean("Settings.Use-Database");
             Settings.mysql_host = config.getString("MySQL.Host");
             Settings.mysql_port = config.getInt("MySQL.Port");
             Settings.mysql_username = config.getString("MySQL.Username");
@@ -41,7 +41,7 @@ public class PreConfigLoader {
             Settings.mysql_database = config.getString("MySQL.Database");
             Settings.mysql_table = config.getString("MySQL.Table");
 
-            Settings.chatlogs_log_chat = config.getString("ChatLogs.Messages-in-the-logger").equals("true");
+            Settings.chatlogs_log_chat = config.getBoolean("ChatLogs.Messages-in-the-logger");
             Settings.chatlogs_log_command = config.getString("ChatLogs.Commands-in-the-logger").equals("true");
             Settings.list_chatlogs_no_register_commands = config.getStringList("ChatLogs.Commands-List.List");
             Settings.msg_format_recive = config.getString("ChatFormat.Private-Message.Receive-Format");

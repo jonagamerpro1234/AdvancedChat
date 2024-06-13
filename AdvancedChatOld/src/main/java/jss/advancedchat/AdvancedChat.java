@@ -24,6 +24,7 @@ import jss.advancedchat.utils.Settings;
 import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.inventory.InventoryView;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.sql.Connection;
@@ -32,14 +33,14 @@ import java.util.ArrayList;
 public class AdvancedChat extends AdvancedChatPlugin {
 
     private static AdvancedChat instance;
-    private final MessageFile messageFile = new MessageFile(this, "oldfiles/messages.yml");
+    private final MessageFile messageFile = new MessageFile(this, "messages.yml");
     private final ConfigFile configFile = new ConfigFile(this, "config.yml");
-    private final GroupFile groupFile = new GroupFile(this, "oldfiles/groups.yml");
-    private final BadWordFile badWordFile = new BadWordFile(this, "oldfiles/badword.yml");
-    private final ColorFile colorFile = new ColorFile(this, "oldfiles/color-gui.yml", "Gui");
-    private final PlayerGuiFile playerGuiFile = new PlayerGuiFile(this, "oldfiles/player-gui.yml", "Gui");
-    private final ChannelGuiFile channelGuiFile = new ChannelGuiFile(this, "oldfiles/channel-gui.yml", "Gui");
-    private final GradientColorFile gradientColorFile = new GradientColorFile(this, "oldfiles/gradient-gui.yml", "Gui");
+    private final GroupFile groupFile = new GroupFile(this, "groups.yml");
+    private final BadWordFile badWordFile = new BadWordFile(this, "badword.yml");
+    private final ColorFile colorFile = new ColorFile(this, "color-gui.yml", "Gui");
+    private final PlayerGuiFile playerGuiFile = new PlayerGuiFile(this, "player-gui.yml", "Gui");
+    private final ChannelGuiFile channelGuiFile = new ChannelGuiFile(this, "channel-gui.yml", "Gui");
+    private final GradientColorFile gradientColorFile = new GradientColorFile(this, "gradient-gui.yml", "Gui");
     private final PlayerFile playerFile = new PlayerFile(this);
     private final LogFile logFile = new LogFile(this);
     public EventUtils eventUtils;
@@ -124,13 +125,14 @@ public class AdvancedChat extends AdvancedChatPlugin {
     }
 
     public void onDisable() {
-        Util.setDisabled(version);
         if (this.adventure != null) {
             this.adventure.close();
             this.adventure = null;
         }
         metrics = null;
         isLegacyConfig = false;
+        Bukkit.getScheduler().cancelTasks(this);
+        Util.setDisabled(version);
     }
 
     public void onCommands() {

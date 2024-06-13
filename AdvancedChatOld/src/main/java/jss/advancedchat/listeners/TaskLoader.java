@@ -2,6 +2,7 @@ package jss.advancedchat.listeners;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.hooks.LuckPermsHook;
+import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.mysql.MySql;
 import jss.advancedchat.utils.EventUtils;
@@ -44,7 +45,8 @@ public class TaskLoader {
 
             groupTaskID = scheduler.scheduleSyncRepeatingTask(plugin, new Runnable() {
                 public void run() {
-                    if (Settings.hook_luckperms_autoupdate_group) {
+                    LuckPermsHook hook = HookManager.get().getLuckPermsHook();
+                    if (hook.isEnabled() && Settings.hook_luckperms_autoupdate_group) {
                         String group = LuckPermsHook.getApi().getUserManager().getUser(p.getName()).getPrimaryGroup();
 
                         if (Settings.mysql) {
@@ -60,6 +62,7 @@ public class TaskLoader {
                             }
                         }
                     } else {
+                        Logger.debug("&eTask: LuckPerms Update Group Cancel!");
                         scheduler.cancelTask(groupTaskID);
                     }
                 }

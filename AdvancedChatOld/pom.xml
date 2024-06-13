@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>advancedchatold</artifactId>
-    <version>1.7.0-b21</version>
+    <version>1.7.0-b22</version>
 
     <name>AdvancedChatOld</name>
     <description>a simple plugin that helps you customize your server chat to make it look better also brings a
@@ -53,15 +53,15 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.29</version>
-            <scope>compile</scope>
+            <version>8.0.26</version>
         </dependency>
+
 
         <!-- Spigot -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.19-R0.1-SNAPSHOT</version>
+            <version>1.20.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -83,7 +83,7 @@
         <dependency>
             <groupId>com.github.cryptomorin</groupId>
             <artifactId>XSeries</artifactId>
-            <version>8.8.0</version>
+            <version>11.0.0</version>
             <scope>compile</scope>
         </dependency>
 
@@ -93,21 +93,8 @@
             <artifactId>authlib</artifactId>
             <version>1.5.25</version>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.code.findbugs</groupId>
-                    <artifactId>jsr305</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.google.code.gson</groupId>
-                    <artifactId>gson</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
+
 
         <!-- ProtocolLib -->
         <dependency>
@@ -163,38 +150,8 @@
         <dependency>
             <groupId>com.discordsrv</groupId>
             <artifactId>discordsrv</artifactId>
-            <version>1.24.0</version>
+            <version>1.26.0</version>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-jdk14</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.google.code.findbugs</groupId>
-                    <artifactId>jsr305</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.google.code.gson</groupId>
-                    <artifactId>gson</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.yaml</groupId>
-                    <artifactId>snakeyaml</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>net.kyori</groupId>
-                    <artifactId>adventure-platform-bukkit</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
@@ -239,7 +196,7 @@
             <url>https://m2.dv8tion.net/releases</url>
         </repository>
         <repository>
-            <id>Scarsz-Nexus</id>
+            <id>scarsz</id>
             <url>https://nexus.scarsz.me/content/groups/public/</url>
         </repository>
         <repository>

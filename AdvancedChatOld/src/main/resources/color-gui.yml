@@ -1,0 +1,140 @@
+#     ___   ______
+#    /   | / ____/ 
+#   / /| |/ /      By jonagamerpro1234
+#  / ___ / /___    Version 1.7.0
+# /_/  |_\____/    Thanks for using AdvancedChat <3
+#
+Title: '&b&lMenu &8&l> &e&lColor'
+Items:
+  Next:
+    Name: '&a&lNext Menu'
+    Texture: '[next]'
+    Item: green_stained_glass_pane
+  Last:
+    Name: '&e&lLast Menu'
+    Texture: '[last]'
+    Item: yellow_stained_glass_pane
+  Exit:
+    Name: '&c&lExit'
+    Texture: '[exit]'
+    Item: red_stained_glass_pane
+  Rainbow:
+    Name: '&a&lR&e&la&b&li&d&ln&6&lb&3&lo&7&lw'
+    Texture: '[rainbow]'
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &e[&0H&6&be&al&dl&3o &7p&8la&9y&ce&1r&e]'
+      - '&b&nClick to select this chat color'
+  Black:
+    Name: '&0&lBlack'
+    Texture: '[black]'
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &e[&0Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Blue:
+    Name: '&9&lBlue'
+    Texture: '[blue]'
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &e[&9Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Dark-Gray:
+    Name: '&8&lDark Gray'
+    Texture: '[dark_gray]'
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &e[&8Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Gray:
+    Name: '&7&lGray'
+    Texture: '[gray]'
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &e[&7Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Gold:
+    Name: '&6&lGold'
+    Texture: '[gold]'
+    Slot: 28
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &e[&6Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Dark-Purple:
+    Name: '&5&lDark Purple'
+    Texture: '[dark_purple]'
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &e[&5Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Dark-Red:
+    Name: '&4&lDark Red'
+    Texture: '[dark_red]'
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &e[&4Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Dark-Aqua:
+    Name: '&3&lDark Aqua'
+    Texture: '[dark_aqua]'
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &e[&3Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Dark-Blue:
+    Name: '&2&lDark Blue'
+    Texture: '[dark_blue]'
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &e[&2Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Dark-Green:
+    Name: '&1&lDark Green'
+    Texture: '[dark_green]'
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &e[&1Hello player&e]'
+      - '&b&nClick to select this chat color'
+  Green:
+    Name: '&a&lGreen'
+    Texture: '[green]'
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &e[&aHello player&e]'
+      - '&b&nClick to select this chat color'
+  Aqua:
+    Name: '&b&lAqua'
+    Texture: '[aqua]'
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &e[&bHello player&e]'
+      - '&b&nClick to select this chat color'
+  Red:
+    Name: '&c&lRed'
+    Texture: '[red]'
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &e[&cHello player&e]'
+      - '&b&nClick to select this chat color'
+  Light-Purple:
+    Name: '&d&lLight Purple'
+    Texture: '[light_purple]'
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &e[&dHello player&e]'
+      - '&b&nClick to select this chat color'
+  Yellow:
+    Name: '&e&lYellow'
+    Texture: '[yellow]'
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &a[&eHello player&a]'
+      - '&b&nClick to select this chat color'
+  White:
+    Name: '&f&lWhite'
+    Texture: '[white]'
+    Item: paper
+    Lore:
+      - '&7Your chat would look like this: &e[&fHello player&e]'
+      - '&b&nClick to select this chat color'

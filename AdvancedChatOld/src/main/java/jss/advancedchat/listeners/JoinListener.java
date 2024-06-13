@@ -26,22 +26,23 @@ public class JoinListener implements Listener {
     public void onJoinPlayer(@NotNull PlayerJoinEvent e) {
         LuckPermsHook luckPermsHook = HookManager.get().getLuckPermsHook();
         Player j = e.getPlayer();
-
-        if (luckPermsHook.isEnabled()) {
-            Logger.error("&cThe LuckPerms could not be found to activate the group system");
-            Logger.warning("&eplease check that LuckPerms is active or inside your plugins folder");
-        }
-
-        String group = LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup();
-
+        String group;
         PlayerFile playerFile = new PlayerFile(plugin, j.getName());
         PlayerManager playerManager = new PlayerManager(j);
         playerFile.create();
-        playerManager.create(j, group);
 
-        if (!playerManager.getGroup().equalsIgnoreCase(LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup())) {
-            playerManager.setGroup(LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup());
+        if (!luckPermsHook.isEnabled()) {
+            Logger.error("&cThe LuckPerms could not be found to activate the group system");
+            Logger.warning("&eplease check that LuckPerms is active or inside your plugins folder");
+            group = "default";
+        } else {
+            group = LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup();
+
+            if (!playerManager.getGroup().equalsIgnoreCase(LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup())) {
+                playerManager.setGroup(LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup());
+            }
         }
+        playerManager.create(j, group);
 
         if (Settings.mysql) {
             if (!MySql.existsInPlayerDataBase(j)) {

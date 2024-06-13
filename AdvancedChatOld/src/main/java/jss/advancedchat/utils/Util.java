@@ -5,6 +5,7 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import jss.advancedchat.lib.iridium.IridiumColorAPI;
 import jss.advancedchat.update.UpdateSettings;
+import jss.advancedchat.utils.inventory.TSkullUtils;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -15,13 +16,20 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.profile.PlayerProfile;
+import org.bukkit.profile.PlayerTextures;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -216,6 +224,7 @@ public class Util {
     public static @NotNull ItemStack getPlayerHead(String player) {
         boolean isNewVersion = Arrays.stream(Material.values()).map(Enum::name).collect(Collectors.toList()).contains("PLAYER_HEAD");
         Material type = Material.matchMaterial(isNewVersion ? "PLAYER_HEAD" : "SKULL_ITEM");
+        assert type != null;
         ItemStack item = new ItemStack(type, 1);
         if (!isNewVersion) {
             item.setDurability((short) 3);
@@ -228,29 +237,125 @@ public class Util {
         return item;
     }
 
-    public static ItemStack createSkull(String url) {
+    public static ItemStack createSkullNew(@NotNull String texture) {
         ItemStack head = XMaterial.PLAYER_HEAD.parseItem();
-        if (!url.isEmpty()) {
+        if (!texture.isEmpty()) {
             assert head != null;
             SkullMeta headMeta = (SkullMeta) head.getItemMeta();
-            GameProfile profile = new GameProfile(UUID.randomUUID(), null);
-            profile.getProperties().put("textures", new Property("textures", url));
-
+            PlayerProfile profile = Bukkit.createPlayerProfile(UUID.randomUUID());
+            PlayerTextures textures = profile.getTextures();
             try {
-                assert headMeta != null;
-                Field profileField = headMeta.getClass().getDeclaredField("profile");
-                profileField.setAccessible(true);
-                profileField.set(headMeta, profile);
-            } catch (NoSuchFieldException | SecurityException | IllegalAccessException | IllegalArgumentException ex) {
-                ex.printStackTrace();
+                textures.setSkin(new URL(texture));
+                profile.setTextures(textures);
+            } catch (MalformedURLException e) {
+                Logger.error(e.getMessage());
+                throw new RuntimeException(e);
             }
-
+            assert headMeta != null;
+            headMeta.setOwnerProfile(profile);
             head.setItemMeta(headMeta);
         }
         return head;
     }
 
-    public static ItemStack createSkull(@NotNull String url, List<String> lore) {
+    public static @NotNull URL getUrlFromBase64(String base64) throws MalformedURLException {
+        String decoded = new String(Base64.getDecoder().decode(base64));
+        Logger.debug("Type: Base64 | Decoder: " + decoded);
+        // We simply remove the "beginning" and "ending" part of the JSON, so we're left with only the URL. You could use a proper
+        // JSON parser for this, but that's not worth it. The String will always start exactly with this stuff anyway
+        return new URL(decoded.substring("{\"textures\":{\"SKIN\":{\"url\":\"".length(), decoded.length() - "\"}}}".length()));
+    }
+
+    @Contract(pure = true)
+    public static @Nullable ItemStack createSkull(String id){
+        if(beforeVersion(20.6)){
+            return createSkull_118(TSkullUtils.replace(id));
+        }else{
+            return createSkull_117(TSkullUtils.replace(id));
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    public static @NotNull ItemStack createCustomSkull(@NotNull String url){
+        boolean isNewVersion = Arrays.stream(Material.values()).map(Enum::name).collect(Collectors.toList()).contains("PLAYER_HEAD");
+        Material type = Material.matchMaterial(isNewVersion ? "PLAYER_HEAD" : "SKULL_ITEM");
+        assert type != null;
+        ItemStack head = new ItemStack(type, 1);
+        if (!isNewVersion) {
+            head.setDurability((short) 3);
+        }
+        if (!url.isEmpty()) {
+            SkullMeta headMeta = (SkullMeta) head.getItemMeta();
+            GameProfile profile = new GameProfile(UUID.randomUUID(), "");
+            profile.getProperties().put("textures", new Property("textures", url));
+            Field profileField;
+            try {
+                assert headMeta != null;
+                profileField = headMeta.getClass().getDeclaredField("profile");
+                profileField.setAccessible(true);
+                profileField.set(headMeta, profile);
+            } catch (NoSuchFieldException | SecurityException | IllegalAccessException | IllegalArgumentException ex) {
+                Logger.error(ex.getMessage());
+            }
+            head.setItemMeta(headMeta);
+        }
+        return head;
+    }
+
+    //check version
+    public static boolean beforeVersion(double version) {
+        String a = Bukkit.getServer().getClass().getPackage().getName();
+        String v = a.substring(a.lastIndexOf('v') + 1);
+
+        double vNum = Double.parseDouble(v.substring(2, v.lastIndexOf('_')) + "." + v.charAt(v.length() - 1));
+        Logger.debug("Before Version" + vNum + " < " + version);
+        return vNum < version;
+    }
+
+    public static @NotNull ItemStack createSkull_118(String textureId){
+
+        ItemStack item = XMaterial.PLAYER_HEAD.parseItem();
+        assert item != null;
+        SkullMeta meta = (SkullMeta) item.getItemMeta();
+        PlayerProfile profile = Bukkit.createPlayerProfile(UUID.randomUUID());
+        PlayerTextures textures = profile.getTextures();
+        URL url;
+        try {
+            url = getUrlFromBase64(textureId);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        textures.setSkin(url);
+        profile.setTextures(textures);
+        assert meta != null;
+        meta.setOwnerProfile(profile);
+        item.setItemMeta(meta);
+
+        return item;
+    }
+
+    public static ItemStack createSkull_117(@NotNull String url) {
+        ItemStack head = XMaterial.PLAYER_HEAD.parseItem();
+        if (!url.isEmpty()) {
+            assert head != null;
+            SkullMeta headMeta = (SkullMeta) head.getItemMeta();
+            GameProfile profile = new GameProfile(UUID.randomUUID(), UUID.randomUUID().toString());
+            profile.getProperties().put("textures", new Property("textures", url));
+            Field profileField;
+            try {
+                assert headMeta != null;
+                profileField = headMeta.getClass().getDeclaredField("profile");
+                profileField.setAccessible(true);
+                profileField.set(headMeta, profile);
+            } catch (NoSuchFieldException | SecurityException | IllegalAccessException | IllegalArgumentException ex) {
+                Logger.error(ex.getMessage());
+            }
+            head.setItemMeta(headMeta);
+        }
+        return head;
+    }
+
+    public static ItemStack createSkull_117(@NotNull String url, List<String> lore) {
         ItemStack head = XMaterial.PLAYER_HEAD.parseItem();
         if (!url.isEmpty()) {
             SkullMeta headMeta = (SkullMeta) head.getItemMeta();

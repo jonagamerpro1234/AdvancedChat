@@ -17,7 +17,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class GuiPlayer {
 
@@ -47,22 +49,23 @@ public class GuiPlayer {
         FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
 
         inv.setItem(4, Util.getPlayerHead(target));
-        PlayerManager playerManager = new PlayerManager(Bukkit.getPlayer(target));
+        PlayerManager playerManager = new PlayerManager(Objects.requireNonNull(Bukkit.getPlayer(target)));
 
-        for (String key : config.getConfigurationSection("Items").getKeys(false)) {
+        for (String key : Objects.requireNonNull(config.getConfigurationSection("Items")).getKeys(false)) {
             int slot = config.getInt("Items." + key + ".Slot");
             String name = config.getString("Items." + key + ".Name");
 
             if (!playerManager.isLowMode()) {
                 String textures = config.getString("Items." + key + ".Texture");
-                textures = TSkullUtils.replace(textures);
                 item = Util.createSkull(textures);
             } else {
-                String mat = config.getString("Items." + key + ".Item").toUpperCase();
+                String mat = Objects.requireNonNull(config.getString("Items." + key + ".Item")).toUpperCase();
                 item = XMaterial.valueOf(mat).parseItem();
             }
 
+            assert item != null;
             meta = item.getItemMeta();
+            assert meta != null;
             meta.setDisplayName(Util.color(name));
 
             item.setItemMeta(meta);
@@ -71,32 +74,33 @@ public class GuiPlayer {
             inv.setItem(slot, item);
         }
 
-        int slotmute = config.getInt("Especial-Items.Mute.Slot");
+        int slotMuted = config.getInt("Especial-Items.Mute.Slot");
         String name = config.getString("Especial-Items.Mute.Name");
 
-        List<String> lore = Arrays.asList(Settings.message_NoPermission);
+        List<String> lore = Collections.singletonList(Settings.message_NoPermission);
 
         if (player.isOp() || player.hasPermission("AdvancedChat.Gui.Player.Mute")) {
             item = getMuteItem(player);
             meta = item.getItemMeta();
+            assert meta != null;
             meta.setDisplayName(Util.color("&eThe player has bypass"));
             meta.setLore(InventoryUtils.coloredLore(lore));
             meta.addEnchant(Enchantment.DURABILITY, 1, false);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             item.setItemMeta(meta);
-            inv.setItem(slotmute, item);
+            inv.setItem(slotMuted, item);
         } else {
             item = getMuteItem(player);
             meta = item.getItemMeta();
             meta.setDisplayName(Util.color(Util.getVar(player, name)));
             item.setItemMeta(meta);
-            inv.setItem(slotmute, item);
+            inv.setItem(slotMuted, item);
         }
     }
 
     private void setGlass(Inventory inv, String path) {
         for (int i = 0; i < 54; i++) {
-            item = XMaterial.valueOf(path.toUpperCase()).parseItem();
+            item = XMaterial.BLACK_STAINED_GLASS_PANE.parseItem();
             meta = item.getItemMeta();
             meta.setDisplayName(" ");
             item.setItemMeta(meta);

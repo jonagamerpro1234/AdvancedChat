@@ -12,11 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class GuiGradient {
 
@@ -42,15 +40,14 @@ public class GuiGradient {
     private void addItems(String target) {
         FileConfiguration config = plugin.getGradientColorFile().getConfig();
 
-        int amont = 1;
-        setDecoration();
+        int amount = 1;
 
         item = Util.getPlayerHead(target);
         inv.setItem(4, item);
 
-        PlayerManager playerManager = new PlayerManager(Bukkit.getPlayer(target));
+        PlayerManager playerManager = new PlayerManager(Objects.requireNonNull(Bukkit.getPlayer(target)));
 
-        Set<String> section = config.getConfigurationSection("Items").getKeys(false);
+        Set<String> section = Objects.requireNonNull(config.getConfigurationSection("Items")).getKeys(false);
 
         for (String key : section) {
             String name = config.getString("Items." + key + ".Name");
@@ -62,15 +59,17 @@ public class GuiGradient {
                 textures = TSkullUtils.replace(textures);
                 item = Util.createSkull(textures);
             } else {
-                String mat = config.getString("Items." + key + ".Item").toUpperCase();
+                String mat = Objects.requireNonNull(config.getString("Items." + key + ".Item")).toUpperCase();
                 item = XMaterial.valueOf(mat).parseItem();
             }
 
+            assert item != null;
             meta = item.getItemMeta();
+            assert meta != null;
             meta.setDisplayName(Util.color(name));
             meta.setLore(coloredLore(lore));
             item.setItemMeta(meta);
-            item.setAmount(amont);
+            item.setAmount(amount);
             inv.setItem(slot, item);
         }
 
@@ -78,7 +77,7 @@ public class GuiGradient {
     }
 
     @SuppressWarnings("unused")
-    private void setCustomItem(PlayerManager playerManager) {
+    private void setCustomItem(@NotNull PlayerManager playerManager) {
         if (playerManager.isGradient()) {
             item = XMaterial.LIME_DYE.parseItem();
             meta = item.getItemMeta();
@@ -98,7 +97,7 @@ public class GuiGradient {
         }
     }
 
-    private List<String> coloredLore(List<String> lore) {
+    private @NotNull List<String> coloredLore(@NotNull List<String> lore) {
         List<String> coloredlore = new ArrayList<>();
         lore.forEach((line) -> {
             String lineColored = Util.color(line);
