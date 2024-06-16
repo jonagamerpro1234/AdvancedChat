@@ -21,13 +21,14 @@ public class LogFile {
         this.plugin = plugin;
     }
 
+    @SuppressWarnings("all")
     public void create() {
         file = new File(plugin.getDataFolder() + File.separator + "Log", pathFile + ".yml");
         if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
         config = new YamlConfiguration();
@@ -35,7 +36,7 @@ public class LogFile {
             config.load(file);
         } catch (IOException | InvalidConfigurationException e) {
             Logger.error("The file could not be loaded");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -50,7 +51,7 @@ public class LogFile {
         try {
             config.save(file);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

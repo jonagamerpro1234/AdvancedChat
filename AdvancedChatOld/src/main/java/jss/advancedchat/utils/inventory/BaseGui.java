@@ -8,19 +8,20 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 /**
- * experimental gui
+ * Experimental Gui
  */
 @SuppressWarnings("unused")
 public abstract class BaseGui extends InventoryUtils implements InventoryHolder {
 
     private static final Map<UUID, BaseGui> inventoriesByUUID = new HashMap<>();
-    private static final Map<UUID, UUID> openIventories = new HashMap<>();
+    private static final Map<UUID, UUID> openInventories = new HashMap<>();
     private final UUID uuid = UUID.randomUUID();
     private final Inventory inventory;
     private final Map<Integer, GuiAction<?>> actions;
@@ -38,8 +39,8 @@ public abstract class BaseGui extends InventoryUtils implements InventoryHolder 
         return inventoriesByUUID;
     }
 
-    public static Map<UUID, UUID> getOpenIventories() {
-        return openIventories;
+    public static Map<UUID, UUID> getOpenInventories() {
+        return openInventories;
     }
 
     public void setItem(int slot, ItemStack itemstack, GuiAction<?> action) {
@@ -54,8 +55,8 @@ public abstract class BaseGui extends InventoryUtils implements InventoryHolder 
         setItem(slot, itemStack, null);
     }
 
-    public void open(Player player) {
-        openIventories.put(player.getUniqueId(), getUuid());
+    public void open(@NotNull Player player) {
+        openInventories.put(player.getUniqueId(), getUuid());
         player.openInventory(inventory);
     }
 
@@ -67,9 +68,8 @@ public abstract class BaseGui extends InventoryUtils implements InventoryHolder 
         return actions;
     }
 
-    public Inventory getInventory() {
+    public @NotNull Inventory getInventory() {
         return inventory;
     }
-
 
 }

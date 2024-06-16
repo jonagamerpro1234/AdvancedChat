@@ -9,7 +9,7 @@ import jss.advancedchat.storage.mysql.MySql;
 import jss.advancedchat.update.UpdateChecker;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Perms;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Util;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -52,10 +52,7 @@ public class JoinListener implements Listener {
                 Logger.debug("The player already exists in the database");
             }
         }
-
-
     }
-
 
     @EventHandler
     public void onUpdatePlayer(@NotNull PlayerJoinEvent e) {

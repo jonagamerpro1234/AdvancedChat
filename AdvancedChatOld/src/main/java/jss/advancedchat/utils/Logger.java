@@ -1,5 +1,7 @@
 package jss.advancedchat.utils;
 
+import jss.advancedchat.files.utils.Settings;
+
 public class Logger {
 
     public static void warning(String msg) {
@@ -33,6 +35,5 @@ public class Logger {
     public static void defaultMessage(String msg) {
         Util.sendColorMessage(EventUtils.getConsoleSender(), Util.getPrefix(true) + msg);
     }
-
 
 }

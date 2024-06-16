@@ -7,15 +7,17 @@ import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.mysql.MySql;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.files.utils.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import java.util.Objects;
+
 public class TaskLoader {
 
-    private AdvancedChat plugin = AdvancedChat.get();
-    private EventUtils eventUtils = new EventUtils(plugin);
+    private final AdvancedChat plugin = AdvancedChat.get();
+    private final EventUtils eventUtils = new EventUtils(plugin);
     private int chatTaskID;
     private int groupTaskID;
 
@@ -47,7 +49,7 @@ public class TaskLoader {
                 public void run() {
                     LuckPermsHook hook = HookManager.get().getLuckPermsHook();
                     if (hook.isEnabled() && Settings.hook_luckperms_autoupdate_group) {
-                        String group = LuckPermsHook.getApi().getUserManager().getUser(p.getName()).getPrimaryGroup();
+                        String group = Objects.requireNonNull(LuckPermsHook.getApi().getUserManager().getUser(p.getName())).getPrimaryGroup();
 
                         if (Settings.mysql) {
                             if (MySql.existsInPlayerDataBase(p)) {

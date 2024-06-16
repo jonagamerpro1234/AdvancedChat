@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class BadWordFile {
 
@@ -43,7 +44,7 @@ public class BadWordFile {
         try {
             this.config.save(this.file);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
     }
@@ -55,12 +56,12 @@ public class BadWordFile {
         this.config = YamlConfiguration.loadConfiguration(this.file);
         Reader defaultConfigStream;
         try {
-            defaultConfigStream = new InputStreamReader(plugin.getResource(this.path), StandardCharsets.UTF_8);
+            defaultConfigStream = new InputStreamReader(Objects.requireNonNull(plugin.getResource(this.path)), StandardCharsets.UTF_8);
             BufferedReader in = new BufferedReader(defaultConfigStream);
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
             config.setDefaults(defaultConfig);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

@@ -8,29 +8,27 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class PlayerGuiFile {
 
     private final AdvancedChat plugin;
     private final String path;
-    private final String folderpath;
+    private final String folderPath;
     private File file;
     private FileConfiguration config;
 
-    public PlayerGuiFile(AdvancedChat plugin, String path, String folderpath) {
+    public PlayerGuiFile(AdvancedChat plugin, String path, String folderPath) {
         this.plugin = plugin;
         this.file = null;
         this.config = null;
         this.path = path;
-        this.folderpath = folderpath;
-    }
-
-    public String getFolderPath() {
-        return this.folderpath;
+        this.folderPath = folderPath;
     }
 
     public void create() {
-        this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+        this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         if (!this.file.exists()) {
             getConfig().options().copyDefaults(true);
             saveConfig();
@@ -48,23 +46,23 @@ public class PlayerGuiFile {
         try {
             this.config.save(this.file);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     public void reloadConfig() {
         if (this.config == null) {
-            this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+            this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         }
         this.config = YamlConfiguration.loadConfiguration(this.file);
         Reader defaultConfigStream;
         try {
-            defaultConfigStream = new InputStreamReader(plugin.getResource(this.path), "UTF8");
+            defaultConfigStream = new InputStreamReader(Objects.requireNonNull(plugin.getResource(this.path)), StandardCharsets.UTF_8);
             BufferedReader in = new BufferedReader(defaultConfigStream);
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
             config.setDefaults(defaultConfig);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
 
@@ -80,24 +78,15 @@ public class PlayerGuiFile {
 
     public void saveDefaultConfig() {
         if (this.file == null) {
-            this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+            this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         }
         if (!this.file.exists()) {
             plugin.saveResource(this.path, false);
         }
     }
 
-    public void resetConfig() {
-        if (this.file == null) {
-            this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
-        }
-        if (!this.file.exists()) {
-            plugin.saveResource(this.path, true);
-        }
-    }
-
     public boolean isFileExists() {
-        this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+        this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         return this.file.exists();
     }
 

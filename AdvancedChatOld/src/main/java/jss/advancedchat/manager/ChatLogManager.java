@@ -9,8 +9,8 @@ import java.util.List;
 public class ChatLogManager {
 
     private final List<String> blacklist = Arrays.asList("/login", "/log", "/register", "/reg");
-    private final List<String> ignore = new ArrayList<String>();
-    private final List<String> check = new ArrayList<String>();
+    private final List<String> ignore = new ArrayList<>();
+    private final List<String> check = new ArrayList<>();
 
     public List<String> getBlacklist() {
         return blacklist;

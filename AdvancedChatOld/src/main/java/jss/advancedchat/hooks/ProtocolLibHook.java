@@ -6,7 +6,7 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.files.utils.Settings;
 import org.bukkit.entity.Player;
 
 public class ProtocolLibHook {

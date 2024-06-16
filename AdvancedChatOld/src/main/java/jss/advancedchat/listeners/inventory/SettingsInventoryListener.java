@@ -18,13 +18,17 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class SettingsInventoryListener implements Listener {
 
     private final AdvancedChat plugin = AdvancedChat.get();
 
+    @SuppressWarnings("All")
     @EventHandler
-    public void onClick(InventoryClickEvent e) {
+    public void onClick(@NotNull InventoryClickEvent e) {
         Player j = (Player) e.getWhoClicked();
         InventoryView inventoryView = plugin.getInventoryView(j);
 
@@ -37,13 +41,14 @@ public class SettingsInventoryListener implements Listener {
 
         e.getSlotType();
 
-        if (!e.getClickedInventory().equals(j.getOpenInventory().getTopInventory())) return;
+        if (!Objects.equals(e.getClickedInventory(), j.getOpenInventory().getTopInventory())) return;
 
         int slot = e.getSlot();
         e.setCancelled(true);
 
-        String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
+        String playerName = Util.colorless(Objects.requireNonNull(Objects.requireNonNull(e.getClickedInventory().getItem(4)).getItemMeta()).getDisplayName());
         Player target = Bukkit.getPlayer(playerName);
+        assert target != null;
         PlayerManager playerManager = new PlayerManager(target);
         InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
 
@@ -69,9 +74,11 @@ public class SettingsInventoryListener implements Listener {
         }
     }
 
-    public void isLowModeItem(PlayerManager playerManager, Player player, Inventory inv) {
+    public void isLowModeItem(PlayerManager playerManager, @NotNull Player player, Inventory inv) {
         ItemStack item = XMaterial.REPEATER.parseItem();
+        assert item != null;
         ItemMeta meta = item.getItemMeta();
+        assert meta != null;
         meta.setDisplayName(Util.color("&eLow Mode"));
 
 
@@ -89,9 +96,11 @@ public class SettingsInventoryListener implements Listener {
         inv.setItem(19, item);
     }
 
-    public void isChatItem(PlayerManager playerManager, Player player, Inventory inv) {
+    public void isChatItem(PlayerManager playerManager, @NotNull Player player, Inventory inv) {
         ItemStack item = XMaterial.REPEATER.parseItem();
+        assert item != null;
         ItemMeta meta = item.getItemMeta();
+        assert meta != null;
         meta.setDisplayName(Util.color("&eChat"));
 
 
@@ -111,7 +120,7 @@ public class SettingsInventoryListener implements Listener {
 
 
     @EventHandler
-    public void onInventoryClose(InventoryCloseEvent e) {
+    public void onInventoryClose(@NotNull InventoryCloseEvent e) {
         Player j = (Player) e.getPlayer();
         plugin.removeInventoryView(j);
     }

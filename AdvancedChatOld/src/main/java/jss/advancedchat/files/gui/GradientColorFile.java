@@ -8,29 +8,31 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class GradientColorFile {
 
     private final AdvancedChat plugin;
     private final String path;
-    private final String folderpath;
+    private final String folderPath;
     private File file;
     private FileConfiguration config;
 
-    public GradientColorFile(AdvancedChat plugin, String path, String folderpath) {
+    public GradientColorFile(AdvancedChat plugin, String path, String folderPath) {
         this.plugin = plugin;
         this.file = null;
         this.config = null;
         this.path = path;
-        this.folderpath = folderpath;
+        this.folderPath = folderPath;
     }
 
     public String getFolderPath() {
-        return this.folderpath;
+        return this.folderPath;
     }
 
     public void create() {
-        this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+        this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         if (!this.file.exists()) {
             getConfig().options().copyDefaults(true);
             saveConfig();
@@ -47,23 +49,23 @@ public class GradientColorFile {
     public void saveConfig() {
         try {
             this.config.save(this.file);
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public void reloadConfig() {
         if (this.config == null) {
-            this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+            this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         }
         this.config = YamlConfiguration.loadConfiguration(this.file);
         Reader defaultConfigStream;
         try {
-            defaultConfigStream = new InputStreamReader(plugin.getResource(this.path), "UTF8");
+            defaultConfigStream = new InputStreamReader(Objects.requireNonNull(plugin.getResource(this.path)), StandardCharsets.UTF_8);
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
             config.setDefaults(defaultConfig);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
 
@@ -79,7 +81,7 @@ public class GradientColorFile {
 
     public void saveDefaultConfig() {
         if (this.file == null) {
-            this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+            this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         }
         if (!this.file.exists()) {
             plugin.saveResource(this.path, false);
@@ -88,7 +90,7 @@ public class GradientColorFile {
 
     public void resetConfig() {
         if (this.file == null) {
-            this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+            this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         }
         if (!this.file.exists()) {
             plugin.saveResource(this.path, true);
@@ -96,7 +98,7 @@ public class GradientColorFile {
     }
 
     public boolean isFileExists() {
-        this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+        this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         return this.file.exists();
     }
 

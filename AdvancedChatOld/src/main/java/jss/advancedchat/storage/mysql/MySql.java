@@ -1,7 +1,8 @@
 package jss.advancedchat.storage.mysql;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.utils.Logger;
+import jss.advancedchat.files.utils.Settings;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,7 +24,8 @@ public class MySql {
                     " `IS_MUTE` BOOLEAN, `LOWMODE` BOOLEAN, `IS_MSG` BOOLEAN, `IS_CHAT` BOOLEAN)");
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
     }
 
@@ -37,7 +39,8 @@ public class MySql {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
         return false;
     }
@@ -65,7 +68,7 @@ public class MySql {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
         }
     }
 
@@ -78,7 +81,8 @@ public class MySql {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
     }
 
@@ -91,7 +95,8 @@ public class MySql {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
     }
 
@@ -104,7 +109,8 @@ public class MySql {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
     }
 
@@ -117,7 +123,8 @@ public class MySql {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
     }
 
@@ -130,7 +137,8 @@ public class MySql {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
     }
 
@@ -143,7 +151,8 @@ public class MySql {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
     }
 
@@ -156,7 +165,8 @@ public class MySql {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
     }
 
@@ -169,7 +179,8 @@ public class MySql {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
     }
 
@@ -182,7 +193,8 @@ public class MySql {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
     }
 
@@ -195,7 +207,8 @@ public class MySql {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
     }
 
@@ -208,7 +221,8 @@ public class MySql {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
     }
 
@@ -224,7 +238,8 @@ public class MySql {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
         return null;
     }
@@ -241,7 +256,8 @@ public class MySql {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
         return null;
     }
@@ -257,7 +273,8 @@ public class MySql {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
         return null;
     }
@@ -273,12 +290,13 @@ public class MySql {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
         return null;
     }
 
-    public static String getSecondGradient(Player player) {
+    public static @Nullable String getSecondGradient(Player player) {
         try (Connection connection = plugin.getConnection()) {
             if (!existsInPlayerDataBase(player)) {
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM `advancedchat_data` WHERE (PLAYER_NAME=?)");
@@ -289,12 +307,13 @@ public class MySql {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
         return null;
     }
 
-    public static String getSpecialCodes(Player player) {
+    public static @Nullable String getSpecialCodes(Player player) {
         try (Connection connection = plugin.getConnection()) {
             if (!existsInPlayerDataBase(player)) {
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM `advancedchat_data` WHERE (PLAYER_NAME=?)");
@@ -305,12 +324,13 @@ public class MySql {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
         return null;
     }
 
-    public static String getRainbow(Player player) {
+    public static @Nullable String getRainbow(Player player) {
         try (Connection connection = plugin.getConnection()) {
             if (!existsInPlayerDataBase(player)) {
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM `advancedchat_data` WHERE (PLAYER_NAME=?)");
@@ -321,7 +341,8 @@ public class MySql {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
         return null;
     }
@@ -337,7 +358,8 @@ public class MySql {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
         return false;
     }
@@ -353,7 +375,8 @@ public class MySql {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
         return false;
     }
@@ -369,7 +392,8 @@ public class MySql {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
         return false;
     }
@@ -385,7 +409,8 @@ public class MySql {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
+            throw  new RuntimeException(e);
         }
         return false;
     }

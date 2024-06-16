@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class GradientInventoryListener implements Listener {
 
@@ -37,22 +38,28 @@ public class GradientInventoryListener implements Listener {
             return;
         }
 
-        if (!e.getClickedInventory().equals(j.getOpenInventory().getTopInventory())) return;
+        if (!Objects.equals(e.getClickedInventory(), j.getOpenInventory().getTopInventory())) return;
 
         int slot = e.getSlot();
         e.setCancelled(true);
 
-        String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
+        String playerName = Util.colorless(Objects.requireNonNull(e.getClickedInventory()).getItem(4).getItemMeta().getDisplayName());
         Player target = Bukkit.getPlayer(playerName);
+        assert target != null;
         PlayerManager playerManager = new PlayerManager(target);
         InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
+
+
+        if(slot == 3){
+            actionHelper.setOpenInventoryAction(target.getName(), InventoryActionHelper.InventoryType.Player);
+        }
 
         if (slot == 45) {
             setGradientItem(playerManager, e.getInventory());
         }
     }
 
-    private void setGradientItem(PlayerManager playerManager, Inventory inv) {
+    private void setGradientItem(@NotNull PlayerManager playerManager, Inventory inv) {
         ItemStack item;
         ItemMeta meta;
 
@@ -65,7 +72,7 @@ public class GradientInventoryListener implements Listener {
             item.setItemMeta(meta);
             inv.setItem(45, item);
             playerManager.setGradient(false);
-        } else {
+        } else if(!playerManager.isGradient()) {
             item = XMaterial.LIME_DYE.parseItem();
             meta = item.getItemMeta();
             meta.setDisplayName(Util.color("&aEnable"));

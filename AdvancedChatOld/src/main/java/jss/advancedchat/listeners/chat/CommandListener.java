@@ -1,20 +1,18 @@
 package jss.advancedchat.listeners.chat;
 
-import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Util;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.jetbrains.annotations.NotNull;
 
 public class CommandListener implements Listener {
 
-    private final AdvancedChat plugin = AdvancedChat.get();
-
     @EventHandler(ignoreCancelled = true)
-    public void onCommandChat(PlayerCommandPreprocessEvent e) {
+    public void onCommandChat(@NotNull PlayerCommandPreprocessEvent e) {
         Player j = e.getPlayer();
         PlayerManager playerManager = new PlayerManager(j);
 

@@ -1,8 +1,7 @@
-package jss.advancedchat.files;
+package jss.advancedchat.files.utils;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Settings;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class PreConfigLoader {
@@ -18,17 +17,17 @@ public class PreConfigLoader {
         try {
             Settings.default_color = config.getString("Settings.Default-Color-Message");
             Settings.message_prefix_custom = config.getString("Settings.Prefix");
-            Settings.update = config.getString("Settings.Update").equals("true");
+            Settings.update = config.getBoolean("Settings.Update");
 
-            Settings.hook_vault = config.getString("Hooks.Vault.Enabled").equals("true");
-            Settings.hook_discordsrv = config.getString("Hooks.DiscordSRV.Enabled").equals("true");
-            Settings.hook_luckperms = config.getString("Hooks.LuckPerms.Enabled").equals("true");
+            Settings.hook_vault = config.getBoolean("Hooks.Vault.Enabled");
+            Settings.hook_discordsrv = config.getBoolean("Hooks.DiscordSRV.Enabled");
+            Settings.hook_luckperms = config.getBoolean("Hooks.LuckPerms.Enabled");
             Settings.hook_luckperms_autoupdate_group = config.getBoolean("Hooks.LuckPerms.AutoUpdateGroup.Enabled");
             Settings.isHook_luckperms_autoupdate_group_time = config.getInt("Hooks.LuckPerms.AutoDetectGroup.Tick");
 
-            Settings.boolean_use_default_prefix = config.getString("Settings.Use-Default-Prefix").equals("true");
-            Settings.boolean_chatclear_autoclear = config.getString("ClearChat.AutoClear").equals("true");
-            Settings.boolean_clearchat_bypass = config.getString("ClearChat.ByPass-Staff").equals("true");
+            Settings.boolean_use_default_prefix = config.getBoolean("Settings.Use-Default-Prefix");
+            Settings.boolean_chatclear_autoclear = config.getBoolean("ClearChat.AutoClear");
+            Settings.boolean_clearchat_bypass = config.getBoolean("ClearChat.ByPass-Staff");
             Settings.int_clearchat_tick = config.getInt("ClearChat.Tick");
             Settings.int_clearchat_lines = config.getInt("ClearChat.LineClear");
 
@@ -42,14 +41,14 @@ public class PreConfigLoader {
             Settings.mysql_table = config.getString("MySQL.Table");
 
             Settings.chatlogs_log_chat = config.getBoolean("ChatLogs.Messages-in-the-logger");
-            Settings.chatlogs_log_command = config.getString("ChatLogs.Commands-in-the-logger").equals("true");
+            Settings.chatlogs_log_command = config.getBoolean("ChatLogs.Commands-in-the-logger");
             Settings.list_chatlogs_no_register_commands = config.getStringList("ChatLogs.Commands-List.List");
             Settings.msg_format_recive = config.getString("ChatFormat.Private-Message.Receive-Format");
             Settings.msg_format_send = config.getString("ChatFormat.Private-Message.Send-Format");
             Settings.msg_server_format_recive = config.getString("ChatFormat.Private-Message.Receive-Server-Format");
         } catch (Exception e) {
             Logger.error(e.getMessage());
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -92,7 +91,7 @@ public class PreConfigLoader {
             Settings.update_alert_hover = messages.getString("AdvancedChat.Alert-Update-Hover");
         } catch (Exception e) {
             Logger.error(e.getMessage());
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

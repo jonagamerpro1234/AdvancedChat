@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 
+@SuppressWarnings("all")
 public class PlayerFile {
 
     private final AdvancedChat plugin;
@@ -31,7 +32,7 @@ public class PlayerFile {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
         config = new YamlConfiguration();
@@ -39,7 +40,7 @@ public class PlayerFile {
             config.load(file);
         } catch (IOException | InvalidConfigurationException e) {
             Logger.error("The file could not be loaded");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -54,7 +55,7 @@ public class PlayerFile {
         try {
             config.save(file);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

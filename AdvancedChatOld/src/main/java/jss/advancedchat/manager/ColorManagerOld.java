@@ -3,16 +3,19 @@ package jss.advancedchat.manager;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Util;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
-public class ColorManager {
+public class ColorManagerOld {
 
     private final String[] ColorCodes = new String[]{"&0", "&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&b", "&c", "&a"};
     private final String[] HexColorCodes = new String[]{"#000000", "#0000AA", "#00AA00", "#00AAAA", "#AA0000", "#AA00AA", "#FFAA00", "#AAAAAA", "#555555", "#5555FF", "#55FF55", "#55FFFF", "#FF5555", "#FF55FF", "#FFFF55", "#FFFFFF"};
 
-    public static ColorManager get() {
-        return new ColorManager();
+    @Contract(" -> new")
+    public static @NotNull ColorManagerOld get() {
+        return new ColorManagerOld();
     }
 
     public String addFormat(Player player, String text) {
@@ -94,7 +97,7 @@ public class ColorManager {
         return null;
     }
 
-    public String convertRandomColor(String text) {
+    public String convertRandomColor(@NotNull String text) {
         StringBuffer stringBuffer = new StringBuffer();
 
         for (char c : text.toCharArray()) {
@@ -103,7 +106,7 @@ public class ColorManager {
         return stringBuffer.toString();
     }
 
-    public String setRainbow(String temp, String text) {
+    public String setRainbow(@NotNull String temp, String text) {
         if (temp.equalsIgnoreCase("rainbow_1")) {
             return Util.color("<RAINBOW:1>" + text + "</RAINBOW>");
         }
@@ -137,103 +140,82 @@ public class ColorManager {
         return null;
     }
 
-    public String convertHexColor(String color) {
-        String temp = color;
-        if (temp.equalsIgnoreCase("dark_red")) {
+    public String convertHexColor(@NotNull String color) {
+        if (color.equalsIgnoreCase("dark_red")) {
             return "AA0000";
         }
-        if (temp.equalsIgnoreCase("red")) {
+        if (color.equalsIgnoreCase("red")) {
             return "FF5555";
         }
-        if (temp.equalsIgnoreCase("dark_blue")) {
+        if (color.equalsIgnoreCase("dark_blue")) {
             return "0000AA";
         }
-        if (temp.equalsIgnoreCase("blue")) {
+        if (color.equalsIgnoreCase("blue")) {
             return "5555FF";
         }
-        if (temp.equalsIgnoreCase("dark_Green")) {
+        if (color.equalsIgnoreCase("dark_Green")) {
             return "00AA00";
         }
-        if (temp.equalsIgnoreCase("green")) {
+        if (color.equalsIgnoreCase("green")) {
             return "55FF55";
         }
-        if (temp.equalsIgnoreCase("yellow")) {
+        if (color.equalsIgnoreCase("yellow")) {
             return "FFFF55";
         }
-        if (temp.equalsIgnoreCase("gold")) {
+        if (color.equalsIgnoreCase("gold")) {
             return "FFAA00";
         }
-        if (temp.equalsIgnoreCase("dark_aqua")) {
+        if (color.equalsIgnoreCase("dark_aqua")) {
             return "00AAAA";
         }
-        if (temp.equalsIgnoreCase("aqua")) {
+        if (color.equalsIgnoreCase("aqua")) {
             return "55FFFF";
         }
-        if (temp.equalsIgnoreCase("light_purple")) {
+        if (color.equalsIgnoreCase("light_purple")) {
             return "FF55FF";
         }
-        if (temp.equalsIgnoreCase("dark_purple")) {
+        if (color.equalsIgnoreCase("dark_purple")) {
             return "AA00AA";
         }
-        if (temp.equalsIgnoreCase("gray")) {
+        if (color.equalsIgnoreCase("gray")) {
             return "AAAAAA";
         }
-        if (temp.equalsIgnoreCase("dark_gray")) {
+        if (color.equalsIgnoreCase("dark_gray")) {
             return "555555";
         }
-        if (temp.equalsIgnoreCase("white")) {
+        if (color.equalsIgnoreCase("white")) {
             return "FFFFFF";
         }
-        if (temp.equalsIgnoreCase("black")) {
+        if (color.equalsIgnoreCase("black")) {
             return "000000";
         }
         return null;
     }
 
-    public String converSpecialColor(String specialcolor, String text) {
-        String temp = specialcolor;
-        if (temp.equalsIgnoreCase("bold")) {
+    public String converSpecialColor(@NotNull String specialColor, String text) {
+        if (specialColor.equalsIgnoreCase("bold")) {
             return "&l" + text;
         }
-        if (temp.equalsIgnoreCase("strikethrough")) {
+        if (specialColor.equalsIgnoreCase("strikethrough")) {
             return "&m" + text;
         }
-        if (temp.equalsIgnoreCase("underline")) {
+        if (specialColor.equalsIgnoreCase("underline")) {
             return "&n" + text;
         }
-        if (temp.equalsIgnoreCase("italic")) {
+        if (specialColor.equalsIgnoreCase("italic")) {
             return "&o" + text;
         }
-        if (temp.equalsIgnoreCase("magic")) {
+        if (specialColor.equalsIgnoreCase("magic")) {
             return "&k" + text;
         }
-        if (temp.equalsIgnoreCase("none")) {
-            return "" + text;
+        if (specialColor.equalsIgnoreCase("none")) {
+            return text;
         }
         return null;
     }
 
-    public String converSpecialColor(String specialcolor) {
-        String temp = specialcolor;
-        if (temp.equalsIgnoreCase("bold")) {
-            return "&l";
-        }
-        if (temp.equalsIgnoreCase("strikethrough")) {
-            return "&m";
-        }
-        if (temp.equalsIgnoreCase("underline")) {
-            return "&n";
-        }
-        if (temp.equalsIgnoreCase("italic")) {
-            return "&o";
-        }
-        if (temp.equalsIgnoreCase("magic")) {
-            return "&k";
-        }
-        if (temp.equalsIgnoreCase("none")) {
-            return "";
-        }
-        return null;
+    public String converSpecialColor(String specialColor) {
+        return converSpecialColor(specialColor, "");
     }
 
     public String setGradient(Player player, String text) {

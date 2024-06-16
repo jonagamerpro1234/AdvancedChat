@@ -1,9 +1,9 @@
-package jss.advancedchat.commands;
+package jss.advancedchat.commands.oldcommands;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Perms;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Util;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

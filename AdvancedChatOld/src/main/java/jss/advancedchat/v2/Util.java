@@ -17,17 +17,6 @@ public class Util {
 
     private static final AdvancedChat plugin = AdvancedChat.get();
 
-    @SuppressWarnings("unused")
-    public static void sendMessage(CommandSender sender, String text) {
-        TextComponent component = Component.text(text);
-        plugin.getAdventure().sender(sender).sendMessage(component);
-    }
-
-    public static void sendMessage(Player sender, String text) {
-        TextComponent component = Component.text(text);
-        plugin.getAdventure().player(sender).sendMessage(component);
-    }
-
     public static void setStringItemNbt(ItemStack item, String key, String value) {
         if (item != null && !item.getType().equals(Material.AIR)) {
             NBTItem nbtItem = new NBTItem(item);
@@ -47,12 +36,12 @@ public class Util {
     }
 
     public static @NotNull List<String> coloredLore(@NotNull List<String> lore) {
-        List<String> coloredlore = new ArrayList<>();
+        List<String> coloredLore = new ArrayList<>();
         lore.forEach((line) -> {
             String lineColored = jss.advancedchat.utils.Util.color(line);
-            coloredlore.add(lineColored);
+            coloredLore.add(lineColored);
         });
-        return coloredlore;
+        return coloredLore;
     }
 
 }

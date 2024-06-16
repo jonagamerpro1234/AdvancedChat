@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class MessageFile {
 
@@ -46,12 +47,12 @@ public class MessageFile {
         config = YamlConfiguration.loadConfiguration(file);
         Reader reader;
         try {
-            reader = new InputStreamReader(plugin.getResource(path), StandardCharsets.UTF_8);
+            reader = new InputStreamReader(Objects.requireNonNull(plugin.getResource(path)), StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(reader);
             YamlConfiguration configuration = YamlConfiguration.loadConfiguration(bufferedReader);
             config.setDefaults(configuration);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -59,7 +60,7 @@ public class MessageFile {
         try {
             config.save(file);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

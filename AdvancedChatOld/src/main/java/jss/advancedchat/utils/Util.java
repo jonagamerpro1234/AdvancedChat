@@ -124,46 +124,33 @@ public class Util {
     }
 
     public static @NotNull String getPrefix(boolean ignoreCustomPrefix) {
-        String prefix;
-        if (ignoreCustomPrefix) {
-            prefix = color("&e[&dAdvancedChat&e]&7 ");
-        } else {
-            if (Settings.boolean_use_default_prefix) {
-                prefix = color("&e[&dAdvancedChat&e]&7 ");
-            } else {
-                prefix = color(Settings.message_prefix_custom + " ");
-            }
-        }
-        return prefix;
+        return "&e[&dAdvancedChat&e]&7 ";
     }
 
     public static void setEnabled(String version) {
-        sendEnable(prefix, "&5<||============================================----");
-        sendEnable(prefix, "&5<|| &c* &bThe plugin is &d[&aSuccessfully activated&d]");
-        sendEnable(prefix, "&5<|| &c* &bVersion: &e[&a" + version + "&e]");
-        sendEnable(prefix, "&5<|| &c* &bBy: &e[&bjonagamerpro1234&e]");
-        sendEnable(prefix, "&5<|| &c* &bTested Versions &3|&a1.8.x &3- &a1.18.x&3| &eComing Soon -> &c1.19");
-        sendEnable(prefix, "&5<|| &a* &eThanks for using &bAdvancedChat &c<3");
-        sendEnable(prefix, "&5<||============================================----");
+        sendEnable(prefix, "&5|============================================----");
+        sendEnable(prefix, "&5| &c* &bThe plugin is &d[&aSuccessfully activated&d]");
+        sendEnable(prefix, "&5| &c* &bVersion: &e[&a" + version + "&e]");
+        sendEnable(prefix, "&5| &c* &bBy: &e[&bjonagamerpro1234&e]");
+        sendEnable(prefix, "&5| &c* &bTested Versions &3|&a1.20.x &3- &a1.21.x&3|");
+        sendEnable(prefix, "&5| &a* &eThanks for using &bAdvancedChat &c<3");
+        sendEnable(prefix, "&5|============================================----");
     }
 
     public static void setDisabled(String version) {
-        sendEnable(prefix, "&5<||============================================----");
-        sendEnable(prefix, "&5<|| &c* &bThe plugin is &d[&cSuccessfully disabled&d]");
-        sendEnable(prefix, "&5<|| &c* &bVersion: &e[&a" + version + "&e]");
-        sendEnable(prefix, "&5<|| &c* &bBy: &e[&bjonagamerpro1234&e]");
-        sendEnable(prefix, "&5<|| &c* &bTested Versions &3|&a1.8.x &3- &a1.18.x&3| &eComing Soon -> &c1.19");
-        sendEnable(prefix, "&5<|| &a* &eThanks for using &bAdvancedChat &c<3");
-        sendEnable(prefix, "&5<||============================================----");
+        sendEnable(prefix, "&5|============================================----");
+        sendEnable(prefix, "&5| &c* &bThe plugin is &d[&cSuccessfully disabled&d]");
+        sendEnable(prefix, "&5| &c* &bVersion: &e[&a" + version + "&e]");
+        sendEnable(prefix, "&5| &c* &bBy: &e[&bjonagamerpro1234&e]");
+        sendEnable(prefix, "&5| &c* &bTested Versions &3|&a1.8.x &3- &a1.18.x&3| &eComing Soon -> &c1.19");
+        sendEnable(prefix, "&5| &a* &eThanks for using &bAdvancedChat &c<3");
+        sendEnable(prefix, "&5|============================================----");
     }
 
     public static @NotNull String getVar(@NotNull Player player, String text) {
         text = text.replace("<name>", player.getName());
         text = text.replace("<displayname>", player.getDisplayName());
-        text = text.replace("<Name>", player.getName());
-        text = text.replace("<DisplayName>", player.getDisplayName());
         text = text.replaceAll("<world>", player.getWorld().getName());
-        text = text.replaceAll("<World>", player.getWorld().getName());
         text = placeholderReplace(text, player);
         text = getOnlinePlayers(text);
         return text;
@@ -231,6 +218,7 @@ public class Util {
         }
 
         SkullMeta meta = (SkullMeta) item.getItemMeta();
+        assert meta != null;
         meta.setOwner(player);
         meta.setDisplayName(color("&b&l" + player));
         item.setItemMeta(meta);
@@ -302,11 +290,9 @@ public class Util {
         return head;
     }
 
-    //check version
     public static boolean beforeVersion(double version) {
         String a = Bukkit.getServer().getClass().getPackage().getName();
         String v = a.substring(a.lastIndexOf('v') + 1);
-
         double vNum = Double.parseDouble(v.substring(2, v.lastIndexOf('_')) + "." + v.charAt(v.length() - 1));
         Logger.debug("Before Version" + vNum + " < " + version);
         return vNum < version;
@@ -358,16 +344,19 @@ public class Util {
     public static ItemStack createSkull_117(@NotNull String url, List<String> lore) {
         ItemStack head = XMaterial.PLAYER_HEAD.parseItem();
         if (!url.isEmpty()) {
+            assert head != null;
             SkullMeta headMeta = (SkullMeta) head.getItemMeta();
-            GameProfile profile = new GameProfile(UUID.randomUUID(), (String) null);
+            GameProfile profile = new GameProfile(UUID.randomUUID(), null);
             profile.getProperties().put("textures", new Property("textures", url));
 
             try {
+                assert headMeta != null;
                 Field profileField = headMeta.getClass().getDeclaredField("profile");
                 profileField.setAccessible(true);
                 profileField.set(headMeta, profile);
-            } catch (NoSuchFieldException | SecurityException | IllegalAccessException | IllegalArgumentException ex) {
-                ex.printStackTrace();
+            } catch (NoSuchFieldException | SecurityException | IllegalAccessException | IllegalArgumentException e) {
+                Logger.error(e.getMessage());
+                throw new RuntimeException(e);
             }
 
             head.setItemMeta(headMeta);
@@ -399,23 +388,12 @@ public class Util {
         return dateFormat.format(calendar.getTime());
     }
 
-    public static @NotNull List<String> setLimitTab(@NotNull List<String> list, String init) {
-        List<String> returned = new ArrayList<>();
-
-        list.forEach((s) -> {
-            if (s != null && s.toLowerCase().startsWith(init.toLowerCase())) {
-                returned.add(s);
-            }
-        });
-        return returned;
-    }
-
-    public static void getInfoPlugin(CommandSender sender, String name, String version, String latestversion) {
+    public static void getInfoPlugin(CommandSender sender, String name, String version, String latestVersion) {
         sendColorMessage(sender, "&5-=-=-=-=-=[&b" + name + "&5]=-=-=-=-=-=-");
         sendColorMessage(sender, "&5> &3Name: &b" + name);
         sendColorMessage(sender, "&5> &3Author: &6jonagamerpro1234");
         sendColorMessage(sender, "&5> &3Version: &6" + version);
-        sendColorMessage(sender, "&5> &3Update: &a" + latestversion);
+        sendColorMessage(sender, "&5> &3Update: &a" + latestVersion);
         sendColorMessage(sender, "&5> &6Spigot: &a" + UpdateSettings.URL_PLUGIN[0]);
         sendColorMessage(sender, "&5> &dSongoda: &a" + UpdateSettings.URL_PLUGIN[1]);
         sendColorMessage(sender, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");

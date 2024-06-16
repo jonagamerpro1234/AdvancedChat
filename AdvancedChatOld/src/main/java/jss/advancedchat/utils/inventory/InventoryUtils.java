@@ -5,6 +5,7 @@ import jss.advancedchat.utils.Util;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,13 +13,13 @@ import java.util.List;
 
 public class InventoryUtils {
 
-    public static List<String> coloredLore(List<String> lore) {
-        List<String> coloredlore = new ArrayList<>();
+    public static @NotNull List<String> coloredLore(@NotNull List<String> lore) {
+        List<String> coloredLore = new ArrayList<>();
         lore.forEach((line) -> {
             String lineColored = Util.color(line);
-            coloredlore.add(lineColored);
+            coloredLore.add(lineColored);
         });
-        return coloredlore;
+        return coloredLore;
     }
 
     public static void setItemChecker(Inventory inv, int slot, boolean value) {

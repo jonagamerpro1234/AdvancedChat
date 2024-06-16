@@ -4,13 +4,13 @@ import github.scarsz.discordsrv.util.DiscordUtil;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.chat.Json;
 import jss.advancedchat.hooks.DiscordSRVHook;
-import jss.advancedchat.manager.ColorManager;
+import jss.advancedchat.manager.ColorManagerOld;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.mysql.MySql;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.utils.Perms;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -35,7 +35,7 @@ public class ChatListener implements Listener {
     private final Pattern UNDERLINE_REGEX = Pattern.compile("(?i)&(N)");
     private final Pattern ITALIC_REGEX = Pattern.compile("(?i)&(O)");
     private final Pattern RESET_REGEX = Pattern.compile("(?i)&(R)");
-    private final ColorManager colorManager = new ColorManager();
+    private final ColorManagerOld colorManagerOld = new ColorManagerOld();
     private boolean badword;
     private boolean ismention;
 
@@ -79,12 +79,12 @@ public class ChatListener implements Listener {
 
         String msg = formatColor(j, e.getMessage());
 
-        Logger.debug(msg);
+        //Logger.defaultMessage(msg);
 
         if (Settings.mysql) {
-            message = " &r" + colorManager.convertColor(j, MySql.getColor(j), msg);
+            message = " &r" + colorManagerOld.convertColor(j, MySql.getColor(j), msg);
         } else {
-            message = " &r" + colorManager.convertColor(j, playerManager.getColor(), msg);
+            message = " &r" + colorManagerOld.convertColor(j, playerManager.getColor(), msg);
         }
 
         format = Util.getVar(j, format);
@@ -133,7 +133,7 @@ public class ChatListener implements Listener {
                 Json json = new Json(j, format, message);
 
                 if (config.getString("Settings.Show-Chat-In-Console").equals("true")) {
-                    Logger.info(json.getText() + json.getExtraText());
+                    Logger.chat(json.getText() + json.getExtraText());
                 }
 
                 if (discordSRVHook.isEnabled()) {

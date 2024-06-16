@@ -1,11 +1,13 @@
 package jss.advancedchat.utils;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.files.utils.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
+import org.jetbrains.annotations.NotNull;
 
 public class EventUtils {
 
@@ -15,11 +17,12 @@ public class EventUtils {
         this.plugin = plugin;
     }
 
-    public static ConsoleCommandSender getConsoleSender() {
+    public static @NotNull ConsoleCommandSender getConsoleSender() {
         return Bukkit.getConsoleSender();
     }
 
-    public void initEvent(Listener... listeners) {
+
+    public void initEvent(Listener @NotNull ... listeners) {
         for (Listener listener : listeners) {
             getEventManager().registerEvents(listener, plugin);
         }
@@ -46,8 +49,9 @@ public class EventUtils {
             for (int i = 0; i < value; ++i) {
                 Bukkit.broadcastMessage(" ");
             }
-        } catch (NullPointerException var3) {
-            var3.printStackTrace();
+        } catch (NullPointerException e) {
+            Logger.error(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 

@@ -1,7 +1,7 @@
 package jss.advancedchat.storage.mysql;
 
 import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.files.utils.Settings;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -21,9 +21,9 @@ public class MySqlConnection {
             connection.getHikariDataSource().getConnection();
             MySql.createTable();
             Logger.success("&aSuccessfully connected to the Database.");
-        } catch (SQLException ex) {
+        } catch (SQLException e) {
             Logger.error("&cError while connecting to the Database.");
-            ex.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

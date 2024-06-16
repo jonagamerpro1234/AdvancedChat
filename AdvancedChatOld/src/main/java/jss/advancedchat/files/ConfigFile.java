@@ -41,7 +41,7 @@ public class ConfigFile {
         try {
             this.config.save(this.file);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -57,7 +57,7 @@ public class ConfigFile {
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
             config.setDefaults(defaultConfig);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

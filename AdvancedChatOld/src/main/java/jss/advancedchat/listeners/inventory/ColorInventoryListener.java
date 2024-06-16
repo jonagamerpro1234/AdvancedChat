@@ -16,6 +16,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -53,7 +54,7 @@ public class ColorInventoryListener implements Listener {
         }
     }
 
-    private void setCustomItem(PlayerManager playerManager, Inventory inv) {
+    private void setCustomItem(@NotNull PlayerManager playerManager, Inventory inv) {
         ItemStack item;
         ItemMeta meta;
 
@@ -79,7 +80,7 @@ public class ColorInventoryListener implements Listener {
     }
 
     @EventHandler
-    public void onInventoryClose(InventoryCloseEvent e) {
+    public void onInventoryClose(@NotNull InventoryCloseEvent e) {
         Player j = (Player) e.getPlayer();
         plugin.removeInventoryView(j);
     }

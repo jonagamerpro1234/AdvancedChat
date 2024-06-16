@@ -4,12 +4,12 @@ import github.scarsz.discordsrv.util.DiscordUtil;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.chat.Json;
 import jss.advancedchat.hooks.DiscordSRVHook;
-import jss.advancedchat.manager.ColorManager;
+import jss.advancedchat.manager.ColorManagerOld;
 import jss.advancedchat.manager.GroupHelper;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 public class ChatListenerTest implements Listener {
 
     private final AdvancedChat plugin = AdvancedChat.get();
-    private final ColorManager colorManager = new ColorManager();
+    private final ColorManagerOld colorManagerOld = new ColorManagerOld();
     private final Pattern MAGIC_REGEN = Pattern.compile("(?i)&(K)");
     private final Pattern BOLD_REGEX = Pattern.compile("(?i)&(L)");
     private final Pattern STRIKETHROUGH_REGEX = Pattern.compile("(?i)&(M)");
@@ -62,7 +62,7 @@ public class ChatListenerTest implements Listener {
         if (Settings.mysql) {
             //	message = " &r" + colorManager.convertColor(j, plugin.getMySQL().getColor0(j.getUniqueId().toString()), msg);
         } else {
-            message = " &r" + colorManager.addFormat(j, msg);//colorManager.convertColor(j, playerManager.getColor(), colorManager.converSpecialColor(playerManager.getSpecialColor(), msg));
+            message = " &r" + colorManagerOld.addFormat(j, msg);//colorManager.convertColor(j, playerManager.getColor(), colorManager.converSpecialColor(playerManager.getSpecialColor(), msg));
         }
 
         format = Util.getVar(j, format);

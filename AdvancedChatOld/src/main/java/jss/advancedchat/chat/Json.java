@@ -7,6 +7,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.HoverEvent.Action;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -44,15 +45,15 @@ public class Json {
         return this.extraText;
     }
 
-    public Json setHover(List<String> hover) {
+    public Json setHover(@NotNull List<String> hover) {
         this.hoverText = new BaseComponent[hover.size()];
 
         for (int i = 0; i < hover.size(); ++i) {
             TextComponent component = new TextComponent();
             if (i == hover.size() - 1) {
-                component.setText(Util.color(Util.getVar(this.player, (String) hover.get(i))));
+                component.setText(Util.color(Util.getVar(this.player, hover.get(i))));
             } else {
-                component.setText(Util.color(Util.getVar(this.player, (String) hover.get(i)) + "\n"));
+                component.setText(Util.color(Util.getVar(this.player, hover.get(i)) + "\n"));
             }
 
             this.hoverText[i] = component;

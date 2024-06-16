@@ -1,6 +1,6 @@
 package jss.advancedchat;
 
-import jss.advancedchat.commands.*;
+import jss.advancedchat.commands.oldcommands.*;
 import jss.advancedchat.files.*;
 import jss.advancedchat.files.gui.ChannelGuiFile;
 import jss.advancedchat.files.gui.ColorFile;
@@ -8,6 +8,7 @@ import jss.advancedchat.files.gui.GradientColorFile;
 import jss.advancedchat.files.gui.PlayerGuiFile;
 import jss.advancedchat.files.log.LogFile;
 import jss.advancedchat.files.player.PlayerFile;
+import jss.advancedchat.files.utils.PreConfigLoader;
 import jss.advancedchat.listeners.JoinListener;
 import jss.advancedchat.listeners.TaskLoader;
 import jss.advancedchat.listeners.chat.ChatLogListener;
@@ -20,7 +21,7 @@ import jss.advancedchat.update.UpdateChecker;
 import jss.advancedchat.update.UpdateSettings;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.inventory.InventoryView;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -60,6 +61,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
     public void onLoad() {
         instance = this;
+        this.adventure = BukkitAudiences.create(this);
+
         Util.setTitle(version);
         this.eventUtils = new EventUtils(this);
         inventoryView = new ArrayList<>();
@@ -112,20 +115,19 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
         logFile.create();
 
-        this.adventure = BukkitAudiences.create(this);
-
         this.onUpdate();
     }
 
-    public BukkitAudiences getAdventure() {
-        if (this.adventure == null) {
+    public BukkitAudiences adventure() {
+        if(this.adventure == null) {
             throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
         }
         return this.adventure;
     }
 
     public void onDisable() {
-        if (this.adventure != null) {
+        instance = null;
+        if(this.adventure != null) {
             this.adventure.close();
             this.adventure = null;
         }

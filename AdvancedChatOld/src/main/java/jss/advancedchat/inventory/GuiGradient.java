@@ -84,26 +84,24 @@ public class GuiGradient {
             meta.setDisplayName(Util.color("&aEnable"));
             List<String> lore = Arrays.asList("&7Click to &cdisable");
             meta.setLore(coloredLore(lore));
-            item.setItemMeta(meta);
-            inv.setItem(45, item);
         } else {
             item = XMaterial.GRAY_DYE.parseItem();
             meta = item.getItemMeta();
             meta.setDisplayName(Util.color("&cDisable"));
             List<String> lore = Arrays.asList("&7Click to &aenable");
             meta.setLore(coloredLore(lore));
-            item.setItemMeta(meta);
-            inv.setItem(45, item);
         }
+        item.setItemMeta(meta);
+        inv.setItem(45, item);
     }
 
     private @NotNull List<String> coloredLore(@NotNull List<String> lore) {
-        List<String> coloredlore = new ArrayList<>();
+        List<String> coloredLore = new ArrayList<>();
         lore.forEach((line) -> {
             String lineColored = Util.color(line);
-            coloredlore.add(lineColored);
+            coloredLore.add(lineColored);
         });
-        return coloredlore;
+        return coloredLore;
     }
 
     private void setDecoration() {

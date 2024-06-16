@@ -5,6 +5,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class GroupFile {
 
@@ -39,7 +41,7 @@ public class GroupFile {
         try {
             this.config.save(this.file);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -50,12 +52,12 @@ public class GroupFile {
         this.config = YamlConfiguration.loadConfiguration(this.file);
         Reader defaultConfigStream;
         try {
-            defaultConfigStream = new InputStreamReader(plugin.getResource(this.path), "UTF8");
+            defaultConfigStream = new InputStreamReader(Objects.requireNonNull(plugin.getResource(this.path)), StandardCharsets.UTF_8);
             BufferedReader in = new BufferedReader(defaultConfigStream);
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
             config.setDefaults(defaultConfig);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
     }

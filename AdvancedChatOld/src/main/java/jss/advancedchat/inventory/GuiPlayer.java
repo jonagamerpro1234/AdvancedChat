@@ -3,10 +3,10 @@ package jss.advancedchat.inventory;
 import com.cryptomorin.xseries.XMaterial;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.storage.mysql.MySql;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.inventory.InventoryUtils;
-import jss.advancedchat.utils.inventory.TSkullUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -16,7 +16,6 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -112,15 +111,20 @@ public class GuiPlayer {
 
     public ItemStack getMuteItem(Player player) {
         PlayerManager playerManager = new PlayerManager(player);
-        if (playerManager.existsPlayer("Name")) {
+        if (playerManager.existsPlayer("Name") || MySql.existsInPlayerDataBase(player)) {
             if (player.isOp() || player.hasPermission("AdvancedChat.Mute.Bypass")) {
                 return item = XMaterial.BARRIER.parseItem();
             } else {
                 if (Settings.mysql) {
-                } else {
-                    if (playerManager.isMute()) {
+                    if(!MySql.isMute(player)){
                         return item = XMaterial.GREEN_DYE.parseItem();
-                    } else {
+                    } else if(MySql.isMute(player)){
+                        return item = XMaterial.GRAY_DYE.parseItem();
+                    }
+                } else {
+                    if (!playerManager.isMute()) {
+                        return item = XMaterial.GREEN_DYE.parseItem();
+                    } else if(playerManager.isMute()){
                         return item = XMaterial.GRAY_DYE.parseItem();
                     }
                 }

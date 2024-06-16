@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class GuiRainbow {
     private ItemStack item;
     private Inventory inv;
 
-    public void open(Player player, String target) {
+    public void open(@NotNull Player player, String target) {
         create();
         setItems(target);
         player.openInventory(inv);
@@ -35,15 +36,6 @@ public class GuiRainbow {
         item = Util.getPlayerHead(target);
         inv.setItem(4, item);
 
-    }
-
-    public List<String> coloredLore(List<String> lore) {
-        List<String> coloredlore = new ArrayList<>();
-        lore.forEach((line) -> {
-            String lineColored = Util.color(line);
-            coloredlore.add(lineColored);
-        });
-        return coloredlore;
     }
 
     public void setDecoration() {

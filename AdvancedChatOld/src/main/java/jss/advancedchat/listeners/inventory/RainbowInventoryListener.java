@@ -17,16 +17,18 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class RainbowInventoryListener implements Listener {
 
     private final AdvancedChat plugin = AdvancedChat.get();
 
     @EventHandler
-    public void onClick(InventoryClickEvent e) {
+    public void onClick(@NotNull InventoryClickEvent e) {
         Player j = (Player) e.getWhoClicked();
         InventoryView inventoryView = plugin.getInventoryView(j);
 
@@ -39,18 +41,19 @@ public class RainbowInventoryListener implements Listener {
 
         e.getSlotType();
 
-        if (!e.getClickedInventory().equals(j.getOpenInventory().getTopInventory())) return;
+        if (!Objects.equals(e.getClickedInventory(), j.getOpenInventory().getTopInventory())) return;
 
         int slot = e.getSlot();
         e.setCancelled(true);
 
-        String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
+        String playerName = Util.colorless(Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(e.getClickedInventory()).getItem(4)).getItemMeta()).getDisplayName());
         Player target = Bukkit.getPlayer(playerName);
+        assert target != null;
         PlayerManager playerManager = new PlayerManager(target);
         InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
 
         if (slot == 19) {
-
+            //add
         }
 
         if (slot == 3) {
@@ -67,24 +70,28 @@ public class RainbowInventoryListener implements Listener {
         }
     }
 
-    private void setRainbowItem(PlayerManager playerManager, Inventory inv) {
+    private void setRainbowItem(@NotNull PlayerManager playerManager, Inventory inv) {
         ItemStack item;
         ItemMeta meta;
 
         if (playerManager.isRainbow()) {
             item = XMaterial.GRAY_DYE.parseItem();
+            assert item != null;
             meta = item.getItemMeta();
+            assert meta != null;
             meta.setDisplayName(Util.color("&cDisable"));
-            List<String> lore = Arrays.asList("&7Click to &aenable");
+            List<String> lore = Collections.singletonList("&7Click to &aenable");
             meta.setLore(InventoryUtils.coloredLore(lore));
             item.setItemMeta(meta);
             inv.setItem(45, item);
             playerManager.setGradient(false);
         } else {
             item = XMaterial.GREEN_DYE.parseItem();
+            assert item != null;
             meta = item.getItemMeta();
+            assert meta != null;
             meta.setDisplayName(Util.color("&aEnable"));
-            List<String> lore = Arrays.asList("&7Click to &cdisable");
+            List<String> lore = Collections.singletonList("&7Click to &cdisable");
             meta.setLore(InventoryUtils.coloredLore(lore));
             item.setItemMeta(meta);
             inv.setItem(45, item);
@@ -93,7 +100,7 @@ public class RainbowInventoryListener implements Listener {
     }
 
     @EventHandler
-    public void onInventoryClose(InventoryCloseEvent e) {
+    public void onInventoryClose(@NotNull InventoryCloseEvent e) {
         Player j = (Player) e.getPlayer();
         plugin.removeInventoryView(j);
     }

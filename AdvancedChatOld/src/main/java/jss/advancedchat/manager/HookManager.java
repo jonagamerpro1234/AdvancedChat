@@ -6,7 +6,7 @@ import jss.advancedchat.hooks.DiscordSRVHook;
 import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.hooks.PlaceholderApiHook;
 import jss.advancedchat.hooks.ProtocolLibHook;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Util;
 
 public class HookManager extends HookLoader {

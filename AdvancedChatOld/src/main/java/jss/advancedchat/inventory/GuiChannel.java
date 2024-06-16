@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,24 +44,16 @@ public class GuiChannel {
             String mat = config.getString("Items." + key + ".Item");
             int slot = config.getInt("Items." + key + ".Slot");
 
+            assert mat != null;
             item = XMaterial.valueOf(mat.toUpperCase()).parseItem();
 
+            assert item != null;
             item.setAmount(1);
             inv.setItem(slot, item);
         });
 
         plugin.addInventoryView(player, "channel");
         player.openInventory(inv);
-    }
-
-    @SuppressWarnings("unused")
-    private List<String> coloredLore(List<String> lore) {
-        List<String> coloredlore = new ArrayList<>();
-        lore.forEach((line) -> {
-            String lineColored = Util.color(line);
-            coloredlore.add(lineColored);
-        });
-        return coloredlore;
     }
 
     private void setDecoration(Inventory inv, String path) {

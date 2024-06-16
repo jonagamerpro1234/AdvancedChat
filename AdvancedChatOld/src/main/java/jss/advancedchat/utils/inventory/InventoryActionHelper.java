@@ -4,10 +4,11 @@ import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.inventory.*;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Logger;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Util;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.jetbrains.annotations.NotNull;
 
 public class InventoryActionHelper {
 
@@ -24,7 +25,6 @@ public class InventoryActionHelper {
 
     public void setDoubleActionColor(String permission, String left, String right) {
         if (player.isOp() || player.hasPermission(permission)) {
-
             if (inventoryClickEvent.getClick().isLeftClick()) {
                 playerManager.setFirstGradient(left);
             } else if (inventoryClickEvent.getClick().isRightClick()) {
@@ -43,7 +43,7 @@ public class InventoryActionHelper {
         }
     }
 
-    public void setOpenInventoryAction(String playerName, InventoryType inventoryType) {
+    public void setOpenInventoryAction(String playerName, @NotNull InventoryType inventoryType) {
         player.closeInventory();
         switch (inventoryType) {
             case Player:

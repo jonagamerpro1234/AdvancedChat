@@ -13,24 +13,24 @@ public class ColorFile {
 
     private final AdvancedChat plugin;
     private final String path;
-    private final String folderpath;
+    private final String folderPath;
     private File file;
     private FileConfiguration config;
 
-    public ColorFile(AdvancedChat plugin, String path, String folderpath) {
+    public ColorFile(AdvancedChat plugin, String path, String folderPath) {
         this.plugin = plugin;
         this.file = null;
         this.config = null;
         this.path = path;
-        this.folderpath = folderpath;
+        this.folderPath = folderPath;
     }
 
     public String getFolderPath() {
-        return this.folderpath;
+        return this.folderPath;
     }
 
     public void create() {
-        this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+        this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         if (!this.file.exists()) {
             getConfig().options().copyDefaults(true);
             saveConfig();
@@ -54,7 +54,7 @@ public class ColorFile {
 
     public void reloadConfig() {
         if (this.config == null) {
-            this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+            this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         }
         this.config = YamlConfiguration.loadConfiguration(this.file);
         Reader defaultConfigStream;
@@ -78,7 +78,7 @@ public class ColorFile {
 
     public void saveDefaultConfig() {
         if (this.file == null) {
-            this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+            this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         }
         if (!this.file.exists()) {
             plugin.saveResource(this.path, false);
@@ -87,7 +87,7 @@ public class ColorFile {
 
     public void resetConfig() {
         if (this.file == null) {
-            this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+            this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         }
         if (!this.file.exists()) {
             plugin.saveResource(this.path, true);
@@ -95,7 +95,7 @@ public class ColorFile {
     }
 
     public boolean isFileExists() {
-        this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+        this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         return this.file.exists();
     }
 

@@ -5,29 +5,27 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class ChannelGuiFile {
 
     private final AdvancedChat plugin;
     private final String path;
-    private final String folderpath;
+    private final String folderPath;
     private File file;
     private FileConfiguration config;
 
-    public ChannelGuiFile(AdvancedChat plugin, String path, String folderpath) {
+    public ChannelGuiFile(AdvancedChat plugin, String path, String folderPath) {
         this.plugin = plugin;
         this.file = null;
         this.config = null;
         this.path = path;
-        this.folderpath = folderpath;
-    }
-
-    public String getFolderPath() {
-        return this.folderpath;
+        this.folderPath = folderPath;
     }
 
     public void create() {
-        this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+        this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         if (!this.file.exists()) {
             getConfig().options().copyDefaults(true);
             saveConfig();
@@ -44,26 +42,25 @@ public class ChannelGuiFile {
     public void saveConfig() {
         try {
             this.config.save(this.file);
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public void reloadConfig() {
         if (this.config == null) {
-            this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+            this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         }
         this.config = YamlConfiguration.loadConfiguration(this.file);
         Reader defaultConfigStream;
         try {
-            defaultConfigStream = new InputStreamReader(plugin.getResource(this.path), "UTF8");
+            defaultConfigStream = new InputStreamReader(Objects.requireNonNull(plugin.getResource(this.path)), StandardCharsets.UTF_8);
             BufferedReader in = new BufferedReader(defaultConfigStream);
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(in);
             config.setDefaults(defaultConfig);
-        } catch (UnsupportedEncodingException | NullPointerException | IllegalArgumentException e) {
-            e.printStackTrace();
+        } catch (NullPointerException | IllegalArgumentException e) {
+            throw new RuntimeException(e);
         }
-
     }
 
     public String getPath() {
@@ -76,24 +73,15 @@ public class ChannelGuiFile {
 
     public void saveDefaultConfig() {
         if (this.file == null) {
-            this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+            this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         }
         if (!this.file.exists()) {
             plugin.saveResource(this.path, false);
         }
     }
 
-    public void resetConfig() {
-        if (this.file == null) {
-            this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
-        }
-        if (!this.file.exists()) {
-            plugin.saveResource(this.path, true);
-        }
-    }
-
     public boolean isFileExists() {
-        this.file = new File(plugin.getDataFolder() + File.separator + this.folderpath, this.path);
+        this.file = new File(plugin.getDataFolder() + File.separator + this.folderPath, this.path);
         return this.file.exists();
     }
 

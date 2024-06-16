@@ -1,7 +1,7 @@
 package jss.advancedchat.listeners.chat;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Util;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -47,7 +47,6 @@ public class ChatLogListener implements Listener {
                 plugin.getLogFile().save();
             }
         }
-
     }
 
 }

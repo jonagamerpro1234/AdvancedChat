@@ -1,4 +1,4 @@
-package jss.advancedchat.utils;
+package jss.advancedchat.files.utils;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class Settings {
     public static List<String> list_command_blocker_no_use;
     public static List<String> list_command_blocker_no_use_mute;
     public static List<String> list_chatlogs_no_register_commands;
-    ;
+
     public static List<String> list_tabcomplete_whitelist;
 
     public static String message_prefix_custom;

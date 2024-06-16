@@ -3,7 +3,7 @@ package jss.advancedchat.inventory;
 import com.cryptomorin.xseries.XMaterial;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.inventory.TSkullUtils;
 import org.bukkit.Bukkit;

@@ -1,9 +1,10 @@
-package jss.advancedchat.commands;
+package jss.advancedchat.commands.oldcommands;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.utils.Settings;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Util;
+import jss.advancedchat.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -98,7 +99,7 @@ public class MsgCmd implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String @NotNull [] args) {
         List<String> list = new ArrayList<>();
         String lastArgs = args.length != 0 ? args[args.length - 1] : "";
         if (!(sender instanceof Player)) {
@@ -110,7 +111,7 @@ public class MsgCmd implements CommandExecutor, TabCompleter {
                     }
                     break;
             }
-            return Util.setLimitTab(list, lastArgs);
+            return Utils.setLimitTab(list, lastArgs);
         }
 
         switch (args.length) {
@@ -121,7 +122,7 @@ public class MsgCmd implements CommandExecutor, TabCompleter {
                 }
                 break;
         }
-        return Util.setLimitTab(list, lastArgs);
+        return Utils.setLimitTab(list, lastArgs);
     }
 
 }

@@ -11,13 +11,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ItemColorBase {
 
-    private ItemStack item;
-    private ItemMeta meta;
-    private FileConfiguration config;
-    private PlayerManager playerManager;
+    private final FileConfiguration config;
+    private final PlayerManager playerManager;
 
     public ItemColorBase(PlayerManager playerManager, FileConfiguration config) {
         this.playerManager = playerManager;
@@ -28,21 +27,24 @@ public class ItemColorBase {
         String name = config.getString(color + ".Name");
         List<String> lore = color.contains("Lore") ? new ArrayList<>() : config.getStringList(color + ".Lore");
 
+        ItemStack item;
         if (!playerManager.isLowMode()) {
             String textures = config.getString(color + ".Texture");
             textures = TSkullUtils.replace(textures);
             item = Util.createSkull(textures);
         } else {
-            String mat = config.getString(color + ".Item").toUpperCase();
+            String mat = Objects.requireNonNull(config.getString(color + ".Item")).toUpperCase();
             item = XMaterial.valueOf(mat).parseItem();
         }
 
-        meta = item.getItemMeta();
+        assert item != null;
+        ItemMeta meta = item.getItemMeta();
+        assert meta != null;
         meta.setDisplayName(Util.color(name));
         meta.setLore(jss.advancedchat.v2.Util.coloredLore(lore));
         item.setItemMeta(meta);
 
-        jss.advancedchat.v2.Util.setStringItemNbt(item, "", "");
+        jss.advancedchat.v2.Util.setStringItemNbt(item, key, value);
 
         return item;
     }
