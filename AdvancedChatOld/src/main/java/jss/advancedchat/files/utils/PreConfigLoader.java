@@ -1,8 +1,12 @@
 package jss.advancedchat.files.utils;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.files.LangFile;
 import jss.advancedchat.utils.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
+
+import java.io.IOException;
+import java.util.HashMap;
 
 public class PreConfigLoader {
 
@@ -15,6 +19,8 @@ public class PreConfigLoader {
     public void loadConfig() {
         FileConfiguration config = plugin.getConfigFile().getConfig();
         try {
+
+            Settings.config_Lang = config.getString("Settings.Lang");
             Settings.default_color = config.getString("Settings.Default-Color-Message");
             Settings.message_prefix_custom = config.getString("Settings.Prefix");
             Settings.update = config.getBoolean("Settings.Update");
@@ -93,6 +99,26 @@ public class PreConfigLoader {
             Logger.error(e.getMessage());
             throw new RuntimeException(e);
         }
+    }
+
+    public boolean loadLangs(){
+        HashMap<String, LangFile> availableLangs = new HashMap<>();
+        FileList fileList = new FileList();
+        int index = 1;
+
+        try {
+            for(String code : fileList.list()){
+                availableLangs.put(code, new LangFile(plugin, code, index++));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        if(!availableLangs.containsKey(Settings.config_Lang)){
+            //Settings.config_Lang = "en_US";
+            availableLangs.put(Settings.config_Lang, new LangFile(plugin, Settings.config_Lang,0));
+        }
+        return true;
     }
 
 }

@@ -47,18 +47,18 @@ public class Utils {
     }
 
     public static void getInfoPlugin(CommandSender sender, String name, String version, String latestVersion) {
-        MessagesUtils.sendColorMessage(sender, " ");
-        MessagesUtils.sendColorMessage(sender, "&5-=-=-=-=-=[&b" + name + "&5]=-=-=-=-=-=-");
-        MessagesUtils.sendColorMessage(sender, " ");
-        MessagesUtils.sendColorMessage(sender, "&5 > &3Name: &b" + name);
-        MessagesUtils.sendColorMessage(sender, "&5 > &3Author: &6jonagamerpro1234");
-        MessagesUtils.sendColorMessage(sender, "&5 > &3Version: &6" + version);
-        MessagesUtils.sendColorMessage(sender, "&5 > &3Update: &a" + latestVersion);
-        MessagesUtils.sendColorMessage(sender, "&5 > &6Spigot: &a" + UpdateSettings.URL_PLUGIN[0]);
-        MessagesUtils.sendColorMessage(sender, "&5 > &dSongoda: &a" + UpdateSettings.URL_PLUGIN[1]);
-        MessagesUtils.sendColorMessage(sender, " ");
-        MessagesUtils.sendColorMessage(sender, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-        MessagesUtils.sendColorMessage(sender, " ");
+        MessageUtils.sendColorMessage(sender, " ");
+        MessageUtils.sendColorMessage(sender, "&5-=-=-=-=-=[&b" + name + "&5]=-=-=-=-=-=-");
+        MessageUtils.sendColorMessage(sender, " ");
+        MessageUtils.sendColorMessage(sender, "&5 > &3Name: &b" + name);
+        MessageUtils.sendColorMessage(sender, "&5 > &3Author: &6jonagamerpro1234");
+        MessageUtils.sendColorMessage(sender, "&5 > &3Version: &6" + version);
+        MessageUtils.sendColorMessage(sender, "&5 > &3Update: &a" + latestVersion);
+        MessageUtils.sendColorMessage(sender, "&5 > &6Spigot: &a" + UpdateSettings.URL_PLUGIN[0]);
+        MessageUtils.sendColorMessage(sender, "&5 > &dSongoda: &a" + UpdateSettings.URL_PLUGIN[1]);
+        MessageUtils.sendColorMessage(sender, " ");
+        MessageUtils.sendColorMessage(sender, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+        MessageUtils.sendColorMessage(sender, " ");
     }
 
 }

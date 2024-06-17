@@ -1,5 +1,6 @@
 package jss.advancedchat;
 
+import jss.advancedchat.commands.CommandHandler;
 import jss.advancedchat.commands.oldcommands.*;
 import jss.advancedchat.files.*;
 import jss.advancedchat.files.gui.ChannelGuiFile;
@@ -50,7 +51,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
     public ArrayList<InventoryView> inventoryView;
     public boolean isLegacyConfig = false;
     public String latestversion;
-    private PreConfigLoader preConfigLoad;
+    private PreConfigLoader preConfigLoader;
     private BukkitAudiences adventure;
     private MySqlConnection mySqlConnection;
     private boolean debug;
@@ -61,12 +62,12 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
     public void onLoad() {
         instance = this;
-        this.adventure = BukkitAudiences.create(this);
+        //this.adventure = BukkitAudiences.create(this);
 
         Util.setTitle(version);
         this.eventUtils = new EventUtils(this);
         inventoryView = new ArrayList<>();
-        preConfigLoad = new PreConfigLoader(this);
+        preConfigLoader = new PreConfigLoader(this);
         HookManager = new HookManager(this);
         getConfigFile().saveDefaultConfig();
         getConfigFile().create();
@@ -79,13 +80,16 @@ public class AdvancedChat extends AdvancedChatPlugin {
         createFolder("Players");
         createFolder("Gui");
         createFolder("Log");
-        preConfigLoad.loadConfig();
-        preConfigLoad.loadMessage();
+        preConfigLoader.loadConfig();
+        preConfigLoader.loadMessage();
+        if(!preConfigLoader.loadLangs()){
+            Bukkit.getPluginManager().disablePlugins();
+        }
         debug = getConfigFile().getConfig().getBoolean("Settings.Debug");
     }
 
     public void onEnable() {
-
+        this.adventure = BukkitAudiences.create(this);
         this.getMetric();
         Util.setEnabled(version);
 
@@ -102,7 +106,14 @@ public class AdvancedChat extends AdvancedChatPlugin {
             mySqlConnection.setup();
         }
 
+        //Dev New System command
+        CommandHandler commandHandler = new CommandHandler();
+        commandHandler.register();
+
+        //old command
         onCommands();
+
+        // listeners
         onListeners();
 
         if (Settings.boolean_protocollib) {
@@ -161,8 +172,9 @@ public class AdvancedChat extends AdvancedChatPlugin {
     }
 
     public void reloadAllFiles() {
-        this.preConfigLoad.loadConfig();
-        this.preConfigLoad.loadMessage();
+        this.preConfigLoader.loadConfig();
+        this.preConfigLoader.loadMessage();
+        this.preConfigLoader.loadLangs();
         this.getConfigFile().reloadConfig();
         this.getPlayerGuiFile().reloadConfig();
         this.getColorFile().reloadConfig();

@@ -1,28 +1,30 @@
 package jss.advancedchat.commands.subcommands;
 
-import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.Utils;
+
+
+import jss.advancedchat.files.utils.Settings;
+import jss.advancedchat.utils.MessageUtils;
 import jss.commandapi.SubCommand;
 import org.bukkit.command.CommandSender;
 
-public class InfoCommand extends SubCommand {
-
-    private AdvancedChat plugin = AdvancedChat.get();
+public class HelpCommand extends SubCommand {
 
     public String name() {
-        return "info";
+        return "help";
     }
 
     public String permission() {
-        return "";
+        return "help";
     }
 
     public boolean requiresPermission() {
-        return false;
+        return true;
     }
 
     public boolean onCommand(CommandSender sender, String[] args) {
-        Utils.getInfoPlugin(sender, plugin.name, plugin.version, plugin.latestversion);
+        for(String msg : Settings.lang_helpCommand){
+            MessageUtils.sendColorMessage(sender, msg);
+        }
         return false;
     }
 
@@ -35,6 +37,6 @@ public class InfoCommand extends SubCommand {
     }
 
     public String disabledMessage() {
-        return "";
+        return Settings.lang_disableCommand;
     }
 }

@@ -4,6 +4,11 @@ import java.util.List;
 
 public class Settings {
 
+    //new
+
+    public static String config_Lang;
+
+    //old
     public static boolean update;
     public static String update_alert;
     public static String update_alert_hover;
@@ -116,4 +121,19 @@ public class Settings {
     public static String mention_sound_name;
     public static float mention_sound_pitch;
     public static float mention_sound_volume;
+
+    //New Lang
+    public static String lang_prefix;
+    public static String lang_noPermission;
+    public static String lang_usageMainCommand;
+    public static String lang_allowConsoleCommand;
+    public static String lang_unknownArguments;
+    public static String lang_reloadCommand;
+    public static String lang_usageDisplayCommand;
+    public static String lang_unknownSound;
+    public static String lang_disableCommand;
+    public static List<String> lang_updateAlert_console;
+    public static List<String> lang_updateAlert_player;
+    public static List<String> lang_helpCommand;
+
 }

@@ -1,27 +1,30 @@
 #     ___   ______
 #    /   | / ____/ 
 #   / /| |/ /      By jonagamerpro1234
-#  / ___ / /___    Version 1.7.0-b20
+#  / ___ / /___    Version ${project.version}
 # /_/  |_\____/    Thanks for using AdvancedChat <3
 #  
-# ● AdvancedChat is an easy to use plugin that will help you customize the chat on your server to make it look its best. It will also have a customization system by groups and among other functions more...
+# ● AdvancedChat is an easy-to-use plugin that will help you customize the chat on your server to make it look its best. It will also have a customization system by groups and among other functions more...
 #  
 # ● Spigot: https://www.spigotmc.org/resources/advancedchat-1-7-x-1-17-x.83889/
 # ● Songoda: https://songoda.com/marketplace/product/advancedchat-chat-related.542
-# ● Wiki [Working Progress]: https://jonagamerpro1234.gitbook.io/advancedchat/
+# ● Wiki [Work in progress]: https://jonagamerpro1234.gitbook.io/advancedchat/
 # ● Discord: https://discord.gg/c5GhQDQCK5
 # ● Issue Tracker: https://github.com/jonagamerpro1234/AdvancedChat/issues
 # ● Bstast: https://bstats.org/plugin/bukkit/AdvancedChat/8826
 #
 Settings:
   
-  # |Config-Version| I would not change anything
+  # I would not change anything
   File-Version: 2
+
+  # You can use the available languages of the plugin, or you can add your own translations [ Default = en_US ]
+  Lang: en_US
   
   # |Debug| This option should only be used if there is a problem with certain functions of the plugin, debug messages will be activated in the console
   Debug: true
   
-  # |Use-Database| You can save the data saved by the plugin in the .data files in a database and they can be synchronized with various servers
+  # |Use-Database| You can save the data saved by the plugin in the .data files in a database, and they can be synchronized with various servers
   Use-Database: false
   
   # ![Disabled]! |BungeeMode| this function allows you to synchronize all your servers that have the advancedchat plugin 
@@ -41,7 +44,7 @@ Settings:
   Show-Chat-In-Console: false
 
     # |Default-Color-Message| Here you can define the chat color that is assigned by default to players
-    # The color system does not work with (&) but uses a simpler system that is by color names, here below you have the list of available colors
+    # The color system does not work with (&) but uses a simpler system by color names, here below you have the list of available colors
   # Color List: https://jonagamerpro1234.gitbook.io/advancedchat/color-list
   Default-Color-Message: 'white'
 #
@@ -76,7 +79,7 @@ Hooks:
     # |Enabled| Here you can enable or disable this feature
     Enabled: true
 
-    # |Channel-ID| Here is the id of the channel that is used for the chat
+    # |Channel-ID| Here is the id of the channel used for the chat
     Channel-ID: 'none'
 
   # |EssentialsDiscord| Here you can define the discord channel where the messages from minecraft to discord are seen
@@ -86,7 +89,7 @@ Hooks:
     # |Enabled| Here you can enable or disable this feature
     Enabled: true
     
-    # |Channel-ID| Here is the id of the channel that is used for the chat
+    # |Channel-ID| Here is the id of the channel used for the chat
     Channel-ID: 'none'
 #
 # | ClearChat | 
@@ -145,7 +148,7 @@ ChatFormat:
     # |Enabled| Here you can enable or disable this feature
     Enabled: true
     
-    # |Mode| there are three different modes which are [ command | suggest | url ]
+    # |Mode| there are three different modes that are [ command | suggest | url ]
     Mode: command
     
     # |Actions| This is where are the available events that you can use
@@ -176,10 +179,10 @@ ChatFormat:
   Debug-Format: '&b[&cError in Config&b] &f<&f<player>&f> &f<message>'
 #
 # | MySQL| [temporarily disabled]
-# |MySql is a database where you can save plugin data remotely and it can be synchronized with other servers if you are using BungeeCord
+# |MySql is a database where you can save plugin data remotely, and it can be synchronized with other servers if you are using BungeeCord
 MySQL:
   
-  # |Table| this is where you will find the name of the table that will be created or used to obtain the data 
+  # |Table| this is where you will find the name of the table that will be created or used to collect the data
   # [Note]: it is not recommended to change this
   Table: 'advancedchat_data'
   
@@ -192,7 +195,7 @@ MySQL:
   # |Database| this is where you should put the name of the database
   Database: 'advancedchatDB'
 
-  # |User| this is where you should put the database user name
+  # |User| this is where you should put the database username
   Username: 'root'
   
   # |Password| this is where you should put the database password
@@ -286,7 +289,7 @@ Filter-Chat:
   Enabled: true
 
   # |Message| here you can define a personalized message that will be sent to the player
-  Message: '&eyou cannot use this word, it is blocked!'
+  Message: '&e you cannot use this word, it is blocked!'
 #
 # | Mention |
 Mention:
