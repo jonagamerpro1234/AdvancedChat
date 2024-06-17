@@ -1,4 +1,4 @@
-package jss.advancedchat.commands.oldcommands;
+package jss.advancedchat.commands;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.manager.PlayerManager;

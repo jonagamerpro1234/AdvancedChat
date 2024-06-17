@@ -23,7 +23,7 @@ public class Utils {
         return IridiumColorAPI.stripColorFormatting(text);
     }
 
-    public static  void sendColorMessage(@NotNull CommandSender sender, String text){
+    public static void sendColorMessage(@NotNull CommandSender sender, String text){
         sender.sendMessage(colorized(text));
     }
 

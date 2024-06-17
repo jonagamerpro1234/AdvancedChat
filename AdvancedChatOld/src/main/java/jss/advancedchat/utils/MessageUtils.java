@@ -2,6 +2,7 @@ package jss.advancedchat.utils;
 
 import com.google.common.collect.ImmutableMap;
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.update.UpdateSettings;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -82,7 +83,7 @@ public class MessageUtils {
 
     // Send a colorized message to a CommandSender
     public static void sendColorMessage(@NotNull CommandSender sender, String message) {
-        plugin.adventure().sender(sender).sendMessage(colorize(message));
+        plugin.adventure().sender(sender).sendMessage(colorize(addTags(message, sender)));
     }
 
     // Send a colorized message to a Player
@@ -119,14 +120,17 @@ public class MessageUtils {
         });
     }
 
-    public static @NotNull String addTags(String message, @NotNull Player player) {
-        message = message.replace("{player}", player.getName());
+    public static @NotNull String addTags(String message, @NotNull CommandSender sender) {
         message = message.replace("{0}", " ");
         message = message.replace("{version}", plugin.version);
-        message = message.replace("{spigot}", "https://www.spigotmc.org/resources/custom-join-and-quit-message.57006/");
-        message = message.replace("{github}", "https://github.com/jonagamerpro1234/CustomJoinAndQuitMessages/releases");
-        message = message.replace("{modrith}", "https://modrinth.com/plugin/customjoinandquitmessages");
-        message = Utils.onPlaceholderAPI(player, message);
+        message = message.replace("{spigot}", UpdateSettings.URL_PLUGIN[0]);
+        message = message.replace("{github}", UpdateSettings.URL_PLUGIN[2]);
+        message = message.replace("{modrith}", "---");
+        if(sender instanceof Player){
+            Player player = (Player) sender;
+            message = message.replace("{player}", player.getName());
+            message = Utils.onPlaceholderAPI(player, message);
+        }
         //message = miniMessage.stripTags (message, papiTag(player));
         return message;
     }

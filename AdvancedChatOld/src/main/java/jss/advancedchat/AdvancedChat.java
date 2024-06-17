@@ -1,6 +1,6 @@
 package jss.advancedchat;
 
-import jss.advancedchat.commands.CommandHandler;
+import jss.advancedchat.commands.*;
 import jss.advancedchat.commands.oldcommands.*;
 import jss.advancedchat.files.*;
 import jss.advancedchat.files.gui.ChannelGuiFile;
@@ -19,7 +19,6 @@ import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.storage.mysql.MySqlConnection;
 import jss.advancedchat.test.ChatListenerTest;
 import jss.advancedchat.update.UpdateChecker;
-import jss.advancedchat.update.UpdateSettings;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.files.utils.Settings;
@@ -50,7 +49,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
     public HookManager HookManager;
     public ArrayList<InventoryView> inventoryView;
     public boolean isLegacyConfig = false;
-    public String latestversion;
+    public String latestVersion;
     private PreConfigLoader preConfigLoader;
     private BukkitAudiences adventure;
     private MySqlConnection mySqlConnection;
@@ -196,10 +195,16 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
     private void onUpdate() {
         new UpdateChecker(this, 83889).getUpdateVersionSpigot(version -> {
-            latestversion = version;
+            latestVersion = version;
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
                 Logger.success("&a" + this.name + " is up to date!");
             } else {
+                //Logger.outline("&5<||" + Util.getLine("&5"));
+                for (String msg : Settings.lang_updateAlert_console){
+                    Logger.warning(msg.replace("{newversion}", this.latestVersion));
+                }
+                //Logger.outline("&5<||" + Util.getLine("&5"));
+                /*
                 Logger.outline("&5<||" + Util.getLine("&5"));
                 Logger.warning("&5<||" + "&b" + this.name + " is outdated!");
                 Logger.warning("&5<||" + "&bNewest version: &a" + version);
@@ -207,7 +212,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
                 Logger.warning("&5<||" + "&bUpdate Here on Spigot: &e" + UpdateSettings.URL_PLUGIN[0]);
                 Logger.warning("&5<||" + "&bUpdate Here on Songoda: &e" + UpdateSettings.URL_PLUGIN[1]);
                 Logger.warning("&5<||" + "&bUpdate Here on GitHub: &e" + UpdateSettings.URL_PLUGIN[2]);
-                Logger.outline("&5<||" + Util.getLine("&5"));
+                Logger.outline("&5<||" + Util.getLine("&5"));*/
             }
         });
     }

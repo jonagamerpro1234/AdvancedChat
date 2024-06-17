@@ -142,7 +142,7 @@ public class Util {
         sendEnable(prefix, "&5| &c* &bThe plugin is &d[&cSuccessfully disabled&d]");
         sendEnable(prefix, "&5| &c* &bVersion: &e[&a" + version + "&e]");
         sendEnable(prefix, "&5| &c* &bBy: &e[&bjonagamerpro1234&e]");
-        sendEnable(prefix, "&5| &c* &bTested Versions &3|&a1.8.x &3- &a1.18.x&3| &eComing Soon -> &c1.19");
+        sendEnable(prefix, "&5| &c* &bTested Versions &3|&a1.20.x &3- &a1.21.x&3|");
         sendEnable(prefix, "&5| &a* &eThanks for using &bAdvancedChat &c<3");
         sendEnable(prefix, "&5|============================================----");
     }

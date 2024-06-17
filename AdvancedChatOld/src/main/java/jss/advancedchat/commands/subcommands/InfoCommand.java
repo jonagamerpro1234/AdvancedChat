@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 
 public class InfoCommand extends SubCommand {
 
-    private AdvancedChat plugin = AdvancedChat.get();
+    private final AdvancedChat plugin = AdvancedChat.get();
 
     public String name() {
         return "info";
@@ -22,7 +22,7 @@ public class InfoCommand extends SubCommand {
     }
 
     public boolean onCommand(CommandSender sender, String[] args) {
-        Utils.getInfoPlugin(sender, plugin.name, plugin.version, plugin.latestversion);
+        Utils.getInfoPlugin(sender, plugin.name, plugin.version, plugin.latestVersion);
         return false;
     }
 

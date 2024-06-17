@@ -41,7 +41,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
         if (!(sender instanceof Player)) {
             if (args.length >= 1) {
                 if (args[0].equalsIgnoreCase("info")) {
-                    Utils.getInfoPlugin(sender, plugin.name, plugin.version, plugin.latestversion);
+                    Utils.getInfoPlugin(sender, plugin.name, plugin.version, plugin.latestVersion);
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("help")) {
@@ -319,7 +319,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
             }
 
             if (args[0].equalsIgnoreCase("info")) {
-                Util.getInfoPlugin(j, plugin.name, plugin.version, plugin.latestversion);
+                Util.getInfoPlugin(j, plugin.name, plugin.version, plugin.latestVersion);
                 return true;
             }
 

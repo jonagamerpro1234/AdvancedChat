@@ -23,7 +23,7 @@ public class ReloadCommand extends SubCommand {
     }
 
     public boolean allowConsole() {
-        return true;
+        return false;
     }
 
     public boolean isEnabled() {

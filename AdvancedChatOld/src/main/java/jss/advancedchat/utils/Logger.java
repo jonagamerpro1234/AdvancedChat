@@ -5,7 +5,7 @@ import jss.advancedchat.files.utils.Settings;
 public class Logger {
 
     public static void warning(String msg) {
-        Util.sendColorMessage(EventUtils.getConsoleSender(), Util.getPrefixVar(Settings.logger_prefix_warning) + " " + msg);
+        MessageUtils.sendColorMessage(EventUtils.getConsoleSender(), Util.getPrefixVar(Settings.logger_prefix_warning) + " " + msg);
     }
 
     public static void success(String msg) {

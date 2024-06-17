@@ -1,6 +1,7 @@
 package jss.advancedchat;
 
 import jss.advancedchat.utils.interfaces.IHook;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
@@ -30,7 +31,7 @@ public abstract class HookLoader {
         return this.iHooks.get(id) == null || !this.iHooks.containsKey(id);
     }
 
-    public void initHooks(IHook... hooks) {
+    public void initHooks(IHook @NotNull ... hooks) {
         for (IHook hook : hooks) {
             hook.setup();
         }
