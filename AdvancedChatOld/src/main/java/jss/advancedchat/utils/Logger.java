@@ -17,6 +17,7 @@ public class Logger {
     }
 
     public static void debug(String msg) {
+        if(!Settings.config_debug) return;
         Util.sendColorMessage(EventUtils.getConsoleSender(), Util.getPrefixVar(Settings.logger_prefix_debug) + " " + msg);
     }
 

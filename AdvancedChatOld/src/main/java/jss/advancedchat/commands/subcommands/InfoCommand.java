@@ -1,6 +1,7 @@
 package jss.advancedchat.commands.subcommands;
 
 import jss.advancedchat.AdvancedChat;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Utils;
 import jss.commandapi.SubCommand;
 import org.bukkit.command.CommandSender;
@@ -14,7 +15,7 @@ public class InfoCommand extends SubCommand {
     }
 
     public String permission() {
-        return "";
+        return "info";
     }
 
     public boolean requiresPermission() {
@@ -35,6 +36,6 @@ public class InfoCommand extends SubCommand {
     }
 
     public String disabledMessage() {
-        return "";
+        return Settings.lang_disableCommand;
     }
 }

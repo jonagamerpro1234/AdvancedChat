@@ -6,6 +6,7 @@ public class TSkullUtils {
         if (texture == null) {
             return "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2M2MDNjNzk1NjAzMTk5OTZkNjM5NDEyOGI0OWZlYzc2NTBjZjg2N2ExZTQ4ZmI4MGM2MDQzZTc3MGRkNzFiZCJ9fX0=";
         }
+
         String temp = texture;
 
         if (temp.equalsIgnoreCase("[colors]")) {

@@ -333,78 +333,72 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String @NotNull [] args) {
         List<String> listOptions = new ArrayList<>();
         String lastArgs = args.length != 0 ? args[args.length - 1] : "";
-        if (!(sender instanceof Player)) {
-            switch (args.length) {
-                case 0:
-                case 1:
-                    listOptions.addAll(Arrays.asList("help", "reload", "info"));
-                    break;
-            }
-        } else {
+
+        if(sender instanceof Player){
             final Player j = (Player) sender;
-
             if (!j.isOp() || !j.hasPermission(Perms.ac_cmd_tabcomplete)) return new ArrayList<>();
-
-            switch (args.length) {
-                case 0:
-                case 1:
-
-                    listOptions.add("help");
-                    listOptions.add("reload");
-                    listOptions.add("info");
-                    listOptions.add("color");
-                    listOptions.add("player");
-                    listOptions.add("gradient");
-                    listOptions.add("settings");
-
-                    break;
-                case 2:
-                    if (args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("player")
-                            || args[0].equalsIgnoreCase("gradient")) {
-                        Bukkit.getOnlinePlayers().forEach((p) -> listOptions.add(p.getName()));
-                    }
-                    if (args[0].equalsIgnoreCase("settings")) {
-                        listOptions.add("low-mode");
-                        listOptions.add("group");
-                        listOptions.add("msg");
-                        listOptions.add("chat");
-                    }
-                    break;
-
-                case 3:
-                    if (args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("gradient")) {
-                        listOptions.add("set");
-                    }
-                    if (args[0].equalsIgnoreCase("settings")) {
-                        listOptions.add("set");
-                        listOptions.add("true");
-                        listOptions.add("false");
-                    }
-                    break;
-                case 4:
-                    if (args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("gradient")) {
-                        listOptions.addAll(Arrays.asList("black", "white", "dark_gray", "gray", "dark_purple",
-                                "light_purple", "dark_aqua", "aqua", "gold", "yellow", "green", "dark_green", "blue",
-                                "dark_blue", "red", "dark_red"));
-                        if(HookManager.get().getLuckPermsHook().isEnabled()){
-                            if(args[0].equalsIgnoreCase("settings")){
-                                for(Group availableGroups : LuckPermsHook.getApi().getGroupManager().getLoadedGroups()){
-                                    listOptions.add(availableGroups.getName());
-                                }
-                            }
-                        }else{
-                            Logger.debug("Not load group list from LuckPerms Plugin!!");
-                        }
-                    }
-                    break;
-                case 5:
-                    if (args[0].equalsIgnoreCase("gradient")) {
-                        listOptions.add("first");
-                        listOptions.add("second");
-                    }
-                    break;
-            }
         }
+
+        switch (args.length) {
+            case 0:
+            case 1:
+
+                listOptions.add("help");
+                listOptions.add("reload");
+                listOptions.add("info");
+                listOptions.add("color");
+                listOptions.add("player");
+                listOptions.add("gradient");
+                listOptions.add("settings");
+
+                break;
+            case 2:
+                if (args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("player")
+                        || args[0].equalsIgnoreCase("gradient")) {
+                    Bukkit.getOnlinePlayers().forEach((p) -> listOptions.add(p.getName()));
+                }
+                if (args[0].equalsIgnoreCase("settings")) {
+                    listOptions.add("low-mode");
+                    listOptions.add("group");
+                    listOptions.add("msg");
+                    listOptions.add("chat");
+                }
+                break;
+
+            case 3:
+                if (args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("gradient")) {
+                    listOptions.add("set");
+                }
+                if (args[0].equalsIgnoreCase("settings")) {
+                    listOptions.add("set");
+                    listOptions.add("true");
+                    listOptions.add("false");
+                }
+                break;
+            case 4:
+                if (args[0].equalsIgnoreCase("color") || args[0].equalsIgnoreCase("gradient")) {
+                    listOptions.addAll(Arrays.asList("black", "white", "dark_gray", "gray", "dark_purple",
+                            "light_purple", "dark_aqua", "aqua", "gold", "yellow", "green", "dark_green", "blue",
+                            "dark_blue", "red", "dark_red"));
+                    if(HookManager.get().getLuckPermsHook().isEnabled()){
+                        if(args[0].equalsIgnoreCase("settings")){
+                            for(Group availableGroups : LuckPermsHook.getApi().getGroupManager().getLoadedGroups()){
+                                listOptions.add(availableGroups.getName());
+                            }
+                        }
+                    }else{
+                        Logger.debug("Not load group list from LuckPerms Plugin!!");
+                    }
+                }
+                break;
+            case 5:
+                if (args[0].equalsIgnoreCase("gradient")) {
+                    listOptions.add("first");
+                    listOptions.add("second");
+                }
+                break;
+        }
+
         return Utils.setLimitTab(listOptions, lastArgs);
     }
 

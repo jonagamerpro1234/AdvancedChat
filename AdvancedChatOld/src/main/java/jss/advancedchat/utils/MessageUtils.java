@@ -13,6 +13,7 @@ import net.kyori.adventure.title.Title;
 import net.kyori.adventure.util.Ticks;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.regex.Matcher;
@@ -118,6 +119,11 @@ public class MessageUtils {
             // Finally, return the tag instance to insert the placeholder!
             return Tag.selfClosingInserting(componentPlaceholder);
         });
+    }
+
+    @Contract(pure = true)
+    public static @NotNull String addTag(@NotNull String input, String key, String value){
+        return input.replace("{" + key + "}", value);
     }
 
     public static @NotNull String addTags(String message, @NotNull CommandSender sender) {

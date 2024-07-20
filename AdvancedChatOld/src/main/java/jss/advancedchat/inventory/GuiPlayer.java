@@ -41,7 +41,7 @@ public class GuiPlayer {
 
         inv = Bukkit.createInventory(null, 54, Util.color(title));
 
-        setGlass(inv, XMaterial.BLACK_STAINED_GLASS_PANE.toString());
+        setGlass(inv);
     }
 
     public void setItems(Player player, String target) {
@@ -91,16 +91,19 @@ public class GuiPlayer {
         } else {
             item = getMuteItem(player);
             meta = item.getItemMeta();
+            assert meta != null;
             meta.setDisplayName(Util.color(Util.getVar(player, name)));
             item.setItemMeta(meta);
             inv.setItem(slotMuted, item);
         }
     }
 
-    private void setGlass(Inventory inv, String path) {
+    private void setGlass(Inventory inv) {
         for (int i = 0; i < 54; i++) {
             item = XMaterial.BLACK_STAINED_GLASS_PANE.parseItem();
+            assert item != null;
             meta = item.getItemMeta();
+            assert meta != null;
             meta.setDisplayName(" ");
             item.setItemMeta(meta);
             item.setAmount(1);

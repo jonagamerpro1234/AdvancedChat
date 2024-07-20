@@ -47,7 +47,7 @@ public class PlayerInventoryListener implements Listener {
         String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
         Player target = Bukkit.getPlayer(playerName);
         PlayerManager playerManager = new PlayerManager(target);
-        InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
+        InventoryActionHelper actionHelper = new InventoryActionHelper(j, playerManager, e);
 
         if(slot == 38){
             actionHelper.setOpenInventoryAction(playerName, InventoryActionHelper.InventoryType.Gradient);

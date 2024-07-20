@@ -36,10 +36,10 @@ public class ChatListener implements Listener {
     private final Pattern ITALIC_REGEX = Pattern.compile("(?i)&(O)");
     private final Pattern RESET_REGEX = Pattern.compile("(?i)&(R)");
     private final ColorManagerOld colorManagerOld = new ColorManagerOld();
-    private boolean badword;
-    private boolean ismention;
+    private boolean badWord;
+    private boolean isMention;
 
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGH)
     public void chatMute(@NotNull AsyncPlayerChatEvent e) {
         Player j = e.getPlayer();
         PlayerManager playerManager = new PlayerManager(j);
@@ -60,7 +60,7 @@ public class ChatListener implements Listener {
     }
 
     @SuppressWarnings("ConstantConditions")
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onChat(@NotNull AsyncPlayerChatEvent e) {
         FileConfiguration config = plugin.getConfigFile().getConfig();
         DiscordSRVHook discordSRVHook = HookManager.get().getDiscordSRVHook();
@@ -75,11 +75,9 @@ public class ChatListener implements Listener {
         boolean isGroup = path.equalsIgnoreCase("group");
 
         String format = config.getString("ChatFormat.Format");
-        String message;
+        String message = "";
 
         String msg = formatColor(j, e.getMessage());
-
-        //Logger.defaultMessage(msg);
 
         if (Settings.mysql) {
             message = " &r" + colorManagerOld.convertColor(j, MySql.getColor(j), msg);
@@ -100,14 +98,14 @@ public class ChatListener implements Listener {
             e.setCancelled(true);
         }
 
-        if (isMute || this.badword) {
-            this.badword = false;
+        if (isMute || this.badWord) {
+            this.badWord = false;
             e.setCancelled(true);
             return;
         }
 
-        if (this.ismention) {
-            this.ismention = false;
+        if (this.isMention) {
+            this.isMention = false;
             e.setCancelled(true);
             return;
         }
@@ -190,10 +188,10 @@ public class ChatListener implements Listener {
         Player j = e.getPlayer();
         String message = e.getMessage();
 
-        if (Settings.mention) {
+        if (Settings.mention_enabled) {
             Util.sendColorMessage(j, Settings.mention_send);
             if (message.contains(j.getName())) {
-                this.ismention = true;
+                this.isMention = true;
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     p.playSound(p.getLocation(), Sound.valueOf(Settings.mention_sound_name), Settings.mention_sound_volume, Settings.mention_sound_pitch);
                     Util.sendColorMessage(p, Settings.mention_receive);
@@ -219,12 +217,12 @@ public class ChatListener implements Listener {
         }
 
         if (!player.hasPermission("advancedchat.chat.bold")) {
-            msg = BOLD_REGEX.matcher(msg).replaceAll("\u00A7$1");
+            msg = BOLD_REGEX.matcher(msg).replaceAll("§$1");
             canReset = true;
         }
 
         if (!player.hasPermission("advancedchat.chat.strikethrough")) {
-            msg = STRIKETHROUGH_REGEX.matcher(msg).replaceAll("\u00A7$1");
+            msg = STRIKETHROUGH_REGEX.matcher(msg).replaceAll("§$1");
             canReset = true;
         }
 

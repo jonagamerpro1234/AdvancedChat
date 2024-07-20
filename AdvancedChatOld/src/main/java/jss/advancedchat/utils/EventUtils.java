@@ -1,35 +1,16 @@
 package jss.advancedchat.utils;
 
-import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.files.utils.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
 
 public class EventUtils {
 
-    private final AdvancedChat plugin;
-
-    public EventUtils(AdvancedChat plugin) {
-        this.plugin = plugin;
-    }
-
     public static @NotNull ConsoleCommandSender getConsoleSender() {
         return Bukkit.getConsoleSender();
-    }
-
-
-    public void initEvent(Listener @NotNull ... listeners) {
-        for (Listener listener : listeners) {
-            getEventManager().registerEvents(listener, plugin);
-        }
-    }
-
-    public PluginManager getEventManager() {
-        return Bukkit.getPluginManager();
     }
 
     public void getServerMessage() {
@@ -41,7 +22,7 @@ public class EventUtils {
     }
 
     public void getClearChatAction() {
-        this.loopVoidChat(Settings.int_clearchat_lines);
+        this.loopVoidChat(Settings.clearchat_lines);
     }
 
     public void loopVoidChat(int value) {

@@ -20,13 +20,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class ColorInventoryListener implements Listener {
 
     private final AdvancedChat plugin = AdvancedChat.get();
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent e) {
+    public void onInventoryClick(@NotNull InventoryClickEvent e) {
         Player j = (Player) e.getWhoClicked();
         InventoryView inventoryView = plugin.getInventoryView(j);
 
@@ -43,10 +44,12 @@ public class ColorInventoryListener implements Listener {
         int slot = e.getSlot();
         e.setCancelled(true);
 
-        String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
+        String playerName = Util.colorless(Objects.requireNonNull(Objects.requireNonNull(e.getClickedInventory().getItem(4)).getItemMeta()).getDisplayName());
         Player target = Bukkit.getPlayer(playerName);
+        assert target != null;
         PlayerManager playerManager = new PlayerManager(target);
-        InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
+        InventoryActionHelper actionHelper = new InventoryActionHelper(j, playerManager, e);
+
 
 
         if (slot == 45) {

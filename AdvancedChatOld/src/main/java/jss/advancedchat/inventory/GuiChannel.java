@@ -9,10 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class GuiChannel {
@@ -28,7 +26,7 @@ public class GuiChannel {
         FileConfiguration config = plugin.getChannelGuiFile().getConfig();
 
         String title = config.getString("Title");
-        Set<String> section = config.getConfigurationSection("Items").getKeys(false);
+        Set<String> section = Objects.requireNonNull(config.getConfigurationSection("Items")).getKeys(false);
 
         title = Util.color(title);
 
@@ -59,7 +57,9 @@ public class GuiChannel {
     private void setDecoration(Inventory inv, String path) {
         for (int i = 0; i < 36; i++) {
             item = XMaterial.valueOf(path).parseItem();
+            assert item != null;
             ItemMeta meta = item.getItemMeta();
+            assert meta != null;
             meta.setDisplayName(Util.color(" "));
             item.setItemMeta(meta);
             item.setAmount(1);

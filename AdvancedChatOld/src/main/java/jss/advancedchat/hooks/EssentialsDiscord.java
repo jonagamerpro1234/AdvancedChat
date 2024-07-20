@@ -10,6 +10,9 @@ import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class EssentialsDiscord implements IHook {
 
@@ -45,18 +48,16 @@ public class EssentialsDiscord implements IHook {
         return hooksManager;
     }
 
-    public boolean isGroup(Player player, String name) {
+    public boolean isGroup(@NotNull Player player, @NotNull String name) {
         LuckPerms api = LuckPermsProvider.get();
-        String group = api.getUserManager().getUser(player.getName()).getPrimaryGroup();
-        boolean a = name.equals(group);
-        return a;
+        String group = Objects.requireNonNull(api.getUserManager().getUser(player.getName())).getPrimaryGroup();
+        return name.equals(group);
     }
 
 
-    public String getGroup(Player player) {
+    public String getGroup(@NotNull Player player) {
         LuckPerms api = LuckPermsProvider.get();
-        String group = api.getUserManager().getUser(player.getName()).getPrimaryGroup();
-        return group;
+        return Objects.requireNonNull(api.getUserManager().getUser(player.getName())).getPrimaryGroup();
     }
 
 

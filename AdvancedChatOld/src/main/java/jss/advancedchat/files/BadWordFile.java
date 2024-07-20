@@ -82,15 +82,6 @@ public class BadWordFile {
         }
     }
 
-    public void resetConfig() {
-        if (this.file == null) {
-            this.file = new File(plugin.getDataFolder(), this.path);
-        }
-        if (!this.file.exists()) {
-            plugin.saveResource(this.path, true);
-        }
-    }
-
     public boolean isFileExists() {
         this.file = new File(plugin.getDataFolder(), this.path);
         return this.file.exists();

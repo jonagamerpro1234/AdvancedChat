@@ -4,21 +4,20 @@ import jss.advancedchat.files.utils.Settings;
 import jss.commandapi.SubCommand;
 import org.bukkit.command.CommandSender;
 
-public class ColorCommand extends SubCommand {
-
+public class DevCommand extends SubCommand {
     public String name() {
-        return "color";
+        return "dev";
     }
 
     public String permission() {
-        return "color";
+        return "dev";
     }
 
     public boolean requiresPermission() {
         return true;
     }
 
-    public boolean onCommand(CommandSender sender, String[] args) {
+    public boolean onCommand(CommandSender commandSender, String[] strings) {
         return false;
     }
 
@@ -33,5 +32,4 @@ public class ColorCommand extends SubCommand {
     public String disabledMessage() {
         return Settings.lang_disableCommand;
     }
-
 }

@@ -11,6 +11,7 @@ import jss.advancedchat.utils.interfaces.IHook;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class PlaceholderApiHook implements IHook {
 
@@ -42,7 +43,7 @@ public class PlaceholderApiHook implements IHook {
         return hooksManager;
     }
 
-    public class AdvancedChatExtend extends PlaceholderExpansion {
+    public static class AdvancedChatExtend extends PlaceholderExpansion {
 
         private final AdvancedChat plugin;
 
@@ -58,19 +59,19 @@ public class PlaceholderApiHook implements IHook {
             return true;
         }
 
-        public String getAuthor() {
+        public @NotNull String getAuthor() {
             return "jonagamerpro1234";
         }
 
-        public String getIdentifier() {
+        public @NotNull String getIdentifier() {
             return "advancedchat";
         }
 
-        public String getVersion() {
+        public @NotNull String getVersion() {
             return plugin.version;
         }
 
-        public String onPlaceholderRequest(Player player, String args) {
+        public String onPlaceholderRequest(Player player, @NotNull String args) {
             PlayerManager playerManager = new PlayerManager(player);
             if (args.equals("is_mute")) {
                 if (Settings.mysql) {

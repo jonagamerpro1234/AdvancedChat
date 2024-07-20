@@ -15,9 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class GuiSettings {
 
@@ -43,7 +41,7 @@ public class GuiSettings {
         item = Util.getPlayerHead(target);
         inv.setItem(4, item);
 
-        PlayerManager playerManager = new PlayerManager(Bukkit.getPlayer(target));
+        PlayerManager playerManager = new PlayerManager(Objects.requireNonNull(Bukkit.getPlayer(target)));
 
         if (!playerManager.isLowMode()) {
             item = Util.createSkull(TSkullUtils.replace("[exit]"));
@@ -51,7 +49,9 @@ public class GuiSettings {
             item = XMaterial.RED_STAINED_GLASS_PANE.parseItem();
         }
 
+        assert item != null;
         meta = item.getItemMeta();
+        assert meta != null;
         meta.setDisplayName(Util.color("&c&lExit"));
         item.setItemMeta(meta);
         item.setAmount(1);
@@ -63,7 +63,9 @@ public class GuiSettings {
             item = XMaterial.YELLOW_STAINED_GLASS_PANE.parseItem();
         }
 
+        assert item != null;
         meta = item.getItemMeta();
+        assert meta != null;
         meta.setDisplayName(Util.color("&e&lLast Menu"));
         item.setItemMeta(meta);
         item.setAmount(1);
@@ -114,7 +116,7 @@ public class GuiSettings {
             meta.addEnchant(Enchantment.DURABILITY, 1, false);
         }
 
-        List<String> lore = Arrays.asList(Settings.message_NoPermission);
+        List<String> lore = Collections.singletonList(Settings.message_NoPermission);
         if (!player.isOp() || !player.hasPermission("AdvancedChat.Gui.Settings.LowMode")) {
             meta.setLore(coloredLore(lore));
         }
@@ -133,7 +135,7 @@ public class GuiSettings {
             meta.addEnchant(Enchantment.DURABILITY, 1, false);
         }
 
-        List<String> lore = Arrays.asList(Settings.message_NoPermission);
+        List<String> lore = Collections.singletonList(Settings.message_NoPermission);
         if (!player.isOp() || !player.hasPermission("AdvancedChat.Gui.Settings.Chat")) {
             meta.setLore(coloredLore(lore));
         }
@@ -152,7 +154,7 @@ public class GuiSettings {
             meta.addEnchant(Enchantment.DURABILITY, 1, false);
         }
 
-        List<String> lore = Arrays.asList(Settings.message_NoPermission);
+        List<String> lore = Collections.singletonList(Settings.message_NoPermission);
         if (!player.isOp() || !player.hasPermission("AdvancedChat.Gui.Settings.Mention")) {
             meta.setLore(coloredLore(lore));
         }
@@ -171,7 +173,7 @@ public class GuiSettings {
             meta.addEnchant(Enchantment.DURABILITY, 1, false);
         }
 
-        List<String> lore = Arrays.asList(Settings.message_NoPermission);
+        List<String> lore = Collections.singletonList(Settings.message_NoPermission);
         if (!player.isOp() || !player.hasPermission("AdvancedChat.Gui.Settings.Msg")) {
             meta.setLore(coloredLore(lore));
         }
@@ -182,12 +184,12 @@ public class GuiSettings {
     }
 
     public List<String> coloredLore(@NotNull List<String> lore) {
-        List<String> coloredlore = new ArrayList<>();
+        List<String> colored = new ArrayList<>();
         lore.forEach((line) -> {
             String lineColored = Util.color(line);
-            coloredlore.add(lineColored);
+            colored.add(lineColored);
         });
-        return coloredlore;
+        return colored;
     }
 
     public void setDecoration() {

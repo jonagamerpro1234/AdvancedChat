@@ -10,7 +10,9 @@ import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Logger;
 import jss.advancedchat.files.utils.Settings;
+import jss.advancedchat.utils.MessageUtils;
 import jss.advancedchat.utils.Util;
+import jss.advancedchat.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -53,18 +55,10 @@ public class ChatListenerTest implements Listener {
         boolean isGroup = path.equalsIgnoreCase("group");
 
         String format = config.getString("ChatFormat.Format");
-        String message = "";
-
         String msg = formatColor(e.getMessage(), j);
-
         Logger.debug(msg);
-
-        if (Settings.mysql) {
-            //	message = " &r" + colorManager.convertColor(j, plugin.getMySQL().getColor0(j.getUniqueId().toString()), msg);
-        } else {
-            message = " &r" + colorManagerOld.addFormat(j, msg);//colorManager.convertColor(j, playerManager.getColor(), colorManager.converSpecialColor(playerManager.getSpecialColor(), msg));
-        }
-
+        String message = " &r" + colorManagerOld.addFormat(j, formatColor(e.getMessage(), j));
+        Logger.debug(message);
         format = Util.getVar(j, format);
         message = Util.getVar(j, message);
 
@@ -92,13 +86,17 @@ public class ChatListenerTest implements Listener {
         }
 
         if (isDefault) {
-            return;
+
+            e.setCancelled(true);
+            MessageUtils.sendColorMessage(j, format + " " + message);
+
         } else if (isNormal) {
             e.setCancelled(true);
             Json json = new Json(j, format, message);
 
-            if (config.getString("Settings.Show-Chat-In-Console").equals("true")) {
-                Logger.chat(json.getText() + json.getExtraText());
+            if (config.getBoolean("Settings.Show-Chat-In-Console")) {
+                Logger.info(format + message);
+                Logger.chat(json.getFormat());
             }
 
             if (discordSRVHook.isEnabled()) {
@@ -107,10 +105,10 @@ public class ChatListenerTest implements Listener {
                 DiscordUtil.sendMessage(DiscordUtil.getTextChannelById(Settings.hook_discordsrv_channelid), json.getFormat());
             }
 
-            boolean hover = config.getString("ChatFormat.HoverEvent.Enabled").equals("true");
-            List<String> hovertext = config.getStringList("ChatFormat.HoverEvent.Hover");
+            boolean hover = config.getBoolean("ChatFormat.HoverEvent.Enabled");
+            List<String> hoverText = config.getStringList("ChatFormat.HoverEvent.Hover");
 
-            boolean click = config.getString("ChatFormat.ClickEvent.Enabled").equals("true");
+            boolean click = config.getBoolean("ChatFormat.ClickEvent.Enabled");
             String cmd_action = config.getString("ChatFormat.ClickEvent.Actions.Command");
             String click_mode = config.getString("ChatFormat.ClickEvent.Mode");
             String url_action = config.getString("ChatFormat.ClickEvent.Actions.Url");
@@ -124,18 +122,19 @@ public class ChatListenerTest implements Listener {
                     assert click_mode != null;
 
                     if (click_mode.equalsIgnoreCase("command")) {
-                        json.setHover(hovertext).setExecuteCommand(cmd_action).sendDoubleToAll();
+                        json.setHover(hoverText).setExecuteCommand(cmd_action).sendDoubleToAll();
                     } else if (click_mode.equalsIgnoreCase("url")) {
-                        json.setHover(hovertext).setOpenURL(url_action).sendDoubleToAll();
+                        json.setHover(hoverText).setOpenURL(url_action).sendDoubleToAll();
                     } else if (click_mode.equalsIgnoreCase("suggest")) {
-                        json.setHover(hovertext).setSuggestCommand(suggest_action).sendDoubleToAll();
+                        json.setHover(hoverText).setSuggestCommand(suggest_action).sendDoubleToAll();
                     }
 
                 } else {
-                    json.setHover(hovertext).sendDoubleToAll();
+                    json.setHover(hoverText).sendDoubleToAll();
                 }
             } else {
                 if (click) {
+                    assert click_mode != null;
                     if (click_mode.equalsIgnoreCase("command")) {
                         json.setExecuteCommand(cmd_action).sendDoubleToAll();
                     } else if (click_mode.equalsIgnoreCase("url")) {
@@ -168,26 +167,26 @@ public class ChatListenerTest implements Listener {
             return;
         }
 
-        if (Settings.mention) {
-            Util.sendColorMessage(j, Settings.mention_send);
+        if (Settings.mention_enabled) {
             if (message.contains(j.getName())) {
+                MessageUtils.sendColorMessage(j, Settings.mention_send);
                 this.ismention = true;
 
-                Bukkit.getOnlinePlayers().forEach((p) -> {
-                    p.playSound(p.getLocation(), Sound.valueOf(Settings.mention_sound_name), Settings.mention_sound_volume, Settings.mention_sound_pitch);
-                    Util.sendColorMessage(p, Settings.mention_receive);
-                });
+                if(Settings.mention_sound){
+                    Bukkit.getOnlinePlayers().forEach((p) -> {
+                        p.playSound(p.getLocation(), Sound.valueOf(Settings.mention_sound_name), Settings.mention_sound_volume, Settings.mention_sound_pitch);
+                        MessageUtils.sendColorMessage(p, Settings.mention_receive);
+                    });
+                }
             }
         }
     }
 
-    public String formatColor(String msg, Player player) {
-        if (msg == null) {
-            return "";
-        } else {
+    public String formatColor(@NotNull String msg, Player player) {
+        if (!msg.isEmpty()) {
             boolean canReset = false;
             if (!player.isOp() || !player.hasPermission("AdvancedChat.Chat.Color")) {
-                msg = Util.color(msg);
+                msg = Utils.colorized(msg);
                 canReset = true;
             }
 
@@ -219,8 +218,8 @@ public class ChatListenerTest implements Listener {
             if (canReset) {
                 msg = Util.colorless(msg);
             }
-            return msg;
         }
+        return msg;
     }
 
 }

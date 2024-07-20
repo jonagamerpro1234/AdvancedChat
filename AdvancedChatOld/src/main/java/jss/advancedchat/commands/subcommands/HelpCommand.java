@@ -39,4 +39,5 @@ public class HelpCommand extends SubCommand {
     public String disabledMessage() {
         return Settings.lang_disableCommand;
     }
+
 }

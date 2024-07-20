@@ -3,6 +3,7 @@ package jss.advancedchat.inventory.items;
 import com.cryptomorin.xseries.XMaterial;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.utils.Util;
+import jss.advancedchat.utils.Utils;
 import jss.advancedchat.utils.inventory.TSkullUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -24,16 +25,16 @@ public class ItemColorBase {
     }
 
     public ItemStack getItemColor(@NotNull String color, String key, String value) {
-        String name = config.getString(color + ".Name");
-        List<String> lore = color.contains("Lore") ? new ArrayList<>() : config.getStringList(color + ".Lore");
+        String name = config.getString("Items." + color + ".Name");
+        List<String> lore = color.contains("Lore") ? new ArrayList<>() : config.getStringList("Items." + color + ".Lore");
 
         ItemStack item;
-        if (!playerManager.isLowMode()) {
-            String textures = config.getString(color + ".Texture");
+        if (playerManager.isLowMode()) {
+            String textures = config.getString("Items." + color + ".Texture");
             textures = TSkullUtils.replace(textures);
             item = Util.createSkull(textures);
         } else {
-            String mat = Objects.requireNonNull(config.getString(color + ".Item")).toUpperCase();
+            String mat = Objects.requireNonNull(config.getString("Items." + color + ".Item")).toUpperCase();
             item = XMaterial.valueOf(mat).parseItem();
         }
 
@@ -41,10 +42,10 @@ public class ItemColorBase {
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
         meta.setDisplayName(Util.color(name));
-        meta.setLore(jss.advancedchat.v2.Util.coloredLore(lore));
+        meta.setLore(Utils.coloredLore(lore));
         item.setItemMeta(meta);
 
-        jss.advancedchat.v2.Util.setStringItemNbt(item, key, value);
+        Utils.setStringItemNbt(item, key, value);
 
         return item;
     }

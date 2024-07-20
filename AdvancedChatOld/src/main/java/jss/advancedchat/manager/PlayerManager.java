@@ -8,7 +8,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class PlayerManager {
+@SuppressWarnings("all")
+public class  PlayerManager {
 
     private final PlayerFile playerFile = AdvancedChat.get().getPlayerFile();
     private final FileConfiguration config;
@@ -22,44 +23,54 @@ public class PlayerManager {
         return null;
     }
 
+    public String getChatType(){
+        if (existsPlayer("Name")) return  config.getString("Chat-Type");
+        return "";
+    }
+
+    public void setChatType(String value){
+        if (existsPlayer("Name")) config.set("Chat-Type", value);
+        save();
+    }
+
     public boolean isColor() {
-        if (existsPlayer("Chat-Format.Color")) return config.getBoolean("Chat-Format.Color");
+        if (existsPlayer("Chat-Type")) return config.getString("Chat-Type").equalsIgnoreCase("color");
         return false;
     }
 
     public boolean isRainbow() {
-        if (existsPlayer("Chat-Format.Rainbow")) return config.getBoolean("Chat-Format.Rainbow");
+        if (existsPlayer("Chat-Message.Rainbow")) return config.getBoolean("Chat-Message.Rainbow");
         return false;
     }
 
     public boolean isRandom() {
-        if (existsPlayer("Chat-Format.Random")) return config.getBoolean("Chat-Format.Random");
+        if (existsPlayer("Chat-Message.Random")) return config.getBoolean("Chat-Message.Random");
         return false;
     }
 
     public void setRandom(boolean value) {
-        if (existsPlayer("Chat-Format.Random")) config.set("Chat-Format.Random", value);
+        if (existsPlayer("Chat-Message.Random")) config.set("Chat-Message.Random", value);
         save();
     }
 
     public boolean isGradient() {
-        if (existsPlayer("Chat-Format.Gradient")) return config.getBoolean("Chat-Format.Gradient");
+        if (existsPlayer("Chat-Message.Gradient")) return config.getBoolean("Chat-Message.Gradient");
         return false;
     }
 
     public void setGradient(boolean value) {
-        if (existsPlayer("Chat-Format.Gradient")) config.set("Chat-Format.Gradient", value);
+        if (existsPlayer("Chat-Message.Gradient")) config.set("Chat-Message.Gradient", value);
         save();
     }
 
     public boolean isSpecialCodes() {
-        if (existsPlayer("Chat-Format.Special-Color-Codes"))
-            return config.getBoolean("Chat-Format.Special-Color-Codes");
+        if (existsPlayer("Chat-Message.Special-Color-Codes"))
+            return config.getBoolean("Chat-Message.Special-Color-Codes");
         return false;
     }
 
     public void setSpecialCodes(boolean value) {
-        if (existsPlayer("Chat-Format.Special-Color-Codes")) config.set("Chat-Format.Special-Color-Codes", value);
+        if (existsPlayer("Chat-Message.Special-Color-Codes")) config.set("Chat-Message.Special-Color-Codes", value);
         save();
     }
 
@@ -124,7 +135,7 @@ public class PlayerManager {
     }
 
     public void setColor(boolean value) {
-        if (existsPlayer("Chat-Format.Color")) config.set("Chat-Format.Color", value);
+        if (existsPlayer("Chat-Message.Color")) config.set("Chat-Message.Color", value);
         save();
     }
 
@@ -210,13 +221,14 @@ public class PlayerManager {
     }
 
     public void setRainbow(boolean value) {
-        if (existsPlayer("Chat-Format.Rainbow")) config.set("Chat-Format.Rainbow", value);
+        if (existsPlayer("Chat-Message.Rainbow")) config.set("Chat-Message.Rainbow", value);
         save();
     }
 
     public void create(Player player, String group) {
         if (!existsPlayer("Name")) {
             config.set("Name", player.getName());
+            config.set("UUID", player.getUniqueId().toString());
             config.set("Chat-Message.Color", Settings.default_color);
             config.set("Chat-Message.Rainbow", "rainbow_1");
             config.set("Chat-Message.Special-Color-Codes", "none");
@@ -225,6 +237,7 @@ public class PlayerManager {
             config.set("Chat-Type", "color");
             config.set("Is-Mute", false);
             config.set("Group", group);
+            config.set("Other-Settings.Mention", true);
             config.set("Other-Settings.Low-Mode", false);
             config.set("Other-Settings.Chat", true);
             config.set("Other-Settings.Msg", true);

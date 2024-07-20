@@ -5,7 +5,7 @@ import java.util.List;
 public class Settings {
 
     //new
-
+    public static boolean config_debug;
     public static String config_Lang;
 
     //old
@@ -71,11 +71,9 @@ public class Settings {
     public static String mysql_database;
     public static boolean mysql;
 
-    public static int int_clearchat_tick;
-    public static int int_range_chat;
-    public static int int_clearchat_lines;
-    public static long long_clearchat_start_tick;
-    public static long long_clearchat_tick;
+    public static int clearchat_started_ticks;
+    public static int clearchat_delay_ticks;
+    public static int clearchat_lines;
 
     public static boolean hook_vault;
     public static boolean hook_vault_use_group;
@@ -114,7 +112,7 @@ public class Settings {
     public static String logger_prefix_outline;
     public static String logger_prefix_success;
 
-    public static boolean mention;
+    public static boolean mention_enabled;
     public static String mention_send;
     public static String mention_receive;
     public static boolean mention_sound;

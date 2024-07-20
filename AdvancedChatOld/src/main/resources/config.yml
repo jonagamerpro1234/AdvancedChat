@@ -40,8 +40,8 @@ Settings:
   # |Prefix| here you can define a custom prefix
   Prefix: '&6[&bMy Server&6]&7'
 
-  # |Show-Chat-In-Console| here you can enable or disable the chat to be seen in the console
-  Show-Chat-In-Console: false
+  # here you can enable or disable the chat to be seen in the console
+  ShowChatInConsole: true
 
     # |Default-Color-Message| Here you can define the chat color that is assigned by default to players
     # The color system does not work with (&) but uses a simpler system by color names, here below you have the list of available colors
@@ -109,7 +109,7 @@ ClearChat:
   
   # |Default-Start-Tick| Here you can define the first ticks that are executed when starting the server
   # Wiki: https://jonagamerpro1234.gitbook.io/advancedchat/configurations/tick
-  Default-Start-Tick: 6000
+  DefaultStartTick: 6000
   
   #blank lines to broadcast in chat
   LineClear: 100

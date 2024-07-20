@@ -3,6 +3,7 @@ package jss.advancedchat.utils;
 import com.cryptomorin.xseries.XMaterial;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.lib.iridium.IridiumColorAPI;
 import jss.advancedchat.update.UpdateSettings;
 import jss.advancedchat.utils.inventory.TSkullUtils;
@@ -16,7 +17,6 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -25,7 +25,6 @@ import org.bukkit.profile.PlayerTextures;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
@@ -40,10 +39,6 @@ public class Util {
 
     public static boolean hasPerm(@NotNull Player player, String perm) {
         return player.hasPermission(perm);
-    }
-
-    public static @NotNull String getLine(String color) {
-        return color(color + "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
     }
 
     public static @NotNull String color(String text) {
@@ -72,21 +67,14 @@ public class Util {
     }
 
     private static void sendEnable(String message) {
-        CommandSender c = Bukkit.getConsoleSender();
-        sendColorMessage(c, message);
+        sendColorMessage(Bukkit.getConsoleSender(), message);
     }
 
     @SuppressWarnings("deprecation")
-    public static void sendHover(@NotNull Player j, String action, String message, String submessage) {
+    public static void sendHover(@NotNull Player j, String action, String message, String subMessages) {
         TextComponent msg = new TextComponent(color(message));
-        msg.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(action)), (new ComponentBuilder(color(submessage))).create()));
+        msg.setHoverEvent(new HoverEvent(Action.valueOf(getActionHoverType(action)), (new ComponentBuilder(color(subMessages))).create()));
         j.spigot().sendMessage(msg);
-    }
-
-    public static void sendAllPlayerBaseComponent(BaseComponent component) {
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            p.spigot().sendMessage(component);
-        }
     }
 
     public static void sendAllPlayerBaseComponent(BaseComponent component, BaseComponent component2) {
@@ -99,7 +87,7 @@ public class Util {
         Bukkit.getOnlinePlayers().forEach((player) -> player.spigot().sendMessage(component));
     }
 
-    public static String getActionHoverType(String arg) {
+    public static @Nullable String getActionHoverType(@NotNull String arg) {
         if (arg.equalsIgnoreCase("text")) {
             return "SHOW_TEXT";
         } else if (arg.equalsIgnoreCase("item")) {
@@ -118,13 +106,14 @@ public class Util {
         sendEnable("  ");
     }
 
-    @SuppressWarnings("unused")
-    public static void setLoad(String version) {
-        sendEnable("&5<||======================&e[&bLoading &dAdvancedChat&e]&5======================----");
-    }
-
     public static @NotNull String getPrefix(boolean ignoreCustomPrefix) {
-        return "&e[&dAdvancedChat&e]&7 ";
+        String prefixTemp;
+        if(ignoreCustomPrefix){
+            prefixTemp = "&e[&dAdvancedChat&e]&7 ";
+        }else{
+            prefixTemp = Settings.lang_prefix;
+        }
+        return prefixTemp;
     }
 
     public static void setEnabled(String version) {
@@ -160,11 +149,6 @@ public class Util {
         return Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") ? PlaceholderAPI.setPlaceholders(player, text) : text;
     }
 
-    @SuppressWarnings("unused")
-    public static boolean doesPluginExist(String plugin) {
-        return doesPluginExist(plugin, "");
-    }
-
     public static boolean doesPluginExist(String plugin, String msg, boolean s) {
         boolean hooked = Bukkit.getPluginManager().getPlugin(plugin) != null;
         if (hooked) {
@@ -173,14 +157,6 @@ public class Util {
             } else {
                 Logger.defaultMessage("&5<|| &c* &b[&c" + plugin + "&b> " + (msg != null ? "&7(Not " + msg + ")" : ""));
             }
-        }
-        return hooked;
-    }
-
-    public static boolean doesPluginExist(String plugin, String msg) {
-        boolean hooked = Bukkit.getPluginManager().getPlugin(plugin) != null;
-        if (hooked) {
-            Logger.defaultMessage("&5<|| &c* &a" + plugin + (msg != null ? msg : ""));
         }
         return hooked;
     }
@@ -198,7 +174,6 @@ public class Util {
         }
 
         text = text.replace("<online>", "" + playersOnline);
-        text = text.replace("<Online>", "" + playersOnline);
         return text;
     }
 
@@ -225,27 +200,6 @@ public class Util {
         return item;
     }
 
-    public static ItemStack createSkullNew(@NotNull String texture) {
-        ItemStack head = XMaterial.PLAYER_HEAD.parseItem();
-        if (!texture.isEmpty()) {
-            assert head != null;
-            SkullMeta headMeta = (SkullMeta) head.getItemMeta();
-            PlayerProfile profile = Bukkit.createPlayerProfile(UUID.randomUUID());
-            PlayerTextures textures = profile.getTextures();
-            try {
-                textures.setSkin(new URL(texture));
-                profile.setTextures(textures);
-            } catch (MalformedURLException e) {
-                Logger.error(e.getMessage());
-                throw new RuntimeException(e);
-            }
-            assert headMeta != null;
-            headMeta.setOwnerProfile(profile);
-            head.setItemMeta(headMeta);
-        }
-        return head;
-    }
-
     public static @NotNull URL getUrlFromBase64(String base64) throws MalformedURLException {
         String decoded = new String(Base64.getDecoder().decode(base64));
         Logger.debug("Type: Base64 | Decoder: " + decoded);
@@ -261,33 +215,6 @@ public class Util {
         }else{
             return createSkull_117(TSkullUtils.replace(id));
         }
-    }
-
-    @SuppressWarnings("deprecation")
-    public static @NotNull ItemStack createCustomSkull(@NotNull String url){
-        boolean isNewVersion = Arrays.stream(Material.values()).map(Enum::name).collect(Collectors.toList()).contains("PLAYER_HEAD");
-        Material type = Material.matchMaterial(isNewVersion ? "PLAYER_HEAD" : "SKULL_ITEM");
-        assert type != null;
-        ItemStack head = new ItemStack(type, 1);
-        if (!isNewVersion) {
-            head.setDurability((short) 3);
-        }
-        if (!url.isEmpty()) {
-            SkullMeta headMeta = (SkullMeta) head.getItemMeta();
-            GameProfile profile = new GameProfile(UUID.randomUUID(), "");
-            profile.getProperties().put("textures", new Property("textures", url));
-            Field profileField;
-            try {
-                assert headMeta != null;
-                profileField = headMeta.getClass().getDeclaredField("profile");
-                profileField.setAccessible(true);
-                profileField.set(headMeta, profile);
-            } catch (NoSuchFieldException | SecurityException | IllegalAccessException | IllegalArgumentException ex) {
-                Logger.error(ex.getMessage());
-            }
-            head.setItemMeta(headMeta);
-        }
-        return head;
     }
 
     public static boolean beforeVersion(double version) {
@@ -339,41 +266,6 @@ public class Util {
             head.setItemMeta(headMeta);
         }
         return head;
-    }
-
-    public static ItemStack createSkull_117(@NotNull String url, List<String> lore) {
-        ItemStack head = XMaterial.PLAYER_HEAD.parseItem();
-        if (!url.isEmpty()) {
-            assert head != null;
-            SkullMeta headMeta = (SkullMeta) head.getItemMeta();
-            GameProfile profile = new GameProfile(UUID.randomUUID(), null);
-            profile.getProperties().put("textures", new Property("textures", url));
-
-            try {
-                assert headMeta != null;
-                Field profileField = headMeta.getClass().getDeclaredField("profile");
-                profileField.setAccessible(true);
-                profileField.set(headMeta, profile);
-            } catch (NoSuchFieldException | SecurityException | IllegalAccessException | IllegalArgumentException e) {
-                Logger.error(e.getMessage());
-                throw new RuntimeException(e);
-            }
-
-            head.setItemMeta(headMeta);
-        }
-        return head;
-    }
-
-    public static @NotNull String getDate(long millis) {
-        Date date = new Date(millis);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        return formatter.format(date);
-    }
-
-    public static @NotNull String getTime(long millis) {
-        Date date = new Date(millis);
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-        return formatter.format(date);
     }
 
     public static @NotNull String getDate() {

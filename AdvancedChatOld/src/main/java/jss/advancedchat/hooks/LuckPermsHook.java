@@ -10,6 +10,10 @@ import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class LuckPermsHook implements IHook {
 
@@ -20,7 +24,8 @@ public class LuckPermsHook implements IHook {
         this.hooksManager = hooksManager;
     }
 
-    public static LuckPerms getApi() {
+    @Contract(pure = true)
+    public static @NotNull LuckPerms getApi() {
         return LuckPermsProvider.get();
     }
 
@@ -49,9 +54,9 @@ public class LuckPermsHook implements IHook {
         return hooksManager;
     }
 
-    public boolean isGroup(Player player, String name) {
+    public boolean isGroup(@NotNull Player player, @NotNull String name) {
         LuckPerms api = LuckPermsProvider.get();
-        String group = api.getUserManager().getUser(player.getName()).getPrimaryGroup();
+        String group = Objects.requireNonNull(api.getUserManager().getUser(player.getName())).getPrimaryGroup();
         return name.equals(group);
     }
 
@@ -60,7 +65,8 @@ public class LuckPermsHook implements IHook {
             Logger.debug("&e{Group} &9-> &7Is the player not exists");
         }
         LuckPerms api = LuckPermsProvider.get();
-        return api.getUserManager().getUser(player.getName()).getPrimaryGroup();
+        assert player != null;
+        return Objects.requireNonNull(api.getUserManager().getUser(player.getName())).getPrimaryGroup();
     }
 
 }

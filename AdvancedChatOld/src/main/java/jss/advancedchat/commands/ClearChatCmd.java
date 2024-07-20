@@ -9,17 +9,20 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class ClearChatCmd implements CommandExecutor {
 
-    private AdvancedChat plugin = AdvancedChat.get();
-    private EventUtils eventUtils = new EventUtils(plugin);
+    private final EventUtils eventUtils = new EventUtils();
 
     public ClearChatCmd() {
-        plugin.getCommand("AdClearChat").setExecutor(this);
+        AdvancedChat plugin = AdvancedChat.get();
+        Objects.requireNonNull(plugin.getCommand("AdClearChat")).setExecutor(this);
     }
 
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         if (!(sender instanceof Player)) {
             eventUtils.getClearChatAction();
             eventUtils.getServerMessage();

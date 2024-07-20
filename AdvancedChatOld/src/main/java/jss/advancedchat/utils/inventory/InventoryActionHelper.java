@@ -17,7 +17,7 @@ public class InventoryActionHelper {
     private final Player player;
     private final InventoryClickEvent inventoryClickEvent;
 
-    public InventoryActionHelper(Player player, Player target, PlayerManager playerManager, InventoryClickEvent inventoryClickEvent) {
+    public InventoryActionHelper(Player player, PlayerManager playerManager, InventoryClickEvent inventoryClickEvent) {
         this.player = player;
         this.playerManager = playerManager;
         this.inventoryClickEvent = inventoryClickEvent;

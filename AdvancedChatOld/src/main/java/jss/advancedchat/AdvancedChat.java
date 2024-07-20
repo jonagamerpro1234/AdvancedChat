@@ -1,8 +1,11 @@
 package jss.advancedchat;
 
 import jss.advancedchat.commands.*;
-import jss.advancedchat.commands.oldcommands.*;
-import jss.advancedchat.files.*;
+import jss.advancedchat.commands.oldcommands.AdvancedChatCmd;
+import jss.advancedchat.files.BadWordFile;
+import jss.advancedchat.files.ConfigFile;
+import jss.advancedchat.files.GroupFile;
+import jss.advancedchat.files.MessageFile;
 import jss.advancedchat.files.gui.ChannelGuiFile;
 import jss.advancedchat.files.gui.ColorFile;
 import jss.advancedchat.files.gui.GradientColorFile;
@@ -10,6 +13,7 @@ import jss.advancedchat.files.gui.PlayerGuiFile;
 import jss.advancedchat.files.log.LogFile;
 import jss.advancedchat.files.player.PlayerFile;
 import jss.advancedchat.files.utils.PreConfigLoader;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.listeners.JoinListener;
 import jss.advancedchat.listeners.TaskLoader;
 import jss.advancedchat.listeners.chat.ChatLogListener;
@@ -21,15 +25,16 @@ import jss.advancedchat.test.ChatListenerTest;
 import jss.advancedchat.update.UpdateChecker;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.Logger;
-import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.inventory.InventoryView;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
+import org.jetbrains.annotations.NotNull;
 import java.sql.Connection;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AdvancedChat extends AdvancedChatPlugin {
 
@@ -47,7 +52,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
     public EventUtils eventUtils;
     public Metrics metrics;
     public HookManager HookManager;
-    public ArrayList<InventoryView> inventoryView;
+    public Map<String, InventoryView> inventoryView;
     public boolean isLegacyConfig = false;
     public String latestVersion;
     private PreConfigLoader preConfigLoader;
@@ -61,16 +66,15 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
     public void onLoad() {
         instance = this;
-        //this.adventure = BukkitAudiences.create(this);
-
+        getMetric();
         Util.setTitle(version);
-        this.eventUtils = new EventUtils(this);
-        inventoryView = new ArrayList<>();
+        this.eventUtils = new EventUtils();
+        inventoryView = new HashMap<>();
         preConfigLoader = new PreConfigLoader(this);
         HookManager = new HookManager(this);
         getConfigFile().saveDefaultConfig();
         getConfigFile().create();
-        if (!(getConfigFile().getConfig().getInt("Settings.Config-Version") <= 2)) {
+        if (!(getConfigFile().getConfig().getInt("Settings.File-Version") <= 2)) {
             isLegacyConfig = true;
         }
         getMessageFile().saveDefault();
@@ -88,8 +92,6 @@ public class AdvancedChat extends AdvancedChatPlugin {
     }
 
     public void onEnable() {
-        this.adventure = BukkitAudiences.create(this);
-        this.getMetric();
         Util.setEnabled(version);
 
         if (isLegacyConfig) {
@@ -159,7 +161,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
         registerListeners(
                 new JoinListener(),
                 new ChatListenerTest(),
-                //new ChatListener(),
+                //bugs = new ChatListener(),
                 new CommandListener(),
                 new ChatLogListener(),
                 new ColorInventoryListener(),
@@ -204,7 +206,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
                     Logger.warning(msg.replace("{newversion}", this.latestVersion));
                 }
                 //Logger.outline("&5<||" + Util.getLine("&5"));
-                /*
+                /**
                 Logger.outline("&5<||" + Util.getLine("&5"));
                 Logger.warning("&5<||" + "&b" + this.name + " is outdated!");
                 Logger.warning("&5<||" + "&bNewest version: &a" + version);
@@ -221,28 +223,18 @@ public class AdvancedChat extends AdvancedChatPlugin {
         metrics = new Metrics(this, 8826);
     }
 
-    public void addInventoryView(Player player, String inventoryName) {
-        if (this.getInventoryView(player) == null) {
-            this.inventoryView.add(new InventoryView(player, inventoryName));
+    public void addInventoryView(@NotNull Player player, String inventoryName){
+        if(!inventoryView.containsKey(player.getName())){
+            inventoryView.put(player.getName(), new InventoryView(player, inventoryName));
         }
     }
 
-    @SuppressWarnings("SuspiciousListRemoveInLoop")
-    public void removeInventoryView(Player player) {
-        for (int i = 0; i < inventoryView.size(); i++) {
-            if (this.inventoryView.get(i).getPlayer().getName().equals(player.getName())) {
-                inventoryView.remove(i);
-            }
-        }
+    public void removeInventoryView(@NotNull Player player){
+        inventoryView.remove(player.getName());
     }
 
-    public InventoryView getInventoryView(Player player) {
-        for (InventoryView view : inventoryView) {
-            if (view.getPlayer().getName().equals(player.getName())) {
-                return view;
-            }
-        }
-        return null;
+    public InventoryView getInventoryView(@NotNull Player player){
+        return inventoryView.get(player.getName());
     }
 
     public PlayerFile getPlayerFile() {

@@ -50,7 +50,7 @@ public class RainbowInventoryListener implements Listener {
         Player target = Bukkit.getPlayer(playerName);
         assert target != null;
         PlayerManager playerManager = new PlayerManager(target);
-        InventoryActionHelper actionHelper = new InventoryActionHelper(j, target, playerManager, e);
+        InventoryActionHelper actionHelper = new InventoryActionHelper(j, playerManager, e);
 
         if (slot == 19) {
             //add

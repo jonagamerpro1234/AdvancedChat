@@ -1,17 +1,21 @@
 package jss.advancedchat.utils;
 
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import jss.advancedchat.lib.iridium.IridiumColorAPI;
 import jss.advancedchat.update.UpdateSettings;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("all")
 public class Utils {
 
     public static @NotNull String colorized(String text){
@@ -33,6 +37,33 @@ public class Utils {
 
     public static String onPlaceholderAPI(Player player, String text){
         return Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") ? PlaceholderAPI.setPlaceholders(player, text) : text;
+    }
+
+    public static void setStringItemNbt(ItemStack item, String key, String value) {
+        if (item != null && !item.getType().equals(Material.AIR)) {
+            NBTItem nbtItem = new NBTItem(item);
+            nbtItem.setString(key, value);
+            nbtItem.applyNBT(item);
+        }
+    }
+
+    public static String getStringItemNbt(ItemStack item, String key) {
+        if (item != null && !item.getType().equals(Material.AIR)) {
+            NBTItem nbtItem = new NBTItem(item);
+            if (nbtItem.hasKey(key)) {
+                return nbtItem.getString(key);
+            }
+        }
+        return "N/A";
+    }
+
+    public static @NotNull List<String> coloredLore(@NotNull List<String> lore) {
+        List<String> coloredLore = new ArrayList<>();
+        lore.forEach((line) -> {
+            String lineColored = jss.advancedchat.utils.Util.color(line);
+            coloredLore.add(lineColored);
+        });
+        return coloredLore;
     }
 
     public static @NotNull List<String> setLimitTab(@NotNull List<String> options, String lastArgs){

@@ -21,9 +21,9 @@ public class ColorManagerOld {
     public String addFormat(Player player, String text) {
         PlayerManager playerManager = new PlayerManager(player);
 
-        if (playerManager.isColor() && !playerManager.isRainbow() && !playerManager.isGradient() && !playerManager.isRandom()) {
+        if (playerManager.getChatType().contains("color") && !playerManager.getChatType().contains("rainbow") && !playerManager.getChatType().contains("gradient") && !playerManager.getChatType().contains("random")) {
             Logger.debug("Color enable");
-            return convertColor(player, playerManager.getColor(), converSpecialColor(playerManager.getSpecialColor(), text));
+            return convertColor(player, playerManager.getColor(), convertSpecialColor(playerManager.getSpecialColor(), text));
         }
 
         if (playerManager.isGradient() && !playerManager.isRainbow() && !playerManager.isColor() && !playerManager.isRandom() && !playerManager.isSpecialCodes()) {
@@ -44,64 +44,63 @@ public class ColorManagerOld {
         return text;
     }
 
-    public String convertColor(Player player, String color, String text) {
-        String temp = color;
-        if (temp.equalsIgnoreCase("dark_red")) {
+    public String convertColor(Player player, @NotNull String color, String text) {
+        if (color.equalsIgnoreCase("dark_red")) {
             return "&4" + text;
         }
-        if (temp.equalsIgnoreCase("red")) {
+        if (color.equalsIgnoreCase("red")) {
             return "&c" + text;
         }
-        if (temp.equalsIgnoreCase("dark_blue")) {
+        if (color.equalsIgnoreCase("dark_blue")) {
             return "&1" + text;
         }
-        if (temp.equalsIgnoreCase("blue")) {
+        if (color.equalsIgnoreCase("blue")) {
             return "&9" + text;
         }
-        if (temp.equalsIgnoreCase("dark_Green")) {
+        if (color.equalsIgnoreCase("dark_Green")) {
             return "&2" + text;
         }
-        if (temp.equalsIgnoreCase("green")) {
+        if (color.equalsIgnoreCase("green")) {
             return "&a" + text;
         }
-        if (temp.equalsIgnoreCase("yellow")) {
+        if (color.equalsIgnoreCase("yellow")) {
             return "&e" + text;
         }
-        if (temp.equalsIgnoreCase("gold")) {
+        if (color.equalsIgnoreCase("gold")) {
             return "&6" + text;
         }
-        if (temp.equalsIgnoreCase("dark_aqua")) {
+        if (color.equalsIgnoreCase("dark_aqua")) {
             return "&3" + text;
         }
-        if (temp.equalsIgnoreCase("aqua")) {
+        if (color.equalsIgnoreCase("aqua")) {
             return "&b" + text;
         }
-        if (temp.equalsIgnoreCase("light_purple")) {
+        if (color.equalsIgnoreCase("light_purple")) {
             return "&d" + text;
         }
-        if (temp.equalsIgnoreCase("dark_purple")) {
+        if (color.equalsIgnoreCase("dark_purple")) {
             return "&5" + text;
         }
-        if (temp.equalsIgnoreCase("gray")) {
+        if (color.equalsIgnoreCase("gray")) {
             return "&7" + text;
         }
-        if (temp.equalsIgnoreCase("dark_gray")) {
+        if (color.equalsIgnoreCase("dark_gray")) {
             return "&8" + text;
         }
-        if (temp.equalsIgnoreCase("white")) {
+        if (color.equalsIgnoreCase("white")) {
             return "&f" + text;
         }
-        if (temp.equalsIgnoreCase("black")) {
+        if (color.equalsIgnoreCase("black")) {
             return "&0" + text;
         }
         return null;
     }
 
     public String convertRandomColor(@NotNull String text) {
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuffer = new StringBuilder();
 
         for (char c : text.toCharArray()) {
-            stringBuffer.append(setColorRandom() + c);
+            stringBuffer.append(setColorRandom()).append(c);
         }
         return stringBuffer.toString();
     }
@@ -192,7 +191,7 @@ public class ColorManagerOld {
         return null;
     }
 
-    public String converSpecialColor(@NotNull String specialColor, String text) {
+    public String convertSpecialColor(@NotNull String specialColor, String text) {
         if (specialColor.equalsIgnoreCase("bold")) {
             return "&l" + text;
         }
@@ -214,8 +213,8 @@ public class ColorManagerOld {
         return null;
     }
 
-    public String converSpecialColor(String specialColor) {
-        return converSpecialColor(specialColor, "");
+    public String convertSpecialColor(String specialColor) {
+        return convertSpecialColor(specialColor, "");
     }
 
     public String setGradient(Player player, String text) {

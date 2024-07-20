@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class GuiSpecialColorCodes {
     }
 
 
-    public List<String> coloredLore(List<String> lore) {
+    public List<String> coloredLore(@NotNull List<String> lore) {
         List<String> coloredlore = new ArrayList<>();
         lore.forEach((line) -> {
             String lineColored = Util.color(line);
@@ -43,7 +44,9 @@ public class GuiSpecialColorCodes {
     private void setDecoration(String path) {
         for (int i = 0; i < 54; i++) {
             ItemStack item = XMaterial.valueOf(path).parseItem();
+            assert item != null;
             ItemMeta meta = item.getItemMeta();
+            assert meta != null;
             meta.setDisplayName(Util.color(" "));
             item.setItemMeta(meta);
             item.setAmount(1);

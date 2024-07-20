@@ -80,5 +80,4 @@ public class Perms {
     public static String ac_chat_underline = "advancedchat.chat.underline";
     public static String ac_chat_italic = "advancedchat.chat.italic";
 
-
 }
