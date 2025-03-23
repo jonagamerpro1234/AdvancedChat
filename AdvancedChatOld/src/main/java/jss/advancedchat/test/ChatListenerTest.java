@@ -8,7 +8,8 @@ import jss.advancedchat.manager.ColorManagerOld;
 import jss.advancedchat.manager.GroupHelper;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.utils.Logger;
+import jss.advancedchat.storage.mysql.MySql;
+import jss.advancedchat.utils.logger.Logger;
 import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.MessageUtils;
 import jss.advancedchat.utils.Util;
@@ -27,17 +28,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
+/**
+ * modelo de prueba para mejora en el codigo del chat con el fin de eliminar y simplificar
+ * metodos y la candidad de lineas sin perder la funcionalidad del complemento
+ * y mejorando la optimizacion
+ */
+
 public class ChatListenerTest implements Listener {
 
     private final AdvancedChat plugin = AdvancedChat.get();
     private final ColorManagerOld colorManagerOld = new ColorManagerOld();
+    //Se prueba de metodos de color en el chat para poder añadir con solo tener el permiso y usando el simbolo '&'
     private final Pattern MAGIC_REGEN = Pattern.compile("(?i)&(K)");
     private final Pattern BOLD_REGEX = Pattern.compile("(?i)&(L)");
     private final Pattern STRIKETHROUGH_REGEX = Pattern.compile("(?i)&(M)");
     private final Pattern UNDERLINE_REGEX = Pattern.compile("(?i)&(N)");
     private final Pattern ITALIC_REGEX = Pattern.compile("(?i)&(O)");
+    //fin ---
+
+    //mapa de canales para enviar mensaje en distintas instancias de canales sin interferir uno del otro
+    //se almanecenan el Map El nombre jugador como primer string y como segundo string seria el nombre del canal
     @SuppressWarnings("unused")
     private final HashMap<String, String> channel = new HashMap<>();
+    // booleano que permite detectar palabras malas que se encuentra en una lista negra la  palabra que se envia al chat es alguna
+    // que se encuetra en esta lista se de vuelde un verdadero y esto activa una condicion if que al ser verdadero, detiene el mensaje y devuelve una
+    // advertencia indicando que no se puede decir esa palabra solo al jugador que la dijo
     private boolean badword;
     private boolean ismention;
 
@@ -48,6 +63,7 @@ public class ChatListenerTest implements Listener {
 
         Player j = e.getPlayer();
         PlayerManager playerManager = new PlayerManager(j);
+        //Main Path
         String path = Settings.chatformat_chattype;
 
         boolean isDefault = path.equalsIgnoreCase("default");
@@ -65,7 +81,7 @@ public class ChatListenerTest implements Listener {
         boolean isMute = false;
 
         if (Settings.mysql) {
-            //	isMute = plugin.getMySQL().isMute(j.getUniqueId().toString());
+            isMute = MySql.isMute(j);
         } else {
             isMute = playerManager.isMute();
         }

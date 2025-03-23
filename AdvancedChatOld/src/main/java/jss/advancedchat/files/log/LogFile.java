@@ -1,7 +1,7 @@
 package jss.advancedchat.files.log;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.logger.Logger;
 import jss.advancedchat.utils.Util;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -43,7 +43,6 @@ public class LogFile {
     public FileConfiguration getConfig(String name) {
         file = new File(plugin.getDataFolder() + File.separator + "Log", name + ".yml");
         config = YamlConfiguration.loadConfiguration(file);
-
         return config;
     }
 

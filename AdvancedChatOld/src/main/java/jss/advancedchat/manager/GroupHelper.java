@@ -3,13 +3,15 @@ package jss.advancedchat.manager;
 import jss.advancedchat.chat.Json;
 import jss.advancedchat.utils.Util;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class GroupHelper {
 
     private final GroupManager groupManager = new GroupManager();
-    private String group = "";
+    private String group;
     private String format;
     private boolean click;
     private boolean hover;
@@ -17,10 +19,11 @@ public class GroupHelper {
     private String cmd_action;
     private String url_action;
     private String suggest_action;
-    private List<String> hovertext;
+    private List<String> hoverText;
     private Json json;
 
-    public static GroupHelper get() {
+    @Contract(" -> new")
+    public static @NotNull GroupHelper get() {
         return new GroupHelper();
     }
 
@@ -43,30 +46,38 @@ public class GroupHelper {
         cmd_action = groupManager.getClickCommand(group);
         url_action = groupManager.getClickUrl(group);
         suggest_action = groupManager.getClickSuggestCommand(group);
-        hovertext = groupManager.getHover(group);
+        hoverText = groupManager.getHover(group);
     }
 
     private void buildMessage() {
         if (hover) {
             if (click) {
-                if (click_mode.equals("command")) {
-                    json.setHover(hovertext).setExecuteCommand(cmd_action).sendDoubleToAll();
-                } else if (click_mode.equals("url")) {
-                    json.setHover(hovertext).setOpenURL(url_action).sendDoubleToAll();
-                } else if (click_mode.equals("suggest")) {
-                    json.setHover(hovertext).setSuggestCommand(suggest_action).sendDoubleToAll();
+                switch (click_mode) {
+                    case "command":
+                        json.setHover(hoverText).setExecuteCommand(cmd_action).sendDoubleToAll();
+                        break;
+                    case "url":
+                        json.setHover(hoverText).setOpenURL(url_action).sendDoubleToAll();
+                        break;
+                    case "suggest":
+                        json.setHover(hoverText).setSuggestCommand(suggest_action).sendDoubleToAll();
+                        break;
                 }
             } else {
-                json.setHover(hovertext).sendDoubleToAll();
+                json.setHover(hoverText).sendDoubleToAll();
             }
         } else {
             if (click) {
-                if (click_mode.equals("command")) {
-                    json.setExecuteCommand(cmd_action).sendDoubleToAll();
-                } else if (click_mode.equals("url")) {
-                    json.setOpenURL(url_action).sendDoubleToAll();
-                } else if (click_mode.equals("suggest")) {
-                    json.setSuggestCommand(suggest_action).sendDoubleToAll();
+                switch (click_mode) {
+                    case "command":
+                        json.setExecuteCommand(cmd_action).sendDoubleToAll();
+                        break;
+                    case "url":
+                        json.setOpenURL(url_action).sendDoubleToAll();
+                        break;
+                    case "suggest":
+                        json.setSuggestCommand(suggest_action).sendDoubleToAll();
+                        break;
                 }
             } else {
                 json.sendDoubleToAll();

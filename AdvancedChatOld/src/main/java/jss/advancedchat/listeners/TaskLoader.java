@@ -6,7 +6,7 @@ import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.mysql.MySql;
 import jss.advancedchat.utils.EventUtils;
-import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.logger.Logger;
 import jss.advancedchat.files.utils.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -45,7 +45,7 @@ public class TaskLoader {
 
             groupTaskID = scheduler.scheduleSyncRepeatingTask(plugin, () -> {
                 LuckPermsHook hook = HookManager.get().getLuckPermsHook();
-                if (hook.isEnabled() && Settings.hook_luckperms_autoupdate_group) {
+                if (hook.isEnabled() && Settings.hook_luckperms_autoUpdate_group) {
                     String group = Objects.requireNonNull(LuckPermsHook.getApi().getUserManager().getUser(p.getName())).getPrimaryGroup();
 
                     if (Settings.mysql) {

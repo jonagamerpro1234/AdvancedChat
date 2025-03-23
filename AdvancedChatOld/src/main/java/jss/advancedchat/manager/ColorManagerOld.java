@@ -1,11 +1,14 @@
 package jss.advancedchat.manager;
 
-import jss.advancedchat.utils.Logger;
+import jss.advancedchat.files.utils.Settings;
+import jss.advancedchat.storage.mysql.MySql;
+import jss.advancedchat.utils.logger.Logger;
 import jss.advancedchat.utils.Util;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.Random;
 
 public class ColorManagerOld {
@@ -23,7 +26,11 @@ public class ColorManagerOld {
 
         if (playerManager.getChatType().contains("color") && !playerManager.getChatType().contains("rainbow") && !playerManager.getChatType().contains("gradient") && !playerManager.getChatType().contains("random")) {
             Logger.debug("Color enable");
-            return convertColor(player, playerManager.getColor(), convertSpecialColor(playerManager.getSpecialColor(), text));
+            if(Settings.mysql) {
+                return convertColor(player, Objects.requireNonNull(MySql.getColor(player)), convertSpecialColor(Objects.requireNonNull(MySql.getSpecialCodes(player)), text));
+            } else {
+                return convertColor(player, playerManager.getColor(), convertSpecialColor(playerManager.getSpecialColor(), text));
+            }
         }
 
         if (playerManager.isGradient() && !playerManager.isRainbow() && !playerManager.isColor() && !playerManager.isRandom() && !playerManager.isSpecialCodes()) {

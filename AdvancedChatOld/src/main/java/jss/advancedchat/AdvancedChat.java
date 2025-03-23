@@ -24,7 +24,7 @@ import jss.advancedchat.storage.mysql.MySqlConnection;
 import jss.advancedchat.test.ChatListenerTest;
 import jss.advancedchat.update.UpdateChecker;
 import jss.advancedchat.utils.EventUtils;
-import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.logger.Logger;
 import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.inventory.InventoryView;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -32,7 +32,9 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -93,7 +95,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
     public void onEnable() {
         Util.setEnabled(version);
-
+        this.adventure = BukkitAudiences.create(this);
         if (isLegacyConfig) {
             Logger.warning("&e!Please update your config.yml!");
         }
@@ -113,7 +115,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
         //old command
         onCommands();
-
+        //playerFile = new PlayerFile(this);
         // listeners
         onListeners();
 
@@ -125,7 +127,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
             }
         }
 
-        logFile.create();
+        //logFile.create();
 
         this.onUpdate();
     }
@@ -145,6 +147,11 @@ public class AdvancedChat extends AdvancedChatPlugin {
         }
         metrics = null;
         isLegacyConfig = false;
+
+        if(mySqlConnection != null){
+            mySqlConnection.close();
+        }
+
         Bukkit.getScheduler().cancelTasks(this);
         Util.setDisabled(version);
     }
@@ -161,7 +168,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
         registerListeners(
                 new JoinListener(),
                 new ChatListenerTest(),
-                //bugs = new ChatListener(),
+                //new ChatListener(),
                 new CommandListener(),
                 new ChatLogListener(),
                 new ColorInventoryListener(),
@@ -206,7 +213,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
                     Logger.warning(msg.replace("{newversion}", this.latestVersion));
                 }
                 //Logger.outline("&5<||" + Util.getLine("&5"));
-                /**
+                /*
                 Logger.outline("&5<||" + Util.getLine("&5"));
                 Logger.warning("&5<||" + "&b" + this.name + " is outdated!");
                 Logger.warning("&5<||" + "&bNewest version: &a" + version);
@@ -214,7 +221,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
                 Logger.warning("&5<||" + "&bUpdate Here on Spigot: &e" + UpdateSettings.URL_PLUGIN[0]);
                 Logger.warning("&5<||" + "&bUpdate Here on Songoda: &e" + UpdateSettings.URL_PLUGIN[1]);
                 Logger.warning("&5<||" + "&bUpdate Here on GitHub: &e" + UpdateSettings.URL_PLUGIN[2]);
-                Logger.outline("&5<||" + Util.getLine("&5"));*/
+                Logger.outline("&5<||" + Util.getLine("&5"));
+                */
             }
         });
     }
@@ -281,7 +289,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
         return channelGuiFile;
     }
 
-    public Connection getConnection() {
+    public Connection getConnection() throws SQLException {
         return mySqlConnection.getConnection();
     }
 

@@ -79,7 +79,7 @@ public class Settings {
     public static boolean hook_vault_use_group;
     public static boolean hook_luckperms;
     public static int isHook_luckperms_autoupdate_group_time;
-    public static boolean hook_luckperms_autoupdate_group;
+    public static boolean hook_luckperms_autoUpdate_group;
     public static boolean hook_discordsrv;
     public static String hook_discordsrv_channelid;
     public static String hook_discordsrv_custom_format;
@@ -134,4 +134,5 @@ public class Settings {
     public static List<String> lang_updateAlert_player;
     public static List<String> lang_helpCommand;
 
+    public static boolean enable_colors = true;
 }

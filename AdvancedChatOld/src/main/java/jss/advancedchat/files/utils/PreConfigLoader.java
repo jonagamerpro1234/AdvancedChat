@@ -2,7 +2,7 @@ package jss.advancedchat.files.utils;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.files.LangFile;
-import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.logger.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class PreConfigLoader {
             Settings.hook_vault = config.getBoolean("Hooks.Vault.Enabled");
             Settings.hook_discordsrv = config.getBoolean("Hooks.DiscordSRV.Enabled");
             Settings.hook_luckperms = config.getBoolean("Hooks.LuckPerms.Enabled");
-            Settings.hook_luckperms_autoupdate_group = config.getBoolean("Hooks.LuckPerms.AutoUpdateGroup.Enabled");
+            Settings.hook_luckperms_autoUpdate_group = config.getBoolean("Hooks.LuckPerms.AutoUpdateGroup.Enabled");
             Settings.isHook_luckperms_autoupdate_group_time = config.getInt("Hooks.LuckPerms.AutoDetectGroup.Tick");
 
             Settings.boolean_use_default_prefix = config.getBoolean("Settings.Use-Default-Prefix");

@@ -2,7 +2,7 @@ package jss.advancedchat.manager;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.files.player.PlayerFile;
-import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.logger.Logger;
 import jss.advancedchat.files.utils.Settings;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -12,10 +12,15 @@ import org.jetbrains.annotations.NotNull;
 public class  PlayerManager {
 
     private final PlayerFile playerFile = AdvancedChat.get().getPlayerFile();
-    private final FileConfiguration config;
+    private FileConfiguration config;
 
     public PlayerManager(@NotNull Player player) {
         config = playerFile.getConfig(player.getName());
+        if (config == null) {
+            Logger.error("Config file for player " + player.getName() + " is null. Creating a new config.");
+            create(player, "default"); // Asumiendo que se tiene un valor por defecto
+            config = playerFile.getConfig(player.getName()); // Volver a cargar la config después de crearla
+        }
     }
 
     public String getName() {
@@ -140,13 +145,13 @@ public class  PlayerManager {
     }
 
     public String getSpecialColor() {
-        if (existsPlayer("Chat-Message.Special-Color-Codes"))
-            return config.getString("Chat-Message.Special-Color-Codes");
+        if (existsPlayer("Chat-Message.Special-Color"))
+            return config.getString("Chat-Message.Special-Color");
         return null;
     }
 
     public void setSpecialColor(String color) {
-        if (existsPlayer("Chat-Message.Special-Color")) config.set("Chat-Message.Special-Color-Coders", color);
+        if (existsPlayer("Chat-Message.Special-Color")) config.set("Chat-Message.Special-Color", color);
         save();
     }
 
@@ -241,21 +246,28 @@ public class  PlayerManager {
             config.set("Other-Settings.Low-Mode", false);
             config.set("Other-Settings.Chat", true);
             config.set("Other-Settings.Msg", true);
-            save();
-            if (AdvancedChat.get().isDebug())
-                Logger.debug("&9folder &7-> &e[Data] &7-> &d[Players] &7-> &efile &b[" + player.getName() + ".yml] &7-> &aAdded " + player.getName());
-        } else {
-            if (AdvancedChat.get().isDebug())
-                Logger.debug("&9folder &7-> &e[Data] &7-> &d[Players] &7-> &efile &b[" + player.getName() + ".yml] &7-> &eIt already existsPlayer " + player.getName());
+            save();  // Guarda los cambios
+            if (AdvancedChat.get().isDebug()) {
+                Logger.debug("Player config created for " + player.getName());
+            }
         }
     }
 
     public boolean existsPlayer(String section) {
-        return config.contains(section);
+        return config != null && config.contains(section);
     }
 
     private void save() {
-        playerFile.save();
+        if (config != null) {
+            try {
+                playerFile.save();  // Intentamos guardar el archivo
+            } catch (Exception e) {
+                Logger.error("Failed to save the player configuration: " + e.getMessage());
+            }
+        } else {
+            Logger.error("Failed to save, configuration is null!");
+        }
     }
+
 
 }

@@ -7,6 +7,7 @@ import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.lib.iridium.IridiumColorAPI;
 import jss.advancedchat.update.UpdateSettings;
 import jss.advancedchat.utils.inventory.TSkullUtils;
+import jss.advancedchat.utils.logger.Logger;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -111,7 +112,7 @@ public class Util {
         if(ignoreCustomPrefix){
             prefixTemp = "&e[&dAdvancedChat&e]&7 ";
         }else{
-            prefixTemp = Settings.lang_prefix;
+            prefixTemp = Settings.lang_prefix + " ";
         }
         return prefixTemp;
     }
@@ -178,9 +179,15 @@ public class Util {
     }
 
     public static @NotNull String getPrefixVar(String str) {
-        str = str.replace("{default}", getPrefix(true));
+        Logger.debug("getPrefixVar called with: " + str);
+        if (str == null) {
+            Logger.error("getPrefixVar received a null string!");
+            return "{default}";
+        }
+        str = str.replace(getPrefix(true), "{default}");
         return str;
     }
+
 
     @SuppressWarnings("deprecation")
     public static @NotNull ItemStack getPlayerHead(String player) {

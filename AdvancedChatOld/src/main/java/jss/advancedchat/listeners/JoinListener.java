@@ -7,7 +7,7 @@ import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.mysql.MySql;
 import jss.advancedchat.update.UpdateChecker;
-import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.logger.Logger;
 import jss.advancedchat.utils.Perms;
 import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Util;

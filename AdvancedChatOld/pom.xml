@@ -9,12 +9,11 @@
     </parent>
 
     <artifactId>advancedchatold</artifactId>
-    <version>1.7.0-b25</version>
+    <version>1.7.0-b28</version>
 
     <name>AdvancedChatOld</name>
     <description>a simple plugin that helps you customize your server chat to make it look better also brings a
-        customizable chat system by group or rank and more....
-    </description>
+        customizable chat system by group or rank and more....</description>
     <url>https://github.com/jonagamerpro1234/AdvancedChat</url>
 
     <properties>
@@ -53,7 +52,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.28</version>
+            <version>8.0.29</version>
         </dependency>
 
         <!-- Spigot -->
@@ -194,6 +193,14 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- SLF4J simple binding for logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.0-alpha1</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
     <repositories>
@@ -314,20 +321,15 @@
                 <version>3.2.0</version>
                 <configuration>
                     <archive>
-                        <addMavenDescriptor>false</addMavenDescriptor>
-                        <manifest>
-                            <addClasspath>false</addClasspath>
-                        </manifest>
                         <manifestEntries>
-                            <Built-By>jonagamerpro1234</Built-By>
-                            <Version>${project.version}</Version>
+                            <Main-Class>jss.advancedchat.AdvancedChat</Main-Class>
                         </manifestEntries>
                     </archive>
+                    <outputDirectory>C:\Users\js398\OneDrive\Documentos\Dev Server Mc\plugins</outputDirectory>
+                    <finalName>AdvancedChat-${project.version}</finalName>
                 </configuration>
             </plugin>
         </plugins>
-
-        <finalName>AdvancedChat-${project.version}</finalName>
 
         <resources>
             <resource>
@@ -335,6 +337,7 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
+
     </build>
 
 </project>

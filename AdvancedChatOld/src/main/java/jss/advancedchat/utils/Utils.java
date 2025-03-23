@@ -1,6 +1,7 @@
 package jss.advancedchat.utils;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.lib.iridium.IridiumColorAPI;
 import jss.advancedchat.update.UpdateSettings;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -90,6 +91,16 @@ public class Utils {
         MessageUtils.sendColorMessage(sender, " ");
         MessageUtils.sendColorMessage(sender, "&5-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
         MessageUtils.sendColorMessage(sender, " ");
+    }
+
+    public static @NotNull String getPrefix(boolean ignoreCustomPrefix) {
+        String prefixTemp;
+        if(ignoreCustomPrefix){
+            prefixTemp = "&e[&dAdvancedChat&e]&7 ";
+        }else{
+            prefixTemp = Settings.lang_prefix + " ";
+        }
+        return prefixTemp;
     }
 
 }

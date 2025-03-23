@@ -1,7 +1,7 @@
 package jss.advancedchat.commands.oldcommands;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.hooks.LuckPermsHook;
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.inventory.GuiColor;
 import jss.advancedchat.inventory.GuiGradient;
 import jss.advancedchat.inventory.GuiPlayer;
@@ -10,17 +10,14 @@ import jss.advancedchat.manager.ColorManagerOld;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.mysql.MySql;
-import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.logger.Logger;
 import jss.advancedchat.utils.Perms;
-import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.Utils;
+import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.group.Group;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
+import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,8 +30,9 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 
     @SuppressWarnings("ConstantConditions")
     public AdvancedChatCmd() {
-        plugin.getCommand("AdvancedChat").setExecutor(this);
-        plugin.getCommand("AdvancedChat").setTabCompleter(this);
+        PluginCommand command = plugin.getCommand("AdvancedChat");
+        command.setExecutor(this);
+        command.setTabCompleter(this);
     }
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
@@ -382,12 +380,10 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
                             "dark_blue", "red", "dark_red"));
                     if(HookManager.get().getLuckPermsHook().isEnabled()){
                         if(args[0].equalsIgnoreCase("settings")){
-                            for(Group availableGroups : LuckPermsHook.getApi().getGroupManager().getLoadedGroups()){
+                            for(Group availableGroups : LuckPermsProvider.get().getGroupManager().getLoadedGroups()){
                                 listOptions.add(availableGroups.getName());
                             }
                         }
-                    }else{
-                        Logger.debug("Not load group list from LuckPerms Plugin!!");
                     }
                 }
                 break;

@@ -1,7 +1,7 @@
 package jss.advancedchat.update;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.logger.Logger;
 import org.bukkit.Bukkit;
 
 import java.io.IOException;

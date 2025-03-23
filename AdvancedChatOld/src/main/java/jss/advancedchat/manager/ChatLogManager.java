@@ -1,6 +1,6 @@
 package jss.advancedchat.manager;
 
-import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;

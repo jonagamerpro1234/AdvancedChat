@@ -1,6 +1,6 @@
 package jss.advancedchat;
 
-import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.logger.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;

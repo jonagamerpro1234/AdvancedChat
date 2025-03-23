@@ -1,10 +1,10 @@
 package jss.advancedchat.utils;
 
 import jss.advancedchat.files.utils.Settings;
+import jss.advancedchat.utils.logger.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
 
 public class EventUtils {

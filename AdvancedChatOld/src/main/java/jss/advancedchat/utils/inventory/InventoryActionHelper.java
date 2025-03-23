@@ -3,7 +3,7 @@ package jss.advancedchat.utils.inventory;
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.inventory.*;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.utils.Logger;
+import jss.advancedchat.utils.logger.Logger;
 import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.Util;
 import org.bukkit.entity.Player;
