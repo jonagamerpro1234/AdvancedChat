@@ -50,9 +50,9 @@
 
         <!-- MySQL -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.29</version>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>9.3.0</version>
         </dependency>
 
         <!-- Spigot -->
@@ -93,6 +93,7 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- BStats -->
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
@@ -166,26 +167,31 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- CommandApi -->
         <dependency>
             <groupId>com.github.jonagamerpro1234</groupId>
             <artifactId>CommandAPI</artifactId>
             <version>0.0.4-alpha</version>
         </dependency>
+
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-text-minimessage</artifactId>
             <version>4.16.0</version>
         </dependency>
+
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-platform-bukkit</artifactId>
             <version>4.3.2</version>
         </dependency>
+
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-api</artifactId>
             <version>4.16.0</version>
         </dependency>
+
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
