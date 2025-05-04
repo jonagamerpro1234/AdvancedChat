@@ -2,6 +2,7 @@ package jss.advancedchat.utils.logger;
 
 import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.EventUtils;
+import jss.advancedchat.utils.MessageUtils;
 import jss.advancedchat.utils.Util;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,21 +18,35 @@ public class Logger {
     private static final File logFile = new File("plugins/AdvancedChat/logs.txt");
 
     private static void log(LoggerLevel level, String msg) {
-        if (level == LoggerLevel.DEBUG && !Settings.config_debug) return;
+        if (level == LoggerLevel.DEBUG && Settings.config_debug) return;
+        // Variable para el mensaje formateado
+        String formattedMsg;
 
-        // Aplicar colores si está habilitado en la configuración
-        String formattedMsg = Settings.enable_colors
-                ? Util.getPrefixVar(level.getPrefix()) + " " + msg
-                : level.getPrefix() + " " + msg;
+        // Si es DEBUG, incluir la clase y la línea
+        if (level == LoggerLevel.DEBUG) {
+            // Obtener la clase y la línea
+            StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+            StackTraceElement element = stackTrace[3]; // Tomamos el tercer elemento que es el que llamó a log
 
-        // Convertir '&' en '§' para compatibilidad con colores en chat
-        formattedMsg = formattedMsg.replace("&", "§");
+            String className = element.getClassName();
+            int lineNumber = element.getLineNumber();
+
+            // Formatear el mensaje para DEBUG incluyendo la clase y la línea
+            formattedMsg = Settings.enable_colors
+                    ? level.getPrefix() + " [" + className + ":" + lineNumber + "] " + msg
+                    : level.getPrefix() + " [" + className + ":" + lineNumber + "] " + msg;
+        } else {
+            // Para otros niveles, solo el mensaje con el prefijo
+            formattedMsg = Settings.enable_colors
+                    ? level.getPrefix() + " " + msg
+                    : level.getPrefix() + " " + msg;
+        }
 
         // Enviar mensaje a la consola
-        Util.sendColorMessage(EventUtils.getConsoleSender(), formattedMsg);
+        MessageUtils.sendColorMessage(EventUtils.getConsoleSender(), formattedMsg);
 
         // Guardar en archivo de log
-        writeToFile(level, msg);
+        writeToFile(level, formattedMsg);
     }
 
     private static void writeToFile(LoggerLevel level, String msg) {

@@ -79,13 +79,16 @@ public class PreConfigLoader {
     public void loadMessage() {
         try {
             FileConfiguration messages = plugin.getMessageFile().get();
-            Settings.logger_prefix_info = messages.getString("AdvancedChat.Logger.Info");
-            Settings.logger_prefix_error = messages.getString("AdvancedChat.Logger.Error");
-            Settings.logger_prefix_warning = messages.getString("AdvancedChat.Logger.Warning");
-            Settings.logger_prefix_debug = messages.getString("AdvancedChat.Logger.Debug");
-            Settings.logger_prefix_success = messages.getString("AdvancedChat.Logger.Success");
-            Settings.logger_prefix_outline = messages.getString("AdvancedChat.Logger.OutLine");
-            Settings.logger_prefix_chat = messages.getString("AdvancedChat.Logger.Chat");
+
+            Settings.logger_prefix_info = messages.getString("AdvancedChat.Logger.Info", "[INFO]");
+            Settings.logger_prefix_error = messages.getString("AdvancedChat.Logger.Error", "[ERROR]");
+            Settings.logger_prefix_warning = messages.getString("AdvancedChat.Logger.Warning", "[WARNING]");
+            Settings.logger_prefix_debug = messages.getString("AdvancedChat.Logger.Debug", "[DEBUG]");
+            Settings.logger_prefix_success = messages.getString("AdvancedChat.Logger.Success", "[SUCCESS]");
+            Settings.logger_prefix_outline = messages.getString("AdvancedChat.Logger.OutLine", "[OUTLINE]");
+            Settings.logger_prefix_chat = messages.getString("AdvancedChat.Logger.Chat", "[CHAT]");
+
+
             Settings.message_mute_bypass = messages.getString("AdvancedChat.Mute-Bypass");
             Settings.message_depend_plugin = messages.getString("AdvancedChat.Depend-Plugin");
             Settings.message_error_mysql = messages.getString("AdvancedChat.Error-MySql");

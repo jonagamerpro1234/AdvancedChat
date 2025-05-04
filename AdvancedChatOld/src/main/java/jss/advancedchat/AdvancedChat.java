@@ -127,7 +127,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
             }
         }
 
-        //logFile.create();
+        logFile.create();
 
         this.onUpdate();
     }

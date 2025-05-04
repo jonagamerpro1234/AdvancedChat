@@ -92,6 +92,7 @@ public class MsgCmd implements CommandExecutor, TabCompleter {
                 Util.sendColorMessage(p, Util.getVar(j, Settings.msg_format_recive.replace("<msg>", message)));
                 return true;
             }
+
             Util.sendColorMessage(j, Util.getPrefix(false) + Settings.message_msg_use);
             return true;
         }

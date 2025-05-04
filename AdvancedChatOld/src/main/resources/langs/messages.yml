@@ -5,6 +5,11 @@ AllowConsoleCommand: "&cThis command can only be executed in game!"
 UnknownArguments: "&cUnknown argument!"
 ReloadCommand: "&aAll plugin files have been reloaded"
 DisabledCommand: "&cThis command is disabled"
+DependPlugin: "&cCannot enable packet features!, Required plugin missing:"
+ClearChat:
+  Server: "&7The chat has been cleaned"
+  Player: "&7The chat has been cleaned by &b[&e{player}&b]"
+  Staff: ""
 UpdateAlert:
   Console:
     - "======================================-"

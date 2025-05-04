@@ -131,7 +131,8 @@
             message = message.replace("{version}", plugin.version);
             message = message.replace("{spigot}", UpdateSettings.URL_PLUGIN[0]);
             message = message.replace("{github}", UpdateSettings.URL_PLUGIN[2]);
-            message = message.replace("{modrith}", "---");
+            message = message.replace("{modrith}", "-coming soon-");
+            message = message.replace("{default}", Utils.getPrefix(true));
             if(sender instanceof Player){
                 Player player = (Player) sender;
                 message = message.replace("{player}", player.getName());
