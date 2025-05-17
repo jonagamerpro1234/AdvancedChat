@@ -29,12 +29,12 @@ public class GuiPlayer {
 
     public void open(Player player, String target) {
         plugin.addInventoryView(player, "playerGui");
-        create();
-        setItems(player, target);
+       // create();
+        //setItems(player, target);
         player.openInventory(inv);
     }
 
-    private void create() {
+    /*private void create() {
         FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
 
         String title = config.getString("Title");
@@ -44,7 +44,7 @@ public class GuiPlayer {
         setGlass(inv);
     }
 
-    public void setItems(Player player, String target) {
+   /* public void setItems(Player player, String target) {
         FileConfiguration config = plugin.getPlayerGuiFile().getConfig();
 
         inv.setItem(4, Util.getPlayerHead(target));
@@ -134,7 +134,7 @@ public class GuiPlayer {
             }
         }
         return null;
-    }
+    }*/
 
 
 }

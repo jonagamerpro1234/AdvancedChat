@@ -46,7 +46,7 @@ public class GradientInventoryListener implements Listener {
         String playerName = Util.colorless(Objects.requireNonNull(e.getClickedInventory()).getItem(4).getItemMeta().getDisplayName());
         Player target = Bukkit.getPlayer(playerName);
         assert target != null;
-        PlayerManager playerManager = new PlayerManager(target);
+        /*PlayerManager playerManager = new PlayerManager(target);
         InventoryActionHelper actionHelper = new InventoryActionHelper(j, playerManager, e);
 
 
@@ -56,14 +56,14 @@ public class GradientInventoryListener implements Listener {
 
         if (slot == 45) {
             setGradientItem(playerManager, e.getInventory());
-        }
+        }*/
     }
 
     private void setGradientItem(@NotNull PlayerManager playerManager, Inventory inv) {
         ItemStack item;
         ItemMeta meta;
 
-        if (playerManager.isGradient()) {
+        /*if (playerManager.isGradient()) {
             item = XMaterial.GRAY_DYE.parseItem();
             meta = item.getItemMeta();
             meta.setDisplayName(Util.color("&cDisable"));
@@ -81,7 +81,7 @@ public class GradientInventoryListener implements Listener {
             item.setItemMeta(meta);
             inv.setItem(45, item);
             playerManager.setGradient(true);
-        }
+        }*/
     }
 
     @EventHandler

@@ -11,6 +11,7 @@ import jss.advancedchat.files.gui.ColorFile;
 import jss.advancedchat.files.gui.GradientColorFile;
 import jss.advancedchat.files.gui.PlayerGuiFile;
 import jss.advancedchat.files.log.LogFile;
+import jss.advancedchat.files.player.JsonPlayerFile;
 import jss.advancedchat.files.player.PlayerFile;
 import jss.advancedchat.files.utils.PreConfigLoader;
 import jss.advancedchat.files.utils.Settings;
@@ -22,6 +23,7 @@ import jss.advancedchat.listeners.inventory.*;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.storage.mysql.MySqlConnection;
 import jss.advancedchat.test.ChatListenerTest;
+import jss.advancedchat.test.JoinListenerTest;
 import jss.advancedchat.update.UpdateChecker;
 import jss.advancedchat.utils.EventUtils;
 import jss.advancedchat.utils.logger.Logger;
@@ -49,7 +51,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
     private final PlayerGuiFile playerGuiFile = new PlayerGuiFile(this, "player-gui.yml", "Gui");
     private final ChannelGuiFile channelGuiFile = new ChannelGuiFile(this, "channel-gui.yml", "Gui");
     private final GradientColorFile gradientColorFile = new GradientColorFile(this, "gradient-gui.yml", "Gui");
-    private final PlayerFile playerFile = new PlayerFile(this);
+    //private final PlayerFile playerFile = new PlayerFile(this);
     private final LogFile logFile = new LogFile(this);
     public EventUtils eventUtils;
     public Metrics metrics;
@@ -60,14 +62,12 @@ public class AdvancedChat extends AdvancedChatPlugin {
     private PreConfigLoader preConfigLoader;
     private BukkitAudiences adventure;
     private MySqlConnection mySqlConnection;
+    private JsonPlayerFile jsonPlayerFile;
     private boolean debug;
-
-    public static AdvancedChat get() {
-        return instance;
-    }
 
     public void onLoad() {
         instance = this;
+
         getMetric();
         Util.setTitle(version);
         this.eventUtils = new EventUtils();
@@ -86,6 +86,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
         createFolder("Gui");
         createFolder("Log");
         preConfigLoader.loadConfig();
+
         preConfigLoader.loadMessage();
         if(!preConfigLoader.loadLangs()){
             Bukkit.getPluginManager().disablePlugins();
@@ -108,7 +109,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
             mySqlConnection = new MySqlConnection();
             mySqlConnection.setup();
         }
-
+        jsonPlayerFile = new JsonPlayerFile(this);
         //Dev New System command
         CommandHandler commandHandler = new CommandHandler();
         commandHandler.register();
@@ -119,15 +120,15 @@ public class AdvancedChat extends AdvancedChatPlugin {
         // listeners
         onListeners();
 
-        if (Settings.boolean_protocollib) {
+        /*if (Settings.boolean_protocollib) {
             if (HookManager.isLoadProtocolLib()) {
                 HookManager.InitPacketListening();
             } else {
                 Logger.warning(Settings.message_depend_plugin + " " + "&e[&bProtocolLib&e]");
             }
-        }
+        }*/
 
-        logFile.create();
+        //logFile.create();
 
         this.onUpdate();
     }
@@ -166,7 +167,8 @@ public class AdvancedChat extends AdvancedChatPlugin {
 
     public void onListeners() {
         registerListeners(
-                new JoinListener(),
+                new JoinListenerTest()
+                /*new JoinListener(),
                 new ChatListenerTest(),
                 //new ChatListener(),
                 new CommandListener(),
@@ -175,7 +177,7 @@ public class AdvancedChat extends AdvancedChatPlugin {
                 new GradientInventoryListener(),
                 new PlayerInventoryListener(),
                 new SettingsInventoryListener(),
-                new RainbowInventoryListener());
+                new RainbowInventoryListener()*/);
         new TaskLoader();
     }
 
@@ -245,9 +247,9 @@ public class AdvancedChat extends AdvancedChatPlugin {
         return inventoryView.get(player.getName());
     }
 
-    public PlayerFile getPlayerFile() {
+   /*public PlayerFile getPlayerFile() {
         return playerFile;
-    }
+    }*/
 
     public boolean isDebug() {
         return this.debug;
@@ -289,8 +291,14 @@ public class AdvancedChat extends AdvancedChatPlugin {
         return channelGuiFile;
     }
 
+    public JsonPlayerFile getJsonPlayerFile() {
+        return jsonPlayerFile;
+    }
     public Connection getConnection() throws SQLException {
         return mySqlConnection.getConnection();
+    }
+    public static AdvancedChat get() {
+        return instance;
     }
 
 }

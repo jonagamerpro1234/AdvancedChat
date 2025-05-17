@@ -44,12 +44,12 @@ public class MsgCmd implements CommandExecutor, TabCompleter {
                         return true;
                     }
 
-                    PlayerManager playerManager = new PlayerManager(p);
+                    /*PlayerManager playerManager = new PlayerManager(p);
 
                     if (!playerManager.isMsg()) {
                         Util.sendColorMessage(sender, Settings.message_alert_disable_msg);
                         return true;
-                    }
+                    }*/
 
                     Util.sendColorMessage(sender, Util.getVar(p, Settings.msg_format_send.replace("<msg>", message)));
                     Util.sendColorMessage(p, Settings.msg_server_format_recive.replace("<msg>", message));
@@ -81,12 +81,12 @@ public class MsgCmd implements CommandExecutor, TabCompleter {
                     return true;
                 }
 
-                PlayerManager playerManager = new PlayerManager(p);
+                //PlayerManager playerManager = new PlayerManager(p);
 
-                if (!playerManager.isMsg()) {
+               /* if (!playerManager.isMsg()) {
                     Util.sendColorMessage(j, Settings.message_alert_disable_msg);
                     return true;
-                }
+                }*/
 
                 Util.sendColorMessage(j, Util.getVar(p, Settings.msg_format_send.replace("<msg>", message)));
                 Util.sendColorMessage(p, Util.getVar(j, Settings.msg_format_recive.replace("<msg>", message)));

@@ -27,7 +27,7 @@ public class ItemColorBase {
     public ItemStack getItemColor(@NotNull String color, String key, String value) {
         String name = config.getString("Items." + color + ".Name");
         List<String> lore = color.contains("Lore") ? new ArrayList<>() : config.getStringList("Items." + color + ".Lore");
-
+/*
         ItemStack item;
         if (playerManager.isLowMode()) {
             String textures = config.getString("Items." + color + ".Texture");
@@ -46,8 +46,8 @@ public class ItemColorBase {
         item.setItemMeta(meta);
 
         Utils.setStringItemNbt(item, key, value);
-
-        return item;
+*/
+        return null;
     }
 
 }

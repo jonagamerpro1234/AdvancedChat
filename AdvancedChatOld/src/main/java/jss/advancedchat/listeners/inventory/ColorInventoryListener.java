@@ -47,21 +47,21 @@ public class ColorInventoryListener implements Listener {
         String playerName = Util.colorless(Objects.requireNonNull(Objects.requireNonNull(e.getClickedInventory().getItem(4)).getItemMeta()).getDisplayName());
         Player target = Bukkit.getPlayer(playerName);
         assert target != null;
-        PlayerManager playerManager = new PlayerManager(target);
-        InventoryActionHelper actionHelper = new InventoryActionHelper(j, playerManager, e);
+       /* PlayerManager playerManager = new PlayerManager(target);
+        InventoryActionHelper actionHelper = new InventoryActionHelper(j, playerManager, e);*/
 
 
 
-        if (slot == 45) {
+        /*if (slot == 45) {
             setCustomItem(playerManager, e.getInventory());
-        }
+        }*/
     }
 
     private void setCustomItem(@NotNull PlayerManager playerManager, Inventory inv) {
         ItemStack item;
         ItemMeta meta;
 
-        if (playerManager.isColor()) {
+       /* if (playerManager.isColor()) {
             item = XMaterial.GRAY_DYE.parseItem();
             meta = item.getItemMeta();
             meta.setDisplayName(Util.color("&cDisable"));
@@ -79,7 +79,7 @@ public class ColorInventoryListener implements Listener {
             item.setItemMeta(meta);
             inv.setItem(45, item);
             playerManager.setColor(true);
-        }
+        }*/
     }
 
     @EventHandler

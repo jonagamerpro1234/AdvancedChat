@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>advancedchatold</artifactId>
-    <version>1.7.0-b28</version>
+    <version>1.7.0-b29</version>
 
     <name>AdvancedChatOld</name>
     <description>a simple plugin that helps you customize your server chat to make it look better also brings a
@@ -205,6 +205,12 @@
             <artifactId>slf4j-simple</artifactId>
             <version>2.0.0-alpha1</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.13.1</version>
         </dependency>
 
     </dependencies>

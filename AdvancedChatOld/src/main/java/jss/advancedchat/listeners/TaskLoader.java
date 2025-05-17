@@ -41,7 +41,7 @@ public class TaskLoader {
     private void onUpdateGroup() {
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         for (Player p : Bukkit.getOnlinePlayers()) {
-            PlayerManager playerManager = new PlayerManager(p);
+            /*PlayerManager playerManager = new PlayerManager(p);
 
             groupTaskID = scheduler.scheduleSyncRepeatingTask(plugin, () -> {
                 LuckPermsHook hook = HookManager.get().getLuckPermsHook();
@@ -65,7 +65,7 @@ public class TaskLoader {
                     scheduler.cancelTask(groupTaskID);
                 }
             }, 0, 600L);
-
+*/
         }
     }
 

@@ -42,7 +42,7 @@ public class ChatListener implements Listener {
     @EventHandler(priority = EventPriority.HIGH)
     public void chatMute(@NotNull AsyncPlayerChatEvent e) {
         Player j = e.getPlayer();
-        PlayerManager playerManager = new PlayerManager(j);
+        //PlayerManager playerManager = new PlayerManager(j);
 
         if (j.isOp() || Util.hasPerm(j, Perms.ac_mute_bypass)) return;
 
@@ -52,10 +52,10 @@ public class ChatListener implements Listener {
                 e.setCancelled(true);
             }
         } else {
-            if (playerManager.isMute()) {
+           /* if (playerManager.isMute()) {
                 Util.sendColorMessage(j, Util.getVar(j, Settings.message_Alert_Mute));
                 e.setCancelled(true);
-            }
+            }*/
         }
     }
 
@@ -66,7 +66,7 @@ public class ChatListener implements Listener {
         DiscordSRVHook discordSRVHook = HookManager.get().getDiscordSRVHook();
 
         Player j = e.getPlayer();
-        PlayerManager playerManager = new PlayerManager(j);
+        //PlayerManager playerManager = new PlayerManager(j);
         String path = Settings.chatformat_chattype;
 
         boolean isCustomChatFormat = config.getString("ChatFormat.Enabled").equals("true");
@@ -82,7 +82,7 @@ public class ChatListener implements Listener {
         if (Settings.mysql) {
             message = " &r" + colorManagerOld.convertColor(j, MySql.getColor(j), msg);
         } else {
-            message = " &r" + colorManagerOld.convertColor(j, playerManager.getColor(), msg);
+            //message = " &r" + colorManagerOld.convertColor(j, playerManager.getColor(), msg);
         }
 
         format = Util.getVar(j, format);
@@ -94,15 +94,15 @@ public class ChatListener implements Listener {
             isMute = MySql.isMute(j);
             e.setCancelled(true);
         } else {
-            isMute = playerManager.isMute();
+           // isMute = playerManager.isMute();
             e.setCancelled(true);
         }
 
-        if (isMute || this.badWord) {
+        /*if (isMute || this.badWord) {
             this.badWord = false;
             e.setCancelled(true);
             return;
-        }
+        }*/
 
         if (this.isMention) {
             this.isMention = false;
@@ -116,10 +116,10 @@ public class ChatListener implements Listener {
                 return;
             }
         }else{
-            if (!playerManager.isChat()) {
+           /* if (!playerManager.isChat()) {
                 Util.sendColorMessage(j, Settings.message_alert_disable_chat);
                 return;
-            }
+            }*/
         }
 
 

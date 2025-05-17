@@ -45,14 +45,14 @@ public class PlayerInventoryListener implements Listener {
         e.setCancelled(true);
 
         String playerName = Util.colorless(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName());
-        Player target = Bukkit.getPlayer(playerName);
+  /*      Player target = Bukkit.getPlayer(playerName);
         PlayerManager playerManager = new PlayerManager(target);
         InventoryActionHelper actionHelper = new InventoryActionHelper(j, playerManager, e);
 
         if(slot == 38){
             actionHelper.setOpenInventoryAction(playerName, InventoryActionHelper.InventoryType.Gradient);
         }
-
+*/
     }
 
     @EventHandler
@@ -66,7 +66,7 @@ public class PlayerInventoryListener implements Listener {
 
         int slotMute = config.getInt("Items.Mute.Slot");
         String name = config.getString("Items.Mute.Name");
-        PlayerManager playerManager = new PlayerManager(p);
+       /* PlayerManager playerManager = new PlayerManager(p);
         ItemStack it;
         ItemMeta me;
 
@@ -97,6 +97,6 @@ public class PlayerInventoryListener implements Listener {
         me = it.getItemMeta();
         me.setDisplayName(Util.color(Util.getVar(p, name)));
         it.setItemMeta(me);
-        inv.setItem(slotMute, it);
+        inv.setItem(slotMute, it);*/
     }
 }

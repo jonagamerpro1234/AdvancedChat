@@ -9,6 +9,8 @@ import jss.advancedchat.inventory.GuiSettings;
 import jss.advancedchat.manager.ColorManagerOld;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
+import jss.advancedchat.storage.json.manager.JsonPlayerStorage;
+import jss.advancedchat.storage.json.model.PlayerData;
 import jss.advancedchat.storage.mysql.MySql;
 import jss.advancedchat.utils.logger.Logger;
 import jss.advancedchat.utils.Perms;
@@ -36,7 +38,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
     }
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
-        if (!(sender instanceof Player)) {
+        /*if (!(sender instanceof Player)) {
             if (args.length >= 1) {
                 if (args[0].equalsIgnoreCase("info")) {
                     Utils.getInfoPlugin(sender, plugin.name, plugin.version, plugin.latestVersion);
@@ -89,7 +91,8 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
 
                         if (target == null) Util.sendColorMessage(j, Settings.message_No_Online_Player);
                         assert target != null;
-                        PlayerManager playerManager = new PlayerManager(target);
+                        JsonPlayerStorage playerStorage = new JsonPlayerStorage(plugin.getJsonPlayerFile());
+                        PlayerManager playerManager = new PlayerManager(playerStorage);
 
                         if (args.length >= 3) {
                             if (args[2].equalsIgnoreCase("set")) {
@@ -102,7 +105,9 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
                                 if (Settings.mysql) {
                                     MySql.setColor(target, color);
                                 } else {
-                                    playerManager.setColor(color);
+                                    PlayerData data = new PlayerData();
+                                    data.setChatColor(color);
+                                    playerManager.savePlayerData(target.getName(), data);
                                 }
                             }
                             return true;
@@ -325,7 +330,7 @@ public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
             return true;
         }
         Util.sendColorMessage(j, Util.getPrefix(false) + Settings.message_Help_Cmd);
-        return true;
+        */return true;
     }
 
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String @NotNull [] args) {

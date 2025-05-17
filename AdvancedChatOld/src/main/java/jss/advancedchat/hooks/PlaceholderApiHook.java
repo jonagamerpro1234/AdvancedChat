@@ -72,7 +72,7 @@ public class PlaceholderApiHook implements IHook {
         }
 
         public String onPlaceholderRequest(Player player, @NotNull String args) {
-            PlayerManager playerManager = new PlayerManager(player);
+/*            PlayerManager playerManager = new PlayerManager(player);
             if (args.equals("is_mute")) {
                 if (Settings.mysql) {
                 } else {
@@ -100,7 +100,7 @@ public class PlaceholderApiHook implements IHook {
                     return playerManager.getChannel();
                 }
             }
-
+*/
             return "N/A";
         }
 

@@ -22,7 +22,7 @@ public class ColorManagerOld {
     }
 
     public String addFormat(Player player, String text) {
-        PlayerManager playerManager = new PlayerManager(player);
+       /* PlayerManager playerManager = new PlayerManager(player);
 
         if (playerManager.getChatType().contains("color") && !playerManager.getChatType().contains("rainbow") && !playerManager.getChatType().contains("gradient") && !playerManager.getChatType().contains("random")) {
             Logger.debug("Color enable");
@@ -46,7 +46,7 @@ public class ColorManagerOld {
         if (playerManager.isRainbow() && !playerManager.isColor() && !playerManager.isGradient() && !playerManager.isRandom() && !playerManager.isSpecialCodes()) {
             Logger.debug("Rainbow enable");
             return setRainbow(playerManager.getRainbow(), text);
-        }
+        }*/
 
         return text;
     }
@@ -225,8 +225,8 @@ public class ColorManagerOld {
     }
 
     public String setGradient(Player player, String text) {
-        PlayerManager playerManager = new PlayerManager(player);
-        return Util.color("<GRADIENT:" + playerManager.getFirstGradient() + ">" + text + "</GRADIENT:" + playerManager.getSecondGradient() + ">");
+        //PlayerManager playerManager = new PlayerManager(player);
+        return text;//Util.color("<GRADIENT:" + playerManager.getFirstGradient() + ">" + text + "</GRADIENT:" + playerManager.getSecondGradient() + ">");
     }
 
     public String setColorRandom() {

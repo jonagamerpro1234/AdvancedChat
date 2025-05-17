@@ -123,10 +123,9 @@ public class CommandHandler implements TabExecutor {
                         break;
                     }
 
-                    if(args[2].equalsIgnoreCase("group")){
+                    if(args[2].equalsIgnoreCase("group")) {
                         listOptions.add("set");
                     }
-
                     break;
                 }
                 break;

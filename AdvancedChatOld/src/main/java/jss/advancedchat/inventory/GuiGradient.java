@@ -45,7 +45,7 @@ public class GuiGradient {
         item = Util.getPlayerHead(target);
         inv.setItem(4, item);
 
-        PlayerManager playerManager = new PlayerManager(Objects.requireNonNull(Bukkit.getPlayer(target)));
+        /*PlayerManager playerManager = new PlayerManager(Objects.requireNonNull(Bukkit.getPlayer(target)));
 
         Set<String> section = Objects.requireNonNull(config.getConfigurationSection("Items")).getKeys(false);
 
@@ -73,12 +73,12 @@ public class GuiGradient {
             inv.setItem(slot, item);
         }
 
-        InventoryUtils.setItemChecker(inv, 45, playerManager.isGradient());
+        InventoryUtils.setItemChecker(inv, 45, playerManager.isGradient());*/
     }
 
     @SuppressWarnings("unused")
     private void setCustomItem(@NotNull PlayerManager playerManager) {
-        if (playerManager.isGradient()) {
+        /*if (playerManager.isGradient()) {
             item = XMaterial.LIME_DYE.parseItem();
             meta = item.getItemMeta();
             meta.setDisplayName(Util.color("&aEnable"));
@@ -90,7 +90,7 @@ public class GuiGradient {
             meta.setDisplayName(Util.color("&cDisable"));
             List<String> lore = Arrays.asList("&7Click to &aenable");
             meta.setLore(coloredLore(lore));
-        }
+        }*/
         item.setItemMeta(meta);
         inv.setItem(45, item);
     }

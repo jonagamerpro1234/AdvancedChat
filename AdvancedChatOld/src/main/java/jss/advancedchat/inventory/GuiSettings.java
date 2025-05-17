@@ -24,7 +24,7 @@ public class GuiSettings {
     private ItemStack item;
     private ItemMeta meta;
 
-    public void open(Player player, String target) {
+    /*public void open(Player player, String target) {
         plugin.addInventoryView(player, "settingsGui");
         create();
         addItems(player, target);
@@ -202,6 +202,6 @@ public class GuiSettings {
             inv.setItem(i, item);
 
         }
-    }
+    }*/
 
 }

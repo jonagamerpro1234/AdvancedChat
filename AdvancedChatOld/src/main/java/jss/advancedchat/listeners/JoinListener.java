@@ -1,10 +1,11 @@
 package jss.advancedchat.listeners;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.files.player.PlayerFile;
+import jss.advancedchat.manager.PlayerManager;
+import jss.advancedchat.storage.json.manager.JsonPlayerStorage;
+import jss.advancedchat.storage.json.model.PlayerData;
 import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.manager.HookManager;
-import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.mysql.MySql;
 import jss.advancedchat.update.UpdateChecker;
 import jss.advancedchat.utils.logger.Logger;
@@ -27,9 +28,10 @@ public class JoinListener implements Listener {
         LuckPermsHook luckPermsHook = HookManager.get().getLuckPermsHook();
         Player j = e.getPlayer();
         String group;
-        PlayerFile playerFile = new PlayerFile(plugin, j.getName());
-        PlayerManager playerManager = new PlayerManager(j);
-        playerFile.create();
+
+        // Usar el PlayerManager y el sistema de JSON
+        JsonPlayerStorage playerStorage = new JsonPlayerStorage(plugin.getJsonPlayerFile());
+        PlayerManager playerManager = new PlayerManager(playerStorage);
 
         if (!luckPermsHook.isEnabled()) {
             Logger.error("&cThe LuckPerms could not be found to activate the group system");
@@ -38,12 +40,33 @@ public class JoinListener implements Listener {
         } else {
             group = LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup();
 
-            if (!playerManager.getGroup().equalsIgnoreCase(LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup())) {
-                playerManager.setGroup(LuckPermsHook.getApi().getUserManager().getUser(j.getName()).getPrimaryGroup());
+            // Comprobar si el grupo del jugador ha cambiado
+            PlayerData playerData = playerManager.loadPlayerData(j); // Cargar datos desde JSON
+            if (playerData != null && !playerData.getGroup().equalsIgnoreCase(group)) {
+                playerData.setGroup(group); // Actualizar el grupo si es necesario
+                playerManager.savePlayerData(j.getName(), playerData); // Guardar cambios en JSON
             }
         }
-        playerManager.create(j, group);
 
+        // Cargar o crear los datos del jugador
+        PlayerData playerData = playerManager.loadPlayerData(j);
+        if (playerData == null) {
+            // Si no existen datos para el jugador, crear una nueva configuración
+            playerData = new PlayerData(j);
+            playerData.setName(j.getName());
+            playerData.setUuid(j.getUniqueId().toString());
+            playerData.setGroup(group); // Establecer el grupo
+            playerManager.savePlayerData(j.getName(), playerData); // Guardar datos
+        }
+
+        // Aquí puedes agregar más acciones con los datos del jugador, como enviar mensajes personalizados
+        if (playerData.getPreferences().getMuteSettings().isMute()) {
+            j.sendMessage("You are muted.");
+        } else {
+            j.sendMessage("Welcome " + playerData.getName() + "!");
+        }
+
+        // Si está habilitado MySQL y no existe el jugador en la base de datos, se crea
         if (Settings.mysql) {
             if (!MySql.existsInPlayerDataBase(j)) {
                 MySql.createPlayer(j, group);
@@ -65,5 +88,4 @@ public class JoinListener implements Listener {
             });
         }
     }
-
 }

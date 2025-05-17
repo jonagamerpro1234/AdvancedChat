@@ -24,7 +24,7 @@ public class InventoryActionHelper {
     }
 
     public void setDoubleActionColor(String permission, String left, String right) {
-        if (player.isOp() || player.hasPermission(permission)) {
+        /*if (player.isOp() || player.hasPermission(permission)) {
             if (inventoryClickEvent.getClick().isLeftClick()) {
                 playerManager.setFirstGradient(left);
             } else if (inventoryClickEvent.getClick().isRightClick()) {
@@ -32,15 +32,15 @@ public class InventoryActionHelper {
             }
         } else {
             Util.sendHover(player, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-        }
+        }*/
     }
 
     public void setActionColor(String permission, String action) {
-        if (player.isOp() || player.hasPermission(permission)) {
+        /*if (player.isOp() || player.hasPermission(permission)) {
             playerManager.setColor(action);
         } else {
             Util.sendHover(player, "text", Settings.message_NoPermission, Settings.message_NoPermission_Label);
-        }
+        }*/
     }
 
     public void setOpenInventoryAction(String playerName, @NotNull InventoryType inventoryType) {
@@ -64,7 +64,7 @@ public class InventoryActionHelper {
                 break;
             case Settings:
                 GuiSettings guiSettings = new GuiSettings();
-                guiSettings.open(player, playerName);
+                //guiSettings.open(player, playerName);
                 break;
             case Rainbow:
                 GuiRainbow guiRainbow = new GuiRainbow();

@@ -49,7 +49,7 @@ public class SettingsInventoryListener implements Listener {
         String playerName = Util.colorless(Objects.requireNonNull(Objects.requireNonNull(e.getClickedInventory().getItem(4)).getItemMeta()).getDisplayName());
         Player target = Bukkit.getPlayer(playerName);
         assert target != null;
-        PlayerManager playerManager = new PlayerManager(target);
+        /*PlayerManager playerManager = new PlayerManager(target);
         InventoryActionHelper actionHelper = new InventoryActionHelper(j, playerManager, e);
 
         if (slot == 19) {
@@ -71,7 +71,7 @@ public class SettingsInventoryListener implements Listener {
 
         if (slot == 0) {
             j.closeInventory();
-        }
+        }*/
     }
 
     public void isLowModeItem(PlayerManager playerManager, @NotNull Player player, Inventory inv) {
@@ -83,14 +83,14 @@ public class SettingsInventoryListener implements Listener {
 
 
         if (!player.isOp() || !player.hasPermission("AdvancedChat.Gui.Settings.LowMode")) return;
-
+/*
         if (playerManager.isLowMode()) {
             playerManager.setLowMode(false);
         } else {
             playerManager.setLowMode(true);
             meta.addEnchant(Enchantment.DURABILITY, 1, false);
         }
-
+*/
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         inv.setItem(19, item);
@@ -106,12 +106,12 @@ public class SettingsInventoryListener implements Listener {
 
         if (!player.isOp() || !player.hasPermission("AdvancedChat.Gui.Settings.Chat")) return;
 
-        if (playerManager.isChat()) {
+        /*if (playerManager.isChat()) {
             playerManager.setChat(false);
         } else {
             playerManager.setChat(true);
             meta.addEnchant(Enchantment.DURABILITY, 1, false);
-        }
+        }*/
 
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);

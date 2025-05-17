@@ -49,7 +49,7 @@ public class RainbowInventoryListener implements Listener {
         String playerName = Util.colorless(Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(e.getClickedInventory()).getItem(4)).getItemMeta()).getDisplayName());
         Player target = Bukkit.getPlayer(playerName);
         assert target != null;
-        PlayerManager playerManager = new PlayerManager(target);
+        /*PlayerManager playerManager = new PlayerManager(target);
         InventoryActionHelper actionHelper = new InventoryActionHelper(j, playerManager, e);
 
         if (slot == 19) {
@@ -67,14 +67,14 @@ public class RainbowInventoryListener implements Listener {
 
         if (slot == 45) {
             setRainbowItem(playerManager, e.getInventory());
-        }
+        }*/
     }
 
     private void setRainbowItem(@NotNull PlayerManager playerManager, Inventory inv) {
         ItemStack item;
         ItemMeta meta;
 
-        if (playerManager.isRainbow()) {
+        /*if (playerManager.isRainbow()) {
             item = XMaterial.GRAY_DYE.parseItem();
             assert item != null;
             meta = item.getItemMeta();
@@ -96,7 +96,7 @@ public class RainbowInventoryListener implements Listener {
             item.setItemMeta(meta);
             inv.setItem(45, item);
             playerManager.setGradient(true);
-        }
+        }*/
     }
 
     @EventHandler

@@ -37,9 +37,9 @@ public class GuiColor {
 
     private void setItems(String target) {
         FileConfiguration config = plugin.getColorFile().getConfig();
-        PlayerManager playerManager = new PlayerManager(Objects.requireNonNull(Bukkit.getPlayer(target)));
-        ItemColorBase itemColorBase = new ItemColorBase(playerManager, config);
-
+        //PlayerManager playerManager = new PlayerManager(Objects.requireNonNull(Bukkit.getPlayer(target)));
+        //ItemColorBase itemColorBase = new ItemColorBase(playerManager, config);
+/*
         setDecoration(inv);
 
         item = Util.getPlayerHead(target);
@@ -82,7 +82,7 @@ public class GuiColor {
         inv.setItem(41, item);
 
 
-        InventoryUtils.setItemChecker(inv, 45, playerManager.isColor());
+        InventoryUtils.setItemChecker(inv, 45, playerManager.isColor());*/
     }
 
     private void setDecoration(Inventory inv) {

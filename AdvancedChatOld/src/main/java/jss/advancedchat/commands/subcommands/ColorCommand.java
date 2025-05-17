@@ -26,7 +26,7 @@ public class ColorCommand extends SubCommand {
 
     public boolean onCommand(CommandSender sender, String @NotNull [] args) {
 
-        if(args.length >= 3){
+        /*if(args.length >= 3){
             Player target = Bukkit.getPlayer(args[1]);
 
             if (target == null) MessageUtils.sendColorMessage(sender, Settings.message_No_Online_Player);
@@ -54,7 +54,7 @@ public class ColorCommand extends SubCommand {
             }
             MessageUtils.sendColorMessage(sender, "<yellow> Open Color Menu---");
             return true;
-        }
+        }*/
         MessageUtils.sendColorMessage(sender, "<red> Open Color Menu---");
         return true;
     }

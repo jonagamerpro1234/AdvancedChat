@@ -32,8 +32,9 @@ public class ClearChatCmd implements CommandExecutor {
         Player j = (Player) sender;
 
         if (j.isOp() || j.hasPermission(Perms.ac_cmd_clearchat)) {
-            if (Settings.boolean_clearchat_bypass && j.isOp() || j.hasPermission(Perms.ac_clearchat_bypass)) {
+            if ((Settings.boolean_clearchat_bypass && j.isOp()) || j.hasPermission(Perms.ac_clearchat_bypass)) {
                 Util.sendColorMessage(j, Util.getPrefix(false) + Util.getVar(j, Settings.message_ClearChat_Staff));
+                return true;
             } else {
                 eventUtils.getClearChatAction();
             }

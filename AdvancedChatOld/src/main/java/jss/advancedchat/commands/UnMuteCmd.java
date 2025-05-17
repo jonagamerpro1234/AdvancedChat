@@ -22,12 +22,12 @@ public class UnMuteCmd implements CommandExecutor {
         if (!(sender instanceof Player)) {
             if (args.length >= 1) {
                 Player target = Bukkit.getPlayer(args[0]);
-                PlayerManager playerManager = new PlayerManager(target);
+                /*PlayerManager playerManager = new PlayerManager(target);
                 if (Settings.mysql) {
                     //	mySQL.setMute(target.getUniqueId().toString(), false);
                 } else {
                     playerManager.setMute(false);
-                }
+                }*/
                 Util.sendColorMessage(sender, Util.getPrefix(false) + Util.getVar(target, Settings.message_UnMute_Player));
                 return true;
             }
@@ -38,13 +38,13 @@ public class UnMuteCmd implements CommandExecutor {
         if (j.isOp() || j.hasPermission("AdvancedChat.UnMute")) {
             if (args.length >= 1) {
                 Player target = Bukkit.getPlayer(args[0]);
-                PlayerManager playerManager = new PlayerManager(target);
+                /*PlayerManager playerManager = new PlayerManager(target);
 
                 if (Settings.mysql) {
                     //mySQL.setMute(target.getUniqueId().toString(), false);
                 } else {
                     playerManager.setMute(false);
-                }
+                }*/
                 Util.sendColorMessage(j, Util.getPrefix(false) + Util.getVar(j, Settings.message_UnMute_Player));
                 return true;
             }
