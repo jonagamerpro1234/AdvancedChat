@@ -77,6 +77,7 @@ public class JoinListener implements Listener {
         }
     }
 
+    //Notify of the update a player
     @EventHandler
     public void onUpdatePlayer(@NotNull PlayerJoinEvent e) {
         Player j = e.getPlayer();

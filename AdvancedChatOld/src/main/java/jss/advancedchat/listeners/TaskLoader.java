@@ -4,15 +4,13 @@ import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.hooks.LuckPermsHook;
 import jss.advancedchat.manager.HookManager;
 import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.storage.mysql.MySql;
+import jss.advancedchat.storage.json.manager.JsonPlayerStorage;
+import jss.advancedchat.storage.json.model.PlayerData;
 import jss.advancedchat.utils.EventUtils;
-import jss.advancedchat.utils.logger.Logger;
 import jss.advancedchat.files.utils.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
-
-import java.util.Objects;
 
 public class TaskLoader {
 
@@ -36,6 +34,31 @@ public class TaskLoader {
                 scheduler.cancelTask(chatTaskID);
             }
         }, Settings.clearchat_started_ticks, Settings.clearchat_delay_ticks);
+    }
+
+    private void updateGroup(){
+        BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+        JsonPlayerStorage storage = new JsonPlayerStorage(plugin.getJsonPlayerFile());
+        PlayerManager manager = new PlayerManager(storage);
+
+        for( Player p : Bukkit.getOnlinePlayers()) {
+            PlayerData data = manager.loadPlayerData(p);
+
+            if(data == null) break;
+
+            groupTaskID = scheduler.scheduleSyncRepeatingTask(plugin, () -> {
+                LuckPermsHook hook = HookManager.get().getLuckPermsHook();
+
+                if(hook.isEnabled() && Settings.hook_luckperms_autoUpdate_group) {
+
+
+
+                }else {
+                    scheduler.cancelTask(groupTaskID);
+                }
+
+            }, 100L, 800L);
+        }
     }
 
     private void onUpdateGroup() {

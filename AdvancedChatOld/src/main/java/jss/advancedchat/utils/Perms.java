@@ -14,8 +14,10 @@ public class Perms {
     public static final String ac_cmd_mute = "advancedchat.command.mute";
     public static final String ac_cmd_tabcomplete = "advancedchat.tabcomplete";
     public static final String ac_mute_bypass = "advancedchat.mute.bypass";
+    public static final String ac_mute_bypass_all = "advancedchat.mute.bypass.all";
     public static String ac_ = "advancedchat.";
     public static String ac_all = "advancedchat.admin";
+    public static String ac_all_perms = "advancedchat.*";
     public static String ac_colors_all = "advancedchat.colors.all";
     public static String ac_cmd_info = "advancedchat.command.info";
     public static String ac_cmd_unmute = "advancedchat.command.unmute";

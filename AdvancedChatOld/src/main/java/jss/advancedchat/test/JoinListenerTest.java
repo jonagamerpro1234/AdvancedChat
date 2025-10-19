@@ -1,7 +1,6 @@
 package jss.advancedchat.test;
 
 import jss.advancedchat.AdvancedChat;
-import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.manager.PlayerManager;
 import jss.advancedchat.storage.json.manager.JsonPlayerStorage;
 import jss.advancedchat.storage.json.model.PlayerData;

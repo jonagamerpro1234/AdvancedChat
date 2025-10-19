@@ -18,7 +18,7 @@ public class Logger {
     private static final File logFile = new File("plugins/AdvancedChat/logs.txt");
 
     private static void log(LoggerLevel level, String msg) {
-        if (level == LoggerLevel.DEBUG && Settings.config_debug) return;
+        if (level == LoggerLevel.DEBUG && !Settings.config_debug) return;
         // Variable para el mensaje formateado
         String formattedMsg;
 

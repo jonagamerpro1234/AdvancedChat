@@ -32,7 +32,7 @@ public class JsonPlayerFile {
         File playerFile = getPlayerFile(playerName);
         if (!playerFile.exists()) {
             Logger.debug("Player file does not exist, creating new one for " + playerName);
-            return createDefaultConfig(playerName);
+            return null;
         }
 
         try (FileReader reader = new FileReader(playerFile)) {

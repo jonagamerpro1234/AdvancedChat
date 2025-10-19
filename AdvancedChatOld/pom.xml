@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>advancedchatold</artifactId>
-    <version>1.7.0-b29</version>
+    <version>1.7.0-b30</version>
 
     <name>AdvancedChatOld</name>
     <description>a simple plugin that helps you customize your server chat to make it look better also brings a

@@ -25,6 +25,7 @@ public class PreConfigLoader {
             Settings.message_prefix_custom = config.getString("Settings.Prefix");
             Settings.update = config.getBoolean("Settings.Update");
             Settings.config_debug = config.getBoolean("Settings.Debug");
+            Settings.AllowBypassMute = config.getBoolean("Settings.AllowBypassMute");
 
             Settings.hook_vault = config.getBoolean("Hooks.Vault.Enabled");
             Settings.hook_discordsrv = config.getBoolean("Hooks.DiscordSRV.Enabled");

@@ -4,6 +4,9 @@ import java.util.List;
 
 public class Settings {
 
+    //Settings
+    public static boolean AllowBypassMute;
+
     //new
     public static boolean config_debug;
     public static String config_Lang;
