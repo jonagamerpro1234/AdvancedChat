@@ -3,6 +3,7 @@ package jss.advancedchat.utils.logger;
 import jss.advancedchat.utils.Util;
 
 public enum LoggerLevel {
+
     //Dev Test
     /*INFO(Settings.logger_prefix_info != null ? Settings.logger_prefix_info : "&e[&9INFO&e]&7"),
     WARNING(Settings.logger_prefix_warning != null ? Settings.logger_prefix_warning : "&e[&cWARNING&e]&7"),

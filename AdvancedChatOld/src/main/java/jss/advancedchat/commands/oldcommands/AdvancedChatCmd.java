@@ -27,6 +27,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * remove next update
+ * @version 1.7.0-b30
+ * @deprecated
+ *
+ */
 public class AdvancedChatCmd implements CommandExecutor, TabCompleter {
     private final AdvancedChat plugin = AdvancedChat.get();
 
