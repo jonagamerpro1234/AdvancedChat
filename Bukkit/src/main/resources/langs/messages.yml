@@ -5,6 +5,8 @@ UsageMainCommand: "&7Use &9/Ac &ehelp &7for more information"
 UnknownArguments: "&cUnknown argument!"
 ReloadCommand: "&aAll plugin files have been reloaded"
 UnknownSound: "&eThe sound is not from this version or is misspelled!"
+DisabledCommand: "&cThis command is disabled"
+
 
 UpdateAlert:
   Console:
