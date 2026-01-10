@@ -52,15 +52,15 @@ public class Utils {
         return dateFormat.format(calendar.getTime());
     }
 
-    public static String getPrefix(boolean ignore){
-        String finalPrefix = "";
+    public static @NotNull String getPrefix(boolean ignore){
+        String finalPrefix;
 
         if(ignore){
             finalPrefix = "&e[&d" + plugin.name + "&e] &7";
         }else{
             finalPrefix = Settings.messages_prefix + " &7";
         }
-        return colorized(finalPrefix);
+        return finalPrefix;
     }
 
     public static boolean hasPerm(@NotNull Player player, String permName){

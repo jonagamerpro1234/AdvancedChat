@@ -1,11 +1,10 @@
 package jss.advancedchat.commands.subcommands;
 
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.utils.MessageUtils;
 import jss.advancedchat.utils.Utils;
 import jss.commandapi.SubCommand;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.graalvm.compiler.core.common.util.Util;
 import org.jetbrains.annotations.NotNull;
 
 public class ReloadCmd extends SubCommand {
@@ -41,7 +40,7 @@ public class ReloadCmd extends SubCommand {
     }
 
     public String disabledMessage() {
-        return null;
+        return Settings.messages_disabled_command;
     }
 
 }

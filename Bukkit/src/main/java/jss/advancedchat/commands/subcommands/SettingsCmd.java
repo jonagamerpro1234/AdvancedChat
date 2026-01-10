@@ -1,5 +1,6 @@
 package jss.advancedchat.commands.subcommands;
 
+import jss.advancedchat.files.utils.Settings;
 import jss.commandapi.SubCommand;
 import org.bukkit.command.CommandSender;
 
@@ -30,7 +31,7 @@ public class SettingsCmd extends SubCommand {
     }
 
     public String disabledMessage() {
-        return null;
+        return Settings.messages_disabled_command;
     }
 
 

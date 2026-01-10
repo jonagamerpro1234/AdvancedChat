@@ -2,6 +2,7 @@ package jss.advancedchat.listeners;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.files.utils.Settings;
+import jss.advancedchat.utils.MessageUtils;
 import jss.advancedchat.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -21,16 +22,22 @@ public class TaskLoader {
     public void onClearChat(){
         task_ClearChat = bukkitScheduler.scheduleSyncRepeatingTask(plugin, () -> {
             if(Settings.settings_clearchat_auto_clear){
-                Utils.colorized("");
+                MessageUtils.sendColorMessage(Bukkit.getConsoleSender(), "Auto Clear Chat tacks");
             }else{
                 bukkitScheduler.cancelTask(task_ClearChat);
             }
         },Settings.settings_clearchat_started_tick, Settings.settings_clearchat_period_tick);
     }
 
-    // Detect player party every 5 or 10 seconds, this can be changed in settings
+    // Detect a player party every 5 or 10 seconds, this can be changed in settings
     public void onGroupCheck(){
-
+        task_GroupCheck = bukkitScheduler.scheduleSyncRepeatingTask(plugin, () -> {
+            if(Settings.settings_group_auto_update){
+                MessageUtils.sendColorMessage(Bukkit.getConsoleSender(), "Group Check Update tacks");
+            }else{
+                bukkitScheduler.cancelTask(task_GroupCheck);
+            }
+        }, Settings.settings_group_started_tick, Settings.settings_group_period_tick);
     }
 
 }

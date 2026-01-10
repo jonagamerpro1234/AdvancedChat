@@ -63,6 +63,8 @@ public class LangFile {
         Settings.messages_noPermission = config.getString("NoPermission");
         Settings.messages_update_console = config.getStringList("UpdateAlert.Console");
         Settings.messages_update_player = config.getStringList("UpdateAlert.Player");
+        Settings.messages_unknown_arguments_command = config.getString("UnknownSound");
+        Settings.messages_disabled_command = config.getString("DisabledCommand");
     }
 
     public String getLocaleName() {

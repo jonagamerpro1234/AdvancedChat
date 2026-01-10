@@ -65,14 +65,19 @@ public final class AdvancedChat extends JavaPlugin {
     }
 
     public void registerCommandAndListeners(){
+
+        //Listeners (Events
         registerListeners(
                 new JoinListener(),
                 new ChatListener()
         );
+
+        //Commands init
         new CommandHandler().register();
+
+        //Init Task
         new TaskLoader();
     }
-
 
     public BukkitAudiences adventure() {
         if(this.adventure == null) {
@@ -81,15 +86,32 @@ public final class AdvancedChat extends JavaPlugin {
         return this.adventure;
     }
 
-
+    //main instance
     public static AdvancedChat get(){
         return instance;
     }
 
-    private void registerListeners(Listener @NotNull ...listeners){
-        for(Listener listener : listeners){
+    /**
+     * Registers one or more Bukkit event listeners.
+     * <p>
+     * This method iterates through all provided Listener instances
+     * and registers them in the Bukkit PluginManager using the current
+     * plugin instance.
+     * <p>
+     * Using varargs allows registering multiple listeners in a single call,
+     * improving code readability and reducing repetition in onEnable().
+     *
+     * @param listeners One or more classes that implement the Listener interface.
+     *                  This parameter must not be null.
+     */
+    private void registerListeners(Listener @NotNull ...listeners) {
+        // Iterate through each listener provided
+        for (Listener listener : listeners) {
+            // Register the listener to the Bukkit event system
+            // 'this' refers to the current JavaPlugin instance
             Bukkit.getPluginManager().registerEvents(listener, this);
         }
     }
+
 
 }

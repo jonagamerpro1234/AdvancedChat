@@ -68,7 +68,7 @@ public class PlayerCmd extends SubCommand {
     }
 
     public String disabledMessage() {
-        return null;
+        return Settings.messages_disabled_command;
     }
 
 }

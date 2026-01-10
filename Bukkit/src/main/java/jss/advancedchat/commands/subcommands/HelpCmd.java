@@ -1,5 +1,6 @@
 package jss.advancedchat.commands.subcommands;
 
+import jss.advancedchat.files.utils.Settings;
 import jss.advancedchat.inventories.ColorInventory;
 import jss.advancedchat.utils.Logger;
 import jss.commandapi.SubCommand;
@@ -29,7 +30,7 @@ public class HelpCmd extends SubCommand {
     }
 
     public boolean allowConsole() {
-        return false;
+        return true;
     }
 
     public boolean isEnabled() {
@@ -37,7 +38,7 @@ public class HelpCmd extends SubCommand {
     }
 
     public String disabledMessage() {
-        return null;
+        return Settings.messages_disabled_command;
     }
 
 

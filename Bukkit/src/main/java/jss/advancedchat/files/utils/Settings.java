@@ -19,6 +19,10 @@ public class Settings {
     public static long settings_clearchat_started_tick;
     public static long settings_clearchat_period_tick;
 
+    public static boolean settings_group_auto_update;
+    public static long settings_group_started_tick;
+    public static long settings_group_period_tick;
+
     //Messages section
     public static String messages_prefix;
     public static String messages_noPermission;
@@ -27,6 +31,7 @@ public class Settings {
     public static String messages_unknown_arguments_command;
     public static String messages_main_usage_command;
     public static String messages_unknown_sound;
+    public static String messages_disabled_command;
 
 
 
