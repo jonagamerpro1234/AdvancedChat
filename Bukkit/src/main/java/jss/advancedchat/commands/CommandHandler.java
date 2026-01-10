@@ -74,10 +74,13 @@ public class CommandHandler implements TabExecutor {
         List<String> listOptions = new ArrayList<>();
         String lastArgs = args.length != 0 ? args[args.length - 1] : "";
 
-        Player player = (Player) sender;
+        //fix tab, error in console
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+            if(!player.isOp() || !player.hasPermission("advancedchat.command.tabcomplete")) return new ArrayList<>();
+        }
 
-        if(!player.isOp() || !player.hasPermission("advancedchat.command.tabcomplete")) return new ArrayList<>();
-
+        //rework
         switch (args.length){
             case 0:
             case 1:
