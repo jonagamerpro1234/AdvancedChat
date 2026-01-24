@@ -1,6 +1,7 @@
 package jss.advancedchat;
 
 import jss.advancedchat.commands.CommandHandler;
+import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.files.utils.PreConfigLoader;
 import jss.advancedchat.listeners.JoinListener;
 import jss.advancedchat.listeners.TaskLoader;
@@ -74,6 +75,7 @@ public final class AdvancedChat extends JavaPlugin {
 
         //Commands init
         new CommandHandler().register();
+        new MuteCmd().register(this);
 
         //Init Task
         new TaskLoader();

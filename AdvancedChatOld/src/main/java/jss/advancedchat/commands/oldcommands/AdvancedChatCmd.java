@@ -2,17 +2,7 @@ package jss.advancedchat.commands.oldcommands;
 
 import jss.advancedchat.AdvancedChat;
 import jss.advancedchat.files.utils.Settings;
-import jss.advancedchat.inventory.GuiColor;
-import jss.advancedchat.inventory.GuiGradient;
-import jss.advancedchat.inventory.GuiPlayer;
-import jss.advancedchat.inventory.GuiSettings;
-import jss.advancedchat.manager.ColorManagerOld;
 import jss.advancedchat.manager.HookManager;
-import jss.advancedchat.manager.PlayerManager;
-import jss.advancedchat.storage.json.manager.JsonPlayerStorage;
-import jss.advancedchat.storage.json.model.PlayerData;
-import jss.advancedchat.storage.mysql.MySql;
-import jss.advancedchat.utils.logger.Logger;
 import jss.advancedchat.utils.Perms;
 import jss.advancedchat.utils.Util;
 import jss.advancedchat.utils.Utils;

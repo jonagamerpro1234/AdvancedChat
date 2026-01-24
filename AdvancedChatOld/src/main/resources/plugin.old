@@ -1,6 +1,6 @@
 name: AdvancedChat
 version: '${project.version}'
-main: jss.advancedchat.AdvancedChat
+main: jss.advancedchat.advancedchat.AdvancedChat
 api-version: 1.13
 softdepend: [
   PlaceholderAPI, ProtocolLib

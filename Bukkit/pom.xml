@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>Advancedchat-Parent</artifactId>
-        <groupId>jss.advancedchat</groupId>
+        <groupId>jss.advancedchat.advancedchat</groupId>
         <version>1.0</version>
     </parent>
 
@@ -61,11 +61,11 @@
                             <relocations>
                                 <relocation>
                                     <pattern>org.bstats</pattern>
-                                    <shadedPattern>jss.advancedchat.libs.metrics</shadedPattern>
+                                    <shadedPattern>jss.advancedchat.advancedchat.libs.metrics</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>dev.triumphteam.gui</pattern>
-                                    <shadedPattern>jss.advancedchat.libs.gui</shadedPattern>
+                                    <shadedPattern>jss.advancedchat.advancedchat.libs.gui</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
@@ -112,7 +112,7 @@
         <dependency>
             <groupId>jss.commandapi</groupId>
             <artifactId>command-api</artifactId>
-            <version>0.0.6-alpha</version>
+            <version>0.0.8-alpha</version>
         </dependency>
         <!--suppress VulnerableLibrariesLocal -->
         <dependency>

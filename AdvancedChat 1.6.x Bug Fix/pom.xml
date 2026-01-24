@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>Advancedchat-Parent</artifactId>
-        <groupId>jss.advancedchat</groupId>
+        <groupId>jss.advancedchat.advancedchat</groupId>
         <version>1.0</version>
     </parent>
 
@@ -58,11 +58,11 @@
                     <relocations>
                         <relocation>
                             <pattern>com.cryptomorin.xseries</pattern>
-                            <shadedPattern>jss.advancedchat.utils</shadedPattern>
+                            <shadedPattern>jss.advancedchat.advancedchat.utils</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>dev.triumphteam.gui</pattern>
-                            <shadedPattern>jss.advancedchat.libs.triumphteam.gui</shadedPattern>
+                            <shadedPattern>jss.advancedchat.advancedchat.libs.triumphteam.gui</shadedPattern>
                         </relocation>
                     </relocations>
                     <filters>

@@ -1,0 +1,19 @@
+name: Paper
+version: '2.0.0-a0'
+main: jss.advancedchat.advancedchat
+api-version: '1.21'
+authors: [ SrJss(jonagamerpro1234) ]
+
+#Commands
+commands:
+  advancedchat:
+    permission: "advancedchat.command"
+    aliases:
+      - ac
+    usage: "use /ac help for more help"
+
+#Permissions
+permissions:
+  advancedchat.admin:
+    description: "give all permissions for plugin"
+    default: op
