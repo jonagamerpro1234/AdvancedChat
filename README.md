@@ -17,7 +17,7 @@
 [![advancedchat]][spigot]
 
 <!-- Badges: Version / License / Java / Platforms / Issues -->
-[![releasesImg]][releases] [![licenseImg]][license] ![javaversion] [![spigotreleases]][spigot] [![sgdr]][songoda] [![issues]][issueslink] [![jitpack]][jiturl]
+[![releasesImg]][releases] [![licenseImg]][license] ![javaversion] [![spigotreleases]][spigot] [![issues]][issueslink] [![jitpack]][jiturl]
 
 ---
 
@@ -54,17 +54,18 @@ It includes:
 ## Supported Versions
 Plugin support is prioritized for newer Minecraft versions.  
 
-| MC Version       | Support Level |
-|:-----------------|:-------------|
-| 1.21.x           | ✅ Fully Supported | 
-| 1.20.x           | ✅ Fully Supported | 
-| 1.19.x           | ✅ Fully Supported | 
-| 1.18.x           | ⚠️ Limited Support | 
-| 1.17.x           | ⚠️ Limited Support | 
-| 1.16.x           | ⚠️ Limited Support | 
-| 1.13.x - 1.15.x  | ⚠️ Limited Support | 
-| 1.8.8 - 1.12.x   | ⚠️ Limited Support | 
-| Legacy Version   | 🛑 No Support |  
+| MC Version      | Support Level      |
+|:----------------|:-------------------|
+| v26.x           | ✅ Fully Supported  |
+| 1.21.x          | ✅ Fully Supported  | 
+| 1.20.x          | ✅ Fully Supported  | 
+| 1.19.x          | ⚠️ Limited Support  | 
+| 1.18.x          | ⚠️ Limited Support | 
+| 1.17.x          | ⚠️ Limited Support | 
+| 1.16.x          | ⚠️ Limited Support | 
+| 1.13.x - 1.15.x | ⚠️ Limited Support | 
+| 1.8.8 - 1.12.x  | ⚠️ Limited Support | 
+| Legacy Version  | 🛑 No Support      |  
 
 Legend:  
 ✅ Fully Supported | ⚠️ Limited Support | 🛑 No Support  
