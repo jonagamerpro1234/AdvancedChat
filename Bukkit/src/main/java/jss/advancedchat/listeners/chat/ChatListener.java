@@ -20,8 +20,7 @@ public class ChatListener implements Listener {
 
     }
 
-
-
+    //get player a list for range of the blocks
     public List<Player> getNearbyPlayers(@NotNull Player target, double range){
         List<Player> nearbyPlayer = new ArrayList<>();
         List<Entity> entities = target.getNearbyEntities(range,range,range);

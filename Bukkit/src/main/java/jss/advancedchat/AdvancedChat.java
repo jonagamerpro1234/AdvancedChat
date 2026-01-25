@@ -9,6 +9,7 @@ import jss.advancedchat.listeners.chat.ChatListener;
 import jss.advancedchat.storage.json.JsonStorage;
 import jss.advancedchat.storage.yaml.YamlStorage;
 import jss.advancedchat.utils.Utils;
+import jss.commandapi.CommandApi;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -52,6 +53,11 @@ public final class AdvancedChat extends JavaPlugin {
         //message
         //Utils.sendEnable();
 
+        //Command Api
+        CommandApi.init(this);
+        CommandApi.setDebug(true);
+
+        // commands and listeners
         registerCommandAndListeners();
     }
 

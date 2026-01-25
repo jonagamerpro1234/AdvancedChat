@@ -109,11 +109,13 @@
     </repositories>
 
     <dependencies>
+
         <dependency>
             <groupId>jss.commandapi</groupId>
             <artifactId>command-api</artifactId>
-            <version>0.0.8-alpha</version>
+            <version>0.0.9-alpha</version>
         </dependency>
+
         <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>dev.triumphteam</groupId>

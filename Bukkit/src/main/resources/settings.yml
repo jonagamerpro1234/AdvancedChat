@@ -4,11 +4,11 @@
 #  / ___ / /___    Version 1.8.0
 # /_/  |_\____/    Thanks for using AdvancedChat <3
 #
-# ● AdvancedChat is an easy to use plugin that will help you customize the chat on your server to make it look its best. It will also have a customization system by groups and among other functions more...
+# ● AdvancedChat is an easy-to-use plugin that will help you customize the chat on your server to make it look its best. It will also have a customization system by groups and among other functions more...
 #
 # ● Spigot: https://www.spigotmc.org/resources/advancedchat-1-7-x-1-17-x.83889/
 # ● Songoda: https://songoda.com/marketplace/product/advancedchat-chat-related.542
-# ● Wiki [Working Progress]: https://jonagamerpro1234.gitbook.io/advancedchat/
+# ● Wiki [Work in progress]: https://jonagamerpro1234.gitbook.io/advancedchat/
 # ● Discord: https://discord.gg/c5GhQDQCK5
 # ● Issue Tracker: https://github.com/jonagamerpro1234/AdvancedChat/issues
 # ● Bstast: https://bstats.org/plugin/bukkit/AdvancedChat/8826
@@ -19,7 +19,8 @@ Settings:
   # I would not change anything
   File-Version: 2
 
-  # You can change the language of the plugin messages, if you want to help in the translation of the plugin you can visit the page
+  # You can change the language of the plugin messages
+  # if you want to help in the translation of the plugin you can visit the page
     # Crowdin: https://crowdin.com/project/advancedchat
   Lang: en-US
 
@@ -30,12 +31,12 @@ Settings:
   Use-Database: false
 
   # this function allows you to synchronize all your servers that have the advancedchat plugin
-  #BungeeMode: false #[Not implemented]
+  # BungeeMode: false #[Not implemented]
 
   # |Update| This function lets you know if there is a plugin update [Does not disable console messages]
   Update: true
 
-  # if it is true it will use the prefix of the plugin itself, but if it is false it will use the prefix that you define in [Prefix: "my server"]
+  # if it is true, it will use the prefix of the plugin itself, but if it is false it will use the prefix that you define in [Prefix: "my server"]
   # if you want to use a custom prefix, this function should be set to [false]
   Use-Default-Prefix: true
 
@@ -45,22 +46,22 @@ Settings:
   # here you can enable or disable the chat to be seen in the console
   Show-Chat-In-Console: false
 
+  # !! [ Deprecated ] !!
   # This function allows you to select the color format that you want to use for the personalization of the messages, in the color format there are two options which are:
   # |legacy| The legacy format will use the old color system which is & and will also use a variable that only works this way, but you can still use gradient and hex colors.
-  # |minimessage| The minimessage format is a more advanced format that works by tags which allow a better customization of the message, for more information you can visit the MiniMessage site:
+  # |minimessage| The minimessage format is a more advanced format that works by tags which allows a better customization of the message, for more information you can visit the MiniMessage site:
   # https://docs.advntr.dev/minimessage/format.html
   ColorFormat: minimessage
-
 
 # [temporarily disabled]
 # MySql is a database where you can save plugin data remotely, and it can be synchronized with other servers if you are using BungeeCord
 MySQL:
 
-  # this is where you will find the name of the table that will be created or used to obtain the data
+  # this is where you will find the name of the table that will be created or used to collect the data
   # [Note]: it is not recommended to change this
   Table: "advancedchat_data"
 
-  #  this is where you will find the name of the table that will be created or used to obtain the data
+  #  this is where you will find the name of the table that will be created or used to collect the data
   # [Note]: it is not recommended to change this
   Driver: ""
 
@@ -110,7 +111,7 @@ Hooks:
     # |Enabled| Here you can enable or disable this feature
     Enabled: true
 
-    # |Channel-ID| Here is the id of the channel that is used for the chat
+    # |Channel-ID| Here is the id of the channel used for the chat
     Channel-ID: "none"
 
   # |EssentialsDiscord| Here you can define the discord channel where the messages from minecraft to discord are seen
@@ -120,7 +121,7 @@ Hooks:
     # |Enabled| Here you can enable or disable this feature
     Enabled: true
 
-    # |Channel-ID| Here is the id of the channel that is used for the chat
+    # |Channel-ID| Here is the id of the channel used for the chat
     Channel-ID: "none"
 
 #
@@ -139,7 +140,7 @@ ChatFormat:
 
   # | Format-Type | [Disable]
     # [normal] It is the normal format to use the plugin's, and it will use the plugin's own method to send the message, it is possible that the plugin is incompatible with other plugins
-    # [json] The json format will allow a better customization of the chat and will use another method to send the messages. It is not recommended to use this format if you don"t know how to use json!
+    # [json] The json format will allow a better customization of the chat and will use another method to send the messages. It is not recommended to use this format if you don"t know how to use JSON!
     # Format-Type: normal
 
   # |Format| Here you define the chat format for all players.
@@ -172,7 +173,7 @@ ChatFormat:
     # Here you can enable or disable this feature
     Enabled: true
 
-    # there are three different modes which are [ command | suggest | url ]
+    # there are three different modes that are [ command | suggest | url ]
     Mode: command
 
     # This is where are the available events that you can use
@@ -211,7 +212,7 @@ ClearChat:
   #  you can activate the automatic cleaning of the chat according to the number of ticks [Default: true]
   AutoClear: true
 
-  #  With this function you can make the staff is not affected by the clearchat [AdvancedChat.ClearChat.Bypass]
+  #  With this function, you can make the staff is not affected by the clearchat [AdvancedChat.ClearChat.Bypass]
   ByPass-Staff: false
 
   #  here you can define the time that the actions are automatically executed [Default | 24000], 24000 tick = 20 min
@@ -237,7 +238,7 @@ Command-Blocker:
     # By disabling this feature, muted players will be able to use the listed commands [Default: true]
     Disable-Commands: true
 
-    # In this list you can define which commands cannot be used by players in general including your server staff
+    # In this list, you can define which commands cannot be used by players in general including your server staff
     Command-List:
       - "/plugins"
       - "/pl"
@@ -309,7 +310,7 @@ Mention:
   # |Receive-Format|
   Receive-Format: "&b[&eR&b]&8: &e[&a<name>&e] &9-> &d<name>"
 
-  #  In this section you can configure the sound of the mentions
+  #  In this section, you can configure the sound of the mentions
   Sound:
 
     # This is the name of the sound you will hear when it is mentioned to you in chat.

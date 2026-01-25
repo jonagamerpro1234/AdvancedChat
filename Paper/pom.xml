@@ -64,5 +64,13 @@
             <version>1.21.10-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>jss.commandapi</groupId>
+            <artifactId>command-api</artifactId>
+            <version>0.0.9-alpha</version>
+        </dependency>
+
     </dependencies>
+
 </project>

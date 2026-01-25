@@ -2,7 +2,7 @@ package jss.advancedchat;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class advancedchat extends JavaPlugin {
+public final class AdvancedChat extends JavaPlugin {
 
     @Override
     public void onEnable() {
