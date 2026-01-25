@@ -101,7 +101,7 @@ dependencies {
 ## Support
 If you need help or want to report issues:
 * [Issue Tracker](https://github.com/jonagamerpro1234/AdvancedChat/issues)
-* [Discord](https://discord.gg/c5GhQDQCK5)
+* [Discord](https://discord.com/invite/p9FYSke93z)
 
 ## Quick Links
 * [Spigot Page][spigot]
