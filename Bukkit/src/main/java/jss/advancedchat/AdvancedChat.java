@@ -1,5 +1,6 @@
 package jss.advancedchat;
 
+import jss.advancedchat.commands.ClearChatCmd;
 import jss.advancedchat.commands.CommandHandler;
 import jss.advancedchat.commands.MuteCmd;
 import jss.advancedchat.files.utils.PreConfigLoader;
@@ -81,7 +82,9 @@ public final class AdvancedChat extends JavaPlugin {
 
         //Commands init
         new CommandHandler().register();
+
         new MuteCmd().register(this);
+        new ClearChatCmd().register(this);
 
         //Init Task
         new TaskLoader();

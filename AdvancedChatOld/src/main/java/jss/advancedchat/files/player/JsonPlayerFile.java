@@ -57,7 +57,7 @@ public class JsonPlayerFile {
         }
     }
 
-    // Método para crear un archivo JSON con los valores predeterminados
+    //Método para crear un archivo JSON con los valores predeterminados
     private @NotNull JsonObject createDefaultConfig(String playerName) {
         JsonObject config = new JsonObject();
         config.addProperty("Name", playerName);

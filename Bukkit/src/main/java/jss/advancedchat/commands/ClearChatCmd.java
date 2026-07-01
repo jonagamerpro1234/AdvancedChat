@@ -1,14 +1,18 @@
 package jss.advancedchat.commands;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
+import jss.commandapi.BaseCommand;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-public class ClearChatCmd implements CommandExecutor {
+public class ClearChatCmd extends BaseCommand {
+
+    public ClearChatCmd(){
+        this.name("adclearchat");
+    }
 
 
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        return false;
+    public boolean onCommandMain(@NotNull CommandSender sender, String[] args) {
+
+        return true;
     }
 }

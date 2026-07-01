@@ -1,7 +1,7 @@
 #     ___   ______
 #    /   | / ____/
 #   / /| |/ /      By jonagamerpro1234
-#  / ___ / /___    Version 1.7.0-b20
+#  / ___ / /___    Version ${project.version}
 # /_/  |_\____/    Thanks for using AdvancedChat <3
 #
 # ● AdvancedChat is an easy-to-use plugin that will help you customize the chat on your server to make it look its best. It will also have a customization system by groups and among other functions more...
@@ -42,7 +42,7 @@ Hooks:
     # Here you can enable or disable this feature
     Enable: true
 
-    # Here is the id of the channel that is used for the chat
+    # Here is the id of the channel used for the chat
     Channel: none
 
 # Here you can customize the chat of your server with the different functions that advancedchat brings
@@ -94,7 +94,7 @@ ClearChat:
   # you can activate the automatic cleaning of the chat according to the number of ticks
   AutoClear: true
 
-  # With this function you can make the staff is not affected by the clearchat
+  # With this function, you can make the staff is not affected by the clearchat
   # Permission: advancedchat.clearchat.bypass
   ByPassStaff: false
 

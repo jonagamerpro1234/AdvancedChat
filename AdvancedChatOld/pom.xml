@@ -169,9 +169,9 @@
 
         <!-- CommandApi -->
         <dependency>
-            <groupId>com.github.jonagamerpro1234</groupId>
-            <artifactId>CommandAPI</artifactId>
-            <version>0.0.4-alpha</version>
+            <groupId>jss.commandapi</groupId>
+            <artifactId>command-api</artifactId>
+            <version>0.0.9-alpha</version>
         </dependency>
 
         <dependency>

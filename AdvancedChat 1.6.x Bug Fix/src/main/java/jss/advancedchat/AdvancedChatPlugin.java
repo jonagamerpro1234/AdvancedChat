@@ -6,13 +6,14 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
 public class AdvancedChatPlugin extends JavaPlugin {
 
-    public void registerEvent(Listener @NotNull ... listeners) {
+    public void registerEvent(Listener @NotNull @NonNull ... listeners) {
         for (Listener listener : listeners) {
             getPluginManager().registerEvents(listener, this);
         }
