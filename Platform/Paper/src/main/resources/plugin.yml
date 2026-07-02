@@ -1,0 +1,9 @@
+name: Paper
+description: $description
+version: '${version}'
+
+main: jss.advancedchat.paper.Paper
+api-version: '1.21'
+load: POSTWORLD
+
+authors: [SrJss(jonagamerpro1234)]
