@@ -337,7 +337,7 @@
                             <Main-Class>jss.advancedchat.advancedchat.AdvancedChat</Main-Class>
                         </manifestEntries>
                     </archive>
-                    <outputDirectory>C:\Users\js398\OneDrive\Documentos\Dev Server Mc\plugins</outputDirectory>
+                    <outputDirectory>../../../../OneDrive/Documentos/Dev Server Mc/plugins</outputDirectory>
                     <finalName>AdvancedChat-${project.version}</finalName>
                 </configuration>
             </plugin>
