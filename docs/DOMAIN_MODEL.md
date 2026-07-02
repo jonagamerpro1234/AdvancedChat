@@ -4,7 +4,7 @@
 >
 > **Version:** 2.0.0-alpha.1
 >
-> **Last Updated:** 01-06-2026
+> **Last Updated:** 01-07-2026
 
 ## Overview
 
