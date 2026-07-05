@@ -1,6 +1,7 @@
 package jss.advancedchat.api.service.chat;
 
 import jss.advancedchat.api.model.chat.Chat;
+import jss.advancedchat.api.model.player.ChatPlayer;
 
 /**
  *
@@ -9,6 +10,6 @@ import jss.advancedchat.api.model.chat.Chat;
  */
 public interface ChatService {
 
-    Chat getChat();
+    Chat getGlobalChat();
 
 }
