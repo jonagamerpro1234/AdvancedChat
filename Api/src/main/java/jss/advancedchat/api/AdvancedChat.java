@@ -1,5 +1,6 @@
 package jss.advancedchat.api;
 
+import jss.advancedchat.api.builder.MessageFactory;
 import jss.advancedchat.api.service.chat.ChatService;
 
 /**
@@ -14,5 +15,7 @@ public interface AdvancedChat {
 
     //Chat Services
     ChatService getChatService();
+
+    MessageFactory getMessageFactory();
 
 }

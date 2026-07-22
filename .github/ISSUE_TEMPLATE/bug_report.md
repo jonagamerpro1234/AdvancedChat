@@ -14,8 +14,8 @@ If applicable, add screenshots to help explain your problem.
 
 **Please complete the following information**
  - MC Version: [1.8.x -> 1.x.x]
- - Server sorftware [Spigot, PaperMc, ...etc]
- - Version [1.x.x]
+ - Server software: [Spigot, PaperMc, ...etc]
+ - Version: [1.x.x]
 
 **Additional context**
 Add any other context about the problem here.
