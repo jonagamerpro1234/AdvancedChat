@@ -2,7 +2,7 @@
 [spigot]: https://www.spigotmc.org/resources/83889/
 [releases]: https://github.com/jonagamerpro1234/AdvancedChat/releases/latest
 [releasesImg]: https://img.shields.io/github/v/release/jonagamerpro1234/AdvancedChat.svg?include_prereleases&label=GitHub%20Releases&style=for-the-badge
-[license]: https://github.com/jonagamerpro1234/AdvancedChat/blob/master/LICENSE
+[license]: https://github.com/jonagamerpro1234/AdvancedChat?tab=GPL-3.0-1-ov-file
 [licenseImg]: https://img.shields.io/github/license/jonagamerpro1234/AdvancedChat.svg?style=for-the-badge
 [spigotreleases]: https://img.shields.io/spiget/version/83889?color=green&label=Spigot%20Releases&style=for-the-badge
 [issues]: https://img.shields.io/github/issues/jonagamerpro1234/AdvancedChat.svg?color=yellow&style=for-the-badge
